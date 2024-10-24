@@ -1,12 +1,10 @@
 import React from 'react';
 
-const Home = () => {
+export default function Home() {
     return (
-        <div>
-            <h2>Welcome to the DSA Visualization App!</h2>
-            <p>Select an algorithm to visualize its behavior.</p>
+        <div style={{ textAlign: 'center', marginTop: '20%' }}>
+            <h1>Welcome to AlgoVisualizer</h1>
+            <p>Visualize sorting and searching algorithms in real-time!</p>
         </div>
     );
 }
-
-export default Home;

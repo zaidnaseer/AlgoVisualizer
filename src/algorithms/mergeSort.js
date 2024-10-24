@@ -1,15 +1,17 @@
+// src/algorithms/mergeSort.js
+
 export const mergeSort = async (array) => {
     if (array.length <= 1) return array;
 
-    const mid = Math.floor(array.length / 2);
-    const left = await mergeSort(array.slice(0, mid));
-    const right = await mergeSort(array.slice(mid));
+    const middle = Math.floor(array.length / 2);
+    const left = array.slice(0, middle);
+    const right = array.slice(middle);
 
-    return merge(left, right);
+    return await merge(await mergeSort(left), await mergeSort(right));
 };
 
-const merge = (left, right) => {
-    const result = [];
+const merge = async (left, right) => {
+    let result = [];
     let leftIndex = 0;
     let rightIndex = 0;
 

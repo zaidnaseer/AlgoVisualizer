@@ -1,13 +1,12 @@
 import { useState } from 'react';
 
-const useArray = (initialArray) => {
+export const useArray = (initialArray) => {
     const [array, setArray] = useState(initialArray);
 
-    const updateArray = (newArray) => {
-        setArray(newArray);
+    const generateRandomArray = (length, maxValue) => {
+        const randomArray = Array.from({ length }, () => Math.floor(Math.random() * maxValue));
+        setArray(randomArray);
     };
 
-    return [array, updateArray];
+    return { array, setArray, generateRandomArray };
 };
-
-export default useArray;
