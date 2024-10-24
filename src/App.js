@@ -12,14 +12,14 @@ function App() {
         <Router>
             <div className="app-container">
                 <Header />
-                <main className="main-content"> {/* Optional class for styling */}
+                <div className="main-content">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/sorting" element={<Sorting />} />
                         <Route path="/searching" element={<Searching />} />
                         <Route path="/datastructures" element={<DataStructures />} />
                     </Routes>
-                </main>
+                </div>
                 <Footer />
             </div>
         </Router>
