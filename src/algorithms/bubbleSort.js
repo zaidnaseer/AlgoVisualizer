@@ -1,20 +1,26 @@
-// src/algorithms/bubbleSort.js
+export const bubbleSort = async (array, setColorArray, delay) => {
+    const n = array.length;
+    const colorArray = new Array(n).fill('lightgrey');
 
-export const bubbleSort = async (array) => {
-    const len = array.length;
-    for (let i = 0; i < len; i++) {
-        for (let j = 0; j < len - i - 1; j++) {
-            const bars = document.querySelectorAll(".array-bar");
-            bars[j].style.backgroundColor = "red";
-            bars[j + 1].style.backgroundColor = "red";
-            await new Promise(resolve => setTimeout(resolve, 100));
+    for (let i = 0; i < n - 1; i++) {
+        for (let j = 0; j < n - i - 1; j++) {
+            colorArray[j] = 'red';
+            colorArray[j + 1] = 'red';
+            setColorArray([...colorArray]);
+            await new Promise(resolve => setTimeout(resolve, delay));
+
             if (array[j] > array[j + 1]) {
                 [array[j], array[j + 1]] = [array[j + 1], array[j]];
-                bars[j].style.height = `${array[j] * 5}px`;
-                bars[j + 1].style.height = `${array[j + 1] * 5}px`;
             }
-            bars[j].style.backgroundColor = "dodgerblue";
-            bars[j + 1].style.backgroundColor = "dodgerblue";
+
+            colorArray[j] = 'lightgrey';
+            colorArray[j + 1] = 'lightgrey';
+            setColorArray([...colorArray]);
         }
+        colorArray[n - i - 1] = 'green';
+        setColorArray([...colorArray]);
     }
+    colorArray[0] = 'green';
+    setColorArray([...colorArray]);
+    return array;
 };

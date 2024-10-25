@@ -1,82 +1,126 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Sorting.css'; // Corrected path
 import { bubbleSort } from '../algorithms/bubbleSort';
-import { mergeSort } from '../algorithms/mergeSort';
 import { selectionSort } from '../algorithms/selectionSort';
+import { mergeSort } from '../algorithms/mergeSort';
 import { insertionSort } from '../algorithms/insertionSort';
+import '../styles/App.css'; // Import the merged CSS file
 
 const Sorting = () => {
     const [array, setArray] = useState([]);
-    const [isSorting, setIsSorting] = useState(false);
-    const delay = 100; // Delay for sorting visualization
+    const [colorArray, setColorArray] = useState([]);
+    const [message, setMessage] = useState('');
+    const [delay, setDelay] = useState(100); // Reduced delay to increase speed
+    const [algorithm, setAlgorithm] = useState('bubbleSort');
+    const [isSorting, setIsSorting] = useState(false); // New state to manage sorting process
 
-    // Function to generate a random array
-    const generateArray = (length, min, max) => {
-        return Array.from({ length }, () => Math.floor(Math.random() * (max - min + 1)) + min);
-    };
-
-    // Function to create a new array when component mounts
     useEffect(() => {
-        setArray(generateArray(15, 5, 50));
+        generateArray();
     }, []);
 
-    // Function to reset the array
-    const resetArray = () => {
-        setArray(generateArray(15, 5, 50));
+    const generateArray = () => {
+        const randomArray = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
+        setArray(randomArray);
+        setColorArray(new Array(20).fill('lightgrey'));
+        setMessage('');
+        setIsSorting(false); // Reset sorting state
     };
 
-    // Start sorting based on algorithm selected
-    const startSorting = async (algorithm) => {
-        if (isSorting) return; // Prevent starting multiple sorts at once
-        setIsSorting(true);
+    const handleSort = async () => {
+        setIsSorting(true); // Set sorting state to true
+        let result = -1;
         switch (algorithm) {
-            case 'bubble':
-                await bubbleSort(array, setArray, delay);
+            case 'selectionSort':
+                result = await selectionSort(array, setColorArray, delay);
                 break;
-            case 'merge':
-                await mergeSort(array, setArray, delay);
+            case 'mergeSort':
+                result = await mergeSort(array, setColorArray, delay);
                 break;
-            case 'selection':
-                await selectionSort(array, setArray, delay);
-                break;
-            case 'insertion':
-                await insertionSort(array, setArray, delay);
+            case 'insertionSort':
+                result = await insertionSort(array, setColorArray, delay);
                 break;
             default:
+                result = await bubbleSort(array, setColorArray, delay);
                 break;
         }
-        setIsSorting(false);
+
+        if (result === -1) {
+            setMessage('Sorting failed');
+        } else {
+            setMessage('Sorting completed');
+        }
+        setIsSorting(false); // Reset sorting state
+    };
+
+    const handleStop = () => {
+        setIsSorting(false); // Stop the sorting process
+        setMessage('Sorting stopped');
     };
 
     return (
-        <div className="container">
-            <h1>Sorting Algorithm Visualization</h1>
-            <div className="array-container">
-                {array.map((value, idx) => (
-                    <div
-                        className="array-bar"
-                        key={idx}
-                        style={{ height: `${value * 5}px` }}
-                    ></div>
-                ))}
+        <div className="sorting-container">
+            <h2>Sorting Algorithms</h2>
+            <div className="sorting-controls">
+                <button className="sorting-button" onClick={handleSort} disabled={isSorting}>Sort</button>
+                <button className="sorting-button" onClick={generateArray} disabled={isSorting}>Generate New Array</button>
+                <button className="sorting-button" onClick={handleStop} disabled={!isSorting}>Stop</button>
             </div>
-            <div className="controls">
-                <button onClick={() => startSorting('bubble')} disabled={isSorting}>
+            <div className="sorting-algorithm-selection">
+                <button
+                    className="sorting-button"
+                    onClick={() => setAlgorithm('bubbleSort')}
+                    style={{
+                        backgroundColor: algorithm === 'bubbleSort' ? 'lightblue' : 'white',
+                    }}
+                    disabled={isSorting}
+                >
                     Bubble Sort
                 </button>
-                <button onClick={() => startSorting('merge')} disabled={isSorting}>
-                    Merge Sort
-                </button>
-                <button onClick={() => startSorting('selection')} disabled={isSorting}>
+                <button
+                    className="sorting-button"
+                    onClick={() => setAlgorithm('selectionSort')}
+                    style={{
+                        backgroundColor: algorithm === 'selectionSort' ? 'lightblue' : 'white',
+                    }}
+                    disabled={isSorting}
+                >
                     Selection Sort
                 </button>
-                <button onClick={() => startSorting('insertion')} disabled={isSorting}>
+                <button
+                    className="sorting-button"
+                    onClick={() => setAlgorithm('mergeSort')}
+                    style={{
+                        backgroundColor: algorithm === 'mergeSort' ? 'lightblue' : 'white',
+                    }}
+                    disabled={isSorting}
+                >
+                    Merge Sort
+                </button>
+                <button
+                    className="sorting-button"
+                    onClick={() => setAlgorithm('insertionSort')}
+                    style={{
+                        backgroundColor: algorithm === 'insertionSort' ? 'lightblue' : 'white',
+                    }}
+                    disabled={isSorting}
+                >
                     Insertion Sort
                 </button>
-                <button onClick={resetArray} disabled={isSorting}>
-                    Reset
-                </button>
             </div>
+            <div className="sorting-array-container">
+                {array.map((num, idx) => (
+                    <div
+                        key={idx}
+                        className="sorting-array-bar"
+                        style={{
+                            height: `${num}px`,
+                            backgroundColor: colorArray[idx],
+                        }}
+                    >
+                        {num}
+                    </div>
+                ))}
+            </div>
+            <p>{message}</p>
         </div>
     );
 };

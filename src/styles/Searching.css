@@ -1,0 +1,50 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll; /* Ensure vertical scrolling */
+}
+
+.searching-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.searching-controls {
+    margin-top: 20px;
+}
+
+.searching-button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 10px; /* Rounded edges */
+    cursor: pointer;
+    color: black; /* Ensure button text is black */
+}
+
+.searching-button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.algorithm-selection {
+    margin-top: 20px;
+}
+
+.array-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100px;
+    margin-top: 10px;
+}
+
+.array-bar {
+    width: 30px;
+    margin: 0 2px;
+    background-color: #61dafb;
+    text-align: center;
+    color: rgb(39, 38, 38);
+}

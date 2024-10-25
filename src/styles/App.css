@@ -1,105 +1,95 @@
-/* Global styles */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
+    overflow-y: scroll; /* Ensure vertical scrolling */
 }
 
-/* Header styles */
-.header {
-    background-color: #282c34;
+/* Searching Component Styles */
+.searching-container {
+    text-align: center;
     padding: 20px;
-    color: white;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 2em;
-}
-
-/* Navigation links in header */
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    color: #61dafb;
-    text-decoration: none;
-    font-size: 1.2em;
-}
-
-.nav-links a:hover {
-    color: white;
-    border-bottom: 2px solid white;
-}
-
-/* Footer styles */
-footer {
-    background-color: #282c34;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-.array-container {
-    display: flex;
-    justify-content: center;
+.searching-controls {
     margin-top: 20px;
 }
 
-.array-bar {
-    width: 30px;
-    height: 35px;
-    margin: 0 2px;
+.searching-button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 10px; /* Rounded edges */
+    cursor: pointer;
+    color: black; /* Ensure button text is black */
+}
+
+.searching-button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.searching-algorithm-selection {
+    margin-top: 20px;
+}
+
+.searching-array-container {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    color: rgb(33, 31, 31);
-    font-weight: bold;
-    transition: background-color 0.3s;
+    height: 100px;
+    margin-top: 10px;
 }
 
-header {
-    background-color: #282c34;
-    padding: 20px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo h1 {
-    margin: 0;
-    cursor: pointer; /* Changes the cursor to indicate it's clickable */
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    color: #61dafb;
-    text-decoration: none;
-}
-
-.nav-links a:hover {
-    color: white;
-    border-bottom: 2px solid white;
-}
-
-.footer-container {
-    background-color: #282c34;
-    color: white;
-    padding: 20px;
+.searching-array-bar {
+    width: 30px;
+    margin: 0 2px;
+    background-color: #61dafb;
     text-align: center;
+    color: rgb(39, 38, 38);
+}
+
+/* Sorting Component Styles */
+.sorting-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.sorting-controls {
+    margin-top: 20px;
+}
+
+.sorting-button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 10px; /* Rounded edges */
+    cursor: pointer;
+    color: black; /* Ensure button text is black */
+}
+
+.sorting-button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.sorting-algorithm-selection {
+    margin-top: 20px;
+}
+
+.sorting-array-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100px;
+    margin-top: 10px;
+}
+
+.sorting-array-bar {
+    width: 30px;
+    margin: 0 2px;
+    background-color: #61dafb;
+    text-align: center;
+    color: rgb(39, 38, 38);
 }

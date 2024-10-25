@@ -6,14 +6,14 @@ const Header = () => {
         <header>
             <div className="logo">
                 <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
-                    <h1>AlgoVisualizer</h1>
+                    <h1 style={{ fontFamily: "'Dancing Script', cursive", fontSize: '2em', fontWeight: 'bold' }}>AlgoVisualizer</h1>
                 </Link>
             </div>
             <nav className="nav-links">
-                <Link to="/">Home</Link>
-                <Link to="/sorting">Sorting</Link>
-                <Link to="/searching">Searching</Link>
-                <Link to="/data-structures">Data Structures</Link>
+                <Link to="/" style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Home</Link>
+                <Link to="/sorting" style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Sorting</Link>
+                <Link to="/searching" style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Searching</Link>
+                <Link to="/data-structures" style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Data Structures</Link>
             </nav>
         </header>
     );

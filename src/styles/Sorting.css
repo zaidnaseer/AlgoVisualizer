@@ -1,13 +1,13 @@
 .container {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .array-container {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 200px;
+    height: 260px;
 }
 
 .array-bar {
@@ -36,6 +36,7 @@ button {
     padding: 10px 20px;
     margin: 5px;
     font-size: 16px;
+    border-radius: 14px;
 }
 
 button:disabled {
@@ -45,5 +46,6 @@ button:disabled {
 
 button:last-child {
     background-color: orange; /* Change color for reset button */
+    border-radius: 10px;
     color: white;
 }

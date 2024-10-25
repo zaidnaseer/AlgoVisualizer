@@ -20,7 +20,7 @@ body {
 }
 
 header {
-    background-color: #282c34;
+    background-color: #0c1d36;
     padding: 20px;
     color: white;
     text-align: center;
@@ -40,7 +40,7 @@ header h1 {
 }
 
 .nav-links a {
-    color: #61dafb;
+    color: #ffffff;
     text-decoration: none;
     font-size: 1.2em;
 }
@@ -57,8 +57,8 @@ header h1 {
 
 /* Footer styles */
 .footer-container {
-    background-color: #282c34;
-    padding: 40px 0;
+    background-color: #0c1d36;
+    padding: 6px 0;
     color: white;
     text-align: center;
     margin-top: auto; /* Ensures the footer stays at the bottom */
@@ -71,7 +71,7 @@ header h1 {
 }
 
 .footer-heading {
-    font-size: 2em;
+    font-size: 1.6em;
     margin-bottom: 10px;
 }
 
@@ -84,13 +84,23 @@ header h1 {
 .footer-links a {
     color: white;
     margin: 0 10px;
-    font-size: 1.2em;
+    font-size: 0.8em;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
     color: #61dafb;
+}
+
+footer {
+    background-color: #282c34;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 .footer-bottom {

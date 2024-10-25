@@ -3,7 +3,7 @@ import { binarySearch } from '../algorithms/binarySearch';
 import { exponentialSearch } from '../algorithms/exponentialSearch';
 import { linearSearch } from '../algorithms/linearSearch';
 import { jumpSearch } from '../algorithms/jumpSearch';
-import '../styles/App.css';
+import '../styles/App.css'; // Import the merged CSS file
 
 const Searching = () => {
     const [array, setArray] = useState([]);
@@ -56,7 +56,7 @@ const Searching = () => {
     return (
         <div className="searching-container">
             <h2>Searching Algorithms</h2>
-            <div className="controls">
+            <div className="searching-controls">
                 <label htmlFor="target">Enter target value: </label>
                 <input
                     type="number"
@@ -64,52 +64,52 @@ const Searching = () => {
                     value={target}
                     onChange={e => setTarget(e.target.value)}
                 />
-                <button onClick={handleSearch}>Search</button>
-                <button onClick={generateArray}>Generate New Array</button>
+                <button className="searching-button" onClick={handleSearch}>Search</button>
+                <button className="searching-button" onClick={generateArray}>Generate New Array</button>
             </div>
-            <div className="algorithms">
-                <label>
-                    <input
-                        type="radio"
-                        value="binarySearch"
-                        checked={algorithm === 'binarySearch'}
-                        onChange={() => setAlgorithm('binarySearch')}
-                    />
+            <div className="searching-algorithm-selection">
+                <button
+                    className="searching-button"
+                    onClick={() => setAlgorithm('binarySearch')}
+                    style={{
+                        backgroundColor: algorithm === 'binarySearch' ? 'lightblue' : 'white',
+                    }}
+                >
                     Binary Search
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="linearSearch"
-                        checked={algorithm === 'linearSearch'}
-                        onChange={() => setAlgorithm('linearSearch')}
-                    />
+                </button>
+                <button
+                    className="searching-button"
+                    onClick={() => setAlgorithm('linearSearch')}
+                    style={{
+                        backgroundColor: algorithm === 'linearSearch' ? 'lightblue' : 'white',
+                    }}
+                >
                     Linear Search
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="jumpSearch"
-                        checked={algorithm === 'jumpSearch'}
-                        onChange={() => setAlgorithm('jumpSearch')}
-                    />
+                </button>
+                <button
+                    className="searching-button"
+                    onClick={() => setAlgorithm('jumpSearch')}
+                    style={{
+                        backgroundColor: algorithm === 'jumpSearch' ? 'lightblue' : 'white',
+                    }}
+                >
                     Jump Search
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="exponentialSearch"
-                        checked={algorithm === 'exponentialSearch'}
-                        onChange={() => setAlgorithm('exponentialSearch')}
-                    />
+                </button>
+                <button
+                    className="searching-button"
+                    onClick={() => setAlgorithm('exponentialSearch')}
+                    style={{
+                        backgroundColor: algorithm === 'exponentialSearch' ? 'lightblue' : 'white',
+                    }}
+                >
                     Exponential Search
-                </label>
+                </button>
             </div>
-            <div className="array-container">
+            <div className="searching-array-container">
                 {array.map((num, idx) => (
                     <div
                         key={idx}
-                        className="array-bar"
+                        className="searching-array-bar"
                         style={{ backgroundColor: colorArray[idx] }}
                     >
                         {num}
