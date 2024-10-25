@@ -49,3 +49,57 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+.array-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.array-bar {
+    width: 30px;
+    height: 35px;
+    margin: 0 2px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: rgb(33, 31, 31);
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    margin: 0;
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #61dafb;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+.footer-container {
+    background-color: #282c34;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}

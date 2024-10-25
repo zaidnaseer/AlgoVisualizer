@@ -1,15 +1,19 @@
 import React from 'react';
-import '../styles/components.css'; // Import your CSS file
+import { Link } from 'react-router-dom'; // Make sure to import Link
 
 const Header = () => {
     return (
         <header>
-            <h1>AlgoVisualizer</h1>
+            <div className="logo">
+                <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                    <h1>AlgoVisualizer</h1>
+                </Link>
+            </div>
             <nav className="nav-links">
-                <a href="/">Home</a>
-                <a href="/sorting">Sorting</a>
-                <a href="/searching">Searching</a>
-                <a href="/data-structures">Data Structures</a>
+                <Link to="/">Home</Link>
+                <Link to="/sorting">Sorting</Link>
+                <Link to="/searching">Searching</Link>
+                <Link to="/data-structures">Data Structures</Link>
             </nav>
         </header>
     );
