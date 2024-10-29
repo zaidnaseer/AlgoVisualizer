@@ -1,7 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // Make sure to import Link
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
     return (
         <header>
             <div className="logo">
@@ -9,12 +15,17 @@ const Header = () => {
                     <h1 style={{ fontFamily: "'Dancing Script', cursive", fontSize: '2em', fontWeight: 'bold' }}>AlgoVisualizer</h1>
                 </Link>
             </div>
-            <nav className="nav-links">
-                <Link to="/" style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Home</Link>
-                <Link to="/sorting" style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Sorting</Link>
-                <Link to="/searching" style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Searching</Link>
-                <Link to="/data-structures" style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Data Structures</Link>
+            <nav className={`nav-links ${isMobileMenuOpen ? 'nav-active' : ''}`}>
+                <Link to="/" onClick={toggleMobileMenu} style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Home</Link>
+                <Link to="/sorting" onClick={toggleMobileMenu} style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Sorting</Link>
+                <Link to="/searching" onClick={toggleMobileMenu} style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Searching</Link>
+                <Link to="/data-structures" onClick={toggleMobileMenu} style={{ fontFamily: "'Annie Use Your Telescope', cursive", fontSize: '1.2em' }}>Data Structures</Link>
             </nav>
+            <div className="hamburger" onClick={toggleMobileMenu}>
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
+            </div>
         </header>
     );
 };

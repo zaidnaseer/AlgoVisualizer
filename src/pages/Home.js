@@ -2,13 +2,13 @@ import React from 'react';
 
 export default function Home() {
     return (
-        <div style={{ textAlign: 'center', marginTop: '2%' }}>
+        <div style={{ textAlign: 'center', margin: "2% auto", maxWidth: "90%" }}>
             <h1 style={{ fontFamily: "'Dancing Script', cursive" }}>Welcome to AlgoVisualizer</h1>
             <p style={{ fontFamily: "'Annie Use Your Telescope', cursive" }}>Visualize sorting and searching algorithms in real-time!</p>
             
-            <section style={{ marginTop: '3%' }}>
+            <section style={{ margin: "3% auto" }}>
                 <h2 style={{ fontFamily: "'Dancing Script', cursive" }}>Introduction</h2>
-                <p style={{ fontFamily: "'Annie Use Your Telescope', cursive" }}>
+                <p style={{fontFamily: "'Annie Use Your Telescope', cursive"}}>
                     AlgoVisualizer is an interactive tool designed to help you understand how various algorithms work. 
                     Whether you are a student, a teacher, or just someone interested in algorithms, this tool will provide 
                     you with a visual representation of how different sorting and searching algorithms operate.
@@ -26,12 +26,12 @@ export default function Home() {
                 </ul>
             </section>
 
-            <section style={{ marginTop: '3%' }}>
+            <section style={{ margin: "3% auto" }}>
                 <h2 style={{ fontFamily: "'Dancing Script', cursive" }}>Get Started</h2>
                 <p style={{ fontFamily: "'Annie Use Your Telescope', cursive" }}>
                     Ready to dive into the world of algorithms? Click the button below to start visualizing!
                 </p>
-                <button style={{ padding: '10px 20px', fontSize: '1em', fontFamily: "'Annie Use Your Telescope', cursive", cursor: 'pointer' }}>
+                <button style={{ padding: '10px 20px', fontSize: '1em', fontFamily: "'Annie Use Your Telescope', cursive", cursor: 'pointer', marginTop: "3%" }}>
                     Start Visualizing
                 </button>
             </section>
