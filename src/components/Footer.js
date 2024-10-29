@@ -5,7 +5,7 @@ import { FaGithub } from 'react-icons/fa'; // Import GitHub icon from react-icon
 const Footer = () => {
     return (
         <footer className="footer-container">
-            <div className="footer-content">
+            <div className="footer-content" style={{ maxWidth: "90%" }}>
                 <h3 className="footer-heading" style={{ fontFamily: "'Dancing Script', cursive" }}>AlgoVisualizer</h3>
                 <p style={{ fontFamily: "'Annie Use Your Telescope', cursive" }}>Visualize and understand algorithms in an interactive way!</p>
 
