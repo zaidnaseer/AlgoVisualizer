@@ -29,6 +29,55 @@
     text-shadow: 0 2px 10px rgba(102, 204, 255, 0.3);
 }
 
+/* Progress animation for sorting */
+@keyframes progress {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Enhanced visualization styles */
+.visualization-area {
+    background: rgba(255, 255, 255, 0.03) !important;
+    padding: 40px !important;
+    border-radius: 15px !important;
+    border: 1px solid rgba(102, 204, 255, 0.1) !important;
+    margin: 30px 0 !important;
+    min-height: 400px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    overflow-x: auto !important;
+}
+
+/* Mobile responsiveness for visualization */
+@media (max-width: 768px) {
+    .visualization-area {
+        padding: 20px 10px !important;
+        margin: 20px 0 !important;
+        min-height: 350px !important;
+    }
+    
+    .page-container {
+        padding: 20px 10px !important;
+        margin: 10px !important;
+    }
+    
+    .page-title {
+        font-size: 2em !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .controls-section {
+        margin-bottom: 20px !important;
+    }
+    
+    .controls-section > div {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+}
+
 /* Controls section */
 .controls-section {
     background: rgba(255, 255, 255, 0.03);
