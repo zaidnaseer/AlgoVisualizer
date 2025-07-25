@@ -329,9 +329,9 @@ const Sorting = () => {
                     j++;
                 }
                 
-                operations++;
+                swaps++;
                 setArray([...newArray]);
-                setStats({ comparisons, operations, time: 0 });
+                setStats({ comparisons, swaps, time: 0 });
                 await sleep(delay);
                 k++;
             }
