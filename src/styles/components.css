@@ -1,3 +1,14 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Import Global Dark Theme Override */
+@import './global-dark-theme.css';
+
+/* Import Navbar and Footer Styles */
+@import './navbar.css';
+@import './footer.css';
+@import './pages.css';
+
 /* Reset default browser styles */
 * {
     margin: 0;
@@ -5,173 +16,44 @@
     box-sizing: border-box;
 }
 
+/* Force dark theme */
+html {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
+    min-height: 100vh;
+}
+
 body, html {
-    height: 100%; /* Ensure the body and html take full height */
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
+    color: #e0e6ed !important;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif !important;
+    line-height: 1.6;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#root {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
+    min-height: 100vh;
 }
 
 .app-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensures the container takes at least the full viewport height */
-}
-
-header {
-    background-color: #233c63;
-    padding: 20px;
-    color: white;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2em;
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.2em;
-}
-
-.nav-links a:hover {
-    color: white;
-    border-bottom: 2px solid white;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
 }
 
 .main-content {
-    flex: 1; /* This makes the main content area expand to fill the space */
-    padding: 20px; /* Adds padding around the main content */
+    flex: 1;
+    padding: 0;
+    background: transparent !important;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
 }
 
-/* Footer styles */
-.footer-container {
-    background-color: #0c1d36;
-    padding: 6px 0;
-    color: white;
-    text-align: center;
-    margin-top: auto; /* Ensures the footer stays at the bottom */
-    width: 100%;
-}
-
-.footer-content {
-    max-width: 640px;
-    margin: 0 auto;
-}
-
-.footer-heading {
-    font-size: 1.6em;
-    margin-bottom: 10px;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.footer-links a {
-    color: white;
-    margin: 0 10px;
-    font-size: 0.8em;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: #61dafb;
-}
-
-footer {
-    background-color: #282c34;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-.footer-bottom {
-    margin-top: 40px;
-    font-size: 0.9rem;
-    color: #ccc;
-}
-
-.footer-bottom p {
-    margin-bottom: 10px;
-}
-
-.footer-bottom .footer-links {
-    display: flex;
-    justify-content: center;
-}
-
-.footer-bottom .footer-links span {
-    margin: 0 10px;
-    cursor: pointer;
-}
-
-.footer-bottom .footer-links span:hover {
-    text-decoration: underline;
-}
-
-@media (min-width: 768px) {
-    .footer-bottom {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-/* ____________________________Header Mobile Responsive____________________________ */
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.hamburger {
-    display: none;
-    cursor: pointer;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.hamburger .bar {
-    width: 25px;
-    height: 3px;
-    background-color: #ffffff;
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background-color: #0c1d36;
-        padding: 10px;
-        width: 150px;
-        border-radius: 5px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-    }
-
-    .nav-links.nav-active {
-        display: flex;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-}

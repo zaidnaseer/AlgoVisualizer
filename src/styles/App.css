@@ -1,9 +1,11 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+    color: #e0e6ed;
     margin: 0;
     padding: 0;
-    overflow-y: scroll; /* Ensure vertical scrolling */
+    overflow-y: scroll;
+    min-height: 100vh;
 }
 
 /* Searching Component Styles */

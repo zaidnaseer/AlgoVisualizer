@@ -1,0 +1,74 @@
+/* Global Dark Theme Override */
+/* This file ensures dark theme is applied everywhere */
+
+/* Force dark theme on root elements */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.app-container {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
+    color: #e0e6ed !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+html {
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Poppins', sans-serif !important;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Override any existing light backgrounds */
+div,
+section,
+main,
+article {
+    background-color: transparent !important;
+}
+
+/* Text readability */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+a {
+    color: inherit !important;
+}
+
+/* Ensure all buttons use dark theme */
+button:not(.cta-button):not(.btn) {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #e0e6ed !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Input fields dark theme */
+input,
+select,
+textarea {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #e0e6ed !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Link colors */
+a {
+    color: #66ccff !important;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #4da6ff !important;
+}
