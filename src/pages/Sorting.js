@@ -3,6 +3,7 @@ import { bubbleSort } from '../algorithms/bubbleSort';
 import { selectionSort } from '../algorithms/selectionSort';
 import { mergeSort } from '../algorithms/mergeSort';
 import { insertionSort } from '../algorithms/insertionSort';
+import CodeExplanation from '../components/CodeExplanation';
 import SimpleExportControls from '../components/SimpleExportControls';
 import '../styles/pages.css';
 
@@ -17,6 +18,7 @@ const Sorting = () => {
     const [statistics, setStatistics] = useState({ comparisons: 0, swaps: 0, time: 0 });
     const [startTime, setStartTime] = useState(null);
     const stopSortingRef = useRef(false);
+    const [showCodeExplanation, setShowCodeExplanation] = useState(false);
 
     useEffect(() => {
         const generateNewArray = () => {
@@ -728,7 +730,26 @@ const Sorting = () => {
 
             {/* Algorithm Information */}
             <div className="algorithm-info">
-                <h3>{getAlgorithmName()} - Algorithm Details</h3>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '15px' }}>
+                    <h3>{getAlgorithmName()} - Algorithm Details</h3>
+                    <button 
+                        className="btn btn-secondary"
+                        onClick={() => setShowCodeExplanation(true)}
+                        style={{ 
+                            background: 'linear-gradient(45deg, #ffd93d, #ffb347)',
+                            color: '#1a1a2e',
+                            border: 'none',
+                            padding: '10px 20px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: '600',
+                            transition: 'all 0.3s ease',
+                            minWidth: '200px'
+                        }}
+                    >
+                        📖 View Code Explanation
+                    </button>
+                </div>
                 <p>{getAlgorithmInfo().description}</p>
                 
                 <div style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
@@ -750,6 +771,13 @@ const Sorting = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Code Explanation Modal */}
+            <CodeExplanation
+                algorithm={algorithm}
+                isVisible={showCodeExplanation}
+                onClose={() => setShowCodeExplanation(false)}
+            />
         </div>
     );
 };
