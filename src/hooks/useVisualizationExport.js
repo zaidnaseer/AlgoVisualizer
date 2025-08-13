@@ -60,10 +60,11 @@ export const useVisualizationExport = (containerId = 'visualization-container') 
 
     // Cleanup on unmount
     useEffect(() => {
+        const currentExporter = exporterRef.current;
         return () => {
             stopAutoCapture();
-            if (isRecordingRef.current) {
-                exporterRef.current.stopRecording();
+            if (isRecordingRef.current && currentExporter) {
+                currentExporter.stopRecording();
             }
         };
     }, [stopAutoCapture]);

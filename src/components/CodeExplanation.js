@@ -1,47 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/codeExplanation.css';
 
 const CodeExplanation = ({ algorithm, isVisible, onClose }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [playbackSpeed, setPlaybackSpeed] = useState(1000);
-
-    // Keyboard shortcuts
-    useEffect(() => {
-        const handleKeyPress = (e) => {
-            if (!isVisible) return;
-            
-            switch(e.key) {
-                case 'Escape':
-                    onClose();
-                    break;
-                case 'ArrowLeft':
-                    prevStep();
-                    break;
-                case 'ArrowRight':
-                    nextStep();
-                    break;
-                case ' ':
-                    e.preventDefault();
-                    togglePlayback();
-                    break;
-                case 'r':
-                case 'R':
-                    resetSteps();
-                    break;
-                default:
-                    break;
-            }
-        };
-
-        if (isVisible) {
-            document.addEventListener('keydown', handleKeyPress);
-        }
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyPress);
-        };
-    }, [isVisible, currentStep, onClose]);
 
     // Algorithm code explanations with step-by-step details
     const algorithmExplanations = {
@@ -859,24 +822,24 @@ function merge(left, right) {
     const currentAlgorithm = algorithmExplanations[algorithm];
     const totalSteps = currentAlgorithm?.steps?.length || 0;
 
-    const nextStep = () => {
+    const nextStep = useCallback(() => {
         if (currentStep < totalSteps - 1) {
             setCurrentStep(currentStep + 1);
         }
-    };
+    }, [currentStep, totalSteps]);
 
-    const prevStep = () => {
+    const prevStep = useCallback(() => {
         if (currentStep > 0) {
             setCurrentStep(currentStep - 1);
         }
-    };
+    }, [currentStep]);
 
     const resetSteps = () => {
         setCurrentStep(0);
         setIsPlaying(false);
     };
 
-    const togglePlayback = () => {
+    const togglePlayback = useCallback(() => {
         if (isPlaying) {
             setIsPlaying(false);
         } else {
@@ -892,7 +855,44 @@ function merge(left, right) {
                 }
             }, playbackSpeed);
         }
-    };
+    }, [isPlaying, currentStep, totalSteps, playbackSpeed]);
+
+    // Keyboard shortcuts
+    useEffect(() => {
+        const handleKeyPress = (e) => {
+            if (!isVisible) return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    onClose();
+                    break;
+                case 'ArrowLeft':
+                    prevStep();
+                    break;
+                case 'ArrowRight':
+                    nextStep();
+                    break;
+                case ' ':
+                    e.preventDefault();
+                    togglePlayback();
+                    break;
+                case 'r':
+                case 'R':
+                    resetSteps();
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        if (isVisible) {
+            document.addEventListener('keydown', handleKeyPress);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [isVisible, currentStep, onClose, nextStep, prevStep, togglePlayback]);
 
     if (!isVisible || !currentAlgorithm) return null;
 

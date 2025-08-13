@@ -135,8 +135,6 @@ class VisualizationExporter {
 
     // Enhanced algorithm visualization capture
     async captureAlgorithmVisualization(element, canvas, ctx) {
-        const rect = element.getBoundingClientRect();
-        
         // Clear canvas with app background
         ctx.fillStyle = '#1a1a2e';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -392,7 +390,6 @@ class VisualizationExporter {
         
         // Draw nodes/elements
         nodes.forEach((node, index) => {
-            const rect = node.getBoundingClientRect();
             const x = 50 + (index % 10) * 70;
             const y = 80 + Math.floor(index / 10) * 60;
             
@@ -469,8 +466,6 @@ class VisualizationExporter {
 
     // Create a simple frame representation
     createSimpleFrame(element, canvas, ctx) {
-        const rect = element.getBoundingClientRect();
-        
         // Fill background
         ctx.fillStyle = '#1a1a2e';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1347,7 +1342,7 @@ AlgoVisualizer Export Tool`;
             }
             
             // Create instruction file
-            const instructions = format === 'gif' ? this.createGIFInstructions() : this.createVideoInstructions();
+            const instructions = format === 'gif' ? this.createGIFInstructionsBasic() : this.createVideoInstructions();
             
             const instructionsBlob = new Blob([instructions], { type: 'text/plain' });
             const instructionsUrl = URL.createObjectURL(instructionsBlob);
@@ -1370,7 +1365,7 @@ AlgoVisualizer Export Tool`;
         }
     }
 
-    createGIFInstructions() {
+    createGIFInstructionsBasic() {
         return `
 # 🎬 Create Animated GIF from Exported Frames
 

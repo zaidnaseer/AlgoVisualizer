@@ -21,6 +21,7 @@ const Header = () => {
                 <Link to="/sorting" onClick={toggleMobileMenu}>Sorting</Link>
                 <Link to="/searching" onClick={toggleMobileMenu}>Searching</Link>
                 <Link to="/data-structures" onClick={toggleMobileMenu}>Data Structures</Link>
+                <Link to="/contributors" onClick={toggleMobileMenu}>Contributors</Link>
             </nav>
             <div className="hamburger" onClick={toggleMobileMenu}>
                 <span className="bar"></span>
