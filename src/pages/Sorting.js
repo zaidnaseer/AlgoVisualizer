@@ -5,6 +5,7 @@ import { mergeSort } from '../algorithms/mergeSort';
 import { insertionSort } from '../algorithms/insertionSort';
 import SimpleExportControls from '../components/SimpleExportControls';
 import '../styles/pages.css';
+import { CgEnter } from 'react-icons/cg';
 
 const Sorting = () => {
     const [array, setArray] = useState([]);
@@ -376,7 +377,7 @@ const Sorting = () => {
 
     return (
         <div className="page-container" style={{
-            maxWidth: '1500px',
+            maxWidth: '1200px',
             margin: '0 auto',
             padding: '20px',
             display: 'flex',
@@ -385,107 +386,231 @@ const Sorting = () => {
             justifyContent: 'center',
             minHeight: '100vh'
         }}>
-            <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '30px' }}>
+            <h1 className="page-title" style={{ 
+                textAlign: 'center', 
+                marginBottom: '40px',
+                fontSize: '3em',
+                fontFamily: 'Dancing Script, cursive',
+                color: '#66ccff'
+            }}>
                 Sorting Algorithms Visualizer
             </h1>
             
-            {/* Controls Section */}
-            <div className="controls-section" style={{ 
-                width: '100%', 
-                maxWidth: '1000px',
-                textAlign: 'center'
+            {/* Main Action Buttons - Centered */}
+            <div style={{ 
+                display: 'flex', 
+                gap: '15px', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                marginBottom: '30px',
+                flexWrap: 'wrap'
             }}>
-                <div style={{ display: 'flex', gap: '15px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '20px', justifyContent: 'center' }}>
-                    <button className="btn" onClick={handleSort} disabled={isSorting}>
-                        {isSorting ? '⏳ Sorting...' : '▶️ Start Sort'}
-                    </button>
-                    <button className="btn btn-secondary" onClick={generateArray} disabled={isSorting}>
-                        🔄 Generate Array
-                    </button>
-                    <button className="btn btn-secondary" onClick={handleStop} disabled={!isSorting}>
-                        ⏹️ Stop
-                    </button>
+                <button 
+                    className="btn" 
+                    onClick={handleSort} 
+                    disabled={isSorting}
+                    style={{
+                        background: 'linear-gradient(45deg, #66ccff, #4da6ff)',
+                        color: '#1a1a2e',
+                        fontWeight: 'bold',
+                        padding: '25px 3px',
+                        fontSize: '14px',
+                        borderRadius: '25px',
+                        border: 'none',
+                        cursor: isSorting ? 'not-allowed' : 'pointer',
+                        opacity: isSorting ? 0.7 : 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        minWidth: '150px',
+                        justifyContent: 'center'
+                    }}
+                >
+                    ▶️ START SORT
+                </button>
+                
+                <button 
+                    className="btn btn-secondary" 
+                    onClick={generateArray} 
+                    disabled={isSorting}
+                    style={{
+                        background: 'rgba(102, 204, 255, 0.2)',
+                        color: '#66ccff',
+                        border: '1px solid #66ccff',
+                        fontWeight: 'bold',
+                        padding: '25px 3px',
+                        fontSize: '14px',
+                        borderRadius: '25px',
+                        cursor: isSorting ? 'not-allowed' : 'pointer',
+                        opacity: isSorting ? 0.7 : 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        minWidth: '170px',
+                        justifyContent: 'center'
+                    }}
+                >
+                    🔄 GENERATE ARRAY
+                </button>
+                
+                <button 
+                    className="btn btn-secondary" 
+                    onClick={handleStop} 
+                    disabled={!isSorting}
+                    style={{
+                        background: !isSorting ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 107, 107, 0.2)',
+                        color: !isSorting ? '#888' : '#ff6b6b',
+                        border: `1px solid ${!isSorting ? '#888' : '#ff6b6b'}`,
+                        fontWeight: 'bold',
+                        padding: '25px 3px',
+                        fontSize: '14px',
+                        borderRadius: '25px',
+                        cursor: !isSorting ? 'not-allowed' : 'pointer',
+                        opacity: !isSorting ? 0.5 : 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        minWidth: '120px',
+                        justifyContent: 'center'
+                    }}
+                >
+                    ⏹️ STOP
+                </button>
+            </div>
+                
+            {/* Export Controls */}
+            <SimpleExportControls />
+            
+            {/* Controls Grid - Array Size and Speed */}
+            <div style={{ 
+                display: 'flex',
+                gap: '60px',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '30px',
+                flexWrap: 'wrap',
+                width: '100%',
+                maxWidth: '800px'
+            }}>
+                <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '15px',
+                    minWidth: '320px'
+                }}>
+                    <label style={{ 
+                        color: '#ffffff', 
+                        fontWeight: '600',
+                        fontSize: '14px',
+                        minWidth: '80px'
+                    }}>
+                        Array Size:
+                    </label>
+                    <input 
+                        type="range" 
+                        min="10" 
+                        max="50" 
+                        value={arraySize}
+                        onChange={(e) => setArraySize(parseInt(e.target.value))}
+                        disabled={isSorting}
+                        style={{ 
+                            width: '150px',
+                            height: '6px',
+                            borderRadius: '3px',
+                            background: 'rgba(102, 204, 255, 0.3)',
+                            outline: 'none',
+                            cursor: isSorting ? 'not-allowed' : 'pointer'
+                        }}
+                    />
+                    <span style={{ 
+                        color: '#66ccff', 
+                        fontWeight: '600',
+                        minWidth: '20px',
+                        textAlign: 'center',
+                        fontSize: '14px'
+                    }}>
+                        {arraySize}
+                    </span>
+                    <span style={{ 
+                        fontSize: '12px', 
+                        color: '#b8c5d1',
+                        fontWeight: '400'
+                    }}>
+                        (with values)
+                    </span>
                 </div>
                 
-                {/* Simple Export Controls */}
-                <SimpleExportControls />
-                
                 <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-                    gap: '20px',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    maxWidth: '1000px',
-                    margin: '0 auto'
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '15px',
+                    minWidth: '320px'
                 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <label className="label">Array Size:</label>
-                        <input 
-                            type="range" 
-                            min="10" 
-                            max="50" 
-                            value={arraySize}
-                            onChange={(e) => setArraySize(parseInt(e.target.value))}
-                            disabled={isSorting}
-                            className="input"
-                            style={{ width: '120px' }}
-                        />
-                        <span style={{ 
-                            color: '#66ccff', 
-                            fontWeight: '600',
-                            minWidth: '30px',
-                            textAlign: 'center'
-                        }}>
-                            {arraySize}
-                        </span>
-                        <span style={{ 
-                            fontSize: '11px', 
-                            color: '#b8c5d1',
-                            marginLeft: '5px'
-                        }}>
-                            {arraySize <= 15 ? '(with indices)' : arraySize <= 25 ? '(with values)' : '(bars only)'}
-                        </span>
-                    </div>
-                    
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <label className="label">Speed:</label>
-                        <input 
-                            type="range" 
-                            min="10" 
-                            max="500" 
-                            value={delay}
-                            onChange={(e) => setDelay(parseInt(e.target.value))}
-                            disabled={isSorting}
-                            className="input"
-                            style={{ width: '120px' }}
-                        />
-                        <span style={{ 
-                            color: '#66ccff', 
-                            fontWeight: '600',
-                            minWidth: '50px',
-                            textAlign: 'center'
-                        }}>
-                            {delay}ms
-                        </span>
-                        <span style={{ 
-                            fontSize: '11px', 
-                            color: '#b8c5d1',
-                            marginLeft: '5px'
-                        }}>
-                            {delay < 50 ? '(very fast)' : delay < 150 ? '(fast)' : delay < 300 ? '(normal)' : '(slow)'}
-                        </span>
-                    </div>
+                    <label style={{ 
+                        color: '#ffffff', 
+                        fontWeight: '600',
+                        fontSize: '14px',
+                        minWidth: '60px'
+                    }}>
+                        Speed:
+                    </label>
+                    <input 
+                        type="range" 
+                        min="10" 
+                        max="500" 
+                        value={delay}
+                        onChange={(e) => setDelay(parseInt(e.target.value))}
+                        disabled={isSorting}
+                        style={{ 
+                            width: '150px',
+                            height: '6px',
+                            borderRadius: '3px',
+                            background: 'rgba(102, 204, 255, 0.3)',
+                            outline: 'none',
+                            cursor: isSorting ? 'not-allowed' : 'pointer'
+                        }}
+                    />
+                    <span style={{ 
+                        color: '#66ccff', 
+                        fontWeight: '600',
+                        minWidth: '50px',
+                        textAlign: 'center',
+                        fontSize: '14px'
+                    }}>
+                        {delay}ms
+                    </span>
+                    <span style={{ 
+                        fontSize: '12px', 
+                        color: '#b8c5d1',
+                        fontWeight: '400'
+                    }}>
+                        (fast)
+                    </span>
                 </div>
             </div>
 
             {/* Algorithm Selection */}
-            <div className="controls-section">
-                <h3 style={{ color: '#66ccff', marginBottom: '15px', fontFamily: 'Poppins, sans-serif' }}>
+            <div style={{ 
+                width: '100%', 
+                maxWidth: '800px',
+                textAlign: 'center',
+                marginBottom: '30px'
+            }}>
+                <h3 style={{ 
+                    color: '#66ccff', 
+                    marginBottom: '20px', 
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: '18px'
+                }}>
                     Select Algorithm:
                 </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
+                <div style={{ 
+                    display: 'flex',
+                    gap: '15px',
+                    justifyContent: 'center',
+                    flexWrap: 'wrap',
+                    
+                }}>
                     {['bubbleSort', 'selectionSort', 'mergeSort', 'insertionSort'].map((algo) => {
                         const algorithmNames = {
                             'bubbleSort': 'Bubble Sort',
@@ -497,14 +622,25 @@ const Sorting = () => {
                         return (
                             <button
                                 key={algo}
-                                className={algorithm === algo ? 'btn' : 'btn btn-secondary'}
                                 onClick={() => setAlgorithm(algo)}
                                 disabled={isSorting}
                                 style={{
                                     background: algorithm === algo ? 
                                         'linear-gradient(45deg, #66ccff, #4da6ff)' : 
                                         'rgba(255, 255, 255, 0.1)',
-                                    color: algorithm === algo ? '#1a1a2e' : '#e0e6ed'
+                                    color: algorithm === algo ? '#1a1a2e' : '#e0e6ed',
+                                    border: algorithm === algo ? 'none' : '1px solid rgba(255, 255, 255, 0.3)',
+                                    padding: '20px 3px',
+                                    borderRadius: '20px',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    cursor: isSorting ? 'not-allowed' : 'pointer',
+                                    opacity: isSorting ? 0.7 : 1,
+                                    transition: 'all 0.3s ease',
+                                    minWidth: '120px',
+                                    justifyContent: 'center',
+                                    textAlign: 'center'
+                                    
                                 }}
                             >
                                 {algorithmNames[algo]}
@@ -515,37 +651,41 @@ const Sorting = () => {
             </div>
 
             {/* Status Message */}
-            <div className="status-message" style={{ 
-                padding: '15px', 
-                background: 'rgba(102, 204, 255, 0.1)', 
-                borderRadius: '10px',
-                border: '1px solid rgba(102, 204, 255, 0.3)',
-                textAlign: 'center',
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#66ccff',
-                margin: '20px 0'
-            }}>
-                {message}
-                {isSorting && (
-                    <div style={{ marginTop: '10px' }}>
-                        <div style={{
-                            width: '100%',
-                            height: '4px',
-                            background: 'rgba(102, 204, 255, 0.2)',
-                            borderRadius: '2px',
-                            overflow: 'hidden'
-                        }}>
+            {message && (
+                <div style={{ 
+                    padding: '15px 30px', 
+                    background: 'rgba(102, 204, 255, 0.1)', 
+                    borderRadius: '15px',
+                    border: '1px solid rgba(102, 204, 255, 0.3)',
+                    textAlign: 'center',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#66ccff',
+                    margin: '0 0 30px 0',
+                    maxWidth: '600px',
+                    width: '100%'
+                }}>
+                    {message}
+                    {isSorting && (
+                        <div style={{ marginTop: '10px' }}>
                             <div style={{
-                                height: '100%',
-                                background: 'linear-gradient(90deg, #66ccff, #4da6ff)',
-                                animation: 'progress 2s ease-in-out infinite',
-                                borderRadius: '2px'
-                            }} />
+                                width: '100%',
+                                height: '4px',
+                                background: 'rgba(102, 204, 255, 0.2)',
+                                borderRadius: '2px',
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{
+                                    height: '100%',
+                                    background: 'linear-gradient(90deg, #66ccff, #4da6ff)',
+                                    animation: 'progress 2s ease-in-out infinite',
+                                    borderRadius: '2px'
+                                }} />
+                            </div>
                         </div>
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            )}
 
             {/* Visualization Area */}
             <div 
