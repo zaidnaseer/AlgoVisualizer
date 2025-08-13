@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Sorting from './pages/Sorting';
 import Searching from './pages/Searching';
 import DataStructures from './pages/DataStructures';
+import ScrollToTop from './ScrollToTop';  // ← NEW LINE 1
 import './styles/components.css';
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
                     </Routes>
                 </main>
                 <Footer />
+                <ScrollToTop />  {/* ← NEW LINE 2 */}
             </div>
         </Router>
     );
