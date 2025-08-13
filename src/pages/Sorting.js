@@ -3,6 +3,7 @@ import { bubbleSort } from '../algorithms/bubbleSort';
 import { selectionSort } from '../algorithms/selectionSort';
 import { mergeSort } from '../algorithms/mergeSort';
 import { insertionSort } from '../algorithms/insertionSort';
+import { quickSort } from '../algorithms/quickSort'; // <-- Add this import
 import '../styles/pages.css';
 
 const Sorting = () => {
@@ -59,6 +60,9 @@ const Sorting = () => {
                 case 'insertionSort':
                     result = await insertionSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
                     break;
+                case 'quickSort': // <-- Add this case
+                    result = await quickSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
+                    break;
                 default:
                     result = await bubbleSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
                     break;
@@ -97,7 +101,8 @@ const Sorting = () => {
             'bubbleSort': 'Bubble Sort',
             'selectionSort': 'Selection Sort',
             'mergeSort': 'Merge Sort',
-            'insertionSort': 'Insertion Sort'
+            'insertionSort': 'Insertion Sort',
+            'quickSort': 'Quick Sort' // <-- Add Quick Sort name
         };
         return names[algorithm];
     };
@@ -131,6 +136,13 @@ const Sorting = () => {
                 spaceComplexity: 'O(1)',
                 bestCase: 'O(n)',
                 stable: 'Yes'
+            },
+            'quickSort': {
+                description: 'Selects a pivot and partitions the array into two halves, then sorts them.',
+                timeComplexity: 'O(n log n)',
+                spaceComplexity: 'O(log n)',
+                bestCase: 'O(n log n)',
+                stable: 'No'
             }
         };
         return info[algorithm];
@@ -373,10 +385,503 @@ const Sorting = () => {
         return 0;
     };
 
+    // --- Add Quick Sort with Stop Functionality ---
+    const quickSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
+        const newArray = [...arr];
+        const n = newArray.length;
+        let comparisons = 0, swaps = 0;
+
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        async function partition(low, high) {
+            let pivot = newArray[high];
+            let i = low - 1;
+            for (let j = low; j < high; j++) {
+                if (stopRef.current) throw new Error('Stopped');
+                comparisons++;
+                const colors = new Array(n).fill('#66ccff');
+                colors[j] = '#ff6b6b';
+                colors[high] = '#ffd93d';
+                setColorArray([...colors]);
+                await sleep(delay);
+
+                if (newArray[j] < pivot) {
+                    i++;
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                    swaps++;
+                    setArray([...newArray]);
+                    colors[i] = '#ffd93d';
+                    colors[j] = '#ffd93d';
+                    setColorArray([...colors]);
+                    await sleep(delay);
+                }
+                setStats({ comparisons, swaps, time: 0 });
+            }
+            [newArray[i + 1], newArray[high]] = [newArray[high], newArray[i + 1]];
+            swaps++;
+            setArray([...newArray]);
+            const colors = new Array(n).fill('#66ccff');
+            colors[i + 1] = '#4ade80';
+            colors[high] = '#4ade80';
+            setColorArray([...colors]);
+            await sleep(delay);
+            setStats({ comparisons, swaps, time: 0 });
+            return i + 1;
+        }
+
+        async function quickSortHelper(low, high) {
+            if (low < high) {
+                if (stopRef.current) throw new Error('Stopped');
+                let pi = await partition(low, high);
+                await quickSortHelper(low, pi - 1);
+                await quickSortHelper(pi + 1, high);
+            }
+        }
+
+        await quickSortHelper(0, n - 1);
+        setColorArray(new Array(n).fill('#4ade80'));
+        return 0;
+    };
+
+    // --- Step 1: Add pseudocode and explanations for each algorithm ---
+    const ALGORITHM_PSEUDOCODE = {
+        bubbleSort: [
+            { code: 'for i from 0 to n-1', explain: 'Repeat for each element in the array.' },
+            { code: '  for j from 0 to n-i-2', explain: 'Compare each pair of adjacent elements.' },
+            { code: '    if arr[j] > arr[j+1]', explain: 'Check if the current number is greater than the next number.' },
+            { code: '      swap arr[j] and arr[j+1]', explain: 'Swap them if they are in the wrong order.' }
+        ],
+        selectionSort: [
+            { code: 'for i from 0 to n-1', explain: 'Repeat for each element in the array.' },
+            { code: '  minIdx = i', explain: 'Assume the current position is the minimum.' },
+            { code: '  for j from i+1 to n-1', explain: 'Check the rest of the array.' },
+            { code: '    if arr[j] < arr[minIdx]', explain: 'If a smaller value is found, update minIdx.' },
+            { code: '  swap arr[i] and arr[minIdx]', explain: 'Swap the smallest found with the current position.' }
+        ],
+        insertionSort: [
+            { code: 'for i from 1 to n-1', explain: 'Start from the second element.' },
+            { code: '  key = arr[i]', explain: 'Store the current value.' },
+            { code: '  j = i - 1', explain: 'Start comparing with previous elements.' },
+            { code: '  while j >= 0 and arr[j] > key', explain: 'Move elements greater than key one position ahead.' },
+            { code: '    arr[j+1] = arr[j]', explain: 'Shift the element right.' },
+            { code: '    j = j - 1', explain: 'Move to the previous element.' },
+            { code: '  arr[j+1] = key', explain: 'Insert the key at the correct position.' }
+        ],
+        mergeSort: [
+            { code: 'if left < right', explain: 'If the array has more than one element.' },
+            { code: '  mid = (left + right) / 2', explain: 'Find the middle point.' },
+            { code: '  mergeSort(left, mid)', explain: 'Sort the first half.' },
+            { code: '  mergeSort(mid+1, right)', explain: 'Sort the second half.' },
+            { code: '  merge(left, mid, right)', explain: 'Merge the sorted halves.' }
+        ],
+        quickSort: [
+            { code: 'if low < high', explain: 'If the array has more than one element.' },
+            { code: '  pivot = arr[high]', explain: 'Select the rightmost element as pivot.' },
+            { code: '  partition(low, high)', explain: 'Rearrange elements around the pivot.' },
+            { code: '  quickSort(low, pi - 1)', explain: 'Recursively sort the left part.' },
+            { code: '  quickSort(pi + 1, high)', explain: 'Recursively sort the right part.' }
+        ]
+    };
+
+    // --- Step 2: Step recording helpers for each algorithm ---
+    function getStepsForBubbleSort(arr) {
+        const steps = [];
+        const n = arr.length;
+        let a = [...arr];
+        for (let i = 0; i < n - 1; i++) {
+            for (let j = 0; j < n - i - 1; j++) {
+                steps.push({
+                    type: 'compare',
+                    indices: [j, j + 1],
+                    array: [...a],
+                    pseudoLine: 2
+                });
+                if (a[j] > a[j + 1]) {
+                    [a[j], a[j + 1]] = [a[j + 1], a[j]];
+                    steps.push({
+                        type: 'swap',
+                        indices: [j, j + 1],
+                        array: [...a],
+                        pseudoLine: 3
+                    });
+                }
+            }
+        }
+        steps.push({
+            type: 'done',
+            indices: [],
+            array: [...a],
+            pseudoLine: null
+        });
+        return steps;
+    }
+
+    function getStepsForSelectionSort(arr) {
+        const steps = [];
+        const n = arr.length;
+        let a = [...arr];
+        for (let i = 0; i < n - 1; i++) {
+            let minIdx = i;
+            steps.push({ type: 'select', indices: [i], array: [...a], pseudoLine: 1 });
+            for (let j = i + 1; j < n; j++) {
+                steps.push({ type: 'compare', indices: [minIdx, j], array: [...a], pseudoLine: 3 });
+                if (a[j] < a[minIdx]) {
+                    minIdx = j;
+                    steps.push({ type: 'newMin', indices: [minIdx], array: [...a], pseudoLine: 4 });
+                }
+            }
+            if (minIdx !== i) {
+                [a[i], a[minIdx]] = [a[minIdx], a[i]];
+                steps.push({ type: 'swap', indices: [i, minIdx], array: [...a], pseudoLine: 5 });
+            }
+        }
+        steps.push({ type: 'done', indices: [], array: [...a], pseudoLine: null });
+        return steps;
+    }
+
+    function getStepsForInsertionSort(arr) {
+        const steps = [];
+        const n = arr.length;
+        let a = [...arr];
+        for (let i = 1; i < n; i++) {
+            let key = a[i];
+            let j = i - 1;
+            steps.push({ type: 'select', indices: [i], array: [...a], pseudoLine: 1 });
+            while (j >= 0 && a[j] > key) {
+                steps.push({ type: 'compare', indices: [j, j + 1], array: [...a], pseudoLine: 3 });
+                a[j + 1] = a[j];
+                steps.push({ type: 'shift', indices: [j, j + 1], array: [...a], pseudoLine: 4 });
+                j--;
+            }
+            a[j + 1] = key;
+            steps.push({ type: 'insert', indices: [j + 1], array: [...a], pseudoLine: 6 });
+        }
+        steps.push({ type: 'done', indices: [], array: [...a], pseudoLine: null });
+        return steps;
+    }
+
+    function getStepsForMergeSort(arr) {
+        const steps = [];
+        let a = [...arr];
+        function mergeSortHelper(left, right) {
+            if (left < right) {
+                steps.push({ type: 'call', indices: [left, right], array: [...a], pseudoLine: 0 });
+                const mid = Math.floor((left + right) / 2);
+                steps.push({ type: 'mid', indices: [mid], array: [...a], pseudoLine: 1 });
+                mergeSortHelper(left, mid);
+                mergeSortHelper(mid + 1, right);
+                merge(left, mid, right);
+            }
+        }
+        function merge(left, mid, right) {
+            let leftArr = a.slice(left, mid + 1);
+            let rightArr = a.slice(mid + 1, right + 1);
+            let i = 0, j = 0, k = left;
+            while (i < leftArr.length && j < rightArr.length) {
+                steps.push({ type: 'compare', indices: [k], array: [...a], pseudoLine: 4 });
+                if (leftArr[i] <= rightArr[j]) {
+                    a[k] = leftArr[i];
+                    i++;
+                } else {
+                    a[k] = rightArr[j];
+                    j++;
+                }
+                steps.push({ type: 'merge', indices: [k], array: [...a], pseudoLine: 4 });
+                k++;
+            }
+            while (i < leftArr.length) {
+                a[k] = leftArr[i];
+                steps.push({ type: 'merge', indices: [k], array: [...a], pseudoLine: 4 });
+                i++; k++;
+            }
+            while (j < rightArr.length) {
+                a[k] = rightArr[j];
+                steps.push({ type: 'merge', indices: [k], array: [...a], pseudoLine: 4 });
+                j++; k++;
+            }
+        }
+        mergeSortHelper(0, a.length - 1);
+        steps.push({ type: 'done', indices: [], array: [...a], pseudoLine: null });
+        return steps;
+    }
+
+    function getStepsForQuickSort(arr) {
+        const steps = [];
+        let a = [...arr];
+        function quickSortHelper(low, high) {
+            if (low < high) {
+                steps.push({ type: 'call', indices: [low, high], array: [...a], pseudoLine: 0 });
+                let pivot = a[high];
+                let i = low - 1;
+                for (let j = low; j < high; j++) {
+                    steps.push({ type: 'compare', indices: [j, high], array: [...a], pseudoLine: 2 });
+                    if (a[j] < pivot) {
+                        i++;
+                        [a[i], a[j]] = [a[j], a[i]];
+                        steps.push({ type: 'swap', indices: [i, j], array: [...a], pseudoLine: 3 });
+                    }
+                }
+                steps.push({ type: 'pivot', indices: [i + 1, high], array: [...a], pseudoLine: 4 });
+                [a[i + 1], a[high]] = [a[high], a[i + 1]];
+                quickSortHelper(low, i);
+                quickSortHelper(i + 2, high);
+            }
+        }
+        quickSortHelper(0, a.length - 1);
+        steps.push({ type: 'done', indices: [], array: [...a], pseudoLine: null });
+        return steps;
+    }
+
+    // --- Step 3: Add state for step navigation and pseudocode highlighting ---
+    const [steps, setSteps] = useState([]);
+    const [currentStep, setCurrentStep] = useState(0);
+
+    // --- Step 4: Generate steps when array or algorithm changes ---
+    useEffect(() => {
+        let newSteps = [];
+        if (algorithm === 'bubbleSort') newSteps = getStepsForBubbleSort(array);
+        else if (algorithm === 'selectionSort') newSteps = getStepsForSelectionSort(array);
+        else if (algorithm === 'insertionSort') newSteps = getStepsForInsertionSort(array);
+        else if (algorithm === 'mergeSort') newSteps = getStepsForMergeSort(array);
+        else if (algorithm === 'quickSort') newSteps = getStepsForQuickSort(array);
+        setSteps(newSteps);
+        setCurrentStep(0);
+    }, [array, algorithm, arraySize]);
+
+    // --- Step 5: Step navigation handlers ---
+    const handleNextStep = () => {
+        if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
+    };
+    const handlePrevStep = () => {
+        if (currentStep > 0) setCurrentStep(currentStep - 1);
+    };
+
+    // --- Step 6: Visualization coloring for step-by-step mode ---
+    const getStepColorArray = () => {
+        if (!steps[currentStep]) return colorArray;
+        const step = steps[currentStep];
+        const n = array.length;
+        let colors = new Array(n).fill('#66ccff');
+        if (step.type === 'compare' || step.type === 'swap' || step.type === 'shift') {
+            step.indices.forEach(idx => colors[idx] = '#ff6b6b');
+        }
+        if (step.type === 'select' || step.type === 'insert' || step.type === 'newMin') {
+            step.indices.forEach(idx => colors[idx] = '#ffd93d');
+        }
+        if (step.type === 'merge') {
+            step.indices.forEach(idx => colors[idx] = '#4da6ff');
+        }
+        if (step.type === 'done') {
+            colors = new Array(n).fill('#4ade80');
+        }
+        return colors;
+    };
+
+    // --- Step 7: Responsive layout for visualization and algorithm panel ---
+    const isMobile = window.innerWidth < 800;
+
     return (
         <div className="page-container">
             <h1 className="page-title">Sorting Algorithms Visualizer</h1>
-            
+
+            {/* --- Step Navigation and Algorithm Panel Layout --- */}
+            <div style={{
+                display: isMobile ? 'block' : 'flex',
+                gap: '30px',
+                alignItems: 'flex-start',
+                marginBottom: '30px'
+            }}>
+                {/* Visualization + Step Controls */}
+                <div style={{ flex: 2 }}>
+                    {/* --- Step Navigation Buttons --- */}
+                    <div style={{
+                        display: 'flex',
+                        gap: '10px',
+                        marginBottom: '10px',
+                        justifyContent: isMobile ? 'center' : 'flex-start'
+                    }}>
+                        <button className="btn btn-secondary"
+                            onClick={handlePrevStep}
+                            disabled={currentStep === 0}
+                            style={{ minWidth: '110px' }}>
+                            ⬅️ Previous Step
+                        </button>
+                        <button className="btn btn-secondary"
+                            onClick={handleNextStep}
+                            disabled={currentStep >= steps.length - 1}
+                            style={{ minWidth: '110px' }}>
+                            Next Step ➡️
+                        </button>
+                        <span style={{
+                            color: '#66ccff',
+                            fontWeight: 600,
+                            marginLeft: '15px',
+                            fontSize: '14px'
+                        }}>
+                            Step {currentStep + 1} / {steps.length}
+                        </span>
+                    </div>
+
+                    {/* --- Visualization Area (step-by-step) --- */}
+                    <div className="visualization-area" style={{
+                        minHeight: '500px',
+                        padding: '20px',
+                        background: 'rgba(15, 52, 96, 0.1)',
+                        borderRadius: '15px',
+                        border: '1px solid rgba(102, 204, 255, 0.2)',
+                        margin: '20px 0'
+                    }}>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'flex-end',
+                            height: '400px',
+                            gap: arraySize > 40 ? '1px' : arraySize > 25 ? '2px' : '3px',
+                            overflowX: 'auto',
+                            padding: '20px 10px 50px 10px',
+                            position: 'relative'
+                        }}>
+                            {(steps[currentStep]?.array || array).map((num, idx) => {
+                                const barWidth = Math.max(12, Math.min(40, 350 / arraySize));
+                                const showNumbers = arraySize <= 25;
+                                const showIndices = arraySize <= 15;
+                                const stepColors = getStepColorArray();
+                                return (
+                                    <div
+                                        key={idx}
+                                        style={{
+                                            height: `${Math.max(20, num)}px`,
+                                            width: `${barWidth}px`,
+                                            backgroundColor: stepColors[idx],
+                                            border: `1px solid ${stepColors[idx]}`,
+                                            borderRadius: '6px 6px 0 0',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            fontWeight: 'bold',
+                                            fontSize: arraySize > 40 ? '8px' : arraySize > 30 ? '9px' : arraySize > 20 ? '10px' : '11px',
+                                            padding: '4px 2px',
+                                            transition: 'all 0.3s ease',
+                                            boxShadow: `0 4px 12px ${stepColors[idx]}30`,
+                                            position: 'relative',
+                                            transform: false ? 'scale(1.05)' : 'scale(1)',
+                                            cursor: 'default'
+                                        }}
+                                        title={`Value: ${num}, Index: ${idx}`}
+                                    >
+                                        {showNumbers && (
+                                            <div style={{
+                                                color: '#ffffff',
+                                                textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+                                                fontWeight: 'bold',
+                                                fontSize: 'inherit',
+                                                minHeight: '14px',
+                                                display: 'flex',
+                                                alignItems: 'center'
+                                            }}>
+                                                {num}
+                                            </div>
+                                        )}
+                                        {showIndices && (
+                                            <div style={{
+                                                position: 'absolute',
+                                                bottom: '-30px', // moved further down
+                                                left: '50%',
+                                                transform: 'translateX(-50%)',
+                                                color: '#66ccff',
+                                                fontSize: '12px',
+                                                fontWeight: '600',
+                                                background: 'rgba(26, 26, 46, 0.8)',
+                                                padding: '6px 12px',
+                                                borderRadius: '6px',
+                                                border: '1px solid rgba(102, 204, 255, 0.3)'
+                                            }}>
+                                                Array Size: {arraySize} | Step Mode
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                            {/* Array info display */}
+                            <div style={{
+                                position: 'absolute',
+                                bottom: '10px',
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                color: '#66ccff',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                background: 'rgba(26, 26, 46, 0.8)',
+                                padding: '6px 12px',
+                                borderRadius: '6px',
+                                border: '1px solid rgba(102, 204, 255, 0.3)'
+                            }}>
+                                Array Size: {arraySize} | Step Mode
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* --- Algorithm Panel --- */}
+                <div style={{
+                    flex: 1,
+                    minWidth: '290px',
+                    marginTop: isMobile ? '30px' : 0
+                }}>
+                    <div className="algorithm-panel" style={{
+                        background: 'rgba(102,204,255,0.07)',
+                        border: '1px solid rgba(102,204,255,0.15)',
+                        borderRadius: '12px',
+                        padding: '18px 18px 10px 18px',
+                        marginBottom: '20px'
+                    }}>
+                        <h3 style={{
+                            color: '#66ccff',
+                            marginBottom: '10px',
+                            fontFamily: 'Poppins, sans-serif'
+                        }}>
+                            {getAlgorithmName()} Pseudocode
+                        </h3>
+                        <pre style={{
+                            background: 'rgba(26,26,46,0.95)',
+                            borderRadius: '8px',
+                            padding: '14px',
+                            fontSize: '15px',
+                            color: '#e0e6ed',
+                            marginBottom: '10px',
+                            overflowX: 'auto'
+                        }}>
+                            {ALGORITHM_PSEUDOCODE[algorithm].map((line, idx) => (
+                                <div key={idx} style={{
+                                    background: steps[currentStep]?.pseudoLine === idx
+                                        ? 'rgba(102,204,255,0.25)' : 'none',
+                                    borderRadius: '5px',
+                                    padding: '2px 6px',
+                                    fontWeight: steps[currentStep]?.pseudoLine === idx ? 700 : 400,
+                                    color: steps[currentStep]?.pseudoLine === idx ? '#66ccff' : '#e0e6ed'
+                                }}>
+                                    {line.code}
+                                </div>
+                            ))}
+                        </pre>
+                        <div style={{
+                            background: 'rgba(102,204,255,0.08)',
+                            borderRadius: '8px',
+                            padding: '10px 12px',
+                            fontSize: '14px',
+                            color: '#b8c5d1',
+                            minHeight: '40px'
+                        }}>
+                            <strong>Explanation:</strong><br />
+                            {steps[currentStep]?.pseudoLine !== null
+                                ? ALGORITHM_PSEUDOCODE[algorithm][steps[currentStep]?.pseudoLine]?.explain
+                                : 'Algorithm finished!'}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Controls Section */}
             <div className="controls-section">
                 <div style={{ display: 'flex', gap: '15px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
@@ -463,12 +968,13 @@ const Sorting = () => {
                     Select Algorithm:
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
-                    {['bubbleSort', 'selectionSort', 'mergeSort', 'insertionSort'].map((algo) => {
+                    {['bubbleSort', 'selectionSort', 'mergeSort', 'insertionSort', 'quickSort'].map((algo) => {
                         const algorithmNames = {
                             'bubbleSort': 'Bubble Sort',
                             'selectionSort': 'Selection Sort',
                             'mergeSort': 'Merge Sort',
-                            'insertionSort': 'Insertion Sort'
+                            'insertionSort': 'Insertion Sort',
+                            'quickSort': 'Quick Sort' // <-- Add Quick Sort name
                         };
                         
                         return (
@@ -522,112 +1028,6 @@ const Sorting = () => {
                         </div>
                     </div>
                 )}
-            </div>
-
-            {/* Visualization Area */}
-            <div className="visualization-area" style={{ 
-                minHeight: '500px', 
-                padding: '20px',
-                background: 'rgba(15, 52, 96, 0.1)',
-                borderRadius: '15px',
-                border: '1px solid rgba(102, 204, 255, 0.2)',
-                margin: '20px 0'
-            }}>
-                <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    alignItems: 'flex-end', 
-                    height: '400px',
-                    gap: arraySize > 40 ? '1px' : arraySize > 25 ? '2px' : '3px',
-                    overflowX: 'auto',
-                    padding: '20px 10px 50px 10px',
-                    position: 'relative'
-                }}>
-                    {array.map((num, idx) => {
-                        const barWidth = Math.max(12, Math.min(40, 350 / arraySize));
-                        const showNumbers = arraySize <= 25;
-                        const showIndices = arraySize <= 15;
-                        
-                        return (
-                            <div
-                                key={idx}
-                                style={{
-                                    height: `${Math.max(20, num)}px`,
-                                    width: `${barWidth}px`,
-                                    backgroundColor: colorArray[idx],
-                                    border: `1px solid ${colorArray[idx]}`,
-                                    borderRadius: '6px 6px 0 0',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    fontWeight: 'bold',
-                                    fontSize: arraySize > 40 ? '8px' : arraySize > 30 ? '9px' : arraySize > 20 ? '10px' : '11px',
-                                    padding: '4px 2px',
-                                    transition: 'all 0.3s ease',
-                                    boxShadow: `0 4px 12px ${colorArray[idx]}30`,
-                                    position: 'relative',
-                                    transform: isSorting ? 'scale(1.05)' : 'scale(1)',
-                                    cursor: 'default'
-                                }}
-                                title={`Value: ${num}, Index: ${idx}`}
-                            >
-                                {/* Value display at top of bar */}
-                                {showNumbers && (
-                                    <div style={{
-                                        color: '#ffffff',
-                                        textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
-                                        fontWeight: 'bold',
-                                        fontSize: 'inherit',
-                                        minHeight: '14px',
-                                        display: 'flex',
-                                        alignItems: 'center'
-                                    }}>
-                                        {num}
-                                    </div>
-                                )}
-                                
-                                {/* Index display at bottom outside the bar */}
-                                {showIndices && (
-                                    <div style={{
-                                        position: 'absolute',
-                                        bottom: '-35px',
-                                        left: '50%',
-                                        transform: 'translateX(-50%)',
-                                        fontSize: '10px',
-                                        color: '#66ccff',
-                                        background: 'rgba(26, 26, 46, 0.9)',
-                                        padding: '3px 6px',
-                                        borderRadius: '4px',
-                                        border: '1px solid rgba(102, 204, 255, 0.4)',
-                                        minWidth: '20px',
-                                        textAlign: 'center',
-                                        fontWeight: '600'
-                                    }}>
-                                        {idx}
-                                    </div>
-                                )}
-                            </div>
-                        );
-                    })}
-                    
-                    {/* Array info display */}
-                    <div style={{
-                        position: 'absolute',
-                        bottom: '10px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        color: '#66ccff',
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        background: 'rgba(26, 26, 46, 0.8)',
-                        padding: '6px 12px',
-                        borderRadius: '6px',
-                        border: '1px solid rgba(102, 204, 255, 0.3)'
-                    }}>
-                        Array Size: {arraySize} | Speed: {delay}ms
-                    </div>
-                </div>
             </div>
 
             {/* Statistics Section */}
