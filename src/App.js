@@ -7,7 +7,8 @@ import Sorting from './pages/Sorting';
 import Searching from './pages/Searching';
 import DataStructures from './pages/DataStructures';
 import './styles/components.css';
-
+import About from './components/about';
+import Contact from './components/contact';
 const App = () => {
     return (
         <Router>
@@ -19,6 +20,8 @@ const App = () => {
                         <Route path="/sorting" element={<Sorting />} />
                         <Route path="/searching" element={<Searching />} />
                         <Route path="/data-structures" element={<DataStructures />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/contact" element={<Contact />} />
                     </Routes>
                 </main>
                 <Footer />
