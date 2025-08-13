@@ -112,6 +112,7 @@
 
 }
 
+
 .cta-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(60, 97, 115, 0.4);
@@ -120,7 +121,6 @@
 
 .cta-secondary {
     background: transparent;
-    color: #66ccff;
     border-color: #66ccff;
 }
 

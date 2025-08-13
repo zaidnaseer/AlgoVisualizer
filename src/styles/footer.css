@@ -48,7 +48,8 @@
     flex-wrap: wrap;
 }
 
-.footer-links a {
+.footer-links a,
+.footer-links Link {
     color: #e0e6ed;
     margin: 0 5px;
     font-size: 0.85em;
@@ -63,8 +64,9 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-links a:hover {
-    color: #1a1a2e;
+.footer-links a:hover,
+.footer-links Link:hover {
+    color: #1a1a2e !important;
     background: linear-gradient(45deg, #66ccff, #4da6ff);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(102, 204, 255, 0.3);

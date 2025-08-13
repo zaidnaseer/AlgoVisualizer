@@ -73,7 +73,7 @@ header h1 {
 
 /* Active link styles */
 .nav-links a.active {
-    color: #1a1a2e;
+    color: #040450 !important;
     background: linear-gradient(45deg, #66ccff, #4da6ff);
     box-shadow: 0 4px 15px rgba(102, 204, 255, 0.2);
 }
@@ -148,7 +148,7 @@ header h1 {
 
     .nav-links a:hover {
         background: linear-gradient(45deg, #66ccff, #4da6ff);
-        color: #1a1a2e;
+        color: #040450 !important;
         transform: translateY(-1px);
         border: 1px solid rgba(102, 204, 255, 0.5);
     }

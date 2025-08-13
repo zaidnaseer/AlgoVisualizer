@@ -34,7 +34,7 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/SandeepVashishtha/AlgoVisualizer.git
+   git clone https://github.com/RhythmPahwa14/AlgoVisualizer.git
    cd AlgoVisualizer
    ```
 2. Install dependencies:
