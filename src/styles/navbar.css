@@ -65,10 +65,9 @@ header h1 {
 }
 
 .nav-links a:hover {
-    color: #040450 !important;
-    background: linear-gradient(45deg, #66ccff, #4da6ff);
+    background: linear-gradient(45deg, #000000, #074d93);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 204, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(228, 245, 254, 0.3);
     border: 1px solid rgba(102, 204, 255, 0.5);
 }
 

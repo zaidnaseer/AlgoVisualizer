@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ExportDemo from '../components/ExportDemo';
 import '../styles/home.css';
 
 export default function Home() {
@@ -214,6 +215,11 @@ export default function Home() {
                         <p>Open source platform with no subscriptions, ads, or hidden costs. Learn without limits.</p>
                     </div>
                 </div>
+            </section>
+
+            {/* Export Features Section */}
+            <section className="export-features-section">
+                <ExportDemo />
             </section>
 
             {/* Statistics Section */}
