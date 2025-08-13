@@ -13,6 +13,16 @@ const mockContributors = [
     contributions: 125,
     role: 'Project Lead & Full Stack Developer',
     bio: 'Passionate about building scalable algorithm visualization applications and educational tools.'
+  },
+  {
+    id: 2,
+    login: 'rhythmpahwa14',
+    name: 'Rhythm Pahwa',
+    avatar_url: 'https://github.com/rhythmpahwa14.png',
+    html_url: 'https://github.com/rhythmpahwa14',
+    contributions: 50,
+    role: 'Senior Contributor & Developer',
+    bio: 'Experienced developer contributing to algorithm visualization and educational technology projects.'
   }
 ];
 
@@ -27,8 +37,8 @@ const getRoleByGitHubActivity = (contributor) => {
   } = contributor;
   
   // Special role for project owner
-  if (login === 'rhythmpahwa14') return 'Project Lead & Full Stack Developer';
-  
+  if (login === 'sandeepvashishtha') return 'Project Lead & Full Stack Developer';
+
   // Calculate account age in years
   const accountAge = created_at ? 
     (new Date() - new Date(created_at)) / (1000 * 60 * 60 * 24 * 365) : 0;
@@ -77,7 +87,7 @@ const Contributors = () => {
   // Function to get the latest commit SHA
   const getLatestCommitSha = async () => {
     try {
-      const response = await fetch('https://api.github.com/repos/rhythmpahwa14/AlgoVisualizer/commits?per_page=1');
+      const response = await fetch('https://api.github.com/repos/RhythmPahwa14/AlgoVisualizer/commits?per_page=1');
       if (response.ok) {
         const commits = await response.json();
         return commits.length > 0 ? commits[0].sha : null;
@@ -121,7 +131,7 @@ const Contributors = () => {
       
       // Try to fetch real contributors from GitHub API
       try {
-        const response = await fetch('https://api.github.com/repos/rhythmpahwa14/AlgoVisualizer/contributors');
+        const response = await fetch('https://api.github.com/repos/RhythmPahwa14/AlgoVisualizer/contributors');
         if (response.ok) {
           const githubContributors = await response.json();
           
@@ -140,13 +150,14 @@ const Contributors = () => {
                 }),
                 bio: contributor.login === 'rhythmpahwa14' 
                   ? 'Passionate about building scalable algorithm visualization applications and educational tools.'
+                  : contributor.login === 'sandeepvashishtha'
+                  ? 'Experienced developer contributing to algorithm visualization and educational technology projects.'
                   : profileData.bio
               };
               
               return enhancedContributor;
             })
           );
-          
           setContributors(enhancedContributors);
         } else {
           throw new Error('GitHub API request failed');
