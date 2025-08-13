@@ -3,6 +3,8 @@ import { binarySearch } from '../algorithms/binarySearch';
 import { exponentialSearch } from '../algorithms/exponentialSearch';
 import { linearSearch } from '../algorithms/linearSearch';
 import { jumpSearch } from '../algorithms/jumpSearch';
+import ExportControls from '../components/ExportControls';
+import { useVisualizationExport } from '../hooks/useVisualizationExport';
 import '../styles/App.css'; // Import the merged CSS file
 
 const Searching = () => {
@@ -12,6 +14,10 @@ const Searching = () => {
     const [message, setMessage] = useState('');
     const [delay] = useState(500);
     const [algorithm, setAlgorithm] = useState('binarySearch');
+    const [isSearching, setIsSearching] = useState(false);
+    
+    // Export functionality
+    const exportHook = useVisualizationExport('search-visualization-container');
 
     useEffect(() => {
         generateArray();
@@ -30,6 +36,7 @@ const Searching = () => {
             return;
         }
 
+        setIsSearching(true);
         let result = -1;
         switch (algorithm) {
             case 'linearSearch':
@@ -51,6 +58,7 @@ const Searching = () => {
         } else {
             setMessage(`Value found at index ${result}`);
         }
+        setIsSearching(false);
     };
 
     return (
@@ -64,8 +72,16 @@ const Searching = () => {
                     value={target}
                     onChange={e => setTarget(e.target.value)}
                 />
-                <button className="searching-button" onClick={handleSearch}>Search</button>
-                <button className="searching-button" onClick={generateArray}>Generate New Array</button>
+                <button className="searching-button" onClick={handleSearch} disabled={isSearching}>
+                    {isSearching ? '🔍 Searching...' : 'Search'}
+                </button>
+                <button className="searching-button" onClick={generateArray} disabled={isSearching}>Generate New Array</button>
+                <ExportControls 
+                    isVisualizationRunning={isSearching}
+                    onStartRecording={() => exportHook.startRecording()}
+                    onStopRecording={() => exportHook.stopRecording()}
+                    visualizationContainerId="search-visualization-container"
+                />
             </div>
             <div className="searching-algorithm-selection">
                 <button
@@ -105,7 +121,7 @@ const Searching = () => {
                     Exponential Search
                 </button>
             </div>
-            <div className="searching-array-container">
+            <div id="search-visualization-container" className="searching-array-container">
                 {array.map((num, idx) => (
                     <div
                         key={idx}
