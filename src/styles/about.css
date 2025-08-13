@@ -1,0 +1,53 @@
+.enter h2{
+    text-align: center;
+    margin-top: 30px;
+    font-size:xx-large;
+    font-weight: bolder;
+}
+
+.about{
+    margin-bottom: 50px;
+}
+.welcome{
+    max-width: 80%;
+    text-align: center;
+    margin-left: 120px;
+    margin-top: 30px;
+}
+
+.need h2{
+    text-align: center;
+    margin-top: 50px;
+    font-size:xx-large;
+    font-weight: bolder;
+}
+
+.need p{
+    max-width: 80%;
+    text-align: center;
+    margin-left: 120px;
+    margin-top: 30px;
+}
+
+.need h3 , .sorting h3, .searching h3{
+    margin-top: 30px;
+    margin-left: 220px;
+    font-size: x-large;
+    font-weight: bold;
+}
+.list{
+  margin-top: 20px;
+  margin-left: 250px;
+}
+.mission h2 , .feature h2{
+    text-align: center;
+    margin-top: 50px;
+    font-size:xx-large;
+    font-weight: bolder;
+}
+.mission p{
+    max-width: 80%;
+    text-align: center;
+    margin-left: 120px;
+    margin-top: 20px;
+}

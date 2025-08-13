@@ -3,7 +3,9 @@ import { bubbleSort } from '../algorithms/bubbleSort';
 import { selectionSort } from '../algorithms/selectionSort';
 import { mergeSort } from '../algorithms/mergeSort';
 import { insertionSort } from '../algorithms/insertionSort';
-import { quickSort } from '../algorithms/quickSort'; // <-- Add this import
+import { quickSort } from '../algorithms/quickSort';
+import CodeExplanation from '../components/CodeExplanation';
+import SimpleExportControls from '../components/SimpleExportControls';
 import '../styles/pages.css';
 
 const Sorting = () => {
@@ -17,10 +19,11 @@ const Sorting = () => {
     const [statistics, setStatistics] = useState({ comparisons: 0, swaps: 0, time: 0 });
     const [startTime, setStartTime] = useState(null);
     const stopSortingRef = useRef(false);
+    const [showCodeExplanation, setShowCodeExplanation] = useState(false);
 
     useEffect(() => {
         const generateNewArray = () => {
-            const randomArray = Array.from({ length: arraySize }, () => 
+            const randomArray = Array.from({ length: arraySize }, () =>
                 Math.floor(Math.random() * 300) + 10
             );
             setArray(randomArray);
@@ -32,7 +35,7 @@ const Sorting = () => {
     }, [arraySize]);
 
     const generateArray = () => {
-        const randomArray = Array.from({ length: arraySize }, () => 
+        const randomArray = Array.from({ length: arraySize }, () =>
             Math.floor(Math.random() * 300) + 10
         );
         setArray(randomArray);
@@ -47,7 +50,7 @@ const Sorting = () => {
         setStatistics({ comparisons: 0, swaps: 0, time: 0 });
         setStartTime(Date.now());
         setMessage(`Sorting with ${getAlgorithmName()} algorithm...`);
-        
+
         let result = -1;
         try {
             switch (algorithm) {
@@ -60,7 +63,7 @@ const Sorting = () => {
                 case 'insertionSort':
                     result = await insertionSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
                     break;
-                case 'quickSort': // <-- Add this case
+                case 'quickSort':
                     result = await quickSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
                     break;
                 default:
@@ -79,7 +82,6 @@ const Sorting = () => {
                 setMessage('Sorting failed or was interrupted');
             } else {
                 setMessage(`🎉 Sorting completed in ${timeTaken}ms!`);
-                // Highlight all bars as sorted
                 setColorArray(new Array(arraySize).fill('#4ade80'));
             }
         } catch (error) {
@@ -102,7 +104,7 @@ const Sorting = () => {
             'selectionSort': 'Selection Sort',
             'mergeSort': 'Merge Sort',
             'insertionSort': 'Insertion Sort',
-            'quickSort': 'Quick Sort' // <-- Add Quick Sort name
+            'quickSort': 'Quick Sort'
         };
         return names[algorithm];
     };
@@ -148,10 +150,8 @@ const Sorting = () => {
         return info[algorithm];
     };
 
-    // Helper function to create delay and check for stop
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    // Bubble Sort with Stop Functionality
     const bubbleSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
         const newArray = [...arr];
         const n = newArray.length;
@@ -159,39 +159,34 @@ const Sorting = () => {
 
         for (let i = 0; i < n - 1; i++) {
             if (stopRef.current) throw new Error('Stopped');
-            
+
             for (let j = 0; j < n - i - 1; j++) {
                 if (stopRef.current) throw new Error('Stopped');
-                
+
                 comparisons++;
-                
-                // Highlight comparing elements
+
                 const colors = new Array(n).fill('#66ccff');
                 colors[j] = '#ff6b6b';
                 colors[j + 1] = '#ff6b6b';
                 setColorArray([...colors]);
-                
+
                 await sleep(delay);
-                
+
                 if (newArray[j] > newArray[j + 1]) {
-                    // Swap elements
                     [newArray[j], newArray[j + 1]] = [newArray[j + 1], newArray[j]];
                     swaps++;
                     setArray([...newArray]);
-                    
-                    // Highlight swapped elements
+
                     colors[j] = '#ffd93d';
                     colors[j + 1] = '#ffd93d';
                     setColorArray([...colors]);
-                    
+
                     await sleep(delay);
                 }
-                
-                // Update statistics
+
                 setStats({ comparisons, swaps, time: 0 });
             }
-            
-            // Mark as sorted
+
             const colors = new Array(n).fill('#66ccff');
             for (let k = n - i - 1; k < n; k++) {
                 colors[k] = '#4ade80';
@@ -199,12 +194,10 @@ const Sorting = () => {
             setColorArray([...colors]);
         }
 
-        // Mark first element as sorted
         setColorArray(new Array(n).fill('#4ade80'));
         return 0;
     };
 
-    // Selection Sort with Stop Functionality
     const selectionSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
         const newArray = [...arr];
         const n = newArray.length;
@@ -212,25 +205,23 @@ const Sorting = () => {
 
         for (let i = 0; i < n - 1; i++) {
             if (stopRef.current) throw new Error('Stopped');
-            
+
             let minIdx = i;
-            
-            // Mark current minimum
+
             const colors = new Array(n).fill('#66ccff');
             colors[i] = '#ffd93d';
             setColorArray([...colors]);
-            
+
             for (let j = i + 1; j < n; j++) {
                 if (stopRef.current) throw new Error('Stopped');
-                
+
                 comparisons++;
-                
-                // Highlight comparing element
+
                 colors[j] = '#ff6b6b';
                 setColorArray([...colors]);
-                
+
                 await sleep(delay);
-                
+
                 if (newArray[j] < newArray[minIdx]) {
                     if (minIdx !== i) colors[minIdx] = '#66ccff';
                     minIdx = j;
@@ -241,16 +232,14 @@ const Sorting = () => {
                 setColorArray([...colors]);
                 setStats({ comparisons, swaps, time: 0 });
             }
-            
-            // Swap if needed
+
             if (minIdx !== i) {
                 [newArray[i], newArray[minIdx]] = [newArray[minIdx], newArray[i]];
                 swaps++;
                 setArray([...newArray]);
                 await sleep(delay);
             }
-            
-            // Mark as sorted
+
             for (let k = 0; k <= i; k++) {
                 colors[k] = '#4ade80';
             }
@@ -262,7 +251,6 @@ const Sorting = () => {
         return 0;
     };
 
-    // Insertion Sort with Stop Functionality
     const insertionSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
         const newArray = [...arr];
         const n = newArray.length;
@@ -270,11 +258,10 @@ const Sorting = () => {
 
         for (let i = 1; i < n; i++) {
             if (stopRef.current) throw new Error('Stopped');
-            
+
             const key = newArray[i];
             let j = i - 1;
-            
-            // Highlight current element
+
             const colors = new Array(n).fill('#66ccff');
             colors[i] = '#ffd93d';
             setColorArray([...colors]);
@@ -282,25 +269,24 @@ const Sorting = () => {
 
             while (j >= 0 && newArray[j] > key) {
                 if (stopRef.current) throw new Error('Stopped');
-                
+
                 comparisons++;
                 colors[j] = '#ff6b6b';
                 colors[j + 1] = '#ff6b6b';
                 setColorArray([...colors]);
-                
+
                 newArray[j + 1] = newArray[j];
                 swaps++;
                 setArray([...newArray]);
                 await sleep(delay);
                 setStats({ comparisons, swaps, time: 0 });
-                
+
                 j--;
             }
-            
+
             newArray[j + 1] = key;
             setArray([...newArray]);
-            
-            // Mark sorted portion
+
             for (let k = 0; k <= i; k++) {
                 colors[k] = '#4ade80';
             }
@@ -312,27 +298,26 @@ const Sorting = () => {
         return 0;
     };
 
-    // Merge Sort with Stop Functionality
     const mergeSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
         const newArray = [...arr];
         let comparisons = 0, swaps = 0;
-        
+
         const merge = async (left, mid, right) => {
             if (stopRef.current) throw new Error('Stopped');
-            
+
             const leftArr = newArray.slice(left, mid + 1);
             const rightArr = newArray.slice(mid + 1, right + 1);
-            
+
             let i = 0, j = 0, k = left;
-            
+
             while (i < leftArr.length && j < rightArr.length) {
                 if (stopRef.current) throw new Error('Stopped');
-                
+
                 comparisons++;
                 const colors = new Array(newArray.length).fill('#66ccff');
                 colors[k] = '#ffd93d';
                 setColorArray([...colors]);
-                
+
                 if (leftArr[i] <= rightArr[j]) {
                     newArray[k] = leftArr[i];
                     i++;
@@ -340,14 +325,14 @@ const Sorting = () => {
                     newArray[k] = rightArr[j];
                     j++;
                 }
-                
+
                 swaps++;
                 setArray([...newArray]);
                 setStats({ comparisons, swaps, time: 0 });
                 await sleep(delay);
                 k++;
             }
-            
+
             while (i < leftArr.length) {
                 if (stopRef.current) throw new Error('Stopped');
                 newArray[k] = leftArr[i];
@@ -357,7 +342,7 @@ const Sorting = () => {
                 i++;
                 k++;
             }
-            
+
             while (j < rightArr.length) {
                 if (stopRef.current) throw new Error('Stopped');
                 newArray[k] = rightArr[j];
@@ -368,30 +353,27 @@ const Sorting = () => {
                 k++;
             }
         };
-        
+
         const mergeSortHelper = async (left, right) => {
             if (left < right) {
                 if (stopRef.current) throw new Error('Stopped');
-                
+
                 const mid = Math.floor((left + right) / 2);
                 await mergeSortHelper(left, mid);
                 await mergeSortHelper(mid + 1, right);
                 await merge(left, mid, right);
             }
         };
-        
+
         await mergeSortHelper(0, newArray.length - 1);
         setColorArray(new Array(newArray.length).fill('#4ade80'));
         return 0;
     };
 
-    // --- Add Quick Sort with Stop Functionality ---
     const quickSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
         const newArray = [...arr];
         const n = newArray.length;
         let comparisons = 0, swaps = 0;
-
-        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
         async function partition(low, high) {
             let pivot = newArray[high];
@@ -443,7 +425,6 @@ const Sorting = () => {
         return 0;
     };
 
-    // --- Step 1: Add pseudocode and explanations for each algorithm ---
     const ALGORITHM_PSEUDOCODE = {
         bubbleSort: [
             { code: 'for i from 0 to n-1', explain: 'Repeat for each element in the array.' },
@@ -483,7 +464,6 @@ const Sorting = () => {
         ]
     };
 
-    // --- Step 2: Step recording helpers for each algorithm ---
     function getStepsForBubbleSort(arr) {
         const steps = [];
         const n = arr.length;
@@ -632,11 +612,9 @@ const Sorting = () => {
         return steps;
     }
 
-    // --- Step 3: Add state for step navigation and pseudocode highlighting ---
     const [steps, setSteps] = useState([]);
     const [currentStep, setCurrentStep] = useState(0);
 
-    // --- Step 4: Generate steps when array or algorithm changes ---
     useEffect(() => {
         let newSteps = [];
         if (algorithm === 'bubbleSort') newSteps = getStepsForBubbleSort(array);
@@ -648,7 +626,6 @@ const Sorting = () => {
         setCurrentStep(0);
     }, [array, algorithm, arraySize]);
 
-    // --- Step 5: Step navigation handlers ---
     const handleNextStep = () => {
         if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
     };
@@ -656,7 +633,6 @@ const Sorting = () => {
         if (currentStep > 0) setCurrentStep(currentStep - 1);
     };
 
-    // --- Step 6: Visualization coloring for step-by-step mode ---
     const getStepColorArray = () => {
         if (!steps[currentStep]) return colorArray;
         const step = steps[currentStep];
@@ -677,12 +653,13 @@ const Sorting = () => {
         return colors;
     };
 
-    // --- Step 7: Responsive layout for visualization and algorithm panel ---
     const isMobile = window.innerWidth < 800;
 
     return (
-        <div className="page-container">
-            <h1 className="page-title">Sorting Algorithms Visualizer</h1>
+        <div className="page-container" style={{ maxWidth: '1500px', margin: '0 auto', padding: '20px' }}>
+            <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '30px' }}>
+                Sorting Algorithms Visualizer
+            </h1>
 
             {/* --- Step Navigation and Algorithm Panel Layout --- */}
             <div style={{
@@ -786,7 +763,7 @@ const Sorting = () => {
                                         {showIndices && (
                                             <div style={{
                                                 position: 'absolute',
-                                                bottom: '-30px', // moved further down
+                                                bottom: '-30px',
                                                 left: '50%',
                                                 transform: 'translateX(-50%)',
                                                 color: '#66ccff',
@@ -883,8 +860,12 @@ const Sorting = () => {
             </div>
 
             {/* Controls Section */}
-            <div className="controls-section">
-                <div style={{ display: 'flex', gap: '15px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
+            <div className="controls-section" style={{
+                width: '100%',
+                maxWidth: '1000px',
+                textAlign: 'center'
+            }}>
+                <div style={{ display: 'flex', gap: '15px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '20px', justifyContent: 'center' }}>
                     <button className="btn" onClick={handleSort} disabled={isSorting}>
                         {isSorting ? '⏳ Sorting...' : '▶️ Start Sort'}
                     </button>
@@ -895,64 +876,71 @@ const Sorting = () => {
                         ⏹️ Stop
                     </button>
                 </div>
-                
-                <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+
+                {/* Simple Export Controls */}
+                <SimpleExportControls />
+
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                     gap: '20px',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    maxWidth: '1000px',
+                    margin: '0 auto'
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <label className="label">Array Size:</label>
-                        <input 
-                            type="range" 
-                            min="10" 
-                            max="50" 
+                        <input
+                            type="range"
+                            min="10"
+                            max="50"
                             value={arraySize}
                             onChange={(e) => setArraySize(parseInt(e.target.value))}
                             disabled={isSorting}
                             className="input"
                             style={{ width: '120px' }}
                         />
-                        <span style={{ 
-                            color: '#66ccff', 
+                        <span style={{
+                            color: '#66ccff',
                             fontWeight: '600',
                             minWidth: '30px',
                             textAlign: 'center'
                         }}>
                             {arraySize}
                         </span>
-                        <span style={{ 
-                            fontSize: '11px', 
+                        <span style={{
+                            fontSize: '11px',
                             color: '#b8c5d1',
                             marginLeft: '5px'
                         }}>
                             {arraySize <= 15 ? '(with indices)' : arraySize <= 25 ? '(with values)' : '(bars only)'}
                         </span>
                     </div>
-                    
+
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <label className="label">Speed:</label>
-                        <input 
-                            type="range" 
-                            min="10" 
-                            max="500" 
+                        <input
+                            type="range"
+                            min="10"
+                            max="500"
                             value={delay}
                             onChange={(e) => setDelay(parseInt(e.target.value))}
                             disabled={isSorting}
                             className="input"
                             style={{ width: '120px' }}
                         />
-                        <span style={{ 
-                            color: '#66ccff', 
+                        <span style={{
+                            color: '#66ccff',
                             fontWeight: '600',
                             minWidth: '50px',
                             textAlign: 'center'
                         }}>
                             {delay}ms
                         </span>
-                        <span style={{ 
-                            fontSize: '11px', 
+                        <span style={{
+                            fontSize: '11px',
                             color: '#b8c5d1',
                             marginLeft: '5px'
                         }}>
@@ -974,9 +962,9 @@ const Sorting = () => {
                             'selectionSort': 'Selection Sort',
                             'mergeSort': 'Merge Sort',
                             'insertionSort': 'Insertion Sort',
-                            'quickSort': 'Quick Sort' // <-- Add Quick Sort name
+                            'quickSort': 'Quick Sort'
                         };
-                        
+
                         return (
                             <button
                                 key={algo}
@@ -984,8 +972,8 @@ const Sorting = () => {
                                 onClick={() => setAlgorithm(algo)}
                                 disabled={isSorting}
                                 style={{
-                                    background: algorithm === algo ? 
-                                        'linear-gradient(45deg, #66ccff, #4da6ff)' : 
+                                    background: algorithm === algo ?
+                                        'linear-gradient(45deg, #66ccff, #4da6ff)' :
                                         'rgba(255, 255, 255, 0.1)',
                                     color: algorithm === algo ? '#1a1a2e' : '#e0e6ed'
                                 }}
@@ -998,9 +986,9 @@ const Sorting = () => {
             </div>
 
             {/* Status Message */}
-            <div className="status-message" style={{ 
-                padding: '15px', 
-                background: 'rgba(102, 204, 255, 0.1)', 
+            <div className="status-message" style={{
+                padding: '15px',
+                background: 'rgba(102, 204, 255, 0.1)',
                 borderRadius: '10px',
                 border: '1px solid rgba(102, 204, 255, 0.3)',
                 textAlign: 'center',
@@ -1031,15 +1019,20 @@ const Sorting = () => {
             </div>
 
             {/* Statistics Section */}
-            <div className="controls-section">
-                <h3 style={{ color: '#66ccff', marginBottom: '15px', fontFamily: 'Poppins, sans-serif' }}>
+            <div className="controls-section" style={{
+                width: '100%',
+                maxWidth: '1000px',
+                textAlign: 'center'
+            }}>
+                <h3 style={{ color: '#66ccff', marginBottom: '15px', fontFamily: 'Poppins, sans-serif', textAlign: 'center' }}>
                     Performance Statistics
                 </h3>
-                <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
                     gap: '15px',
-                    marginBottom: '20px'
+                    marginBottom: '20px',
+                    justifyContent: 'center'
                 }}>
                     <div style={{
                         background: 'rgba(102, 204, 255, 0.1)',
@@ -1094,9 +1087,28 @@ const Sorting = () => {
 
             {/* Algorithm Information */}
             <div className="algorithm-info">
-                <h3>{getAlgorithmName()} - Algorithm Details</h3>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '15px' }}>
+                    <h3>{getAlgorithmName()} - Algorithm Details</h3>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={() => setShowCodeExplanation(true)}
+                        style={{
+                            background: 'linear-gradient(45deg, #ffd93d, #ffb347)',
+                            color: '#1a1a2e',
+                            border: 'none',
+                            padding: '10px 20px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: '600',
+                            transition: 'all 0.3s ease',
+                            minWidth: '200px'
+                        }}
+                    >
+                        📖 View Code Explanation
+                    </button>
+                </div>
                 <p>{getAlgorithmInfo().description}</p>
-                
+
                 <div style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
                     <div>
                         <h4 style={{ color: '#66ccff', marginBottom: '8px' }}>Time Complexity:</h4>
@@ -1116,6 +1128,13 @@ const Sorting = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Code Explanation Modal */}
+            <CodeExplanation
+                algorithm={algorithm}
+                isVisible={showCodeExplanation}
+                onClose={() => setShowCodeExplanation(false)}
+            />
         </div>
     );
 };
