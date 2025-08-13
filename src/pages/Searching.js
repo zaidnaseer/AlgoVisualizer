@@ -3,6 +3,7 @@ import { binarySearch } from '../algorithms/binarySearch';
 import { exponentialSearch } from '../algorithms/exponentialSearch';
 import { linearSearch } from '../algorithms/linearSearch';
 import { jumpSearch } from '../algorithms/jumpSearch';
+import CodeExplanation from '../components/CodeExplanation';
 import '../styles/App.css'; // Import the merged CSS file
 
 const Searching = () => {
@@ -12,6 +13,7 @@ const Searching = () => {
     const [message, setMessage] = useState('');
     const [delay] = useState(500);
     const [algorithm, setAlgorithm] = useState('binarySearch');
+    const [showCodeExplanation, setShowCodeExplanation] = useState(false);
 
     useEffect(() => {
         generateArray();
@@ -117,6 +119,47 @@ const Searching = () => {
                 ))}
             </div>
             <p>{message}</p>
+            
+            {/* Code Explanation Button */}
+            <div style={{ 
+                textAlign: 'center', 
+                marginTop: '30px',
+                padding: '20px',
+                background: 'rgba(102, 204, 255, 0.1)',
+                borderRadius: '10px',
+                border: '1px solid rgba(102, 204, 255, 0.3)'
+            }}>
+                <h3 style={{ color: '#66ccff', marginBottom: '15px' }}>Learn the Algorithm</h3>
+                <p style={{ color: '#e0e6ed', marginBottom: '20px' }}>
+                    Understand how {algorithm === 'binarySearch' ? 'Binary Search' : 
+                    algorithm === 'linearSearch' ? 'Linear Search' : 
+                    algorithm === 'jumpSearch' ? 'Jump Search' : 'Exponential Search'} works step by step
+                </p>
+                <button 
+                    className="searching-button"
+                    onClick={() => setShowCodeExplanation(true)}
+                    style={{ 
+                        background: 'linear-gradient(45deg, #ffd93d, #ffb347)',
+                        color: '#1a1a2e',
+                        border: 'none',
+                        padding: '12px 25px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontWeight: '600',
+                        fontSize: '16px',
+                        transition: 'all 0.3s ease'
+                    }}
+                >
+                    📖 View Code Explanation
+                </button>
+            </div>
+
+            {/* Code Explanation Modal */}
+            <CodeExplanation
+                algorithm={algorithm}
+                isVisible={showCodeExplanation}
+                onClose={() => setShowCodeExplanation(false)}
+            />
         </div>
     );
 };
