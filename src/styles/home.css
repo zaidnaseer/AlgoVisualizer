@@ -105,19 +105,20 @@
 
 .cta-primary {
     background: linear-gradient(45deg, #66ccff, #4da6ff);
-    color: #1a1a2e;
     box-shadow: 0 8px 25px rgba(102, 204, 255, 0.3);
+    color: #0d0581 !important;
 }
+
 
 .cta-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 35px rgba(102, 204, 255, 0.4);
     background: linear-gradient(45deg, #4da6ff, #3385ff);
+    color:#040450 !important;
 }
 
 .cta-secondary {
     background: transparent;
-    color: #66ccff;
     border-color: #66ccff;
 }
 
