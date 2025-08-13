@@ -3,6 +3,7 @@ import { bubbleSort } from '../algorithms/bubbleSort';
 import { selectionSort } from '../algorithms/selectionSort';
 import { mergeSort } from '../algorithms/mergeSort';
 import { insertionSort } from '../algorithms/insertionSort';
+import SimpleExportControls from '../components/SimpleExportControls';
 import '../styles/pages.css';
 
 const Sorting = () => {
@@ -374,12 +375,27 @@ const Sorting = () => {
     };
 
     return (
-        <div className="page-container">
-            <h1 className="page-title">Sorting Algorithms Visualizer</h1>
+        <div className="page-container" style={{
+            maxWidth: '1500px',
+            margin: '0 auto',
+            padding: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh'
+        }}>
+            <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '30px' }}>
+                Sorting Algorithms Visualizer
+            </h1>
             
             {/* Controls Section */}
-            <div className="controls-section">
-                <div style={{ display: 'flex', gap: '15px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
+            <div className="controls-section" style={{ 
+                width: '100%', 
+                maxWidth: '1000px',
+                textAlign: 'center'
+            }}>
+                <div style={{ display: 'flex', gap: '15px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '20px', justifyContent: 'center' }}>
                     <button className="btn" onClick={handleSort} disabled={isSorting}>
                         {isSorting ? '⏳ Sorting...' : '▶️ Start Sort'}
                     </button>
@@ -391,11 +407,18 @@ const Sorting = () => {
                     </button>
                 </div>
                 
+                {/* Simple Export Controls */}
+                <SimpleExportControls />
+                
                 <div style={{ 
                     display: 'grid', 
                     gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
                     gap: '20px',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    maxWidth: '1000px',
+                    margin: '0 auto'
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <label className="label">Array Size:</label>
@@ -525,14 +548,20 @@ const Sorting = () => {
             </div>
 
             {/* Visualization Area */}
-            <div className="visualization-area" style={{ 
-                minHeight: '500px', 
-                padding: '20px',
-                background: 'rgba(15, 52, 96, 0.1)',
-                borderRadius: '15px',
-                border: '1px solid rgba(102, 204, 255, 0.2)',
-                margin: '20px 0'
-            }}>
+            <div 
+                id="visualization-container"
+                className="visualization-area" 
+                style={{ 
+                    minHeight: '500px', 
+                    padding: '20px',
+                    background: 'rgba(15, 52, 96, 0.1)',
+                    borderRadius: '15px',
+                    border: '1px solid rgba(102, 204, 255, 0.2)',
+                    margin: '20px 0',
+                    width: '100%',
+                    maxWidth: '1000px'
+                }}
+            >
                 <div style={{ 
                     display: 'flex', 
                     justifyContent: 'center', 
@@ -631,15 +660,20 @@ const Sorting = () => {
             </div>
 
             {/* Statistics Section */}
-            <div className="controls-section">
-                <h3 style={{ color: '#66ccff', marginBottom: '15px', fontFamily: 'Poppins, sans-serif' }}>
+            <div className="controls-section" style={{ 
+                width: '100%', 
+                maxWidth: '1000px',
+                textAlign: 'center'
+            }}>
+                <h3 style={{ color: '#66ccff', marginBottom: '15px', fontFamily: 'Poppins, sans-serif', textAlign: 'center' }}>
                     Performance Statistics
                 </h3>
                 <div style={{ 
                     display: 'grid', 
                     gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
                     gap: '15px',
-                    marginBottom: '20px'
+                    marginBottom: '20px',
+                    justifyContent: 'center'
                 }}>
                     <div style={{
                         background: 'rgba(102, 204, 255, 0.1)',
