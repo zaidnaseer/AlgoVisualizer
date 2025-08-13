@@ -1,9 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { bubbleSort } from '../algorithms/bubbleSort';
-import { selectionSort } from '../algorithms/selectionSort';
-import { mergeSort } from '../algorithms/mergeSort';
-import { insertionSort } from '../algorithms/insertionSort';
-import { quickSort } from '../algorithms/quickSort';
 import CodeExplanation from '../components/CodeExplanation';
 import SimpleExportControls from '../components/SimpleExportControls';
 import '../styles/pages.css';

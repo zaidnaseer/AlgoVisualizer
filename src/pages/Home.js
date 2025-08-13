@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ExportDemo from '../components/ExportDemo';
+import Contributors from '../components/Contributors';
 import '../styles/home.css';
 
 export default function Home() {
@@ -242,6 +243,8 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+            {/* Contributors Section */}    
+            <Contributors />
 
             {/* Call to Action */}
             <section className="final-cta">
@@ -256,7 +259,7 @@ export default function Home() {
                             <span>🚀</span> Begin Learning
                         </Link>
                         <a 
-                            href="https://github.com/SandeepVashishtha/AlgoVisualizer" 
+                            href="https://github.com/RhythmPahwa14/AlgoVisualizer" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="cta-secondary"
