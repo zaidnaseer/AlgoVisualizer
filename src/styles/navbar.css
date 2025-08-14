@@ -1,6 +1,5 @@
 /* Navbar redesign: glass header, brand fonts, improved active styles */
 .av-header {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -29,21 +28,22 @@
 }
 
 .brand-mono {
-    font-family: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
     font-weight: 700;
     letter-spacing: 1px;
     color: #9ecbff;
 }
 
 .brand-highlight {
-    font-family: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
     font-weight: 600;
-    background: linear-gradient(90deg, #66ccff, #4da6ff, #6f7cff);
+    background: linear-gradient(90deg, #66ccff, #dadaff, #67fcff);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+/* Navigation links container */
 .nav-links {
     display: flex;
     gap: 8px;
@@ -53,25 +53,30 @@
     font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
     color: #cfd9e6;
     text-decoration: none;
-    font-size: 0.98rem;
+    font-size: 0.90rem;
     font-weight: 500;
     padding: 10px 12px;
     border-radius: 10px;
-    transition: all .2s ease;
     border: 1px solid transparent;
+    /* smoother transitions */
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
+/* Hover state: subtle change */
 .nav-links a:hover {
-    color: #eaf2ff;
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.08);
+    color: #d4e8ff;                     /* lighter text on hover */
+    background: rgba(59, 130, 246, 0.15); /* light blue tint */
+    border-color: rgba(59, 130, 246, 0.25);
 }
 
+/* Active state: toned‑down accent with high contrast */
 .nav-links a.active {
-    color: #0b1c3d;
-    background: linear-gradient(90deg, #8dd5ff, #80a7ff);
-    border-color: rgba(255, 255, 255, 0.14);
-    box-shadow: 0 6px 22px rgba(125, 170, 255, .25);
+    color: #ffffff;                       /* white text for maximum contrast */
+    background: rgba(59, 130, 246, 0.35); /* semi‑transparent accent */
+    /* If you prefer a solid gradient instead, comment out the line above and uncomment the next line */
+    /* background: linear-gradient(90deg, #4fa7f8, #3b82f6); */
+    border-color: rgba(59, 130, 246, 0.45);
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
 }
 
 .nav-actions {
@@ -80,65 +85,78 @@
     gap: 10px;
 }
 
+/* GitHub star button – base appearance */
 .github-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 8px 12px;
     border-radius: 10px;
-    color: #dce7ff;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all .2s ease;
+    color: #cfd9e6;                       /* match the nav link colour */
+    background: rgba(59, 130, 246, 0.15); /* subtle accent background */
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
+/* Hover state for the star button */
 .github-btn:hover {
-    color: #0b1c3d;
-    background: linear-gradient(90deg, #8dd5ff, #80a7ff);
-    border-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;                       /* white text on hover */
+    background: rgba(59, 130, 246, 0.35); /* slightly stronger accent */
+    /* Or use a darker gradient if you want a solid colour:
+       background: linear-gradient(90deg, #4fa7f8, #3b82f6);
+    */
+    border-color: rgba(59, 130, 246, 0.45);
 }
+
 
 .hamburger {
     display: none;
-    cursor: pointer;
     flex-direction: column;
-    gap: 4px;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
 }
 
-.hamburger .bar {
-    width: 22px;
+.bar {
+    width: 20px;
     height: 2px;
-    background: #cfe1ff;
-    border-radius: 2px;
+    margin: 4px 0;
+    background-color: #cfd9e6;
+    transition: background-color 0.3s ease;
 }
 
-@media (max-width: 900px) {
+/* Responsive Styles for Mobile */
+@media screen and (max-width: 768px) {
     .nav-links {
-        display: none;
-        position: absolute;
-        top: 60px;
-        right: 12px;
+        position: fixed;
+        top: 64px;
+        right: -100%;
+        height: calc(100vh - 64px);
+        width: 100%;
         flex-direction: column;
-        min-width: 220px;
-        padding: 10px;
+        justify-content: flex-start;
+        align-items: flex-start;
         background: rgba(10, 10, 26, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        box-shadow: 0 12px 40px rgba(0,0,0,.5);
+        backdrop-filter: blur(6px);
+        padding: 20px;
+        transition: right 0.3s ease;
     }
 
-    .nav-links.nav-active { display: flex; }
+    .nav-links.nav-active {
+        right: 0;
+    }
 
-    .hamburger { display: inline-flex; }
+    .nav-links a {
+        display: block;
+        width: 100%;
+    }
+
+    .nav-actions {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
 }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.av-header { animation: fadeIn .35s ease-out; }
