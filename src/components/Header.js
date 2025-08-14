@@ -16,8 +16,7 @@ const Header = () => {
             <div className="av-container">
                 <div className="logo">
                     <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-                        <span className="brand-mono">ALGO</span>
-                        <span className="brand-highlight">Visualizer</span>
+                        <h1 className="navbar-heading">AlgoVisualizer</h1>
                     </Link>
                 </div>
 
