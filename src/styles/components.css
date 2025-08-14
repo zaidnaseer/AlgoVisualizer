@@ -1,59 +1,94 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Import Global Dark Theme Override */
-@import './global-dark-theme.css';
-
-/* Import Navbar and Footer Styles */
+/* Import other component styles */
 @import './navbar.css';
 @import './footer.css';
 @import './pages.css';
 
-/* Reset default browser styles */
+/* ----------------- Theme Variables ----------------- */
+/* Dark mode as default */
+:root {
+    --bg-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+    --text-color: #e0e6ed;
+    --header-bg: #1a1a2e;
+}
+
+/* Light mode */
+[data-theme="light"] {
+    --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+    --text-color: #000000;
+    --header-bg: #f2f2f2;
+}
+
+/* ----------------- Reset Default Styles ----------------- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Force dark theme */
-html {
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
+/* ----------------- Global body and container ----------------- */
+html, body, #root, .app-container {
+    background: var(--bg-gradient);
+    color: var(--text-color);
     min-height: 100vh;
-}
-
-body, html {
     height: 100%;
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
-    color: #e0e6ed !important;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    transition: all 0.3s ease;
 }
 
 body {
-    font-family: 'Poppins', sans-serif !important;
-    line-height: 1.6;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-#root {
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .app-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
 }
 
+/* ----------------- Main content ----------------- */
 .main-content {
     flex: 1;
     padding: 0;
-    background: transparent !important;
+    background: transparent;
     margin: 0;
     border-radius: 0;
     border: none;
     box-shadow: none;
 }
 
+/* ----------------- Header background ----------------- */
+.av-header {
+    background-color: var(--header-bg);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ----------------- Theme Toggle Button ----------------- */
+.theme-toggle-btn {
+    margin-left: 15px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--text-color);
+    color: var(--bg-gradient);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.theme-toggle-btn:hover {
+    opacity: 0.8;
+}
+
+/* ----------------- Links, buttons, navbar ----------------- */
+a, button, .nav-links a {
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Mobile menu background */
+.nav-links.nav-active {
+    background-color: var(--header-bg);
+}

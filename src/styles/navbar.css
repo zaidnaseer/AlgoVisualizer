@@ -10,6 +10,22 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.theme-toggle-btn {
+    margin-left: 15px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.theme-toggle-btn:hover {
+    opacity: 0.8;
+}
+
 .av-container {
     max-width: 1200px;
     margin: 0 auto;
