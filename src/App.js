@@ -13,6 +13,7 @@ import About from './components/about';
 import Contact from './components/contact';
 import PrivacyPolicy from './components/Privacy';
 import TermsOfService from './components/terms';
+import Doubt from './components/Doubt';
 const App = () => {
     return (
         <Router>
@@ -31,6 +32,7 @@ const App = () => {
                         <Route path="/privacy" element={<PrivacyPolicy/>}></Route>
                     </Routes>
                 </main>
+                <Doubt />
                 <Footer />
                 <ScrollToTop />  {/* ← NEW LINE 2 */}
             </div>
