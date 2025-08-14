@@ -48,23 +48,38 @@ const SimpleExportControls = () => {
 
     return (
         <div style={{
-            background: 'rgba(15, 52, 96, 0.1)',
+            background: 'rgba(15, 52, 96, 0.2)',
             borderRadius: '15px',
-            border: '1px solid rgba(102, 204, 255, 0.2)',
-            padding: '20px',
+            border: '1px solid rgba(102, 204, 255, 0.3)',
+            padding: '25px',
             margin: '20px 0',
-            textAlign: 'center'
+            textAlign: 'center',
+            maxWidth: '500px',
+            width: '100%'
         }}>
-            <h3 style={{ color: '#66ccff', marginBottom: '20px' }}>
+            <h3 style={{ 
+                color: '#66ccff', 
+                marginBottom: '15px',
+                fontSize: '18px',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px'
+            }}>
                 🎬 Export Visualization
             </h3>
             
             <div style={{ marginBottom: '20px' }}>
-                <p style={{ color: '#ffffff', margin: '10px 0' }}>
+                <p style={{ 
+                    color: '#ffffff', 
+                    margin: '10px 0',
+                    fontSize: '14px'
+                }}>
                     {message}
                 </p>
                 {frameCount > 0 && (
-                    <p style={{ color: '#66ccff', fontSize: '14px' }}>
+                    <p style={{ color: '#66ccff', fontSize: '12px' }}>
                         Frames captured: {frameCount}
                     </p>
                 )}
@@ -72,22 +87,28 @@ const SimpleExportControls = () => {
 
             <div style={{ 
                 display: 'flex', 
-                gap: '10px', 
+                gap: '12px', 
                 justifyContent: 'center',
-                flexWrap: 'wrap'
+                flexWrap: 'wrap',
+                marginBottom: '20px'
             }}>
                 {!isRecording ? (
                     <button
                         onClick={handleStartRecording}
                         style={{
-                            padding: '12px 24px',
-                            background: '#28a745',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
+                            padding: '10px 20px',
+                            background: 'rgba(102, 204, 255, 0.2)',
+                            color: '#66ccff',
+                            border: '1px solid #66ccff',
+                            borderRadius: '20px',
                             cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '14px'
+                            fontWeight: '600',
+                            fontSize: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            minWidth: '140px',
+                            justifyContent: 'center'
                         }}
                     >
                         🎬 Start Recording
@@ -96,14 +117,19 @@ const SimpleExportControls = () => {
                     <button
                         onClick={handleStopRecording}
                         style={{
-                            padding: '12px 24px',
-                            background: '#dc3545',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
+                            padding: '10px 20px',
+                            background: 'rgba(255, 107, 107, 0.2)',
+                            color: '#ff6b6b',
+                            border: '1px solid #ff6b6b',
+                            borderRadius: '20px',
                             cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '14px'
+                            fontWeight: '600',
+                            fontSize: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            minWidth: '140px',
+                            justifyContent: 'center'
                         }}
                     >
                         🛑 Stop Recording
@@ -114,14 +140,20 @@ const SimpleExportControls = () => {
                     onClick={handleExportGIF}
                     disabled={frameCount === 0}
                     style={{
-                        padding: '12px 24px',
-                        background: frameCount > 0 ? '#66ccff' : '#555',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
+                        padding: '10px 20px',
+                        background: frameCount > 0 ? 'rgba(102, 204, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                        color: frameCount > 0 ? '#66ccff' : '#888',
+                        border: `1px solid ${frameCount > 0 ? '#66ccff' : '#888'}`,
+                        borderRadius: '20px',
                         cursor: frameCount > 0 ? 'pointer' : 'not-allowed',
-                        fontWeight: 'bold',
-                        fontSize: '14px'
+                        fontWeight: '600',
+                        fontSize: '12px',
+                        opacity: frameCount > 0 ? 1 : 0.5,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        minWidth: '110px',
+                        justifyContent: 'center'
                     }}
                 >
                     📱 Export GIF
@@ -131,14 +163,20 @@ const SimpleExportControls = () => {
                     onClick={handleExportVideo}
                     disabled={frameCount === 0}
                     style={{
-                        padding: '12px 24px',
-                        background: frameCount > 0 ? '#8e44ad' : '#555',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
+                        padding: '10px 20px',
+                        background: frameCount > 0 ? 'rgba(102, 204, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                        color: frameCount > 0 ? '#66ccff' : '#888',
+                        border: `1px solid ${frameCount > 0 ? '#66ccff' : '#888'}`,
+                        borderRadius: '20px',
                         cursor: frameCount > 0 ? 'pointer' : 'not-allowed',
-                        fontWeight: 'bold',
-                        fontSize: '14px'
+                        fontWeight: '600',
+                        fontSize: '12px',
+                        opacity: frameCount > 0 ? 1 : 0.5,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        minWidth: '120px',
+                        justifyContent: 'center'
                     }}
                 >
                     🎥 Export Video
@@ -146,16 +184,16 @@ const SimpleExportControls = () => {
             </div>
 
             <div style={{ 
-                marginTop: '15px', 
-                fontSize: '12px', 
+                fontSize: '11px', 
                 color: '#aaa',
-                lineHeight: '1.4'
+                lineHeight: '1.4',
+                textAlign: 'left'
             }}>
-                <p>📝 Instructions:</p>
-                <p>1. Click "Start Recording" before running your algorithm</p>
-                <p>2. Run the sorting/searching algorithm</p>
-                <p>3. Click "Stop Recording" when done</p>
-                <p>4. Export as GIF or Video format</p>
+                <p style={{ margin: '0 0 5px 0', color: '#66ccff', textAlign: 'center' }}>📝 Instructions:</p>
+                <p style={{ margin: '2px 0' }}>1. Click "Start Recording" before running your algorithm</p>
+                <p style={{ margin: '2px 0' }}>2. Run the sorting/searching algorithm</p>
+                <p style={{ margin: '2px 0' }}>3. Click "Stop Recording" when done</p>
+                <p style={{ margin: '2px 0' }}>4. Export as GIF or Video format</p>
             </div>
         </div>
     );
