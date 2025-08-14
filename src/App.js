@@ -14,6 +14,7 @@ import Contact from './components/contact';
 import PrivacyPolicy from './components/Privacy';
 import TermsOfService from './components/terms';
 import Doubt from './components/Doubt';
+import AlgorithmDocumentation from './pages/Documentation';
 const App = () => {
     return (
         <Router>
@@ -30,6 +31,7 @@ const App = () => {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/terms" element={<TermsOfService/>}></Route>
                         <Route path="/privacy" element={<PrivacyPolicy/>}></Route>
+                        <Route path="/documentation" element={<AlgorithmDocumentation />} />
                     </Routes>
                 </main>
                 <Doubt />

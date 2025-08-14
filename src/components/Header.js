@@ -25,6 +25,7 @@ const Header = () => {
                     <NavLink to="/searching" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Searching</NavLink>
                     <NavLink to="/data-structures" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Data Structures</NavLink>
                     <NavLink to="/contributors" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Contributors</NavLink>
+                    <NavLink to ="/documentation" onClick= {toggleMobileMenu} className = {({isActive}) => isActive ? 'active': ''}>Documentation</NavLink>
                 </nav>
 
                 <div className="nav-actions">

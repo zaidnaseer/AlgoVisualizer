@@ -596,3 +596,17 @@
         text-align: center;
     }
 }
+.quick-card.documentation {
+    background: linear-gradient(135deg, rgba(255, 215, 61, 0.1) 0%, rgba(255, 179, 71, 0.05) 100%);
+    border: 1px solid rgba(255, 215, 61, 0.2);
+}
+
+.quick-card.documentation:hover {
+    border-color: rgba(255, 215, 61, 0.4);
+    box-shadow: 0 8px 32px rgba(255, 215, 61, 0.15);
+}
+
+.quick-card.documentation .card-icon {
+    background: linear-gradient(45deg, #ffd93d, #ffb347);
+    color: #1a1a2e;
+}
