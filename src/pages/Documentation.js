@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Clock, Database, BookOpen, Code, Zap, Users, Star } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Search, Clock, Database, BookOpen, Zap, Users, Star } from 'lucide-react';
 
 const AlgorithmDocumentation = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
 
-    const algorithmDatabase = {
+    const algorithmDatabase = useMemo(() => ({
         sorting: {
             title: "Sorting Algorithms",
             description: "Algorithms that arrange elements in a specific order",
@@ -376,10 +376,10 @@ const AlgorithmDocumentation = () => {
                 }
             ]
         }
-    };
+    }), []);
 
     // Get all algorithms in a flat array for filtering
-    const getAllAlgorithms = () => {
+    const getAllAlgorithms = useCallback(() => {
         const allAlgos = [];
         Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
             category.algorithms.forEach(algo => {
@@ -393,7 +393,7 @@ const AlgorithmDocumentation = () => {
             });
         });
         return allAlgos;
-    };
+    }, [algorithmDatabase]);
 
     useEffect(() => {
         const allAlgorithms = getAllAlgorithms();
@@ -414,7 +414,7 @@ const AlgorithmDocumentation = () => {
         }
 
         setFilteredAlgorithms(filtered);
-    }, [searchTerm, selectedCategory]);
+    }, [searchTerm, selectedCategory, getAllAlgorithms]);
 
     const getComplexityColor = (complexity) => {
         const colors = {
