@@ -114,7 +114,7 @@
 /* Hover state: subtle change */
 .nav-links a:hover{
     color: #d4e8ff;                     /* lighter text on hover */
-    background: none; /* light blue tint *
+    background: none; /* light blue tint */
     border-color: rgba(59, 130, 246, 0.25);
 }
 

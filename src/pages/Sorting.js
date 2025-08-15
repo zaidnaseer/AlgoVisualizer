@@ -648,217 +648,327 @@ const Sorting = () => {
         return colors;
     };
 
-const isMobile = window.innerWidth < 800;
-const isTabletOrBelow = window.innerWidth < 1024;
+    // Reactive screen size detection
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
+    const [isTabletOrBelow, setIsTabletOrBelow] = useState(window.innerWidth < 1024);
 
-return (
-    <div className="page-container" style={{ maxWidth: '1500px', margin: '0 auto', padding: '20px' }}>
-        <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '30px' }}>
-            Sorting Algorithms Visualizer
-        </h1>
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 800);
+            setIsTabletOrBelow(window.innerWidth < 1024);
+        };
 
-        {/* --- Step Navigation and Algorithm Panel Layout --- */}
-        <div style={{
-            display: 'flex',
-             flexDirection: isTabletOrBelow ? 'column' : 'row',
-            flexWrap: 'wrap',
-            gap: '30px',
-            alignItems: 'flex-start',
-            marginBottom: '30px'
-        }}>
-            {/* Visualization + Step Controls */}
-            <div style={{
-                 flex: '1 1 auto',
-                 minWidth: '300px',
-                 maxWidth: '100%',
-                 overflowX: 'hidden'
-            }}>
-                {/* --- Step Navigation Buttons --- */}
-                <div style={{
-                    display: 'flex',
-                    gap: '10px',
-                    marginBottom: '10px',
-                    justifyContent: isMobile ? 'center' : 'flex-start'
-                }}>
-                    <button className="btn btn-secondary"
-                        onClick={handlePrevStep}
-                        disabled={currentStep === 0}
-                        style={{ minWidth: '110px' }}>
-                        ⬅️ Previous Step
-                    </button>
-                    <button className="btn btn-secondary"
-                        onClick={handleNextStep}
-                        disabled={currentStep >= steps.length - 1}
-                        style={{ minWidth: '110px' }}>
-                        Next Step ➡️
-                    </button>
-                    <span style={{
-                        color: '#66ccff',
-                        fontWeight: 600,
-                        marginLeft: '15px',
-                        fontSize: '14px'
-                    }}>
-                        Step {currentStep + 1} / {steps.length}
-                    </span>
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return (
+        <div className="page-container" style={{ maxWidth: '1500px', margin: '0 auto', padding: '20px' }}>
+            <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '30px' }}>
+                Sorting Algorithms Visualizer
+            </h1>
+            {/* Algorithm Selection */}
+            <div className="controls-section">
+                <h3 style={{ color: '#66ccff', fontFamily: 'Poppins, sans-serif' }}>
+                    Select Algorithm:
+                </h3>
+                <div className='algo-buttons'
+                    style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '30px' }}>
+                    {['bubbleSort', 'selectionSort', 'mergeSort', 'insertionSort', 'quickSort'].map((algo) => {
+                        const algorithmNames = {
+                            'bubbleSort': 'Bubble Sort',
+                            'selectionSort': 'Selection Sort',
+                            'mergeSort': 'Merge Sort',
+                            'insertionSort': 'Insertion Sort',
+                            'quickSort': 'Quick Sort'
+                        };
+
+                        return (
+                            <button
+                                key={algo}
+                                className={algorithm === algo ? 'btn' : 'btn btn-secondary'}
+                                onClick={() => setAlgorithm(algo)}
+                                disabled={isSorting}
+                                style={{
+                                    background: algorithm === algo ?
+                                        'linear-gradient(45deg, #66ccff, #4da6ff)' :
+                                        'rgba(255, 255, 255, 0.1)',
+                                    color: algorithm === algo ? '#1a1a2e' : '#e0e6ed'
+                                }}
+                            >
+                                {algorithmNames[algo]}
+                            </button>
+                        );
+                    })}
                 </div>
+            </div>
 
-                {/* --- Visualization Area (step-by-step) --- */}
-                <div className="visualization-area" style={{
-                     minHeight: '500px',
-            padding: '20px',
-            background: 'rgba(15, 52, 96, 0.1)',
-            borderRadius: '15px',
-            border: '1px solid rgba(102, 204, 255, 0.2)',
-            margin: '20px 0'
-                }}>
-                    <div style={{
-                         display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'flex-end',
-                height: '400px',
-                gap: arraySize > 40 ? (isTabletOrBelow ? '0.5px' : '1px') : arraySize > 25 ? '2px' : '3px',
-                padding: '20px 10px 50px 10px',
-                position: 'relative',
-                flexWrap: 'nowrap'
-                    }}>
-                        {(steps[currentStep]?.array || array).map((num, idx) => {
-                            const maxBarWidth = isTabletOrBelow ? 8 : 12; // shrink bars more on smaller screens
-                            const barWidth = Math.max(4, Math.min(maxBarWidth, 350 / arraySize));
-                            const showNumbers = arraySize <= 25;
-                            const showIndices = arraySize <= 15;
-                            const stepColors = getStepColorArray();
-                            return (
-                                <div
-                                    key={idx}
-                                    style={{
-                                        height: `${Math.max(20, num)}px`,
-                                       width: `${barWidth}px`,
-                                        backgroundColor: getStepColorArray()[idx],
-                                       border: `1px solid ${getStepColorArray()[idx]}`,
-                                        borderRadius: '6px 6px 0 0',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        fontWeight: 'bold',
-                                        fontSize: arraySize > 40 ? '8px' : arraySize > 30 ? '9px' : arraySize > 20 ? '10px' : '11px',
-                                        padding: '4px 2px',
-                                        transition: 'all 0.3s ease',
-                                        boxShadow: `0 4px 12px ${stepColors[idx]}30`,
-                                        position: 'relative',
-                                        cursor: 'default'
-                                    }}
-                                    title={`Value: ${num}, Index: ${idx}`}
-                                >
-                                    {showNumbers && (
-                                        <div style={{
-                                            color: '#ffffff',
-                                            textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
-                                            fontWeight: 'bold',
-                                            fontSize: 'inherit',
-                                            minHeight: '14px',
-                                            display: 'flex',
-                                            alignItems: 'center'
-                                        }}>
-                                            {num}
-                                        </div>
-                                    )}
-                                    {showIndices && (
-                                        <div style={{
-                                            position: 'absolute',
-                                            bottom: '-30px',
-                                            left: '50%',
-                                            transform: 'translateX(-50%)',
-                                            color: '#66ccff',
-                                            fontSize: '12px',
-                                            fontWeight: '600',
-                                            background: 'rgba(26, 26, 46, 0.8)',
-                                            padding: '6px 12px',
-                                            borderRadius: '6px',
-                                            border: '1px solid rgba(102, 204, 255, 0.3)'
-                                        }}>
-                                            Array Size: {arraySize} | Step Mode
-                                        </div>
-                                    )}
-                                </div>
-                            );
-                        })}
-                        {/* Array info display */}
+
+            {/* Status Message */}
+            <div className="status-message" style={{
+                padding: '15px',
+                background: 'rgba(102, 204, 255, 0.1)',
+                borderRadius: '10px',
+                border: '1px solid rgba(102, 204, 255, 0.3)',
+                textAlign: 'center',
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#66ccff',
+                margin: '20px 0'
+            }}>
+                {message}
+                {isSorting && (
+                    <div style={{ marginTop: '10px' }}>
                         <div style={{
-                            position: 'absolute',
-                            bottom: '10px',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            color: '#66ccff',
-                            fontSize: '12px',
-                            fontWeight: '600',
-                            background: 'rgba(26, 26, 46, 0.8)',
-                            padding: '6px 12px',
-                            borderRadius: '6px',
-                            border: '1px solid rgba(102, 204, 255, 0.3)'
+                            width: '100%',
+                            height: '4px',
+                            background: 'rgba(102, 204, 255, 0.2)',
+                            borderRadius: '2px',
+                            overflow: 'hidden'
                         }}>
-                            Array Size: {arraySize} | Step Mode
+                            <div style={{
+                                height: '100%',
+                                background: 'linear-gradient(90deg, #66ccff, #4da6ff)',
+                                animation: 'progress 2s ease-in-out infinite',
+                                borderRadius: '2px'
+                            }} />
                         </div>
                     </div>
-                </div>
+                )}
             </div>
 
-            {/* --- Algorithm Panel --- */}
+
+            {/* --- Step Navigation and Algorithm Panel Layout --- */}
             <div style={{
-                flex: '0 0 300px',
-                minWidth: '280px',
-                maxWidth: '100%',
-                background: 'rgba(102,204,255,0.07)',
-                border: '1px solid rgba(102,204,255,0.15)',
-                borderRadius: '12px',
-                padding: '18px',
-                overflowX: 'auto'
+                display: 'flex',
+                flexDirection: isTabletOrBelow ? 'column' : 'row',
+                flexWrap: 'wrap',
+                gap: '30px',
+                alignItems: 'flex-start',
+                marginBottom: '30px'
             }}>
-                <h3 style={{
-                    color: '#66ccff',
-                    marginBottom: '10px',
-                    fontFamily: 'Poppins, sans-serif'
-                }}>
-                    {getAlgorithmName()} Pseudocode
-                </h3>
-                <pre style={{
-                    background: 'rgba(26,26,46,0.95)',
-                    borderRadius: '8px',
-                    padding: '14px',
-                    fontSize: '15px',
-                    color: '#e0e6ed',
-                    marginBottom: '10px',
-                    overflowX: 'auto'
-                }}>
-                    {ALGORITHM_PSEUDOCODE[algorithm].map((line, idx) => (
-                        <div key={idx} style={{
-                            background: steps[currentStep]?.pseudoLine === idx
-                                ? 'rgba(102,204,255,0.25)' : 'none',
-                            borderRadius: '5px',
-                            padding: '2px 6px',
-                            fontWeight: steps[currentStep]?.pseudoLine === idx ? 700 : 400,
-                            color: steps[currentStep]?.pseudoLine === idx ? '#66ccff' : '#e0e6ed'
-                        }}>
-                            {line.code}
-                        </div>
-                    ))}
-                </pre>
+                {/* Visualization + Step Controls */}
                 <div style={{
-                    background: 'rgba(102,204,255,0.08)',
-                    borderRadius: '8px',
-                    padding: '10px 12px',
-                    fontSize: '14px',
-                    color: '#b8c5d1',
-                    minHeight: '40px'
+                    flex: '1 1 auto',
+                    minWidth: '300px',
+                    maxWidth: '100%',
+                    overflowX: 'hidden'
                 }}>
-                    <strong>Explanation:</strong><br />
-                    {steps[currentStep]?.pseudoLine !== null
-                        ? ALGORITHM_PSEUDOCODE[algorithm][steps[currentStep]?.pseudoLine]?.explain
-                        : 'Algorithm finished!'}
+                    {/* Visualization Section with Algorithm psuedo code Section */}
+                    <div style={{
+                        display: 'flex',
+                        width: '100%',
+                        gap: '20px'
+                    }}>
+
+                        <div style={{ width: '75%' }}>
+                            {/* --- Visualization Area (step-by-step) --- */}
+                            <div className="visualization-area" style={{
+                                
+                                minHeight: '500px',
+                                padding: '20px',
+                                background: 'rgba(15, 52, 96, 0.1)',
+                                borderRadius: '15px',
+                                border: '1px solid rgba(102, 204, 255, 0.2)',
+                            }}>
+                                {/* Array-Visualization */}
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'flex-end',
+                                    height: '400px',
+                                    gap: arraySize > 40 ? (isTabletOrBelow ? '0.5px' : '1px') : arraySize > 25 ? '2px' : '3px',
+                                    padding: '20px 10px 50px 10px',
+                                    position: 'relative',
+                                    flexWrap: 'nowrap'
+                                }}>
+                                    {(steps[currentStep]?.array || array).map((num, idx) => {
+                                        const maxBarWidth = isTabletOrBelow ? 8 : 12; // shrink bars more on smaller screens
+                                        const barWidth = Math.max(4, Math.min(maxBarWidth, 350 / arraySize));
+                                        const showNumbers = arraySize <= 25;
+                                        const showIndices = arraySize <= 15;
+                                        const stepColors = getStepColorArray();
+                                        return (
+                                            <div
+                                                key={idx}
+                                                style={{
+                                                    height: `${Math.max(20, num)}px`,
+                                                    width: `${barWidth}px`,
+                                                    backgroundColor: getStepColorArray()[idx],
+                                                    border: `1px solid ${getStepColorArray()[idx]}`,
+                                                    borderRadius: '6px 6px 0 0',
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'space-between',
+                                                    fontWeight: 'bold',
+                                                    fontSize: arraySize > 40 ? '8px' : arraySize > 30 ? '9px' : arraySize > 20 ? '10px' : '11px',
+                                                    padding: '4px 2px',
+                                                    transition: 'all 0.3s ease',
+                                                    boxShadow: `0 4px 12px ${stepColors[idx]}30`,
+                                                    position: 'relative',
+                                                    cursor: 'default'
+                                                }}
+                                                title={`Value: ${num}, Index: ${idx}`}
+                                            >
+                                                {showNumbers && (
+                                                    <div style={{
+                                                        color: '#ffffff',
+                                                        textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+                                                        fontWeight: 'bold',
+                                                        fontSize: 'inherit',
+                                                        minHeight: '14px',
+                                                        display: 'flex',
+                                                        alignItems: 'center'
+                                                    }}>
+                                                        {num}
+                                                    </div>
+                                                )}
+                                                {showIndices && (
+                                                    <div style={{
+                                                        position: 'absolute',
+                                                        bottom: '-30px',
+                                                        left: '50%',
+                                                        transform: 'translateX(-50%)',
+                                                        color: '#66ccff',
+                                                        fontSize: '12px',
+                                                        fontWeight: '600',
+                                                        background: 'rgba(26, 26, 46, 0.8)',
+                                                        padding: '6px 12px',
+                                                        borderRadius: '6px',
+                                                        border: '1px solid rgba(102, 204, 255, 0.3)'
+                                                    }}>
+                                                        Array Size: {arraySize} | Step Mode
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                    {/* Array info display */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '10px',
+                                        left: '50%',
+                                        transform: 'translateX(-50%)',
+                                        color: '#66ccff',
+                                        fontSize: '12px',
+                                        fontWeight: '600',
+                                        background: 'rgba(26, 26, 46, 0.8)',
+                                        padding: '6px 12px',
+                                        borderRadius: '6px',
+                                        border: '1px solid rgba(102, 204, 255, 0.3)'
+                                    }}>
+                                        Array Size: {arraySize} | Step Mode
+                                    </div>
+                                </div>
+
+                                {/* --- Step Navigation Buttons --- */}
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems:'center',
+                                    gap: '15px',
+                                    margin: '30px 0',
+                                    width:'100%',
+                                    justifyContent: isMobile ? 'space-evenly' : 'space-between'
+                                }}>
+                                    {/* previous-step-button */}
+                                    <button className="btn btn-secondary"
+                                        onClick={handlePrevStep}
+                                        disabled={currentStep === 0}
+                                        
+                                        style={{ minWidth: '110px',fontSize: '14px' }}>
+                                        {/* arrow-left-icon */}
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25"fill="currentColor"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path></svg>
+                                        Previous Step
+                                    </button>
+
+                                    {/* steps-counter */}
+                                    <span style={{
+                                        color: '#66ccff',
+                                        fontWeight: 600,
+                                        fontSize: '14px'
+                                    }}>
+                                        Step {currentStep + 1} / {steps.length}
+                                    </span>
+
+                                    {/* next-step-button */}
+                                    <button className="btn btn-secondary"
+                                        onClick={handleNextStep}
+                                        disabled={currentStep >= steps.length - 1}
+                                        style={{ minWidth: '110px',fontSize: '14px' }}>
+                                        Next Step
+                                        {/* arrow-right-icon */}
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+
+
+                        </div>
+                        {/* --- Algorithm Section with psuedo Code --- */}
+                        <div style={{
+                            flex: '0 0 fit-content',
+                            minWidth: '280px',
+                            maxWidth: '100%',
+                            background: 'rgba(102,204,255,0.07)',
+                            border: '1px solid rgba(102,204,255,0.15)',
+                            borderRadius: '12px',
+                            padding: '18px',
+                            overflowX: 'auto'
+                        }}>
+                            <h3 style={{
+                                color: '#66ccff',
+                                marginBottom: '10px',
+                                fontFamily: 'Poppins, sans-serif'
+                            }}>
+                                {getAlgorithmName()} Pseudocode
+                            </h3>
+                            <pre style={{
+                                background: 'rgba(26,26,46,0.95)',
+                                borderRadius: '8px',
+                                width: '300px',
+                                padding: '14px',
+                                fontSize: '15px',
+                                color: '#e0e6ed',
+                                marginBottom: '10px',
+                                overflowX: 'auto'
+                            }}>
+                                {ALGORITHM_PSEUDOCODE[algorithm].map((line, idx) => (
+                                    <div key={idx} style={{
+                                        background: steps[currentStep]?.pseudoLine === idx
+                                            ? 'rgba(102,204,255,0.25)' : 'none',
+                                        borderRadius: '5px',
+                                        padding: '2px 6px',
+                                        fontWeight: steps[currentStep]?.pseudoLine === idx ? 700 : 400,
+                                        color: steps[currentStep]?.pseudoLine === idx ? '#66ccff' : '#e0e6ed'
+                                    }}>
+                                        {line.code}
+                                    </div>
+                                ))}
+                            </pre>
+                            <div style={{
+                                background: 'rgba(102,204,255,0.08)',
+                                width: '300px',
+
+                                borderRadius: '8px',
+                                padding: '10px 12px',
+                                fontSize: '14px',
+                                color: '#b8c5d1',
+                                minHeight: '40px'
+                            }}>
+                                <strong>Explanation:</strong><br />
+                                {steps[currentStep]?.pseudoLine !== null
+                                    ? ALGORITHM_PSEUDOCODE[algorithm][steps[currentStep]?.pseudoLine]?.explain
+                                    : 'Algorithm finished!'}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+                
             </div>
-        </div>
-        
+
 
             {/* Controls Section */}
             <div className="controls-section" style={{
@@ -951,73 +1061,6 @@ return (
                 </div>
             </div>
 
-            {/* Algorithm Selection */}
-            <div className="controls-section">
-                <h3 style={{ color: '#66ccff', marginBottom: '15px', fontFamily: 'Poppins, sans-serif' }}>
-                    Select Algorithm:
-                </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
-                    {['bubbleSort', 'selectionSort', 'mergeSort', 'insertionSort', 'quickSort'].map((algo) => {
-                        const algorithmNames = {
-                            'bubbleSort': 'Bubble Sort',
-                            'selectionSort': 'Selection Sort',
-                            'mergeSort': 'Merge Sort',
-                            'insertionSort': 'Insertion Sort',
-                            'quickSort': 'Quick Sort'
-                        };
-
-                        return (
-                            <button
-                                key={algo}
-                                className={algorithm === algo ? 'btn' : 'btn btn-secondary'}
-                                onClick={() => setAlgorithm(algo)}
-                                disabled={isSorting}
-                                style={{
-                                    background: algorithm === algo ?
-                                        'linear-gradient(45deg, #66ccff, #4da6ff)' :
-                                        'rgba(255, 255, 255, 0.1)',
-                                    color: algorithm === algo ? '#1a1a2e' : '#e0e6ed'
-                                }}
-                            >
-                                {algorithmNames[algo]}
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* Status Message */}
-            <div className="status-message" style={{
-                padding: '15px',
-                background: 'rgba(102, 204, 255, 0.1)',
-                borderRadius: '10px',
-                border: '1px solid rgba(102, 204, 255, 0.3)',
-                textAlign: 'center',
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#66ccff',
-                margin: '20px 0'
-            }}>
-                {message}
-                {isSorting && (
-                    <div style={{ marginTop: '10px' }}>
-                        <div style={{
-                            width: '100%',
-                            height: '4px',
-                            background: 'rgba(102, 204, 255, 0.2)',
-                            borderRadius: '2px',
-                            overflow: 'hidden'
-                        }}>
-                            <div style={{
-                                height: '100%',
-                                background: 'linear-gradient(90deg, #66ccff, #4da6ff)',
-                                animation: 'progress 2s ease-in-out infinite',
-                                borderRadius: '2px'
-                            }} />
-                        </div>
-                    </div>
-                )}
-            </div>
 
             {/* Statistics Section */}
             <div className="controls-section" style={{
