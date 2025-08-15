@@ -112,9 +112,9 @@
 }
 
 /* Hover state: subtle change */
-.nav-links a:hover {
-    color: #f8f9fa;                     /* off-white text on hover */
-    background: rgba(59, 130, 246, 0.15); /* light blue tint */
+.nav-links a:hover{
+    color: #d4e8ff;                     /* lighter text on hover */
+    background: none; /* light blue tint *
     border-color: rgba(59, 130, 246, 0.25);
 }
 
