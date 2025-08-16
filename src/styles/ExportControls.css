@@ -59,7 +59,8 @@
 .capture-frame-btn {
     padding: 10px 15px;
     border: none;
-    border-radius: 8px;
+    height: 55px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
