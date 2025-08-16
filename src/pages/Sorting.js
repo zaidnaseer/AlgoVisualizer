@@ -665,7 +665,7 @@ const Sorting = () => {
 
     return (
         <div className="page-container" style={{ maxWidth: '1500px', margin: '0 auto', padding: '20px' }}>
-            <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '30px' }}>
                 Sorting Algorithms Visualizer
             </h1>
             {/* Algorithm Selection */}
@@ -712,18 +712,48 @@ const Sorting = () => {
 
 
             {/* --- Step Navigation and Algorithm Panel Layout --- */}
-            <div className={`step-navigation-layout ${!isTabletOrBelow ? 'step-navigation-layout-desktop' : ''}`}>
+            <div style={{
+                display: 'flex',
+                flexDirection: isTabletOrBelow ? 'column' : 'row',
+                flexWrap: 'wrap',
+                gap: '30px',
+                alignItems: 'flex-start',
+                marginBottom: '30px'
+            }}>
                 {/* Visualization + Step Controls */}
-                <div className="visualization-step-wrapper">
+                <div style={{
+                    flex: '1 1 auto',
+                    minWidth: '300px',
+                    maxWidth: '100%',
+                    overflowX: 'hidden'
+                }}>
                     {/* Visualization Section with Algorithm psuedo code Section */}
-                    <div className="visualization-pseudocode-wrapper">
+                    <div style={{
+                        display: 'flex',
+                        width: '100%',
+                        gap: '20px'
+                    }}>
 
-                        <div className="visualization-section-container">
+                        <div style={{ width: '75%' }}>
                             {/* --- Visualization Area (step-by-step) --- */}
-                            <div className="visualization-area visualization-area-step">
+                            <div className="visualization-area" style={{
+
+                                minHeight: '500px',
+                                padding: '20px',
+                                background: 'rgba(15, 52, 96, 0.1)',
+                                borderRadius: '15px',
+                                border: '1px solid rgba(102, 204, 255, 0.2)',
+                            }}>
                                 {/* Array-Visualization */}
-                                <div className="array-visualization-container" style={{
-                                    gap: arraySize > 40 ? (isTabletOrBelow ? '0.5px' : '1px') : arraySize > 25 ? '2px' : '3px'
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'flex-end',
+                                    height: '400px',
+                                    gap: arraySize > 40 ? (isTabletOrBelow ? '0.5px' : '1px') : arraySize > 25 ? '2px' : '3px',
+                                    padding: '20px 10px 50px 10px',
+                                    position: 'relative',
+                                    flexWrap: 'nowrap'
                                 }}>
                                     {(steps[currentStep]?.array || array).map((num, idx) => {
                                         const maxBarWidth = isTabletOrBelow ? 8 : 12; // shrink bars more on smaller screens
@@ -734,26 +764,53 @@ const Sorting = () => {
                                         return (
                                             <div
                                                 key={idx}
-                                                className="array-bar-step"
                                                 style={{
                                                     height: `${Math.max(20, num)}px`,
                                                     width: `${barWidth}px`,
                                                     backgroundColor: getStepColorArray()[idx],
                                                     border: `1px solid ${getStepColorArray()[idx]}`,
+                                                    borderRadius: '6px 6px 0 0',
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'space-between',
+                                                    fontWeight: 'bold',
                                                     fontSize: arraySize > 40 ? '8px' : arraySize > 30 ? '9px' : arraySize > 20 ? '10px' : '11px',
-                                                    boxShadow: `0 4px 12px ${stepColors[idx]}30`
+                                                    padding: '4px 2px',
+                                                    transition: 'all 0.3s ease',
+                                                    boxShadow: `0 4px 12px ${stepColors[idx]}30`,
+                                                    position: 'relative',
+                                                    cursor: 'default'
                                                 }}
                                                 title={`Value: ${num}, Index: ${idx}`}
                                             >
                                                 {showNumbers && (
-                                                    <div className="array-bar-number" style={{
-                                                        fontSize: 'inherit'
+                                                    <div style={{
+                                                        color: '#ffffff',
+                                                        textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+                                                        fontWeight: 'bold',
+                                                        fontSize: 'inherit',
+                                                        minHeight: '14px',
+                                                        display: 'flex',
+                                                        alignItems: 'center'
                                                     }}>
                                                         {num}
                                                     </div>
                                                 )}
                                                 {showIndices && (
-                                                    <div className="array-bar-index">
+                                                    <div style={{
+                                                        position: 'absolute',
+                                                        bottom: '-30px',
+                                                        left: '50%',
+                                                        transform: 'translateX(-50%)',
+                                                        color: '#66ccff',
+                                                        fontSize: '12px',
+                                                        fontWeight: '600',
+                                                        background: 'rgba(26, 26, 46, 0.8)',
+                                                        padding: '6px 12px',
+                                                        borderRadius: '6px',
+                                                        border: '1px solid rgba(102, 204, 255, 0.3)'
+                                                    }}>
                                                         Array Size: {arraySize} | Step Mode
                                                     </div>
                                                 )}
@@ -761,31 +818,57 @@ const Sorting = () => {
                                         );
                                     })}
                                     {/* Array info display */}
-                                    <div className="array-info-display">
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '10px',
+                                        left: '50%',
+                                        transform: 'translateX(-50%)',
+                                        color: '#66ccff',
+                                        fontSize: '12px',
+                                        fontWeight: '600',
+                                        background: 'rgba(26, 26, 46, 0.8)',
+                                        padding: '6px 12px',
+                                        borderRadius: '6px',
+                                        border: '1px solid rgba(102, 204, 255, 0.3)'
+                                    }}>
                                         Array Size: {arraySize} | Step Mode
                                     </div>
                                 </div>
 
                                 {/* --- Step Navigation Buttons --- */}
-                                <div className={`step-navigation-buttons ${isMobile ? 'step-navigation-buttons-mobile' : ''}`}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '15px',
+                                    margin: '30px 0',
+                                    width: '100%',
+                                    justifyContent: isMobile ? 'space-evenly' : 'space-between'
+                                }}>
                                     {/* previous-step-button */}
-                                    <button className="btn btn-secondary step-button"
+                                    <button className="btn btn-secondary"
                                         onClick={handlePrevStep}
-                                        disabled={currentStep === 0}>
+                                        disabled={currentStep === 0}
+
+                                        style={{ minWidth: '110px', fontSize: '14px' }}>
                                         {/* arrow-left-icon */}
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path></svg>
                                         Previous Step
                                     </button>
 
                                     {/* steps-counter */}
-                                    <span className="step-counter">
+                                    <span style={{
+                                        color: '#66ccff',
+                                        fontWeight: 600,
+                                        fontSize: '14px'
+                                    }}>
                                         Step {currentStep + 1} / {steps.length}
                                     </span>
 
                                     {/* next-step-button */}
-                                    <button className="btn btn-secondary step-button"
+                                    <button className="btn btn-secondary"
                                         onClick={handleNextStep}
-                                        disabled={currentStep >= steps.length - 1}>
+                                        disabled={currentStep >= steps.length - 1}
+                                        style={{ minWidth: '110px', fontSize: '14px' }}>
                                         Next Step
                                         {/* arrow-right-icon */}
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
@@ -797,24 +880,60 @@ const Sorting = () => {
 
                         </div>
                         {/* --- Algorithm Section with psuedo Code --- */}
-                        <div className="algorithm-pseudocode-section">
-                            <div className=''>
-                                <h3 className="pseudocode-title">
-                                    {getAlgorithmName()} Pseudocode
-                                </h3>
-                                <pre className="pseudocode-container">
-                                    {ALGORITHM_PSEUDOCODE[algorithm].map((line, idx) => (
-                                        <div key={idx} className={`pseudocode-line ${steps[currentStep]?.pseudoLine === idx ? 'pseudocode-line-active' : 'pseudocode-line-inactive'}`}>
-                                            {line.code}
-                                        </div>
-                                    ))}
-                                </pre>
-                                <div className="pseudocode-explanation">
-                                    <strong>Explanation:</strong><br />
-                                    {steps[currentStep]?.pseudoLine !== null
-                                        ? ALGORITHM_PSEUDOCODE[algorithm][steps[currentStep]?.pseudoLine]?.explain
-                                        : 'Algorithm finished!'}
-                                </div>
+                        <div style={{
+                            flex: '0 0 fit-content',
+                            minWidth: '280px',
+                            maxWidth: '100%',
+                            background: 'rgba(102,204,255,0.07)',
+                            border: '1px solid rgba(102,204,255,0.15)',
+                            borderRadius: '12px',
+                            padding: '18px',
+                            overflowX: 'auto'
+                        }}>
+                            <h3 style={{
+                                color: '#66ccff',
+                                marginBottom: '10px',
+                                fontFamily: 'Poppins, sans-serif'
+                            }}>
+                                {getAlgorithmName()} Pseudocode
+                            </h3>
+                            <pre style={{
+                                background: 'rgba(26,26,46,0.95)',
+                                borderRadius: '8px',
+                                width: '300px',
+                                padding: '14px',
+                                fontSize: '15px',
+                                color: '#e0e6ed',
+                                marginBottom: '10px',
+                                overflowX: 'auto'
+                            }}>
+                                {ALGORITHM_PSEUDOCODE[algorithm].map((line, idx) => (
+                                    <div key={idx} style={{
+                                        background: steps[currentStep]?.pseudoLine === idx
+                                            ? 'rgba(102,204,255,0.25)' : 'none',
+                                        borderRadius: '5px',
+                                        padding: '2px 6px',
+                                        fontWeight: steps[currentStep]?.pseudoLine === idx ? 700 : 400,
+                                        color: steps[currentStep]?.pseudoLine === idx ? '#66ccff' : '#e0e6ed'
+                                    }}>
+                                        {line.code}
+                                    </div>
+                                ))}
+                            </pre>
+                            <div style={{
+                                background: 'rgba(102,204,255,0.08)',
+                                width: '300px',
+
+                                borderRadius: '8px',
+                                padding: '10px 12px',
+                                fontSize: '14px',
+                                color: '#b8c5d1',
+                                minHeight: '40px'
+                            }}>
+                                <strong>Explanation:</strong><br />
+                                {steps[currentStep]?.pseudoLine !== null
+                                    ? ALGORITHM_PSEUDOCODE[algorithm][steps[currentStep]?.pseudoLine]?.explain
+                                    : 'Algorithm finished!'}
                             </div>
                         </div>
                     </div>
@@ -825,22 +944,40 @@ const Sorting = () => {
 
 
             {/* Controls Section & Record-Export section */}
-            <div className="controls-section">
-                <div className="controls-main-wrapper">
+            <div className="controls-section" style={{
+                width: '100%',
+                textAlign: 'center'
+            }}> 
+                <div style={{ display: 'flex', gap: '30px', alignItems: 'center',flexDirection:'column', flexWrap: 'wrap', marginBottom: '20px', justifyContent: 'center' }}>
 
                     {/* controls section  */}
-                    <div className="control-buttons-container">
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '20px'
+                    }}>
                         <button className="btn" onClick={handleSort} disabled={isSorting}>
                             {isSorting ? (
-                                <div className="button-content-flex">
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '10px'
+                                }}>
                                     {/* Loading/Sorting icon */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor" className="spin-animation">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor" style={{ animation: 'spin 1s linear infinite' }}>
                                         <path d="M3.05469 13H5.07065C5.55588 16.3923 8.47329 19 11.9998 19C15.5262 19 18.4436 16.3923 18.9289 13H20.9448C20.4474 17.5 16.6323 21 11.9998 21C7.36721 21 3.55213 17.5 3.05469 13ZM3.05469 11C3.55213 6.50005 7.36721 3 11.9998 3C16.6323 3 20.4474 6.50005 20.9448 11H18.9289C18.4436 7.60771 15.5262 5 11.9998 5C8.47329 5 5.55588 7.60771 5.07065 11H3.05469Z" />
                                     </svg>
                                     Sorting...
                                 </div>
                             ) : (
-                                <div className="button-content-flex">
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '10px'
+                                }}>
                                     {/* Play/Start icon */}
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M8 18.3915V5.60846L18.2264 12L8 18.3915ZM6 3.80421V20.1957C6 20.9812 6.86395 21.46 7.53 21.0437L20.6432 12.848C21.2699 12.4563 21.2699 11.5436 20.6432 11.152L7.53 2.95621C6.86395 2.53993 6 3.01878 6 3.80421Z"></path></svg>
                                     Start Sort
@@ -864,8 +1001,17 @@ const Sorting = () => {
 
                     {/* ArraySize bar  */}
 
-                    <div className="controls-slider-grid">
-                        <div className="slider-control-item">
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                        gap: '50px',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        maxWidth: '1000px',
+                        margin: '0 auto'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <label className="label">Array Size:</label>
                             <input
                                 type="range"
@@ -874,18 +1020,28 @@ const Sorting = () => {
                                 value={arraySize}
                                 onChange={(e) => setArraySize(parseInt(e.target.value))}
                                 disabled={isSorting}
-                                className="input range-slider"
+                                className="input"
+                                style={{ width: '120px' }}
                             />
-                            <span className="control-value-display">
+                            <span style={{
+                                color: '#66ccff',
+                                fontWeight: '600',
+                                minWidth: '30px',
+                                textAlign: 'center'
+                            }}>
                                 {arraySize}
                             </span>
-                            <span className="control-helper-text">
+                            <span style={{
+                                fontSize: '11px',
+                                color: '#b8c5d1',
+                                marginLeft: '5px'
+                            }}>
                                 {arraySize <= 15 ? '(with indices)' : arraySize <= 25 ? '(with values)' : '(bars only)'}
                             </span>
                         </div>
 
                         {/* Speed bar */}
-                        <div className="slider-control-item">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <label className="label">Speed:</label>
                             <input
                                 type="range"
@@ -894,12 +1050,22 @@ const Sorting = () => {
                                 value={delay}
                                 onChange={(e) => setDelay(parseInt(e.target.value))}
                                 disabled={isSorting}
-                                className="input range-slider"
+                                className="input"
+                                style={{ width: '120px' }}
                             />
-                            <span className="control-value-speed-display">
+                            <span style={{
+                                color: '#66ccff',
+                                fontWeight: '600',
+                                minWidth: '50px',
+                                textAlign: 'center'
+                            }}>
                                 {delay}ms
                             </span>
-                            <span className="control-helper-text">
+                            <span style={{
+                                fontSize: '11px',
+                                color: '#b8c5d1',
+                                marginLeft: '5px'
+                            }}>
                                 {delay < 50 ? '(very fast)' : delay < 150 ? '(fast)' : delay < 300 ? '(normal)' : '(slow)'}
                             </span>
                         </div>
@@ -913,32 +1079,65 @@ const Sorting = () => {
 
 
             {/* Performance Statistics Section */}
-            <div className="performance-stats-section">
-                <h3 className="performance-stats-title">
+            <div className="controls-section" style={{
+                width: '100%',
+                textAlign: 'center'
+            }}>
+                <h3 style={{ color: '#66ccff', marginBottom: '15px', fontFamily: 'Poppins, sans-serif', textAlign: 'center' }}>
                     Performance Statistics
                 </h3>
-                <div className="performance-stats-container">
-                    <div className="performance-card performance-card-comparisons">
-                        <div className="performance-card-label performance-label-comparisons">Comparisons</div>
-                        <div className="performance-card-value">
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                    gap: '15px',
+                    marginBottom: '20px',
+                    justifyContent: 'center'
+                }}>
+                    <div style={{
+                        background: 'rgba(102, 204, 255, 0.1)',
+                        padding: '15px',
+                        borderRadius: '10px',
+                        border: '1px solid rgba(102, 204, 255, 0.3)',
+                        textAlign: 'center'
+                    }}>
+                        <div style={{ color: '#66ccff', fontSize: '14px', marginBottom: '5px' }}>Comparisons</div>
+                        <div style={{ color: '#e0e6ed', fontSize: '20px', fontWeight: 'bold' }}>
                             {statistics.comparisons}
                         </div>
                     </div>
-                    <div className="performance-card performance-card-swaps">
-                        <div className="performance-card-label performance-label-swaps">Swaps</div>
-                        <div className="performance-card-value">
+                    <div style={{
+                        background: 'rgba(255, 215, 61, 0.1)',
+                        padding: '15px',
+                        borderRadius: '10px',
+                        border: '1px solid rgba(255, 215, 61, 0.3)',
+                        textAlign: 'center'
+                    }}>
+                        <div style={{ color: '#ffd93d', fontSize: '14px', marginBottom: '5px' }}>Swaps</div>
+                        <div style={{ color: '#e0e6ed', fontSize: '20px', fontWeight: 'bold' }}>
                             {statistics.swaps}
                         </div>
                     </div>
-                    <div className="performance-card performance-card-time">
-                        <div className="performance-card-label performance-label-time">Time</div>
-                        <div className="performance-card-value">
+                    <div style={{
+                        background: 'rgba(74, 222, 128, 0.1)',
+                        padding: '15px',
+                        borderRadius: '10px',
+                        border: '1px solid rgba(74, 222, 128, 0.3)',
+                        textAlign: 'center'
+                    }}>
+                        <div style={{ color: '#4ade80', fontSize: '14px', marginBottom: '5px' }}>Time</div>
+                        <div style={{ color: '#e0e6ed', fontSize: '20px', fontWeight: 'bold' }}>
                             {statistics.time}ms
                         </div>
                     </div>
-                    <div className="performance-card performance-card-array-size">
-                        <div className="performance-card-label performance-label-array-size">Array Size</div>
-                        <div className="performance-card-value">
+                    <div style={{
+                        background: 'rgba(255, 107, 107, 0.1)',
+                        padding: '15px',
+                        borderRadius: '10px',
+                        border: '1px solid rgba(255, 107, 107, 0.3)',
+                        textAlign: 'center'
+                    }}>
+                        <div style={{ color: '#ff6b6b', fontSize: '14px', marginBottom: '5px' }}>Array Size</div>
+                        <div style={{ color: '#e0e6ed', fontSize: '20px', fontWeight: 'bold' }}>
                             {arraySize}
                         </div>
                     </div>
