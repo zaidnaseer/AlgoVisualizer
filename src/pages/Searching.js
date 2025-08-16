@@ -6,7 +6,7 @@ import { jumpSearch } from '../algorithms/jumpSearch';
 import CodeExplanation from '../components/CodeExplanation';
 import ExportControls from '../components/ExportControls';
 import { useVisualizationExport } from '../hooks/useVisualizationExport';
-import '../styles/App.css'; // Import the merged CSS file
+import '../styles/Searching.css'; // Import the merged CSS file
 
 const Searching = () => {
     const [array, setArray] = useState([]);
@@ -89,36 +89,36 @@ const Searching = () => {
                 <button
                     className="searching-button"
                     onClick={() => setAlgorithm('binarySearch')}
-                    style={{
-                        backgroundColor: algorithm === 'binarySearch' ? 'lightblue' : 'white',
-                    }}
+                    // style={{
+                    //     backgroundColor: algorithm === 'binarySearch' ? 'lightblue' : 'white',
+                    // }}
                 >
                     Binary Search
                 </button>
                 <button
                     className="searching-button"
                     onClick={() => setAlgorithm('linearSearch')}
-                    style={{
-                        backgroundColor: algorithm === 'linearSearch' ? 'lightblue' : 'white',
-                    }}
+                    // style={{
+                    //     backgroundColor: algorithm === 'linearSearch' ? 'lightblue' : 'white',
+                    // }}
                 >
                     Linear Search
                 </button>
                 <button
                     className="searching-button"
                     onClick={() => setAlgorithm('jumpSearch')}
-                    style={{
-                        backgroundColor: algorithm === 'jumpSearch' ? 'lightblue' : 'white',
-                    }}
+                    // style={{
+                    //     backgroundColor: algorithm === 'jumpSearch' ? 'lightblue' : 'white',
+                    // }}
                 >
                     Jump Search
                 </button>
                 <button
                     className="searching-button"
                     onClick={() => setAlgorithm('exponentialSearch')}
-                    style={{
-                        backgroundColor: algorithm === 'exponentialSearch' ? 'lightblue' : 'white',
-                    }}
+                    // style={{
+                    //     backgroundColor: algorithm === 'exponentialSearch' ? 'lightblue' : 'white',
+                    // }}
                 >
                     Exponential Search
                 </button>
@@ -128,7 +128,7 @@ const Searching = () => {
                     <div
                         key={idx}
                         className="searching-array-bar"
-                        style={{ backgroundColor: colorArray[idx] }}
+                        // style={{ backgroundColor: colorArray[idx] }}
                     >
                         {num}
                     </div>
@@ -152,19 +152,19 @@ const Searching = () => {
                     algorithm === 'jumpSearch' ? 'Jump Search' : 'Exponential Search'} works step by step
                 </p>
                 <button 
-                    className="searching-button"
+                    className="explanation-button"
                     onClick={() => setShowCodeExplanation(true)}
-                    style={{ 
-                        background: 'linear-gradient(45deg, #ffd93d, #ffb347)',
-                        color: '#1a1a2e',
-                        border: 'none',
-                        padding: '12px 25px',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        fontSize: '16px',
-                        transition: 'all 0.3s ease'
-                    }}
+                    // style={{ 
+                    //     background: 'linear-gradient(45deg, #ffd93d, #ffb347)',
+                    //     color: '#1a1a2e',
+                    //     border: 'none',
+                    //     padding: '12px 25px',
+                    //     borderRadius: '8px',
+                    //     cursor: 'pointer',
+                    //     fontWeight: '600',
+                    //     fontSize: '16px',
+                    //     transition: 'all 0.3s ease'
+                    // }}
                 >
                     📖 View Code Explanation
                 </button>
