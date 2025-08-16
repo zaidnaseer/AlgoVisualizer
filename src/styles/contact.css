@@ -1,12 +1,50 @@
-.contact h1{
+/* =========================
+   Light/Dark Mode Variables
+========================= */
+:root {
+    --bg-color: #0a0a1a;
+    --text-color: #e0e6ed;
+    --accent-color: rgb(8, 179, 231);
+    --btn-bg: rgb(8, 179, 231);
+    --btn-text: #fff;
+    --input-bg: #1d2230;
+    --input-text: #e0e6ed;
+}
+
+[data-theme="light"] {
+    --bg-color: #f6f0d6;
+    --text-color: #1a1a1a;
+    --accent-color: #0077cc;
+    --btn-bg: #0077cc;
+    --btn-text: #fff;
+    --input-bg: #ffffff;
+    --input-text: #000000;
+}
+
+/* =========================
+   Base Styles
+========================= */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+
+/* =========================
+   Contact Section
+========================= */
+.contact h1 {
     text-align: center;
     margin-top: 20px;
     font-size: 2.5rem;
 }
-.contact{
+
+.contact {
     margin-bottom: 50px;
 }
-.contact p{
+
+.contact p {
     text-align: center;
     font-size: 1.2rem;
     margin-top: 10px;
@@ -15,73 +53,146 @@
     margin-right: auto;
 }
 
-.contact h3{
+.contact h3 {
     text-align: center;
     margin-top: 30px;
     font-size: 1.8rem;
 }
-.links p{
+
+.links p {
     margin-top: 30px;
 }
 
-.connection{
-    margin-top: 50px;
-    text-align: center;
-}
-.connection input{
-    width: 30%;
-    height: 40px;
-    margin-top: 17px;
-    border: 0.5px solid rgb(8, 179, 231) !important;
-    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
-    font-size: 15px;
-    padding-left: 10px;
-    border-radius: 5px;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-
-}
-.connection label{
-    font-size: 1.2rem;
-    color: rgb(8, 179, 231);
-    margin-right: 10px;
-    margin-top: 20px;
-    display: inline-block;
-}
-.connection textarea{
-    width: 28%;
-    height: 100px;
-    margin-top: 17px;
-    border: 0.5px solid rgb(8, 179, 231) !important;
-    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
-    font-size: 20px;
-    padding-left: 10px;
-    padding-top: 70px;
-    border-radius: 5px;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-}
-button{
-    width : 100px;
-    height: 35px;
-    margin-top: 17px;
-    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
-    border-radius: 5px;
-    border: none;
-    background-color: rgb(8, 179, 231);
-    color: white;
-    font-size: 1rem;
-    transition: all 0.3s ease-in-out;
-
-}
-
-.social-icons a{
-    margin-top: 10px;
-    margin-left: 5px;
-    font-size: large;
-}
-.links h4{
+.links h4 {
     text-align: center;
     margin-top: 50px;
     font-size: 1.5rem;
+}
+
+.connection {
+    margin-top: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* =========================
+   Inputs & Textarea
+========================= */
+.connection input,
+.connection textarea {
+    width: 80%;
+    max-width: 500px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-color);
+    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
+    outline: none;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.connection input:focus,
+.connection textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 8px rgba(8, 179, 231, 0.7);
+}
+
+.connection label {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-right: 10px;
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* =========================
+   Button Styling
+========================= */
+button {
+    padding: 10px 25px;
+    min-width: 120px;
+    height: auto;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(8, 179, 231, 0.6);
+}
+
+button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* =========================
+   Social Icons
+========================= */
+.social-icons a {
+    margin-top: 10px;
+    margin-left: 5px;
+    font-size: large;
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-2px);
+    color: var(--btn-bg);
+}
+
+/* =========================
+   Mobile Responsiveness
+========================= */
+@media (max-width: 768px) {
+    .connection input,
+    .connection textarea,
+    button {
+        width: 90%;
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact h1 {
+        font-size: 2rem;
+    }
+
+    .contact h3 {
+        font-size: 1.5rem;
+    }
+
+    .links h4 {
+        font-size: 1.2rem;
+    }
+
+    .connection input,
+    .connection textarea,
+    button {
+        width: 95%;
+        font-size: 14px;
+        padding: 8px 12px;
+    }
 }

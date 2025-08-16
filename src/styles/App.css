@@ -1,97 +1,189 @@
+/* =========================
+   Light/Dark Mode Variables
+========================= */
+:root {
+    --bg-color: #0a0a1a;
+    --text-color: #e0e6ed;
+    --btn-bg: #61dafb;
+    --btn-text: #000;
+    --btn-hover-bg: #4fc3f7;
+    --btn-hover-text: #000;
+    --input-bg: rgba(255,255,255,0.1);
+    --input-text: #e0e6ed;
+    --array-bar-color: #61dafb;
+}
+
+[data-theme="light"] {
+    --bg-color: #f6f0d6;
+    --text-color: #1a1a1a;
+    --btn-bg: #0077cc;
+    --btn-text: #fff;
+    --btn-hover-bg: #005fa3;
+    --btn-hover-text: #fff;
+    --input-bg: #fff;
+    --input-text: #1a1a1a;
+    --array-bar-color: #0077cc;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0a0a1a;
+    --text-color: #e0e6ed;
+    --btn-bg: #61dafb;
+    --btn-text: #000;
+    --btn-hover-bg: #4fc3f7;
+    --btn-hover-text: #000;
+    --input-bg: rgba(255,255,255,0.1);
+    --input-text: #e0e6ed;
+    --array-bar-color: #61dafb;
+}
+
+/* =========================
+   Base Styles
+========================= */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-    color: #e0e6ed;
+    background: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
     overflow-y: scroll;
     min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Searching Component Styles */
 .searching-container {
     text-align: center;
     padding: 20px;
 }
 
-.searching-controls {
-    margin-top: 20px;
-}
-
-.searching-button {
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 16px;
-    border-radius: 10px; /* Rounded edges */
-    cursor: pointer;
-    color: black; /* Ensure button text is black */
-}
-
-.searching-button:disabled {
-    background-color: grey;
-    cursor: not-allowed;
-}
-
+.searching-controls,
 .searching-algorithm-selection {
     margin-top: 20px;
 }
 
-.searching-array-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 100px;
-    margin-top: 10px;
-}
-
-.searching-array-bar {
-    width: 30px;
-    margin: 0 2px;
-    background-color: #61dafb;
-    text-align: center;
-    color: rgb(39, 38, 38);
-}
-
-/* Sorting Component Styles */
-.sorting-container {
-    text-align: center;
-    padding: 20px;
-}
-
-.sorting-controls {
-    margin-top: 20px;
-}
-
+/* =========================
+   Buttons - Standardized
+========================= */
+.searching-button,
 .sorting-button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     margin: 5px;
     font-size: 16px;
-    border-radius: 10px; /* Rounded edges */
+    border-radius: 10px;
     cursor: pointer;
-    color: black; /* Ensure button text is black */
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: auto;
+    width: auto;
+    white-space: nowrap;
+    box-sizing: border-box;
 }
 
+.searching-button:hover:not(:disabled),
+.sorting-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background-color: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+}
+
+.searching-button:disabled,
 .sorting-button:disabled {
     background-color: grey;
+    color: #f1f1f1;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
-.sorting-algorithm-selection {
-    margin-top: 20px;
+/* =========================
+   Input Fields
+========================= */
+.searching-input,
+.sorting-input,
+.searching-select,
+.sorting-select {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
+.searching-input:focus,
+.sorting-input:focus,
+.searching-select:focus,
+.sorting-select:focus {
+    border-color: var(--btn-bg);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* =========================
+   Array Bars
+========================= */
+.searching-array-container,
 .sorting-array-container {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 100px;
-    margin-top: 10px;
+    height: 120px;
+    margin-top: 15px;
+    gap: 2px;
 }
 
+.searching-array-bar,
 .sorting-array-bar {
     width: 30px;
-    margin: 0 2px;
-    background-color: #61dafb;
+    background-color: var(--array-bar-color);
     text-align: center;
-    color: rgb(39, 38, 38);
+    color: var(--text-color);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* =========================
+   Animation / Performance
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0 !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0 !important;
+    }
+}
+
+/* =========================
+   Mobile Responsiveness
+========================= */
+@media (max-width: 768px) {
+    .searching-button,
+    .sorting-button {
+        padding: 10px 18px;
+        font-size: 14px;
+        width: auto;
+    }
+
+    .searching-input,
+    .sorting-input,
+    .searching-select,
+    .sorting-select {
+        font-size: 14px;
+        padding: 8px 12px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .searching-array-bar,
+    .sorting-array-bar {
+        width: 20px;
+    }
 }

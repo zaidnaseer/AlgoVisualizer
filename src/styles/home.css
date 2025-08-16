@@ -12,8 +12,23 @@
     --card-border: rgba(102, 204, 255, 0.1);
     --stat-bg: rgba(102, 204, 255, 0.1);
     --hover-bg: rgba(255, 255, 255, 0.05);
+
+    /* Standardized button and input styles */
+    --btn-bg: transparent;
+    --btn-border-radius: 50px;
+    --btn-padding: 15px 30px;
+    --btn-font-size: 1.1em;
+    --btn-font-weight: 600;
+    --btn-transition: all 0.3s ease;
+    --input-bg: var(--card-bg);
+    --input-border: 1px solid var(--card-border);
+    --input-padding: 12px 16px;
+    --input-border-radius: 12px;
+    --input-font-size: 1em;
+    --input-transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Light mode overrides */
 [data-theme="light"] {
     --bg-color: #f6f0d6;
     --text-color: #1a1a1a;
@@ -25,6 +40,20 @@
     --card-border: rgba(0, 0, 0, 0.1);
     --stat-bg: rgba(0, 119, 204, 0.1);
     --hover-bg: rgba(0, 0, 0, 0.05);
+
+    /* Standardized button and input styles for light */
+    --btn-bg: transparent;
+    --btn-border-radius: 50px;
+    --btn-padding: 15px 30px;
+    --btn-font-size: 1.1em;
+    --btn-font-weight: 600;
+    --btn-transition: all 0.3s ease;
+    --input-bg: var(--card-bg);
+    --input-border: 1px solid var(--card-border);
+    --input-padding: 12px 16px;
+    --input-border-radius: 12px;
+    --input-font-size: 1em;
+    --input-transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* =========================
@@ -33,6 +62,10 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
 }
 
 /* Home Container */
@@ -40,6 +73,154 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+/* =========================
+   Buttons - Standardized All Buttons
+========================= */
+/* =========================
+   Buttons - Modernized Look
+========================= */
+button,
+button[type="submit"],
+input[type="button"],
+input[type="submit"],
+.cta-primary,
+.cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: var(--btn-padding);
+    border-radius: var(--btn-border-radius);
+    font-weight: var(--btn-font-weight);
+    font-size: var(--btn-font-size);
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--btn-bg);
+    color: var(--text-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+}
+
+/* Primary Button */
+
+.cta-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #ffffff; /* Always white text for contrast */
+    border-color: transparent;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+
+.cta-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.cta-primary:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Secondary Button */
+.cta-secondary {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.cta-secondary:hover {
+    background: rgba(102,204,255,0.1);
+    color: var(--text-color);
+    transform: translateY(-2px);
+    border-color: var(--secondary-color);
+    box-shadow: 0 6px 15px rgba(102,204,255,0.2);
+}
+
+.cta-secondary:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: 0 3px 8px rgba(102,204,255,0.15);
+}
+
+/* Disabled Buttons */
+button:disabled,
+.cta-primary:disabled,
+.cta-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* =========================
+   Inputs - Standardized All Inputs
+========================= */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+textarea,
+select {
+    background: var(--input-bg);
+    border: var(--input-border);
+    border-radius: var(--input-border-radius);
+    padding: var(--input-padding);
+    font-size: var(--input-font-size);
+    color: var(--text-color);
+    transition: var(--input-transition);
+    outline-offset: 2px;
+    outline-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    resize: vertical;
+}
+
+/* Focus state for inputs */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px var(--primary-color);
+    outline-color: var(--primary-color);
+}
+
+/* Disabled input states */
+input[disabled],
+textarea[disabled],
+select[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--hover-bg);
+}
+
+/* Consistent margin and placement for buttons and inputs */
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+/* Label styling for form fields */
+label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: var(--subtext-color);
 }
 
 /* =========================
@@ -54,6 +235,8 @@ body {
     padding: 120px 0 80px 0;
     position: relative;
     overflow: hidden;
+    scroll-behavior: smooth;
+    will-change: transform, opacity;
 }
 
 .hero-content {
@@ -71,6 +254,7 @@ body {
     font-weight: 500;
     margin-bottom: 30px;
     animation: pulse 2s ease-in-out infinite alternate;
+    will-change: box-shadow;
 }
 
 @keyframes pulse {
@@ -85,6 +269,7 @@ body {
     color: var(--text-color);
     margin-bottom: 20px;
     line-height: 1.1;
+    will-change: transform;
 }
 
 .hero-title .highlight {
@@ -129,38 +314,7 @@ body {
 }
 
 .cta-primary, .cta-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 1.1em;
-    border: 2px solid transparent;
-}
-
-.cta-primary {
-    background: transparent;
-    color: var(--text-color);
-    border-color: var(--primary-color);
-}
-
-.cta-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(60, 97, 115, 0.4);
-    background: linear-gradient(45deg, var(--bg-color), var(--bg-color));
-}
-
-.cta-secondary {
-    background: transparent;
-    border-color: var(--primary-color);
-}
-
-.cta-secondary:hover {
-    background: linear-gradient(45deg, var(--bg-color), var(--bg-color));
-    transform: translateY(-2px);
+    user-select: none;
 }
 
 /* Algorithm Showcase */
@@ -169,6 +323,7 @@ body {
     align-items: center;
     gap: 10px;
     font-size: 0.95em;
+    will-change: transform;
 }
 
 .showcase-label {
@@ -191,6 +346,7 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    will-change: transform;
 }
 
 .floating-bars {
@@ -198,6 +354,7 @@ body {
     align-items: flex-end;
     gap: 8px;
     height: 300px;
+    will-change: transform;
 }
 
 .bar {
@@ -206,11 +363,13 @@ body {
     border-radius: 4px 4px 0 0;
     animation: float 3s ease-in-out infinite;
     box-shadow: 0 4px 15px rgba(102, 204, 255, 0.3);
+    will-change: transform;
 }
 
+/* Improved animation using transform only for performance */
 @keyframes float {
     0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(1.2); }
+    50% { transform: scaleY(1.15); }
 }
 
 /* =========================
@@ -249,6 +408,7 @@ body {
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
+    will-change: transform, box-shadow;
 }
 
 .quick-card::before {
@@ -261,6 +421,7 @@ body {
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     transform: scaleX(0);
     transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .quick-card:hover {
@@ -347,6 +508,7 @@ body {
     color: var(--primary-color);
     font-weight: 600;
     font-size: 1.1em;
+    transition: color 0.3s ease;
 }
 
 .card-action span {
@@ -409,6 +571,7 @@ body {
     font-size: 2em;
     margin: 0 auto;
     transition: all 0.3s ease;
+    will-change: transform, border-color, background;
 }
 
 .feature-item:hover .icon-bg {
@@ -439,6 +602,7 @@ body {
     border-radius: 20px;
     position: relative;
     overflow: hidden;
+    will-change: background;
 }
 
 .export-features-section::before {
@@ -475,6 +639,7 @@ body {
     border-radius: 20px;
     padding: 40px 30px;
     transition: all 0.3s ease;
+    will-change: transform, box-shadow, border-color;
 }
 
 .stat-card:hover {
@@ -543,8 +708,24 @@ body {
     flex-wrap: wrap;
 }
 
+/* =========================
+   Animation performance optimizations
+========================= */
+/* Reduced animation paint by restricting animations to GPU composited properties only */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0 !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0 !important;
+        scroll-behavior: auto !important;
+    }
+}
 
-/* Mobile Responsiveness */
+/* Will-change usage already added to key animated elements for GPU acceleration */
+
+/* =========================
+   Mobile Responsiveness
+========================= */
 @media (max-width: 1024px) {
     .hero-section {
         grid-template-columns: 1fr;
@@ -612,7 +793,8 @@ body {
         gap: 15px;
     }
     
-    .cta-primary, .cta-secondary {
+    .cta-primary,
+    .cta-secondary {
         width: 100%;
         max-width: 300px;
         justify-content: center;
@@ -642,6 +824,10 @@ body {
         text-align: center;
     }
 }
+
+/* =========================
+   Quick Card Documentation Variant
+========================= */
 .quick-card.documentation {
     background: linear-gradient(135deg, rgba(255, 215, 61, 0.1) 0%, rgba(255, 179, 71, 0.05) 100%);
     border: 1px solid rgba(255, 215, 61, 0.2);

@@ -1,366 +1,233 @@
-/* Export Controls Styles */
+/* Export Controls Styles with Dark/Light Theme Support */
+
+/* Theme Variables */
+:root {
+  --bg-color: #ffffff;
+  --panel-bg: #ffffff;
+  --panel-border: #667eea;
+  --text-color: #2c3e50;
+  --label-color: #2c3e50;
+  --select-bg: #ffffff;
+  --btn-primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --btn-start-bg: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  --btn-stop-bg: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
+  --btn-snapshot-bg: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+  --btn-capture-bg: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  --btn-text: #fff;
+  --info-bg: #f8f9fa;
+  --info-border-left: #667eea;
+  --info-border: #e9ecef;
+}
+
+[data-theme='dark'] {
+  --bg-color: #1a1a2e;
+  --panel-bg: #2c3e50;
+  --panel-border: #667eea;
+  --text-color: #ecf0f1;
+  --label-color: #bdc3c7;
+  --select-bg: #34495e;
+  --btn-primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --btn-start-bg: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  --btn-stop-bg: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
+  --btn-snapshot-bg: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+  --btn-capture-bg: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  --btn-text: #fff;
+  --info-bg: #34495e;
+  --info-border-left: #667eea;
+  --info-border: #4a5f7a;
+}
+
+/* Export Controls Layout */
 .export-controls {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
+  position: relative;
+  display: inline-block;
+  margin: 10px;
 }
 
 .export-controls * {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    filter: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
 }
 
-.export-toggle-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+/* Buttons */
+.export-toggle-btn,
+.start-recording-btn,
+.stop-recording-btn,
+.snapshot-btn,
+.capture-frame-btn {
+  color: var(--btn-text);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  min-width: 120px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.export-toggle-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
+.export-toggle-btn { background: var(--btn-primary-bg); }
+.start-recording-btn { background: var(--btn-start-bg); margin-right: 10px; }
+.stop-recording-btn { background: var(--btn-stop-bg); }
+.snapshot-btn { background: var(--btn-snapshot-bg); }
+.capture-frame-btn { background: var(--btn-capture-bg); }
 
-.export-panel {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: #ffffff !important;
-    border: 2px solid #667eea;
-    border-radius: 12px;
-    padding: 20px;
-    min-width: 320px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    z-index: 9999;
-    margin-top: 10px;
-    backdrop-filter: none !important;
-    filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}
-
-.export-panel h3 {
-    margin: 0 0 15px 0;
-    color: #2c3e50 !important;
-    font-size: 18px;
-    font-weight: 700;
-    text-shadow: none !important;
-    filter: none !important;
-}
-
-.export-options {
-    margin-bottom: 20px;
-}
-
-.option-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.option-group label {
-    font-weight: 600;
-    color: #2c3e50 !important;
-    font-size: 14px;
-    text-shadow: none !important;
-    filter: none !important;
-}
-
-.option-group select {
-    padding: 8px 12px;
-    border: 2px solid #667eea;
-    border-radius: 6px;
-    background: #ffffff !important;
-    font-size: 14px;
-    min-width: 140px;
-    color: #2c3e50 !important;
-    font-weight: 500;
-    filter: none !important;
-}
-
-.export-actions {
-    margin-bottom: 15px;
-}
-
-.start-recording-btn {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    margin-right: 10px;
-    transition: all 0.3s ease;
-}
-
-.start-recording-btn:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+.export-toggle-btn:hover,
+.start-recording-btn:hover:not(:disabled),
+.stop-recording-btn:hover,
+.snapshot-btn:hover,
+.capture-frame-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .start-recording-btn:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-.snapshot-btn {
-    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
+/* Panel */
+.export-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--panel-bg) !important;
+  border: 2px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 320px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  margin-top: 10px;
 }
 
-.snapshot-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+/* Headings & Labels */
+.export-panel h3,
+.option-group label {
+  color: var(--label-color) !important;
+  font-weight: 600;
+  font-size: 14px;
 }
 
-.recording-controls {
-    display: flex;
-    gap: 10px;
+/* Select Options */
+.option-group select {
+  padding: 8px 12px;
+  border: 2px solid var(--panel-border);
+  border-radius: 6px;
+  background: var(--select-bg) !important;
+  color: var(--text-color) !important;
+  font-weight: 500;
+  min-width: 140px;
 }
 
-.stop-recording-btn {
-    background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.stop-recording-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(255, 118, 117, 0.3);
-}
-
-.capture-frame-btn {
-    background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.capture-frame-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(253, 203, 110, 0.3);
-}
-
+/* Recording Status */
 .recording-status {
-    background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
-    color: white;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    text-align: center;
+  background: var(--btn-stop-bg);
+  color: var(--btn-text);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .recording-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
 .recording-dot {
-    width: 12px;
-    height: 12px;
-    background: #ff4757;
-    border-radius: 50%;
-    margin-right: 8px;
-    animation: pulse 1.5s infinite;
+  width: 12px;
+  height: 12px;
+  background: #ff4757;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(1.1);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
 }
 
-.recording-duration {
-    font-size: 12px;
-    opacity: 0.9;
-}
+.recording-duration { font-size: 12px; opacity: 0.9; }
 
+/* Export Info */
 .export-info {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    border-left: 4px solid #667eea;
-    border: 2px solid #e9ecef;
+  background: var(--info-bg);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid var(--info-border-left);
+  border: 2px solid var(--info-border);
 }
 
 .export-info h4 {
-    margin: 0 0 10px 0;
-    color: #2c3e50;
-    font-size: 16px;
-    font-weight: 700;
-    text-shadow: none;
+  margin: 0 0 10px 0;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .export-info ul {
-    margin: 0;
-    padding-left: 15px;
-    font-size: 13px;
-    color: #495057;
-    line-height: 1.6;
-    font-weight: 500;
+  margin: 0;
+  padding-left: 15px;
+  font-size: 13px;
+  color: var(--text-color);
+  line-height: 1.6;
+  font-weight: 500;
 }
 
-.export-info li {
-    margin-bottom: 5px;
-}
+.export-info li { margin-bottom: 5px; }
+.export-info strong { font-weight: 700; color: var(--text-color); }
 
-.export-info strong {
-    color: #2c3e50;
-    font-weight: 700;
-}
-
-/* Responsive design */
+/* Responsive */
 @media (max-width: 768px) {
-    .export-panel {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        right: auto;
-        width: 90%;
-        max-width: 350px;
-        max-height: 80vh;
-        overflow-y: auto;
-        background: #ffffff !important;
-        backdrop-filter: none !important;
-        filter: none !important;
-    }
-    
-    .export-panel::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: -1;
-        backdrop-filter: none !important;
-        filter: none !important;
-    }
+  .export-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 350px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .export-panel::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+  }
+
+  .export-toggle-btn,
+  .start-recording-btn,
+  .stop-recording-btn,
+  .snapshot-btn,
+  .capture-frame-btn {
+    width: 100%;
+    font-size: 0.95em;
+  }
 }
 
-/* Dark theme support */
-@media (prefers-color-scheme: dark) {
-    .export-panel {
-        background: #2c3e50 !important;
-        border-color: #667eea;
-        color: white;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        backdrop-filter: none !important;
-        filter: none !important;
-    }
-    
-    .export-panel h3 {
-        color: #ecf0f1 !important;
-        text-shadow: none !important;
-        filter: none !important;
-    }
-    
-    .option-group label {
-        color: #bdc3c7 !important;
-        font-weight: 600;
-        filter: none !important;
-    }
-    
-    .option-group select {
-        background: #34495e !important;
-        border-color: #667eea;
-        color: #ecf0f1 !important;
-        font-weight: 500;
-        filter: none !important;
-    }
-    
-    .export-info {
-        background: #34495e !important;
-        border-left-color: #667eea;
-        border-color: #4a5f7a;
-        filter: none !important;
-    }
-    
-    .export-info h4 {
-        color: #ecf0f1 !important;
-        font-weight: 700;
-        filter: none !important;
-    }
-    
-    .export-info li {
-        color: #95a5a6 !important;
-        font-weight: 500;
-        filter: none !important;
-    }
-    
-    .export-info strong {
-        color: #ecf0f1 !important;
-        font-weight: 700;
-        filter: none !important;
-    }
-}
-
-/* Override any potential blur effects */
-.export-controls,
-.export-controls *,
-.export-panel,
-.export-panel *,
-.export-panel h3,
-.export-panel label,
-.export-panel select,
-.export-panel div,
-.export-panel p,
-.export-panel span,
-.export-panel strong,
-.export-panel li,
-.export-panel ul {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    filter: none !important;
-    -webkit-filter: none !important;
-    text-shadow: none !important;
-    box-shadow: none !important;
-}
-
-.export-panel {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+/* Ensure no blur/filter issues globally */
+.export-controls, .export-controls *, .export-panel, .export-panel * {
+  backdrop-filter: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
 }
