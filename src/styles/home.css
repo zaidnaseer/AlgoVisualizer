@@ -296,7 +296,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--card-border);
+    border: 1px solid var(--card-border);   
 }
 
 .card-stats {
@@ -648,3 +648,9 @@ body {
         text-align: center;
     }
 }
+.quick-card,
+.quick-card * {
+  text-decoration: none !important;
+}
+
+
