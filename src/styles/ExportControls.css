@@ -1,233 +1,229 @@
-/* Export Controls Styles with Dark/Light Theme Support */
-
-/* Theme Variables */
+/* =========================
+   Light/Dark Mode Variables
+========================= */
 :root {
-  --bg-color: #ffffff;
-  --panel-bg: #ffffff;
-  --panel-border: #667eea;
-  --text-color: #2c3e50;
-  --label-color: #2c3e50;
-  --select-bg: #ffffff;
-  --btn-primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --btn-start-bg: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-  --btn-stop-bg: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
-  --btn-snapshot-bg: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-  --btn-capture-bg: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
-  --btn-text: #fff;
-  --info-bg: #f8f9fa;
-  --info-border-left: #667eea;
-  --info-border: #e9ecef;
+    --btn-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --btn-text: #fff;
+    --btn-hover-bg: linear-gradient(135deg, #5562d4 0%, #623a92 100%);
+    --panel-bg: #ffffff;
+    --panel-text: #2c3e50;
+    --panel-border: #667eea;
+    --select-bg: #ffffff;
+    --select-text: #2c3e50;
+    --info-bg: #f8f9fa;
+    --info-border: #667eea;
+    --info-text: #495057;
 }
 
-[data-theme='dark'] {
-  --bg-color: #1a1a2e;
-  --panel-bg: #2c3e50;
-  --panel-border: #667eea;
-  --text-color: #ecf0f1;
-  --label-color: #bdc3c7;
-  --select-bg: #34495e;
-  --btn-primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --btn-start-bg: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-  --btn-stop-bg: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
-  --btn-snapshot-bg: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-  --btn-capture-bg: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
-  --btn-text: #fff;
-  --info-bg: #34495e;
-  --info-border-left: #667eea;
-  --info-border: #4a5f7a;
+[data-theme="light"] {
+    --btn-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --btn-text: #fff;
+    --btn-hover-bg: linear-gradient(135deg, #5562d4 0%, #623a92 100%);
+    --panel-bg: #ffffff;
+    --panel-text: #2c3e50;
+    --panel-border: #667eea;
+    --select-bg: #ffffff;
+    --select-text: #2c3e50;
+    --info-bg: #f8f9fa;
+    --info-border: #667eea;
+    --info-text: #495057;
 }
 
-/* Export Controls Layout */
+[data-theme="dark"] {
+    --btn-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --btn-text: #fff;
+    --btn-hover-bg: linear-gradient(135deg, #5562d4 0%, #623a92 100%);
+    --panel-bg: #2c3e50;
+    --panel-text: #ecf0f1;
+    --panel-border: #667eea;
+    --select-bg: #34495e;
+    --select-text: #ecf0f1;
+    --info-bg: #34495e;
+    --info-border: #667eea;
+    --info-text: #bdc3c7;
+}
+
+/* =========================
+   Export Controls
+========================= */
 .export-controls {
-  position: relative;
-  display: inline-block;
-  margin: 10px;
+    position: relative;
+    display: inline-block;
+    margin: 10px;
 }
 
-.export-controls * {
-  backdrop-filter: none !important;
-  filter: none !important;
-  text-shadow: none !important;
-  box-shadow: none !important;
-}
-
-/* Buttons */
 .export-toggle-btn,
 .start-recording-btn,
-.stop-recording-btn,
 .snapshot-btn,
+.stop-recording-btn,
 .capture-frame-btn {
-  color: var(--btn-text);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
-  min-width: 120px;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--btn-text);
+    background: var(--btn-bg);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
-
-.export-toggle-btn { background: var(--btn-primary-bg); }
-.start-recording-btn { background: var(--btn-start-bg); margin-right: 10px; }
-.stop-recording-btn { background: var(--btn-stop-bg); }
-.snapshot-btn { background: var(--btn-snapshot-bg); }
-.capture-frame-btn { background: var(--btn-capture-bg); }
 
 .export-toggle-btn:hover,
 .start-recording-btn:hover:not(:disabled),
-.stop-recording-btn:hover,
 .snapshot-btn:hover,
+.stop-recording-btn:hover,
 .capture-frame-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    background: var(--btn-hover-bg);
 }
 
 .start-recording-btn:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
-/* Panel */
+/* =========================
+   Export Panel
+========================= */
 .export-panel {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: var(--panel-bg) !important;
-  border: 2px solid var(--panel-border);
-  border-radius: 12px;
-  padding: 20px;
-  min-width: 320px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  z-index: 9999;
-  margin-top: 10px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--panel-bg) !important;
+    color: var(--panel-text);
+    border: 2px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 320px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    margin-top: 10px;
 }
 
-/* Headings & Labels */
-.export-panel h3,
+.export-panel h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--panel-text);
+}
+
+.option-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
 .option-group label {
-  color: var(--label-color) !important;
-  font-weight: 600;
-  font-size: 14px;
+    font-weight: 600;
+    color: var(--panel-text);
+    font-size: 14px;
 }
 
-/* Select Options */
 .option-group select {
-  padding: 8px 12px;
-  border: 2px solid var(--panel-border);
-  border-radius: 6px;
-  background: var(--select-bg) !important;
-  color: var(--text-color) !important;
-  font-weight: 500;
-  min-width: 140px;
+    padding: 8px 12px;
+    border: 2px solid var(--panel-border);
+    border-radius: 6px;
+    background: var(--select-bg);
+    font-size: 14px;
+    min-width: 140px;
+    color: var(--select-text);
+    font-weight: 500;
 }
 
-/* Recording Status */
-.recording-status {
-  background: var(--btn-stop-bg);
-  color: var(--btn-text);
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.recording-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.recording-dot {
-  width: 12px;
-  height: 12px;
-  background: #ff4757;
-  border-radius: 50%;
-  margin-right: 8px;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.1); }
-}
-
-.recording-duration { font-size: 12px; opacity: 0.9; }
-
-/* Export Info */
+/* =========================
+   Export Info Box
+========================= */
 .export-info {
-  background: var(--info-bg);
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 4px solid var(--info-border-left);
-  border: 2px solid var(--info-border);
+    background: var(--info-bg);
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid var(--info-border);
+    border-left: 4px solid var(--info-border);
 }
 
 .export-info h4 {
-  margin: 0 0 10px 0;
-  color: var(--text-color);
-  font-size: 16px;
-  font-weight: 700;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--info-text);
 }
 
 .export-info ul {
-  margin: 0;
-  padding-left: 15px;
-  font-size: 13px;
-  color: var(--text-color);
-  line-height: 1.6;
-  font-weight: 500;
+    margin: 0;
+    padding-left: 15px;
+    font-size: 13px;
+    color: var(--info-text);
+    line-height: 1.6;
+    font-weight: 500;
 }
 
-.export-info li { margin-bottom: 5px; }
-.export-info strong { font-weight: 700; color: var(--text-color); }
+.export-info li {
+    margin-bottom: 5px;
+}
 
-/* Responsive */
+.export-info strong {
+    color: var(--info-text);
+    font-weight: 700;
+}
+
+/* =========================
+   Recording Status
+========================= */
+.recording-status {
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
+    margin-bottom: 15px;
+}
+
+.recording-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.recording-dot {
+    width: 12px;
+    height: 12px;
+    background: #ff4757;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.recording-duration {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* =========================
+   Responsive Design
+========================= */
 @media (max-width: 768px) {
-  .export-panel {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 350px;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-
-  .export-panel::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: -1;
-  }
-
-  .export-toggle-btn,
-  .start-recording-btn,
-  .stop-recording-btn,
-  .snapshot-btn,
-  .capture-frame-btn {
-    width: 100%;
-    font-size: 0.95em;
-  }
-}
-
-/* Ensure no blur/filter issues globally */
-.export-controls, .export-controls *, .export-panel, .export-panel * {
-  backdrop-filter: none !important;
-  filter: none !important;
-  text-shadow: none !important;
-  box-shadow: none !important;
+    .export-panel {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 350px;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
 }

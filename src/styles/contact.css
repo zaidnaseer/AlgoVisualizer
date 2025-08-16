@@ -2,142 +2,140 @@
    Light/Dark Mode Variables
 ========================= */
 :root {
+    --bg-color: #f6f0d6;
+    --text-color: #1a1a1a;
+    --accent-color: rgb(8, 179, 231);
+    --input-bg: #ffffff;
+    --input-text: #1a1a1a;
+    --btn-bg: rgb(8, 179, 231);
+    --btn-text: #ffffff;
+    --btn-hover-bg: rgb(6, 150, 190);
+}
+
+[data-theme="dark"] {
     --bg-color: #0a0a1a;
     --text-color: #e0e6ed;
     --accent-color: rgb(8, 179, 231);
-    --btn-bg: rgb(8, 179, 231);
-    --btn-text: #fff;
-    --input-bg: #1d2230;
+    --input-bg: #1a1a1a;
     --input-text: #e0e6ed;
-}
-
-[data-theme="light"] {
-    --bg-color: #f6f0d6;
-    --text-color: #1a1a1a;
-    --accent-color: #0077cc;
-    --btn-bg: #0077cc;
-    --btn-text: #fff;
-    --input-bg: #ffffff;
-    --input-text: #000000;
+    --btn-bg: rgb(8, 179, 231);
+    --btn-text: #ffffff;
+    --btn-hover-bg: rgb(6, 150, 190);
 }
 
 /* =========================
    Base Styles
 ========================= */
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
     font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* =========================
    Contact Section
 ========================= */
-.contact h1 {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 2.5rem;
-}
-
 .contact {
     margin-bottom: 50px;
+    text-align: center;
+}
+
+.contact h1 {
+    font-size: 2.5rem;
+    margin-top: 20px;
 }
 
 .contact p {
-    text-align: center;
     font-size: 1.2rem;
-    margin-top: 10px;
+    margin: 10px auto;
     max-width: 85%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .contact h3 {
-    text-align: center;
-    margin-top: 30px;
     font-size: 1.8rem;
+    margin-top: 30px;
+}
+
+.links h4 {
+    font-size: 1.5rem;
+    margin-top: 50px;
 }
 
 .links p {
     margin-top: 30px;
 }
 
-.links h4 {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 1.5rem;
-}
-
-.connection {
-    margin-top: 50px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+.social-icons a {
+    margin: 10px 5px 0 5px;
+    font-size: large;
 }
 
 /* =========================
-   Inputs & Textarea
+   Form Inputs & Textarea
 ========================= */
-.connection input,
-.connection textarea {
-    width: 80%;
-    max-width: 500px;
-    padding: 12px 15px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid var(--accent-color);
-    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
-    outline: none;
-    background-color: var(--input-bg);
-    color: var(--input-text);
-    transition: all 0.3s ease-in-out;
-    box-sizing: border-box;
-    resize: vertical;
-}
-
-.connection input:focus,
-.connection textarea:focus {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 8px rgba(8, 179, 231, 0.7);
+.connection {
+    margin-top: 50px;
 }
 
 .connection label {
     font-size: 1.2rem;
     color: var(--accent-color);
     margin-right: 10px;
+    margin-top: 20px;
     display: inline-block;
-    text-align: left;
-    width: 100%;
-    max-width: 500px;
+}
+
+.connection input,
+.connection textarea {
+    width: 30%;
+    max-width: 100%;
+    padding: 10px;
+    margin-top: 17px;
+    border: 1px solid var(--accent-color);
+    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.3);
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    background: var(--input-bg);
+    color: var(--input-text);
+    transition: all 0.3s ease-in-out;
+}
+
+.connection textarea {
+    height: 100px;
+    padding-top: 10px;
+}
+
+.connection input:focus,
+.connection textarea:focus {
+    border-color: var(--btn-bg);
+    box-shadow: 0 0 8px var(--accent-color);
 }
 
 /* =========================
-   Button Styling
+   Buttons
 ========================= */
 button {
-    padding: 10px 25px;
-    min-width: 120px;
-    height: auto;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 8px;
+    width: 100px;
+    min-width: fit-content;
+    height: 35px;
+    border-radius: 5px;
     border: none;
     background-color: var(--btn-bg);
     color: var(--btn-text);
-    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.3);
 }
 
 button:hover:not(:disabled) {
+    background-color: var(--btn-hover-bg);
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(8, 179, 231, 0.6);
+    box-shadow: 2px 6px 8px rgba(8, 179, 231, 0.5);
 }
 
 button:disabled {
@@ -147,31 +145,16 @@ button:disabled {
 }
 
 /* =========================
-   Social Icons
-========================= */
-.social-icons a {
-    margin-top: 10px;
-    margin-left: 5px;
-    font-size: large;
-    color: var(--accent-color);
-    transition: all 0.3s ease;
-}
-
-.social-icons a:hover {
-    transform: translateY(-2px);
-    color: var(--btn-bg);
-}
-
-/* =========================
-   Mobile Responsiveness
+   Responsive
 ========================= */
 @media (max-width: 768px) {
     .connection input,
-    .connection textarea,
+    .connection textarea {
+        width: 80%;
+    }
+
     button {
-        width: 90%;
-        font-size: 14px;
-        padding: 10px 15px;
+        width: 80%;
     }
 }
 
@@ -188,11 +171,8 @@ button:disabled {
         font-size: 1.2rem;
     }
 
-    .connection input,
-    .connection textarea,
-    button {
-        width: 95%;
-        font-size: 14px;
-        padding: 8px 12px;
+    .connection label {
+        display: block;
+        margin-top: 15px;
     }
 }
