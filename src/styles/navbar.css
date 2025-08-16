@@ -20,6 +20,12 @@
     transition: background 0.25s ease;
 }
 
+/* Light mode header override */
+[data-theme="light"] .av-header {
+    background: rgba(246, 240, 214, 0.8);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .av-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -192,6 +198,11 @@
     transition: background-color 0.3s ease;
 }
 
+/* Light mode hamburger */
+[data-theme="light"] .hamburger .bar {
+    background-color: #013862;
+}
+
 /* ----------------- Responsive ----------------- */
 @media screen and (max-width: 768px) {
     .navbar-heading {
@@ -212,6 +223,12 @@
         padding: 20px;
         transition: right 0.35s ease-in-out;
         box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+    }
+
+    /* Light mode mobile menu */
+    [data-theme="light"] .nav-links {
+        background: rgba(246, 240, 214, 0.95);
+        box-shadow: -2px 0 10px rgba(0,0,0,0.2);
     }
 
     .nav-links.nav-active {
