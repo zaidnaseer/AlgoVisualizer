@@ -32,7 +32,14 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
+    transition: border-color 0.3s ease;
 }
+
+.doubt-section input.input-error,
+.doubt-section textarea.input-error {
+    border-color: #e53e3e; /* red-500 */
+}
+
 
 .doubt-section button {
     padding: 10px 20px;
@@ -47,4 +54,20 @@
 
 .doubt-section button:hover {
     background-color: #0056b3;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e53e3e; /* A softer red */
+    margin-top: -5px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    width: 80%;
+    max-width: 500px;
+}
+
+.error-icon {
+    flex-shrink: 0;
 }
