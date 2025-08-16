@@ -118,6 +118,9 @@ body {
 /* ----------------- Links, buttons, navbar ----------------- */
 a, button, .nav-links a {
     transition: color 0.3s ease, background-color 0.3s ease;
+    
+    align-items: center;
+    justify-content: center;
 }
 
 /* Mobile menu background */
