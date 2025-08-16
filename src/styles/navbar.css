@@ -1,224 +1,220 @@
-/* Navbar redesign: glass header, brand fonts, improved active styles */
-.av-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: rgba(10, 10, 26, 0.6);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+/* Reset & global improvements */
+* {
+  box-sizing: border-box;
 }
 
+.av-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 26, 0.6);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Theme Toggle Button */
 .theme-toggle-btn {
-    margin-left: 15px;
-    padding: 8px 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 16px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(-8px);
+  margin: 15px;
+  padding: 10px 14px;              
+  border: none;
+  border-radius: 10px;
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;               
+  line-height: 1;                  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .theme-toggle-btn:hover {
-    opacity: 0.8;
+  opacity: 0.85;
 }
 
 .av-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;   
+  justify-content: space-between;
+  gap: 16px;
 }
 
 /* Logo Styles */
 .logo a {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
 }
 
 .logo a:hover {
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .navbar-heading {
-    font-size: 1.7em;
-    margin: 0;
-    font-family: 'Dancing Script', cursive;
-    font-weight: bold;
-    background: linear-gradient(45deg, #66ccff, #4da6ff, #3385ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 2px 10px rgba(102, 204, 255, 0.3);
-    transition: all 0.3s ease;
+  font-size: 1.7em;
+  margin: 0;
+  font-family: 'Dancing Script', cursive;
+  font-weight: bold;
+  background: linear-gradient(45deg, #66ccff, #4da6ff, #3385ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 10px rgba(102, 204, 255, 0.3);
+  transition: all 0.3s ease;
 }
 
 .navbar-heading:hover {
-    text-shadow: 0 4px 15px rgba(102, 204, 255, 0.4);
+  text-shadow: 0 4px 15px rgba(102, 204, 255, 0.4);
 }
 
-/* Theme-specific adaptations for navbar logo */
+/* Theme-specific */
 [data-theme="light"] .navbar-heading {
-    background: linear-gradient(45deg, #0077cc, #005fa3, #004680);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 2px 10px rgba(0, 119, 204, 0.3);
+  background: linear-gradient(45deg, #0077cc, #005fa3, #004680);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 10px rgba(0, 119, 204, 0.3);
 }
 
 [data-theme="light"] .navbar-heading:hover {
-    text-shadow: 0 4px 15px rgba(0, 119, 204, 0.4);
+  text-shadow: 0 4px 15px rgba(0, 119, 204, 0.4);
 }
 
-/* Navigation link theme-specific colors */
-[data-theme="light"] .nav-links a {
-    color: #013862; /* Dark blue only for light mode */
-}
-
-/* GitHub button theme-specific colors */
+[data-theme="light"] .nav-links a,
 [data-theme="light"] .github-btn {
-    color: #013862; /* Dark blue for light mode */
+  color: #013862;
 }
 
-/* Navigation links container */
+/* Navigation links */
 .nav-links {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .nav-links a {
-    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-    color: #cfd9e6;
-    text-decoration: none;
-    font-size: 0.90rem;
-    font-weight: 500;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    /* smoother transitions */
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+  color: #cfd9e6;
+  text-decoration: none;
+  font-size: 0.90rem;
+  font-weight: 500;
+  padding: 10px 14px;         
+  line-height: 1;             
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Hover state: subtle change */
-.nav-links a:hover{
-    color: #d4e8ff;                     /* lighter text on hover */
-    background: none; /* light blue tint */
-    border-color: rgba(59, 130, 246, 0.25);
+.nav-links a:hover {
+  color: #d4e8ff;
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.25);
 }
 
-
-/* Active state: toned‑down accent with high contrast */
+/* Active link */
 .nav-links a.active {
-    color: #ffffff;                       /* white text for maximum contrast */
-    background: rgba(59, 130, 246, 0.35); /* semi‑transparent accent */
-    /* If you prefer a solid gradient instead, comment out the line above and uncomment the next line */
-    /* background: linear-gradient(90deg, #4fa7f8, #3b82f6); */
-    border-color: rgba(59, 130, 246, 0.45);
-    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+  color: #fff;
+  background: rgba(59, 130, 246, 0.35);
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
 }
 
 .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;   
+  gap: 10px;
 }
 
-/* GitHub star button – base appearance */
+/* GitHub Button */
 .github-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 10px;
-    color: #cfd9e6;                       /* match the nav link colour */
-    background: rgba(59, 130, 246, 0.15); /* subtle accent background */
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #cfd9e6;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Hover state for the star button */
 .github-btn:hover {
-    color: #f8f9fa;                       /* off-white text on hover */
-    background: rgba(59, 130, 246, 0.35); /* slightly stronger accent */
-    /* Or use a darker gradient if you want a solid colour:
-       background: linear-gradient(90deg, #4fa7f8, #3b82f6);
-    */
-    border-color: rgba(59, 130, 246, 0.45);
+  color: #f8f9fa;
+  background: rgba(59, 130, 246, 0.35);
+  border-color: rgba(59, 130, 246, 0.45);
 }
 
-
+/* Hamburger */
 .hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
 }
 
 .bar {
-    width: 20px;
-    height: 2px;
-    margin: 4px 0;
-    background-color: #cfd9e6;
-    transition: background-color 0.3s ease;
+  width: 20px;
+  height: 2px;
+  margin: 4px 0;
+  background-color: #cfd9e6;
+  transition: background-color 0.3s ease;
 }
 
-/* Responsive Styles for Mobile */
+/* Mobile */
 @media screen and (max-width: 768px) {
-    /* Mobile logo adjustments */
-    .navbar-heading {
-        font-size: 1.4em;
-    }
+  .navbar-heading {
+    font-size: 1.4em;
+  }
 
-    .nav-links {
-        position: fixed;
-        top: 64px;
-        right: -100%;
-        height: calc(100vh - 64px);
-        width: 100%;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        background: rgba(10, 10, 26, 0.9);
-        backdrop-filter: blur(6px);
-        padding: 20px;
-        transition: right 0.3s ease;
-    }
+  .nav-links {
+    position: fixed;
+    top: 64px;
+    right: -100%;
+    height: calc(100vh - 64px);
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: rgba(10, 10, 26, 0.95);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    transition: right 0.35s ease-in-out;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+  }
 
-    .nav-links.nav-active {
-        right: 0;
-    }
+  .nav-links.nav-active {
+    right: 0;
+  }
 
-    .nav-links a {
-        display: block;
-        width: 100%;
-    }
+  .nav-links a {
+    display: block;
+    width: 100%;
+  }
 
-    .nav-actions {
-        display: none;
-    }
+  .nav-actions {
+    display: none;
+  }
 
-    .hamburger {
-        display: flex;
-    }
+  .hamburger {
+    display: flex;
+  }
 }
 
-/* Extra small devices */
+/* Extra small */
 @media screen and (max-width: 480px) {
-    .navbar-heading {
-        font-size: 1.3em;
-    }
+  .navbar-heading {
+    font-size: 1.3em;
+  }
 }
