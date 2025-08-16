@@ -1,16 +1,17 @@
-/* privacy.css - OSHub Style */
-
+/* ----------------- Privacy Policy Styles ----------------- */
 .privacy-policy-container {
-    background-color: #1a1a1a;
+    background-color: var(--bg-color);
     min-height: 100vh;
     padding: 2rem 1rem;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .privacy-content {
     max-width: 800px;
     margin: 0 auto;
-    background: rgba(30, 30, 30, 0.8);
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 2.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -27,14 +28,14 @@
 }
 
 .privacy-header h1 {
-    color: #ffffff;
+    color: var(--primary-color);
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
 .privacy-header .last-updated {
-    color: #9ca3af;
+    color: var(--muted-text);
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -49,16 +50,16 @@
 }
 
 .privacy-section h2 {
-    color: #ffffff;
+    color: var(--primary-color);
     font-size: 1.75rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgb(8, 179, 231,0.3) !important;
+    border-bottom: 1px solid var(--accent-color) !important;
 }
 
 .privacy-section p {
-    color: #d1d5db;
+    color: var(--text-color);
     line-height: 1.7;
     margin-bottom: 1.5rem;
     font-size: 1.05rem;
@@ -70,7 +71,7 @@
 }
 
 .privacy-list li {
-    color: #d1d5db;
+    color: var(--text-color);
     margin-bottom: 0.8rem;
     line-height: 1.6;
     position: relative;
@@ -79,29 +80,64 @@
 
 .privacy-list li::before {
     content: "•";
-    color: rgb(8, 179, 231) !important;;
+    color: var(--accent-color);
     position: absolute;
     left: 0;
     font-weight: bold;
 }
 
 .privacy-list strong {
-    color: #ffffff;
+    color: var(--primary-color);
     font-weight: 600;
 }
 
+/* Links */
 a {
-    color: #4ade80;
+    color: var(--link-color);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
-    color: #86efac;
+    color: var(--link-hover-color);
     text-decoration: underline;
 }
 
-/* Responsive Design */
+/* Inputs and Buttons Standardization */
+input, textarea, select {
+    background: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 6px var(--accent-color);
+}
+
+button {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+/* ----------------- Responsive Design ----------------- */
 @media (max-width: 768px) {
     .privacy-content {
         padding: 1.5rem;
@@ -134,4 +170,36 @@ a:hover {
     .privacy-list {
         padding-left: 1rem;
     }
+}
+
+/* ----------------- Light & Dark Theme Variables ----------------- */
+:root {
+    --bg-color: #1a1a1a;
+    --text-color: #d1d5db;
+    --muted-text: #9ca3af;
+    --card-bg: rgba(30,30,30,0.8);
+    --primary-color: #ffffff;
+    --accent-color: #08b3e7;
+    --link-color: #4ade80;
+    --link-hover-color: #86efac;
+    --input-bg: rgba(255,255,255,0.05);
+    --input-border: rgba(255,255,255,0.1);
+    --button-bg: rgba(255,255,255,0.1);
+    --button-text: #ffffff;
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] {
+    --bg-color: #fefefe;
+    --text-color: #111827;
+    --muted-text: #6b7280;
+    --card-bg: rgba(255,255,255,0.9);
+    --primary-color: #111827;
+    --accent-color: #0284c7;
+    --link-color: #0284c7;
+    --link-hover-color: #0369a1;
+    --input-bg: #ffffff;
+    --input-border: #d1d5db;
+    --button-bg: #0284c7;
+    --button-text: #ffffff;
 }
