@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import CodeExplanation from '../components/CodeExplanation';
 import SimpleExportControls from '../components/SimpleExportControls';
 import '../styles/pages.css';
+import '../styles/Sorting.css';
 
 const Sorting = () => {
     const [array, setArray] = useState([]);
@@ -664,7 +665,7 @@ const Sorting = () => {
 
     return (
         <div className="page-container" style={{ maxWidth: '1500px', margin: '0 auto', padding: '20px' }}>
-            <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '30px' }}>
+            <h1 className="page-title" style={{ textAlign: 'center', marginBottom: '20px' }}>
                 Sorting Algorithms Visualizer
             </h1>
             {/* Algorithm Selection */}
@@ -672,8 +673,7 @@ const Sorting = () => {
                 <h3 style={{ color: '#66ccff', fontFamily: 'Poppins, sans-serif' }}>
                     Select Algorithm:
                 </h3>
-                <div className='algo-buttons'
-                    style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '30px' }}>
+                <div className='algorithm-buttons-wrapper'>
                     {['bubbleSort', 'selectionSort', 'mergeSort', 'insertionSort', 'quickSort'].map((algo) => {
                         const algorithmNames = {
                             'bubbleSort': 'Bubble Sort',
@@ -686,15 +686,9 @@ const Sorting = () => {
                         return (
                             <button
                                 key={algo}
-                                className={algorithm === algo ? 'btn' : 'btn btn-secondary'}
+                                className={`btn algorithm-button ${algorithm === algo ? 'algorithm-button-active' : 'algorithm-button-inactive'}`}
                                 onClick={() => setAlgorithm(algo)}
                                 disabled={isSorting}
-                                style={{
-                                    background: algorithm === algo ?
-                                        'linear-gradient(45deg, #66ccff, #4da6ff)' :
-                                        'rgba(255, 255, 255, 0.1)',
-                                    color: algorithm === algo ? '#1a1a2e' : '#e0e6ed'
-                                }}
                             >
                                 {algorithmNames[algo]}
                             </button>
@@ -705,33 +699,12 @@ const Sorting = () => {
 
 
             {/* Status Message */}
-            <div className="status-message" style={{
-                padding: '15px',
-                background: 'rgba(102, 204, 255, 0.1)',
-                borderRadius: '10px',
-                border: '1px solid rgba(102, 204, 255, 0.3)',
-                textAlign: 'center',
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#66ccff',
-                margin: '20px 0'
-            }}>
+            <div className="status-message-container">
                 {message}
                 {isSorting && (
-                    <div style={{ marginTop: '10px' }}>
-                        <div style={{
-                            width: '100%',
-                            height: '4px',
-                            background: 'rgba(102, 204, 255, 0.2)',
-                            borderRadius: '2px',
-                            overflow: 'hidden'
-                        }}>
-                            <div style={{
-                                height: '100%',
-                                background: 'linear-gradient(90deg, #66ccff, #4da6ff)',
-                                animation: 'progress 2s ease-in-out infinite',
-                                borderRadius: '2px'
-                            }} />
+                    <div className="progress-bar-container">
+                        <div className="progress-bar-track">
+                            <div className="progress-bar-fill" />
                         </div>
                     </div>
                 )}
@@ -739,48 +712,18 @@ const Sorting = () => {
 
 
             {/* --- Step Navigation and Algorithm Panel Layout --- */}
-            <div style={{
-                display: 'flex',
-                flexDirection: isTabletOrBelow ? 'column' : 'row',
-                flexWrap: 'wrap',
-                gap: '30px',
-                alignItems: 'flex-start',
-                marginBottom: '30px'
-            }}>
+            <div className={`step-navigation-layout ${!isTabletOrBelow ? 'step-navigation-layout-desktop' : ''}`}>
                 {/* Visualization + Step Controls */}
-                <div style={{
-                    flex: '1 1 auto',
-                    minWidth: '300px',
-                    maxWidth: '100%',
-                    overflowX: 'hidden'
-                }}>
+                <div className="visualization-step-wrapper">
                     {/* Visualization Section with Algorithm psuedo code Section */}
-                    <div style={{
-                        display: 'flex',
-                        width: '100%',
-                        gap: '20px'
-                    }}>
+                    <div className="visualization-pseudocode-wrapper">
 
-                        <div style={{ width: '75%' }}>
+                        <div className="visualization-section-container">
                             {/* --- Visualization Area (step-by-step) --- */}
-                            <div className="visualization-area" style={{
-                                
-                                minHeight: '500px',
-                                padding: '20px',
-                                background: 'rgba(15, 52, 96, 0.1)',
-                                borderRadius: '15px',
-                                border: '1px solid rgba(102, 204, 255, 0.2)',
-                            }}>
+                            <div className="visualization-area visualization-area-step">
                                 {/* Array-Visualization */}
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'flex-end',
-                                    height: '400px',
-                                    gap: arraySize > 40 ? (isTabletOrBelow ? '0.5px' : '1px') : arraySize > 25 ? '2px' : '3px',
-                                    padding: '20px 10px 50px 10px',
-                                    position: 'relative',
-                                    flexWrap: 'nowrap'
+                                <div className="array-visualization-container" style={{
+                                    gap: arraySize > 40 ? (isTabletOrBelow ? '0.5px' : '1px') : arraySize > 25 ? '2px' : '3px'
                                 }}>
                                     {(steps[currentStep]?.array || array).map((num, idx) => {
                                         const maxBarWidth = isTabletOrBelow ? 8 : 12; // shrink bars more on smaller screens
@@ -791,53 +734,26 @@ const Sorting = () => {
                                         return (
                                             <div
                                                 key={idx}
+                                                className="array-bar-step"
                                                 style={{
                                                     height: `${Math.max(20, num)}px`,
                                                     width: `${barWidth}px`,
                                                     backgroundColor: getStepColorArray()[idx],
                                                     border: `1px solid ${getStepColorArray()[idx]}`,
-                                                    borderRadius: '6px 6px 0 0',
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'space-between',
-                                                    fontWeight: 'bold',
                                                     fontSize: arraySize > 40 ? '8px' : arraySize > 30 ? '9px' : arraySize > 20 ? '10px' : '11px',
-                                                    padding: '4px 2px',
-                                                    transition: 'all 0.3s ease',
-                                                    boxShadow: `0 4px 12px ${stepColors[idx]}30`,
-                                                    position: 'relative',
-                                                    cursor: 'default'
+                                                    boxShadow: `0 4px 12px ${stepColors[idx]}30`
                                                 }}
                                                 title={`Value: ${num}, Index: ${idx}`}
                                             >
                                                 {showNumbers && (
-                                                    <div style={{
-                                                        color: '#ffffff',
-                                                        textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
-                                                        fontWeight: 'bold',
-                                                        fontSize: 'inherit',
-                                                        minHeight: '14px',
-                                                        display: 'flex',
-                                                        alignItems: 'center'
+                                                    <div className="array-bar-number" style={{
+                                                        fontSize: 'inherit'
                                                     }}>
                                                         {num}
                                                     </div>
                                                 )}
                                                 {showIndices && (
-                                                    <div style={{
-                                                        position: 'absolute',
-                                                        bottom: '-30px',
-                                                        left: '50%',
-                                                        transform: 'translateX(-50%)',
-                                                        color: '#66ccff',
-                                                        fontSize: '12px',
-                                                        fontWeight: '600',
-                                                        background: 'rgba(26, 26, 46, 0.8)',
-                                                        padding: '6px 12px',
-                                                        borderRadius: '6px',
-                                                        border: '1px solid rgba(102, 204, 255, 0.3)'
-                                                    }}>
+                                                    <div className="array-bar-index">
                                                         Array Size: {arraySize} | Step Mode
                                                     </div>
                                                 )}
@@ -845,284 +761,184 @@ const Sorting = () => {
                                         );
                                     })}
                                     {/* Array info display */}
-                                    <div style={{
-                                        position: 'absolute',
-                                        bottom: '10px',
-                                        left: '50%',
-                                        transform: 'translateX(-50%)',
-                                        color: '#66ccff',
-                                        fontSize: '12px',
-                                        fontWeight: '600',
-                                        background: 'rgba(26, 26, 46, 0.8)',
-                                        padding: '6px 12px',
-                                        borderRadius: '6px',
-                                        border: '1px solid rgba(102, 204, 255, 0.3)'
-                                    }}>
+                                    <div className="array-info-display">
                                         Array Size: {arraySize} | Step Mode
                                     </div>
                                 </div>
 
                                 {/* --- Step Navigation Buttons --- */}
-                                <div style={{
-                                    display: 'flex',
-                                    alignItems:'center',
-                                    gap: '15px',
-                                    margin: '30px 0',
-                                    width:'100%',
-                                    justifyContent: isMobile ? 'space-evenly' : 'space-between'
-                                }}>
+                                <div className={`step-navigation-buttons ${isMobile ? 'step-navigation-buttons-mobile' : ''}`}>
                                     {/* previous-step-button */}
-                                    <button className="btn btn-secondary"
+                                    <button className="btn btn-secondary step-button"
                                         onClick={handlePrevStep}
-                                        disabled={currentStep === 0}
-                                        
-                                        style={{ minWidth: '110px',fontSize: '14px' }}>
+                                        disabled={currentStep === 0}>
                                         {/* arrow-left-icon */}
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25"fill="currentColor"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path></svg>
                                         Previous Step
                                     </button>
 
                                     {/* steps-counter */}
-                                    <span style={{
-                                        color: '#66ccff',
-                                        fontWeight: 600,
-                                        fontSize: '14px'
-                                    }}>
+                                    <span className="step-counter">
                                         Step {currentStep + 1} / {steps.length}
                                     </span>
 
                                     {/* next-step-button */}
-                                    <button className="btn btn-secondary"
+                                    <button className="btn btn-secondary step-button"
                                         onClick={handleNextStep}
-                                        disabled={currentStep >= steps.length - 1}
-                                        style={{ minWidth: '110px',fontSize: '14px' }}>
+                                        disabled={currentStep >= steps.length - 1}>
                                         Next Step
                                         {/* arrow-right-icon */}
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
                                     </button>
-                                    
+
                                 </div>
                             </div>
 
 
                         </div>
                         {/* --- Algorithm Section with psuedo Code --- */}
-                        <div style={{
-                            flex: '0 0 fit-content',
-                            minWidth: '280px',
-                            maxWidth: '100%',
-                            background: 'rgba(102,204,255,0.07)',
-                            border: '1px solid rgba(102,204,255,0.15)',
-                            borderRadius: '12px',
-                            padding: '18px',
-                            overflowX: 'auto'
-                        }}>
-                            <h3 style={{
-                                color: '#66ccff',
-                                marginBottom: '10px',
-                                fontFamily: 'Poppins, sans-serif'
-                            }}>
-                                {getAlgorithmName()} Pseudocode
-                            </h3>
-                            <pre style={{
-                                background: 'rgba(26,26,46,0.95)',
-                                borderRadius: '8px',
-                                width: '300px',
-                                padding: '14px',
-                                fontSize: '15px',
-                                color: '#e0e6ed',
-                                marginBottom: '10px',
-                                overflowX: 'auto'
-                            }}>
-                                {ALGORITHM_PSEUDOCODE[algorithm].map((line, idx) => (
-                                    <div key={idx} style={{
-                                        background: steps[currentStep]?.pseudoLine === idx
-                                            ? 'rgba(102,204,255,0.25)' : 'none',
-                                        borderRadius: '5px',
-                                        padding: '2px 6px',
-                                        fontWeight: steps[currentStep]?.pseudoLine === idx ? 700 : 400,
-                                        color: steps[currentStep]?.pseudoLine === idx ? '#66ccff' : '#e0e6ed'
-                                    }}>
-                                        {line.code}
-                                    </div>
-                                ))}
-                            </pre>
-                            <div style={{
-                                background: 'rgba(102,204,255,0.08)',
-                                width: '300px',
-
-                                borderRadius: '8px',
-                                padding: '10px 12px',
-                                fontSize: '14px',
-                                color: '#b8c5d1',
-                                minHeight: '40px'
-                            }}>
-                                <strong>Explanation:</strong><br />
-                                {steps[currentStep]?.pseudoLine !== null
-                                    ? ALGORITHM_PSEUDOCODE[algorithm][steps[currentStep]?.pseudoLine]?.explain
-                                    : 'Algorithm finished!'}
+                        <div className="algorithm-pseudocode-section">
+                            <div className=''>
+                                <h3 className="pseudocode-title">
+                                    {getAlgorithmName()} Pseudocode
+                                </h3>
+                                <pre className="pseudocode-container">
+                                    {ALGORITHM_PSEUDOCODE[algorithm].map((line, idx) => (
+                                        <div key={idx} className={`pseudocode-line ${steps[currentStep]?.pseudoLine === idx ? 'pseudocode-line-active' : 'pseudocode-line-inactive'}`}>
+                                            {line.code}
+                                        </div>
+                                    ))}
+                                </pre>
+                                <div className="pseudocode-explanation">
+                                    <strong>Explanation:</strong><br />
+                                    {steps[currentStep]?.pseudoLine !== null
+                                        ? ALGORITHM_PSEUDOCODE[algorithm][steps[currentStep]?.pseudoLine]?.explain
+                                        : 'Algorithm finished!'}
+                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                
+
             </div>
 
 
-            {/* Controls Section */}
-            <div className="controls-section" style={{
-                width: '100%',
-                maxWidth: '1000px',
-                textAlign: 'center'
-            }}>
-                <div style={{ display: 'flex', gap: '15px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '20px', justifyContent: 'center' }}>
-                    <button className="btn" onClick={handleSort} disabled={isSorting}>
-                        {isSorting ? '⏳ Sorting...' : '▶️ Start Sort'}
-                    </button>
-                    <button className="btn btn-secondary" onClick={generateArray} disabled={isSorting}>
-                        🔄 Generate Array
-                    </button>
-                    <button className="btn btn-secondary" onClick={handleStop} disabled={!isSorting}>
-                        ⏹️ Stop
-                    </button>
+            {/* Controls Section & Record-Export section */}
+            <div className="controls-section">
+                <div className="controls-main-wrapper">
+
+                    {/* controls section  */}
+                    <div className="control-buttons-container">
+                        <button className="btn" onClick={handleSort} disabled={isSorting}>
+                            {isSorting ? (
+                                <div className="button-content-flex">
+                                    {/* Loading/Sorting icon */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor" className="spin-animation">
+                                        <path d="M3.05469 13H5.07065C5.55588 16.3923 8.47329 19 11.9998 19C15.5262 19 18.4436 16.3923 18.9289 13H20.9448C20.4474 17.5 16.6323 21 11.9998 21C7.36721 21 3.55213 17.5 3.05469 13ZM3.05469 11C3.55213 6.50005 7.36721 3 11.9998 3C16.6323 3 20.4474 6.50005 20.9448 11H18.9289C18.4436 7.60771 15.5262 5 11.9998 5C8.47329 5 5.55588 7.60771 5.07065 11H3.05469Z" />
+                                    </svg>
+                                    Sorting...
+                                </div>
+                            ) : (
+                                <div className="button-content-flex">
+                                    {/* Play/Start icon */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M8 18.3915V5.60846L18.2264 12L8 18.3915ZM6 3.80421V20.1957C6 20.9812 6.86395 21.46 7.53 21.0437L20.6432 12.848C21.2699 12.4563 21.2699 11.5436 20.6432 11.152L7.53 2.95621C6.86395 2.53993 6 3.01878 6 3.80421Z"></path></svg>
+                                    Start Sort
+                                </div>
+                            )}
+                        </button>
+                        <button
+                            className="btn btn-secondary"
+                            onClick={generateArray}
+                            disabled={isSorting}>
+                            {/* Generate icon */}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M12 4C14.5905 4 16.8939 5.23053 18.3573 7.14274L16 9.5H22V3.5L19.7814 5.71863C17.9494 3.452 15.1444 2 12 2 6.47715 2 2 6.47715 2 12H4C4 7.58172 7.58172 4 12 4ZM20 12C20 16.4183 16.4183 20 12 20 9.40951 20 7.10605 18.7695 5.64274 16.8573L8 14.5 2 14.5V20.5L4.21863 18.2814C6.05062 20.548 8.85557 22 12 22 17.5228 22 22 17.5228 22 12H20Z"></path></svg>
+                            Generate Array
+                        </button>
+                        <button className="btn btn-secondary" onClick={handleStop} disabled={!isSorting}>
+                            {/* Stop Icon */}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M3 4C3 3.44772 3.44772 3 4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4Z"></path></svg>
+                            Stop
+                        </button>
+                    </div>
+
+                    {/* ArraySize bar  */}
+
+                    <div className="controls-slider-grid">
+                        <div className="slider-control-item">
+                            <label className="label">Array Size:</label>
+                            <input
+                                type="range"
+                                min="10"
+                                max="50"
+                                value={arraySize}
+                                onChange={(e) => setArraySize(parseInt(e.target.value))}
+                                disabled={isSorting}
+                                className="input range-slider"
+                            />
+                            <span className="control-value-display">
+                                {arraySize}
+                            </span>
+                            <span className="control-helper-text">
+                                {arraySize <= 15 ? '(with indices)' : arraySize <= 25 ? '(with values)' : '(bars only)'}
+                            </span>
+                        </div>
+
+                        {/* Speed bar */}
+                        <div className="slider-control-item">
+                            <label className="label">Speed:</label>
+                            <input
+                                type="range"
+                                min="10"
+                                max="500"
+                                value={delay}
+                                onChange={(e) => setDelay(parseInt(e.target.value))}
+                                disabled={isSorting}
+                                className="input range-slider"
+                            />
+                            <span className="control-value-speed-display">
+                                {delay}ms
+                            </span>
+                            <span className="control-helper-text">
+                                {delay < 50 ? '(very fast)' : delay < 150 ? '(fast)' : delay < 300 ? '(normal)' : '(slow)'}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Simple Export Controls */}
                 <SimpleExportControls />
 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                    gap: '20px',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    maxWidth: '1000px',
-                    margin: '0 auto'
-                }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <label className="label">Array Size:</label>
-                        <input
-                            type="range"
-                            min="10"
-                            max="50"
-                            value={arraySize}
-                            onChange={(e) => setArraySize(parseInt(e.target.value))}
-                            disabled={isSorting}
-                            className="input"
-                            style={{ width: '120px' }}
-                        />
-                        <span style={{
-                            color: '#66ccff',
-                            fontWeight: '600',
-                            minWidth: '30px',
-                            textAlign: 'center'
-                        }}>
-                            {arraySize}
-                        </span>
-                        <span style={{
-                            fontSize: '11px',
-                            color: '#b8c5d1',
-                            marginLeft: '5px'
-                        }}>
-                            {arraySize <= 15 ? '(with indices)' : arraySize <= 25 ? '(with values)' : '(bars only)'}
-                        </span>
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <label className="label">Speed:</label>
-                        <input
-                            type="range"
-                            min="10"
-                            max="500"
-                            value={delay}
-                            onChange={(e) => setDelay(parseInt(e.target.value))}
-                            disabled={isSorting}
-                            className="input"
-                            style={{ width: '120px' }}
-                        />
-                        <span style={{
-                            color: '#66ccff',
-                            fontWeight: '600',
-                            minWidth: '50px',
-                            textAlign: 'center'
-                        }}>
-                            {delay}ms
-                        </span>
-                        <span style={{
-                            fontSize: '11px',
-                            color: '#b8c5d1',
-                            marginLeft: '5px'
-                        }}>
-                            {delay < 50 ? '(very fast)' : delay < 150 ? '(fast)' : delay < 300 ? '(normal)' : '(slow)'}
-                        </span>
-                    </div>
-                </div>
             </div>
 
 
-            {/* Statistics Section */}
-            <div className="controls-section" style={{
-                width: '100%',
-                maxWidth: '1000px',
-                textAlign: 'center'
-            }}>
-                <h3 style={{ color: '#66ccff', marginBottom: '15px', fontFamily: 'Poppins, sans-serif', textAlign: 'center' }}>
+            {/* Performance Statistics Section */}
+            <div className="performance-stats-section">
+                <h3 className="performance-stats-title">
                     Performance Statistics
                 </h3>
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-                    gap: '15px',
-                    marginBottom: '20px',
-                    justifyContent: 'center'
-                }}>
-                    <div style={{
-                        background: 'rgba(102, 204, 255, 0.1)',
-                        padding: '15px',
-                        borderRadius: '10px',
-                        border: '1px solid rgba(102, 204, 255, 0.3)',
-                        textAlign: 'center'
-                    }}>
-                        <div style={{ color: '#66ccff', fontSize: '14px', marginBottom: '5px' }}>Comparisons</div>
-                        <div style={{ color: '#e0e6ed', fontSize: '20px', fontWeight: 'bold' }}>
+                <div className="performance-stats-container">
+                    <div className="performance-card performance-card-comparisons">
+                        <div className="performance-card-label performance-label-comparisons">Comparisons</div>
+                        <div className="performance-card-value">
                             {statistics.comparisons}
                         </div>
                     </div>
-                    <div style={{
-                        background: 'rgba(255, 215, 61, 0.1)',
-                        padding: '15px',
-                        borderRadius: '10px',
-                        border: '1px solid rgba(255, 215, 61, 0.3)',
-                        textAlign: 'center'
-                    }}>
-                        <div style={{ color: '#ffd93d', fontSize: '14px', marginBottom: '5px' }}>Swaps</div>
-                        <div style={{ color: '#e0e6ed', fontSize: '20px', fontWeight: 'bold' }}>
+                    <div className="performance-card performance-card-swaps">
+                        <div className="performance-card-label performance-label-swaps">Swaps</div>
+                        <div className="performance-card-value">
                             {statistics.swaps}
                         </div>
                     </div>
-                    <div style={{
-                        background: 'rgba(74, 222, 128, 0.1)',
-                        padding: '15px',
-                        borderRadius: '10px',
-                        border: '1px solid rgba(74, 222, 128, 0.3)',
-                        textAlign: 'center'
-                    }}>
-                        <div style={{ color: '#4ade80', fontSize: '14px', marginBottom: '5px' }}>Time</div>
-                        <div style={{ color: '#e0e6ed', fontSize: '20px', fontWeight: 'bold' }}>
+                    <div className="performance-card performance-card-time">
+                        <div className="performance-card-label performance-label-time">Time</div>
+                        <div className="performance-card-value">
                             {statistics.time}ms
                         </div>
                     </div>
-                    <div style={{
-                        background: 'rgba(255, 107, 107, 0.1)',
-                        padding: '15px',
-                        borderRadius: '10px',
-                        border: '1px solid rgba(255, 107, 107, 0.3)',
-                        textAlign: 'center'
-                    }}>
-                        <div style={{ color: '#ff6b6b', fontSize: '14px', marginBottom: '5px' }}>Array Size</div>
-                        <div style={{ color: '#e0e6ed', fontSize: '20px', fontWeight: 'bold' }}>
+                    <div className="performance-card performance-card-array-size">
+                        <div className="performance-card-label performance-label-array-size">Array Size</div>
+                        <div className="performance-card-value">
                             {arraySize}
                         </div>
                     </div>

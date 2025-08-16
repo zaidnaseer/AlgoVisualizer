@@ -17,6 +17,19 @@
     --shadow-color: rgba(102, 204, 255, 0.2);
 }
 
+/* =========================
+   Animations
+========================= */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 [data-theme="light"] {
     --bg-color: #f6f0d6;
     --container-bg: #ffffff;
@@ -100,7 +113,7 @@
     padding: 30px;
     border-radius: 15px;
     border: 1px solid var(--border-color);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -109,6 +122,10 @@
 }
 
 .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     background: var(--btn-bg);
     color: var(--btn-text);
     border: none;
@@ -152,7 +169,8 @@
 /* =========================
    Inputs & Selects
 ========================= */
-.input, .select {
+.input,
+.select {
     background: var(--input-bg);
     color: var(--input-text);
     border: 1px solid var(--border-color);
@@ -162,7 +180,8 @@
     transition: all 0.3s ease;
 }
 
-.input:focus, .select:focus {
+.input:focus,
+.select:focus {
     outline: none;
     border-color: rgba(102, 204, 255, 0.5);
     background: rgba(255, 255, 255, 0.08);
@@ -193,7 +212,7 @@
     padding: 30px;
     border-radius: 15px;
     border: 1px solid var(--border-color);
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .algorithm-info h3 {
@@ -219,36 +238,31 @@
     font-weight: 600;
     margin: 5px;
 }
+
 /* Mobile responsive */
 @media (max-width: 768px) {
     .page-container {
         margin: 10px;
         padding: 20px;
     }
-    
+
     .page-title {
         font-size: 2em;
     }
-    
+
     .controls-section {
         padding: 20px;
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .btn {
         margin: 5px 0;
     }
-    
+
     .visualization-area {
         padding: 20px;
         min-height: 300px;
     }
 }
 
-@media (max-width: 480px){
-    .algo-buttons{
-        flex-direction: column;
-        align-items: center;
-    }
-}
