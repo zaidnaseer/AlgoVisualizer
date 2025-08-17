@@ -152,6 +152,13 @@ input:focus, textarea:focus, select:focus {
     -webkit-text-fill-color: transparent;
 }
 
+[data-theme="light"] .hero-title .highlight {
+    background: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: var(--text-color);
+}
+
 .hero-subtitle {
     font-size: 2.2em;
     color: var(--primary-color);
@@ -159,6 +166,10 @@ input:focus, textarea:focus, select:focus {
     font-weight: 600;
     margin-bottom: 20px;
     min-height: 60px;
+}
+
+[data-theme="light"] .hero-subtitle {
+    color: var(--accent-color);
 }
 
 .hero-description {

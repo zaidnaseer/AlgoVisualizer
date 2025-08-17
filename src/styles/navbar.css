@@ -67,8 +67,11 @@
 
 /* Light mode heading */
 [data-theme="light"] .navbar-heading {
-    background: linear-gradient(45deg, #0077cc, #005fa3, #004680);
-    text-shadow: 0 2px 10px rgba(0, 119, 204, 0.3);
+    background: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: var(--primary-color);
+    text-shadow: none;
 }
 
 [data-theme="light"] .navbar-heading:hover {
@@ -116,13 +119,13 @@
 }
 
 [data-theme="light"] .nav-links a:hover {
-    color: #ffffff !important;
+    color: #013862 !important;
     background: rgba(0, 119, 204, 0.25);
     border-color: rgba(0, 119, 204, 0.35);
 }
 
 [data-theme="light"] .nav-links a.active {
-    color: #ffffff !important;
+    color: #013862 !important;
     background: rgba(0, 119, 204, 0.35);
     border-color: rgba(0, 119, 204, 0.45);
     box-shadow: 0 0 8px rgba(0, 119, 204, 0.4);
@@ -170,10 +173,14 @@
     color: var(--text-color);
 }
 
+[data-theme="light"] .theme-toggle-btn:hover {
+    background-color: var(--hover-bg);
+}
+
 [data-theme="light"] .github-btn {
     background: rgba(0, 119, 204, 0.25);
     border: 1px solid rgba(0, 119, 204, 0.35);
-    color: #ffffff !important;
+    color: #013862 !important;
 }
 
 [data-theme="light"] .github-btn:hover {
