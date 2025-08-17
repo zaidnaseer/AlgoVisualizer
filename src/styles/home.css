@@ -282,7 +282,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .card-action span {
-    transition: transform 0.3s ease
+    transition: transform 0.3s ease;
     transition: all 0.3s ease;
 
 }

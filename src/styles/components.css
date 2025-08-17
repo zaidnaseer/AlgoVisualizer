@@ -154,6 +154,7 @@ button {
     color: var(--button-text);
     font-weight: 600;
     min-width: 80px;
+    
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
@@ -165,6 +166,7 @@ button:hover:not(:disabled) {
 button:disabled {
     background-color: var(--disabled-bg);
     cursor: not-allowed;
+    
     transform: none;
 }
 
