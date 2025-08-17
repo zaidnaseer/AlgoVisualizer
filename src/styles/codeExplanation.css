@@ -1,7 +1,7 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-    color: #e0e6ed;
+    background: #0d1117;
+    color: #e6edf3;
     margin: 0;
     padding: 0;
     overflow-y: scroll;
@@ -24,8 +24,8 @@ body {
 }
 
 .code-explanation-modal {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border: 2px solid #66ccff;
+    background: #21262d;
+    border: 2px solid #58a6ff;
     border-radius: 15px;
     width: 90%;
     max-width: 1000px;
@@ -46,13 +46,13 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 25px;
-    border-bottom: 2px solid rgba(102, 204, 255, 0.3);
-    background: linear-gradient(90deg, rgba(102, 204, 255, 0.1) 0%, rgba(77, 166, 255, 0.1) 100%);
+    border-bottom: 2px solid rgba(88, 166, 255, 0.3);
+    background: rgba(88, 166, 255, 0.1);
     border-radius: 15px 15px 0 0;
 }
 
 .code-explanation-header h2 {
-    color: #66ccff;
+    color: #58a6ff;
     margin: 0;
     font-size: 24px;
     font-weight: 600;
@@ -156,9 +156,9 @@ body {
 }
 
 .step-controls button {
-    background: linear-gradient(45deg, #66ccff, #4da6ff);
+    background: #58a6ff;
     border: none;
-    color: #1a1a2e;
+    color: #0d1117;
     padding: 12px 25px; /* increased padding for larger text */
     border-radius: 10px; /* slightly bigger radius */
     cursor: pointer;
@@ -192,8 +192,8 @@ body {
 }
 
 .step-number {
-    background: linear-gradient(45deg, #ffd93d, #ffb347);
-    color: #1a1a2e;
+    background: #f85149;
+    color: #e6edf3;
     padding: 8px 15px;
     border-radius: 20px;
     font-weight: 700;

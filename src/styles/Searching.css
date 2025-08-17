@@ -3,8 +3,8 @@
 ======================= */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
-  color: #e0e6ed !important;
+  background: #0d1117 !important;
+  color: #e6edf3 !important;
   margin: 0;
   padding: 0;
   overflow-y: scroll;
@@ -82,8 +82,8 @@ body {
   height: 65px;
   border-radius: 25px;
   cursor: pointer;
-  color: #1a1a2e;
-  background: linear-gradient(45deg, #66ccff, #3399ff);
+  color: #0d1117;
+  background: #58a6ff;
   border: none;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -91,8 +91,8 @@ body {
 
 .searching-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  background: linear-gradient(45deg, #ffd93d, #ffb347);
-  color: #1a1a2e;
+  background: #79c0ff;
+  color: #0d1117;
 }
 
 .searching-button:disabled {
@@ -201,8 +201,8 @@ body {
 /* Button */
 
 .explanation-button{
-    background: linear-gradient(45deg, #ffd93d, #ffb347);
-  color: #1a1a2e;
+    background: #f85149;
+  color: #e6edf3;
   border: none;
   width: 250px;
   height: 60px;
@@ -218,8 +218,8 @@ body {
   box-shadow: 0 4px 10px rgba(255, 187, 71, 0.3);
 }
 .explanation-button:hover{
-      background: linear-gradient(45deg, #ffb347, #ffd93d);
+      background: #da3633;
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(255, 187, 71, 0.5);
+  box-shadow: 0 6px 14px rgba(248, 81, 73, 0.5);
 }
 

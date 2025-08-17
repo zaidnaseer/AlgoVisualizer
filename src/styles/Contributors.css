@@ -2,23 +2,23 @@
 
 /* Global CSS variables for dark/light theme */
 :root {
-  --bg-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-  --text-color: #e0e6ed;
-  --card-bg: #1a1a2e;
-  --card-border: #334155;
-  --highlight: #6366f1;
-  --secondary-text: #64748b;
-  --contribution-bg: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --bg-gradient: #0d1117;
+  --text-color: #e6edf3;
+  --card-bg: #21262d;
+  --card-border: #30363d;
+  --highlight: #58a6ff;
+  --secondary-text: #8b949e;
+  --contribution-bg: #58a6ff;
 }
 
 [data-theme='light'] {
-  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  --bg-gradient: #ffffff;
   --text-color: #1e293b;
   --card-bg: #ffffff;
   --card-border: #e2e8f0;
-  --highlight: #6366f1;
+  --highlight: #58a6ff;
   --secondary-text: #64748b;
-  --contribution-bg: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --contribution-bg: #58a6ff;
 }
 
 /* Light theme specific overrides for better contrast */
@@ -61,7 +61,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--highlight), transparent);
+  background: var(--highlight);
 }
 
 .contributors-header {

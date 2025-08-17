@@ -24,12 +24,13 @@
 }
 
 .demo-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #fff;
+    background: #21262d;
+    color: #e6edf3;
     padding: 30px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);
+    border: 1px solid #30363d;
+    box-shadow: 0 8px 24px rgba(33, 38, 45, 0.35);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -139,8 +140,9 @@
 
 /* ---- Export Tips ---- */
 .export-tips {
-    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-    color: #fff;
+    background: #21262d;
+    color: #e6edf3;
+    border: 1px solid #30363d;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
