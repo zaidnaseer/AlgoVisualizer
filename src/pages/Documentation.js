@@ -1131,8 +1131,9 @@ const AlgorithmDocumentation = () => {
                         <p style={{ 
                             fontSize: '14px', 
                             color: themeStyles.secondaryText, 
-                            margin: 0, 
+                            margin: 1, 
                             lineHeight: '1.6' 
+                            
                         }}>
                             <strong style={{ color: theme === 'light' ? '#0077cc' : '#66ccff' }}>Note:</strong> Complexities shown are theoretical worst-case scenarios. 
                             Actual performance may vary based on input data, implementation details, and system architecture. 
