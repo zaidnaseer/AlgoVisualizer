@@ -46,119 +46,88 @@ const SimpleExportControls = () => {
         setMessage('Video exported successfully!');
     };
 
-    return (
-        <div style={{
-            background: 'rgba(15, 52, 96, 0.1)',
-            borderRadius: '15px',
-            border: '1px solid rgba(102, 204, 255, 0.2)',
-            padding: '20px',
-            margin: '20px 0',
-            textAlign: 'center'
+   
+
+return (
+    <div style={{
+        background: 'rgba(15, 52, 96, 0.1)',
+        borderRadius: '15px',
+        border: '1px solid rgba(102, 204, 255, 0.2)',
+        padding: '25px',
+        margin: '20px auto',
+        textAlign: 'center',
+        maxWidth: '550px' 
+    }}>
+        <h3 style={{ color: '#66ccff', marginBottom: '10px', fontSize: '20px' }}>
+            🎬 Export Visualization
+        </h3>
+        
+        <p style={{ color: '#b8c5d1', fontSize: '14px', marginBottom: '25px' }}>
+            {message}
+        </p>
+
+        {/* --- Main Controls Area --- */}
+        <div style={{ 
+            display: 'flex', 
+            gap: '15px', 
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            marginBottom: '25px'
         }}>
-            <h3 style={{ color: '#66ccff', marginBottom: '20px' }}>
-                🎬 Export Visualization
-            </h3>
-            
-            <div style={{ marginBottom: '20px' }}>
-                <p style={{ color: '#ffffff', margin: '10px 0' }}>
-                    {message}
-                </p>
-                {frameCount > 0 && (
-                    <p style={{ color: '#66ccff', fontSize: '14px' }}>
-                        Frames captured: {frameCount}
-                    </p>
-                )}
-            </div>
+            {/* START/STOP BUTTON (conditionally rendered) */}
+            {!isRecording ? (
+                <button
+                    onClick={handleStartRecording}
+                    className="btn" 
+                    style={{ background: '#28a745', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
+                >
+                    📹 Start Recording
+                </button>
+            ) : (
+                <button
+                    onClick={handleStopRecording}
+                    className="btn"
+                    style={{ background: '#dc3545', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
+                >
+                    🛑 Stop Recording
+                </button>
+            )}
 
-            <div style={{ 
-                display: 'flex', 
-                gap: '10px', 
-                justifyContent: 'center',
-                flexWrap: 'wrap'
-            }}>
-                {!isRecording ? (
-                    <button
-                        onClick={handleStartRecording}
-                        style={{
-                            padding: '12px 24px',
-                            background: '#28a745',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '14px'
-                        }}
-                    >
-                        🎬 Start Recording
-                    </button>
-                ) : (
-                    <button
-                        onClick={handleStopRecording}
-                        style={{
-                            padding: '12px 24px',
-                            background: '#dc3545',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontWeight: 'bold',
-                            fontSize: '14px'
-                        }}
-                    >
-                        🛑 Stop Recording
-                    </button>
-                )}
-
+            {/* NESTED DIV FOR EXPORT BUTTONS */}
+            <div style={{ display: 'flex', gap: '10px' }}>
                 <button
                     onClick={handleExportGIF}
-                    disabled={frameCount === 0}
-                    style={{
-                        padding: '12px 24px',
-                        background: frameCount > 0 ? '#66ccff' : '#555',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: frameCount > 0 ? 'pointer' : 'not-allowed',
-                        fontWeight: 'bold',
-                        fontSize: '14px'
-                    }}
+                    disabled={frameCount === 0 || isRecording}
+                    className="btn btn-secondary" // Assuming base classes
+                    style={{ padding: '10px 20px', background: frameCount > 0 && !isRecording ? '#6c757d' : '#343a40', color: 'white', border: 'none', borderRadius: '8px', cursor: frameCount > 0 && !isRecording ? 'pointer' : 'not-allowed', fontWeight: 'bold' }}
                 >
-                    📱 Export GIF
+                    🎞️ Export GIF
                 </button>
 
                 <button
                     onClick={handleExportVideo}
-                    disabled={frameCount === 0}
-                    style={{
-                        padding: '12px 24px',
-                        background: frameCount > 0 ? '#8e44ad' : '#555',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: frameCount > 0 ? 'pointer' : 'not-allowed',
-                        fontWeight: 'bold',
-                        fontSize: '14px'
-                    }}
+                    disabled={frameCount === 0 || isRecording}
+                    className="btn btn-secondary"
+                    style={{ padding: '10px 20px', background: frameCount > 0 && !isRecording ? '#6c757d' : '#343a40', color: 'white', border: 'none', borderRadius: '8px', cursor: frameCount > 0 && !isRecording ? 'pointer' : 'not-allowed', fontWeight: 'bold' }}
                 >
                     🎥 Export Video
                 </button>
             </div>
-
-            <div style={{ 
-                marginTop: '15px', 
-                fontSize: '12px', 
-                color: '#aaa',
-                lineHeight: '1.4'
-            }}>
-                <p>📝 Instructions:</p>
-                <p>1. Click "Start Recording" before running your algorithm</p>
-                <p>2. Run the sorting/searching algorithm</p>
-                <p>3. Click "Stop Recording" when done</p>
-                <p>4. Export as GIF or Video format</p>
-            </div>
         </div>
-    );
+
+        {/* --- Instructions --- */}
+        <div style={{ color: '#b8c5d1', fontSize: '13px', textAlign: 'left', maxWidth: '380px', margin: '0 auto' }}>
+            <p style={{fontWeight: 'bold'}}>📝 Instructions:</p>
+            <ol style={{ paddingLeft: '20px', lineHeight: '1.6', margin: '5px 0 0 0' }}>
+                <li>Click "Start Recording" before running your algorithm.</li>
+                <li>Run the sorting/searching algorithm.</li>
+                <li>Click "Stop Recording" when done.</li>
+                <li>Export as GIF or Video format.</li>
+            </ol>
+        </div>
+    </div>
+);
 };
 
 export default SimpleExportControls;
