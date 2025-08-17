@@ -1,13 +1,12 @@
 /* ----------------- Footer Styles ----------------- */
 .footer-container {
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+    background: #0d1117;
     padding: 20px 0 10px 0;
-    color: var(--text-color, #e0e6ed);
+    color: #e6edf3;
     text-align: center;
     margin-top: auto;
     width: 100%;
-    border-top: 1px solid rgba(102, 204, 255, 0.2);
-    box-shadow: 0 -4px 20px rgba(15, 52, 96, 0.3);
+    border-top: 1px solid #21262d;
     animation: fadeInUp 0.8s ease-out;
 }
 
@@ -21,20 +20,17 @@
 .footer-heading {
     font-size: 1.5em;
     margin-bottom: 10px;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
     font-weight: bold;
-    background: linear-gradient(45deg, #66ccff, #4da6ff, #3385ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 10px rgba(102, 204, 255, 0.3);
+    color: #e6edf3;
 }
 
 /* Description */
 .footer-description {
     font-size: 0.9em;
-    color: #b8c5d1;
+    color: #8b949e;
     margin-bottom: 15px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 300;
     line-height: 1.4;
     max-width: 600px;
@@ -69,11 +65,10 @@
 
 .footer-links a:hover,
 .footer-links Link:hover {
-    color: #1a1a2e !important;
-    background: linear-gradient(45deg, #66ccff, #4da6ff);
+    color: #e6edf3 !important;
+    background: #21262d;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 204, 255, 0.4);
-    border-color: rgba(102, 204, 255, 0.5);
+    border-color: #30363d;
 }
 
 /* Social Icons */
@@ -82,10 +77,7 @@
     font-size: 1.2rem;
     margin-bottom: 10px;
     font-weight: 600;
-    background: linear-gradient(45deg, #66ccff, #4da6ff, #3385ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 10px rgba(102, 204, 255, 0.25);
+    color: #e6edf3;
 }
 
 
@@ -112,11 +104,11 @@
 }
 
 .social-icon:hover {
-    background: linear-gradient(45deg, #66ccff, #4da6ff);
-    color: #1a1a2e;
+    background: #58a6ff;
+    color: #0d1117;
     transform: translateY(-3px) scale(1.1);
-    box-shadow: 0 6px 16px rgba(102, 204, 255, 0.45);
-    border-color: rgba(102, 204, 255, 0.5);
+    box-shadow: 0 6px 16px rgba(88, 166, 255, 0.45);
+    border-color: rgba(88, 166, 255, 0.5);
 }
 
 /* Bottom Section */

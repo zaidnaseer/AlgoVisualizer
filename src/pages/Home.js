@@ -38,12 +38,14 @@ export default function Home() {
 
     return (
         <div className="home-container">
+            {/* Top Badge */}
+            <div className="hero-badge">
+                <span>🚀 Interactive Learning Platform</span>
+            </div>
+            
             {/* Hero Section */}
             <section className="hero-section">
                 <div className="hero-content">
-                    <div className="hero-badge">
-                        <span>🚀 Interactive Learning Platform</span>
-                    </div>
                     <h1 className="hero-title">
                         Algo<span className="highlight">Visualizer</span>
                     </h1>

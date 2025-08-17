@@ -12,24 +12,24 @@
    Theme Variables
 ========================= */
 :root {
-    --bg-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-    --container-bg: rgba(26, 26, 46, 0.95);
-    --text-color: #e0e6ed;
-    --header-bg: #1a1a2e;
-    --button-bg: #66ccff;
-    --button-text: #0a0a1a;
-    --button-hover: #4da6ff;
-    --disabled-bg: grey;
+    --bg-gradient: #0d1117;
+    --container-bg: rgba(33, 38, 45, 0.95);
+    --text-color: #e6edf3;
+    --header-bg: #21262d;
+    --button-bg: #58a6ff;
+    --button-text: #0d1117;
+    --button-hover: #79c0ff;
+    --disabled-bg: #6e7681;
 }
 
 [data-theme="light"] {
-    --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+    --bg-gradient: #ffffff;
     --container-bg: #ffffff;
     --text-color: #1a1a1a;
-    --header-bg: #f2f2f2;
-    --button-bg: #0077cc;
-    --button-text: #f6f0d6;
-    --button-hover: #005fa3;
+    --header-bg: #f6f8fa;
+    --button-bg: #0969da;
+    --button-text: #ffffff;
+    --button-hover: #0550ae;
     --disabled-bg: #cccccc;
 }
 
