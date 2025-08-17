@@ -72,9 +72,10 @@
     font-weight: bold;
     background: linear-gradient(45deg, #66ccff, #4da6ff, #3385ff);
     -webkit-background-clip: text;
+    background-clip: text;   
     -webkit-text-fill-color: transparent;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-shadow: 0 2px 10px var(--shadow-color);
 }
 
@@ -93,6 +94,10 @@
     justify-content: center;
     overflow-x: auto;
 }
+.visualization-area div{
+  min-width: fit-content !important;
+    
+}
 
 /* =========================
    Array Bars
@@ -103,6 +108,7 @@
     transition: all 0.3s ease;
     background-color: var(--bar-color);
     box-shadow: 0 2px 8px var(--shadow-color);
+    min-width: fit-content !important;
 }
 
 /* =========================
@@ -113,7 +119,7 @@
     padding: 30px;
     border-radius: 15px;
     border: 1px solid var(--border-color);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -121,11 +127,7 @@
     justify-content: center;
 }
 
-.btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+ .btn {
     background: var(--btn-bg);
     color: var(--btn-text);
     border: none;
@@ -138,7 +140,10 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 15px var(--shadow-color);
-    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: fit-content !important;
 }
 
 .btn:hover:not(:disabled) {
@@ -158,6 +163,7 @@
     background: var(--secondary-btn-bg);
     color: var(--secondary-btn-text);
     border: 1px solid var(--border-color);
+    min-width: fit-content !important;
 }
 
 .btn-secondary:hover {
@@ -212,13 +218,13 @@
     padding: 30px;
     border-radius: 15px;
     border: 1px solid var(--border-color);
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .algorithm-info h3 {
     color: #66ccff;
     font-size: 1.3em;
-    margin-bottom: 15px;
+
 }
 
 .algorithm-info p {

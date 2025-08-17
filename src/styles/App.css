@@ -16,6 +16,10 @@ body {
 
 .searching-controls {
     margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .searching-button {
@@ -25,6 +29,10 @@ body {
     border-radius: 10px; /* Rounded edges */
     cursor: pointer;
     color: black; /* Ensure button text is black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: fit-content;
 }
 
 .searching-button:disabled {
@@ -34,6 +42,9 @@ body {
 
 .searching-algorithm-selection {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .searching-array-container {

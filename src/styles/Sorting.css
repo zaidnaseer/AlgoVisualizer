@@ -87,6 +87,12 @@ button:disabled {
 /* =========================
    Algorithm Selection Section
 ========================= */
+
+.algorithm-selector-title {
+    color: #66ccff;
+    font-family: 'Poppins', 'sans-serif';
+}
+
 .algorithm-buttons-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -142,17 +148,568 @@ button:disabled {
     animation: progress 2s ease-in-out infinite;
     border-radius: 2px;
 }
+
 @keyframes progress {
     0% {
         transform: translateX(-60%);
     }
-    50%{
+
+    50% {
         transform: translateX(60%);
     }
+
     100% {
         transform: translateX(-60%);
     }
 }
+
+/* =========================
+   Step Navigation and Algorithm Panel Layout
+========================= */
+
+.visualization-wrapper {
+    flex: 1 1 auto;
+    min-width: 300px;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.vis-pseudo-container {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+.vis-main-section {
+    width: 75%;
+}
+
+.visualization-area {
+    min-height: 500px;
+    padding: 20px;
+    background: rgba(15, 52, 96, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(102, 204, 255, 0.2);
+}
+
+.array-display-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 400px;
+    gap: 3px;
+    padding: 20px 10px 50px 10px;
+    position: relative;
+    flex-wrap: nowrap;
+
+    max-width: 100%;
+    width: 100%;
+}
+
+.array-display-container.large-array {
+    gap: 2px;
+}
+
+.array-display-container.large-array .array-bar-element {
+    max-width: 20px;
+}
+
+.array-display-container.xlarge-array {
+    gap: 1px;
+}
+
+.array-display-container.xlarge-array .array-bar-element {
+    max-width: 12px;
+    min-width: 3px;
+}
+
+.array-display-container.tablet-spacing {
+    gap: 0.5px;
+}
+
+.array-display-container.tablet-spacing .array-bar-element {
+    max-width: 8px;
+    min-width: 2px;
+}
+
+.array-bar-element {
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 4px 2px;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: default;
+    flex: 1 1 0;
+    min-width: 4px;
+    max-width: 40px;
+    width: auto;
+}
+
+.bar-number-display {
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+    min-height: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.array-info-display {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #66ccff;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(26, 26, 46, 0.8);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(102, 204, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-nav-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 30px 0;
+    width: 100%;
+}
+
+.step-nav-btn {
+    min-width: 110px;
+    font-size: 14px;
+}
+
+.step-counter {
+    color: #66ccff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.pseudo-panel {
+    flex: 0 0 fit-content;
+    min-width: 280px;
+    max-width: 100%;
+    background: rgba(102, 204, 255, 0.07);
+    border: 1px solid rgba(102, 204, 255, 0.15);
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.pseudo-title {
+    color: #66ccff;
+    margin-bottom: 10px;
+    font-family: 'Poppins', 'sans-serif';
+}
+
+.pseudo-code-block {
+    background: rgba(26, 26, 46, 0.95);
+    border-radius: 8px;
+    width: 300px;
+    padding: 14px;
+    font-size: 15px;
+    color: #e0e6ed;
+    margin-bottom: 10px;
+}
+
+.pseudo-line {
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-weight: 400;
+    color: #e0e6ed;
+}
+
+.pseudo-line.active {
+    background: rgba(102, 204, 255, 0.25);
+    font-weight: 700;
+    color: #66ccff;
+}
+
+.pseudo-explanation {
+    background: rgba(102, 204, 255, 0.08);
+    width: 300px;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #b8c5d1;
+    min-height: 40px;
+}
+
+
+@media (max-width:1024px) {
+    .vis-pseudo-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .vis-main-section {
+        width: 100%;
+    }
+
+    .code-explaination-wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        flex-wrap: wrap;
+
+
+    }
+
+    .pseudo-code-block {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .pseudo-explanation {
+        width: 100%;
+    }
+
+}
+
+@media (max-width:768px) {
+    .vis-pseudo-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .step-nav-container {
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .vis-main-section {
+        width: 100%;
+    }
+
+    .code-explaination-wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .pseudo-explanation {
+        width: 100%;
+    }
+
+    /* Mobile array visualization optimizations */
+    .array-display-container {
+        height: 350px;
+        padding: 15px 5px 35px 5px;
+    }
+
+    .array-bar-element {
+        max-width: 25px;
+        min-width: 3px;
+    }
+
+    .array-bar-element .bar-number-display {
+        font-size: 10px;
+    }
+
+    .visualization-area {
+        min-height: 400px;
+        padding: 15px;
+    }
+}
+
+/* =========================
+   Mobile-specific optimizations
+========================= */
+@media (max-width: 600px) {
+    .main-page-container {
+        padding: 15px;
+    }
+
+    .array-display-container {
+        height: 320px;
+        padding: 10px 3px 30px 3px;
+        gap: 2px;
+    }
+
+    .array-bar-element {
+        max-width: 20px;
+        min-width: 2px;
+        padding: 2px 1px;
+    }
+
+    .array-bar-element .bar-number-display {
+        font-size: 9px;
+    }
+
+    .visualization-area {
+        min-height: 370px;
+        padding: 12px;
+    }
+
+    .step-nav-btn {
+        min-width: 90px;
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .step-counter {
+        font-size: 12px;
+    }
+
+    .array-info-display {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    .stats-grid {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .stat-card {
+        min-width: 120px;
+        padding: 12px;
+    }
+
+    .controls-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .action-buttons-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .algo-info-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .complexity-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+/* =========================
+   Controls Section & Record-Export section
+========================= */
+.controls-section-container {
+    width: 100%;
+    text-align: center;
+}
+
+.controls-main-wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.action-buttons-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.sort-button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.controls-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.control-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-input {
+    width: 120px;
+}
+
+.control-value {
+    color: #66ccff;
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+}
+
+.control-value.speed {
+    min-width: 50px;
+}
+
+.control-hint {
+    font-size: 11px;
+    color: #b8c5d1;
+    margin-left: 5px;
+}
+
+/* =========================
+   Performance Statistics Section
+========================= */
+.stats-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.stats-title {
+    color: #66ccff;
+    margin-bottom: 15px;
+    font-family: 'Poppins', 'sans-serif';
+    text-align: center;
+}
+
+.stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    padding: 15px;
+    min-width: 180px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-card.comparisons {
+    background: rgba(102, 204, 255, 0.1);
+    border: 1px solid rgba(102, 204, 255, 0.3);
+}
+
+.stat-card.swaps {
+    background: rgba(255, 215, 61, 0.1);
+    border: 1px solid rgba(255, 215, 61, 0.3);
+}
+
+.stat-card.time {
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.stat-card.array-size {
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.stat-label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.stat-label.comparisons {
+    color: #66ccff;
+}
+
+.stat-label.swaps {
+    color: #ffd93d;
+}
+
+.stat-label.time {
+    color: #4ade80;
+}
+
+.stat-label.array-size {
+    color: #ff6b6b;
+}
+
+.stat-value {
+    color: #e0e6ed;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+/* =========================
+   Algorithm Information Section
+========================= */
+.algo-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.code-explanation-btn {
+    background: linear-gradient(45deg, #ffd93d, #ffb347);
+    color: #1a1a2e;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 200px;
+}
+
+.complexity-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+}
+
+.complexity-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.complexity-label {
+    color: #66ccff;
+}
+
+/* =========================
+   Main Container and Header
+========================= */
+.main-page-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-page-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 
 @media (max-width: 480px) {
     .algo-buttons {
