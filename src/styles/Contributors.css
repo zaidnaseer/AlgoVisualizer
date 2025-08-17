@@ -12,13 +12,30 @@
 }
 
 [data-theme='light'] {
-  --bg-gradient: #f0f0f5;
-  --text-color: #111111;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  --text-color: #1e293b;
   --card-bg: #ffffff;
   --card-border: #e2e8f0;
   --highlight: #6366f1;
   --secondary-text: #64748b;
   --contribution-bg: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+/* Light theme specific overrides for better contrast */
+[data-theme='light'] .contributor-card {
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+}
+
+[data-theme='light'] .contributor-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15), 0 10px 10px -5px rgba(0,0,0,0.08);
+}
+
+[data-theme='light'] .contribute-cta {
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);
+}
+
+[data-theme='light'] .btn-primary:hover {
+  box-shadow: 0 8px 16px rgba(99,102,241,0.25);
 }
 
 /* ------------------------
@@ -29,6 +46,12 @@
   background: var(--bg-gradient);
   position: relative;
   color: var(--text-color);
+}
+
+.contributors-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .contributors-section::before {
