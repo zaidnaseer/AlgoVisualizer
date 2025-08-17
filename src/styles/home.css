@@ -174,7 +174,117 @@ input:focus, textarea:focus, select:focus {
 ========================= */
 .quick-card, .stat-card, .feature-item {
     border-radius: 20px;
+
+    padding: 30px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.quick-card:hover {
+    transform: translateY(-8px);
+    background: var(--hover-bg);
+    border-color: var(--card-border);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.quick-card:hover::before {
+    transform: scaleX(1);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-icon {
+    font-size: 2.5em;
+    width: 70px;
+    height: 70px;
+    background: var(--card-bg);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--card-border);   
+}
+
+.card-stats {
+    text-align: right;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: var(--subtext-color);
+}
+
+.card-title {
+    font-size: 1.5em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.card-description {
+    color: var(--subtext-color);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.card-features {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.feature-tag {
+    background: var(--card-bg);
+    color: var(--primary-color);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 500;
+    border: 1px solid var(--card-border);
+}
+
+.card-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.card-action span {
+    transition: transform 0.3s ease
     transition: all 0.3s ease;
+
 }
 
 .quick-card:hover, .stat-card:hover, .feature-item:hover {
@@ -248,3 +358,9 @@ input:focus, textarea:focus, select:focus {
     .section-title { font-size: 2.2em; }
     .quick-card { padding: 25px; }
 }
+.quick-card,
+.quick-card * {
+  text-decoration: none !important;
+}
+
+

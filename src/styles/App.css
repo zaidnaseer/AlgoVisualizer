@@ -162,9 +162,18 @@ body {
         width: 12px;
     }
 
+
+.sorting-array-bar {
+    width: 30px;
+    margin: 0 2px;
+    background-color: #61dafb;
+    text-align: center;
+    color: rgb(39, 38, 38);
+
     .searching-button,
     .sorting-button {
         padding: 6px 12px;
         font-size: 13px;
     }
+
 }
