@@ -483,7 +483,7 @@ const AlgorithmDocumentation = () => {
                     </div>
                     <div style={{ 
                         fontSize: '12px', 
-                        color: '#b8c5d1', 
+                        color: themeStyles.secondaryText, 
                         background: `${algorithm.categoryColor}15`,
                         padding: '4px 8px',
                         borderRadius: '12px',
@@ -525,7 +525,7 @@ const AlgorithmDocumentation = () => {
 
             {/* Description */}
             <p style={{ 
-                color: '#e0e6ed', 
+                color: themeStyles.secondaryText, 
                 fontSize: '14px', 
                 lineHeight: '1.5', 
                 marginBottom: '20px',
@@ -597,7 +597,7 @@ const AlgorithmDocumentation = () => {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
                     <Database size={14} style={{ color: algorithm.categoryColor }} />
-                    <span style={{ fontSize: '12px', color: '#b8c5d1' }}>Space: </span>
+                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>Space: </span>
                     <span style={{ 
                         background: getComplexityColor(algorithm.spaceComplexity) + '20',
                         color: getComplexityColor(algorithm.spaceComplexity),
@@ -684,7 +684,7 @@ const AlgorithmDocumentation = () => {
                     {algorithm.useCases.slice(0, 3).map((useCase, index) => (
                         <div key={index} style={{
                             fontSize: '12px',
-                            color: '#e0e6ed',
+                            color: themeStyles.secondaryText,
                             marginBottom: '4px',
                             paddingLeft: '12px',
                             position: 'relative'
@@ -716,7 +716,7 @@ const AlgorithmDocumentation = () => {
                         {algorithm.specialNotes.slice(0, 2).map((note, index) => (
                             <div key={index} style={{
                                 fontSize: '12px',
-                                color: '#b8c5d1',
+                                color: themeStyles.secondaryText,
                                 marginBottom: index < algorithm.specialNotes.slice(0, 2).length - 1 ? '6px' : '0',
                                 paddingLeft: '12px',
                                 position: 'relative'
@@ -1050,7 +1050,7 @@ const AlgorithmDocumentation = () => {
                                             borderRadius: '3px',
                                             background: item.color
                                         }} />
-                                        <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                        <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                             {item.complexity} - {item.label}
                                         </span>
                                     </div>
@@ -1078,7 +1078,7 @@ const AlgorithmDocumentation = () => {
                                         <Star size={10} />
                                         Implemented
                                     </div>
-                                    <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                         Ready to visualize
                                     </span>
                                 </div>
@@ -1094,7 +1094,7 @@ const AlgorithmDocumentation = () => {
                                     }}>
                                         Coming Soon
                                     </div>
-                                    <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                         In development
                                     </span>
                                 </div>
@@ -1131,8 +1131,9 @@ const AlgorithmDocumentation = () => {
                         <p style={{ 
                             fontSize: '14px', 
                             color: themeStyles.secondaryText, 
-                            margin: 0, 
+                            margin: 1, 
                             lineHeight: '1.6' 
+                            
                         }}>
                             <strong style={{ color: theme === 'light' ? '#0077cc' : '#66ccff' }}>Note:</strong> Complexities shown are theoretical worst-case scenarios. 
                             Actual performance may vary based on input data, implementation details, and system architecture. 
