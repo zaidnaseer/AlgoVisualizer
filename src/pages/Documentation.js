@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Search, Clock, Database, BookOpen, Zap, Users, Star } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
+import '../styles/Documentation.css';
 
 const AlgorithmDocumentation = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -890,66 +891,29 @@ const AlgorithmDocumentation = () => {
                     </div>
 
                     {/* Category Filters */}
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '12px',
-                        flexWrap: 'wrap'
-                    }}>
+                    <div className="category-filters">
                         {categories.map(category => {
                             const IconComponent = category.icon;
                             const isActive = selectedCategory === category.key;
                             return (
-                                <button
+                                <div
                                     key={category.key}
+                                    className={`category-chip ${isActive ? 'active' : ''}`}
                                     onClick={() => setSelectedCategory(category.key)}
-                                    style={{
-                                        padding: '12px 20px',
-                                        background: isActive 
-                                            ? (theme === 'light' ? 'linear-gradient(45deg, #0077cc, #005fa3)' : 'linear-gradient(45deg, #66ccff, #4da6ff)')
-                                            : (theme === 'light' ? 'rgba(0, 119, 204, 0.1)' : 'rgba(102, 204, 255, 0.1)'),
-                                        color: isActive ? (theme === 'light' ? '#ffffff' : '#1a1a2e') : (theme === 'light' ? '#0077cc' : '#66ccff'),
-                                        border: `1px solid ${isActive ? (theme === 'light' ? '#0077cc' : '#66ccff') : (theme === 'light' ? 'rgba(0, 119, 204, 0.3)' : 'rgba(102, 204, 255, 0.3)')}`,
-                                        borderRadius: '25px',
-                                        cursor: 'pointer',
-                                        fontSize: '14px',
-                                        fontWeight: '600',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px',
-                                        transition: 'all 0.3s ease',
-                                        fontFamily: 'inherit'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        if (!isActive) {
-                                            e.target.style.background = theme === 'light' ? 'rgba(0, 119, 204, 0.2)' : 'rgba(102, 204, 255, 0.2)';
-                                            e.target.style.transform = 'translateY(-2px)';
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (!isActive) {
-                                            e.target.style.background = theme === 'light' ? 'rgba(0, 119, 204, 0.1)' : 'rgba(102, 204, 255, 0.1)';
-                                            e.target.style.transform = 'translateY(0)';
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            setSelectedCategory(category.key);
                                         }
                                     }}
                                 >
-                                    <IconComponent size={16} />
+                                    <span className="icon"><IconComponent size={16} /></span>
                                     {category.label}
-                                    <span style={{
-                                        background: isActive ? 
-                                            (theme === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(26, 26, 46, 0.2)') : 
-                                            (theme === 'light' ? 'rgba(0, 119, 204, 0.2)' : 'rgba(102, 204, 255, 0.2)'),
-                                        color: isActive ? 
-                                            (theme === 'light' ? '#ffffff' : '#1a1a2e') : 
-                                            (theme === 'light' ? '#0077cc' : '#66ccff'),
-                                        padding: '2px 6px',
-                                        borderRadius: '10px',
-                                        fontSize: '11px',
-                                        fontWeight: '700'
-                                    }}>
+                                    <span className="count">
                                         {category.count}
                                     </span>
-                                </button>
+                                </div>
                             );
                         })}
                     </div>
