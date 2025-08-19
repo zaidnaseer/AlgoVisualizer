@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Search, Clock, Database, BookOpen, Zap, Users, Star } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
+import '../styles/Documentation.css';
 
 const AlgorithmDocumentation = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -483,7 +484,7 @@ const AlgorithmDocumentation = () => {
                     </div>
                     <div style={{ 
                         fontSize: '12px', 
-                        color: '#b8c5d1', 
+                        color: themeStyles.secondaryText, 
                         background: `${algorithm.categoryColor}15`,
                         padding: '4px 8px',
                         borderRadius: '12px',
@@ -525,7 +526,7 @@ const AlgorithmDocumentation = () => {
 
             {/* Description */}
             <p style={{ 
-                color: '#e0e6ed', 
+                color: themeStyles.secondaryText, 
                 fontSize: '14px', 
                 lineHeight: '1.5', 
                 marginBottom: '20px',
@@ -597,7 +598,7 @@ const AlgorithmDocumentation = () => {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
                     <Database size={14} style={{ color: algorithm.categoryColor }} />
-                    <span style={{ fontSize: '12px', color: '#b8c5d1' }}>Space: </span>
+                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>Space: </span>
                     <span style={{ 
                         background: getComplexityColor(algorithm.spaceComplexity) + '20',
                         color: getComplexityColor(algorithm.spaceComplexity),
@@ -684,7 +685,7 @@ const AlgorithmDocumentation = () => {
                     {algorithm.useCases.slice(0, 3).map((useCase, index) => (
                         <div key={index} style={{
                             fontSize: '12px',
-                            color: '#e0e6ed',
+                            color: themeStyles.secondaryText,
                             marginBottom: '4px',
                             paddingLeft: '12px',
                             position: 'relative'
@@ -716,7 +717,7 @@ const AlgorithmDocumentation = () => {
                         {algorithm.specialNotes.slice(0, 2).map((note, index) => (
                             <div key={index} style={{
                                 fontSize: '12px',
-                                color: '#b8c5d1',
+                                color: themeStyles.secondaryText,
                                 marginBottom: index < algorithm.specialNotes.slice(0, 2).length - 1 ? '6px' : '0',
                                 paddingLeft: '12px',
                                 position: 'relative'
@@ -890,66 +891,29 @@ const AlgorithmDocumentation = () => {
                     </div>
 
                     {/* Category Filters */}
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '12px',
-                        flexWrap: 'wrap'
-                    }}>
+                    <div className="category-filters">
                         {categories.map(category => {
                             const IconComponent = category.icon;
                             const isActive = selectedCategory === category.key;
                             return (
-                                <button
+                                <div
                                     key={category.key}
+                                    className={`category-chip ${isActive ? 'active' : ''}`}
                                     onClick={() => setSelectedCategory(category.key)}
-                                    style={{
-                                        padding: '12px 20px',
-                                        background: isActive 
-                                            ? (theme === 'light' ? 'linear-gradient(45deg, #0077cc, #005fa3)' : 'linear-gradient(45deg, #66ccff, #4da6ff)')
-                                            : (theme === 'light' ? 'rgba(0, 119, 204, 0.1)' : 'rgba(102, 204, 255, 0.1)'),
-                                        color: isActive ? (theme === 'light' ? '#ffffff' : '#1a1a2e') : (theme === 'light' ? '#0077cc' : '#66ccff'),
-                                        border: `1px solid ${isActive ? (theme === 'light' ? '#0077cc' : '#66ccff') : (theme === 'light' ? 'rgba(0, 119, 204, 0.3)' : 'rgba(102, 204, 255, 0.3)')}`,
-                                        borderRadius: '25px',
-                                        cursor: 'pointer',
-                                        fontSize: '14px',
-                                        fontWeight: '600',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px',
-                                        transition: 'all 0.3s ease',
-                                        fontFamily: 'inherit'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        if (!isActive) {
-                                            e.target.style.background = theme === 'light' ? 'rgba(0, 119, 204, 0.2)' : 'rgba(102, 204, 255, 0.2)';
-                                            e.target.style.transform = 'translateY(-2px)';
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (!isActive) {
-                                            e.target.style.background = theme === 'light' ? 'rgba(0, 119, 204, 0.1)' : 'rgba(102, 204, 255, 0.1)';
-                                            e.target.style.transform = 'translateY(0)';
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            setSelectedCategory(category.key);
                                         }
                                     }}
                                 >
-                                    <IconComponent size={16} />
+                                    <span className="icon"><IconComponent size={16} /></span>
                                     {category.label}
-                                    <span style={{
-                                        background: isActive ? 
-                                            (theme === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(26, 26, 46, 0.2)') : 
-                                            (theme === 'light' ? 'rgba(0, 119, 204, 0.2)' : 'rgba(102, 204, 255, 0.2)'),
-                                        color: isActive ? 
-                                            (theme === 'light' ? '#ffffff' : '#1a1a2e') : 
-                                            (theme === 'light' ? '#0077cc' : '#66ccff'),
-                                        padding: '2px 6px',
-                                        borderRadius: '10px',
-                                        fontSize: '11px',
-                                        fontWeight: '700'
-                                    }}>
+                                    <span className="count">
                                         {category.count}
                                     </span>
-                                </button>
+                                </div>
                             );
                         })}
                     </div>
@@ -1050,7 +1014,7 @@ const AlgorithmDocumentation = () => {
                                             borderRadius: '3px',
                                             background: item.color
                                         }} />
-                                        <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                        <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                             {item.complexity} - {item.label}
                                         </span>
                                     </div>
@@ -1078,7 +1042,7 @@ const AlgorithmDocumentation = () => {
                                         <Star size={10} />
                                         Implemented
                                     </div>
-                                    <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                         Ready to visualize
                                     </span>
                                 </div>
@@ -1094,7 +1058,7 @@ const AlgorithmDocumentation = () => {
                                     }}>
                                         Coming Soon
                                     </div>
-                                    <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                         In development
                                     </span>
                                 </div>
@@ -1131,8 +1095,9 @@ const AlgorithmDocumentation = () => {
                         <p style={{ 
                             fontSize: '14px', 
                             color: themeStyles.secondaryText, 
-                            margin: 0, 
+                            margin: 1, 
                             lineHeight: '1.6' 
+                            
                         }}>
                             <strong style={{ color: theme === 'light' ? '#0077cc' : '#66ccff' }}>Note:</strong> Complexities shown are theoretical worst-case scenarios. 
                             Actual performance may vary based on input data, implementation details, and system architecture. 
