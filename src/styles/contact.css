@@ -1,87 +1,178 @@
-.contact h1{
-    text-align: center;
-    margin-top: 20px;
-    font-size: 2.5rem;
+/* =========================
+   Light/Dark Mode Variables
+========================= */
+:root {
+    --bg-color: #f6f0d6;
+    --text-color: #1a1a1a;
+    --accent-color: rgb(8, 179, 231);
+    --input-bg: #ffffff;
+    --input-text: #1a1a1a;
+    --btn-bg: rgb(8, 179, 231);
+    --btn-text: #ffffff;
+    --btn-hover-bg: rgb(6, 150, 190);
 }
-.contact{
+
+[data-theme="dark"] {
+    --bg-color: #0a0a1a;
+    --text-color: #e0e6ed;
+    --accent-color: rgb(8, 179, 231);
+    --input-bg: #1a1a1a;
+    --input-text: #e0e6ed;
+    --btn-bg: rgb(8, 179, 231);
+    --btn-text: #ffffff;
+    --btn-hover-bg: rgb(6, 150, 190);
+}
+
+/* =========================
+   Base Styles
+========================= */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   Contact Section
+========================= */
+.contact {
     margin-bottom: 50px;
-}
-.contact p{
     text-align: center;
+}
+
+.contact h1 {
+    font-size: 2.5rem;
+    margin-top: 20px;
+}
+
+.contact p {
     font-size: 1.2rem;
-    margin-top: 10px;
+    margin: 10px auto;
     max-width: 85%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-.contact h3{
-    text-align: center;
-    margin-top: 30px;
+.contact h3 {
     font-size: 1.8rem;
-}
-.links p{
     margin-top: 30px;
 }
 
-.connection{
+.links h4 {
+    font-size: 1.5rem;
     margin-top: 50px;
-    text-align: center;
 }
-.connection input{
-    width: 30%;
-    height: 40px;
-    margin-top: 17px;
-    border: 0.5px solid rgb(8, 179, 231) !important;
-    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
-    font-size: 15px;
-    padding-left: 10px;
-    border-radius: 5px;
-    outline: none;
-    transition: all 0.3s ease-in-out;
 
+.links p {
+    margin-top: 30px;
 }
-.connection label{
+
+.social-icons a {
+    margin: 10px 5px 0 5px;
+    font-size: large;
+}
+
+/* =========================
+   Form Inputs & Textarea
+========================= */
+.connection {
+    margin-top: 50px;
+}
+
+.connection label {
     font-size: 1.2rem;
-    color: rgb(8, 179, 231);
+    color: var(--accent-color);
     margin-right: 10px;
     margin-top: 20px;
     display: inline-block;
 }
-.connection textarea{
-    width: 28%;
-    height: 100px;
+
+.connection input,
+.connection textarea {
+    width: 30%;
+    max-width: 100%;
+    padding: 10px;
     margin-top: 17px;
-    border: 0.5px solid rgb(8, 179, 231) !important;
-    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
-    font-size: 20px;
-    padding-left: 10px;
-    padding-top: 70px;
+    border: 1px solid var(--accent-color);
+    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.3);
     border-radius: 5px;
+    font-size: 1rem;
     outline: none;
+    background: var(--input-bg);
+    color: var(--input-text);
     transition: all 0.3s ease-in-out;
 }
-.submit-btn{
-    width : 100px;
+
+.connection textarea {
+    height: 100px;
+    padding-top: 10px;
+}
+
+.connection input:focus,
+.connection textarea:focus {
+    border-color: var(--btn-bg);
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+/* =========================
+   Buttons
+========================= */
+button {
+    width: 100px;
+    min-width: fit-content;
     height: 35px;
-   min-width:fit-content ;
-    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.5);
     border-radius: 5px;
     border: none;
-    background-color: rgb(8, 179, 231);
-    color: white;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
     font-size: 1rem;
+    cursor: pointer;
     transition: all 0.3s ease-in-out;
-
+    box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.3);
 }
 
-.social-icons a{
-    margin-top: 10px;
-    margin-left: 5px;
-    font-size: large;
+button:hover:not(:disabled) {
+    background-color: var(--btn-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 2px 6px 8px rgba(8, 179, 231, 0.5);
 }
-.links h4{
-    text-align: center;
-    margin-top: 50px;
-    font-size: 1.5rem;
+
+button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 768px) {
+    .connection input,
+    .connection textarea {
+        width: 80%;
+    }
+
+    button {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact h1 {
+        font-size: 2rem;
+    }
+
+    .contact h3 {
+        font-size: 1.5rem;
+    }
+
+    .links h4 {
+        font-size: 1.2rem;
+    }
+
+    .connection label {
+        display: block;
+        margin-top: 15px;
+    }
 }

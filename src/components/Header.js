@@ -41,8 +41,8 @@ const Header = () => {
                     <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle dark/light mode">
                         {theme === 'light' ? (
                             <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-                                <circle cx="16" cy="16" r="12.4" fill="#b9c8ff"/>
-                                <circle cx="22.5" cy="16" r="12.9" fill="#eef3ff"/>
+                                <circle cx="16" cy="16" r="12.4" fill="currentColor"/>
+                                <circle cx="22.5" cy="16" r="12.9" fill="currentColor"/>
                             </svg>
                         ) : (
                             <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
