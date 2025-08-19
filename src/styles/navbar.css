@@ -10,8 +10,9 @@
 
 /* ----------------- Navbar ----------------- */
 .av-header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    width:100%;
     z-index: 1000;
     background: #0d1117;
     border-bottom: 1px solid #21262d;
