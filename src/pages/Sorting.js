@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CodeExplanation from '../components/CodeExplanation';
 import SimpleExportControls from '../components/SimpleExportControls';
+import { radixSort } from '../algorithms/radixSort';
+import { bucketSort } from '../algorithms/bucketSort';
 import '../styles/pages.css';
 
 const Sorting = () => {
@@ -61,6 +63,12 @@ const Sorting = () => {
                 case 'quickSort':
                     result = await quickSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
                     break;
+                case 'radixSort':
+                    result = await radixSort(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
+                    break;
+                case 'bucketSort':
+                    result = await bucketSort(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
+                    break;
                 default:
                     result = await bubbleSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
                     break;
@@ -99,7 +107,9 @@ const Sorting = () => {
             'selectionSort': 'Selection Sort',
             'mergeSort': 'Merge Sort',
             'insertionSort': 'Insertion Sort',
-            'quickSort': 'Quick Sort'
+            'quickSort': 'Quick Sort',
+            'radixSort': 'Radix Sort',
+            'bucketSort': 'Bucket Sort'
         };
         return names[algorithm];
     };
@@ -140,6 +150,20 @@ const Sorting = () => {
                 spaceComplexity: 'O(log n)',
                 bestCase: 'O(n log n)',
                 stable: 'No'
+            },
+            'radixSort': {
+                description: 'Sorts numbers by processing individual digits from least to most significant.',
+                timeComplexity: 'O(d × (n + k))',
+                spaceComplexity: 'O(n + k)',
+                bestCase: 'O(d × (n + k))',
+                stable: 'Yes'
+            },
+            'bucketSort': {
+                description: 'Distributes elements into buckets, sorts each bucket, then concatenates.',
+                timeComplexity: 'O(n + k)',
+                spaceComplexity: 'O(n × k)',
+                bestCase: 'O(n + k)',
+                stable: 'Yes'
             }
         };
         return info[algorithm];
@@ -456,6 +480,21 @@ const Sorting = () => {
             { code: '  partition(low, high)', explain: 'Rearrange elements around the pivot.' },
             { code: '  quickSort(low, pi - 1)', explain: 'Recursively sort the left part.' },
             { code: '  quickSort(pi + 1, high)', explain: 'Recursively sort the right part.' }
+        ],
+        radixSort: [
+            { code: 'max = getMax(arr)', explain: 'Find the maximum number to get number of digits.' },
+            { code: 'for digit = 1; max/digit > 0; digit *= 10', explain: 'Process each digit from least to most significant.' },
+            { code: '  countingSort(arr, digit)', explain: 'Sort by current digit using counting sort.' },
+            { code: '  distribute into buckets', explain: 'Place numbers in buckets based on current digit.' },
+            { code: '  collect from buckets', explain: 'Collect numbers back maintaining order.' }
+        ],
+        bucketSort: [
+            { code: 'n = arr.length', explain: 'Get the number of elements.' },
+            { code: 'create n empty buckets', explain: 'Create empty buckets for distribution.' },
+            { code: 'for i = 0 to n-1', explain: 'Process each element in the array.' },
+            { code: '  insert arr[i] into bucket[floor(n*arr[i])]', explain: 'Distribute elements into appropriate buckets.' },
+            { code: 'sort each bucket individually', explain: 'Sort each bucket using insertion sort.' },
+            { code: 'concatenate all buckets', explain: 'Combine all sorted buckets to get final result.' }
         ]
     };
 
@@ -607,6 +646,143 @@ const Sorting = () => {
         return steps;
     }
 
+    function getStepsForRadixSort(arr) {
+        const steps = [];
+        const a = [...arr];
+        const n = a.length;
+        
+        // Find maximum number to know number of digits
+        const getMax = (array) => {
+            let max = array[0];
+            for (let i = 1; i < array.length; i++) {
+                if (array[i] > max) max = array[i];
+            }
+            return max;
+        };
+
+        const max = getMax(a);
+        
+        // Do counting sort for every digit
+        for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
+            const output = new Array(n);
+            const count = new Array(10).fill(0);
+
+            // Store count of occurrences
+            for (let i = 0; i < n; i++) {
+                const digit = Math.floor(a[i] / exp) % 10;
+                count[digit]++;
+                steps.push({
+                    type: 'process',
+                    indices: [i],
+                    array: [...a],
+                    pseudoLine: 2
+                });
+            }
+
+            // Change count[i] so that count[i] contains actual position
+            for (let i = 1; i < 10; i++) {
+                count[i] += count[i - 1];
+            }
+
+            // Build the output array
+            for (let i = n - 1; i >= 0; i--) {
+                const digit = Math.floor(a[i] / exp) % 10;
+                output[count[digit] - 1] = a[i];
+                count[digit]--;
+                steps.push({
+                    type: 'place',
+                    indices: [i, count[digit]],
+                    array: [...a],
+                    pseudoLine: 4
+                });
+            }
+
+            // Copy output array to a
+            for (let i = 0; i < n; i++) {
+                a[i] = output[i];
+                steps.push({
+                    type: 'update',
+                    indices: [i],
+                    array: [...a],
+                    pseudoLine: 4
+                });
+            }
+        }
+        
+        steps.push({ type: 'done', indices: [], array: [...a], pseudoLine: null });
+        return steps;
+    }
+
+    function getStepsForBucketSort(arr) {
+        const steps = [];
+        const a = [...arr];
+        const n = a.length;
+
+        if (n <= 1) return [{ type: 'done', indices: [], array: [...a], pseudoLine: null }];
+
+        // Find max and min
+        let max = a[0], min = a[0];
+        for (let i = 1; i < n; i++) {
+            if (a[i] > max) max = a[i];
+            if (a[i] < min) min = a[i];
+            steps.push({
+                type: 'examine',
+                indices: [i],
+                array: [...a],
+                pseudoLine: 2
+            });
+        }
+
+        // Create buckets
+        const bucketCount = Math.floor(Math.sqrt(n));
+        const buckets = Array.from({ length: bucketCount }, () => []);
+        const range = (max - min) / bucketCount;
+
+        // Distribute elements into buckets
+        for (let i = 0; i < n; i++) {
+            const bucketIndex = Math.min(Math.floor((a[i] - min) / range), bucketCount - 1);
+            buckets[bucketIndex].push(a[i]);
+            steps.push({
+                type: 'distribute',
+                indices: [i],
+                array: [...a],
+                pseudoLine: 3
+            });
+        }
+
+        // Sort each bucket and place back
+        let index = 0;
+        for (let i = 0; i < bucketCount; i++) {
+            const bucket = buckets[i];
+            
+            // Simple insertion sort for bucket
+            for (let j = 1; j < bucket.length; j++) {
+                const key = bucket[j];
+                let k = j - 1;
+                while (k >= 0 && bucket[k] > key) {
+                    bucket[k + 1] = bucket[k];
+                    k--;
+                }
+                bucket[k + 1] = key;
+            }
+            
+            // Place sorted bucket back
+            for (let j = 0; j < bucket.length; j++) {
+                a[index] = bucket[j];
+                steps.push({
+                    type: 'place',
+                    indices: [index],
+                    array: [...a],
+                    pseudoLine: 5
+                });
+                index++;
+            }
+        }
+        
+        steps.push({ type: 'done', indices: [], array: [...a], pseudoLine: null });
+        return steps;
+    }
+
     const [steps, setSteps] = useState([]);
     const [currentStep, setCurrentStep] = useState(0);
 
@@ -617,6 +793,8 @@ const Sorting = () => {
         else if (algorithm === 'insertionSort') newSteps = getStepsForInsertionSort(array);
         else if (algorithm === 'mergeSort') newSteps = getStepsForMergeSort(array);
         else if (algorithm === 'quickSort') newSteps = getStepsForQuickSort(array);
+        else if (algorithm === 'radixSort') newSteps = getStepsForRadixSort(array);
+        else if (algorithm === 'bucketSort') newSteps = getStepsForBucketSort(array);
         setSteps(newSteps);
         setCurrentStep(0);
     }, [array, algorithm, arraySize]);
@@ -957,13 +1135,15 @@ return (
                     Select Algorithm:
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
-                    {['bubbleSort', 'selectionSort', 'mergeSort', 'insertionSort', 'quickSort'].map((algo) => {
+                    {['bubbleSort', 'selectionSort', 'mergeSort', 'insertionSort', 'quickSort', 'radixSort', 'bucketSort'].map((algo) => {
                         const algorithmNames = {
                             'bubbleSort': 'Bubble Sort',
                             'selectionSort': 'Selection Sort',
                             'mergeSort': 'Merge Sort',
                             'insertionSort': 'Insertion Sort',
-                            'quickSort': 'Quick Sort'
+                            'quickSort': 'Quick Sort',
+                            'radixSort': 'Radix Sort',
+                            'bucketSort': 'Bucket Sort'
                         };
 
                         return (
