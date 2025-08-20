@@ -70,6 +70,7 @@
     background-color: var(--doubt-input-bg);
     color: var(--doubt-input-text);
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    resize: vertical;
 }
 
 .doubt-section input:focus,
