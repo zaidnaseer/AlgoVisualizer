@@ -23,7 +23,7 @@ const App = () => {
             <Router>
                 <div className="app-container">
                     <Header />
-                    <main className="main-content">
+                    <main className="main-content" style={{ paddingTop: '70px' }}>
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/sorting" element={<Sorting />} />

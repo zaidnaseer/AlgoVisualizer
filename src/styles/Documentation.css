@@ -7,7 +7,7 @@
 .category-filters {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 24px;
 }
@@ -49,12 +49,14 @@
 [data-theme="light"] .category-chip:hover {
   background: rgba(0, 119, 204, 0.2);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="light"] .category-chip.active {
   background: linear-gradient(45deg, #0077cc, #005fa3);
   color: #ffffff;
   border-color: #0077cc;
+  box-shadow: 0 0 15px rgba(0, 119, 204, 0.4);
 }
 
 [data-theme="light"] .category-chip .count {
@@ -77,12 +79,14 @@
 [data-theme="dark"] .category-chip:hover {
   background: rgba(102, 204, 255, 0.2);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] .category-chip.active {
   background: linear-gradient(45deg, #66ccff, #4da6ff);
   color: #1a1a2e;
   border-color: #66ccff;
+  box-shadow: 0 0 15px rgba(102, 204, 255, 0.4);
 }
 
 [data-theme="dark"] .category-chip .count {
@@ -93,4 +97,32 @@
 [data-theme="dark"] .category-chip.active .count {
   background: rgba(26, 26, 46, 0.2);
   color: #1a1a2e;
+}
+
+/* =========================
+   Legend Item Cards
+========================= */
+.legend-item-card {
+  background: rgba(255, 255, 255, 0.05); /* A subtle background */
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid rgba(102, 204, 255, 0.1); /* Subtle border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: all 0.3s ease;
+}
+
+.legend-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Light theme adjustments for legend item cards */
+[data-theme="light"] .legend-item-card {
+  background: rgba(0, 119, 204, 0.05);
+  border: 1px solid rgba(0, 119, 204, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .legend-item-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
