@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AlertCircle } from 'lucide-react';
 import '../styles/doubt.css';
 
@@ -7,7 +7,19 @@ const Doubt = () => {
     const [doubt, setDoubt] = useState('');
     const [emailError, setEmailError] = useState('');
     const [doubtError, setDoubtError] = useState('');
+    const [submitStatus, setSubmitStatus] = useState(null); // null | 'success' | 'error'
 
+  
+  // Hide confirmation/error message after 3 seconds
+    useEffect(() => {
+        if (submitStatus) {
+            const timer = setTimeout(() => {
+                setSubmitStatus(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [submitStatus]);
+  
     const validateEmail = () => {
         if (!email) {
             setEmailError('Please enter your email address.');
@@ -35,10 +47,16 @@ const Doubt = () => {
         const isDoubtValid = validateDoubt();
 
         if (isEmailValid && isDoubtValid) {
-            console.log('Form submitted successfully');
-            // Reset form
-            setEmail('');
-            setDoubt('');
+            try {
+                // Simulate successful submission
+                setSubmitStatus('success');
+                setEmail('');
+                setDoubt('');
+            } catch (error) {
+                setSubmitStatus('error');
+            }
+        } else {
+            setSubmitStatus(null);
         }
     };
 
@@ -46,6 +64,16 @@ const Doubt = () => {
         <div className="doubt-section">
             <h2>Have a Doubt?</h2>
             <p>Feel free to ask any questions you have about the algorithms or data structures.</p>
+            {submitStatus === 'success' && (
+                <div className="confirmation-message" style={{ color: 'green', marginBottom: '1rem' }}>
+                    Your doubt has been submitted successfully!
+                </div>
+            )}
+            {submitStatus === 'error' && (
+                <div className="confirmation-message" style={{ color: 'red', marginBottom: '1rem' }}>
+                    An error occurred while submitting your doubt. Please try again.
+                </div>
+            )}
             <form onSubmit={handleSubmit} noValidate>
                 <input
                     type="email"
