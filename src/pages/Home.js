@@ -405,9 +405,14 @@ export default function Home() {
         <div className="features-grid">
           <div className="feature-item">
             <div className="feature-icon">
-              <div className="icon-bg">⚡</div>
+              <lord-icon
+                className="icon-bg"
+                src="https://cdn.lordicon.com/zpxybbhl.json"
+                trigger="loop"
+                style={{ width: "60px", height: "60px" }}
+              ></lord-icon>
             </div>
-            <h3>Real-time Visualization</h3>
+            <h3>⚡ Real-time Visualization</h3>
             <p>
               Watch algorithms execute step-by-step with smooth animations and
               instant feedback.
@@ -416,9 +421,14 @@ export default function Home() {
 
           <div className="feature-item">
             <div className="feature-icon">
-              <div className="icon-bg">🎯</div>
+              <lord-icon
+                className="icon-bg"
+                src="https://cdn.lordicon.com/kkvxgpti.json"
+                trigger="loop"
+                style={{ width: "60px", height: "60px" }}
+              ></lord-icon>
             </div>
-            <h3>Interactive Controls</h3>
+            <h3>🎯 Interactive Controls</h3>
             <p>
               Pause, resume, adjust speed, and customize input data to explore
               different scenarios.
@@ -427,9 +437,14 @@ export default function Home() {
 
           <div className="feature-item">
             <div className="feature-icon">
-              <div className="icon-bg">📊</div>
+              <lord-icon
+                className="icon-bg"
+                src="https://cdn.lordicon.com/oezixobx.json"
+                trigger="loop"
+                style={{ width: "60px", height: "60px" }}
+              ></lord-icon>
             </div>
-            <h3>Performance Metrics</h3>
+            <h3>📊 Performance Metrics</h3>
             <p>
               Track comparisons, swaps, and execution time to understand
               algorithm efficiency.
@@ -438,9 +453,14 @@ export default function Home() {
 
           <div className="feature-item">
             <div className="feature-icon">
-              <div className="icon-bg">🧠</div>
+              <lord-icon
+                className="icon-bg"
+                src="https://cdn.lordicon.com/bhfjfgqz.json"
+                trigger="loop"
+                style={{ width: "60px", height: "60px" }}
+              ></lord-icon>
             </div>
-            <h3>Deep Learning</h3>
+            <h3>🧠 Deep Learning</h3>
             <p>
               Comprehensive complexity analysis and detailed explanations for
               every algorithm.
@@ -449,9 +469,14 @@ export default function Home() {
 
           <div className="feature-item">
             <div className="feature-icon">
-              <div className="icon-bg">📱</div>
+              <lord-icon
+                className="icon-bg"
+                src="https://cdn.lordicon.com/slkvcfos.json"
+                trigger="loop"
+                style={{ width: "70px", height: "70px" }}
+              ></lord-icon>
             </div>
-            <h3>Mobile Friendly</h3>
+            <h3>📱 Mobile Friendly</h3>
             <p>
               Responsive design that works perfectly on desktop, tablet, and
               mobile devices.
@@ -460,9 +485,14 @@ export default function Home() {
 
           <div className="feature-item">
             <div className="feature-icon">
-              <div className="icon-bg">🆓</div>
+              <lord-icon
+                className="icon-bg"
+                src="https://cdn.lordicon.com/etqbfrgp.json"
+                trigger="loop"
+                style={{ width: "60px", height: "60px" }}
+              ></lord-icon>
             </div>
-            <h3>Completely Free</h3>
+            <h3>🎉 Completely Free</h3>
             <p>
               Open source platform with no subscriptions, ads, or hidden costs.
               Learn without limits.
@@ -478,8 +508,17 @@ export default function Home() {
 
       {/* Statistics Section */}
       <section className="stats-section">
+        <div className="stats-header">
+          <h2>At a Glance</h2>
+        </div>
         <div className="stats-container">
           <div className="stat-card">
+            <lord-icon
+              src="https://cdn.lordicon.com/dfxesbyu.json"
+              trigger="loop"
+              colors="primary:#121331,secondary:#08a88a"
+              style={{ width: "70px", height: "70px" }}
+            ></lord-icon>
             <div className="stat-number">15+</div>
             <div className="stat-label">Algorithms</div>
             <div className="stat-description">
@@ -487,6 +526,13 @@ export default function Home() {
             </div>
           </div>
           <div className="stat-card">
+            <lord-icon
+              src="https://cdn.lordicon.com/ayhtotha.json"
+              delay = "2000"
+              trigger="hover"
+              colors="primary:#121331,secondary:#08a88a"
+              style={{ width: "70px", height: "70px" }}
+            ></lord-icon>
             <div className="stat-number">100%</div>
             <div className="stat-label">Interactive</div>
             <div className="stat-description">
@@ -494,6 +540,12 @@ export default function Home() {
             </div>
           </div>
           <div className="stat-card">
+            <lord-icon
+              src="https://cdn.lordicon.com/hwuyodym.json"
+              trigger="loop"
+              colors="primary:#121331,secondary:#08a88a"
+              style={{width:"70px" ,height:"70px"}}
+            ></lord-icon>
             <div className="stat-number">∞</div>
             <div className="stat-label">Learning</div>
             <div className="stat-description">
