@@ -16,6 +16,12 @@ const Sorting = () => {
     const stopSortingRef = useRef(false);
     const [showCodeExplanation, setShowCodeExplanation] = useState(false);
 
+    // ✅ NEW: useRef to always hold the latest delay
+    const delayRef = useRef(delay);
+    useEffect(() => {
+        delayRef.current = delay; // keep it in sync
+    }, [delay]);
+
     useEffect(() => {
         const generateNewArray = () => {
             const randomArray = Array.from({ length: arraySize }, () =>
@@ -49,20 +55,21 @@ const Sorting = () => {
         let result = -1;
         try {
             switch (algorithm) {
+                // ✅ fix: pass "sleep"
                 case 'selectionSort':
-                    result = await selectionSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
+                    result = await selectionSortWithStop(array, setArray, setColorArray, sleep, stopSortingRef, setStatistics);
                     break;
                 case 'mergeSort':
-                    result = await mergeSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
+                    result = await mergeSortWithStop(array, setArray, setColorArray, sleep, stopSortingRef, setStatistics);
                     break;
                 case 'insertionSort':
-                    result = await insertionSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
+                    result = await insertionSortWithStop(array, setArray, setColorArray, sleep, stopSortingRef, setStatistics);
                     break;
                 case 'quickSort':
-                    result = await quickSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
+                    result = await quickSortWithStop(array, setArray, setColorArray, sleep, stopSortingRef, setStatistics);
                     break;
                 default:
-                    result = await bubbleSortWithStop(array, setArray, setColorArray, delay, stopSortingRef, setStatistics);
+                    result = await bubbleSortWithStop(array, setArray, setColorArray, sleep, stopSortingRef, setStatistics);
                     break;
             }
 
@@ -145,9 +152,9 @@ const Sorting = () => {
         return info[algorithm];
     };
 
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const sleep = () => new Promise(resolve => setTimeout(resolve, delayRef.current));
 
-    const bubbleSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
+    const bubbleSortWithStop = async (arr, setArray, setColorArray, sleep, stopRef, setStats) => {
         const newArray = [...arr];
         const n = newArray.length;
         let comparisons = 0, swaps = 0;
@@ -165,7 +172,7 @@ const Sorting = () => {
                 colors[j + 1] = '#ff6b6b';
                 setColorArray([...colors]);
 
-                await sleep(delay);
+                await sleep();
 
                 if (newArray[j] > newArray[j + 1]) {
                     [newArray[j], newArray[j + 1]] = [newArray[j + 1], newArray[j]];
@@ -176,7 +183,7 @@ const Sorting = () => {
                     colors[j + 1] = '#ffd93d';
                     setColorArray([...colors]);
 
-                    await sleep(delay);
+                    await sleep();
                 }
 
                 setStats({ comparisons, swaps, time: 0 });
@@ -193,7 +200,7 @@ const Sorting = () => {
         return 0;
     };
 
-    const selectionSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
+    const selectionSortWithStop = async (arr, setArray, setColorArray, sleep, stopRef, setStats) => {
         const newArray = [...arr];
         const n = newArray.length;
         let comparisons = 0, swaps = 0;
@@ -215,7 +222,7 @@ const Sorting = () => {
                 colors[j] = '#ff6b6b';
                 setColorArray([...colors]);
 
-                await sleep(delay);
+                await sleep();
 
                 if (newArray[j] < newArray[minIdx]) {
                     if (minIdx !== i) colors[minIdx] = '#66ccff';
@@ -232,7 +239,7 @@ const Sorting = () => {
                 [newArray[i], newArray[minIdx]] = [newArray[minIdx], newArray[i]];
                 swaps++;
                 setArray([...newArray]);
-                await sleep(delay);
+                await sleep();
             }
 
             for (let k = 0; k <= i; k++) {
@@ -246,7 +253,7 @@ const Sorting = () => {
         return 0;
     };
 
-    const insertionSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
+    const insertionSortWithStop = async (arr, setArray, setColorArray, sleep, stopRef, setStats) => {
         const newArray = [...arr];
         const n = newArray.length;
         let comparisons = 0, swaps = 0;
@@ -260,7 +267,7 @@ const Sorting = () => {
             const colors = new Array(n).fill('#66ccff');
             colors[i] = '#ffd93d';
             setColorArray([...colors]);
-            await sleep(delay);
+            await sleep();
 
             while (j >= 0 && newArray[j] > key) {
                 if (stopRef.current) throw new Error('Stopped');
@@ -273,7 +280,7 @@ const Sorting = () => {
                 newArray[j + 1] = newArray[j];
                 swaps++;
                 setArray([...newArray]);
-                await sleep(delay);
+                await sleep();
                 setStats({ comparisons, swaps, time: 0 });
 
                 j--;
@@ -286,14 +293,14 @@ const Sorting = () => {
                 colors[k] = '#4ade80';
             }
             setColorArray([...colors]);
-            await sleep(delay);
+            await sleep();
         }
 
         setColorArray(new Array(n).fill('#4ade80'));
         return 0;
     };
 
-    const mergeSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
+    const mergeSortWithStop = async (arr, setArray, setColorArray, sleep, stopRef, setStats) => {
         const newArray = [...arr];
         let comparisons = 0, swaps = 0;
 
@@ -324,7 +331,7 @@ const Sorting = () => {
                 swaps++;
                 setArray([...newArray]);
                 setStats({ comparisons, swaps, time: 0 });
-                await sleep(delay);
+                await sleep();
                 k++;
             }
 
@@ -333,7 +340,7 @@ const Sorting = () => {
                 newArray[k] = leftArr[i];
                 swaps++;
                 setArray([...newArray]);
-                await sleep(delay);
+                await sleep();
                 i++;
                 k++;
             }
@@ -343,7 +350,7 @@ const Sorting = () => {
                 newArray[k] = rightArr[j];
                 swaps++;
                 setArray([...newArray]);
-                await sleep(delay);
+                await sleep();
                 j++;
                 k++;
             }
@@ -365,7 +372,7 @@ const Sorting = () => {
         return 0;
     };
 
-    const quickSortWithStop = async (arr, setArray, setColorArray, delay, stopRef, setStats) => {
+    const quickSortWithStop = async (arr, setArray, setColorArray, sleep, stopRef, setStats) => {
         const newArray = [...arr];
         const n = newArray.length;
         let comparisons = 0, swaps = 0;
@@ -380,7 +387,7 @@ const Sorting = () => {
                 colors[j] = '#ff6b6b';
                 colors[high] = '#ffd93d';
                 setColorArray([...colors]);
-                await sleep(delay);
+                await sleep();
 
                 if (newArray[j] < pivot) {
                     i++;
@@ -390,7 +397,7 @@ const Sorting = () => {
                     colors[i] = '#ffd93d';
                     colors[j] = '#ffd93d';
                     setColorArray([...colors]);
-                    await sleep(delay);
+                    await sleep();
                 }
                 setStats({ comparisons, swaps, time: 0 });
             }
@@ -401,7 +408,7 @@ const Sorting = () => {
             colors[i + 1] = '#4ade80';
             colors[high] = '#4ade80';
             setColorArray([...colors]);
-            await sleep(delay);
+            await sleep();
             setStats({ comparisons, swaps, time: 0 });
             return i + 1;
         }
