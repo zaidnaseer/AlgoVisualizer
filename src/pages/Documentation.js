@@ -7,7 +7,9 @@ const AlgorithmDocumentation = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
-    const { theme } = useTheme();
+    const [expandedCardId, setExpandedCardId] = useState(null); // New state variable
+    const [selectedLegendCard, setSelectedLegendCard] = useState(null); // For modal popup
+    const { theme } = useTheme(); // Move this line up
 
     // Theme-responsive styles
     const themeStyles = {
@@ -447,6 +449,37 @@ const AlgorithmDocumentation = () => {
         return colors[complexity] || '#e0e6ed';
     };
 
+    // Legend card data for modal
+    const legendCards = {
+        complexity: {
+            title: "Time Complexity Colors",
+            content: [
+                { complexity: 'O(1)', label: 'Constant', color: '#4ade80' },
+                { complexity: 'O(log n)', label: 'Logarithmic', color: '#66ccff' },
+                { complexity: 'O(n)', label: 'Linear', color: '#ffd93d' },
+                { complexity: 'O(n log n)', label: 'Linearithmic', color: '#ff9500' },
+                { complexity: 'O(n²)', label: 'Quadratic', color: '#ff6b6b' },
+                { complexity: 'O(√n)', label: 'Square Root', color: '#a78bfa' }
+            ]
+        },
+        status: {
+            title: "Implementation Status",
+            content: [
+                { label: "Implemented", description: "Ready to visualize", color: "#4ade80" },
+                { label: "Coming Soon", description: "In development", color: "#ffd93d" }
+            ]
+        },
+        properties: {
+            title: "Algorithm Properties",
+            content: [
+                { label: "Stable", description: "maintains relative order", color: "#4ade80" },
+                { label: "In-place", description: "uses O(1) extra space", color: "#4ade80" },
+                { label: "Adaptive", description: "faster on sorted data", color: "#4ade80" },
+                { label: "Unstable", description: "may change relative order", color: "#ff6b6b" }
+            ]
+        }
+    };
+
     const AlgorithmCard = ({ algorithm }) => (
         <div style={{
             background: themeStyles.cardBackground,
@@ -842,6 +875,7 @@ const AlgorithmDocumentation = () => {
             {/* Filter and Search Section */}
             <div style={{
                 padding: '30px 20px',
+                marginBottom: '30px',
                 background: theme === 'light' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(26, 26, 46, 0.5)',
                 backdropFilter: 'blur(5px)'
             }}>
@@ -973,9 +1007,9 @@ const AlgorithmDocumentation = () => {
 
             {/* Footer Section */}
             <div style={{
-                background: 'rgba(26, 26, 46, 0.95)',
-                borderTop: '1px solid rgba(102, 204, 255, 0.2)',
-                padding: '40px 20px',
+                background: 'rgba(26, 26, 46, 0.85)',
+                borderTop: '1px solid rgba(102, 204, 255, 0.1)',
+                padding: '60px 20px',
                 textAlign: 'center'
             }}>
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -991,10 +1025,27 @@ const AlgorithmDocumentation = () => {
                     <div style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                        gap: '20px',
+                        gap: '30px',
                         marginBottom: '30px'
                     }}>
-                        <div>
+                        <div 
+                            className="legend-item-card"
+                            onClick={() => setSelectedLegendCard('complexity')}
+                            style={{
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                                transform: 'scale(1)',
+                                boxShadow: 'none'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'scale(1.02)';
+                                e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 204, 255, 0.3)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = 'none';
+                            }}
+                        >
                             <h4 style={{ color: '#66ccff', fontSize: '14px', marginBottom: '12px' }}>
                                 Time Complexity Colors
                             </h4>
@@ -1014,7 +1065,7 @@ const AlgorithmDocumentation = () => {
                                             borderRadius: '3px',
                                             background: item.color
                                         }} />
-                                        <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
+                                        <span style={{ fontSize: '13px', lineHeight: '1.6', color: themeStyles.secondaryText }}>
                                             {item.complexity} - {item.label}
                                         </span>
                                     </div>
@@ -1022,7 +1073,24 @@ const AlgorithmDocumentation = () => {
                             </div>
                         </div>
 
-                        <div>
+                        <div 
+                            className="legend-item-card"
+                            onClick={() => setSelectedLegendCard('status')}
+                            style={{
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                                transform: 'scale(1)',
+                                boxShadow: 'none'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'scale(1.02)';
+                                e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 204, 255, 0.3)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = 'none';
+                            }}
+                        >
                             <h4 style={{ color: '#66ccff', fontSize: '14px', marginBottom: '12px' }}>
                                 Implementation Status
                             </h4>
@@ -1042,7 +1110,7 @@ const AlgorithmDocumentation = () => {
                                         <Star size={10} />
                                         Implemented
                                     </div>
-                                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
+                                    <span style={{ fontSize: '13px', lineHeight: '1.6', color: themeStyles.secondaryText }}>
                                         Ready to visualize
                                     </span>
                                 </div>
@@ -1058,29 +1126,50 @@ const AlgorithmDocumentation = () => {
                                     }}>
                                         Coming Soon
                                     </div>
-                                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
+                                    <span style={{ fontSize: '13px', lineHeight: '1.6', color: themeStyles.secondaryText }}>
                                         In development
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <div>
+                        <div 
+                            className="legend-item-card"
+                            onClick={() => setSelectedLegendCard('properties')}
+                            style={{
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                                transform: 'scale(1)',
+                                boxShadow: 'none'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'scale(1.02)';
+                                e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 204, 255, 0.3)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = 'none';
+                            }}
+                        >
                             <h4 style={{ color: theme === 'light' ? '#0077cc' : '#66ccff', fontSize: '14px', marginBottom: '12px' }}>
                                 Algorithm Properties
                             </h4>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-start' }}>
-                                <div style={{ fontSize: '12px', color: themeStyles.color }}>
-                                    <span style={{ color: '#4ade80' }}>●</span> Stable - maintains relative order
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', lineHeight: '1.6', color: themeStyles.color }}>
+                                    <span style={{ color: '#4ade80' }}>●</span>
+                                    <span>Stable - maintains relative order</span>
                                 </div>
-                                <div style={{ fontSize: '12px', color: themeStyles.color }}>
-                                    <span style={{ color: '#4ade80' }}>●</span> In-place - uses O(1) extra space
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', lineHeight: '1.6', color: themeStyles.color }}>
+                                    <span style={{ color: '#4ade80' }}>●</span>
+                                    <span>In-place - uses O(1) extra space</span>
                                 </div>
-                                <div style={{ fontSize: '12px', color: themeStyles.color }}>
-                                    <span style={{ color: '#4ade80' }}>●</span> Adaptive - faster on sorted data
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', lineHeight: '1.6', color: themeStyles.color }}>
+                                    <span style={{ color: '#4ade80' }}>●</span>
+                                    <span>Adaptive - faster on sorted data</span>
                                 </div>
-                                <div style={{ fontSize: '12px', color: themeStyles.color }}>
-                                    <span style={{ color: '#ff6b6b' }}>●</span> Unstable - may change relative order
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '13px', lineHeight: '1.6', color: themeStyles.color }}>
+                                    <span style={{ color: '#ff6b6b', lineHeight: '1.6' }}>●</span>
+                                    <span>Unstable - may change relative order</span>
                                 </div>
                             </div>
                         </div>
@@ -1095,17 +1184,201 @@ const AlgorithmDocumentation = () => {
                         <p style={{ 
                             fontSize: '14px', 
                             color: themeStyles.secondaryText, 
-                            margin: 1, 
-                            lineHeight: '1.6' 
-                            
+                            margin: 0, 
+                            lineHeight: '1.6'
                         }}>
-                            <strong style={{ color: theme === 'light' ? '#0077cc' : '#66ccff' }}>Note:</strong> Complexities shown are theoretical worst-case scenarios. 
-                            Actual performance may vary based on input data, implementation details, and system architecture. 
-                            Use this documentation as a guide for understanding algorithm characteristics and choosing the right tool for your needs.
+                            <strong style={{ color: theme === 'light' ? '#0077cc' : '#66ccff' }}>Note:</strong> Complexities shown are theoretical worst-case scenarios. Actual performance may vary based on input data, implementation details, and system architecture. Use this documentation as a guide for understanding algorithm characteristics and choosing the right tool for your needs.
                         </p>
                     </div>
                 </div>
             </div>
+
+            {/* Modal for Legend Cards */}
+            {selectedLegendCard && (
+                <div 
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'rgba(0, 0, 0, 0.8)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 1000,
+                        backdropFilter: 'blur(5px)'
+                    }}
+                    onClick={() => setSelectedLegendCard(null)}
+                >
+                    <div 
+                        style={{
+                            background: themeStyles.cardBackground,
+                            borderRadius: '16px',
+                            padding: '40px',
+                            maxWidth: '600px',
+                            width: '90%',
+                            maxHeight: '80vh',
+                            overflow: 'auto',
+                            border: `2px solid #66ccff`,
+                            boxShadow: '0 20px 60px rgba(102, 204, 255, 0.3)',
+                            position: 'relative'
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setSelectedLegendCard(null)}
+                            style={{
+                                position: 'absolute',
+                                top: '16px',
+                                right: '16px',
+                                background: 'transparent',
+                                border: 'none',
+                                fontSize: '24px',
+                                color: themeStyles.color,
+                                cursor: 'pointer',
+                                padding: '8px',
+                                borderRadius: '50%',
+                                transition: 'all 0.3s ease'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.background = 'rgba(255, 107, 107, 0.2)';
+                                e.target.style.color = '#ff6b6b';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.background = 'transparent';
+                                e.target.style.color = themeStyles.color;
+                            }}
+                        >
+                            ×
+                        </button>
+
+                        {/* Modal Content */}
+                        <h2 style={{
+                            color: '#66ccff',
+                            fontSize: '24px',
+                            marginBottom: '24px',
+                            fontWeight: '700'
+                        }}>
+                            {legendCards[selectedLegendCard].title}
+                        </h2>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            {selectedLegendCard === 'complexity' && legendCards.complexity.content.map((item, index) => (
+                                <div key={index} style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '16px',
+                                    padding: '16px',
+                                    background: `${item.color}10`,
+                                    borderRadius: '12px',
+                                    border: `1px solid ${item.color}30`
+                                }}>
+                                    <div style={{
+                                        width: '20px',
+                                        height: '20px',
+                                        borderRadius: '6px',
+                                        background: item.color
+                                    }} />
+                                    <div>
+                                        <div style={{
+                                            fontSize: '16px',
+                                            fontWeight: '600',
+                                            color: themeStyles.color,
+                                            marginBottom: '4px'
+                                        }}>
+                                            {item.complexity}
+                                        </div>
+                                        <div style={{
+                                            fontSize: '14px',
+                                            color: themeStyles.secondaryText
+                                        }}>
+                                            {item.label}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                            {selectedLegendCard === 'status' && legendCards.status.content.map((item, index) => (
+                                <div key={index} style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '16px',
+                                    padding: '16px',
+                                    background: `${item.color}10`,
+                                    borderRadius: '12px',
+                                    border: `1px solid ${item.color}30`
+                                }}>
+                                    <div style={{
+                                        background: item.color,
+                                        color: '#ffffff',
+                                        padding: '8px 16px',
+                                        borderRadius: '16px',
+                                        fontSize: '12px',
+                                        fontWeight: '600',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '6px'
+                                    }}>
+                                        {item.label === 'Implemented' && <Star size={12} />}
+                                        {item.label}
+                                    </div>
+                                    <div style={{
+                                        fontSize: '16px',
+                                        color: themeStyles.color
+                                    }}>
+                                        {item.description}
+                                    </div>
+                                </div>
+                            ))}
+
+                            {selectedLegendCard === 'properties' && legendCards.properties.content.map((item, index) => (
+                                <div key={index} style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '16px',
+                                    padding: '16px',
+                                    background: `${item.color}10`,
+                                    borderRadius: '12px',
+                                    border: `1px solid ${item.color}30`
+                                }}>
+                                    <div style={{
+                                        width: '16px',
+                                        height: '16px',
+                                        borderRadius: '50%',
+                                        background: item.color,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: '#ffffff',
+                                        fontSize: '12px',
+                                        fontWeight: '600'
+                                    }}>
+                                        ●
+                                    </div>
+                                    <div>
+                                        <div style={{
+                                            fontSize: '16px',
+                                            fontWeight: '600',
+                                            color: themeStyles.color,
+                                            marginBottom: '4px'
+                                        }}>
+                                            {item.label}
+                                        </div>
+                                        <div style={{
+                                            fontSize: '14px',
+                                            color: themeStyles.secondaryText
+                                        }}>
+                                            {item.description}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
