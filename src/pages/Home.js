@@ -515,16 +515,16 @@ export default function Home() {
             journey today!
           </p>
           <div className="cta-buttons">
-            <Link to="/sorting" className="cta-primary">
-              <span>🚀</span> Begin Learning
+            <Link to="/sorting" className="btn-primary">
+              <span style={{marginRight: '8px'}}>🚀</span> Begin Learning
             </Link>
             <a
               href="https://github.com/RhythmPahwa14/AlgoVisualizer"
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-secondary"
+              className="btn-secondary"
             >
-              <span>⭐</span> Star on GitHub
+              <span style={{marginRight: '8px'}}>⭐</span> Star on GitHub
             </a>
           </div>
         </div>

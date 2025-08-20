@@ -431,11 +431,61 @@ select:focus {
    Export / Stats / CTA
 ========================= */
 .export-features-section,
+
 .final-cta {
   border-radius: 20px;
   padding: 60px 20px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 2.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-radius: 16px;
+  text-decoration: none !important;
+  box-shadow: 0 4px 24px rgba(70, 82, 153, 0.18);
+  transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+  border: none;
+}
+
+.cta-btn-primary {
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  color: #fff;
+}
+
+.cta-btn-secondary {
+  background: linear-gradient(90deg, #24292f 0%, var(--secondary-color) 100%);
+  color: #fff;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(70, 82, 153, 0.28);
+  filter: brightness(1.08);
+}
+
+.cta-btn-icon {
+  font-size: 1.7rem;
+  display: flex;
+  align-items: center;
+}
+
+.cta-btn-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .stat-label,
