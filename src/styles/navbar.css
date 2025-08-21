@@ -206,7 +206,7 @@
 
 
 .close-menu-btn {
-
+    display: none;
     background: none;
     border: none;
     color: inherit;
@@ -271,7 +271,9 @@
     .hamburger {
         display: flex;
     }
-
+.close-menu-btn {
+    display:inline;
+}
 }
 
 @media screen and (max-width: 480px) {
