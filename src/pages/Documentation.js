@@ -1,10 +1,29 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Search, Clock, Database, BookOpen, Zap, Users, Star } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
+import '../styles/Documentation.css';
 
 const AlgorithmDocumentation = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
+    const { theme } = useTheme();
+
+    // Theme-responsive styles
+    const themeStyles = {
+        background: theme === 'light' 
+            ? 'linear-gradient(135deg, #f6f0d6 0%, #ffffff 50%, #f0f8ff 100%)'
+            : 'linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%)',
+        color: theme === 'light' ? '#1a1a1a' : '#e0e6ed',
+        cardBackground: theme === 'light' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(26, 26, 46, 0.9)',
+        headerBackground: theme === 'light' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(26, 26, 46, 0.95)',
+        borderColor: theme === 'light' ? 'rgba(0, 119, 204, 0.2)' : 'rgba(102, 204, 255, 0.2)',
+        secondaryText: theme === 'light' ? '#666666' : '#b8c5d1',
+        inputBackground: theme === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(15, 52, 96, 0.3)',
+        inputBorder: theme === 'light' ? 'rgba(0, 119, 204, 0.3)' : 'rgba(102, 204, 255, 0.3)',
+        categoryBackground: theme === 'light' ? 'rgba(0, 119, 204, 0.1)' : 'rgba(102, 204, 255, 0.1)',
+        categoryBorder: theme === 'light' ? 'rgba(0, 119, 204, 0.2)' : 'rgba(102, 204, 255, 0.2)'
+    };
 
     const algorithmDatabase = useMemo(() => ({
         sorting: {
@@ -498,7 +517,7 @@ const AlgorithmDocumentation = () => {
 
     const AlgorithmCard = ({ algorithm }) => (
         <div style={{
-            background: 'rgba(26, 26, 46, 0.9)',
+            background: themeStyles.cardBackground,
             borderRadius: '12px',
             padding: '24px',
             border: `1px solid ${algorithm.categoryColor}30`,
@@ -533,7 +552,7 @@ const AlgorithmDocumentation = () => {
                     </div>
                     <div style={{ 
                         fontSize: '12px', 
-                        color: '#b8c5d1', 
+                        color: themeStyles.secondaryText, 
                         background: `${algorithm.categoryColor}15`,
                         padding: '4px 8px',
                         borderRadius: '12px',
@@ -575,7 +594,7 @@ const AlgorithmDocumentation = () => {
 
             {/* Description */}
             <p style={{ 
-                color: '#e0e6ed', 
+                color: themeStyles.secondaryText, 
                 fontSize: '14px', 
                 lineHeight: '1.5', 
                 marginBottom: '20px',
@@ -647,7 +666,7 @@ const AlgorithmDocumentation = () => {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
                     <Database size={14} style={{ color: algorithm.categoryColor }} />
-                    <span style={{ fontSize: '12px', color: '#b8c5d1' }}>Space: </span>
+                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>Space: </span>
                     <span style={{ 
                         background: getComplexityColor(algorithm.spaceComplexity) + '20',
                         color: getComplexityColor(algorithm.spaceComplexity),
@@ -734,7 +753,7 @@ const AlgorithmDocumentation = () => {
                     {algorithm.useCases.slice(0, 3).map((useCase, index) => (
                         <div key={index} style={{
                             fontSize: '12px',
-                            color: '#e0e6ed',
+                            color: themeStyles.secondaryText,
                             marginBottom: '4px',
                             paddingLeft: '12px',
                             position: 'relative'
@@ -766,7 +785,7 @@ const AlgorithmDocumentation = () => {
                         {algorithm.specialNotes.slice(0, 2).map((note, index) => (
                             <div key={index} style={{
                                 fontSize: '12px',
-                                color: '#b8c5d1',
+                                color: themeStyles.secondaryText,
                                 marginBottom: index < algorithm.specialNotes.slice(0, 2).length - 1 ? '6px' : '0',
                                 paddingLeft: '12px',
                                 position: 'relative'
@@ -795,15 +814,15 @@ const AlgorithmDocumentation = () => {
     return (
         <div style={{
             minHeight: '100vh',
-            background: 'linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%)',
-            color: '#e0e6ed',
+            background: themeStyles.background,
+            color: themeStyles.color,
             fontFamily: 'Poppins, sans-serif'
         }}>
             {/* Header Section */}
             <div style={{
-                background: 'rgba(26, 26, 46, 0.95)',
+                background: themeStyles.headerBackground,
                 backdropFilter: 'blur(10px)',
-                borderBottom: '1px solid rgba(102, 204, 255, 0.2)',
+                borderBottom: `1px solid ${themeStyles.borderColor}`,
                 padding: '30px 20px',
                 textAlign: 'center'
             }}>
@@ -824,7 +843,7 @@ const AlgorithmDocumentation = () => {
                     </div>
                     <p style={{
                         fontSize: '18px',
-                        color: '#b8c5d1',
+                        color: themeStyles.secondaryText,
                         maxWidth: '600px',
                         margin: '0 auto 30px auto',
                         lineHeight: '1.6'
@@ -841,15 +860,15 @@ const AlgorithmDocumentation = () => {
                         margin: '0 auto'
                     }}>
                         <div style={{
-                            background: 'rgba(102, 204, 255, 0.1)',
+                            background: themeStyles.categoryBackground,
                             padding: '16px',
                             borderRadius: '12px',
-                            border: '1px solid rgba(102, 204, 255, 0.2)'
+                            border: `1px solid ${themeStyles.categoryBorder}`
                         }}>
                             <div style={{ fontSize: '24px', fontWeight: '700', color: '#66ccff' }}>
                                 {getAllAlgorithms().length}
                             </div>
-                            <div style={{ fontSize: '12px', color: '#b8c5d1' }}>Total Algorithms</div>
+                            <div style={{ fontSize: '12px', color: themeStyles.secondaryText }}>Total Algorithms</div>
                         </div>
                         <div style={{
                             background: 'rgba(74, 222, 128, 0.1)',
@@ -860,7 +879,7 @@ const AlgorithmDocumentation = () => {
                             <div style={{ fontSize: '24px', fontWeight: '700', color: '#4ade80' }}>
                                 {getAllAlgorithms().filter(a => a.implemented).length}
                             </div>
-                            <div style={{ fontSize: '12px', color: '#b8c5d1' }}>Implemented</div>
+                            <div style={{ fontSize: '12px', color: themeStyles.secondaryText }}>Implemented</div>
                         </div>
                         <div style={{
                             background: 'rgba(255, 215, 61, 0.1)',
@@ -871,7 +890,7 @@ const AlgorithmDocumentation = () => {
                             <div style={{ fontSize: '24px', fontWeight: '700', color: '#ffd93d' }}>
                                 {Object.keys(algorithmDatabase).length}
                             </div>
-                            <div style={{ fontSize: '12px', color: '#b8c5d1' }}>Categories</div>
+                            <div style={{ fontSize: '12px', color: themeStyles.secondaryText }}>Categories</div>
                         </div>
                         <div style={{
                             background: 'rgba(255, 107, 107, 0.1)',
@@ -882,7 +901,7 @@ const AlgorithmDocumentation = () => {
                             <div style={{ fontSize: '24px', fontWeight: '700', color: '#ff6b6b' }}>
                                 {getAllAlgorithms().filter(a => !a.implemented).length}
                             </div>
-                            <div style={{ fontSize: '12px', color: '#b8c5d1' }}>Coming Soon</div>
+                            <div style={{ fontSize: '12px', color: themeStyles.secondaryText }}>Coming Soon</div>
                         </div>
                     </div>
                 </div>
@@ -891,7 +910,7 @@ const AlgorithmDocumentation = () => {
             {/* Filter and Search Section */}
             <div style={{
                 padding: '30px 20px',
-                background: 'rgba(26, 26, 46, 0.5)',
+                background: theme === 'light' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(26, 26, 46, 0.5)',
                 backdropFilter: 'blur(5px)'
             }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -920,82 +939,49 @@ const AlgorithmDocumentation = () => {
                             style={{
                                 width: '100%',
                                 padding: '12px 12px 12px 44px',
-                                background: 'rgba(26, 26, 46, 0.9)',
-                                border: '1px solid rgba(102, 204, 255, 0.3)',
+                                background: themeStyles.inputBackground,
+                                border: `1px solid ${themeStyles.inputBorder}`,
                                 borderRadius: '25px',
-                                color: '#e0e6ed',
+                                color: themeStyles.color,
                                 fontSize: '14px',
                                 outline: 'none',
                                 transition: 'all 0.3s ease'
                             }}
                             onFocus={(e) => {
-                                e.target.style.borderColor = '#66ccff';
-                                e.target.style.boxShadow = '0 0 0 3px rgba(102, 204, 255, 0.1)';
+                                e.target.style.borderColor = theme === 'light' ? '#0077cc' : '#66ccff';
+                                e.target.style.boxShadow = theme === 'light' ? '0 0 0 3px rgba(0, 119, 204, 0.1)' : '0 0 0 3px rgba(102, 204, 255, 0.1)';
                             }}
                             onBlur={(e) => {
-                                e.target.style.borderColor = 'rgba(102, 204, 255, 0.3)';
+                                e.target.style.borderColor = themeStyles.inputBorder;
                                 e.target.style.boxShadow = 'none';
                             }}
                         />
                     </div>
 
                     {/* Category Filters */}
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '12px',
-                        flexWrap: 'wrap'
-                    }}>
+                    <div className="category-filters">
                         {categories.map(category => {
                             const IconComponent = category.icon;
                             const isActive = selectedCategory === category.key;
                             return (
-                                <button
+                                <div
                                     key={category.key}
+                                    className={`category-chip ${isActive ? 'active' : ''}`}
                                     onClick={() => setSelectedCategory(category.key)}
-                                    style={{
-                                        padding: '12px 20px',
-                                        background: isActive 
-                                            ? 'linear-gradient(45deg, #66ccff, #4da6ff)'
-                                            : 'rgba(102, 204, 255, 0.1)',
-                                        color: isActive ? '#1a1a2e' : '#66ccff',
-                                        border: `1px solid ${isActive ? '#66ccff' : 'rgba(102, 204, 255, 0.3)'}`,
-                                        borderRadius: '25px',
-                                        cursor: 'pointer',
-                                        fontSize: '14px',
-                                        fontWeight: '600',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px',
-                                        transition: 'all 0.3s ease',
-                                        fontFamily: 'inherit'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        if (!isActive) {
-                                            e.target.style.background = 'rgba(102, 204, 255, 0.2)';
-                                            e.target.style.transform = 'translateY(-2px)';
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (!isActive) {
-                                            e.target.style.background = 'rgba(102, 204, 255, 0.1)';
-                                            e.target.style.transform = 'translateY(0)';
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            setSelectedCategory(category.key);
                                         }
                                     }}
                                 >
-                                    <IconComponent size={16} />
+                                    <span className="icon"><IconComponent size={16} /></span>
                                     {category.label}
-                                    <span style={{
-                                        background: isActive ? 'rgba(26, 26, 46, 0.2)' : 'rgba(102, 204, 255, 0.2)',
-                                        color: isActive ? '#1a1a2e' : '#66ccff',
-                                        padding: '2px 6px',
-                                        borderRadius: '10px',
-                                        fontSize: '11px',
-                                        fontWeight: '700'
-                                    }}>
+                                    <span className="count">
                                         {category.count}
                                     </span>
-                                </button>
+                                </div>
                             );
                         })}
                     </div>
@@ -1011,7 +997,7 @@ const AlgorithmDocumentation = () => {
                     <div style={{
                         maxWidth: '1200px',
                         margin: '0 auto',
-                        color: '#b8c5d1',
+                        color: themeStyles.secondaryText,
                         fontSize: '14px'
                     }}>
                         Showing {filteredAlgorithms.length} algorithm{filteredAlgorithms.length !== 1 ? 's' : ''}
@@ -1033,10 +1019,10 @@ const AlgorithmDocumentation = () => {
                         <div style={{
                             textAlign: 'center',
                             padding: '80px 20px',
-                            color: '#b8c5d1'
+                            color: themeStyles.secondaryText
                         }}>
-                            <Search size={48} style={{ color: '#66ccff', marginBottom: '16px' }} />
-                            <h3 style={{ color: '#66ccff', marginBottom: '8px' }}>No algorithms found</h3>
+                            <Search size={48} style={{ color: theme === 'light' ? '#0077cc' : '#66ccff', marginBottom: '16px' }} />
+                            <h3 style={{ color: theme === 'light' ? '#0077cc' : '#66ccff', marginBottom: '8px' }}>No algorithms found</h3>
                             <p>Try adjusting your search terms or filters</p>
                         </div>
                     ) : (
@@ -1096,7 +1082,7 @@ const AlgorithmDocumentation = () => {
                                             borderRadius: '3px',
                                             background: item.color
                                         }} />
-                                        <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                        <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                             {item.complexity} - {item.label}
                                         </span>
                                     </div>
@@ -1124,7 +1110,7 @@ const AlgorithmDocumentation = () => {
                                         <Star size={10} />
                                         Implemented
                                     </div>
-                                    <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                         Ready to visualize
                                     </span>
                                 </div>
@@ -1140,7 +1126,7 @@ const AlgorithmDocumentation = () => {
                                     }}>
                                         Coming Soon
                                     </div>
-                                    <span style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                    <span style={{ fontSize: '12px', color: themeStyles.secondaryText }}>
                                         In development
                                     </span>
                                 </div>
@@ -1148,20 +1134,20 @@ const AlgorithmDocumentation = () => {
                         </div>
 
                         <div>
-                            <h4 style={{ color: '#66ccff', fontSize: '14px', marginBottom: '12px' }}>
+                            <h4 style={{ color: theme === 'light' ? '#0077cc' : '#66ccff', fontSize: '14px', marginBottom: '12px' }}>
                                 Algorithm Properties
                             </h4>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-start' }}>
-                                <div style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                <div style={{ fontSize: '12px', color: themeStyles.color }}>
                                     <span style={{ color: '#4ade80' }}>●</span> Stable - maintains relative order
                                 </div>
-                                <div style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                <div style={{ fontSize: '12px', color: themeStyles.color }}>
                                     <span style={{ color: '#4ade80' }}>●</span> In-place - uses O(1) extra space
                                 </div>
-                                <div style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                <div style={{ fontSize: '12px', color: themeStyles.color }}>
                                     <span style={{ color: '#4ade80' }}>●</span> Adaptive - faster on sorted data
                                 </div>
-                                <div style={{ fontSize: '12px', color: '#e0e6ed' }}>
+                                <div style={{ fontSize: '12px', color: themeStyles.color }}>
                                     <span style={{ color: '#ff6b6b' }}>●</span> Unstable - may change relative order
                                 </div>
                             </div>
@@ -1169,18 +1155,19 @@ const AlgorithmDocumentation = () => {
                     </div>
 
                     <div style={{
-                        background: 'rgba(102, 204, 255, 0.1)',
+                        background: themeStyles.categoryBackground,
                         padding: '20px',
                         borderRadius: '12px',
-                        border: '1px solid rgba(102, 204, 255, 0.2)'
+                        border: `1px solid ${themeStyles.categoryBorder}`
                     }}>
                         <p style={{ 
                             fontSize: '14px', 
-                            color: '#b8c5d1', 
-                            margin: 0, 
+                            color: themeStyles.secondaryText, 
+                            margin: 1, 
                             lineHeight: '1.6' 
+                            
                         }}>
-                            <strong style={{ color: '#66ccff' }}>Note:</strong> Complexities shown are theoretical worst-case scenarios. 
+                            <strong style={{ color: theme === 'light' ? '#0077cc' : '#66ccff' }}>Note:</strong> Complexities shown are theoretical worst-case scenarios. 
                             Actual performance may vary based on input data, implementation details, and system architecture. 
                             Use this documentation as a guide for understanding algorithm characteristics and choosing the right tool for your needs.
                         </p>

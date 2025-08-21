@@ -1,92 +1,166 @@
+/* =========================
+   Theme Variables
+========================= */
+:root {
+    --bg-color: #0a0a1a;
+    --container-bg: rgba(26, 26, 46, 0.95);
+    --text-color: #e0e6ed;
+    --button-bg: #66ccff;
+    --button-text: #0a0a1a;
+    --button-hover: #4da6ff;
+    --disabled-bg: grey;
+    --array-bar-color: #61dafb;
+}
+
+[data-theme="light"] {
+    --bg-color: #f6f0d6;
+    --container-bg: #ffffff;
+    --text-color: #1a1a1a;
+    --button-bg: #0077cc;
+    --button-text: #f6f0d6;
+    --button-hover: #005fa3;
+    --disabled-bg: #cccccc;
+    --array-bar-color: #0077cc;
+}
+
+/* =========================
+   Global Styles
+========================= */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-    color: #e0e6ed;
+    background: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
-    overflow-y: scroll;
     min-height: 100vh;
+    overflow-y: scroll;
+    transition: all 0.3s ease;
 }
 
-/* Searching Component Styles */
-.searching-container {
-    text-align: center;
-    padding: 20px;
-}
-
-.searching-controls {
-    margin-top: 20px;
-}
-
-.searching-button {
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 16px;
-    border-radius: 10px; /* Rounded edges */
-    cursor: pointer;
-    color: black; /* Ensure button text is black */
-}
-
-.searching-button:disabled {
-    background-color: grey;
-    cursor: not-allowed;
-}
-
-.searching-algorithm-selection {
-    margin-top: 20px;
-}
-
-.searching-array-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 100px;
-    margin-top: 10px;
-}
-
-.searching-array-bar {
-    width: 30px;
-    margin: 0 2px;
-    background-color: #61dafb;
-    text-align: center;
-    color: rgb(39, 38, 38);
-}
-
-/* Sorting Component Styles */
+/* =========================
+   Container Styles
+========================= */
+.searching-container,
 .sorting-container {
     text-align: center;
     padding: 20px;
+    background: var(--container-bg);
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 900px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
+/* =========================
+   Controls / Buttons
+========================= */
+.searching-controls,
 .sorting-controls {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
+.searching-button,
 .sorting-button {
     padding: 10px 20px;
     margin: 5px;
     font-size: 16px;
-    border-radius: 10px; /* Rounded edges */
+    border-radius: 12px;
+    border: none;
     cursor: pointer;
-    color: black; /* Ensure button text is black */
+    color: var(--button-text);
+    background-color: var(--button-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    font-weight: 600;
 }
 
+.searching-button:hover:not(:disabled),
+.sorting-button:hover:not(:disabled) {
+    background-color: var(--button-hover);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.searching-button:disabled,
 .sorting-button:disabled {
-    background-color: grey;
+    background-color: var(--disabled-bg);
     cursor: not-allowed;
+    transform: none;
 }
 
+/* =========================
+   Algorithm Selection
+========================= */
+.searching-algorithm-selection,
 .sorting-algorithm-selection {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
+/* =========================
+   Array Container & Bars
+========================= */
+.searching-array-container,
 .sorting-array-container {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 100px;
-    margin-top: 10px;
+    height: 150px;
+    margin-top: 20px;
+    gap: 2px;
 }
+
+.searching-array-bar,
+.sorting-array-bar {
+    width: 25px;
+    background-color: var(--array-bar-color);
+    border-radius: 4px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* =========================
+   Responsive Design
+========================= */
+@media (max-width: 768px) {
+    .searching-container,
+    .sorting-container {
+        padding: 15px;
+    }
+    
+    .searching-array-bar,
+    .sorting-array-bar {
+        width: 18px;
+    }
+
+    .searching-button,
+    .sorting-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .searching-array-container,
+    .sorting-array-container {
+        flex-wrap: wrap;
+        gap: 1px;
+        height: 120px;
+    }
+    
+    .searching-array-bar,
+    .sorting-array-bar {
+        width: 12px;
+    }
 
 .sorting-array-bar {
     width: 30px;
@@ -94,6 +168,7 @@ body {
     background-color: #61dafb;
     text-align: center;
     color: rgb(39, 38, 38);
+    }
 }
 
 /* Global button sizing and spacing rules
@@ -129,7 +204,7 @@ body {
 @media (max-width: 480px) {
     :where(button, input[type="button"], input[type="submit"], .button, .btn) {
         padding: 8px 14px; /* slightly smaller on very small screens */
-    /* keep nowrap but allow buttons to remain readable; min-width remains max-content to avoid cutting text */
-    min-width: max-content;
+        /* keep nowrap but allow buttons to remain readable; min-width remains max-content to avoid cutting text */
+        min-width: max-content;
     }
 }

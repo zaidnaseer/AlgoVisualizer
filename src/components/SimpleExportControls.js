@@ -29,7 +29,6 @@ const SimpleExportControls = () => {
     setFrameCount(totalFrames);
     setMessage(`Recording stopped. ${totalFrames} frames captured.`);
   };
-
   const handleExportGIF = () => {
     setMessage('Creating GIF...');
     exporter.exportAsGIF();

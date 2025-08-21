@@ -38,12 +38,14 @@ export default function Home() {
 
     return (
         <div className="home-container">
+            {/* Top Badge */}
+            <div className="hero-badge">
+                <span>🚀 Interactive Learning Platform</span>
+            </div>
+            
             {/* Hero Section */}
             <section className="hero-section">
                 <div className="hero-content">
-                    <div className="hero-badge">
-                        <span>🚀 Interactive Learning Platform</span>
-                    </div>
                     <h1 className="hero-title">
                         Algo<span className="highlight">Visualizer</span>
                     </h1>
@@ -88,7 +90,7 @@ export default function Home() {
 
             {/* Quick Start Cards */}
             <section className="quick-start-section">
-                <h2 className="section-title">Choose Your Learning Path</h2>
+                <h2 className="section-title" style={{ textAlign: "center", fontSize: "2.5rem", fontWeight: "bold" }}>Choose Your Learning Path</h2>
                 <div className="quick-start-grid">
                     <Link to="/sorting" className="quick-card sorting">
                         <div className="card-header">
@@ -183,8 +185,8 @@ export default function Home() {
             {/* Features Showcase */}
             <section className="features-showcase">
                 <div className="features-header">
-                    <h2 className="section-title">Why Choose AlgoVisualizer?</h2>
-                    <p className="section-subtitle">
+                    <h2 className="section-title" style={{ textAlign: "center", fontSize: "2.5rem", fontWeight: "bold" }}>Why Choose AlgoVisualizer?</h2>
+                    <p className="section-subtitle" style={{ textAlign: "center", fontSize: "1.5rem", fontWeight: "bold" }}>
                         Everything you need to master algorithms and data structures
                     </p>
                 </div>

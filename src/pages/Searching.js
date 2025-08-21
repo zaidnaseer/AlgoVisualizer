@@ -6,6 +6,7 @@ import { jumpSearch } from '../algorithms/jumpSearch';
 import CodeExplanation from '../components/CodeExplanation';
 import SimpleExportControls from '../components/SimpleExportControls';
 import '../styles/App.css';
+import '../styles/pages.css';
 
 // Pseudocode for searching algorithms
 const ALGORITHM_PSEUDOCODE = {
@@ -146,7 +147,6 @@ const Searching = () => {
     setSteps(s);
     setCurrentStep(0);
   }, [algorithm, array, target]);
-
   const getStepColorArray = () => {
     if (!steps[currentStep]) return colorArray;
     const step = steps[currentStep];
@@ -159,6 +159,7 @@ const Searching = () => {
     if (step.type === 'notFound') return new Array(n).fill('#ff6b6b');
     return cols;
   };
+
 
   const handleNextStep = () => setCurrentStep((s) => Math.min(s + 1, steps.length - 1));
   const handlePrevStep = () => setCurrentStep((s) => Math.max(s - 1, 0));

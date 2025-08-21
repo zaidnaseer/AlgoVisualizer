@@ -1,32 +1,26 @@
-/* Global Dark Theme Override */
-/* This file ensures dark theme is applied everywhere */
-
-/* Force dark theme on root elements */
+/* =========================
+   Global Reset & Dark Theme Override
+========================= */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html,
 body,
 #root,
 .app-container {
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%) !important;
-    color: #e0e6ed !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-html {
     min-height: 100vh;
-}
-
-body {
-    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif !important;
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+    background: #0d1117 !important;
+    color: #e6edf3 !important;
+    transition: background 0.25s ease, color 0.25s ease;
 }
 
-/* Override any existing light backgrounds */
+/* Force all container backgrounds to be transparent */
 div,
 section,
 main,
@@ -34,41 +28,122 @@ article {
     background-color: transparent !important;
 }
 
-/* Text readability */
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-span,
-a {
-    color: inherit !important;
+/* Global text styling */
+p, h1, h2, h3, h4, h5, h6, span, a {
+    color: inherit;
+    transition: color 0.25s ease;
 }
 
-/* Ensure all buttons use dark theme */
+/* =========================
+   Buttons & Inputs (Global)
+========================= */
+button,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    font-family: inherit;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    outline: none;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Standard buttons */
 button:not(.cta-button):not(.btn) {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #e0e6ed !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    background: #21262d;
+    color: #e6edf3;
+    border: 1px solid #30363d;
+    cursor: pointer;
 }
 
-/* Input fields dark theme */
-input,
-select,
-textarea {
-    background: rgba(255, 255, 255, 0.05) !important;
-    color: #e0e6ed !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+button:not(.cta-button):not(.btn):hover {
+    background: #30363d;
+    border-color: #484f58;
 }
 
-/* Link colors */
+/* Input fields */
+input, select, textarea {
+    background: #21262d;
+    color: #e6edf3;
+    border: 1px solid #30363d;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #1f6feb;
+    box-shadow: 0 0 5px rgba(31, 111, 235, 0.3);
+}
+
+/* Links */
 a {
-    color: #66ccff !important;
+    color: #58a6ff;
     text-decoration: none;
 }
 
 a:hover {
-    color: #4da6ff !important;
+    color: #79c0ff;
+}
+
+/* =========================
+   Animations & Performance
+========================= */
+.demo-card,
+.step {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.demo-card:hover,
+.step:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* =========================
+   Dark Mode Support
+========================= */
+@media (prefers-color-scheme: dark) {
+    html,
+    body,
+    #root,
+    .app-container {
+        background: #0d1117 !important;
+        color: #e6edf3 !important;
+    }
+
+    button:not(.cta-button):not(.btn) {
+        background: #21262d !important;
+        color: #e6edf3 !important;
+        border: 1px solid #30363d !important;
+    }
+
+    button:not(.cta-button):not(.btn):hover {
+        background: #30363d !important;
+        border-color: #484f58 !important;
+    }
+
+    input, select, textarea {
+        background: #21262d !important;
+        color: #e6edf3 !important;
+        border: 1px solid #30363d !important;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #1f6feb !important;
+        box-shadow: 0 0 5px rgba(31, 111, 235, 0.3) !important;
+    }
+
+    a {
+        color: #58a6ff !important;
+    }
+
+    a:hover {
+        color: #79c0ff !important;
+    }
 }
