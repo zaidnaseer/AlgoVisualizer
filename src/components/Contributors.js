@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from '../ThemeContext';
+// import { useTheme } from '../ThemeContext';
 import '../styles/Contributors.css';
 
 // Mock contributors data - moved outside component to avoid useEffect dependency issues
@@ -81,7 +81,7 @@ const getRoleByGitHubActivity = (contributor) => {
 };
 
 const Contributors = () => {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   const [contributors, setContributors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lastCommitSha, setLastCommitSha] = useState(null);

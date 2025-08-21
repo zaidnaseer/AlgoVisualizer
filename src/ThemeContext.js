@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useMemo } from "react";
+import { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
 import PropTypes from 'prop-types';
 
 const ThemeContext = createContext();
@@ -13,12 +13,15 @@ export const ThemeProvider = ({ children }) => {
     document.documentElement.setAttribute("data-theme", savedTheme || "light");
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-  };
+  const toggleTheme = useCallback(() => {
+    // Use functional update to avoid depending on current theme
+    setTheme((prev) => {
+      const newTheme = prev === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
+  }, []);
 
   // When switching themes, adjust only white-like text to black in light mode for readability
   useEffect(() => {
@@ -89,7 +92,7 @@ export const ThemeProvider = ({ children }) => {
     return undefined;
   }, [theme]);
 
-  const value = useMemo(() => ({ theme, toggleTheme }), [theme]);
+  const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
   return (
     <ThemeContext.Provider value={value}>
       {children}
