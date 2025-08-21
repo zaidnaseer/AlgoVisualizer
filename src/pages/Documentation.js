@@ -998,7 +998,13 @@ const AlgorithmDocumentation = () => {
                             gap: '24px'
                         }}>
                             {filteredAlgorithms.map((algorithm) => (
-                                <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
+                                <div
+                                    key={algorithm.id}
+                                    title={algorithm.description}
+                                    style={{ cursor: 'help' }}
+                                >
+                                    <AlgorithmCard algorithm={algorithm} />
+                                </div>
                             ))}
                         </div>
                     )}
