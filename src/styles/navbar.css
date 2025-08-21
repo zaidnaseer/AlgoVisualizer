@@ -104,6 +104,12 @@
     box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
 }
 
+.nav-actions{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 /* Light Mode Overrides */
 [data-theme="light"] .nav-links a {
     color: #013862 !important;
@@ -135,11 +141,7 @@
     font-size: 0.9rem;
     padding: 8px 14px;
     transition: all 0.25s ease;
-}
-
-.theme-toggle-btn {
-    background-color: var(--text-color);
-    color: var(--bg-color);
+    color: #ffffff
 }
 
 .theme-toggle-btn:hover {
