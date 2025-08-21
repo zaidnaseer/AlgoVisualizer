@@ -124,9 +124,6 @@
 
 .btn {
     margin-top: 0.2rem;
-}
-
- .btn {
 
     background: var(--btn-bg);
     color: var(--btn-text);

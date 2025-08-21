@@ -1,6 +1,6 @@
+// cspell:words sandeepvashishtha Vashishtha rhythmpahwa Pahwa noopener noreferrer
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-// import { useTheme } from '../ThemeContext';
 import '../styles/Contributors.css';
 
 // Mock contributors data - moved outside component to avoid useEffect dependency issues
@@ -81,7 +81,6 @@ const getRoleByGitHubActivity = (contributor) => {
 };
 
 const Contributors = () => {
-  // const { theme } = useTheme();
   const [contributors, setContributors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lastCommitSha, setLastCommitSha] = useState(null);
@@ -141,7 +140,15 @@ const Contributors = () => {
           const enhancedContributors = await Promise.all(
             githubContributors.map(async (contributor) => {
               const profileData = await fetchGitHubProfile(contributor.login);
-              
+
+              // Determine bio without nested ternaries (readability)
+              let bio = profileData.bio;
+              if (contributor.login === 'rhythmpahwa14') {
+                bio = 'Passionate about building scalable algorithm visualization applications and educational tools.';
+              } else if (contributor.login === 'sandeepvashishtha') {
+                bio = 'Experienced developer contributing to algorithm visualization and educational technology projects.';
+              }
+
               const enhancedContributor = {
                 ...contributor,
                 ...profileData,
@@ -150,13 +157,9 @@ const Contributors = () => {
                   ...contributor,
                   ...profileData
                 }),
-                bio: contributor.login === 'rhythmpahwa14' 
-                  ? 'Passionate about building scalable algorithm visualization applications and educational tools.'
-                  : contributor.login === 'sandeepvashishtha'
-                  ? 'Experienced developer contributing to algorithm visualization and educational technology projects.'
-                  : profileData.bio
+                bio
               };
-              
+
               return enhancedContributor;
             })
           );
@@ -165,7 +168,7 @@ const Contributors = () => {
           throw new Error('GitHub API request failed');
         }
       } catch (apiError) {
-        console.log('GitHub API not available, using mock data');
+        console.warn('GitHub API not available, using mock data', apiError);
         setContributors(mockContributors);
       }
       
