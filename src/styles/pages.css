@@ -59,6 +59,7 @@
     font-weight: bold;
     background: linear-gradient(45deg, #66ccff, #4da6ff, #3385ff);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
     margin-bottom: 30px;
@@ -168,9 +169,31 @@
     box-shadow: 0 0 15px rgba(102, 204, 255, 0.2);
 }
 
-.select option {
-    background: var(--container-bg);
-    color: var(--text-color);
+.select option,
+select option {
+    background: var(--container-bg) !important;
+    color: var(--text-color) !important;
+}
+
+/* Native dropdown contrast fixes (Windows/Edge/Chrome) */
+select, .select { color-scheme: var(--select-color-scheme, auto); }
+[data-theme="light"] select,
+[data-theme="light"] .select { --select-color-scheme: light; }
+[data-theme="dark"] select,
+[data-theme="dark"] .select { --select-color-scheme: dark; }
+
+/* Force readable options in light mode: black text on white */
+[data-theme="light"] .select option,
+[data-theme="light"] select option {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+}
+
+/* Dark mode options: light text on dark */
+[data-theme="dark"] .select option,
+[data-theme="dark"] select option {
+    background-color: #1a1a2e !important;
+    color: #e0e6ed !important;
 }
 
 /* =========================

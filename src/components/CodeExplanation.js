@@ -8,6 +8,130 @@ const CodeExplanation = ({ algorithm, isVisible, onClose }) => {
 
     // Algorithm code explanations with step-by-step details
     const algorithmExplanations = {
+        // Data Structures: minimal, clear examples to match DataStructures page
+        linkedlist: {
+            title: 'Singly Linked List - Basics',
+            description: 'Core operations for a simple singly linked list: insert at tail, search, and traverse to array.',
+            code: `class Node {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null;
+    }
+
+    insertTail(val) {
+        const node = new Node(val);
+        if (!this.head) { this.head = node; return; }
+        let curr = this.head;
+        while (curr.next) { curr = curr.next; }
+        curr.next = node;
+    }
+
+    search(val) {
+        let idx = 0, curr = this.head;
+        while (curr) {
+            if (curr.data === val) return idx;
+            curr = curr.next; idx++;
+        }
+        return -1;
+    }
+
+    traverse() {
+        const out = [];
+        let curr = this.head;
+        while (curr) {
+            out.push(curr.data);
+            curr = curr.next;
+        }
+        return out;
+    }
+}`,
+            steps: [
+                { line: 30, explanation: 'Start traverse: create output array.', code: 'traverse() {', highlight: 'traverse() {' },
+                { line: 31, explanation: 'Initialize empty array to collect values.', code: 'const out = [];', highlight: 'const out = [];' },
+                { line: 32, explanation: 'Start from the head node.', code: 'let curr = this.head;', highlight: 'let curr = this.head;' },
+                { line: 33, explanation: 'Loop while there is a node.', code: 'while (curr) {', highlight: 'while (curr) {' },
+                { line: 34, explanation: 'Add current node value to output.', code: 'out.push(curr.data);', highlight: 'out.push(curr.data);' },
+                { line: 35, explanation: 'Move to next node.', code: 'curr = curr.next;', highlight: 'curr = curr.next;' },
+                { line: 37, explanation: 'Return the array of values.', code: 'return out;', highlight: 'return out;' }
+            ]
+        },
+        stack: {
+            title: 'Stack (LIFO) - Basics',
+            description: 'Push, pop, peek and search operations on an array-backed stack.',
+            code: `class Stack {
+    constructor() { this.s = []; }
+    push(x) { this.s.push(x); }
+    pop() { return this.s.length ? this.s.pop() : null; }
+    peek() { return this.s.length ? this.s[this.s.length - 1] : null; }
+    search(x) {
+        for (let i = this.s.length - 1; i >= 0; i--) {
+            if (this.s[i] === x) return i; // index from bottom
+        }
+        return -1;
+    }
+}`,
+            steps: [
+                { line: 2, explanation: 'Initialize empty stack array.', code: 'constructor() { this.s = []; }', highlight: 'constructor() { this.s = []; }' },
+                { line: 3, explanation: 'Push puts element on top.', code: 'push(x) { this.s.push(x); }', highlight: 'push(x) { this.s.push(x); }' },
+                { line: 4, explanation: 'Pop removes and returns top element.', code: 'pop() { return this.s.length ? this.s.pop() : null; }', highlight: 'pop() { return this.s.length ? this.s.pop() : null; }' },
+                { line: 5, explanation: 'Peek returns top element without removing.', code: 'peek() { return this.s.length ? this.s[this.s.length - 1] : null; }', highlight: 'peek() { return this.s.length ? this.s[this.s.length - 1] : null; }' },
+                { line: 6, explanation: 'Search scans from top to bottom.', code: 'for (let i = this.s.length - 1; i >= 0; i--) {', highlight: 'for (let i = this.s.length - 1; i >= 0; i--) {' }
+            ]
+        },
+        queue: {
+            title: 'Queue (FIFO) - Basics',
+            description: 'Enqueue, dequeue, front and search on an array-backed queue with head index.',
+            code: `class Queue {
+    constructor() {
+        this.q = [];
+        this.head = 0; // index of current front
+    }
+    enqueue(x) { this.q.push(x); }
+    dequeue() { return this.head < this.q.length ? this.q[this.head++] : null; }
+    front() { return this.head < this.q.length ? this.q[this.head] : null; }
+    search(x) {
+        for (let i = this.head; i < this.q.length; i++) {
+            if (this.q[i] === x) return i - this.head;
+        }
+        return -1;
+    }
+    toArray() { return this.q.slice(this.head); }
+}`,
+            steps: [
+                { line: 2, explanation: 'Initialize storage and head pointer.', code: 'constructor() {', highlight: 'constructor() {' },
+                { line: 6, explanation: 'Enqueue appends at the back.', code: 'enqueue(x) { this.q.push(x); }', highlight: 'enqueue(x) { this.q.push(x); }' },
+                { line: 7, explanation: 'Dequeue removes from the front (head).', code: 'dequeue() { return this.head < this.q.length ? this.q[this.head++] : null; }', highlight: 'dequeue() { return this.head < this.q.length ? this.q[this.head++] : null; }' },
+                { line: 8, explanation: 'Front peeks at current head.', code: 'front() { return this.head < this.q.length ? this.q[this.head] : null; }', highlight: 'front() { return this.head < this.q.length ? this.q[this.head] : null; }' },
+                { line: 9, explanation: 'Search scans from head to back.', code: 'for (let i = this.head; i < this.q.length; i++) {', highlight: 'for (let i = this.head; i < this.q.length; i++) {' }
+            ]
+        },
+        tree: {
+            title: 'Binary Search Tree - Insert/Search/Traverse',
+            description: 'Essential BST methods with an inorder traversal to produce a sorted array.',
+            code: `class TNode {
+    constructor(v){ this.data = v; this.left = null; this.right = null; }
+}
+class BST {
+    constructor(){ this.root = null; }
+    insert(v){ this.root = this._ins(this.root, v); }
+    _ins(n, v){ if(!n) return new TNode(v); if(v < n.data) n.left = this._ins(n.left, v); else n.right = this._ins(n.right, v); return n; }
+    search(v){ let n = this.root; while(n){ if(v === n.data) return n; n = v < n.data ? n.left : n.right; } return null; }
+    inorder(){ const out = []; this._in(this.root, out); return out; }
+    _in(n, out){ if(!n) return; this._in(n.left, out); out.push(n.data); this._in(n.right, out); }
+}`,
+            steps: [
+                { line: 7, explanation: 'Insert: recursive insert helper.', code: '_ins(n, v){ ... }', highlight: '_ins(n, v){ if(!n) return new TNode(v); if(v < n.data) n.left = this._ins(n.left, v); else n.right = this._ins(n.right, v); return n; }' },
+                { line: 8, explanation: 'Search: walk left or right until found.', code: 'search(v){ let n = this.root; while(n){ ... } }', highlight: 'search(v){ let n = this.root; while(n){ if(v === n.data) return n; n = v < n.data ? n.left : n.right; } return null; }' },
+                { line: 9, explanation: 'Inorder traversal returns sorted values.', code: 'inorder(){ const out = []; this._in(this.root, out); return out; }', highlight: 'inorder(){ const out = []; this._in(this.root, out); return out; }' },
+                { line: 10, explanation: 'Inorder: left, visit, right.', code: '_in(n, out){ if(!n) return; this._in(n.left, out); out.push(n.data); this._in(n.right, out); }', highlight: '_in(n, out){ if(!n) return; this._in(n.left, out); out.push(n.data); this._in(n.right, out); }' }
+            ]
+        },
         bubbleSort: {
             title: "Bubble Sort Algorithm",
             description: "A simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.",
