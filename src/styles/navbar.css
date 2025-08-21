@@ -12,7 +12,7 @@
 .av-header {
     position: fixed;
     top: 0;
-    width:100%;
+    width: 100%;
     z-index: 1000;
     background: #0d1117;
     border-bottom: 1px solid #21262d;
@@ -123,6 +123,14 @@
 }
 
 /* ----------------- Buttons ----------------- */
+.nav-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 .theme-toggle-btn,
 .github-btn {
     display: inline-flex;
@@ -196,6 +204,23 @@
     transition: background-color 0.3s ease;
 }
 
+
+.close-menu-btn {
+
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 2rem;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10001;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    line-height: 1;
+}
+
 /* Light mode hamburger */
 [data-theme="light"] .hamburger .bar {
     background-color: #013862;
@@ -209,7 +234,7 @@
 
     .nav-links {
         position: fixed;
-        top: 64px;
+        top: 0;
         right: -100%;
         height: calc(100vh - 64px);
         width: 100%;
@@ -218,15 +243,15 @@
         align-items: flex-start;
         background: rgba(10, 10, 26, 0.95);
         backdrop-filter: blur(6px);
-        padding: 20px;
-        transition: right 0.35s ease-in-out;
-        box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+        padding: 70px;
+        transition: right 0.20s ease-in-out;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
     }
 
     /* Light mode mobile menu */
     [data-theme="light"] .nav-links {
         background: rgba(246, 240, 214, 0.95);
-        box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .nav-links.nav-active {
@@ -239,12 +264,14 @@
     }
 
     .nav-actions {
-        display: none;
+        display: flex;
+        flex-wrap: nowrap;
     }
 
     .hamburger {
         display: flex;
     }
+
 }
 
 @media screen and (max-width: 480px) {
@@ -252,4 +279,3 @@
         font-size: 1.3em;
     }
 }
-
