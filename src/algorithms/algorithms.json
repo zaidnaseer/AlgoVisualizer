@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Bubble Sort",
+    "description": "Bubble Sort repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. It's known for its simplicity but is inefficient for large datasets.",
+    "useCase": "Commonly used for educational purposes and small datasets where simplicity is preferred over efficiency."
+  },
+  {
+    "name": "Insertion Sort",
+    "description": "Insertion Sort builds a sorted array one element at a time by repeatedly taking the next unsorted item and inserting it into its correct position. It performs well with small or nearly sorted datasets.",
+    "useCase": "Often used in hybrid algorithms and for small datasets or online sorting where data is dynamically arriving."
+  },
+  {
+    "name": "Selection Sort",
+    "description": "Selection Sort divides the input list into a sorted and an unsorted region, repeatedly selecting the smallest element from the unsorted region and moving it to the sorted region. It has a simple implementation but is inefficient for larger lists.",
+    "useCase": "Best suited for small datasets or educational environments where a straightforward algorithm is needed."
+  },
+  {
+    "name": "Merge Sort",
+    "description": "Merge Sort is a divide-and-conquer algorithm that divides the input array in half, recursively sorts the two halves, and then merges them back together. It has a guaranteed time complexity of O(n log n).",
+    "useCase": "Effective for large datasets and for stable sorting, commonly used in external sorting algorithms for data that cannot fit into memory."
+  },
+  {
+    "name": "Quick Sort",
+    "description": "Quick Sort selects a pivot and partitions the array into two halves, sorting the elements on either side of the pivot. It is generally faster than other O(n log n) algorithms due to its divide-and-conquer approach.",
+    "useCase": "Widely used for large datasets due to its efficiency, especially when the average performance is more important than the worst-case scenario."
+  }
+]
