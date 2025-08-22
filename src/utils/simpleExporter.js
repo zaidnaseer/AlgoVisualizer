@@ -5,22 +5,25 @@ class SimpleVisualizationExporter {
         this.isRecording = false;
         this.startTime = 0;
         this.captureInterval = null;
+    this.elementId = 'visualization-container';
     }
 
     // Start recording frames
-    startRecording(intervalMs = 500) {
+    startRecording(intervalMs, elementId) {
         console.log('🎬 Starting recording...');
         this.frames = [];
         this.isRecording = true;
         this.startTime = Date.now();
+        if (elementId) this.elementId = elementId;
+        const interval = typeof intervalMs === 'number' ? intervalMs : 500;
         
         // Capture frame immediately
         this.captureFrame();
         
         // Set up interval to capture frames automatically
-        this.captureInterval = setInterval(() => {
+    this.captureInterval = setInterval(() => {
             this.captureFrame();
-        }, intervalMs);
+    }, interval);
         
         return true;
     }
@@ -44,9 +47,9 @@ class SimpleVisualizationExporter {
         if (!this.isRecording) return;
 
         try {
-            const element = document.getElementById('visualization-container');
+            const element = document.getElementById(this.elementId);
             if (!element) {
-                console.warn('❌ Visualization container not found');
+                console.warn(`❌ Visualization container not found (id="${this.elementId}")`);
                 return;
             }
 
