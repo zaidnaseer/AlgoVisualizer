@@ -5,7 +5,7 @@
     --bg-color: #f6f0d6;
     --text-color: #1a1a1a;
     --accent-color: rgb(8, 179, 231);
-    --input-bg: #ffffff;
+    --input-bg1: #ffffff;
     --input-text: #1a1a1a;
     --btn-bg: rgb(8, 179, 231);
     --btn-text: #ffffff;
@@ -13,14 +13,14 @@
 }
 
 [data-theme="dark"] {
-    --bg-color: #0a0a1a;
-    --text-color: #e0e6ed;
-    --accent-color: rgb(8, 179, 231);
-    --input-bg: #1a1a1a;
-    --input-text: #e0e6ed;
-    --btn-bg: rgb(8, 179, 231);
-    --btn-text: #ffffff;
-    --btn-hover-bg: rgb(6, 150, 190);
+  --bg-color: #0a0a1a;
+  --text-color: #e0e6ed;
+  --accent-color: rgb(8, 179, 231);
+  --input-bg1: #1a1a1a;
+  --input-text: #e0e6ed;
+  --btn-bg: rgb(8, 179, 231);
+  --btn-text: #ffffff;
+  --btn-hover-bg: rgb(6, 150, 190);
 }
 
 /* =========================
@@ -77,40 +77,52 @@ body {
    Form Inputs & Textarea
 ========================= */
 .connection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     margin-top: 50px;
 }
 
-.connection label {
-    font-size: 1.2rem;
-    color: var(--accent-color);
-    margin-right: 10px;
-    margin-top: 20px;
-    display: inline-block;
+.connection .input-group {
+    max-width: 590px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    padding: 0 10px;
 }
 
-.connection input,
-.connection textarea {
-    width: 30%;
-    max-width: 100%;
+.input-group label {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+}
+
+.input-group input,
+.input-group textarea {
+  /* width: 30%; */
+    max-width: 432px;
     padding: 10px;
-    margin-top: 17px;
     border: 1px solid var(--accent-color);
     box-shadow: 2px 5px 5px rgba(8, 179, 231, 0.3);
     border-radius: 5px;
     font-size: 1rem;
     outline: none;
-    background: var(--input-bg);
+    background: var(--input-bg1);
     color: var(--input-text);
     transition: all 0.3s ease-in-out;
 }
 
-.connection textarea {
+.input-group textarea {
     height: 100px;
     padding-top: 10px;
+    resize: vertical;
 }
 
-.connection input:focus,
-.connection textarea:focus {
+.input-group input:focus,
+.input-group textarea:focus {
     border-color: var(--btn-bg);
     box-shadow: 0 0 8px var(--accent-color);
 }
@@ -171,8 +183,12 @@ button:disabled {
         font-size: 1.2rem;
     }
 
-    .connection label {
-        display: block;
-        margin-top: 15px;
+    .connection .input-group {
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    label {
+        text-align: start;
     }
 }

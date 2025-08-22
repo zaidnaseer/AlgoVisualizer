@@ -8,12 +8,18 @@ export default function Contact() {
             <p>AlgoVisualizer is more than just a tool—it’s a bridge between abstract algorithms and intuitive understanding. Whether you’re a student struggling with sorting concepts, a developer prepping for interviews, or an educator seeking dynamic teaching aids, we’re here to help. Have questions, suggestions, or feedback? Reach out to us! Your input drives our mission to make algorithm learning visual, interactive, and accessible to all. Let’s build a smarter coding community together.</p>
             <h3>Visualizing Algorithms, Simplifying Learning</h3>
             <div className="connection">
-                <label>Name: </label>
-                <input type="text" placeholder="Enter your name" /><br></br>
-                <label>Email: </label>
-                <input type="email" placeholder="Enter your email" /><br></br>
-                <label>Message: </label>
-                <textarea placeholder="Enter your message"></textarea><br></br>
+                <div className="input-group">
+                    <label>Name: </label>
+                    <input type="text" placeholder="Enter your name" /><br></br>
+                </div>
+                <div className="input-group">
+                    <label>Email: </label>
+                    <input type="email" placeholder="Enter your email" /><br></br>
+                </div>
+                <div className="input-group">
+                    <label>Message: </label>
+                    <textarea placeholder="Enter your message"></textarea><br></br>
+                </div>
                 <button className="submit-btn">Submit</button>
             </div>
             <div className="links">
