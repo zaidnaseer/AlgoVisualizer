@@ -76,7 +76,15 @@ const Footer = () => {
             className="footer-author"
           >
             Rhythm Pahwa
-          </a>{" "}
+          </a>{", "}
+          <a
+            href="https://github.com/sandeepvashishtha"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-author"
+          >
+            Sandeep Vashishtha
+          </a>
           and amazing open-source contributors.
         </p>
         <div className="copyright">
