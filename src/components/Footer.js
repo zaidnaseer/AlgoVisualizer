@@ -70,12 +70,12 @@ const Footer = () => {
           </span>{" "}
           by{" "}
           <a
-            href="https://github.com/sandeepvashishtha"
+            href="https://github.com/rhythmpahwa14"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-author"
           >
-            Sandeep Vashishtha
+            Rhythm Pahwa
           </a>{" "}
           and amazing open-source contributors.
         </p>
