@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import '../styles/navbar.css';
 import { useTheme } from '../ThemeContext'; // ← import useTheme
-import { FaGithub, FaMoon } from 'react-icons/fa6';
-import { FaSun } from 'react-icons/fa6';
+import { FaGithub, FaMoon, FaSun } from 'react-icons/fa';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -27,6 +26,7 @@ const Header = () => {
                     <NavLink to="/sorting" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Sorting</NavLink>
                     <NavLink to="/searching" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Searching</NavLink>
                     <NavLink to="/data-structures" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Data Structures</NavLink>
+                    <NavLink to="/quiz" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Quiz</NavLink>
                     <NavLink to="/contributors" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Contributors</NavLink>
                     <NavLink to="/documentation" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Documentation</NavLink>
                 </nav>
