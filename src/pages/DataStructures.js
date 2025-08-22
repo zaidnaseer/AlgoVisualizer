@@ -280,7 +280,7 @@ function DataStructures() {
                         <div style={{ color: '#66ccff', fontWeight: 600, minWidth: '140px', textAlign: 'right' }}>{vizSize}px</div>
                     </div>
                 </div>
-                <SimpleExportControls />
+                <SimpleExportControls containerId="ds-visualization-container" />
             </div>
 
             {/* Status message line */}

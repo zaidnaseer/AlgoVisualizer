@@ -267,7 +267,7 @@ const Searching = () => {
             <div style={{ color: '#66ccff', fontWeight: 600, minWidth: '140px', textAlign: 'right' }}>{delay}ms <span style={{ color: '#9bb3c7', fontWeight: 400 }}>(fast)</span></div>
           </div>
         </div>
-        <SimpleExportControls />
+  <SimpleExportControls containerId="search-visualization-container" />
       </div>
 
       {/* Status message line */}
