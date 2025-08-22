@@ -84,7 +84,7 @@ const Footer = () => {
             className="footer-author"
           >
             Sandeep Vashishtha
-          </a>
+          </a>{" "}
           and amazing open-source contributors.
         </p>
         <div className="copyright">
