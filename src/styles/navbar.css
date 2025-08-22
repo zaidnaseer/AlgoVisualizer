@@ -28,11 +28,11 @@
 .av-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 14px 20px;
+    padding: 10px 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 10px;
 }
 
 /* ----------------- Logo ----------------- */
@@ -182,16 +182,17 @@
 
 /* ----------------- Hamburger Menu ----------------- */
 .hamburger {
-    display: none;
+    display: flex;
     flex-direction: column;
     cursor: pointer;
-    border: none;
-    background: none;
+    border: 1px solid blue;
+    background:none;
     padding: 0;
+    width:15px;
 }
 
 .hamburger .bar {
-    width: 20px;
+    width: 15px;
     height: 2px;
     margin: 4px 0;
     background-color: #cfd9e6;
@@ -200,7 +201,7 @@
 
 /* Light mode hamburger */
 [data-theme="light"] .hamburger .bar {
-    background-color: #013862;
+    background-color:#6fa8ea;
 }
 
 /* ----------------- Responsive ----------------- */
@@ -213,12 +214,12 @@
         position: fixed;
         top: 64px;
         right: -100%;
-        height: calc(100vh - 64px);
+        height: calc(100vh - 40px);
         width: 100%;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        background: rgba(10, 10, 26, 0.95);
+        background:#e6edf3;
         backdrop-filter: blur(6px);
         padding: 20px;
         transition: right 0.35s ease-in-out;
@@ -245,7 +246,9 @@
     }
 
     .hamburger {
-        display: flex;
+        /* display: flex; */
+        display: block;
+        background-color: #8b949e;
     }
 }
 
