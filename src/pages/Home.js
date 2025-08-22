@@ -374,6 +374,32 @@ export default function Home() {
               </div>
             </div>
           </Link>
+
+          <Link to="/quiz" className="quick-card quiz">
+            <div className="card-left">
+              <div className="card-header">
+                <div className="card-icon">🧠</div>
+                <div className="card-stats">
+                  <span className="stat-number">15</span>
+                  <span className="stat-label">Questions</span>
+                </div>
+              </div>
+              <h3 className="card-title">Algorithm Quiz</h3>
+              <p className="card-description">
+                Test your knowledge with interactive quizzes covering sorting, searching, and data structures with detailed explanations.
+              </p>
+            </div>
+            <div className="card-right">
+              <div className="card-features">
+                <span className="feature-tag">Interactive</span>
+                <span className="feature-tag">Timed Mode</span>
+                <span className="feature-tag">Feedback</span>
+              </div>
+              <div className="card-action">
+                Take Quiz <span>→</span>
+              </div>
+            </div>
+          </Link>
         </div>
       </section>
 

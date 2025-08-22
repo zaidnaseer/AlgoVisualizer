@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "topic": "Sorting",
+    "algorithm": "Bubble Sort",
+    "difficulty": "Easy",
+    "question": "What is the time complexity of Bubble Sort in the worst case?",
+    "options": ["O(n)", "O(n log n)", "O(n²)", "O(1)"],
+    "correctAnswer": 2,
+    "explanation": "Bubble Sort has a time complexity of O(n²) in the worst case because it uses nested loops to compare and swap adjacent elements."
+  },
+  {
+    "id": 2,
+    "topic": "Sorting",
+    "algorithm": "Bubble Sort",
+    "difficulty": "Easy",
+    "question": "Which statement is true about Bubble Sort?",
+    "options": ["It's the fastest sorting algorithm", "It's stable and in-place", "It requires O(n) extra space", "It can't sort negative numbers"],
+    "correctAnswer": 1,
+    "explanation": "Bubble Sort is both stable (maintains relative order of equal elements) and in-place (requires only O(1) extra space)."
+  },
+  {
+    "id": 3,
+    "topic": "Sorting",
+    "algorithm": "Quick Sort",
+    "difficulty": "Medium",
+    "question": "What is the average time complexity of Quick Sort?",
+    "options": ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
+    "correctAnswer": 1,
+    "explanation": "Quick Sort has an average time complexity of O(n log n) due to its divide-and-conquer approach with balanced partitions."
+  },
+  {
+    "id": 4,
+    "topic": "Sorting",
+    "algorithm": "Quick Sort",
+    "difficulty": "Hard",
+    "question": "When does Quick Sort perform worst (O(n²))?",
+    "options": ["When array is random", "When pivot is always the median", "When array is already sorted and we pick first element as pivot", "When array has duplicate elements"],
+    "correctAnswer": 2,
+    "explanation": "Quick Sort performs worst when the pivot is always the smallest or largest element, creating unbalanced partitions. This happens when the array is sorted and we always pick the first element as pivot."
+  },
+  {
+    "id": 5,
+    "topic": "Sorting",
+    "algorithm": "Merge Sort",
+    "difficulty": "Medium",
+    "question": "What is the space complexity of Merge Sort?",
+    "options": ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+    "correctAnswer": 2,
+    "explanation": "Merge Sort requires O(n) auxiliary space to store the temporary arrays during the merge process."
+  },
+  {
+    "id": 6,
+    "topic": "Searching",
+    "algorithm": "Binary Search",
+    "difficulty": "Easy",
+    "question": "What is the prerequisite for Binary Search to work?",
+    "options": ["Array must be unsorted", "Array must be sorted", "Array must have unique elements", "Array must be of even length"],
+    "correctAnswer": 1,
+    "explanation": "Binary Search requires the array to be sorted to eliminate half of the search space in each iteration."
+  },
+  {
+    "id": 7,
+    "topic": "Searching",
+    "algorithm": "Binary Search",
+    "difficulty": "Medium",
+    "question": "What is the time complexity of Binary Search?",
+    "options": ["O(n)", "O(log n)", "O(n log n)", "O(1)"],
+    "correctAnswer": 1,
+    "explanation": "Binary Search has O(log n) time complexity because it divides the search space in half with each comparison."
+  },
+  {
+    "id": 8,
+    "topic": "Searching",
+    "algorithm": "Linear Search",
+    "difficulty": "Easy",
+    "question": "What is the best case time complexity of Linear Search?",
+    "options": ["O(n)", "O(log n)", "O(1)", "O(n²)"],
+    "correctAnswer": 2,
+    "explanation": "The best case for Linear Search is O(1) when the target element is found at the first position."
+  },
+  {
+    "id": 9,
+    "topic": "Data Structures",
+    "algorithm": "Linked List",
+    "difficulty": "Medium",
+    "question": "What is the time complexity to insert an element at the beginning of a singly linked list?",
+    "options": ["O(n)", "O(log n)", "O(1)", "O(n log n)"],
+    "correctAnswer": 2,
+    "explanation": "Inserting at the beginning of a linked list takes O(1) time as we only need to update the head pointer."
+  },
+  {
+    "id": 10,
+    "topic": "Data Structures",
+    "algorithm": "Array",
+    "difficulty": "Easy",
+    "question": "What is the time complexity to access an element by index in an array?",
+    "options": ["O(n)", "O(log n)", "O(1)", "O(n²)"],
+    "correctAnswer": 2,
+    "explanation": "Array access by index is O(1) because arrays provide direct access to elements using their memory address."
+  },
+  {
+    "id": 11,
+    "topic": "Sorting",
+    "algorithm": "Selection Sort",
+    "difficulty": "Easy",
+    "question": "How many swaps does Selection Sort perform in the worst case for an array of n elements?",
+    "options": ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+    "correctAnswer": 0,
+    "explanation": "Selection Sort performs at most n-1 swaps (O(n)) because it swaps only once per iteration to place the minimum element in its correct position."
+  },
+  {
+    "id": 12,
+    "topic": "Sorting",
+    "algorithm": "Insertion Sort",
+    "difficulty": "Medium",
+    "question": "When does Insertion Sort perform best?",
+    "options": ["When array is reverse sorted", "When array is randomly arranged", "When array is already sorted", "When array has duplicate elements"],
+    "correctAnswer": 2,
+    "explanation": "Insertion Sort performs best on already sorted arrays with O(n) time complexity, as it only needs to check each element once."
+  },
+  {
+    "id": 13,
+    "topic": "Searching",
+    "algorithm": "Binary Search",
+    "difficulty": "Hard",
+    "question": "In a rotated sorted array, what modification is needed for Binary Search?",
+    "options": ["No modification needed", "Check which half is sorted before deciding direction", "Use Linear Search instead", "Sort the array first"],
+    "correctAnswer": 1,
+    "explanation": "In a rotated sorted array, we need to first determine which half (left or right) is properly sorted, then decide which direction to search based on the target value."
+  },
+  {
+    "id": 14,
+    "topic": "Data Structures",
+    "algorithm": "Stack",
+    "difficulty": "Easy",
+    "question": "Which principle does a Stack follow?",
+    "options": ["FIFO", "LIFO", "Random Access", "Priority Based"],
+    "correctAnswer": 1,
+    "explanation": "Stack follows LIFO (Last In, First Out) principle where the last element added is the first one to be removed."
+  },
+  {
+    "id": 15,
+    "topic": "Data Structures",
+    "algorithm": "Queue",
+    "difficulty": "Easy",
+    "question": "Which principle does a Queue follow?",
+    "options": ["LIFO", "FIFO", "Random Access", "Priority Based"],
+    "correctAnswer": 1,
+    "explanation": "Queue follows FIFO (First In, First Out) principle where the first element added is the first one to be removed."
+  }
+]
