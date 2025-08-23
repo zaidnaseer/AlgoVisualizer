@@ -1,34 +1,51 @@
-/* Import Google Fonts */
+/* =========================
+   Import Google Fonts
+========================= */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Import other component styles */
+/* Import component styles */
 @import './navbar.css';
 @import './footer.css';
 @import './pages.css';
+@import './Quiz.css';
 
-/* ----------------- Theme Variables ----------------- */
-/* Dark mode as default */
+/* =========================
+   Theme Variables
+========================= */
 :root {
-    --bg-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-    --text-color: #e0e6ed;
-    --header-bg: #1a1a2e;
+    --bg-gradient: #0d1117;
+    --container-bg: rgba(33, 38, 45, 0.95);
+    --text-color: #e6edf3;
+    --header-bg: #21262d;
+    --button-bg: #58a6ff;
+    --button-text: #0d1117;
+    --button-hover: #79c0ff;
+    --disabled-bg: #6e7681;
 }
 
-/* Light mode */
 [data-theme="light"] {
-    --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
-    --text-color: #000000;
-    --header-bg: #f2f2f2;
+    --bg-gradient: #ffffff;
+    --container-bg: #ffffff;
+    --text-color: #1a1a1a;
+    --header-bg: #f6f8fa;
+    --button-bg: #0969da;
+    --button-text: #ffffff;
+    --button-hover: #0550ae;
+    --disabled-bg: #cccccc;
 }
 
-/* ----------------- Reset Default Styles ----------------- */
+/* =========================
+   Reset Default Styles
+========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ----------------- Global body and container ----------------- */
+/* =========================
+   Global Body & Containers
+========================= */
 html, body, #root, .app-container {
     background: var(--bg-gradient);
     color: var(--text-color);
@@ -40,8 +57,7 @@ html, body, #root, .app-container {
 }
 
 body {
-    margin: 0;
-    padding: 0;
+    overflow-y: scroll;
 }
 
 .app-container {
@@ -49,81 +65,136 @@ body {
     flex-direction: column;
 }
 
-/* ----------------- Main content ----------------- */
+/* =========================
+   Main Content
+========================= */
 .main-content {
     flex: 1;
     padding: 0;
     background: transparent;
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
 }
 
-/* ----------------- Header background ----------------- */
+/* =========================
+   Header
+========================= */
 .av-header {
     background-color: var(--header-bg);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ----------------- Theme Toggle Button ----------------- */
+/* =========================
+   Theme Toggle Button
+========================= */
 .theme-toggle-btn {
-    margin-left: 15px;
     width: 44px;
     height: 44px;
-    padding: 0;
     border: 1px solid #d9e4ff;
-    border-radius: 9999px;
+    border-radius: 50%;
     background: #eef3ff;
-    box-shadow: 0 2px 10px rgba(23, 37, 84, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    box-shadow: 0 2px 10px rgba(23,37,84,0.12), inset 0 1px 0 rgba(255,255,255,0.85);
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .theme-toggle-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(23, 37, 84, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow: 0 6px 16px rgba(23,37,84,0.18), inset 0 1px 0 rgba(255,255,255,0.9);
 }
-.av-header [data-theme="dark"] .theme-toggle-btn,
+
 [data-theme="dark"] .theme-toggle-btn {
     background: #1d2230;
     border-color: #2b3244;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 [data-theme="dark"] .theme-toggle-btn:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 .theme-toggle-btn:active {
     transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(23, 37, 84, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 6px rgba(23,37,84,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
 }
 
 .theme-toggle-btn:focus-visible {
     outline: 0;
-    box-shadow: 0 0 0 3px rgba(99, 123, 255, 0.35), 0 6px 16px rgba(23, 37, 84, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 3px rgba(99,123,255,0.35), 0 6px 16px rgba(23,37,84,0.18), inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
 .theme-toggle-btn svg {
     width: 30px;
     height: 30px;
-    display: block;
 }
 
-/* ----------------- Links, buttons, navbar ----------------- */
+/* =========================
+   Links & Buttons
+========================= */
 a, button, .nav-links a {
     transition: color 0.3s ease, background-color 0.3s ease;
-    
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Mobile menu background */
+/* =========================
+   Standardized Button Styles
+========================= */
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    font-weight: 600;
+    min-width: 80px;
+    
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--button-hover);
+    transform: translateY(-2px) scale(1.03);
+}
+
+button:disabled {
+    background-color: var(--disabled-bg);
+    cursor: not-allowed;
+    
+    transform: none;
+}
+
+/* =========================
+   Mobile Menu
+========================= */
 .nav-links.nav-active {
     background-color: var(--header-bg);
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 768px) {
+    .theme-toggle-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    button {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
 }

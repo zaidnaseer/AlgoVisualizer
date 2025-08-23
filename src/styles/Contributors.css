@@ -2,33 +2,56 @@
 
 /* Global CSS variables for dark/light theme */
 :root {
-  --bg-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-  --text-color: #e0e6ed;
-  --card-bg: #1a1a2e;
-  --card-border: #334155;
-  --highlight: #6366f1;
-  --secondary-text: #64748b;
-  --cta-gradient: linear-gradient(90deg, #10b981, #06d6a0, #00d4aa);
-  --contribution-bg: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --bg-gradient: #0d1117;
+  --text-color: #e6edf3;
+  --card-bg: #21262d;
+  --card-border: #30363d;
+  --highlight: #58a6ff;
+  --secondary-text: #8b949e;
+  --contribution-bg: #58a6ff;
 }
 
 [data-theme='light'] {
-  --bg-gradient: #f0f0f5;
-  --text-color: #111111;
+  --bg-gradient: #ffffff;
+  --text-color: #1e293b;
   --card-bg: #ffffff;
   --card-border: #e2e8f0;
-  --highlight: #6366f1;
+  --highlight: #58a6ff;
   --secondary-text: #64748b;
-  --cta-gradient: linear-gradient(90deg, #10b981, #06d6a0, #00d4aa);
-  --contribution-bg: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --contribution-bg: #58a6ff;
 }
 
-/* Section and header */
+/* Light theme specific overrides for better contrast */
+[data-theme='light'] .contributor-card {
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+}
+
+[data-theme='light'] .contributor-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15), 0 10px 10px -5px rgba(0,0,0,0.08);
+}
+
+[data-theme='light'] .contribute-cta {
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);
+}
+
+[data-theme='light'] .btn-primary:hover {
+  box-shadow: 0 8px 16px rgba(99,102,241,0.25);
+}
+
+/* ------------------------
+   Section and Header
+------------------------ */
 .contributors-section {
   padding: 60px 0;
   background: var(--bg-gradient);
   position: relative;
   color: var(--text-color);
+}
+
+.contributors-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .contributors-section::before {
@@ -38,7 +61,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--highlight), transparent);
+  background: var(--highlight);
 }
 
 .contributors-header {
@@ -62,9 +85,12 @@
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  overflow-wrap: break-word;
 }
 
-/* Grid and carousel */
+/* ------------------------
+   Grid and Carousel
+------------------------ */
 .contributors-grid {
   overflow: hidden;
   margin-bottom: 60px;
@@ -93,7 +119,9 @@
   100% { transform: translateX(-50%); }
 }
 
-/* Contributor card */
+/* ------------------------
+   Contributor Card
+------------------------ */
 .contributor-card {
   background: var(--card-bg);
   border-radius: 16px;
@@ -107,6 +135,8 @@
   max-width: 300px;
   margin-right: 20px;
   flex-shrink: 0;
+  box-sizing: border-box;
+  word-wrap: break-word;
 }
 
 .contributor-card::before {
@@ -124,7 +154,9 @@
   transform: translateY(-5px);
 }
 
-/* Avatar */
+/* ------------------------
+   Avatar
+------------------------ */
 .contributor-avatar {
   display: flex;
   flex-direction: column;
@@ -154,15 +186,20 @@
   font-size: 0.875rem;
   font-weight: 600;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Contributor info */
+/* ------------------------
+   Contributor Info
+------------------------ */
 .contributor-info h3 {
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-color);
   margin-bottom: 6px;
   text-align: center;
+  word-wrap: break-word;
 }
 
 .contributor-role {
@@ -184,12 +221,17 @@
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-wrap: break-word;
 }
 
-/* Contributor links */
+/* ------------------------
+   Contributor Links
+------------------------ */
 .contributor-links {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .github-link {
@@ -205,6 +247,9 @@
   font-weight: 600;
   border: 2px solid var(--highlight);
   transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .github-link:hover {
@@ -222,7 +267,9 @@
   transform: scale(1.1);
 }
 
-/* CTA section */
+/* ------------------------
+   CTA Section
+------------------------ */
 .contribute-cta {
   text-align: center;
   background: var(--card-bg);
@@ -241,7 +288,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--cta-gradient);
+  background: var(--highlight);
 }
 
 .contribute-cta h3 {
@@ -258,9 +305,10 @@
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  word-wrap: break-word;
 }
 
-/* CTA buttons */
+/* CTA Buttons */
 .cta-buttons {
   display: flex;
   gap: 16px;
@@ -275,8 +323,12 @@
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .btn-primary {
@@ -288,6 +340,8 @@
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(99,102,241,0.3);
+  text-decoration: none;
+  color: white;
 }
 
 .btn-secondary {
@@ -300,9 +354,12 @@
   background: var(--highlight);
   color: white;
   transform: translateY(-2px);
+ text-decoration: none;
 }
 
-/* Loading state */
+/* ------------------------
+   Loading State
+------------------------ */
 .loading-state {
   text-align: center;
   padding: 80px 20px;
@@ -328,7 +385,9 @@
   color: var(--secondary-text);
 }
 
-/* Responsive Design */
+/* ------------------------
+   Responsive Design
+------------------------ */
 @media (max-width: 768px) {
   .contributors-header h2 { font-size: 2.5rem; }
   .contributor-card { min-width: 250px; max-width: 250px; padding: 15px; margin-right: 15px; }

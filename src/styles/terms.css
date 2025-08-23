@@ -1,45 +1,84 @@
-/* terms.css - OSHub Style */
+/* =========================
+   Theme Variables
+========================= */
+:root {
+    --bg-color: #1a1a1a;
+    --container-bg: rgba(30, 30, 30, 0.8);
+    --text-color: #e0e6ed;
+    --heading-color: #ffffff;
+    --subtext-color: #9ca3af;
+    --accent-color: rgb(8, 179, 231);
+    --link-color: rgb(8, 179, 231);
+    --link-hover: #4fd1ff;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --section-border: rgba(8, 179, 231, 0.3);
+}
 
+[data-theme="light"] {
+    --bg-color: #f6f0d6;
+    --container-bg: rgba(255, 255, 255, 0.9);
+    --text-color: #1a1a1a;
+    --heading-color: #1a1a1a;
+    --subtext-color: #4b5563;
+    --accent-color: #0077cc;
+    --link-color: #0077cc;
+    --link-hover: #3385ff;
+    --border-color: rgba(0, 119, 204, 0.2);
+    --section-border: rgba(0, 119, 204, 0.3);
+}
+
+/* =========================
+   Container
+========================= */
 .terms-container {
-    background-color: #1a1a1a;
+    background-color: var(--bg-color);
     min-height: 100vh;
     padding: 2rem 1rem;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
 .terms-content {
     max-width: 800px;
     margin: 0 auto;
-    background: rgba(30, 30, 30, 0.8);
+    background: var(--container-bg);
     border-radius: 12px;
     padding: 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
     backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
+/* =========================
+   Header
+========================= */
 .terms-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 3rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .terms-header h1 {
-    color: #ffffff;
+    color: var(--heading-color);
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
 .terms-header .effective-date {
-    color: #9ca3af;
+    color: var(--subtext-color);
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
+/* =========================
+   Sections
+========================= */
 .terms-sections {
     margin-top: 2rem;
 }
@@ -49,28 +88,33 @@
 }
 
 .terms-section h2 {
-    color: #ffffff;
+    color: var(--heading-color);
     font-size: 1.75rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(8, 179, 231, 0.3);
+    border-bottom: 1px solid var(--section-border);
+    transition: all 0.3s ease;
 }
 
 .terms-section p {
-    color: #d1d5db;
+    color: var(--text-color);
     line-height: 1.7;
     margin-bottom: 1.5rem;
     font-size: 1.05rem;
 }
 
+/* =========================
+   Lists
+========================= */
 .terms-list {
     padding-left: 1.5rem;
     margin: 1.5rem 0;
+    list-style: none;
 }
 
 .terms-list li {
-    color: #d1d5db;
+    color: var(--text-color);
     margin-bottom: 0.8rem;
     line-height: 1.6;
     position: relative;
@@ -79,29 +123,34 @@
 
 .terms-list li::before {
     content: "▸";
-    color: rgb(8, 179, 231);
+    color: var(--accent-color);
     position: absolute;
     left: 0;
     font-weight: bold;
 }
 
 .terms-list strong {
-    color: #ffffff;
+    color: var(--heading-color);
     font-weight: 600;
 }
 
+/* =========================
+   Links
+========================= */
 a {
-    color: rgb(8, 179, 231);
+    color: var(--link-color);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
-    color: #4fd1ff;
+    color: var(--link-hover);
     text-decoration: underline;
 }
 
-/* Responsive Design */
+/* =========================
+   Responsive Design
+========================= */
 @media (max-width: 768px) {
     .terms-content {
         padding: 1.5rem;

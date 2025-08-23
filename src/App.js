@@ -6,8 +6,10 @@ import Home from './pages/Home';
 import Sorting from './pages/Sorting';
 import Searching from './pages/Searching';
 import DataStructures from './pages/DataStructures';
+import Graph from './pages/Graph'; // <-- Import the new Graph component
+import Quiz from './pages/Quiz';
 import Contributors from './components/Contributors';
-import ScrollToTop from './ScrollToTop'; 
+import ScrollToTop from './ScrollToTop';
 import About from './components/about';
 import Contact from './components/contact';
 import PrivacyPolicy from './components/Privacy';
@@ -23,12 +25,14 @@ const App = () => {
             <Router>
                 <div className="app-container">
                     <Header />
-                    <main className="main-content">
+                    <main className="main-content" style={{ paddingTop: '70px' }}>
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/sorting" element={<Sorting />} />
                             <Route path="/searching" element={<Searching />} />
                             <Route path="/data-structures" element={<DataStructures />} />
+                            <Route path="/graph" element={<Graph />} /> {/* <-- Add the new route */}
+                            <Route path="/quiz" element={<Quiz />} />
                             <Route path="/contributors" element={<Contributors />} />
                             <Route path="/about" element={<About />} />
                             <Route path="/contact" element={<Contact />} />
