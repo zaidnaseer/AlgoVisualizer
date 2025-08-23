@@ -259,6 +259,7 @@ select:focus {
 .quick-card,
 .stat-card,
 .feature-item {
+  background: #ffffff;
   border-radius: 20px;
   padding: 30px;
   text-decoration: none;
