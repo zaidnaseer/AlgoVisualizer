@@ -129,7 +129,6 @@ const Header = () => {
                         >
                             <FaGithub className="github-icon" />
                             <span className="github-text">Star</span>
-                            <div className="github-shine"></div>
                         </a>
 
                         <button 
@@ -167,7 +166,7 @@ const Header = () => {
             <nav className={`nav-links-mobile ${isMobileMenuOpen ? 'active' : ''}`} aria-label="Mobile Navigation">
                 <div className="mobile-nav-content">
                     <div className="mobile-nav-header">
-                        <h2>Navigation</h2>
+
                         <div className="mobile-nav-actions">
                             <a 
                                 className="mobile-github-btn" 
