@@ -162,19 +162,49 @@ body {
         width: 12px;
     }
 
-
 .sorting-array-bar {
     width: 30px;
     margin: 0 2px;
     background-color: #61dafb;
     text-align: center;
     color: rgb(39, 38, 38);
-
-    .searching-button,
-    .sorting-button {
-        padding: 6px 12px;
-        font-size: 13px;
     }
-
 }
+
+/* Global button sizing and spacing rules
+   - Buttons auto-size to text (no fixed widths)
+   - Consistent padding: 10px top/bottom, 20px left/right
+   - Prevent text wrap inside buttons
+   - For containers that already use flex/grid, a gap of 10px will ensure equal spacing
+   NOTE: We intentionally do NOT set background or color here so existing colors/hover remain unchanged.
+*/
+:where(button, input[type="button"], input[type="submit"], .button, .btn, [role="button"]) {
+    padding: 10px 20px;
+    white-space: nowrap;
+    display: inline-block; /* allow auto width based on content */
+    width: auto;
+    min-width: max-content; /* ensure text is never cut off */
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+/* Apply gap to common controls containers when they are flex/grid (gap has no effect otherwise) */
+:where(.searching-controls, .sorting-controls, .controls, .export-controls, .simple-export-controls, .button-group, .btn-group, .controls-row, .control-row) {
+    gap: 10px;
+}
+
+/* Prevent buttons inside flex/grid control containers from shrinking and ensure equal spacing */
+:where(.searching-controls, .sorting-controls, .controls, .export-controls, .simple-export-controls, .button-group, .btn-group, .controls-row, .control-row) :where(button, input[type="button"], input[type="submit"], .button, .btn, [role="button"]) {
+    /* in case the container is a flex/grid, stop buttons from shrinking */
+    flex: 0 0 auto;
+    -ms-flex: 0 0 auto; /* IE10 fallback */
+}
+
+/* Utility: keep buttons visually consistent inside small screens while preserving responsiveness */
+@media (max-width: 480px) {
+    :where(button, input[type="button"], input[type="submit"], .button, .btn) {
+        padding: 8px 14px; /* slightly smaller on very small screens */
+        /* keep nowrap but allow buttons to remain readable; min-width remains max-content to avoid cutting text */
+        min-width: max-content;
+    }
 }

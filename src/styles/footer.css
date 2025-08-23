@@ -126,9 +126,10 @@
   align-items: center;
   gap: 0.5rem;
 }
-.social-inner a{
-    margin: 0 0;
+.social-inner a {
+  margin: 0 0;
 }
+
 .social-icon:hover {
   background: #58a6ff;
   color: #0d1117;

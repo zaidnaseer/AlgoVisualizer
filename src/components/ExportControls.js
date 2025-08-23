@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import VisualizationExporter from '../utils/visualizationExporter';
 import '../styles/ExportControls.css';
 
@@ -28,8 +29,8 @@ const ExportControls = ({
             quality: 0.8
         });
         
-        setIsRecording(true);
-        if (onStartRecording) onStartRecording();
+    setIsRecording(true);
+    onStartRecording?.();
         
         // Update status periodically
         const statusInterval = setInterval(() => {
@@ -45,12 +46,12 @@ const ExportControls = ({
     const handleStopRecording = async () => {
         if (!isRecording) return;
         
-        setIsRecording(false);
-        if (onStopRecording) onStopRecording();
+    setIsRecording(false);
+    onStopRecording?.();
         
         try {
             const result = await exporterRef.current.stopRecording();
-            if (result && result.success) {
+            if (result?.success) {
                 alert(`✅ ${result.message}`);
             } else if (result) {
                 alert(`✅ Export completed! ${recordingStatus.frameCount} frames captured.`);
@@ -109,8 +110,9 @@ const ExportControls = ({
                     
                     <div className="export-options">
                         <div className="option-group">
-                            <label>Format:</label>
+                            <label htmlFor="exportFormatSelect">Format:</label>
                             <select 
+                                id="exportFormatSelect"
                                 value={exportFormat} 
                                 onChange={(e) => setExportFormat(e.target.value)}
                                 disabled={isRecording}
@@ -121,8 +123,9 @@ const ExportControls = ({
                         </div>
                         
                         <div className="option-group">
-                            <label>Frame Rate:</label>
+                            <label htmlFor="frameRateSelect">Frame Rate:</label>
                             <select 
+                                id="frameRateSelect"
                                 value={frameRate} 
                                 onChange={(e) => setFrameRate(Number(e.target.value))}
                                 disabled={isRecording}
@@ -198,3 +201,17 @@ const ExportControls = ({
 };
 
 export default ExportControls;
+
+ExportControls.propTypes = {
+    isVisualizationRunning: PropTypes.bool,
+    onStartRecording: PropTypes.func,
+    onStopRecording: PropTypes.func,
+    visualizationContainerId: PropTypes.string,
+};
+
+ExportControls.defaultProps = {
+    isVisualizationRunning: false,
+    onStartRecording: undefined,
+    onStopRecording: undefined,
+    visualizationContainerId: 'visualization-container',
+};

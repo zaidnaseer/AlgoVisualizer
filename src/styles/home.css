@@ -468,6 +468,8 @@ select:focus {
   padding: 60px 20px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
+  margin: 0 auto;      
+  text-align: center;  
 }
 
 /* CTA Buttons */
@@ -606,4 +608,55 @@ select:focus {
 .quick-card,
 .quick-card * {
   text-decoration: none !important;
+}
+
+/* =========================
+   Quiz Card Specific Styling
+========================= */
+.quick-card.quiz .card-left {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+[data-theme="light"] .quick-card.quiz .card-left {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05));
+  border: 1px solid rgba(168, 85, 247, 0.15);
+}
+
+.quick-card.quiz:hover .card-left {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+[data-theme="light"] .quick-card.quiz:hover .card-left {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+  border-color: rgba(168, 85, 247, 0.25);
+}
+
+.quick-card.quiz .card-icon {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem;
+}
+
+.quick-card.quiz .feature-tag {
+  background: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+  border-color: rgba(168, 85, 247, 0.2);
+}
+
+[data-theme="light"] .quick-card.quiz .feature-tag {
+  background: rgba(168, 85, 247, 0.08);
+  color: #9333ea;
+  border-color: rgba(168, 85, 247, 0.15);
+}
+
+.quick-card.quiz .card-action {
+  color: #a855f7;
+}
+
+[data-theme="light"] .quick-card.quiz .card-action {
+  color: #9333ea;
 }

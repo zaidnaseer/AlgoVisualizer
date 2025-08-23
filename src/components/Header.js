@@ -1,100 +1,253 @@
-import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import '../styles/navbar.css';
-import { useTheme } from '../ThemeContext'; // ← import useTheme
+import { useTheme } from '../ThemeContext';
+import { FaGithub, FaMoon, FaSun, FaCode, FaSearch, FaDatabase, FaBrain, FaUsers, FaBook } from 'react-icons/fa';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const { theme, toggleTheme } = useTheme(); // ← access theme context
+    const [isScrolled, setIsScrolled] = useState(false);
+    const { theme, toggleTheme } = useTheme();
+    const location = useLocation();
+
+    // Handle scroll effect for navbar
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+        
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Close mobile menu when route changes
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location]);
+
+    // Prevent body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMobileMenuOpen]);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const navItems = [
+        { path: '/', label: 'Home', icon: null, group: 'main' },
+        { path: '/sorting', label: 'Sorting', icon: FaCode, group: 'learn' },
+        { path: '/searching', label: 'Searching', icon: FaSearch, group: 'learn' },
+        { path: '/data-structures', label: 'Data Structures', icon: FaDatabase, group: 'learn' },
+        { path: '/quiz', label: 'Quiz', icon: FaBrain, group: 'test' },
+        { path: '/contributors', label: 'Contributors', icon: FaUsers, group: 'community' },
+        { path: '/documentation', label: 'Documentation', icon: FaBook, group: 'help' }
+    ];
+
     return (
-        <header className="av-header">
-            <div className="av-container">
-                <div className="logo">
-                    <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-                        <h1 className="navbar-heading">AlgoVisualizer</h1>
-                    </Link>
-                </div>
+        <>
+            <header className={`av-header ${isScrolled ? 'scrolled' : ''}`}>
+                <div className="av-container">
+                    {/* Logo Section */}
+                    <div className="logo">
+                        <Link to="/" className="logo-link">
+                            <div className="logo-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM11 17.93L4 14.31V9.69L11 13.31V17.93ZM12 11.38L5.24 8L12 4.62L18.76 8L12 11.38ZM13 13.31L20 9.69V14.31L13 17.93V13.31Z"/>
+                                </svg>
+                            </div>
+                            <h1 className="navbar-heading">
+                                Algo<span className="highlight">Visualizer</span>
+                            </h1>
+                        </Link>
+                    </div>
 
-                <nav className={`nav-links ${isMobileMenuOpen ? 'nav-active' : ''}`} aria-label="Primary">
-                    <NavLink to="/" onClick={toggleMobileMenu} end className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
-                    <NavLink to="/sorting" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Sorting</NavLink>
-                    <NavLink to="/searching" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Searching</NavLink>
-                    <NavLink to="/data-structures" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Data Structures</NavLink>
-                    <NavLink to="/contributors" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Contributors</NavLink>
-                    <NavLink to="/documentation" onClick={toggleMobileMenu} className={({ isActive }) => isActive ? 'active' : ''}>Documentation</NavLink>
-                </nav>
+                    {/* Desktop Navigation */}
+                    <nav className="nav-links-desktop" aria-label="Primary">
+                        <div className="nav-group main-nav">
+                            {navItems.filter(item => item.group === 'main').map(item => (
+                                <NavLink 
+                                    key={item.path}
+                                    to={item.path} 
+                                    end={item.path === '/'}
+                                    className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                >
+                                    {item.icon && <item.icon className="nav-icon" />}
+                                    <span>{item.label}</span>
+                                </NavLink>
+                            ))}
+                        </div>
+                        
+                        <div className="nav-separator"></div>
+                        
+                        <div className="nav-group learn-nav">
+                            <span className="nav-group-label">Learn</span>
+                            {navItems.filter(item => item.group === 'learn').map(item => (
+                                <NavLink 
+                                    key={item.path}
+                                    to={item.path}
+                                    className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                >
+                                    {item.icon && <item.icon className="nav-icon" />}
+                                    <span>{item.label}</span>
+                                </NavLink>
+                            ))}
+                        </div>
+                        
+                        <div className="nav-separator"></div>
+                        
+                        <div className="nav-group other-nav">
+                            {navItems.filter(item => ['test', 'community', 'help'].includes(item.group)).map(item => (
+                                <NavLink 
+                                    key={item.path}
+                                    to={item.path}
+                                    className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                                >
+                                    {item.icon && <item.icon className="nav-icon" />}
+                                    <span>{item.label}</span>
+                                </NavLink>
+                            ))}
+                        </div>
+                    </nav>
 
-                <div className="nav-actions">
-                    <a className="github-btn" href="https://github.com/RhythmPahwa14/AlgoVisualizer" target="_blank" rel="noreferrer noopener" aria-label="Open GitHub repository">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path fillRule="evenodd" d="M12 .5C5.73.5.9 5.33.9 11.6c0 4.88 3.16 9.02 7.55 10.48.55.1.75-.24.75-.53 0-.26-.01-1.12-.02-2.03-3.07.67-3.72-1.3-3.72-1.3-.5-1.26-1.22-1.6-1.22-1.6-.99-.67.07-.65.07-.65 1.1.08 1.68 1.12 1.68 1.12.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.45-.28-5.02-1.22-5.02-5.43 0-1.2.43-2.18 1.13-2.95-.11-.28-.49-1.41.11-2.94 0 0 .93-.3 3.05 1.13.88-.24 1.82-.36 2.76-.36.94 0 1.88.12 2.76.36 2.12-1.43 3.05-1.13 3.05-1.13.6 1.53.22 2.66.11 2.94.7.77 1.13 1.75 1.13 2.95 0 4.22-2.58 5.14-5.04 5.41.39.33.73.99.73 2 0 1.44-.01 2.6-.01 2.95 0 .29.2.64.76.53 4.38-1.46 7.54-5.6 7.54-10.48C23.1 5.33 18.27.5 12 .5z" clipRule="evenodd" />
-                        </svg>
-                        <span>Star</span>
-                    </a>
-
-                    {/* Dark/Light mode toggle */}
-                    <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle dark/light mode">
-                        {theme === 'light' ? (
-                            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-                                <circle cx="16" cy="16" r="12.4" fill="currentColor" />
-                                <circle cx="22.5" cy="16" r="12.9" fill="currentColor" />
-                            </svg>
-                        ) : (
-                            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-                                <defs>
-                                    <filter id="btnGlow" x="-50%" y="-50%" width="200%" height="200%">
-                                        <feDropShadow dx="0" dy="0" stdDeviation="2.8" floodColor="#0b3a57" floodOpacity="0.55" />
-                                    </filter>
-                                </defs>
-                                <g filter="url(#btnGlow)">
-                                    <circle cx="16" cy="16" r="15" fill="#0b0e13" />
-                                </g>
-                                <circle cx="16" cy="16" r="14" fill="none" stroke="#3b414c" strokeWidth="2" />
-                                <circle cx="16" cy="16" r="12" fill="#2a2f39" />
-                                <circle cx="16" cy="16" r="6.2" fill="#b9c8ff" />
-                                <g fill="#b9c8ff">
-                                    <rect x="15" y="5" width="2" height="5" rx="1" />
-                                    <rect x="15" y="22" width="2" height="5" rx="1" />
-                                    <rect x="22" y="15" width="5" height="2" rx="1" />
-                                    <rect x="5" y="15" width="5" height="2" rx="1" />
-                                    <rect x="20.2" y="8.2" width="2" height="5" rx="1" transform="rotate(45 21.2 10.7)" />
-                                    <rect x="9.8" y="18.8" width="2" height="5" rx="1" transform="rotate(45 10.8 21.3)" />
-                                    <rect x="9.8" y="8.2" width="2" height="5" rx="1" transform="rotate(-45 10.8 10.7)" />
-                                    <rect x="20.2" y="18.8" width="2" height="5" rx="1" transform="rotate(-45 21.2 21.3)" />
-                                </g>
-                            </svg>
-                        )}
-                    </button>
-
-                    {!isMobileMenuOpen && (
-                        <button className="hamburger" onClick={toggleMobileMenu} aria-label="Toggle menu" aria-expanded={isMobileMenuOpen}>
-                            <span className="bar"></span>
-                            <span className="bar"></span>
-                            <span className="bar"></span>
-                        </button>
-                    )}
-
-                    {isMobileMenuOpen && (
-                        <button
-                            className="close-menu-btn"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            aria-label="Close menu"
-                            
+                    {/* Action Buttons */}
+                    <div className="nav-actions">
+                        <a 
+                            className="github-btn" 
+                            href="https://github.com/RhythmPahwa14/AlgoVisualizer" 
+                            target="_blank" 
+                            rel="noreferrer noopener" 
+                            aria-label="Star on GitHub"
                         >
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
+                            <FaGithub className="github-icon" />
+                            <span className="github-text">Star</span>
+                        </a>
+
+                        <button 
+                            onClick={toggleTheme} 
+                            className="theme-toggle-btn" 
+                            aria-label="Toggle dark/light mode"
+                        >
+                            <div className="theme-icon-wrapper">
+                                {theme === 'light' ? (
+                                    <FaMoon className="theme-icon" />
+                                ) : (
+                                    <FaSun className="theme-icon" />
+                                )}
+                            </div>
                         </button>
-                    )}
+
+                        <button 
+                            className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
+                            onClick={toggleMobileMenu} 
+                            aria-label="Toggle menu" 
+                            aria-expanded={isMobileMenuOpen}
+                        >
+                            <span className="bar bar1"></span>
+                            <span className="bar bar2"></span>
+                            <span className="bar bar3"></span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+
+            {/* Mobile Menu Overlay */}
+            <div className={`mobile-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu} />
+
+            {/* Mobile Navigation */}
+            <nav className={`nav-links-mobile ${isMobileMenuOpen ? 'active' : ''}`} aria-label="Mobile Navigation">
+                <div className="mobile-nav-content">
+                    <div className="mobile-nav-header">
+
+                        <div className="mobile-nav-actions">
+                            <a 
+                                className="mobile-github-btn" 
+                                href="https://github.com/RhythmPahwa14/AlgoVisualizer" 
+                                target="_blank" 
+                                rel="noreferrer noopener"
+                                onClick={toggleMobileMenu}
+                            >
+                                <FaGithub />
+                                <span>Star on GitHub</span>
+                            </a>
+                            
+                            <button 
+                                onClick={toggleTheme} 
+                                className="mobile-theme-toggle"
+                                aria-label="Toggle theme"
+                            >
+                                {theme === 'light' ? <FaMoon /> : <FaSun />}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="mobile-nav-groups">
+                        <div className="mobile-nav-group">
+                            <div className="mobile-group-header">
+                                <span>Main</span>
+                            </div>
+                            {navItems.filter(item => item.group === 'main').map((item, index) => (
+                                <NavLink 
+                                    key={item.path}
+                                    to={item.path}
+                                    end={item.path === '/'}
+                                    className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+                                    onClick={toggleMobileMenu}
+                                    style={{ animationDelay: `${index * 0.1}s` }}
+                                >
+                                    {item.icon && <item.icon className="mobile-nav-icon" />}
+                                    <span>{item.label}</span>
+                                </NavLink>
+                            ))}
+                        </div>
+
+                        <div className="mobile-nav-group">
+                            <div className="mobile-group-header">
+                                <span>Learn Algorithms</span>
+                            </div>
+                            {navItems.filter(item => item.group === 'learn').map((item, index) => (
+                                <NavLink 
+                                    key={item.path}
+                                    to={item.path}
+                                    className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+                                    onClick={toggleMobileMenu}
+                                    style={{ animationDelay: `${(index + 1) * 0.1}s` }}
+                                >
+                                    {item.icon && <item.icon className="mobile-nav-icon" />}
+                                    <span>{item.label}</span>
+                                </NavLink>
+                            ))}
+                        </div>
+
+                        <div className="mobile-nav-group">
+                            <div className="mobile-group-header">
+                                <span>More</span>
+                            </div>
+                            {navItems.filter(item => ['test', 'community', 'help'].includes(item.group)).map((item, index) => (
+                                <NavLink 
+                                    key={item.path}
+                                    to={item.path}
+                                    className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+                                    onClick={toggleMobileMenu}
+                                    style={{ animationDelay: `${(index + 4) * 0.1}s` }}
+                                >
+                                    {item.icon && <item.icon className="mobile-nav-icon" />}
+                                    <span>{item.label}</span>
+                                </NavLink>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </>
     );
 };
 

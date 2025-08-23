@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Sorting from './pages/Sorting';
 import Searching from './pages/Searching';
 import DataStructures from './pages/DataStructures';
+import Quiz from './pages/Quiz';
 import Contributors from './components/Contributors';
 import ScrollToTop from './ScrollToTop'; 
 import About from './components/about';
@@ -29,6 +30,7 @@ const App = () => {
                             <Route path="/sorting" element={<Sorting />} />
                             <Route path="/searching" element={<Searching />} />
                             <Route path="/data-structures" element={<DataStructures />} />
+                            <Route path="/quiz" element={<Quiz />} />
                             <Route path="/contributors" element={<Contributors />} />
                             <Route path="/about" element={<About />} />
                             <Route path="/contact" element={<Contact />} />

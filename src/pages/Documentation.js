@@ -315,7 +315,7 @@ const AlgorithmDocumentation = () => {
                     ],
                     pros: ["Dynamic size", "Efficient insertion/deletion", "Memory efficient for sparse data", "No memory waste"],
                     cons: ["No random access", "Extra memory for pointers", "Poor cache locality", "Sequential access only"],
-                    implemented: false
+                    implemented: true
                 },
                 {
                     name: "Stack",
@@ -341,7 +341,7 @@ const AlgorithmDocumentation = () => {
                     ],
                     pros: ["Simple operations", "Efficient memory usage", "Natural recursion support", "Easy implementation"],
                     cons: ["Limited access pattern", "No random access", "Stack overflow possibility", "LIFO restriction"],
-                    implemented: false
+                    implemented: true
                 },
                 {
                     name: "Queue",
@@ -367,7 +367,7 @@ const AlgorithmDocumentation = () => {
                     ],
                     pros: ["Fair processing order", "Efficient operations", "Natural for scheduling", "Simple concept"],
                     cons: ["No random access", "Fixed capacity in array implementation", "FIFO restriction", "Memory overhead in linked implementation"],
-                    implemented: false
+                    implemented: true
                 },
                 {
                     name: "Binary Tree",
@@ -393,6 +393,74 @@ const AlgorithmDocumentation = () => {
                     ],
                     pros: ["Efficient search/insert/delete", "Hierarchical organization", "Flexible structure", "Natural recursion"],
                     cons: ["Can become unbalanced", "More complex than linear structures", "Pointer overhead", "Recursive operations"],
+                    implemented: true
+                },
+                {
+                    name: "AVL Tree",
+                    id: "avlTree",
+                    description: "Self-balancing binary search tree where heights of subtrees differ by at most one.",
+                    timeComplexity: {
+                        insertion: "O(log n)",
+                        deletion: "O(log n)",
+                        search: "O(log n)"
+                    },
+                    spaceComplexity: "O(n)",
+                    specialNotes: [
+                        "Strict balancing via rotations",
+                        "Guarantees logarithmic height",
+                        "Great for ordered indexes"
+                    ],
+                    useCases: [
+                        "Ordered data indexing",
+                        "Databases and memory-resident indexes"
+                    ],
+                    pros: ["Guaranteed balance", "Predictable performance"],
+                    cons: ["More rotations than Red-Black", "Complex implementation"],
+                    implemented: false
+                },
+                {
+                    name: "Red-Black Tree",
+                    id: "redBlackTree",
+                    description: "Balanced binary search tree using node colors to keep height logarithmic with fewer rotations.",
+                    timeComplexity: {
+                        insertion: "O(log n)",
+                        deletion: "O(log n)",
+                        search: "O(log n)"
+                    },
+                    spaceComplexity: "O(n)",
+                    specialNotes: [
+                        "Used widely for maps/sets",
+                        "Fewer rotations on average than AVL",
+                        "Good general-purpose balanced BST"
+                    ],
+                    useCases: [
+                        "Language runtimes (maps/sets)",
+                        "Filesystem indexes"
+                    ],
+                    pros: ["Good insertion/deletion performance", "Height remains logarithmic"],
+                    cons: ["More complex than basic BST", "Slightly worse search than AVL in practice"],
+                    implemented: false
+                },
+                {
+                    name: "Graphs",
+                    id: "graphs",
+                    description: "Collection of vertices connected by edges; foundation for traversal and shortest path algorithms.",
+                    timeComplexity: {
+                        traversal: "O(V + E)"
+                    },
+                    spaceComplexity: "O(V + E)",
+                    specialNotes: [
+                        "Many representations (adjacency list/matrix)",
+                        "Directed/undirected, weighted/unweighted",
+                        "Core for BFS/DFS, Dijkstra, MST, etc."
+                    ],
+                    useCases: [
+                        "Navigation and routing",
+                        "Social networks",
+                        "Dependency analysis"
+                    ],
+                    pros: ["Extremely flexible model", "Rich algorithm ecosystem"],
+                    cons: ["Representation choice affects performance", "Algorithm complexity varies"],
                     implemented: false
                 }
             ]
