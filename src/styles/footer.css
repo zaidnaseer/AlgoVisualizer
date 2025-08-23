@@ -1,6 +1,6 @@
 /* ----------------- Footer Styles ----------------- */
 .footer-container {
-  background: #0d1117;
+  background: #30363d;
   padding: 20px 0 10px 0;
   color: #e6edf3;
   text-align: center;
@@ -11,6 +11,7 @@
 }
 
 .footer-content {
+  background: #30363d;
   max-width: 1200px;
   display: flex;
   justify-content: center;
