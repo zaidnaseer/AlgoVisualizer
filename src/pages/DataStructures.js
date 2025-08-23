@@ -182,7 +182,7 @@ function DataStructures() {
                     <option value="tree">Binary Tree</option>
                     <option value="avl">AVL Tree (Coming Soon)</option>
                     <option value="redblack">Red-Black Tree (Coming Soon)</option>
-                    <option value="graph">Graphs (Coming Soon)</option>
+                    <option value="graph">Graphs </option>
                 </select>
             </div>
 
