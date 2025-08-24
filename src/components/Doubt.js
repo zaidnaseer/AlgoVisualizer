@@ -111,7 +111,8 @@ const Doubt = () => {
                     </div>
                 )}
 
-                <button type="submit">Submit</button>
+                <button type="submit" style={{ color: 'white' }}>Submit</button>
+
             </form>
         </div>
     );
