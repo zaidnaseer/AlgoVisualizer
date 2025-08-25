@@ -430,7 +430,7 @@ const AlgorithmDocumentation = () =>
 			]
 		}
 	}), []);
-=======
+
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
