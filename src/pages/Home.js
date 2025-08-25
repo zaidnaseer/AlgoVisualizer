@@ -47,7 +47,7 @@ export default function Home() {
     <div className="home-container">
       {/* Top Badge */}
       <div className="hero-badge">
-        <span>🚀 Interactive Learning Platform</span>
+        <span style={{ color: "white" }}>🚀 Interactive Learning Platform</span>
       </div>
 
       {/* Hero Section */}
