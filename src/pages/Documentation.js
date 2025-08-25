@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Search, Clock, Database, BookOpen, Zap, Users, Star } from 'lucide-react';
+import { Search, Clock, Database, BookOpen, Zap, Users, Star, X } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
 import '../styles/Documentation.css';
 
@@ -1334,7 +1334,7 @@ const AlgorithmDocumentation = () => {
                         }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Close Button */}
+                                                {/* Close Button */}
                         <button
                             onClick={() => setSelectedLegendCard(null)}
                             style={{
@@ -1348,6 +1348,232 @@ const AlgorithmDocumentation = () => {
                                 cursor: 'pointer',
                                 padding: '8px',
                                 borderRadius: '50%',
-                                transition: 'all 0.3s ease'
+                                transition: 'all 0.3s ease',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '40px',
+                                height: '40px'
                             }}
-                
+                            onMouseEnter={(e) => {
+                                e.target.style.background = 'rgba(255, 107, 107, 0.1)';
+                                e.target.style.color = '#ff6b6b';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.background = 'transparent';
+                                e.target.style.color = themeStyles.color;
+                            }}
+                        >
+                            <X size={20} />
+                        </button>
+
+                        {/* Modal Content */}
+                        <div>
+                            <h2 style={{
+                                color: '#66ccff',
+                                marginBottom: '24px',
+                                fontSize: '24px',
+                                fontWeight: '600'
+                            }}>
+                                {legendCards[selectedLegendCard]?.title}
+                            </h2>
+                            
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                {selectedLegendCard === 'complexity' && (
+                                    <>
+                                        {legendCards.complexity.content.map(item => (
+                                            <div key={item.complexity} style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '16px',
+                                                padding: '16px',
+                                                background: `${item.color}10`,
+                                                borderRadius: '12px',
+                                                border: `1px solid ${item.color}30`
+                                            }}>
+                                                <div style={{
+                                                    width: '40px',
+                                                    height: '40px',
+                                                    borderRadius: '8px',
+                                                    background: item.color,
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    color: '#ffffff',
+                                                    fontWeight: '600',
+                                                    fontSize: '12px'
+                                                }}>
+                                                    {item.complexity}
+                                                </div>
+                                                <div>
+                                                    <div style={{ 
+                                                        color: themeStyles.color, 
+                                                        fontWeight: '600', 
+                                                        fontSize: '16px',
+                                                        marginBottom: '4px'
+                                                    }}>
+                                                        {item.label}
+                                                    </div>
+                                                    <div style={{ 
+                                                        color: themeStyles.secondaryText, 
+                                                        fontSize: '14px',
+                                                        fontFamily: 'monospace'
+                                                    }}>
+                                                        {item.complexity}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <div style={{
+                                            background: 'rgba(102, 204, 255, 0.05)',
+                                            padding: '16px',
+                                            borderRadius: '12px',
+                                            border: '1px solid rgba(102, 204, 255, 0.2)',
+                                            marginTop: '16px'
+                                        }}>
+                                            <p style={{ 
+                                                color: themeStyles.secondaryText, 
+                                                fontSize: '14px', 
+                                                margin: 0,
+                                                lineHeight: '1.6'
+                                            }}>
+                                                <strong style={{ color: '#66ccff' }}>Performance Guide:</strong> Lower complexity 
+                                                (green/blue) algorithms generally perform better on large datasets. Quadratic O(n²) 
+                                                algorithms (red) should be avoided for datasets larger than a few hundred elements.
+                                            </p>
+                                        </div>
+                                    </>
+                                )}
+
+                                {selectedLegendCard === 'status' && (
+                                    <>
+                                        {legendCards.status.content.map((item, index) => (
+                                            <div key={index} style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '16px',
+                                                padding: '20px',
+                                                background: `${item.color}10`,
+                                                borderRadius: '12px',
+                                                border: `1px solid ${item.color}30`
+                                            }}>
+                                                <div style={{
+                                                    width: '50px',
+                                                    height: '50px',
+                                                    borderRadius: '50%',
+                                                    background: item.color,
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    color: '#ffffff'
+                                                }}>
+                                                    {item.label === 'Implemented' ? <Star size={24} /> : <Clock size={24} />}
+                                                </div>
+                                                <div>
+                                                    <div style={{ 
+                                                        color: themeStyles.color, 
+                                                        fontWeight: '600', 
+                                                        fontSize: '18px',
+                                                        marginBottom: '4px'
+                                                    }}>
+                                                        {item.label}
+                                                    </div>
+                                                    <div style={{ 
+                                                        color: themeStyles.secondaryText, 
+                                                        fontSize: '14px'
+                                                    }}>
+                                                        {item.description}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <div style={{
+                                            background: 'rgba(102, 204, 255, 0.05)',
+                                            padding: '16px',
+                                            borderRadius: '12px',
+                                            border: '1px solid rgba(102, 204, 255, 0.2)',
+                                            marginTop: '16px'
+                                        }}>
+                                            <p style={{ 
+                                                color: themeStyles.secondaryText, 
+                                                fontSize: '14px', 
+                                                margin: 0,
+                                                lineHeight: '1.6'
+                                            }}>
+                                                <strong style={{ color: '#66ccff' }}>Development Status:</strong> Implemented 
+                                                algorithms are fully functional with interactive visualizations. "Coming Soon" 
+                                                algorithms are planned for future releases.
+                                            </p>
+                                        </div>
+                                    </>
+                                )}
+
+                                {selectedLegendCard === 'properties' && (
+                                    <>
+                                        {legendCards.properties.content.map((item, index) => (
+                                            <div key={index} style={{
+                                                display: 'flex',
+                                                alignItems: 'flex-start',
+                                                gap: '16px',
+                                                padding: '20px',
+                                                background: `${item.color}10`,
+                                                borderRadius: '12px',
+                                                border: `1px solid ${item.color}30`
+                                            }}>
+                                                <div style={{
+                                                    width: '12px',
+                                                    height: '12px',
+                                                    borderRadius: '50%',
+                                                    background: item.color,
+                                                    marginTop: '6px',
+                                                    flexShrink: 0
+                                                }} />
+                                                <div>
+                                                    <div style={{ 
+                                                        color: themeStyles.color, 
+                                                        fontWeight: '600', 
+                                                        fontSize: '16px',
+                                                        marginBottom: '4px'
+                                                    }}>
+                                                        {item.label}
+                                                    </div>
+                                                    <div style={{ 
+                                                        color: themeStyles.secondaryText, 
+                                                        fontSize: '14px',
+                                                        lineHeight: '1.5'
+                                                    }}>
+                                                        {item.description}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <div style={{
+                                            background: 'rgba(102, 204, 255, 0.05)',
+                                            padding: '16px',
+                                            borderRadius: '12px',
+                                            border: '1px solid rgba(102, 204, 255, 0.2)',
+                                            marginTop: '16px'
+                                        }}>
+                                            <p style={{ 
+                                                color: themeStyles.secondaryText, 
+                                                fontSize: '14px', 
+                                                margin: 0,
+                                                lineHeight: '1.6'
+                                            }}>
+                                                <strong style={{ color: '#66ccff' }}>Algorithm Properties:</strong> These characteristics 
+                                                help determine which algorithm is best suited for your specific use case. Stable algorithms 
+                                                preserve the relative order of equal elements, while in-place algorithms use minimal extra memory.
+                                            </p>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default AlgorithmDocumentation;
