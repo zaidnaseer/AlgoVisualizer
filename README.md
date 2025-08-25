@@ -64,7 +64,7 @@ For detailed export documentation, see [EXPORT_FEATURES.md](EXPORT_FEATURES.md).
 Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss potential improvements.
 
 ## Contact
-For any inquiries, please reach out to Sandeep Vashishtha.
+For any inquiries, please reach out to Rhythm Pahwa and Sandeep Vashishtha.
 
 ```bash
 Feel free to modify any section as per your preferences!
