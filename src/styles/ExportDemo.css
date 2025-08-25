@@ -91,7 +91,31 @@
     font-size: 1.8rem;
     color: var(--primary-color);
 }
+.step:nth-child(1) .step-number {
+  background: #E0E7FF; /* Soft Indigo */
+  color: #3730A3;
+}
 
+.step:nth-child(2) .step-number {
+  background: #CCFBF1; /* Soft Teal */
+  color: #0F766E;
+}
+
+.step:nth-child(3) .step-number {
+  background: #FEF3C7; /* Soft Amber */
+  color: #B45309;
+}
+
+.step:nth-child(4) .step-number {
+  background: #FFE4E6; /* Soft Rose */
+  color: #BE123C;
+}
+
+
+.step-number:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
 .steps-container {
     display: grid;
     gap: 25px;
@@ -136,6 +160,10 @@
     margin: 0;
     color: #666;
     font-size: 0.95rem;
+ 
+}
+.step-content{
+    text-align: left;
 }
 
 /* ---- Export Tips ---- */
