@@ -160,6 +160,10 @@
     margin: 0;
     color: #666;
     font-size: 0.95rem;
+ 
+}
+.step-content{
+    text-align: left;
 }
 
 /* ---- Export Tips ---- */
