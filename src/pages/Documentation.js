@@ -5,7 +5,7 @@ import '../styles/Documentation.css';
 
 const AlgorithmDocumentation = () => 
 	// Footer theme CSS for both light and dark modes
-	const docFooterTheme = `
+	const docFooterTheme = 
 	[data-theme="light"] .documentation-footer {
 		background: #fff !important;
 		color: #23272f !important;
