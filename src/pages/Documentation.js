@@ -54,7 +54,7 @@ const AlgorithmDocumentation = () =>
 		color: #b8c5d1 !important;
 		border: 1px solid rgba(102, 204, 255, 0.2) !important;
 	}
-	`;
+	;
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('all');
 	const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
