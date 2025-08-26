@@ -132,7 +132,7 @@ select:focus {
   justify-content: center;
   align-items: center;
   margin-right: 8rem;
-  margin-bottom: 11rem;
+  margin-bottom: 7rem;
 }
 
 .hero-badge {
@@ -200,7 +200,6 @@ select:focus {
 
 .hero-actions {
   position: relative;
-  left: 70%;
   display: flex;
   gap: 1rem;
   font-size: 1.3rem;
@@ -222,7 +221,6 @@ select:focus {
 }
 .algorithm-showcase {
   position: relative;
-  left: 70%;
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -244,6 +242,11 @@ select:focus {
 ========================= */
 .quick-start-section {
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .quick-start-grid {
   display: flex;
@@ -569,10 +572,49 @@ select:focus {
    Mobile Responsiveness
 ========================= */
 @media (max-width: 1024px) {
+  .home-container{
+    max-width: 100%;
+    overflow-x: hidden;
+  }
   .hero-section {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 40px;
+  }
+  .hero-content{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap:wrap;
+    padding-left:2rem;
+    margin-bottom:0;
+  }
+  .hero-title{
+    flex: 0 0 100%;      /* occupy full row */
+    text-align: center;
+    margin: 0;
+    white-space: normal; 
+  }
+  .hero-subtitle{
+   flex: 0 0 100%;
+   text-align: center;
+   margin: 0.5rem 0 1.2rem; 
+  }
+  .hero-actions{
+     flex: 0 0 100%;      /* occupy full row */
+    text-align: center;
+    margin: 0;
+    white-space: normal; 
+    margin-left:30rem;
+  }
+  .algorithm-showcase{
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+  }
+  .hero-visual{
+    margin-right: revert;
   }
 }
 
@@ -582,15 +624,34 @@ select:focus {
   .stats-container {
     grid-template-columns: 1fr;
   }
+  .card-left{
+    width:65%;
+  }
+  .features-header{
+    font-size:2rem;
+  }
   .cta-buttons {
     flex-direction: column;
     gap: 15px;
   }
+  .hero-content{
+    padding:0 0 0 0;
+  }
+  .hero-section{
+    display:block;
+    justify-content:center;
+    align-items:center;
+  }
+  .hero-actions{
+    flex:none;
+    margin-left:0;
+  }
+
 }
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 2.2em;
+    font-size: 3.2em;
   }
   .hero-subtitle {
     font-size: 1.5em;
@@ -601,8 +662,57 @@ select:focus {
   .quick-card {
     padding: 25px;
   }
+  .hero-description{
+    font-size:1.1rem;
+  }
+  .card-description{
+    margin-bottom: 17px;
+    margin-right: 2rem;
+    font-size: 0.8rem;
+  }
+  .card-title{
+    margin: 0 15px 10px 5px;
+  }
+  .card-right {
+  width: 40%;
+}
 }
 
+@media(max-width:320px){
+  .hero-badge{
+    font-size:13px;
+  }
+  .hero-title{
+    font-size:2.5rem;
+  }
+  .hero-description{
+    font-size:0.9rem;
+  }
+  .hero-actions{
+    font-size:0.7rem;
+  }
+  .algorithm-showcase{
+    font-size:1rem;
+  }
+  .quick-card{
+    flex-wrap:wrap;
+  }
+  .card-left{
+    width:100%;
+  }
+  .card-right {
+    width: 100%;}
+
+  .github-btn{
+    gap: 2px;
+    padding: 8px 7px;
+    flex-shrink:1;
+  }
+  .hamburger{
+    gap:1px;
+    margin-left:-12px;
+  }
+}
 /* =========================
    Text Decoration Fix
 ========================= */

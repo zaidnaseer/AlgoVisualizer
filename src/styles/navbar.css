@@ -563,7 +563,7 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+ screen and (max-width: 768px) {
     .av-container {
         padding: 0 16px;
         gap: 12px;
@@ -587,7 +587,7 @@
     }
 }
 
-@media screen and (max-width: 480px) {
+ screen and (max-width: 480px) {
     .navbar-heading {
         font-size: 1.4rem;
     }
@@ -614,7 +614,7 @@
 }
 
 /* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
+ (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
