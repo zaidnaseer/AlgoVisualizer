@@ -661,3 +661,96 @@ select:focus {
 [data-theme="light"] .quick-card.quiz .card-action {
   color: #9333ea;
 }
+
+/* Homepage Responsiveness Fixes with Centering - By Devika Harshey */
+@media (max-width: 1024px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 40px 20px;
+    justify-items: center; 
+  }
+  .hero-content {
+    padding: 0;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-visual {
+    margin: 0 auto 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-actions,
+  .algorithm-showcase {
+    left: 0;
+    justify-content: center;
+    margin: 20px auto;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.8em;
+  }
+  .hero-subtitle {
+    font-size: 1.6em;
+  }
+  .hero-description {
+    font-size: 1em;
+    margin: 0 auto 20px;
+    max-width: 90%;
+  }
+  .hero-actions {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .quick-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    align-items: center; 
+  }
+  .card-left,
+  .card-right {
+    width: 100% !important;
+    box-shadow: none;
+    padding: 15px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.2em;
+  }
+  .hero-subtitle {
+    font-size: 1.3em;
+  }
+  .hero-actions {
+    width: 100%;
+    gap: 8px;
+    justify-content: center;
+  }
+  .algorithm-showcase {
+    font-size: 1rem;
+    padding: 0.5rem;
+    justify-content: center;
+  }
+  .cta-buttons {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+  }
+  .cta-btn {
+    width: 90%;
+    justify-content: center;
+  }
+}
