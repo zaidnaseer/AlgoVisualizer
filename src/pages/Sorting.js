@@ -114,6 +114,21 @@ const Sorting = () => {
   const stopSortingRef = useRef(false);
   const [showCodeExplanation, setShowCodeExplanation] = useState(false);
 
+  // Contributed By Devika Harshey
+  const [theme, setTheme] = useState('light');
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      if (document.documentElement.classList.contains('dark')) {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    return () => observer.disconnect();
+  }, []);
+
   const delayRef = useRef(delay);
   useEffect(() => { delayRef.current = delay; }, [delay]);
 
@@ -599,7 +614,7 @@ const Sorting = () => {
         {/* Pseudocode panel */}
         <div style={{ flex: '0 0 300px', minWidth: '280px', maxWidth: '100%', background: 'rgba(102,204,255,0.07)', border: '1px solid rgba(102,204,255,0.15)', borderRadius: '12px', padding: '18px', overflowX: 'auto' }}>
           <h3 style={{ color: '#66ccff', marginBottom: '10px' }}>{getAlgorithmName()} Pseudocode</h3>
-          <pre style={{ background: 'rgba(26,26,46,0.95)', borderRadius: '8px', padding: '14px', fontSize: '15px', color: '#e0e6ed', marginBottom: '10px', overflowX: 'auto' }}>
+          <pre style={{ background: theme === 'dark' ? 'rgba(26,26,46,0.95)' : 'rgba(255,255,255,0.95)', borderRadius: '8px', padding: '14px', fontSize: '15px', color: '#e0e6ed', marginBottom: '10px', overflowX: 'auto' }}>
             {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line) => (
               <div key={line.code} style={{ padding: '2px 6px' }}>{line.code}</div>
             ))}

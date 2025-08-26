@@ -665,7 +665,12 @@ button:disabled {
     font-weight: bold;
 }
 
-
+/* Contributed By Devika Harshey */
+@media (prefers-color-scheme: dark) {
+    .stat-value {
+        color: #000000;
+    }
+}
 
 /* =========================
    Algorithm Information Section
