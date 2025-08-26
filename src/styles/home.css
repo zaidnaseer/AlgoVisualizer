@@ -662,7 +662,7 @@ select:focus {
   color: #9333ea;
 }
 
-/* Homepage Responsiveness Fixes with Centering - By Devika Harshey */
+/* Homepage Responsiveness Fixes with Centering - Contributed By Devika Harshey */
 @media (max-width: 1024px) {
   .hero-section {
     grid-template-columns: 1fr;
