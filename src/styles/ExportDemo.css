@@ -198,6 +198,11 @@
     border-bottom: none;
 }
 
+[data-theme="light"] .export-tips strong {
+    color: #6eacf2;
+    font-weight: 600;
+}
+
 .export-tips strong {
     color: #fff;
     font-weight: 600;
