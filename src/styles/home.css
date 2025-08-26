@@ -259,7 +259,7 @@ select:focus {
 .quick-card,
 .stat-card,
 .feature-item {
-  background: #ffffff;
+  /* background: #ffffff; */
   border-radius: 20px;
   padding: 30px;
   text-decoration: none;
@@ -610,54 +610,57 @@ select:focus {
 .quick-card * {
   text-decoration: none !important;
 }
-
+ 
 /* =========================
-   Quiz Card Specific Styling
+   Quick Card Specific Styling
 ========================= */
-.quick-card.quiz .card-left {
+.quick-card .card-left {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
   border: 1px solid rgba(168, 85, 247, 0.2);
 }
 
-[data-theme="light"] .quick-card.quiz .card-left {
+[data-theme="light"] .quick-card .card-left {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05));
   border: 1px solid rgba(168, 85, 247, 0.15);
 }
 
-.quick-card.quiz:hover .card-left {
+.quick-card:hover .card-left {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
   border-color: rgba(168, 85, 247, 0.3);
 }
 
-[data-theme="light"] .quick-card.quiz:hover .card-left {
+[data-theme="light"] .quick-card:hover .card-left {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
   border-color: rgba(168, 85, 247, 0.25);
 }
 
-.quick-card.quiz .card-icon {
+.quick-card .card-icon {
   background: linear-gradient(135deg, #a855f7, #ec4899);
-  background-clip: text;
+  /* background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
   font-size: 2rem;
 }
+[data-theme="light"] .card-icon{
+  background: linear-gradient(135deg , var(--accent-color) ,var(--btn-text));
+}
 
-.quick-card.quiz .feature-tag {
+.quick-card .feature-tag {
   background: rgba(168, 85, 247, 0.1);
   color: #a855f7;
   border-color: rgba(168, 85, 247, 0.2);
 }
 
-[data-theme="light"] .quick-card.quiz .feature-tag {
+[data-theme="light"] .quick-card .feature-tag {
   background: rgba(168, 85, 247, 0.08);
   color: #9333ea;
   border-color: rgba(168, 85, 247, 0.15);
 }
 
-.quick-card.quiz .card-action {
+.quick-card .card-action {
   color: #a855f7;
 }
 
-[data-theme="light"] .quick-card.quiz .card-action {
+[data-theme="light"] .quick-card .card-action {
   color: #9333ea;
 }
