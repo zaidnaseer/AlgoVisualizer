@@ -270,11 +270,26 @@ select, .select { color-scheme: var(--select-color-scheme, auto); }
 
 }
 
-.algorithm-info p {
+/* .algorithm-info p {
     color: #b8c5d1;
     line-height: 1.6;
     margin-bottom: 10px;
+} */
+ .algorithm-info p {
+    line-height: 1.6;
+    margin-bottom: 10px;
 }
+
+/* Light theme - darker text for readability */
+:root .algorithm-info p {
+    color: #374151;
+}
+
+/* Dark theme - your preferred light text */
+[data-theme="dark"] .algorithm-info p {
+    color: #b8c5d1;
+}
+
 
 /* Complexity badges */
 .complexity-badge {
