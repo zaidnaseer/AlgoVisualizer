@@ -388,22 +388,87 @@
 /* ------------------------
    Responsive Design
 ------------------------ */
+/* ------------------------
+   Responsive Design
+------------------------ */
+@media (max-width: 1024px) {
+  .contributors-header h2 {
+    font-size: 2.8rem;
+  }
+  .contributors-header p {
+    font-size: 1.1rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .contributors-header h2 { font-size: 2.5rem; }
-  .contributor-card { min-width: 250px; max-width: 250px; padding: 15px; margin-right: 15px; }
-  .contributors-track { animation: scroll-left 25s linear infinite; }
-  .contribute-cta { padding: 30px 20px; }
-  .cta-buttons { flex-direction: column; align-items: center; }
-  .btn-primary, .btn-secondary { width: 100%; max-width: 250px; justify-content: center; }
+  .contributors-header h2 {
+    font-size: 2.3rem;
+  }
+  .contributors-header p {
+    font-size: 1rem;
+  }
+  .contributor-card {
+    min-width: 240px;
+    max-width: 240px;
+    padding: 15px;
+    margin-right: 15px;
+  }
+  .contributors-track {
+    animation: scroll-left 28s linear infinite; /* slower on tablet */
+  }
+  .contribute-cta {
+    padding: 25px 15px;
+  }
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
-  .contributors-header h2 { font-size: 2rem; }
-  .contributor-card { min-width: 200px; max-width: 200px; padding: 12px; margin-right: 12px; }
-  .contributor-avatar img { width: 50px; height: 50px; }
-  .contributor-info h3 { font-size: 1rem; }
-  .contributor-role { font-size: 0.8rem; }
-  .contributor-bio { font-size: 0.75rem; }
-  .github-link { padding: 6px 10px; font-size: 0.75rem; }
-  .contribute-cta { padding: 20px 15px; }
+  .contributors-header h2 {
+    font-size: 1.8rem;
+  }
+  .contributors-header p {
+    font-size: 0.9rem;
+  }
+  .contributor-card {
+    width: 85%; /* fluid instead of fixed */
+    min-width: unset;
+    max-width: unset;
+    padding: 12px;
+    margin: 0 auto 15px; /* center cards */
+  }
+  .contributor-avatar img {
+    width: 48px;
+    height: 48px;
+  }
+  .contributor-info h3 {
+    font-size: 1rem;
+  }
+  .contributor-role {
+    font-size: 0.8rem;
+  }
+  .contributor-bio {
+    font-size: 0.75rem;
+  }
+  .github-link {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+  .contribute-cta {
+    padding: 20px 12px;
+  }
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    max-width: 100%;
+  }
 }

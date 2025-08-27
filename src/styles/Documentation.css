@@ -126,3 +126,46 @@
 [data-theme="light"] .legend-item-card:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
+
+/* =========================
+   Responsive Adjustments
+========================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .category-filters {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .category-chip {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+  .legend-item-card {
+    padding: 14px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .category-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .category-chip {
+    justify-content: center;
+    text-align: center;
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 20px;
+  }
+
+  .legend-item-card {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
