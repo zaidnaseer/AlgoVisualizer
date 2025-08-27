@@ -16,3 +16,34 @@
     border: 1px solid rgba(102, 204, 255, 0.2);
     cursor: crosshair;
   }
+
+  /* 📱 Mobile Responsiveness */
+@media (max-width: 768px) {
+  .graph-visualizer-container {
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  .graph-controls {
+    flex-wrap: wrap;         /* Stack controls if needed */
+    justify-content: center; /* Center them */
+    gap: 8px;
+  }
+
+  .graph-canvas {
+    width: 100%;             /* Scale to screen */
+    max-width: 100%;
+    height: auto;            /* Keep proportional height */
+  }
+}
+
+@media (max-width: 480px) {
+  .graph-visualizer-container {
+    gap: 10px;
+  }
+
+  .graph-controls {
+    flex-direction: column;  /* Stack vertically on very small screens */
+    align-items: stretch;
+  }
+}

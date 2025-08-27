@@ -185,36 +185,80 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Responsive */
+/* Responsive Footer */
+@media (max-width: 1024px) {
+  .footer-content {
+    gap: 2rem; /* reduce spacing on tablets */
+    padding: 15px;
+  }
+}
+
 @media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
   .footer-heading {
     font-size: 1.3em;
   }
+
   .footer-description {
     font-size: 0.85em;
     margin-bottom: 12px;
+    max-width: 90%;
   }
+
+  .footer-mid {
+    width: 100%;
+    align-items: center;
+  }
+
   .footer-links {
     gap: 8px;
+    align-items: center;
   }
+
   .footer-links a {
     font-size: 0.8em;
-    padding: 4px 8px;
+    padding: 6px 10px;
   }
+
   .social-icons {
-    gap: 8px;
+    flex-direction: row; /* put icons in one row */
+    justify-content: center;
+    gap: 12px;
   }
+
   .social-icon {
     width: 30px;
     height: 30px;
     font-size: 0.9em;
   }
+
   .footer-bottom {
     margin-top: 12px;
     padding-top: 8px;
   }
+
   .footer-bottom .footer-links {
     flex-direction: column;
     gap: 5px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-heading {
+    font-size: 1.1em;
+  }
+  .footer-description {
+    font-size: 0.8em;
+  }
+  .footer-links a {
+    font-size: 0.75em;
+    padding: 4px 8px;
   }
 }
