@@ -136,6 +136,25 @@ const ALGORITHM_PSEUDOCODE = {
       explain: "Combine all sorted buckets to get final result.",
     },
   ],
+
+  heapSort: [
+    {
+      code: "buildMaxHeap(arr)",
+      explain: "Rearrange the array to form a max-heap.",
+    },
+    {
+      code: "for i from n-1 down to 1",
+      explain: "Iterate from the end of the heap.",
+    },
+    {
+      code: " swap arr[0] and arr[i]",
+      explain: "Move the largest element (root) to the end.",
+    },
+    {
+      code: " heapify(arr, i, 0)",
+      explain: "Restore the max-heap property on the reduced heap.",
+    },
+  ],
 };
 
 const algorithmNames = {
@@ -146,6 +165,7 @@ const algorithmNames = {
   quickSort: "Quick Sort",
   radixSort: "Radix Sort",
   bucketSort: "Bucket Sort",
+  heapSort: "Heap Sort",
 };
 
 // Helpers for Selection Sort to keep cognitive complexity low
@@ -321,6 +341,14 @@ const Sorting = () => {
         spaceComplexity: "O(n × k)",
         bestCase: "O(n + k)",
         stable: "Yes",
+      },
+      heapSort: {
+        description:
+          "Builds a max-heap from the array, then repeatedly swaps the root with the last element and rebuilds the heap.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(1)",
+        bestCase: "O(n log n)",
+        stable: "No",
       },
     };
     return info[algorithm];
@@ -588,6 +616,84 @@ const Sorting = () => {
     return 0;
   };
 
+  const heapSortWithStop = async (
+    arr,
+    setArrayState,
+    setColorState,
+    sleepFn,
+    stopRef,
+    setStats
+  ) => {
+    const a = [...arr];
+    const n = a.length;
+    let comparisons = 0,
+      swaps = 0;
+
+    // Helper function to heapify a subtree rooted at index i
+    async function heapify(heapSize, i) {
+      if (stopRef.current) throw new Error("Stopped");
+      let largest = i;
+      const left = 2 * i + 1;
+      const right = 2 * i + 2;
+      const colors = new Array(n).fill("#66ccff");
+      colors[i] = "#ffd93d"; // Highlight current root
+
+      if (left < heapSize) {
+        colors[left] = "#ff6b6b"; // Comparing left child
+        comparisons++;
+      }
+      if (right < heapSize) {
+        colors[right] = "#ff6b6b"; // Comparing right child
+        comparisons++;
+      }
+      setColorState([...colors]);
+      await sleepFn();
+
+      if (left < heapSize && a[left] > a[largest]) {
+        largest = left;
+      }
+      if (right < heapSize && a[right] > a[largest]) {
+        largest = right;
+      }
+
+      if (largest !== i) {
+        [a[i], a[largest]] = [a[largest], a[i]];
+        swaps++;
+        setArrayState([...a]);
+        setStats({ comparisons, swaps, time: 0 });
+        await sleepFn();
+        await heapify(heapSize, largest); // Recursively heapify the affected sub-tree
+      }
+    }
+
+    // Build max heap (rearrange array)
+    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+      await heapify(n, i);
+    }
+
+    // One by one extract an element from heap
+    for (let i = n - 1; i > 0; i--) {
+      if (stopRef.current) throw new Error("Stopped");
+      // Move current root to end
+      [a[0], a[i]] = [a[i], a[0]];
+      swaps++;
+      const colors = new Array(n).fill("#66ccff");
+      for (let k = i; k < n; k++) {
+        colors[k] = "#4ade80"; // Mark sorted elements
+      }
+      setColorState([...colors]);
+      setArrayState([...a]);
+      setStats({ comparisons, swaps, time: 0 });
+      await sleepFn();
+
+      // call max heapify on the reduced heap
+      await heapify(i, 0);
+    }
+
+    setColorState(new Array(n).fill("#4ade80"));
+    return 0;
+  };
+
   // Delegate linear-time sorts to dedicated modules
   const runRadixSort = async () => {
     const { radixSort } = await import("../algorithms/radixSort");
@@ -672,6 +778,16 @@ const Sorting = () => {
             (s) => setStatistics((prev) => ({ ...prev, ...s }))
           );
           break;
+        case "heapSort":
+          await heapSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;
         case "radixSort":
           await runRadixSort();
           break;
@@ -732,6 +848,7 @@ const Sorting = () => {
     "quickSort",
     "radixSort",
     "bucketSort",
+    "heapSort",
   ];
 
   return (
@@ -809,6 +926,7 @@ const Sorting = () => {
             border: "1px solid rgba(102,204,255,0.2)",
             padding: "20px",
             width: "100%",
+=======
           }}
         >
           <h3 style={{ color: "#66ccff", marginBottom: "12px" }}>
@@ -844,6 +962,7 @@ const Sorting = () => {
               disabled={isSorting}
               className="input"
               style={{ flex: 1, maxWidth: "100%" }}
+
             />
             <div
               style={{
@@ -852,6 +971,7 @@ const Sorting = () => {
                 minWidth: isTabletOrBelow ? "auto" : "140px",
                 textAlign: isTabletOrBelow ? "left" : "right",
                 width: "100%",
+
               }}
             >
               {arraySize}{" "}
@@ -903,6 +1023,7 @@ const Sorting = () => {
             </div>
           </div>
         </div>
+
 
         <SimpleExportControls containerId="sort-visualization-container" />
       </div>

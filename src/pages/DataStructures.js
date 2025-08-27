@@ -17,6 +17,11 @@ import CodeExplanation from "../components/CodeExplanation";
 import SimpleExportControls from "../components/SimpleExportControls";
 import { useTheme } from "../ThemeContext";
 import { useMediaQuery } from "react-responsive";
+import {
+  BinarySearchTree,
+  getBstSteps,
+  BST_PSEUDOCODE,
+} from "../algorithms/binarySearchTree";
 
 function DataStructures() {
   const [selectedStructure, setSelectedStructure] = useState("linkedlist");
@@ -35,6 +40,7 @@ function DataStructures() {
   const stackRef = useMemo(() => new Stack(), []);
   const queueRef = useMemo(() => new Queue(), []);
   const treeRef = useMemo(() => new BinaryTree(), []);
+  const bstRef = useMemo(() => new BinarySearchTree(), []);
 
   const dataStructures = {
     linkedlist: {
@@ -109,6 +115,22 @@ function DataStructures() {
         "Decision making algorithms",
       ],
     },
+    bst: {
+      title: "Binary Search Tree",
+      description:
+        "A node-based binary tree data structure which has the property that the left subtree of a node contains only nodes with keys lesser than the node’s key, and the right subtree contains only nodes with keys greater than the node’s key.",
+      timeComplexity: {
+        insertion: "O(log n)",
+        deletion: "O(log n)",
+        search: "O(log n)",
+      },
+      spaceComplexity: "O(n)",
+      useCases: [
+        "Implementing map and set objects",
+        "Database indexing",
+        "File system organization",
+      ],
+    },
     avl: {
       title: "AVL Tree",
       description:
@@ -152,38 +174,43 @@ function DataStructures() {
 
   const currentStructure = dataStructures[selectedStructure];
 
+  const seedLinkedList = () => {
+    if (listRef.size === 0 && !listRef.head) {
+      [1, 2, 3].forEach((v) => listRef.insertTail(v));
+    }
+  };
+  const seedStack = () => {
+    if (stackRef.size === 0) {
+      [4, 3, 2, 1].forEach((v) => stackRef.push(v)); // top = 1? getArray returns from top; push 4,3,2,1 -> top=1; To match image with 4 on top, push 1,2,3,4
+      // adjust to match image: top 4
+      stackRef.top = null;
+      stackRef.size = 0;
+      [1, 2, 3, 4].forEach((v) => stackRef.push(v));
+    }
+  };
+  const seedQueue = () => {
+    if (queueRef.size === 0) {
+      [1, 2, 4].forEach((v) => queueRef.enqueue(v));
+    }
+  };
+  const seedTree = () => {
+    if (!treeRef.root) {
+      [5, 3, 8, 1, 4, 7, 11].forEach((v) => treeRef.insert(v));
+    }
+  };
+  const seedBst = () => {
+    if (!bstRef.root) {
+      [10, 5, 15, 3, 7, 18].forEach((v) => bstRef.insert(v));
+    }
+  };
+
   // Seed defaults so visualization is never empty and keep op controlled
   useEffect(() => {
-    // Initialize data for each structure if empty
-    const seedLinkedList = () => {
-      if (listRef.size === 0 && !listRef.head) {
-        [1, 2, 3].forEach((v) => listRef.insertTail(v));
-      }
-    };
-    const seedStack = () => {
-      if (stackRef.size === 0) {
-        [4, 3, 2, 1].forEach((v) => stackRef.push(v)); // top = 1? getArray returns from top; push 4,3,2,1 -> top=1; To match image with 4 on top, push 1,2,3,4
-        // adjust to match image: top 4
-        stackRef.top = null;
-        stackRef.size = 0;
-        [1, 2, 3, 4].forEach((v) => stackRef.push(v));
-      }
-    };
-    const seedQueue = () => {
-      if (queueRef.size === 0) {
-        [1, 2, 4].forEach((v) => queueRef.enqueue(v));
-      }
-    };
-    const seedTree = () => {
-      if (!treeRef.root) {
-        [5, 3, 8, 1, 4, 7, 11].forEach((v) => treeRef.insert(v));
-      }
-    };
-
     seedLinkedList();
     seedStack();
     seedQueue();
     seedTree();
+    seedBst();
 
     // Set default operation per structure
     let defaultOp = "search";
@@ -197,6 +224,50 @@ function DataStructures() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStructure]);
   const isTabletOrBelow = useMediaQuery({ query: "(max-width: 1024px)" });
+
+  const comingSoon =
+    selectedStructure === "avl" ||
+    selectedStructure === "redblack" ||
+    selectedStructure === "graph";
+
+  const handleReset = () => {
+    // 1. Clear the actual data structure instance based on the selection
+    switch (selectedStructure) {
+      case "linkedlist":
+        listRef.head = null;
+        listRef.size = 0;
+        seedLinkedList();
+        break;
+      case "stack":
+        stackRef.top = null;
+        stackRef.size = 0;
+        seedStack();
+        break;
+      case "queue":
+        queueRef.front = null;
+        queueRef.rear = null;
+        queueRef.size = 0;
+        seedQueue();
+        break;
+      case "tree":
+        treeRef.root = null;
+        seedTree();
+        break;
+      case "bst":
+        bstRef.root = null;
+        seedBst();
+        break;
+      default:
+        break;
+    }
+
+    // 2. Reset the UI state
+    setSteps([]);
+    setCurrentStep(0);
+    setMessage("Data structure has been reset.");
+    setInputValue("");
+    setIndexValue("");
+  };
 
   const comingSoon =
     selectedStructure === "avl" ||
@@ -236,6 +307,7 @@ function DataStructures() {
           <option value="stack">Stack</option>
           <option value="queue">Queue</option>
           <option value="tree">Binary Tree</option>
+          <option value="bst">Binary Search Tree</option>
           <option value="avl">AVL Tree (Coming Soon)</option>
           <option value="redblack">Red-Black Tree (Coming Soon)</option>
           <option value="graph">Graphs </option>
@@ -319,6 +391,13 @@ function DataStructures() {
                   <option value="postorder">Postorder Traversal</option>
                 </>
               )}
+              {selectedStructure === "bst" && (
+                <>
+                  <option value="insert">Insert</option>
+                  <option value="search">Search</option>
+                  <option value="delete">Delete</option>
+                </>
+              )}
             </select>
             <button
               className="btn"
@@ -332,6 +411,7 @@ function DataStructures() {
                   stackRef,
                   queueRef,
                   treeRef,
+                  bstRef,
                   setSteps,
                   setCurrentStep,
                   setMessage,
@@ -353,6 +433,7 @@ function DataStructures() {
                 setIndexValue("");
               }}
             >
+            <button className="btn btn-secondary" onClick={handleReset}>
               Reset
             </button>
           </>
@@ -441,7 +522,6 @@ function DataStructures() {
           {message}
         </div>
       )}
-
       {/* Step navigation */}
       {!comingSoon && steps.length > 0 && (
         <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
@@ -550,6 +630,13 @@ function DataStructures() {
                 vizSize={vizSize}
               />
             )}
+            {!comingSoon && selectedStructure === "bst" && (
+              <TreeViz
+                state={steps[currentStep]}
+                tree={bstRef}
+                vizSize={vizSize}
+              />
+            )}
           </div>
         </div>
         {!comingSoon && (
@@ -569,6 +656,7 @@ function DataStructures() {
                   stack: STACK_PSEUDOCODE,
                   queue: QUEUE_PSEUDOCODE,
                   tree: BINARY_TREE_PSEUDOCODE,
+                  bst: BST_PSEUDOCODE,
                 }[selectedStructure]
               }
             />
@@ -893,9 +981,10 @@ function QueueViz({ state, queue, vizSize = 56 }) {
 
 function TreeViz({ state, tree, vizSize = 56 }) {
   const { theme } = useTheme();
-  // Build node list with positions for simple SVG layout
+  const displayTree = state?.tree ?? tree;
+
   const levels = [];
-  const q = [{ node: tree.root, path: "0", depth: 0, pos: 0 }];
+  const q = [{ node: displayTree.root, path: "0", depth: 0, pos: 0 }];
   while (q.length) {
     const { node, path, depth, pos } = q.shift();
     if (!levels[depth]) levels[depth] = [];
@@ -1205,6 +1294,7 @@ function executeOperation(ctx) {
     stack: () => runStack(ctx, op, val),
     queue: () => runQueue(ctx, op, val),
     tree: () => runTree(ctx, op, val),
+    bst: () => runBst(ctx, op, val),
   };
   (runners[selectedStructure] || (() => {}))();
   // Clear inputs after any execution to prevent accidental repeats
@@ -1233,6 +1323,7 @@ function runLinkedList(
   setSteps(s);
   setCurrentStep(selectInitialStep(op, s));
   setMessage(`${title} - ${op} executed.`);
+
 }
 
 function runStack(
@@ -1261,6 +1352,7 @@ function runQueue(
   setMessage(`${title} - ${op} executed.`);
 }
 
+
 function runTree(
   { treeRef, setSteps, setCurrentStep, setMessage, title },
   op,
@@ -1269,6 +1361,20 @@ function runTree(
   const s = getTreeSteps(op, treeRef, { data: val });
   if (op === "insert" && val !== undefined) treeRef.insert(val);
   else if (op === "delete" && val !== undefined) treeRef.delete(val);
+  setSteps(s);
+  setCurrentStep(selectInitialStep(op, s));
+  setMessage(`${title} - ${op} executed.`);
+}
+
+
+function runBst(
+  { bstRef, setSteps, setCurrentStep, setMessage, title },
+  op,
+  val
+) {
+  const s = getBstSteps(op, bstRef, { data: val });
+  if (op === "insert" && val !== undefined) bstRef.insert(val);
+  else if (op === "delete" && val !== undefined) bstRef.delete(val);
   setSteps(s);
   setCurrentStep(selectInitialStep(op, s));
   setMessage(`${title} - ${op} executed.`);
