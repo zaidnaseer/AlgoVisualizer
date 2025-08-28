@@ -387,7 +387,8 @@ export default function Home() {
               </div>
               <h3 className="card-title">Algorithm Quiz</h3>
               <p className="card-description">
-                Test your knowledge with interactive quizzes covering sorting, searching, and data structures with detailed explanations.
+                Test your knowledge with interactive quizzes covering sorting,
+                searching, and data structures with detailed explanations.
               </p>
             </div>
             <div className="card-right">
@@ -555,7 +556,7 @@ export default function Home() {
           <div className="stat-card">
             <lord-icon
               src="https://cdn.lordicon.com/ayhtotha.json"
-              delay = "2000"
+              delay="2000"
               trigger="hover"
               colors="primary:#121331,secondary:#08a88a"
               style={{ width: "70px", height: "70px" }}
@@ -571,7 +572,7 @@ export default function Home() {
               src="https://cdn.lordicon.com/hwuyodym.json"
               trigger="loop"
               colors="primary:#121331,secondary:#08a88a"
-              style={{width:"70px" ,height:"70px"}}
+              style={{ width: "70px", height: "70px" }}
             ></lord-icon>
             <div className="stat-number">∞</div>
             <div className="stat-label">Learning</div>
@@ -595,7 +596,7 @@ export default function Home() {
           </p>
           <div className="cta-buttons">
             <Link to="/sorting" className="btn-primary">
-              <span style={{marginRight: '8px'}}>🚀</span> Begin Learning
+              <span style={{ marginRight: "8px" }}>🚀</span> Begin Learning
             </Link>
             <a
               href="https://github.com/RhythmPahwa14/AlgoVisualizer"
@@ -603,7 +604,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="btn-secondary"
             >
-              <span style={{marginRight: '8px'}}>⭐</span> Star on GitHub
+              <span style={{ marginRight: "8px" }}>⭐</span> Star on GitHub
             </a>
           </div>
         </div>

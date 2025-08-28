@@ -41,8 +41,8 @@ function ScrollToTop() {
           onClick={scrollToTop}
           style={{
             position: "fixed",
-            bottom: "30px",
-            right: "30px",
+            bottom: "2px",
+            right: "25px",
             backgroundColor: "#007bff",
             color: "white",
             border: "none",

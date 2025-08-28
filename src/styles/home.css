@@ -377,11 +377,43 @@ select:focus {
   flex-wrap: wrap;
 }
 
+
+.feature-item {
+
+  box-shadow: 0 4px 16px rgba(70, 82, 153, 0.6) !important;
+  -webkit-box-shadow: 0 4px 16px rgba(70, 82, 153, 0.6) !important;
+  position: relative; 
+  z-index: 1;
+}
+
+
+body.dark-mode .feature-item {
+  box-shadow: 0 6px 22px rgba(70, 82, 153, 0.85) !important;
+  -webkit-box-shadow: 0 6px 22px rgba(70, 82, 153, 0.85) !important;
+}
+
+
+.stat-card {
+
+  box-shadow: 0 4px 16px rgba(70, 82, 153, 0.6) !important;
+  -webkit-box-shadow: 0 4px 16px rgba(70, 82, 153, 0.6) !important;
+  position: relative; 
+  z-index: 1;
+}
+
+/* Dark mode stronger shadow */
+body.dark-mode .stat-card {
+  box-shadow: 0 6px 22px rgba(70, 82, 153, 0.85) !important;
+  -webkit-box-shadow: 0 6px 22px rgba(70, 82, 153, 0.85) !important;
+}
+
+
 .feature-tag {
   background: var(--card-bg);
   color: var(--primary-color);
   padding: 4px 12px;
   border-radius: 12px;
+  border-color: #58a6ff;
   font-size: 0.85em;
   font-weight: 500;
   border: 1px solid var(--card-border);
