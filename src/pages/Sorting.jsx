@@ -926,7 +926,7 @@ const Sorting = () => {
             border: "1px solid rgba(102,204,255,0.2)",
             padding: "20px",
             width: "100%",
-=======
+
           }}
         >
           <h3 style={{ color: "#66ccff", marginBottom: "12px" }}>
