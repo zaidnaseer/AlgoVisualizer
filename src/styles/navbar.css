@@ -545,61 +545,64 @@
 /* =========================
    Responsive Design
 ========================= */
+
+/* Tablet and below */
 @media screen and (max-width: 1024px) {
-    .nav-links-desktop {
-        display: none;
-    }
-    
-    .hamburger {
-        display: flex;
-    }
-    
-    .nav-group-label {
-        display: none;
-    }
-    
-    .nav-separator {
-        display: none;
-    }
+  .nav-links-desktop {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-group-label,
+  .nav-separator {
+    display: none;
+  }
 }
 
- screen and (max-width: 768px) {
-    .av-container {
-        padding: 0 16px;
-        gap: 12px;
-    }
-    
-    .navbar-heading {
-        font-size: 1.5rem;
-    }
-    
-    .logo-icon {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .github-btn .github-text {
-        display: none;
-    }
-    
-    .nav-links-mobile {
-        width: fit-content;
-    }
+/* Mobile (≤768px) */
+@media screen and (max-width: 768px) {
+  .av-container {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .navbar-heading {
+    font-size: 1.5rem;
+  }
+
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Hide GitHub text, show only icon */
+  .github-btn .github-text {
+    display: none;
+  }
+
+  .nav-links-mobile {
+    width: fit-content;
+    max-width: 80vw;
+  }
 }
 
- screen and (max-width: 480px) {
-    .navbar-heading {
-        font-size: 1.4rem;
-    }
-    
-    .nav-links-mobile {
-        width: 100vw;
-        max-width: 100vw;
-    }
-    
-    .mobile-nav-content {
-        padding: 16px;
-    }
+/* Small Mobile (≤480px) */
+@media screen and (max-width: 480px) {
+  .navbar-heading {
+    font-size: 1.4rem;
+  }
+
+  .nav-links-mobile {
+    width: 100vw;
+    max-width: 100vw;
+  }
+
+  .mobile-nav-content {
+    padding: 16px;
+  }
 }
 
 /* =========================
@@ -610,14 +613,14 @@
 .github-btn,
 .theme-toggle-btn,
 .hamburger {
-    will-change: transform;
+  will-change: transform;
 }
 
-/* Reduce motion for users who prefer it */
- (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
