@@ -2,9 +2,7 @@
 
 Welcome to **AlgoVisualizer**, a cutting-edge interactive web application designed to transform the way you learn and understand algorithms. Experience real-time visualizations of sorting, searching, and data structure algorithms with a beautiful, modern interface.
 
-🚀 **Live Demo**: [https://algo-visualizer-amber.vercel.app/](https://algo-visualizer-amber.vercel.app/)
-
-> **📌 Note**: This is an enhanced version based on the original [AlgoVisualizer project](https://github.com/RhythmPahwa14/AlgoVisualizer) by Rhythm Pahwa, with significant improvements including dark theme, modern UI, additional algorithms, and enhanced features.
+🚀 **Live Demo**: [https://algo-visualizer-amber.vercel.app](https://algo-visualizer-amber.vercel.app/)
 
 ## ✨ Features
 
@@ -87,8 +85,8 @@ Welcome to **AlgoVisualizer**, a cutting-edge interactive web application design
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/SandeepVashishtha/AlgoVisualizer-Rhythm.git
-   cd AlgoVisualizer-Rhythm
+   git clone https://github.com/RhythmPahwa14/AlgoVisualizer.git
+   cd AlgoVisualizer
    ```
 
 2. **Install dependencies:**
@@ -144,7 +142,7 @@ npm run preview
 ## 📁 Project Structure
 
 ```
-AlgoVisualizer-Rhythm/
+AlgoVisualizer/
 ├── public/                 # Static assets
 ├── src/
 │   ├── algorithms/         # Algorithm implementations
@@ -207,7 +205,7 @@ Perfect for:
 Meet our amazing contributors who make this project possible:
 
 - **[Sandeep Vashishtha](https://github.com/SandeepVashishtha)** 
-- **[Rhythm Pahwa](https://github.com/rhythmpahwa14)** - 
+- **[Rhythm Pahwa](https://github.com/rhythmpahwa14)**
 
 *Want to see your name here? [Contribute to the project!](#-contributing)*
 
@@ -219,14 +217,9 @@ Meet our amazing contributors who make this project possible:
 
 ## 📞 Support & Contact
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/SandeepVashishtha/AlgoVisualizer-Rhythm/issues)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/RhythmPahwa14/AlgoVisualizer/issues)
 - **Email**: Contact the maintainers for collaboration opportunities
 - **Website**: [Visit our live demo](https://algo-visualizer-amber.vercel.app/)
-
-## 🔗 Related Projects
-
-- **[Original AlgoVisualizer](https://github.com/RhythmPahwa14/AlgoVisualizer)** - The foundational project that inspired this enhanced version
-- **[Rhythm Pahwa's Repository](https://github.com/RhythmPahwa14/AlgoVisualizer)** - Original algorithm visualization implementation
 
 ## 📊 Project Stats
 
@@ -264,6 +257,6 @@ If you found this project helpful, please consider:
 
 **Built with ❤️ by the AlgoVisualizer Team**
 
-[🌟 Star on GitHub](https://github.com/SandeepVashishtha/AlgoVisualizer-Rhythm) • [🚀 Live Demo](https://algo-visualizer-amber.vercel.app/) • [📚 Documentation](/documentation)
+[🌟 Star on GitHub](https://github.com/RhythmPahwa14/AlgoVisualizer) • [🚀 Live Demo](https://algo-visualizer-amber.vercel.app/) • [📚 Documentation](/documentation)
 
 </div>
