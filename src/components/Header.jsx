@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import '../styles/navbar.css';
 import { useTheme } from '../ThemeContext';
-import { FaGithub, FaMoon, FaSun, FaCode, FaSearch, FaDatabase, FaBrain, FaUsers, FaBook } from 'react-icons/fa';
+import { FaGithub, FaMoon, FaSun, FaCode, FaSearch, FaDatabase, FaBrain, FaUsers, FaBook, FaProjectDiagram } from 'react-icons/fa';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -47,6 +47,7 @@ const Header = () => {
         { path: '/sorting', label: 'Sorting', icon: FaCode, group: 'learn' },
         { path: '/searching', label: 'Searching', icon: FaSearch, group: 'learn' },
         { path: '/data-structures', label: 'Data Structures', icon: FaDatabase, group: 'learn' },
+        { path: '/graph', label: 'Graph', icon: FaProjectDiagram, group: 'learn' },
         { path: '/quiz', label: 'Quiz', icon: FaBrain, group: 'test' },
         { path: '/contributors', label: 'Contributors', icon: FaUsers, group: 'community' },
         { path: '/documentation', label: 'Documentation', icon: FaBook, group: 'help' }
@@ -129,7 +130,6 @@ const Header = () => {
                         >
                             <FaGithub className="github-icon" />
                             <span className="github-text">Star</span>
-                            <div className="github-shine"></div>
                         </a>
 
                         <button 
@@ -167,7 +167,7 @@ const Header = () => {
             <nav className={`nav-links-mobile ${isMobileMenuOpen ? 'active' : ''}`} aria-label="Mobile Navigation">
                 <div className="mobile-nav-content">
                     <div className="mobile-nav-header">
-                        <h2>Navigation</h2>
+
                         <div className="mobile-nav-actions">
                             <a 
                                 className="mobile-github-btn" 

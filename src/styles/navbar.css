@@ -130,7 +130,7 @@
 .nav-links-desktop {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 2px;
     flex: 1;
     justify-content: center;
     padding: 0 20px;
@@ -148,7 +148,7 @@
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin: 0 8px 0 4px;
+    margin: 0 6px 0 4px;
     padding: 4px 0;
 }
 
@@ -162,11 +162,11 @@
 .nav-link {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 1px;
     font-size: 0.875rem;
     font-weight: 500;
     padding: 8px 12px;
-    border-radius: 8px;
+    border-radius: 4px;
     text-decoration: none;
     color: var(--text-secondary);
     position: relative;
@@ -413,6 +413,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .mobile-nav-header {
@@ -479,6 +480,7 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
+    width: 100%;
 }
 
 .mobile-nav-group {
@@ -543,61 +545,64 @@
 /* =========================
    Responsive Design
 ========================= */
+
+/* Tablet and below */
 @media screen and (max-width: 1024px) {
-    .nav-links-desktop {
-        display: none;
-    }
-    
-    .hamburger {
-        display: flex;
-    }
-    
-    .nav-group-label {
-        display: none;
-    }
-    
-    .nav-separator {
-        display: none;
-    }
+  .nav-links-desktop {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-group-label,
+  .nav-separator {
+    display: none;
+  }
 }
 
+/* Mobile (≤768px) */
 @media screen and (max-width: 768px) {
-    .av-container {
-        padding: 0 16px;
-        gap: 12px;
-    }
-    
-    .navbar-heading {
-        font-size: 1.5rem;
-    }
-    
-    .logo-icon {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .github-btn .github-text {
-        display: none;
-    }
-    
-    .nav-links-mobile {
-        width: 280px;
-    }
+  .av-container {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .navbar-heading {
+    font-size: 1.5rem;
+  }
+
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Hide GitHub text, show only icon */
+  .github-btn .github-text {
+    display: none;
+  }
+
+  .nav-links-mobile {
+    width: fit-content;
+    max-width: 80vw;
+  }
 }
 
+/* Small Mobile (≤480px) */
 @media screen and (max-width: 480px) {
-    .navbar-heading {
-        font-size: 1.4rem;
-    }
-    
-    .nav-links-mobile {
-        width: 100vw;
-        max-width: 100vw;
-    }
-    
-    .mobile-nav-content {
-        padding: 16px;
-    }
+  .navbar-heading {
+    font-size: 1.4rem;
+  }
+
+  .nav-links-mobile {
+    width: 100vw;
+    max-width: 100vw;
+  }
+
+  .mobile-nav-content {
+    padding: 16px;
+  }
 }
 
 /* =========================
@@ -608,14 +613,14 @@
 .github-btn,
 .theme-toggle-btn,
 .hamburger {
-    will-change: transform;
+  will-change: transform;
 }
 
-/* Reduce motion for users who prefer it */
+/* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
