@@ -105,8 +105,7 @@ const Sidebar = () => {
         {
           path: "/quiz",
           icon: Brain,
-          label: "Quiz",
-          badge: "New"
+          label: "Quiz"
         },
         {
           path: "/documentation",
