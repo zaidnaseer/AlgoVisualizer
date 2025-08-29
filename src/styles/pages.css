@@ -276,6 +276,7 @@ select, .select { color-scheme: var(--select-color-scheme, auto); }
     margin-bottom: 10px;
 } */
  .algorithm-info p {
+    color: rgb(29, 28, 28);
     line-height: 1.6;
     margin-bottom: 10px;
 }
