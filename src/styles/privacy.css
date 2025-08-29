@@ -135,7 +135,7 @@ button {
 
 button:hover {
     background: var(--accent-color);
-    color: #fff;
+    color: var(--text-color);
 }
 
 /* ----------------- Responsive Design ----------------- */
