@@ -190,8 +190,8 @@
    Algorithm Card
 ========================= */
 .algorithm-card {
-  /* background: var(--light-bg); */
-  background-color: var(--color-bg);
+  /* Use either background or background-color, not both for color */
+  background-color: rgb(0,119, 204, 0.1); /* fallback color, or use var(--color-bg) */
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid rgba(0, 119, 204, 0.1);
