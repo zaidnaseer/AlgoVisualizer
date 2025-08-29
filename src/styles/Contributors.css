@@ -105,7 +105,7 @@
 
 .contributors-track {
   display: flex;
-  animation: scroll-left 30s linear infinite;
+  animation: scroll-left 80s linear infinite;
   width: fit-content;
 }
 
@@ -414,7 +414,7 @@
     margin-right: 15px;
   }
   .contributors-track {
-    animation: scroll-left 28s linear infinite; /* slower on tablet */
+    animation: scroll-left 70s linear infinite; /* slower on tablet */
   }
   .contribute-cta {
     padding: 25px 15px;

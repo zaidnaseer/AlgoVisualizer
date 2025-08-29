@@ -53,7 +53,7 @@ const getRoleByGitHubActivity = (contributor) => {
     return 'Senior Open Source Developer';
   }
   
-  if (public_repos > 20 && contributions > 30) {
+  if (public_repos > 20 && contributions > 20) {
     return 'Open Source Advocate';
   }
   
