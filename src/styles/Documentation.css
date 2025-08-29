@@ -14,6 +14,16 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
   --transition: all 0.3s ease;
 }
+:root {
+  --color-bg: #61aaea;       
+  --color-surface: #1f2937;  
+  --color-primary: #3b82f6;  
+  --color-primary-light: #60a5fa;
+  --color-secondary: #f59e0b; 
+  --color-text: #f3f4f6;     
+  --color-text-muted: #eeeff1; 
+  --color-border: #374151;  
+}
 
 /* =========================
    Documentation Container
@@ -46,7 +56,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--light-bg);
+  background-color: lightcyan;
   border: 1px solid rgba(0, 119, 204, 0.2);
   border-radius: 12px;
   padding: 0.75rem 1rem;
@@ -180,7 +190,8 @@
    Algorithm Card
 ========================= */
 .algorithm-card {
-  background: var(--light-bg);
+  /* background: var(--light-bg); */
+  background-color: var(--color-bg);
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid rgba(0, 119, 204, 0.1);
@@ -236,7 +247,7 @@
 }
 
 .card-description {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-secondary-light);
 }
 
