@@ -48,7 +48,7 @@ We are committed to building an **open, respectful, collaborative, and joyful le
 This Code of Conduct applies:  
 - Within all **community spaces** (GitHub repo, discussions, issues, pull requests).  
 - When representing the project in **public settings** (social media, conferences, or other external forums).  
-- To all contributors, whether long-term maintainers or first-time participants.  
+- To all contributors, whether long-term maintainers or first-time participants.   
 
 ---
 
