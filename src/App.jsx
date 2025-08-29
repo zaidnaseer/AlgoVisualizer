@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
-import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Sorting from './pages/Sorting';
@@ -9,6 +9,7 @@ import Searching from './pages/Searching';
 import DataStructures from './pages/DataStructures';
 import Graph from './pages/Graph'; // <-- Import the new Graph component
 import Quiz from './pages/Quiz';
+import Settings from './pages/Settings';
 import Contributors from './components/Contributors';
 import ScrollToTop from './ScrollToTop';
 import About from './components/about';
@@ -25,8 +26,8 @@ const App = () => {
         <ThemeProvider> {/* ← Wrap entire app with ThemeProvider */}
             <Router>
                 <div className="app-container">
-                    <Header />
-                    <main className="main-content" style={{ paddingTop: '70px' }}>
+                    <Sidebar />
+                    <main className="main-content main-content-with-sidebar">
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/sorting" element={<Sorting />} />
@@ -34,6 +35,7 @@ const App = () => {
                             <Route path="/data-structures" element={<DataStructures />} />
                             <Route path="/graph" element={<Graph />} /> {/* <-- Add the new route */}
                             <Route path="/quiz" element={<Quiz />} />
+                            <Route path="/settings" element={<Settings />} />
                             <Route path="/contributors" element={<Contributors />} />
                             <Route path="/about" element={<About />} />
                             <Route path="/contact" element={<Contact />} />
