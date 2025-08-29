@@ -276,14 +276,14 @@ select, .select { color-scheme: var(--select-color-scheme, auto); }
     margin-bottom: 10px;
 } */
  .algorithm-info p {
-    color: rgb(29, 28, 28);
+    color: rgb(15, 15, 15);
     line-height: 1.6;
     margin-bottom: 10px;
 }
 
 /* Light theme - darker text for readability */
 :root .algorithm-info p {
-    color: #374151;
+    color: #2d2d2e;
 }
 
 /* Dark theme - your preferred light text */
