@@ -32,14 +32,16 @@ Let’s build a vibrant, respectful, and collaborative community!
 
 ### 1. Fork & Clone the Repository
 **🔗 Fork** the repo and **💻 clone locally:**
+```bash
 git clone https://github.com/<your-username>/AlgoVisualizer.git
 cd AlgoVisualizer
 
+
 ### 2. Setup Environment
 **⚙️ Install dependencies:**
+```bash
 npm install
-**▶️ Start the development server:**
-npm start
+
 
 ![Setup GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmxpNzEyMjhzb2k3eDc1MWFzM3lhZnFrZXJxZDVpMDZ2am9wZHhzcCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/LESpNIDaNBUcRIPzng/giphy.gif)
 
