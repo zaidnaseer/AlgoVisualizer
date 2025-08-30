@@ -254,8 +254,11 @@ function AlgorithmDocumentation() {
       {/* Search and Filter Section */}
       <div className="filters-section">
         <div className="search-bar">
-          <Search size={20} />
+          <label htmlFor="search" style={{display: "flex"}}>
+            <Search size={20} />
+          </label>
           <input
+            id="search"
             type="text"
             placeholder="Search algorithms..."
             value={searchTerm}
