@@ -99,6 +99,7 @@ const QuestionCard = ({
             <button 
               className="quiz-btn" 
               onClick={onSubmit}
+              disabled={userAnswer === undefined}
               style={{ 
                 background: '#3fb950',
                 borderColor: '#3fb950'
