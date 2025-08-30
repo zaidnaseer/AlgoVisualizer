@@ -168,7 +168,7 @@ const Searching = () => {
   const handleSearch = async () => {
     const targetValue = parseInt(target, 10);
     if (isNaN(targetValue)) {
-      setMessage('Enter a valid number.');
+      alert('Enter a valid number as target.');
       return;
     }
 
