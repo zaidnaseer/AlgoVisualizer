@@ -105,6 +105,13 @@
 }
 
 .category-chip {
+
+  padding: 20px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -126,10 +133,19 @@
   border-color: rgba(0, 119, 204, 0.3);
 }
 
+
+.category-chip .count {
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+=======
 [data-theme="dark"] .category-chip {
   background: rgba(102, 204, 255, 0.1);
   color: var(--light-blue);
   border-color: rgba(102, 204, 255, 0.3);
+
 }
 
 .category-chip:hover {
