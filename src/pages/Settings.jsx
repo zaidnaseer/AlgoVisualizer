@@ -53,6 +53,7 @@ const Settings = () => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
+                width: 'fit-content',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
                 background: 'var(--accent-color, #58a6ff)',
