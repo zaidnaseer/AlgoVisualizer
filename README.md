@@ -502,7 +502,12 @@ This project is licensed under the MIT License - see the [`License`](https://git
 <table>
 <tr>
 <td align="center">
-<a href="https://github.com/RhythmPahwa14"><img src="https://avatars.githubusercontent.com/u/170720661?v=4" height="140px" width="140px" alt="Rhythm"></a><br><sub><b>Rhythm</b><br><a href="https://www.linkedin.com/in/pahwa-rhythm/"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/73993775/278833250-adb040ea-e3ef-446e-bcd4-3e8d7d4c0176.png" width="45px" height="45px"></a></sub>
+<a href="https://github.com/RhythmPahwa14"><img src="https://avatars.githubusercontent.com/u/170720661?v=4" height="140px" width="140px" alt="Rhythm"></a><br><sub><b>Rhythm</b><br><a href="https://www.linkedin.com/in/pahwa-rhythm/"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/73993775/278833250-adb040ea-e3ef-446e-bcd4-3e8d7d4c0176.png" width="45px" height="45px"></a>
+</sub>
+</td>
+ <td align="center">
+<a href="https://github.com/sandeepvashishtha"><img src="https://avatars.githubusercontent.com/u/64915843?v=4" height="140px" width="140px" alt="Sandeep"></a><br><sub><b>Sandeep Vashishtha</b><br><a href="https://www.linkedin.com/in/sandeepvashishtha/"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/73993775/278833250-adb040ea-e3ef-446e-bcd4-3e8d7d4c0176.png" width="45px" height="45px"></a>
+</sub>
 </td>
 </tr>
 </table>
