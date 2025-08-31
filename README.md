@@ -378,13 +378,12 @@ Meet our amazing contributors who make this project possible:
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
-
 <h2 id="contact">📞 Contact</h2>
 
 - **GitHub Issues**: [Report bugs or request features](https://github.com/RhythmPahwa14/AlgoVisualizer/issues)
 - **Email**: Contact the maintainers for collaboration opportunities
-- **Website**: [Visit our live demo](https://algo-visualizer-amber.vercel.app/)
+  
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
 <h2 id="how-to-contribute">🤝How to Contribute</h2>
 
