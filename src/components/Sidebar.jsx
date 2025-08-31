@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Add this import
 import {
   Home,
   BarChart3,
@@ -11,52 +12,54 @@ import {
   Brain,
   FileText,
   Menu,
-  X
+  X,
+  ChevronRight
 } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import "../styles/sidebar.css";
 
 const Sidebar = () => {
-  const location = useLocation();
+  const [activeTab, setActiveTab] = useState('/');
   const sidebarRef = useRef(null);
   const linkRefs = useRef({});
   const [indicatorPos, setIndicatorPos] = useState({ top: 0 });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate(); // Add this line
 
   // Update active indicator position
   useEffect(() => {
-    const activeLink = linkRefs.current[location.pathname];
+    const activeLink = linkRefs.current[activeTab];
     if (sidebarRef.current && activeLink) {
       const containerRect = sidebarRef.current.getBoundingClientRect();
       const linkRect = activeLink.getBoundingClientRect();
-      const indicatorHeight = 48; // Height of sidebar item
+      const indicatorHeight = 48;
       const top = linkRect.top - containerRect.top + linkRect.height / 2 - indicatorHeight / 2;
       setIndicatorPos({ top });
     }
-  }, [location.pathname]);
+  }, [activeTab]);
 
-  // Close mobile menu when route changes
+  // Close mobile menu when tab changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
-  }, [location]);
+  }, [activeTab]);
 
   const SidebarLink = React.forwardRef(
     ({ to, IconComponent, label, badge, isActive, end = false }, ref) => {
       return (
-        <Link
-          to={to}
+        <div
           ref={ref}
-          end={end}
           className={`sidebar-link ${isActive ? 'active' : ''}`}
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={() => {
+            setActiveTab(to);
+            setIsMobileMenuOpen(false);
+            navigate(to); // Add this line to handle navigation
+          }}
         >
           <div className="sidebar-link-content">
             <IconComponent className="sidebar-icon" size={20} />
             <span className="sidebar-label">{label}</span>
             {badge && <span className="sidebar-badge">{badge}</span>}
+            {isActive && <ChevronRight className="sidebar-arrow" size={16} />}
           </div>
-        </Link>
+        </div>
       );
     }
   );
@@ -69,7 +72,7 @@ const Sidebar = () => {
         {
           path: "/",
           icon: Home,
-          label: "Home",
+          label: "Dashboard",
           end: true
         }
       ]
@@ -80,22 +83,26 @@ const Sidebar = () => {
         {
           path: "/sorting",
           icon: BarChart3,
-          label: "Sorting"
+          label: "Sorting",
+          badge: "12"
         },
         {
           path: "/searching",
           icon: Search,
-          label: "Search"
+          label: "Search",
+          badge: "8"
         },
         {
           path: "/data-structures",
           icon: Database,
-          label: "Data"
+          label: "Data Structures",
+          badge: "15"
         },
         {
           path: "/graph",
           icon: Share2,
-          label: "Graph"
+          label: "Graph Theory",
+          badge: "6"
         }
       ]
     },
@@ -105,12 +112,12 @@ const Sidebar = () => {
         {
           path: "/quiz",
           icon: Brain,
-          label: "Quiz"
+          label: "Interactive Quiz"
         },
         {
           path: "/documentation",
           icon: FileText,
-          label: "Docs"
+          label: "Documentation"
         },
         {
           path: "/contributors",
@@ -122,37 +129,42 @@ const Sidebar = () => {
   ];
 
   return (
-    <>
-      {/* Mobile Menu Button */}
+    <div className="sidebar-container">
+      {/* Enhanced Mobile Menu Button with Animation */}
       <button 
-        className="mobile-menu-button"
+        className={`mobile-menu-button ${isMobileMenuOpen ? 'active' : ''}`}
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Toggle navigation menu"
       >
-        {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        {isMobileMenuOpen ? <X size={24} color="#fff" /> : <Menu size={24} color="#fff" />}
       </button>
 
-      {/* Overlay for mobile */}
+      {/* Backdrop with blur effect */}
       <div 
-        className={`sidebar-overlay ${isMobileMenuOpen ? 'active' : ''}`}
+        className={`sidebar-backdrop ${isMobileMenuOpen ? 'active' : ''}`}
         onClick={() => setIsMobileMenuOpen(false)}
       />
 
-      {/* Sidebar */}
+      {/* Modern Sidebar */}
       <nav 
         ref={sidebarRef} 
         className={`app-sidebar ${isMobileMenuOpen ? 'mobile-open' : ''}`}
       >
-        {/* Logo Section */}
+        {/* Enhanced Logo Section */}
         <div className="sidebar-header">
-          <Link to="/" className="sidebar-logo" onClick={() => setIsMobileMenuOpen(false)}>
+          <div className="sidebar-logo" onClick={() => {
+            setActiveTab('/');
+            setIsMobileMenuOpen(false);
+          }}>
             <div className="logo-icon">
-              <Code size={24} />
+              <Code size={28} />
             </div>
             <div className="logo-text">
               <span className="logo-main">Algo</span>
               <span className="logo-highlight">Visualizer</span>
+              <div className="logo-subtitle">Learn & Explore</div>
             </div>
-          </Link>
+          </div>
         </div>
 
         {/* Navigation Groups */}
@@ -162,6 +174,7 @@ const Sidebar = () => {
               {group.group !== "main" && (
                 <div className="sidebar-group-header">
                   <span className="sidebar-group-title">{group.group}</span>
+                  <div className="sidebar-group-line"></div>
                 </div>
               )}
               <div className="sidebar-group-items">
@@ -172,7 +185,7 @@ const Sidebar = () => {
                     IconComponent={item.icon}
                     label={item.label}
                     badge={item.badge}
-                    isActive={location.pathname === item.path}
+                    isActive={activeTab === item.path}
                     end={item.end}
                     ref={(el) => (linkRefs.current[item.path] = el)}
                   />
@@ -182,25 +195,413 @@ const Sidebar = () => {
           ))}
         </div>
 
-        {/* Settings at Bottom */}
+        {/* Enhanced Settings at Bottom */}
         <div className="sidebar-footer">
+          <div className="user-profile">
+            <div className="user-avatar">
+              <div className="avatar-placeholder">
+                <Users size={16} />
+              </div>
+            </div>
+            <div className="user-info">
+              <div className="user-name">Guest User</div>
+              <div className="user-status">Learning Mode</div>
+            </div>
+          </div>
           <SidebarLink
             to="/settings"
             IconComponent={Settings}
             label="Settings"
-            isActive={location.pathname === "/settings"}
+            isActive={activeTab === "/settings"}
             ref={(el) => (linkRefs.current["/settings"] = el)}
           />
         </div>
 
-        {/* Active Indicator */}
-        <motion.div
+        {/* Enhanced Active Indicator */}
+        <div
           className="sidebar-indicator"
-          animate={{ top: indicatorPos.top }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          style={{
+            transform: `translateY(${indicatorPos.top}px)`,
+            transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
         />
       </nav>
-    </>
+
+      <style jsx>{`
+        .sidebar-container {
+          position: relative;
+          z-index: 1000;
+        }
+
+        .mobile-menu-button {
+          position: fixed;
+          top: 1rem;
+          right: 1rem; /* Change from left: 1rem; to right: 1rem; */
+          z-index: 1100;
+          width: 48px;
+          height: 48px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .mobile-menu-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+          background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+
+        .mobile-menu-button.active {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .hamburger {
+          width: 20px;
+          height: 16px;
+          position: relative;
+          transform: rotate(0deg);
+          transition: 0.3s ease-in-out;
+        }
+
+        .hamburger span {
+          display: block;
+          position: absolute;
+          height: 2px;
+          width: 100%;
+          background: white;
+          border-radius: 1px;
+          opacity: 1;
+          left: 0;
+          transform: rotate(0deg);
+          transition: 0.25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+          top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+          top: 7px;
+        }
+
+        .hamburger span:nth-child(3) {
+          top: 14px;
+        }
+
+        .mobile-menu-button.active .hamburger span:nth-child(1) {
+          top: 7px;
+          transform: rotate(135deg);
+        }
+
+        .mobile-menu-button.active .hamburger span:nth-child(2) {
+          opacity: 0;
+          left: -20px;
+        }
+
+        .mobile-menu-button.active .hamburger span:nth-child(3) {
+          top: 7px;
+          transform: rotate(-135deg);
+        }
+
+        .sidebar-backdrop {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(4px);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 999;
+        }
+
+        .sidebar-backdrop.active {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .app-sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 280px;
+          height: 100vh;
+          background: linear-gradient(180deg, #1a1b23 0%, #16171d 100%);
+          border-right: 1px solid rgba(255, 255, 255, 0.1);
+          display: flex;
+          flex-direction: column;
+          z-index: 1000;
+          transform: translateX(-100%);
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          backdrop-filter: blur(20px);
+          box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .app-sidebar.mobile-open {
+          transform: translateX(0);
+        }
+
+        .sidebar-header {
+          padding: 2rem 1.5rem 1.5rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-logo {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .sidebar-logo:hover {
+          transform: translateX(4px);
+        }
+
+        .logo-icon {
+          width: 48px;
+          height: 48px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .logo-text {
+          flex: 1;
+        }
+
+        .logo-main {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: white;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .logo-highlight {
+          font-size: 1.5rem;
+          font-weight: 700;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-left: 0.25rem;
+        }
+
+        .logo-subtitle {
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.6);
+          font-weight: 400;
+          margin-top: 2px;
+        }
+
+        .sidebar-content {
+          flex: 1;
+          padding: 1rem 0;
+          overflow-y: auto;
+          scrollbar-width: none;
+        }
+
+        .sidebar-content::-webkit-scrollbar {
+          display: none;
+        }
+
+        .sidebar-group {
+          margin-bottom: 2rem;
+        }
+
+        .sidebar-group-header {
+          padding: 0 1.5rem 0.75rem;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .sidebar-group-title {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.5);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .sidebar-group-line {
+          flex: 1;
+          height: 1px;
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+        }
+
+        .sidebar-group-items {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          padding: 0 1rem;
+        }
+
+        .sidebar-link {
+          display: flex;
+          align-items: center;
+          padding: 0.75rem 1rem;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .sidebar-link::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+          transition: left 0.5s ease;
+        }
+
+        .sidebar-link:hover::before {
+          left: 100%;
+        }
+
+        .sidebar-link:hover {
+          background: rgba(255, 255, 255, 0.05);
+          transform: translateX(4px);
+        }
+
+        .sidebar-link.active {
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+          border: 1px solid rgba(102, 126, 234, 0.3);
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .sidebar-link-content {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          width: 100%;
+        }
+
+        .sidebar-icon {
+          color: rgba(255, 255, 255, 0.7);
+          transition: all 0.3s ease;
+        }
+
+        .sidebar-link.active .sidebar-icon {
+          color: #667eea;
+        }
+
+        .sidebar-label {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.8);
+          flex: 1;
+          transition: all 0.3s ease;
+        }
+
+        .sidebar-link.active .sidebar-label {
+          color: white;
+          font-weight: 600;
+        }
+
+        .sidebar-badge {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          font-size: 0.75rem;
+          font-weight: 600;
+          padding: 0.125rem 0.5rem;
+          border-radius: 12px;
+          min-width: 20px;
+          text-align: center;
+          box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+        }
+
+        .sidebar-arrow {
+          color: #667eea;
+          opacity: 0;
+          transition: all 0.3s ease;
+        }
+
+        .sidebar-link.active .sidebar-arrow {
+          opacity: 1;
+          transform: translateX(4px);
+        }
+
+        .sidebar-footer {
+          padding: 1rem 1.5rem 2rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .user-profile {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 12px;
+          margin-bottom: 1rem;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        .avatar-placeholder {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+
+        .user-info {
+          flex: 1;
+        }
+
+        .user-name {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: white;
+        }
+
+        .user-status {
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sidebar-indicator {
+          position: absolute;
+          left: 0;
+          width: 4px;
+          height: 48px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border-radius: 0 4px 4px 0;
+          box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+
+        @media (max-width: 767px) {
+          .app-sidebar {
+            width: 100%;
+            max-width: 320px;
+          }
+        }
+      `}</style>
+    </div>
   );
 };
 
