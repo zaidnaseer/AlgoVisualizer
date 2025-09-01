@@ -162,7 +162,7 @@ select:focus {
 
 .hero-title {
   font-size: 4.5em;
-  font-family: "Dancing Script", cursive;
+  font-family: "Georgia", bold;
   font-weight: bold;
   color: var(--text-color);
   margin-bottom: 20px;
@@ -180,7 +180,7 @@ select:focus {
 .hero-subtitle {
   font-size: 2.2em;
   color: var(--primary-color);
-  font-family: "Dancing Script", cursive;
+  font-family: "Arial", bold;
   font-weight: 600;
   margin-bottom: 20px;
   min-height: 60px;
