@@ -1,44 +1,81 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-function ScrollToTop() {
-  // This creates a variable that remembers if button should show or hide
+export default function ScrollToTop() {
   const [showButton, setShowButton] = useState(false);
+  const { pathname } = useLocation();
 
-  // This function checks how far down the page you've scrolled
-  const checkScrollPosition = () => {
-    if (window.pageYOffset > 300) {
-      setShowButton(true); // Show button if scrolled down 300px
-    } else {
-      setShowButton(false); // Hide button if near top
+  // Force scrollTop on all common scrollers
+  const forceScrollTop = (smooth = true) => {
+    const behavior = smooth ? "smooth" : "auto";
+    // 1) Window API
+    if (typeof window.scrollTo === "function") {
+      window.scrollTo({ top: 0, behavior });
+    }
+    // 2) Document-level fallbacks (some browsers use these)
+    document.documentElement && (document.documentElement.scrollTop = 0);
+    document.body && (document.body.scrollTop = 0);
+    // 3) If your layout ever scrolls an inner container
+    const main = document.querySelector(".main-content");
+    if (main) {
+      if (typeof main.scrollTo === "function") {
+        main.scrollTo({ top: 0, behavior });
+      } else {
+        main.scrollTop = 0;
+      }
     }
   };
 
-  // This function scrolls back to the top smoothly
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  const checkScrollPosition = () => {
+    const y =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    setShowButton(y > 300);
   };
 
-   
-
-  // This runs when the component loads - it listens for scrolling
+  // Don’t let the browser restore old position automatically
   useEffect(() => {
-    window.addEventListener("scroll", checkScrollPosition);
-
-    // Cleanup when component is removed
-    return () => {
-      window.removeEventListener("scroll", checkScrollPosition);
-    };
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
   }, []);
 
-  // This is what gets displayed on the page
+  // Track scroll for the FAB
+  useEffect(() => {
+    checkScrollPosition();
+    window.addEventListener("scroll", checkScrollPosition, { passive: true });
+    return () => window.removeEventListener("scroll", checkScrollPosition);
+  }, []);
+
+  // 👉 On every route change, force to top (multiple ticks to beat late renders)
+  useEffect(() => {
+    // immediate (no animation) so you don’t see previous position
+    forceScrollTop(false);
+
+    // next paint
+    requestAnimationFrame(() => forceScrollTop(false));
+
+    // after content settles a bit
+    const t1 = setTimeout(() => forceScrollTop(false), 80);
+    const t2 = setTimeout(() => forceScrollTop(true), 160); // final smooth polish
+
+    setShowButton(false);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [pathname]);
+
   return (
     <>
       {showButton && (
         <button
-          onClick={scrollToTop}
+          type="button"
+          onClick={() => forceScrollTop(true)}
+          aria-label="Scroll to top"
+          title="Back to top"
           style={{
             position: "fixed",
             bottom: "2px",
@@ -56,34 +93,29 @@ function ScrollToTop() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            padding: 0, // Ensures no extra spacing inside
-            transition: "opacity 0.4s ease, transform 0.4s ease", // Smooth fade & scale
+            padding: 0,
+            transition: "opacity 0.4s ease, transform 0.4s ease",
             opacity: showButton ? 1 : 0,
-            transform: showButton ? "scale(1)" : "scale(0.8)", // Scales up smoothly
-            animation: showButton ? "float 2s ease-in-out infinite" : "none", // Float only when visible
-            pointerEvents: showButton ? "auto" : "none", // Prevent clicks when hidden
+            transform: showButton ? "scale(1)" : "scale(0.8)",
+            animation: showButton ? "float 2s ease-in-out infinite" : "none",
+            pointerEvents: showButton ? "auto" : "none",
           }}
           onMouseEnter={(e) => {
-            e.target.style.backgroundColor = "#0056b3";
-            e.target.style.boxShadow = "0 6px 15px #007bff";
-            e.target.style.transform = "translateY(-2px)";
+            e.currentTarget.style.backgroundColor = "#0056b3";
+            e.currentTarget.style.boxShadow = "0 6px 15px #007bff";
+            e.currentTarget.style.transform = "translateY(-2px)";
           }}
           onMouseLeave={(e) => {
-            e.target.style.backgroundColor = "#007bff";
-            e.target.style.boxShadow = "0 4px 10px #0056b3";
-            e.target.style.transform = "translateY(0)";
+            e.currentTarget.style.backgroundColor = "#007bff";
+            e.currentTarget.style.boxShadow = "0 4px 10px #0056b3";
+            e.currentTarget.style.transform = "translateY(0)";
           }}
         >
-          <i
-            className="fa-solid fa-arrow-up"
-            style={{
-              fontSize: "30px",
-              Color: "white !imprtant",
-            }}
-          ></i>
+          <i className="fa-solid fa-arrow-up" style={{ fontSize: "30px", color: "white" }} />
+          <span style={{ position: "absolute", opacity: 0 }}>↑</span>
         </button>
       )}
-      {/* floating animation styles */}
+
       <style>
         {`
           @keyframes float {
@@ -91,11 +123,8 @@ function ScrollToTop() {
             50% { transform: translateY(-5px); }
             100% { transform: translateY(0); }
           }
-            
         `}
       </style>
     </>
   );
 }
-
-export default ScrollToTop;
