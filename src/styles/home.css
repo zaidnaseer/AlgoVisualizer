@@ -1120,6 +1120,8 @@ body.dark-mode .stat-card {
 .difficulty-level {
   font-size: 0.7rem;
   color: #94a3b8;
+  padding-left:17px;
+  padding-top: 10px;
 }
 
 .feature-highlights {
@@ -1163,8 +1165,8 @@ body.dark-mode .stat-card {
 .learning-paths {
   grid-area: paths;
   background: linear-gradient(145deg, 
-    rgba(15, 15, 35, 0.85), 
-    rgba(26, 26, 46, 0.9),
+    rgba(31, 31, 59, 0.85), 
+    rgba(60, 60, 100, 0.9),
     rgba(30, 58, 138, 0.05)
   );
   border: 1px solid rgba(148, 163, 184, 0.15);
