@@ -64,7 +64,9 @@ const SimpleExportControls = ({ containerId }) => {
       border: '1px solid rgba(102, 204, 255, 0.2)',
       padding: '25px',
       textAlign: 'center',
-      width: '100%'
+      gridRow: "1 / span 2",
+      width: '100%',
+      height: '100%',
     }}>
       <h3 style={{ color: '#66ccff', marginBottom: '10px' }}>Export Visualization</h3>
       <p style={{ color: '#e0e6ed', margin: '6px 0 14px 0' }}>{message}</p>
