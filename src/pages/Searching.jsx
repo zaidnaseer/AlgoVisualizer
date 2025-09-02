@@ -661,7 +661,7 @@ const Searching = () => {
                     steps.length > 0 ? getStepColorArray() : colorArray;
                   const heightPx = Math.max(
                     40,
-                    Math.round((num / maxVal) * 280)
+                    Math.round((num / maxVal) * 200)
                   );
                   return (
                     <div
@@ -710,7 +710,7 @@ const Searching = () => {
               <div
                 style={{
                   position: "absolute",
-                  bottom: "10px",
+                  top: "10px",
                   left: "50%",
                   transform: "translateX(-50%)",
                   color: "#66ccff",
