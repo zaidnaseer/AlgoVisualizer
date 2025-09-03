@@ -886,7 +886,7 @@ const Sorting = () => {
     >
       <h1
         className="page-title"
-        style={{ textAlign: "center", marginBottom: "30px" }}
+        style={{ textAlign: "center", marginBottom: "20px" }}
       >
         Sorting Algorithms
       </h1>
@@ -962,10 +962,12 @@ const Sorting = () => {
         className="controls-section"
         style={{
           display: "grid",
-          gridTemplateColumns: isTabletOrBelow ? "1fr" : "1fr 1fr",
+          gridTemplateColumns: isTabletOrBelow ? "1fr " : "1fr 1fr ",
+          gridTemplateRows: isTabletOrBelow ? "auto auto auto" : "auto auto",
           gap: "24px",
           marginBottom: "12px",
           width: "100%",
+          alignItems: "start",
         }}
       >
         <div
@@ -1017,7 +1019,7 @@ const Sorting = () => {
                 fontWeight: 600,
                 minWidth: isTabletOrBelow ? "auto" : "140px",
                 textAlign: isTabletOrBelow ? "left" : "right",
-                width: "100%",
+                // width: "100%"
               }}
             >
               {arraySize}{" "}
@@ -1036,6 +1038,7 @@ const Sorting = () => {
               gap: "10px",
               justifyContent: "space-between",
               width: "100%",
+              marginBottom: "4px",
             }}
           >
             <label
@@ -1062,7 +1065,7 @@ const Sorting = () => {
                 fontWeight: 600,
                 minWidth: isTabletOrBelow ? "auto" : "140px",
                 textAlign: isTabletOrBelow ? "left" : "right",
-                width: "100%",
+                // width: "100%",
               }}
             >
               {delay}ms
@@ -1071,6 +1074,61 @@ const Sorting = () => {
         </div>
 
         <SimpleExportControls containerId="sort-visualization-container" />
+        {/* Pseudocode panel */}
+        <div
+          style={{
+            flex: "0 0 300px",
+            minWidth: "280px",
+            maxWidth: "100%",
+            background: "rgba(102,204,255,0.07)",
+            border: "1px solid rgba(102,204,255,0.15)",
+            borderRadius: "12px",
+            padding: "18px",
+            overflowX: "auto",
+            marginTop: isTabletOrBelow ? "20px" : "0px",
+            height: "fit-content",
+            alignSelf: "flex-start",
+          }}
+        >
+          <h3 style={{ color: "#66ccff", marginBottom: "10px" }}>
+            {getAlgorithmName()} Pseudocode
+          </h3>
+          <pre
+            style={{
+              background:
+                theme === "dark"
+                  ? "rgba(26,26,46,0.95)"
+                  : "rgba(255,255,255,0.95)",
+              borderRadius: "8px",
+              padding: "14px",
+              fontSize: "15px",
+              color: "#e0e6ed",
+              marginBottom: "10px",
+              overflowX: "auto",
+            }}
+          >
+            {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line) => (
+              <div key={line.code} style={{ padding: "2px 6px" }}>
+                {line.code}
+              </div>
+            ))}
+          </pre>
+          <div
+            style={{
+              background: "rgba(102,204,255,0.08)",
+              borderRadius: "8px",
+              padding: "10px 12px",
+              fontSize: "14px",
+              color: "#b8c5d1",
+              minHeight: "40px",
+            }}
+          >
+            <strong>Explanation:</strong>
+            <br />
+            {(ALGORITHM_PSEUDOCODE[algorithm] || [])[0]?.explain ||
+              "Select an algorithm to view its pseudocode."}
+          </div>
+        </div>
       </div>
 
       {/* Status */}
@@ -1211,58 +1269,6 @@ const Sorting = () => {
           </div>
         </div>
 
-        {/* Pseudocode panel */}
-        <div
-          style={{
-            flex: "0 0 300px",
-            minWidth: "280px",
-            maxWidth: "100%",
-            background: "rgba(102,204,255,0.07)",
-            border: "1px solid rgba(102,204,255,0.15)",
-            borderRadius: "12px",
-            padding: "18px",
-            overflowX: "auto",
-          }}
-        >
-          <h3 style={{ color: "#66ccff", marginBottom: "10px" }}>
-            {getAlgorithmName()} Pseudocode
-          </h3>
-          <pre
-            style={{
-              background:
-                theme === "dark"
-                  ? "rgba(26,26,46,0.95)"
-                  : "rgba(255,255,255,0.95)",
-              borderRadius: "8px",
-              padding: "14px",
-              fontSize: "15px",
-              color: "#e0e6ed",
-              marginBottom: "10px",
-              overflowX: "auto",
-            }}
-          >
-            {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line) => (
-              <div key={line.code} style={{ padding: "2px 6px" }}>
-                {line.code}
-              </div>
-            ))}
-          </pre>
-          <div
-            style={{
-              background: "rgba(102,204,255,0.08)",
-              borderRadius: "8px",
-              padding: "10px 12px",
-              fontSize: "14px",
-              color: "#b8c5d1",
-              minHeight: "40px",
-            }}
-          >
-            <strong>Explanation:</strong>
-            <br />
-            {(ALGORITHM_PSEUDOCODE[algorithm] || [])[0]?.explain ||
-              "Select an algorithm to view its pseudocode."}
-          </div>
-        </div>
       </div>
 
       {/* Stats */}
