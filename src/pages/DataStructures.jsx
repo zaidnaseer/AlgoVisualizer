@@ -67,6 +67,28 @@ const algorithmDatabase = {
         inPlace: true,
         adaptivity: "Not Adaptive",
         implemented: true
+      },
+      {
+        name: "Tim Sort",
+        id: "timSort",
+        description: "Hybrid stable sorting algorithm derived from merge sort and insertion sort. Optimized for real-world data by taking advantage of runs (already sorted subsequences).",
+        timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(n)",
+        stability: "Stable",
+        inPlace: false,
+        adaptivity: "Adaptive",
+        implemented: true
+      },
+      {
+        name: "Intro Sort",
+        id: "introSort",
+        description: "Hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth is too large, and uses insertion sort for small partitions. Combines fast average performance with worst-case guarantees.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(log n)",
+        stability: "Unstable",
+        inPlace: true,
+        adaptivity: "Not Adaptive",
+        implemented: true
       }
     ]
   },

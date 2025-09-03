@@ -23,5 +23,15 @@
     "name": "Quick Sort",
     "description": "Quick Sort selects a pivot and partitions the array into two halves, sorting the elements on either side of the pivot. It is generally faster than other O(n log n) algorithms due to its divide-and-conquer approach.",
     "useCase": "Widely used for large datasets due to its efficiency, especially when the average performance is more important than the worst-case scenario."
-  }
+  },
+  {
+    "name": "Tim Sort",
+    "description": "Tim Sort is a hybrid sorting algorithm derived from merge sort and insertion sort. It splits the array into small chunks, sorts them individually, and then merges them efficiently.",
+    "useCase": "It is the default sorting algorithm in Python and Java, optimized for real-world data patterns and partially ordered datasets."
+  },
+  {
+    "name": "Intro Sort",
+    "description": "Intro Sort (Introspective Sort) is a hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth exceeds a certain level, and uses insertion sort for small partitions. This ensures both fast average performance and guaranteed worst-case efficiency.",
+    "useCase": "It is commonly used in C++ Standard Library's std::sort() because it combines the fast performance of quicksort with the reliability of heapsort and the efficiency of insertion sort on small datasets."
+  }  
 ]
