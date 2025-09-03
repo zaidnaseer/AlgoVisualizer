@@ -92,6 +92,28 @@ const algorithmDatabase = {
         adaptivity: "Not Adaptive",
         implemented: true, 
       },
+      {
+        name: "Tim Sort",
+        id: "timSort",
+        description: "Hybrid stable sorting algorithm combining Insertion Sort and Merge Sort. Detects natural runs, sorts them, and merges efficiently. Default in Python and Java.",
+        timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(n)",
+        stability: "Stable",
+        inPlace: false,
+        adaptivity: "Adaptive (leverages existing runs)",
+        implemented: true
+      },
+      {
+        name: "Intro Sort",
+        id: "introSort",
+        description: "Hybrid sorting algorithm that begins with Quick Sort, switches to Heap Sort if recursion depth is too deep, and uses Insertion Sort for small partitions.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(log n)",
+        stability: "Unstable",
+        inPlace: true,
+        adaptivity: "Partially Adaptive",
+        implemented: true
+      },      
     ],
   },
   searching: {

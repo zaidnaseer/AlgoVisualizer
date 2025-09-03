@@ -155,6 +155,92 @@ const ALGORITHM_PSEUDOCODE = {
       explain: "Restore the max-heap property on the reduced heap.",
     },
   ],
+
+  timSort: [
+    { 
+      code: "minRun = calculateMinRun(n)", 
+      explain: "Compute the minimum run size (32–64 depending on n)." 
+    },
+    { 
+      code: "for i from 0 to n step minRun", 
+      explain: "Process array in chunks of size minRun." 
+    },
+    { 
+      code: "  end = min(i + minRun - 1, n-1)", 
+      explain: "Find the end index of the current run." 
+    },
+    { 
+      code: "  insertionSort(arr, i, end)", 
+      explain: "Sort each small run with insertion sort." 
+    },
+    { 
+      code: "size = minRun", 
+      explain: "Start merging from size = minRun." 
+    },
+    { 
+      code: "while size < n", 
+      explain: "Double the size of runs until the array is sorted." 
+    },
+    { 
+      code: "  for left from 0 to n-1 in steps of 2*size", 
+      explain: "Pick pairs of runs to merge." 
+    },
+    { 
+      code: "    mid = left + size - 1", 
+      explain: "Find midpoint of the current run." 
+    },
+    { 
+      code: "    right = min((left + 2*size - 1), n-1)", 
+      explain: "Find end of the right run." 
+    },
+    { 
+      code: "    if mid < right", 
+      explain: "Check if two runs exist to merge." 
+    },
+    { 
+      code: "      merge(arr, left, mid, right)", 
+      explain: "Merge the two runs like in merge sort." 
+    },
+    { 
+      code: "  size = size * 2", 
+      explain: "Double the size and repeat merging." 
+    },
+  ],
+  
+  introSort: [
+    { 
+      code: "maxDepth = 2 * log₂(n)", 
+      explain: "Set a recursion depth limit based on array size." 
+    },
+    { 
+      code: "introSortHelper(arr, 0, n-1, maxDepth)", 
+      explain: "Start sorting with quicksort strategy." 
+    },
+    { 
+      code: "if size < threshold", 
+      explain: "Use insertion sort for small subarrays." 
+    },
+    { 
+      code: "else if depth == 0", 
+      explain: "If recursion depth is exhausted, switch to heapsort." 
+    },
+    { 
+      code: "else", 
+      explain: "Otherwise, use quicksort partitioning with pivot." 
+    },
+    { 
+      code: "  partition around pivot", 
+      explain: "Rearrange elements around pivot element." 
+    },
+    { 
+      code: "  recursively sort left and right halves", 
+      explain: "Apply introsort recursively on partitions." 
+    },
+    { 
+      code: "final insertion sort pass", 
+      explain: "Ensure small pieces are fully sorted at the end." 
+    }
+  ],  
 };
 
 const algorithmNames = {
@@ -166,6 +252,8 @@ const algorithmNames = {
   radixSort: "Radix Sort",
   bucketSort: "Bucket Sort",
   heapSort: "Heap Sort",
+  timSort: "Tim Sort",
+  introSort: "Intro Sort",  
 };
 
 // Helpers for Selection Sort to keep cognitive complexity low
@@ -354,6 +442,21 @@ const Sorting = () => {
         bestCase: "O(n log n)",
         stable: "No",
       },
+      timSort: {
+        description: "Hybrid of merge sort and insertion sort, optimized for real-world data.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(n)",
+        bestCase: "O(n)",
+        stable: "Yes",
+      },     
+      introSort: {
+        description:
+          "Hybrid algorithm that starts with quicksort, switches to heapsort if recursion is too deep, and uses insertion sort for small partitions.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(log n)",
+        bestCase: "O(n log n)",
+        stable: "No",
+      },      
     };
     return info[algorithm];
   };
@@ -721,7 +824,191 @@ const Sorting = () => {
       (s) => setStatistics((prev) => ({ ...prev, ...s }))
     );
   };
+const timSortWithStop = async (
+    arr,
+    setArrayState,
+    setColorState,
+    sleepFn,
+    stopRef,
+    setStats
+  ) => {
+    const RUN = 32; // Typical run size
+    const a = [...arr];
+    const n = a.length;
+    let comparisons = 0, swaps = 0;
 
+    // Insertion sort for small runs
+    async function insertionSort(left, right) {
+      for (let i = left + 1; i <= right; i++) {
+        let key = a[i], j = i - 1;
+        while (j >= left && a[j] > key) {
+          if (stopRef.current) throw new Error("Stopped");
+          a[j + 1] = a[j];
+          swaps++;
+          comparisons++;
+          j--;
+          setArrayState([...a]);
+          setColorState(new Array(n).fill("#66ccff"));
+          await sleepFn();
+        }
+        a[j + 1] = key;
+        setArrayState([...a]);
+      }
+    }
+
+    // Merge function
+    async function merge(l, m, r) {
+      let left = a.slice(l, m + 1);
+      let right = a.slice(m + 1, r + 1);
+      let i = 0, j = 0, k = l;
+      while (i < left.length && j < right.length) {
+        if (stopRef.current) throw new Error("Stopped");
+        comparisons++;
+        if (left[i] <= right[j]) {
+          a[k++] = left[i++];
+        } else {
+          a[k++] = right[j++];
+        }
+        swaps++;
+        setArrayState([...a]);
+        setColorState(new Array(n).fill("#ffd93d"));
+        await sleepFn();
+      }
+      while (i < left.length) a[k++] = left[i++];
+      while (j < right.length) a[k++] = right[j++];
+      setArrayState([...a]);
+    }
+
+    // TimSort main
+    for (let i = 0; i < n; i += RUN) {
+      await insertionSort(i, Math.min((i + RUN - 1), n - 1));
+    }
+    for (let size = RUN; size < n; size = 2 * size) {
+      for (let left = 0; left < n; left += 2 * size) {
+        let mid = Math.min(left + size - 1, n - 1);
+        let right = Math.min((left + 2 * size - 1), n - 1);
+        if (mid < right) {
+          await merge(left, mid, right);
+        }
+      }
+    }
+
+    setStats({ comparisons, swaps, time: 0 });
+    setColorState(new Array(n).fill("#4ade80"));
+    return 0;
+  };
+
+  const introSortWithStop = async (
+    arr,
+    setArrayState,
+    setColorState,
+    sleepFn,
+    stopRef,
+    setStats
+  ) => {
+    const a = [...arr];
+    const n = a.length;
+    let comparisons = 0, swaps = 0;
+    const THRESHOLD = 16;
+    const maxDepth = 2 * Math.floor(Math.log2(n));
+
+    async function insertionSort(left, right) {
+      for (let i = left + 1; i <= right; i++) {
+        let key = a[i];
+        let j = i - 1;
+        while (j >= left && a[j] > key) {
+          if (stopRef.current) throw new Error("Stopped");
+          comparisons++;
+          a[j + 1] = a[j];
+          swaps++;
+          j--;
+          setArrayState([...a]);
+          setColorState(new Array(n).fill("#66ccff"));
+          await sleepFn();
+        }
+        a[j + 1] = key;
+        setArrayState([...a]);
+      }
+    }
+
+    async function heapify(heapSize, i) {
+      if (stopRef.current) throw new Error("Stopped");
+      let largest = i;
+      const left = 2 * i + 1;
+      const right = 2 * i + 2;
+
+      if (left < heapSize) {
+        comparisons++;
+        if (a[left] > a[largest]) largest = left;
+      }
+      if (right < heapSize) {
+        comparisons++;
+        if (a[right] > a[largest]) largest = right;
+      }
+
+      if (largest !== i) {
+        [a[i], a[largest]] = [a[largest], a[i]];
+        swaps++;
+        setArrayState([...a]);
+        await sleepFn();
+        await heapify(heapSize, largest);
+      }
+    }
+
+    async function heapSort(start, end) {
+      const size = end - start + 1;
+      for (let i = Math.floor(size / 2) - 1; i >= 0; i--) {
+        await heapify(size, i);
+      }
+      for (let i = size - 1; i > 0; i--) {
+        [a[0], a[i]] = [a[i], a[0]];
+        swaps++;
+        setArrayState([...a]);
+        await sleepFn();
+        await heapify(i, 0);
+      }
+    }
+
+    async function partition(low, high) {
+      const pivot = a[high];
+      let i = low - 1;
+      for (let j = low; j < high; j++) {
+        if (stopRef.current) throw new Error("Stopped");
+        comparisons++;
+        if (a[j] <= pivot) {
+          i++;
+          [a[i], a[j]] = [a[j], a[i]];
+          swaps++;
+          setArrayState([...a]);
+          setColorState(new Array(n).fill("#ffd93d"));
+          await sleepFn();
+        }
+      }
+      [a[i + 1], a[high]] = [a[high], a[i + 1]];
+      swaps++;
+      return i + 1;
+    }
+
+    async function introSortHelper(low, high, depthLimit) {
+      if (high - low <= THRESHOLD) {
+        await insertionSort(low, high);
+        return;
+      }
+      if (depthLimit === 0) {
+        await heapSort(low, high);
+        return;
+      }
+      const pi = await partition(low, high);
+      await introSortHelper(low, pi - 1, depthLimit - 1);
+      await introSortHelper(pi + 1, high, depthLimit - 1);
+    }
+
+    await introSortHelper(0, n - 1, maxDepth);
+
+    setStats({ comparisons, swaps, time: 0 });
+    setColorState(new Array(n).fill("#4ade80"));
+    return 0;
+  };
   // Actions
   const handleSort = async () => {
     if (isSorting) return;
@@ -822,6 +1109,27 @@ const Sorting = () => {
         case "bucketSort":
           await runBucketSort();
           break;
+        case "timSort":
+          await timSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;
+        case "introSort":
+          await introSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;  
+
         default:
           await bubbleSortWithStop(
             arrayToSort,
@@ -877,6 +1185,8 @@ const Sorting = () => {
     "radixSort",
     "bucketSort",
     "heapSort",
+    "timSort",
+    "introSort",    
   ];
 
   return (
