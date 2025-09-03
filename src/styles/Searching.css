@@ -1,17 +1,306 @@
+
+
+/* Robust theme fix */
+/* This approach uses explicit selectors instead of just CSS variables */
+
+/* ===========================================
+   LIGHT MODE STYLES (Default)
+=========================================== */
+
+/* Text elements in light mode */
+body:not([data-theme='dark']) .page-title,
+body:not([data-theme='dark']) h1,
+body:not([data-theme='dark']) h2,
+body:not([data-theme='dark']) h3,
+body:not([data-theme='dark']) h4,
+body:not([data-theme='dark']) h5,
+body:not([data-theme='dark']) h6 {
+  color: #1e293b !important;
+}
+
+body:not([data-theme='dark']) p,
+body:not([data-theme='dark']) div,
+body:not([data-theme='dark']) span,
+body:not([data-theme='dark']) label {
+  color: #374151 !important;
+}
+
+body:not([data-theme='dark']) .text-secondary {
+  color: #64748b !important;
+}
+
+/* Accent colors in light mode */
+body:not([data-theme='dark']) .searching-container h2 {
+  color: #3b82f6 !important;
+}
+
+body:not([data-theme='dark']) .learn-box h3 {
+  color: #3b82f6 !important;
+}
+
+/* Complexity titles and accent text */
+body:not([data-theme='dark']) .complexity-title,
+body:not([data-theme='dark']) [style*="color: #66ccff"],
+body:not([data-theme='dark']) [style*="color:#66ccff"] {
+  color: #3b82f6 !important;
+}
+
+/* Status messages */
+body:not([data-theme='dark']) .status-message {
+  color: #3b82f6 !important;
+}
+
+/* Algorithm details section */
+body:not([data-theme='dark']) .algorithm-info h3 {
+  color: #1e293b !important;
+}
+
+body:not([data-theme='dark']) .algorithm-info .complexity-value {
+  color: #374151 !important;
+}
+
+/* Input elements in light mode */
+body:not([data-theme='dark']) input,
+body:not([data-theme='dark']) select,
+body:not([data-theme='dark']) textarea {
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #d1d5db !important;
+}
+
+body:not([data-theme='dark']) input::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Cards and containers in light mode */
+body:not([data-theme='dark']) .controls-section,
+body:not([data-theme='dark']) .visualization-area,
+body:not([data-theme='dark']) .algorithm-info,
+body:not([data-theme='dark']) .learn-box {
+  background: rgba(59, 130, 246, 0.03) !important;
+  border-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Buttons in light mode */
+body:not([data-theme='dark']) .btn {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+body:not([data-theme='dark']) .btn-secondary {
+  background: #6b7280 !important;
+  color: #ffffff !important;
+}
+
+/* Pseudocode section in light mode */
+body:not([data-theme='dark']) pre {
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  border-color: #e5e7eb !important;
+}
+
+/* ===========================================
+   DARK MODE STYLES (Explicit)
+=========================================== */
+
+/* Text elements in dark mode */
+[data-theme='dark'] .page-title,
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] h4,
+[data-theme='dark'] h5,
+[data-theme='dark'] h6 {
+  color: #e6edf3 !important;
+}
+
+[data-theme='dark'] p,
+[data-theme='dark'] div,
+[data-theme='dark'] span,
+[data-theme='dark'] label {
+  color: #c9d1d9 !important;
+}
+
+[data-theme='dark'] .text-secondary {
+  color: #8b949e !important;
+}
+
+/* Accent colors in dark mode */
+[data-theme='dark'] .searching-container h2 {
+  color: #66ccff !important;
+}
+
+[data-theme='dark'] .learn-box h3 {
+  color: #66ccff !important;
+}
+
+/* Complexity titles and accent text */
+[data-theme='dark'] .complexity-title {
+  color: #66ccff !important;
+}
+
+/* Status messages */
+[data-theme='dark'] .status-message {
+  color: #66ccff !important;
+}
+
+/* Algorithm details section */
+[data-theme='dark'] .algorithm-info h3 {
+  color: #e6edf3 !important;
+}
+
+[data-theme='dark'] .algorithm-info .complexity-value {
+  color: #c9d1d9 !important;
+}
+
+/* Input elements in dark mode */
+[data-theme='dark'] input,
+[data-theme='dark'] select,
+[data-theme='dark'] textarea {
+  background: #0f0f1f !important;
+  color: #e6edf3 !important;
+  border-color: #30363d !important;
+}
+
+[data-theme='dark'] input::placeholder {
+  color: #6e7681 !important;
+}
+
+/* Cards and containers in dark mode */
+[data-theme='dark'] .controls-section,
+[data-theme='dark'] .visualization-area,
+[data-theme='dark'] .algorithm-info,
+[data-theme='dark'] .learn-box {
+  background: rgba(102, 204, 255, 0.08) !important;
+  border-color: rgba(102, 204, 255, 0.25) !important;
+}
+
+/* Buttons in dark mode */
+[data-theme='dark'] .btn {
+  background: #66ccff !important;
+  color: #0d1117 !important;
+}
+
+[data-theme='dark'] .btn-secondary {
+  background: #8b949e !important;
+  color: #0d1117 !important;
+}
+
+/* Pseudocode section in dark mode */
+[data-theme='dark'] pre {
+  background: #161b22 !important;
+  color: #e6edf3 !important;
+  border-color: #30363d !important;
+}
+
+/* ===========================================
+   INLINE STYLE OVERRIDES
+=========================================== */
+
+/* Force override inline styles that might be causing issues */
+[data-theme='dark'] [style*="color: #e0e6ed"] {
+  color: #c9d1d9 !important;
+}
+
+[data-theme='dark'] [style*="color: #b8c5d1"] {
+  color: #8b949e !important;
+}
+
+body:not([data-theme='dark']) [style*="color: #e0e6ed"] {
+  color: #374151 !important;
+}
+
+body:not([data-theme='dark']) [style*="color: #b8c5d1"] {
+  color: #64748b !important;
+}
+
+/* Fix for any elements with hardcoded light colors */
+body:not([data-theme='dark']) [style*="color: #66ccff"] {
+  color: #3b82f6 !important;
+}
+
+body:not([data-theme='dark']) [style*="color: #ffd93d"] {
+  color: #f59e0b !important;
+}
+
+/* ===========================================
+   SPECIFIC COMPONENT FIXES
+=========================================== */
+
+/* Algorithm details cards */
+body:not([data-theme='dark']) .complexity-card {
+  background: rgba(59, 130, 246, 0.05) !important;
+  border-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+[data-theme='dark'] .complexity-card {
+  background: rgba(102, 204, 255, 0.08) !important;
+  border-color: rgba(102, 204, 255, 0.25) !important;
+}
+
+/* Step navigation text */
+body:not([data-theme='dark']) [style*="color: #66ccff"][style*="fontWeight: 600"] {
+  color: #3b82f6 !important;
+}
+
+/* Message text */
+body:not([data-theme='dark']) [style*="color: #66ccff"][style*="margin"] {
+  color: #3b82f6 !important;
+}
+
+/* ===========================================
+   FORCE BODY COLORS
+=========================================== */
+body {
+  background: #ffffff !important;
+  color: #1e293b !important;
+}
+
+[data-theme='dark'] body {
+  background: #0d1117 !important;
+  color: #e6edf3 !important;
+}
 /* =======================
-   Global Page Styling
+   Root Theme Variables
+======================= */
+:root {
+  --search-bg-primary: #ffffff;
+  --search-bg-secondary: #f8fafc;
+  --search-text-primary: #1e293b;
+  --search-text-secondary: #64748b;
+  --search-border: #e2e8f0;
+  --search-accent: #3b82f6;
+  --search-input-bg: #ffffff;
+  --search-card-bg: rgba(59, 130, 246, 0.05);
+  --search-card-border: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme='dark'] {
+  --search-bg-primary: #0d1117;
+  --search-bg-secondary: #161b22;
+  --search-text-primary: #e6edf3;
+  --search-text-secondary: #8b949e;
+  --search-border: #30363d;
+  --search-accent: #66ccff;
+  --search-input-bg: #0f0f1f;
+  --search-card-bg: rgba(102, 204, 255, 0.08);
+  --search-card-border: rgba(102, 204, 255, 0.25);
+}
+
+/* =======================
+   Global Page Styling (Updated)
 ======================= */
 body {
   font-family: 'Poppins', sans-serif;
-  background: #0d1117 !important;
-  color: #e6edf3 !important;
+  background: var(--search-bg-primary) !important;
+  color: var(--search-text-primary) !important;
   margin: 0;
   padding: 0;
   overflow-y: scroll;
 }
 
 /* =======================
-   Main Container
+   Main Container (Updated)
 ======================= */
 .searching-container {
   text-align: center;
@@ -20,60 +309,88 @@ body {
   margin: auto;
 }
 
+/* Page Title */
+.page-title {
+  color: var(--search-text-primary);
+  font-weight: 700;
+}
+
 /* Heading */
 .searching-container h2 {
   font-size: 2rem;
   font-weight: 600;
-  color: #66ccff;
+  color: var(--search-accent);
   margin-bottom: 20px;
 }
 
+/* All headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--search-text-primary);
+}
+
 /* =======================
-   Controls Section
+   Controls Section (Updated)
 ======================= */
 .searching-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;   /* Wraps on small screens */
-  gap: 15px;         /* Equal spacing between elements */
+  flex-wrap: wrap;
+  gap: 15px;
   margin: 25px 0;
 }
 
 .searching-controls label {
   font-size: 1rem;
   font-weight: 500;
+  color: var(--search-text-primary);
 }
 
 .searching-controls input {
   padding: 10px 14px;
   font-size: 1rem;
-  border: 2px solid #66ccff;
+  border: 2px solid var(--search-accent);
   border-radius: 15px;
-  width:300px ;
+  width: 300px;
   outline: none;
-  background: #0f0f1f;
-  color: #e0e6ed;
+  background: var(--search-input-bg);
+  color: var(--search-text-primary);
   min-width: 160px;
   transition: 0.3s ease;
 }
 
 .searching-controls input:focus {
-  border-color: #ffd93d;
-  box-shadow: 0 0 6px #ffd93d;
+  border-color: var(--search-accent);
+  box-shadow: 0 0 6px var(--search-accent);
 }
 
-/* Export button alignment */
-.searching-controls .export-container {
-  margin-left: 50px;
-}
-.export-button{
-    height: 20px;
+/* Generic input styling */
+.input {
+  background: var(--search-input-bg);
+  color: var(--search-text-primary);
+  border: 1px solid var(--search-border);
+  border-radius: 8px;
+  padding: 8px 12px;
 }
 
+.input:focus {
+  outline: none;
+  border-color: var(--search-accent);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+[data-theme='dark'] .input:focus {
+  box-shadow: 0 0 0 2px rgba(102, 204, 255, 0.2);
+}
+
+/* Labels */
+.label {
+  color: var(--search-text-primary);
+  font-weight: 500;
+}
 
 /* =======================
-   Buttons
+   Buttons (Updated)
 ======================= */
 .searching-button {
   padding: 10px 20px;
@@ -82,8 +399,8 @@ body {
   height: 65px;
   border-radius: 25px;
   cursor: pointer;
-  color: #0d1117;
-  background: #58a6ff;
+  color: var(--search-bg-primary);
+  background: var(--search-accent);
   border: none;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -91,24 +408,45 @@ body {
 
 .searching-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  background: #79c0ff;
-  color: #0d1117;
+  opacity: 0.9;
 }
 
 .searching-button:disabled {
-  background: grey;
+  background: var(--search-text-secondary);
   cursor: not-allowed;
   opacity: 0.6;
 }
 
+/* Generic button styling */
+.btn {
+  background: var(--search-accent);
+  color: var(--search-bg-primary);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--search-text-secondary);
+  color: var(--search-bg-primary);
+}
+
 /* =======================
-   Algorithm Selection
+   Algorithm Selection (Updated)
 ======================= */
 .searching-algorithm-selection {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;       /* Equal spacing between buttons */
+  gap: 12px;
   margin: 30px 0;
 }
 
@@ -116,93 +454,98 @@ body {
   padding: 12px 18px;
   min-width: 140px;
   text-align: center;
-  background: white;
-  border: 1px solid #ddd;
-  color: #1a1a2e;
+  background: var(--search-input-bg);
+  border: 1px solid var(--search-border);
+  color: var(--search-text-primary);
   font-weight: 500;
   height: 60px;
 }
 
 .searching-algorithm-selection .searching-button:hover {
-  background: #66ccff;
-  color: #1a1a2e;
+  background: var(--search-accent);
+  color: var(--search-bg-primary);
 }
 
 /* =======================
-   Array Bars
+   Cards and Containers (Updated)
 ======================= */
-.searching-array-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 20px;
-  margin: 40px auto;
-  gap: 8px;
+.controls-section {
+  background: var(--search-card-bg);
+  border: 1px solid var(--search-card-border);
+  border-radius: 15px;
+  padding: 20px;
 }
 
-.searching-array-bar {
-  width: 30px;
-  background: #61dafb;
-  text-align: center;
-  font-size: 12px;
-  border-radius: 5px;
-  color: #1a1a2e;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 5px;
-  transition: all 0.3s ease;
+.visualization-area {
+  background: var(--search-card-bg);
+  border: 1px solid var(--search-card-border);
+  border-radius: 15px;
+  padding: 20px;
 }
-.searching-array-bar:hover{
-    transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(255, 187, 71, 0.5);
+
+.algorithm-info {
+  background: var(--search-card-bg);
+  border: 1px solid var(--search-card-border);
+  border-radius: 12px;
+  padding: 16px;
 }
+
 /* =======================
-   Message Text
+   Text Elements (Updated)
 ======================= */
 .searching-container p {
   margin-top: 15px;
   font-size: 1.1rem;
-  color: #ffd93d;
+  color: var(--search-accent);
   font-weight: 500;
 }
 
+/* Generic text styling */
+p, span, div {
+  color: var(--search-text-primary);
+}
+
+/* Secondary text */
+.text-secondary {
+  color: var(--search-text-secondary);
+}
+
 /* =======================
-   Learn the Algorithm Box
+   Learn Box (Updated)
 ======================= */
 .learn-box {
   text-align: center;
   margin: 40px auto;
   padding: 30px 25px;
   max-width: 800px;
-  background: rgba(102, 204, 255, 0.08);
+  background: var(--search-card-bg);
   border-radius: 12px;
-  border: 1px solid rgba(102, 204, 255, 0.25);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--search-card-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(6px);
 }
 
-/* Heading */
+[data-theme='dark'] .learn-box {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .learn-box h3 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #66ccff;
+  color: var(--search-accent);
   margin-bottom: 12px;
 }
 
-/* Subtext */
 .learn-box p {
   font-size: 1rem;
-  color: #e0e6ed;
+  color: var(--search-text-primary);
   margin-bottom: 25px;
   line-height: 1.5;
 }
 
-/* Button */
-
-.explanation-button{
-    background: #f85149;
-  color: #e6edf3;
+.explanation-button {
+  background: var(--search-accent);
+  color: var(--search-bg-primary);
   border: none;
   width: 250px;
   height: 60px;
@@ -215,17 +558,85 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 10px rgba(255, 187, 71, 0.3);
-}
-.explanation-button:hover{
-      background: #da3633;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(248, 81, 73, 0.5);
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
 }
 
-/* =========================
-   Responsive Design
-========================= */
+[data-theme='dark'] .explanation-button {
+  box-shadow: 0 4px 10px rgba(102, 204, 255, 0.3);
+}
+
+.explanation-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(59, 130, 246, 0.4);
+}
+
+[data-theme='dark'] .explanation-button:hover {
+  box-shadow: 0 6px 14px rgba(102, 204, 255, 0.5);
+}
+
+/* =======================
+   Select Elements
+======================= */
+select {
+  background: var(--search-input-bg);
+  color: var(--search-text-primary);
+  border: 1px solid var(--search-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+select option {
+  background: var(--search-input-bg);
+  color: var(--search-text-primary);
+}
+
+/* =======================
+   Status Messages
+======================= */
+.status-message {
+  color: var(--search-accent);
+  font-weight: 600;
+}
+
+.error-message {
+  color: #ef4444;
+}
+
+/* =======================
+   Specific Algorithm Details
+======================= */
+.complexity-card {
+  background: var(--search-card-bg);
+  border: 1px solid var(--search-card-border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.complexity-title {
+  color: var(--search-accent);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.complexity-value {
+  color: var(--search-text-primary);
+}
+
+/* =======================
+   Pseudocode Section
+======================= */
+pre {
+  background: var(--search-bg-secondary);
+  color: var(--search-text-primary);
+  border-radius: 8px;
+  padding: 14px;
+  border: 1px solid var(--search-border);
+}
+
+/* =======================
+   Responsive Design Updates
+======================= */
 @media (max-width: 768px) {
     .searching-container {
         padding: 20px;
@@ -234,9 +645,9 @@ body {
 
     .searching-container h2 {
         font-size: 1.8rem;
+        color: var(--search-accent);
     }
 
-    /* Controls section */
     .searching-controls {
         flex-direction: column;
         gap: 12px;
@@ -245,131 +656,40 @@ body {
     .searching-controls input {
         width: 100%;
         max-width: 300px;
+        background: var(--search-input-bg);
+        color: var(--search-text-primary);
     }
 
-    .searching-controls .export-container {
-        margin-left: 0;
-        width: 100%;
-        text-align: center;
-    }
-
-    /* Buttons */
-    .searching-button {
-        width: 100%;
-        max-width: 250px;
-        height: 55px;
-        font-size: 14px;
-    }
-
-    /* Algorithm selection */
-    .searching-algorithm-selection {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .searching-algorithm-selection .searching-button {
-        width: 100%;
-        max-width: 220px;
-        height: 50px;
-        font-size: 14px;
-    }
-
-    /* Array bars */
-    .searching-array-container {
-        height: 150px;
-        gap: 5px;
-    }
-
-    .searching-array-bar {
-        width: 20px;
-        font-size: 10px;
-        padding-bottom: 3px;
-    }
-
-    /* Learn box */
     .learn-box {
         padding: 25px 15px;
         max-width: 95%;
+        background: var(--search-card-bg);
     }
 
     .learn-box h3 {
         font-size: 1.3rem;
+        color: var(--search-accent);
     }
 
     .learn-box p {
         font-size: 0.95rem;
-    }
-
-    .explanation-button {
-        width: 100%;
-        max-width: 220px;
-        height: 50px;
-        font-size: 14px;
-        padding: 10px 20px;
+        color: var(--search-text-primary);
     }
 }
 
 @media (max-width: 480px) {
     .searching-container h2 {
         font-size: 1.5rem;
-    }
-
-    /* Controls */
-    .searching-controls {
-        gap: 8px;
-    }
-
-    .searching-controls input {
-        width: 100%;
-        min-width: unset;
-    }
-
-    .searching-controls label {
-        font-size: 0.9rem;
-    }
-
-    /* Buttons */
-    .searching-button {
-        height: 50px;
-        font-size: 13px;
-    }
-
-    /* Algorithm buttons */
-    .searching-algorithm-selection .searching-button {
-        height: 45px;
-        font-size: 13px;
-    }
-
-    /* Array bars */
-    .searching-array-container {
-        height: 120px;
-        gap: 4px;
-    }
-
-    .searching-array-bar {
-        width: 15px;
-        font-size: 9px;
-        padding-bottom: 2px;
-    }
-
-    /* Learn box */
-    .learn-box {
-        padding: 20px 10px;
+        color: var(--search-accent);
     }
 
     .learn-box h3 {
         font-size: 1.2rem;
+        color: var(--search-accent);
     }
 
     .learn-box p {
         font-size: 0.9rem;
-    }
-
-    .explanation-button {
-        width: 100%;
-        max-width: 200px;
-        height: 45px;
-        font-size: 13px;
-        padding: 8px 16px;
+        color: var(--search-text-primary);
     }
 }
