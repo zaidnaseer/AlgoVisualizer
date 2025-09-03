@@ -9,9 +9,7 @@ const Graph = () => {
       style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}
     >
       <h1 className="page-title">Graph Algorithms Visualization</h1>
-      <p
-        style={{ textAlign: "center", color:"navy", marginBottom: "30px" }}
-      >
+      <p className="page-subtitle">
         Create your own graph by adding nodes and edges, and visualize graph
         traversal algorithms.
       </p>
@@ -19,7 +17,7 @@ const Graph = () => {
       {/* Informative Description Section */}
       <div className="algorithm-info" style={{ marginBottom: "30px" }}>
         <h3 style={{ color: "#66ccff" }}>What is a Graph?</h3>
-        <p style={{ color: "navy" }}>
+        <p className="info-text">
           A graph is a non-linear data structure consisting of a set of vertices
           (or nodes) and a set of edges connecting these vertices. Graphs are
           used to model relationships between objects and are fundamental in
@@ -28,18 +26,18 @@ const Graph = () => {
         <div className="complexity-grid">
           <div className="complexity-row">
             <span className="complexity-label">Vertices (Nodes):</span>
-            <span style={{ color: "navy" }}>
+            <span className="info-text">
               The fundamental units of which graphs are formed.
             </span>
           </div>
           <div className="complexity-row">
             <span className="complexity-label">Edges:</span>
-            <span style={{ color: "navy" }}>
+            <span className="info-text">
               The connections between pairs of vertices.
             </span>
           </div>
         </div>
-        <p style={{ color: "navy", marginTop: "15px" }}>
+        <p className="info-text" style={{ marginTop: "15px" }}>
           <strong>Real-world applications:</strong> Social networks, GPS and
           mapping systems, computer networks, and recommendation engines all
           rely on graph structures to represent and analyze data.
@@ -47,7 +45,7 @@ const Graph = () => {
       </div>
       <div className="algorithm-info" style={{ marginBottom: "30px" }}>
         <h3 style={{ color: "#66ccff" }}>Dijkstra's Shortest Path Algorithm</h3>
-        <p style={{ color: "navy" }}>
+        <p className="info-text">
           Dijkstra's algorithm finds the shortest path between two nodes in a
           weighted graph. It works by visiting nodes and greedily selecting the
           unvisited node with the smallest known distance.
@@ -55,7 +53,7 @@ const Graph = () => {
         <div className="complexity-grid">
           <div className="complexity-row">
             <span className="complexity-label">Time Complexity:</span>
-            <span style={{ color: "navy" }}>O(E + V log V)</span>
+            <span className="info-text">O(E + V log V)</span>
           </div>
         </div>
       </div>
