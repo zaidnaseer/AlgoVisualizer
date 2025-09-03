@@ -335,6 +335,69 @@ const Searching = () => {
       setIsSearching(false);
     }
   };
+  useEffect(() => {
+  const forceThemeReset = () => {
+    // Force remove any cached styles
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(el => {
+      if (el.style && el.style.color) {
+        const currentColor = el.style.color;
+        // Reset problematic light colors in light mode
+        if (!document.documentElement.hasAttribute('data-theme') || 
+            document.documentElement.getAttribute('data-theme') !== 'dark') {
+          if (currentColor.includes('rgb(224, 230, 237)') || 
+              currentColor.includes('rgb(184, 197, 209)') ||
+              currentColor.includes('#e0e6ed') ||
+              currentColor.includes('#b8c5d1') ||
+              currentColor.includes('rgb(102, 204, 255)')) {
+            el.style.color = '#374151';
+          }
+        }
+      }
+    });
+
+    // Force body theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.body.style.backgroundColor = isDark ? '#0d1117' : '#ffffff';
+    document.body.style.color = isDark ? '#e6edf3' : '#1e293b';
+    
+    // Force page container theme
+    const pageContainer = document.querySelector('.page-container');
+    if (pageContainer) {
+      pageContainer.style.backgroundColor = isDark ? '#0d1117' : '#ffffff';
+      pageContainer.style.color = isDark ? '#e6edf3' : '#1e293b';
+    }
+
+    // Trigger a small re-render by toggling a state
+    setMessage(prev => prev + ' '); // Add space to trigger re-render
+    setTimeout(() => {
+      setMessage(prev => prev.trim()); // Remove space
+    }, 10);
+  };
+
+  // Immediate reset
+  forceThemeReset();
+
+  // Watch for theme changes with MutationObserver
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+        // Small delay to ensure theme change is complete
+        setTimeout(forceThemeReset, 100);
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
+  });
+
+  // Cleanup
+  return () => observer.disconnect();
+}, [setMessage]);
+
+
 
   const getAlgorithmName = () => getAlgoLabel(algorithm);
 
