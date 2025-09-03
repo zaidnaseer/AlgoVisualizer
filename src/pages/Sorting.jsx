@@ -228,6 +228,8 @@ const Sorting = () => {
   const [algorithm, setAlgorithm] = useState("bubbleSort");
   const [isSorting, setIsSorting] = useState(false);
   const [arraySize, setArraySize] = useState(20);
+  const [customArrayInput, setCustomArrayInput] = useState("");
+  const [inputError, setInputError] = useState("");
   const [statistics, setStatistics] = useState({
     comparisons: 0,
     swaps: 0,
@@ -282,6 +284,8 @@ const Sorting = () => {
     setColorArray(new Array(arraySize).fill("#66ccff"));
     setMessage("New array generated. Ready to sort!");
     setIsSorting(false);
+    setCustomArrayInput("");
+    setInputError("");
   };
 
   const getAlgorithmName = () => algorithmNames[algorithm];
@@ -721,16 +725,39 @@ const Sorting = () => {
   // Actions
   const handleSort = async () => {
     if (isSorting) return;
+    let arrayToSort = array;
+
+    if (customArrayInput.trim() !== "") {
+      const parsedArray = customArrayInput
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s !== "")
+        .map(Number);
+
+      if (parsedArray.some(isNaN) || parsedArray.length === 0) {
+        setInputError("Invalid input. Please enter comma-separated numbers.");
+        return;
+      }
+
+      setInputError("");
+      setArray(parsedArray);
+      setArraySize(parsedArray.length);
+      setColorArray(new Array(parsedArray.length).fill("#66ccff"));
+      arrayToSort = parsedArray;
+    }
+
     setIsSorting(true);
     stopSortingRef.current = false;
     setStatistics({ comparisons: 0, swaps: 0, time: 0 });
     const start = Date.now();
     setMessage(`Sorting started using ${getAlgorithmName()}.`);
+
     try {
+      // We now pass `arrayToSort` to the sorting functions instead of `array`
       switch (algorithm) {
         case "bubbleSort":
           await bubbleSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -740,7 +767,7 @@ const Sorting = () => {
           break;
         case "selectionSort":
           await selectionSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -750,7 +777,7 @@ const Sorting = () => {
           break;
         case "insertionSort":
           await insertionSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -760,7 +787,7 @@ const Sorting = () => {
           break;
         case "mergeSort":
           await mergeSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -770,7 +797,7 @@ const Sorting = () => {
           break;
         case "quickSort":
           await quickSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -780,7 +807,7 @@ const Sorting = () => {
           break;
         case "heapSort":
           await heapSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -789,6 +816,7 @@ const Sorting = () => {
           );
           break;
         case "radixSort":
+          // Radix and Bucket sort use the state `array` directly, so we update it first
           await runRadixSort();
           break;
         case "bucketSort":
@@ -796,7 +824,7 @@ const Sorting = () => {
           break;
         default:
           await bubbleSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -889,6 +917,15 @@ const Sorting = () => {
             </option>
           ))}
         </select>
+        <input
+          type="text"
+          placeholder="Custom Array (e.g., 8, 2, 5)"
+          value={customArrayInput}
+          onChange={(e) => setCustomArrayInput(e.target.value)}
+          disabled={isSorting}
+          className="input"
+          style={{ flexGrow: 1, minWidth: "220px" }}
+        />
         <button className="btn" onClick={handleSort} disabled={isSorting}>
           {isSorting ? "Sorting..." : "Start Sort"}
         </button>
@@ -907,6 +944,18 @@ const Sorting = () => {
           Generate Array
         </button>
       </div>
+      {inputError && (
+        <div
+          style={{
+            color: "#ff6b6b",
+            textAlign: "center",
+            marginBottom: "16px",
+            fontWeight: "bold",
+          }}
+        >
+          {inputError}
+        </div>
+      )}
 
       {/* Controls & Export */}
       <div
@@ -926,7 +975,6 @@ const Sorting = () => {
             border: "1px solid rgba(102,204,255,0.2)",
             padding: "20px",
             width: "100%",
-
           }}
         >
           <h3 style={{ color: "#66ccff", marginBottom: "12px" }}>
@@ -962,7 +1010,6 @@ const Sorting = () => {
               disabled={isSorting}
               className="input"
               style={{ flex: 1, maxWidth: "100%" }}
-
             />
             <div
               style={{
@@ -971,7 +1018,6 @@ const Sorting = () => {
                 minWidth: isTabletOrBelow ? "auto" : "140px",
                 textAlign: isTabletOrBelow ? "left" : "right",
                 width: "100%",
-
               }}
             >
               {arraySize}{" "}
@@ -1024,7 +1070,6 @@ const Sorting = () => {
           </div>
         </div>
 
-
         <SimpleExportControls containerId="sort-visualization-container" />
       </div>
 
@@ -1066,11 +1111,12 @@ const Sorting = () => {
             className="visualization-area"
             style={{
               minHeight: "400px",
-              padding: "20px",
+              padding: "20px 20px 50px 20px",
               background: "rgba(15, 52, 96, 0.1)",
               borderRadius: "15px",
               border: "1px solid rgba(102, 204, 255, 0.2)",
               margin: "20px 0",
+              position: "relative",
             }}
           >
             <div
@@ -1080,8 +1126,7 @@ const Sorting = () => {
                 alignItems: "flex-end",
                 height: "360px",
                 gap: gapValue,
-                padding: "20px 10px 50px 10px",
-                position: "relative",
+                padding: "0 10px",
                 flexWrap: "nowrap",
               }}
             >
@@ -1145,23 +1190,23 @@ const Sorting = () => {
                   );
                 });
               })()}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "10px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  color: "#66ccff",
-                  fontSize: "12px",
-                  fontWeight: "600",
-                  background: "rgba(26, 26, 46, 0.8)",
-                  padding: "6px 12px",
-                  borderRadius: "6px",
-                  border: "1px solid rgba(102, 204, 255, 0.3)",
-                }}
-              >
-                Array Size: {arraySize}
-              </div>
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                color: "#66ccff",
+                fontSize: "12px",
+                fontWeight: "600",
+                background: "rgba(26, 26, 46, 0.8)",
+                padding: "6px 12px",
+                borderRadius: "6px",
+                border: "1px solid rgba(102, 204, 255, 0.3)",
+              }}
+            >
+              Array Size: {array.length}
             </div>
           </div>
         </div>
