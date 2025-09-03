@@ -1224,11 +1224,15 @@ body.dark-mode .stat-card {
 
 .path-duration {
   font-size: 0.75rem;
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.1);
+background: linear-gradient(90deg,  orange, #ff9a8b, #ff6fd9, rgba(0, 247, 255, 0.821));
+
   padding: 0.25rem 0.5rem;
   border-radius: 8px;
+color: black;
+font-weight: 1000;
+
 }
+
 
 .path-description {
   font-size: 0.8rem;

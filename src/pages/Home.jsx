@@ -240,7 +240,7 @@ const Home = () => {
               <div key={index} className="path-item">
                 <div className="path-header">
                   <h4 className="path-title">{path.title}</h4>
-                  <span className="path-duration">{path.duration}</span>
+                  <span className="path-duration" >{path.duration}</span>
                 </div>
                 <p className="path-description">{path.description}</p>
                 <div className="path-topics">
