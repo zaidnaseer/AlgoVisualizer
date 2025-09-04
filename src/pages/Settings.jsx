@@ -2,301 +2,59 @@ import React from 'react';
 import { useTheme } from '../ThemeContext';
 import { Moon, Sun, Palette, Monitor, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import "../styles/global-theme.css";
 
 const Settings = () => {
   const { theme, toggleTheme } = useTheme();
-
-  // Modern color palette with better organization
-  const colors = {
-    dark: {
-      primary: '#0a0e16',
-      secondary: '#1a1f2e',
-      tertiary: '#2a3441',
-      accent: '#6366f1',
-      accentHover: '#5855eb',
-      text: '#f8fafc',
-      textSecondary: '#94a3b8',
-      textMuted: '#64748b',
-      border: '#334155',
-      borderLight: '#475569',
-      glow: 'rgba(99, 102, 241, 0.1)',
-      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    },
-    light: {
-      primary: '#ffffff',
-      secondary: '#f8fafc',
-      tertiary: '#f1f5f9',
-      accent: '#6366f1',
-      accentHover: '#5855eb',
-      text: '#1e293b',
-      textSecondary: '#475569',
-      textMuted: '#64748b',
-      border: '#e2e8f0',
-      borderLight: '#cbd5e1',
-      glow: 'rgba(99, 102, 241, 0.05)',
-      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    }
-  };
-
-  const currentColors = colors[theme] || colors.dark;
-
-  const containerStyle = {
-    minHeight: '100vh',
-    background: `var(--bg-primary, ${currentColors.primary})`,
-    color: `var(--text-primary, ${currentColors.text})`,
-    padding: '2rem',
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  };
-
-  const contentStyle = {
-    maxWidth: '900px',
-    margin: '20px auto',
-  };
-
-  const headerStyle = {
-    fontSize: 'clamp(2rem, 4vw, 3rem)',
-    fontWeight: '800',
-    marginBottom: '3rem',
-    background: `var(--gradient, ${currentColors.gradient})`,
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-  };
-
-  const cardStyle = {
-    background: `var(--bg-secondary, ${currentColors.secondary})`,
-    border: `1px solid var(--border, ${currentColors.border})`,
-    borderRadius: '16px',
-    padding: '2.5rem',
-    boxShadow: `
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06)
-    `,
-    position: 'relative',
-    overflow: 'hidden',
-  };
-
-  const sectionHeaderStyle = {
-    fontSize: '1.75rem',
-    fontWeight: '700',
-    marginBottom: '1.5rem',
-    color: `var(--text-primary, ${currentColors.text})`,
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-  };
-
-  const labelStyle = {
-    display: 'block',
-    fontSize: '1.1rem',
-    fontWeight: '600',
-    marginBottom: '1rem',
-    color: `var(--text-secondary, ${currentColors.textSecondary})`,
-    letterSpacing: '-0.025em',
-  };
-
-  const buttonStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-    padding: '0.875rem 1.75rem',
-    background: `var(--accent, ${currentColors.accent})`,
-    color: 'white',
-    border: 'none',
-    borderRadius: '10px',
-    fontSize: '1rem',
-    fontWeight: '500',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    position: 'relative',
-    overflow: 'hidden',
-    boxShadow: `0 2px 8px rgba(99, 102, 241, 0.2)`,
-    letterSpacing: '-0.025em',
-    minWidth: '200px',
-    justifyContent: 'center',
-  };
-
-  const infoCardStyle = {
-    marginTop: '2rem',
-    padding: '1.5rem',
-    background: `var(--bg-tertiary, ${currentColors.tertiary})`,
-    border: `1px solid var(--border-light, ${currentColors.borderLight})`,
-    borderRadius: '16px',
-    color: `var(--text-muted, ${currentColors.textMuted})`,
-    fontSize: '1rem',
-    lineHeight: '1.6',
-    position: 'relative',
-  };
-
-  const glowStyle = {
-    position: 'absolute',
-    top: '-50%',
-    left: '-50%',
-    width: '200%',
-    height: '200%',
-    background: `conic-gradient(from 0deg, transparent, ${currentColors.accent}20, transparent)`,
-    borderRadius: '50%',
-    animation: 'rotate 10s linear infinite',
-    zIndex: -1,
-  };
-
+  
   return (
-    <motion.div 
-      style={containerStyle}
+    <motion.div
+      className="theme-container"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <style>
-        {`
-          @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-          
-          .theme-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-            background: var(--accent-hover, ${currentColors.accentHover});
-          }
-          
-          .theme-button:active {
-            transform: translateY(0px);
-          }
-          
-          .sparkle {
-            position: absolute;
-            color: ${currentColors.accent};
-            opacity: 0.6;
-            animation: sparkle 2s ease-in-out infinite;
-          }
-          
-          @keyframes sparkle {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-          }
-
-          .theme-switch-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-          }
-
-          .theme-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 28px;
-          }
-
-          .theme-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-          }
-
-          .theme-switch-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 28px;
-          }
-
-          .theme-switch-slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-
-          .theme-switch input:checked + .theme-switch-slider {
-            background-color: var(--accent, #6366f1);
-          }
-
-          .theme-switch input:checked + .theme-switch-slider:before {
-            transform: translateX(22px);
-          }
-
-          .theme-switch-icon {
-            pointer-events: none;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: opacity 0.3s ease;
-          }
-
-          .theme-switch-icon.sun {
-            left: 6px;
-            opacity: ${theme === 'light' ? 1 : 0};
-          }
-
-          .theme-switch-icon.moon {
-            right: 6px;
-            opacity: ${theme === 'dark' ? 1 : 0};
-          }
-
-        `}
-      </style>
-      
-      <div style={contentStyle}>
-        <motion.h1 
-          style={headerStyle}
+    >      
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <motion.h1
+          className="theme-title"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          style={{ display: 'flex', alignItems: 'center', gap: '1rem', justifyContent: 'center' }}
         >
           <Sparkles size={40} />
           Settings
         </motion.h1>
         
-        <motion.div 
-          style={cardStyle}
+        <motion.div
+          className="theme-card"
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
         >
-          <Sparkles className="sparkle" size={16} style={{ top: '20px', right: '30px' }} />
-          <Sparkles className="sparkle" size={12} style={{ top: '60px', right: '80px', animationDelay: '1s' }} />
-          
-          <motion.h2 
-            style={sectionHeaderStyle}
+          <motion.div
+            className="theme-card-header"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}
           >
             <Palette size={24} />
-            Appearance
-          </motion.h2>
+            <h3>Appearance</h3>
+          </motion.div>
           
-          <motion.div 
+          <motion.div
             style={{ marginBottom: '2rem' }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <label style={labelStyle}>
+            <label className="form-label" style={{ fontSize: '1.1rem', marginBottom: '1rem', display: 'block' }}>
               Theme Preference
             </label>
             
             <div className='theme-switch-container'>
-              <Sun size={22} color={theme === 'light' ? '#f59e0b' : currentColors.textMuted} />
+              <Sun size={22} style={{ color: theme === 'light' ? '#f59e0b' : 'var(--theme-text-muted)' }} />
               <label className="theme-switch">
                 <input
                   type="checkbox"
@@ -306,25 +64,20 @@ const Settings = () => {
                 />
                 <span className="theme-switch-slider"></span>
               </label>
-              <Moon size={22} color={theme === 'dark' ? currentColors.accent : currentColors.textMuted} />
+              <Moon size={22} style={{ color: theme === 'dark' ? 'var(--theme-accent)' : 'var(--theme-text-muted)' }} />
             </div>
           </motion.div>
           
-          <motion.div 
-            style={infoCardStyle}
+          <motion.div
+            className="info-card"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
           >
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '0.75rem',
-              marginBottom: '0.5rem'
-            }}>
-              <Sparkles size={18} style={{ color: currentColors.accent }} />
-              <strong style={{ color: currentColors.text }}>Coming Soon</strong>
-            </div>
+            <strong>
+              <Sparkles size={18} />
+              Coming Soon
+            </strong>
             <p style={{ margin: 0 }}>
               Advanced customization options including custom color schemes, 
               font preferences, and personalized themes are in development. 

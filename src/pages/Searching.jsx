@@ -453,6 +453,32 @@ const Searching = () => {
 
       {message && <div style={{ textAlign: "center", color: "var(--theme-status-info)", fontWeight: 600, margin: "1rem 0" }}>{message}</div>}
 
+      {/* Step Navigation (Binary Search only) */}
+      {algorithm === "binarySearch" && steps.length > 0 && (
+        <div className="theme-card" style={{ padding: '1rem', marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <button
+                className="btn btn-secondary"
+                onClick={handlePrevStep}
+                disabled={currentStep === 0}
+              >
+                Previous Step
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={handleNextStep}
+                disabled={currentStep >= steps.length - 1}
+              >
+                Next Step
+              </button>
+            </div>
+            <span style={{ color: "var(--theme-text-secondary)", fontWeight: 600, fontSize: "0.9rem" }}>
+              Step {currentStep + 1} / {steps.length}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Visualization & Pseudocode */}
       <div className="form-grid">

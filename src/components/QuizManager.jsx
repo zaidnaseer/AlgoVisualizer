@@ -4,7 +4,7 @@ import QuizStart from './QuizStart';
 import QuestionCard from './QuestionCard';
 import ResultPage from './ResultPage';
 import quizQuestions from '../data/quizQuestions.json';
-import '../styles/Quiz.css';
+import "../styles/global-theme.css";
 
 const QuizManager = () => {
   const navigate = useNavigate();
@@ -172,10 +172,10 @@ const QuizManager = () => {
 
   if (currentStep === 'start') {
     return (
-      <div className="quiz-container">
+      <div className="theme-container">
         <div className="quiz-header">
-          <h1 className="quiz-title">Algorithm Quiz</h1>
-          <p className="quiz-subtitle">Test your knowledge of algorithms and data structures</p>
+          <h1 className="theme-title">Algorithm Quiz</h1>
+          <p>Test your knowledge of algorithms and data structures</p>
         </div>
         <QuizStart
           topics={topics}
@@ -194,7 +194,7 @@ const QuizManager = () => {
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
     return (
-      <div className="quiz-container">
+      <div className="theme-container">
         <QuestionCard
           question={currentQuestion}
           questionNumber={currentQuestionIndex + 1}
@@ -216,11 +216,12 @@ const QuizManager = () => {
     );
   }
 
+
   if (currentStep === 'results') {
     const results = calculateResults();
     
     return (
-      <div className="quiz-container">
+      <div className="theme-container">
         <ResultPage
           results={results}
           selectedTopic={selectedTopic}
