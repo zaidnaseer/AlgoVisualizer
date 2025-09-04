@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaPlay, FaClock, FaInfinity } from 'react-icons/fa6';
+import QuizTopicSelection from './QuizTopicSelection';
 
 const QuizStart = ({ 
   topics, 
@@ -41,8 +42,10 @@ const QuizStart = ({
       {/* Topic Selection */}
       <div className="topic-selection">
         <h2 className="section-title">Choose Your Topic</h2>
+        {/* added search functionality */}
+        <QuizTopicSelection topics={topics}/>
         <div className="topic-grid">
-          {topics.map(topic => (
+          {/* {topics.map(topic => (
             <div
               key={topic.id}
               className={`topic-card ${selectedTopic === topic.id ? 'selected' : ''}`}
@@ -51,7 +54,7 @@ const QuizStart = ({
               <h3>{topic.name}</h3>
               <p>{topic.description}</p>
             </div>
-          ))}
+          ))} */}
           <div
             className={`topic-card ${selectedTopic === 'all' ? 'selected' : ''}`}
             onClick={() => handleTopicSelect('all')}

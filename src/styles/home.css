@@ -162,7 +162,7 @@ select:focus {
 
 .hero-title {
   font-size: 4.5em;
-  font-family: "Dancing Script", cursive;
+  font-family: "Georgia", bold;
   font-weight: bold;
   color: var(--text-color);
   margin-bottom: 20px;
@@ -180,7 +180,7 @@ select:focus {
 .hero-subtitle {
   font-size: 2.2em;
   color: var(--primary-color);
-  font-family: "Dancing Script", cursive;
+  font-family: "Arial", bold;
   font-weight: 600;
   margin-bottom: 20px;
   min-height: 60px;
@@ -1120,6 +1120,8 @@ body.dark-mode .stat-card {
 .difficulty-level {
   font-size: 0.7rem;
   color: #94a3b8;
+  padding-left:17px;
+  padding-top: 10px;
 }
 
 .feature-highlights {
@@ -1163,8 +1165,8 @@ body.dark-mode .stat-card {
 .learning-paths {
   grid-area: paths;
   background: linear-gradient(145deg, 
-    rgba(15, 15, 35, 0.85), 
-    rgba(26, 26, 46, 0.9),
+    rgba(31, 31, 59, 0.85), 
+    rgba(60, 60, 100, 0.9),
     rgba(30, 58, 138, 0.05)
   );
   border: 1px solid rgba(148, 163, 184, 0.15);
@@ -1222,11 +1224,15 @@ body.dark-mode .stat-card {
 
 .path-duration {
   font-size: 0.75rem;
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.1);
+background: linear-gradient(90deg,  orange, #ff9a8b, #ff6fd9, rgba(0, 247, 255, 0.821));
+
   padding: 0.25rem 0.5rem;
   border-radius: 8px;
+color: black;
+font-weight: 1000;
+
 }
+
 
 .path-description {
   font-size: 0.8rem;

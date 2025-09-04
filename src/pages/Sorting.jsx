@@ -155,6 +155,92 @@ const ALGORITHM_PSEUDOCODE = {
       explain: "Restore the max-heap property on the reduced heap.",
     },
   ],
+
+  timSort: [
+    { 
+      code: "minRun = calculateMinRun(n)", 
+      explain: "Compute the minimum run size (32–64 depending on n)." 
+    },
+    { 
+      code: "for i from 0 to n step minRun", 
+      explain: "Process array in chunks of size minRun." 
+    },
+    { 
+      code: "  end = min(i + minRun - 1, n-1)", 
+      explain: "Find the end index of the current run." 
+    },
+    { 
+      code: "  insertionSort(arr, i, end)", 
+      explain: "Sort each small run with insertion sort." 
+    },
+    { 
+      code: "size = minRun", 
+      explain: "Start merging from size = minRun." 
+    },
+    { 
+      code: "while size < n", 
+      explain: "Double the size of runs until the array is sorted." 
+    },
+    { 
+      code: "  for left from 0 to n-1 in steps of 2*size", 
+      explain: "Pick pairs of runs to merge." 
+    },
+    { 
+      code: "    mid = left + size - 1", 
+      explain: "Find midpoint of the current run." 
+    },
+    { 
+      code: "    right = min((left + 2*size - 1), n-1)", 
+      explain: "Find end of the right run." 
+    },
+    { 
+      code: "    if mid < right", 
+      explain: "Check if two runs exist to merge." 
+    },
+    { 
+      code: "      merge(arr, left, mid, right)", 
+      explain: "Merge the two runs like in merge sort." 
+    },
+    { 
+      code: "  size = size * 2", 
+      explain: "Double the size and repeat merging." 
+    },
+  ],
+  
+  introSort: [
+    { 
+      code: "maxDepth = 2 * log₂(n)", 
+      explain: "Set a recursion depth limit based on array size." 
+    },
+    { 
+      code: "introSortHelper(arr, 0, n-1, maxDepth)", 
+      explain: "Start sorting with quicksort strategy." 
+    },
+    { 
+      code: "if size < threshold", 
+      explain: "Use insertion sort for small subarrays." 
+    },
+    { 
+      code: "else if depth == 0", 
+      explain: "If recursion depth is exhausted, switch to heapsort." 
+    },
+    { 
+      code: "else", 
+      explain: "Otherwise, use quicksort partitioning with pivot." 
+    },
+    { 
+      code: "  partition around pivot", 
+      explain: "Rearrange elements around pivot element." 
+    },
+    { 
+      code: "  recursively sort left and right halves", 
+      explain: "Apply introsort recursively on partitions." 
+    },
+    { 
+      code: "final insertion sort pass", 
+      explain: "Ensure small pieces are fully sorted at the end." 
+    }
+  ],  
 };
 
 const algorithmNames = {
@@ -166,6 +252,8 @@ const algorithmNames = {
   radixSort: "Radix Sort",
   bucketSort: "Bucket Sort",
   heapSort: "Heap Sort",
+  timSort: "Tim Sort",
+  introSort: "Intro Sort",  
 };
 
 // Helpers for Selection Sort to keep cognitive complexity low
@@ -228,6 +316,8 @@ const Sorting = () => {
   const [algorithm, setAlgorithm] = useState("bubbleSort");
   const [isSorting, setIsSorting] = useState(false);
   const [arraySize, setArraySize] = useState(20);
+  const [customArrayInput, setCustomArrayInput] = useState("");
+  const [inputError, setInputError] = useState("");
   const [statistics, setStatistics] = useState({
     comparisons: 0,
     swaps: 0,
@@ -282,6 +372,8 @@ const Sorting = () => {
     setColorArray(new Array(arraySize).fill("#66ccff"));
     setMessage("New array generated. Ready to sort!");
     setIsSorting(false);
+    setCustomArrayInput("");
+    setInputError("");
   };
 
   const getAlgorithmName = () => algorithmNames[algorithm];
@@ -350,6 +442,21 @@ const Sorting = () => {
         bestCase: "O(n log n)",
         stable: "No",
       },
+      timSort: {
+        description: "Hybrid of merge sort and insertion sort, optimized for real-world data.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(n)",
+        bestCase: "O(n)",
+        stable: "Yes",
+      },     
+      introSort: {
+        description:
+          "Hybrid algorithm that starts with quicksort, switches to heapsort if recursion is too deep, and uses insertion sort for small partitions.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(log n)",
+        bestCase: "O(n log n)",
+        stable: "No",
+      },      
     };
     return info[algorithm];
   };
@@ -717,20 +824,227 @@ const Sorting = () => {
       (s) => setStatistics((prev) => ({ ...prev, ...s }))
     );
   };
+const timSortWithStop = async (
+    arr,
+    setArrayState,
+    setColorState,
+    sleepFn,
+    stopRef,
+    setStats
+  ) => {
+    const RUN = 32; // Typical run size
+    const a = [...arr];
+    const n = a.length;
+    let comparisons = 0, swaps = 0;
 
+    // Insertion sort for small runs
+    async function insertionSort(left, right) {
+      for (let i = left + 1; i <= right; i++) {
+        let key = a[i], j = i - 1;
+        while (j >= left && a[j] > key) {
+          if (stopRef.current) throw new Error("Stopped");
+          a[j + 1] = a[j];
+          swaps++;
+          comparisons++;
+          j--;
+          setArrayState([...a]);
+          setColorState(new Array(n).fill("#66ccff"));
+          await sleepFn();
+        }
+        a[j + 1] = key;
+        setArrayState([...a]);
+      }
+    }
+
+    // Merge function
+    async function merge(l, m, r) {
+      let left = a.slice(l, m + 1);
+      let right = a.slice(m + 1, r + 1);
+      let i = 0, j = 0, k = l;
+      while (i < left.length && j < right.length) {
+        if (stopRef.current) throw new Error("Stopped");
+        comparisons++;
+        if (left[i] <= right[j]) {
+          a[k++] = left[i++];
+        } else {
+          a[k++] = right[j++];
+        }
+        swaps++;
+        setArrayState([...a]);
+        setColorState(new Array(n).fill("#ffd93d"));
+        await sleepFn();
+      }
+      while (i < left.length) a[k++] = left[i++];
+      while (j < right.length) a[k++] = right[j++];
+      setArrayState([...a]);
+    }
+
+    // TimSort main
+    for (let i = 0; i < n; i += RUN) {
+      await insertionSort(i, Math.min((i + RUN - 1), n - 1));
+    }
+    for (let size = RUN; size < n; size = 2 * size) {
+      for (let left = 0; left < n; left += 2 * size) {
+        let mid = Math.min(left + size - 1, n - 1);
+        let right = Math.min((left + 2 * size - 1), n - 1);
+        if (mid < right) {
+          await merge(left, mid, right);
+        }
+      }
+    }
+
+    setStats({ comparisons, swaps, time: 0 });
+    setColorState(new Array(n).fill("#4ade80"));
+    return 0;
+  };
+
+  const introSortWithStop = async (
+    arr,
+    setArrayState,
+    setColorState,
+    sleepFn,
+    stopRef,
+    setStats
+  ) => {
+    const a = [...arr];
+    const n = a.length;
+    let comparisons = 0, swaps = 0;
+    const THRESHOLD = 16;
+    const maxDepth = 2 * Math.floor(Math.log2(n));
+
+    async function insertionSort(left, right) {
+      for (let i = left + 1; i <= right; i++) {
+        let key = a[i];
+        let j = i - 1;
+        while (j >= left && a[j] > key) {
+          if (stopRef.current) throw new Error("Stopped");
+          comparisons++;
+          a[j + 1] = a[j];
+          swaps++;
+          j--;
+          setArrayState([...a]);
+          setColorState(new Array(n).fill("#66ccff"));
+          await sleepFn();
+        }
+        a[j + 1] = key;
+        setArrayState([...a]);
+      }
+    }
+
+    async function heapify(heapSize, i) {
+      if (stopRef.current) throw new Error("Stopped");
+      let largest = i;
+      const left = 2 * i + 1;
+      const right = 2 * i + 2;
+
+      if (left < heapSize) {
+        comparisons++;
+        if (a[left] > a[largest]) largest = left;
+      }
+      if (right < heapSize) {
+        comparisons++;
+        if (a[right] > a[largest]) largest = right;
+      }
+
+      if (largest !== i) {
+        [a[i], a[largest]] = [a[largest], a[i]];
+        swaps++;
+        setArrayState([...a]);
+        await sleepFn();
+        await heapify(heapSize, largest);
+      }
+    }
+
+    async function heapSort(start, end) {
+      const size = end - start + 1;
+      for (let i = Math.floor(size / 2) - 1; i >= 0; i--) {
+        await heapify(size, i);
+      }
+      for (let i = size - 1; i > 0; i--) {
+        [a[0], a[i]] = [a[i], a[0]];
+        swaps++;
+        setArrayState([...a]);
+        await sleepFn();
+        await heapify(i, 0);
+      }
+    }
+
+    async function partition(low, high) {
+      const pivot = a[high];
+      let i = low - 1;
+      for (let j = low; j < high; j++) {
+        if (stopRef.current) throw new Error("Stopped");
+        comparisons++;
+        if (a[j] <= pivot) {
+          i++;
+          [a[i], a[j]] = [a[j], a[i]];
+          swaps++;
+          setArrayState([...a]);
+          setColorState(new Array(n).fill("#ffd93d"));
+          await sleepFn();
+        }
+      }
+      [a[i + 1], a[high]] = [a[high], a[i + 1]];
+      swaps++;
+      return i + 1;
+    }
+
+    async function introSortHelper(low, high, depthLimit) {
+      if (high - low <= THRESHOLD) {
+        await insertionSort(low, high);
+        return;
+      }
+      if (depthLimit === 0) {
+        await heapSort(low, high);
+        return;
+      }
+      const pi = await partition(low, high);
+      await introSortHelper(low, pi - 1, depthLimit - 1);
+      await introSortHelper(pi + 1, high, depthLimit - 1);
+    }
+
+    await introSortHelper(0, n - 1, maxDepth);
+
+    setStats({ comparisons, swaps, time: 0 });
+    setColorState(new Array(n).fill("#4ade80"));
+    return 0;
+  };
   // Actions
   const handleSort = async () => {
     if (isSorting) return;
+    let arrayToSort = array;
+
+    if (customArrayInput.trim() !== "") {
+      const parsedArray = customArrayInput
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s !== "")
+        .map(Number);
+
+      if (parsedArray.some(isNaN) || parsedArray.length === 0) {
+        setInputError("Invalid input. Please enter comma-separated numbers.");
+        return;
+      }
+
+      setInputError("");
+      setArray(parsedArray);
+      setArraySize(parsedArray.length);
+      setColorArray(new Array(parsedArray.length).fill("#66ccff"));
+      arrayToSort = parsedArray;
+    }
+
     setIsSorting(true);
     stopSortingRef.current = false;
     setStatistics({ comparisons: 0, swaps: 0, time: 0 });
     const start = Date.now();
     setMessage(`Sorting started using ${getAlgorithmName()}.`);
+
     try {
+      // We now pass `arrayToSort` to the sorting functions instead of `array`
       switch (algorithm) {
         case "bubbleSort":
           await bubbleSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -740,7 +1054,7 @@ const Sorting = () => {
           break;
         case "selectionSort":
           await selectionSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -750,7 +1064,7 @@ const Sorting = () => {
           break;
         case "insertionSort":
           await insertionSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -760,7 +1074,7 @@ const Sorting = () => {
           break;
         case "mergeSort":
           await mergeSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -770,7 +1084,7 @@ const Sorting = () => {
           break;
         case "quickSort":
           await quickSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -780,7 +1094,7 @@ const Sorting = () => {
           break;
         case "heapSort":
           await heapSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -789,14 +1103,36 @@ const Sorting = () => {
           );
           break;
         case "radixSort":
+          // Radix and Bucket sort use the state `array` directly, so we update it first
           await runRadixSort();
           break;
         case "bucketSort":
           await runBucketSort();
           break;
+        case "timSort":
+          await timSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;
+        case "introSort":
+          await introSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;  
+
         default:
           await bubbleSortWithStop(
-            array,
+            arrayToSort,
             setArray,
             setColorArray,
             sleep,
@@ -849,6 +1185,8 @@ const Sorting = () => {
     "radixSort",
     "bucketSort",
     "heapSort",
+    "timSort",
+    "introSort",    
   ];
 
   return (
@@ -858,7 +1196,7 @@ const Sorting = () => {
     >
       <h1
         className="page-title"
-        style={{ textAlign: "center", marginBottom: "30px" }}
+        style={{ textAlign: "center", marginBottom: "20px" }}
       >
         Sorting Algorithms
       </h1>
@@ -889,6 +1227,15 @@ const Sorting = () => {
             </option>
           ))}
         </select>
+        <input
+          type="text"
+          placeholder="Custom Array (e.g., 8, 2, 5)"
+          value={customArrayInput}
+          onChange={(e) => setCustomArrayInput(e.target.value)}
+          disabled={isSorting}
+          className="input"
+          style={{ flexGrow: 1, minWidth: "220px" }}
+        />
         <button className="btn" onClick={handleSort} disabled={isSorting}>
           {isSorting ? "Sorting..." : "Start Sort"}
         </button>
@@ -907,16 +1254,30 @@ const Sorting = () => {
           Generate Array
         </button>
       </div>
+      {inputError && (
+        <div
+          style={{
+            color: "#ff6b6b",
+            textAlign: "center",
+            marginBottom: "16px",
+            fontWeight: "bold",
+          }}
+        >
+          {inputError}
+        </div>
+      )}
 
       {/* Controls & Export */}
       <div
         className="controls-section"
         style={{
           display: "grid",
-          gridTemplateColumns: isTabletOrBelow ? "1fr" : "1fr 1fr",
+          gridTemplateColumns: isTabletOrBelow ? "1fr " : "1fr 1fr ",
+          gridTemplateRows: isTabletOrBelow ? "auto auto auto" : "auto auto",
           gap: "24px",
           marginBottom: "12px",
           width: "100%",
+          alignItems: "start",
         }}
       >
         <div
@@ -926,7 +1287,6 @@ const Sorting = () => {
             border: "1px solid rgba(102,204,255,0.2)",
             padding: "20px",
             width: "100%",
-
           }}
         >
           <h3 style={{ color: "#66ccff", marginBottom: "12px" }}>
@@ -962,7 +1322,6 @@ const Sorting = () => {
               disabled={isSorting}
               className="input"
               style={{ flex: 1, maxWidth: "100%" }}
-
             />
             <div
               style={{
@@ -970,8 +1329,7 @@ const Sorting = () => {
                 fontWeight: 600,
                 minWidth: isTabletOrBelow ? "auto" : "140px",
                 textAlign: isTabletOrBelow ? "left" : "right",
-                width: "100%",
-
+                // width: "100%"
               }}
             >
               {arraySize}{" "}
@@ -990,6 +1348,7 @@ const Sorting = () => {
               gap: "10px",
               justifyContent: "space-between",
               width: "100%",
+              marginBottom: "4px",
             }}
           >
             <label
@@ -1016,7 +1375,7 @@ const Sorting = () => {
                 fontWeight: 600,
                 minWidth: isTabletOrBelow ? "auto" : "140px",
                 textAlign: isTabletOrBelow ? "left" : "right",
-                width: "100%",
+                // width: "100%",
               }}
             >
               {delay}ms
@@ -1024,8 +1383,62 @@ const Sorting = () => {
           </div>
         </div>
 
-
         <SimpleExportControls containerId="sort-visualization-container" />
+        {/* Pseudocode panel */}
+        <div
+          style={{
+            flex: "0 0 300px",
+            minWidth: "280px",
+            maxWidth: "100%",
+            background: "rgba(102,204,255,0.07)",
+            border: "1px solid rgba(102,204,255,0.15)",
+            borderRadius: "12px",
+            padding: "18px",
+            overflowX: "auto",
+            marginTop: isTabletOrBelow ? "20px" : "0px",
+            height: "fit-content",
+            alignSelf: "flex-start",
+          }}
+        >
+          <h3 style={{ color: "#66ccff", marginBottom: "10px" }}>
+            {getAlgorithmName()} Pseudocode
+          </h3>
+          <pre
+            style={{
+              background:
+                theme === "dark"
+                  ? "rgba(26,26,46,0.95)"
+                  : "rgba(255,255,255,0.95)",
+              borderRadius: "8px",
+              padding: "14px",
+              fontSize: "15px",
+              color: "#e0e6ed",
+              marginBottom: "10px",
+              overflowX: "auto",
+            }}
+          >
+            {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line) => (
+              <div key={line.code} style={{ padding: "2px 6px" }}>
+                {line.code}
+              </div>
+            ))}
+          </pre>
+          <div
+            style={{
+              background: "rgba(102,204,255,0.08)",
+              borderRadius: "8px",
+              padding: "10px 12px",
+              fontSize: "14px",
+              color: "#b8c5d1",
+              minHeight: "40px",
+            }}
+          >
+            <strong>Explanation:</strong>
+            <br />
+            {(ALGORITHM_PSEUDOCODE[algorithm] || [])[0]?.explain ||
+              "Select an algorithm to view its pseudocode."}
+          </div>
+        </div>
       </div>
 
       {/* Status */}
@@ -1066,11 +1479,12 @@ const Sorting = () => {
             className="visualization-area"
             style={{
               minHeight: "400px",
-              padding: "20px",
+              padding: "20px 20px 50px 20px",
               background: "rgba(15, 52, 96, 0.1)",
               borderRadius: "15px",
               border: "1px solid rgba(102, 204, 255, 0.2)",
               margin: "20px 0",
+              position: "relative",
             }}
           >
             <div
@@ -1080,8 +1494,7 @@ const Sorting = () => {
                 alignItems: "flex-end",
                 height: "360px",
                 gap: gapValue,
-                padding: "20px 10px 50px 10px",
-                position: "relative",
+                padding: "0 10px",
                 flexWrap: "nowrap",
               }}
             >
@@ -1145,79 +1558,27 @@ const Sorting = () => {
                   );
                 });
               })()}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "10px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  color: "#66ccff",
-                  fontSize: "12px",
-                  fontWeight: "600",
-                  background: "rgba(26, 26, 46, 0.8)",
-                  padding: "6px 12px",
-                  borderRadius: "6px",
-                  border: "1px solid rgba(102, 204, 255, 0.3)",
-                }}
-              >
-                Array Size: {arraySize}
-              </div>
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                color: "#66ccff",
+                fontSize: "12px",
+                fontWeight: "600",
+                background: "rgba(26, 26, 46, 0.8)",
+                padding: "6px 12px",
+                borderRadius: "6px",
+                border: "1px solid rgba(102, 204, 255, 0.3)",
+              }}
+            >
+              Array Size: {array.length}
             </div>
           </div>
         </div>
 
-        {/* Pseudocode panel */}
-        <div
-          style={{
-            flex: "0 0 300px",
-            minWidth: "280px",
-            maxWidth: "100%",
-            background: "rgba(102,204,255,0.07)",
-            border: "1px solid rgba(102,204,255,0.15)",
-            borderRadius: "12px",
-            padding: "18px",
-            overflowX: "auto",
-          }}
-        >
-          <h3 style={{ color: "#66ccff", marginBottom: "10px" }}>
-            {getAlgorithmName()} Pseudocode
-          </h3>
-          <pre
-            style={{
-              background:
-                theme === "dark"
-                  ? "rgba(26,26,46,0.95)"
-                  : "rgba(255,255,255,0.95)",
-              borderRadius: "8px",
-              padding: "14px",
-              fontSize: "15px",
-              color: "#e0e6ed",
-              marginBottom: "10px",
-              overflowX: "auto",
-            }}
-          >
-            {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line) => (
-              <div key={line.code} style={{ padding: "2px 6px" }}>
-                {line.code}
-              </div>
-            ))}
-          </pre>
-          <div
-            style={{
-              background: "rgba(102,204,255,0.08)",
-              borderRadius: "8px",
-              padding: "10px 12px",
-              fontSize: "14px",
-              color: "#b8c5d1",
-              minHeight: "40px",
-            }}
-          >
-            <strong>Explanation:</strong>
-            <br />
-            {(ALGORITHM_PSEUDOCODE[algorithm] || [])[0]?.explain ||
-              "Select an algorithm to view its pseudocode."}
-          </div>
-        </div>
       </div>
 
       {/* Stats */}

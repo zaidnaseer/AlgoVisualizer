@@ -12,6 +12,8 @@
 /* =========================
    Theme Variables
 ========================= */
+html { scroll-behavior: smooth; }
+
 :root {
     --bg-gradient: #0d1117;
     --container-bg: rgba(33, 38, 45, 0.95);

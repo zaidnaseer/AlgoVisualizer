@@ -1,20 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './styles/components.css';
+// src/index.jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import App from "./App";
+import "./styles/components.css";
 
-import { ClerkProvider } from '@clerk/clerk-react';
+import { ClerkProvider } from "@clerk/clerk-react";
 
 // Use the publishable key from your .env.local
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
-// Debug log to check if the env variable is loaded
-console.log("Clerk Publishable Key:", clerkPubKey);
+if (!clerkPubKey) {
+  console.error("Missing Clerk Publishable Key! Did you set VITE_CLERK_PUBLISHABLE_KEY in .env.local?");
+}
 
 ReactDOM.render(
   <ClerkProvider publishableKey={clerkPubKey}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </ClerkProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-

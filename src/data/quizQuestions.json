@@ -148,5 +148,65 @@
     "options": ["LIFO", "FIFO", "Random Access", "Priority Based"],
     "correctAnswer": 1,
     "explanation": "Queue follows FIFO (First In, First Out) principle where the first element added is the first one to be removed."
-  }
+  },
+  {
+    "id": 16,
+    "topic": "Sorting",
+    "algorithm": "Tim Sort",
+    "difficulty": "Medium",
+    "question": "What is the time complexity of TimSort in the worst case?",
+    "options": ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
+    "correctAnswer": 1,
+    "explanation": "TimSort has a worst-case time complexity of O(n log n) because it combines merge sort and insertion sort, ensuring efficiency even in pathological cases."
+  },
+  {
+    "id": 17,
+    "topic": "Sorting",
+    "algorithm": "Tim Sort",
+    "difficulty": "Medium",
+    "question": "Which two algorithms are combined in TimSort?",
+    "options": ["Merge Sort and Insertion Sort", "Quick Sort and Merge Sort", "Heap Sort and Insertion Sort", "Radix Sort and Counting Sort"],
+    "correctAnswer": 0,
+    "explanation": "TimSort is a hybrid algorithm that combines Merge Sort and Insertion Sort. Small runs are sorted with insertion sort, then merged efficiently."
+  },
+  {
+    "id": 18,
+    "topic": "Sorting",
+    "algorithm": "Tim Sort",
+    "difficulty": "Hard",
+    "question": "What optimization in TimSort accelerates merging when one run dominates?",
+    "options": ["Quick pivoting", "Galloping mode", "Dual pivoting", "Binary search merging"],
+    "correctAnswer": 1,
+    "explanation": "TimSort uses 'galloping mode', which speeds up merging when many consecutive elements come from the same run."
+  },
+  {
+    "id": 19,
+    "topic": "Sorting",
+    "algorithm": "Intro Sort",
+    "difficulty": "Medium",
+    "question": "What is the worst-case time complexity of IntroSort?",
+    "options": ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
+    "correctAnswer": 1,
+    "explanation": "IntroSort starts as Quick Sort but switches to Heap Sort if recursion depth becomes too large, guaranteeing O(n log n) worst-case complexity."
+  },
+  {
+    "id": 20,
+    "topic": "Sorting",
+    "algorithm": "Intro Sort",
+    "difficulty": "Medium",
+    "question": "Which algorithms does IntroSort combine?",
+    "options": ["Quick Sort, Heap Sort, and Insertion Sort", "Merge Sort and Insertion Sort", "Heap Sort and Counting Sort", "Quick Sort and Radix Sort"],
+    "correctAnswer": 0,
+    "explanation": "IntroSort is a hybrid of Quick Sort, Heap Sort, and Insertion Sort. It starts with Quick Sort, falls back to Heap Sort for bad partitions, and uses Insertion Sort for small partitions."
+  },
+  {
+    "id": 21,
+    "topic": "Sorting",
+    "algorithm": "Intro Sort",
+    "difficulty": "Hard",
+    "question": "Why does IntroSort switch from Quick Sort to Heap Sort?",
+    "options": ["To improve average-case performance", "To maintain stability", "To avoid O(n²) worst case", "To reduce space complexity"],
+    "correctAnswer": 2,
+    "explanation": "Quick Sort can degrade to O(n²) when partitions are unbalanced. IntroSort prevents this by switching to Heap Sort when recursion depth exceeds a threshold, ensuring O(n log n) worst-case time."
+  }  
 ]

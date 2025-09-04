@@ -232,13 +232,15 @@ const Home = () => {
 
         {/* Learning Paths */}
         <div className="learning-paths">
-          <h3 className="section-title">Learning Paths</h3>
+          <h3 className="section-title" style={{   background: 'linear-gradient(90deg, #FF69B4, #FF69B4, #00BFFF, #00BFFF, #FFB347, #FFD700, #FFB347, #FFA500, #FF69B4, #00BFFF)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent'}}>Learning Paths</h3>
           <div className="paths-container">
             {learningPaths.map((path, index) => (
               <div key={index} className="path-item">
                 <div className="path-header">
                   <h4 className="path-title">{path.title}</h4>
-                  <span className="path-duration">{path.duration}</span>
+                  <span className="path-duration" >{path.duration}</span>
                 </div>
                 <p className="path-description">{path.description}</p>
                 <div className="path-topics">
