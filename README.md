@@ -333,10 +333,8 @@ Perfect for:
 
 <h2 id="contributors">🏆 Contributors</h2>
 
-Meet our amazing contributors who make this project possible:
-
-- **[Sandeep Vashishtha](https://github.com/SandeepVashishtha)** 
-- **[Rhythm Pahwa](https://github.com/rhythmpahwa14)**
+Meet our amazing contributors:
+- **[Aleenaharoldpeter](https://github.com/aleenaharoldpeter)**
 
 > Want to see your name here? [Contribute to the project!](#-contributing)
 
