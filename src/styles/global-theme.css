@@ -1,0 +1,316 @@
+/* =======================================================
+   GLOBAL THEME STYLES - ALGOVISUALIZER
+======================================================= */
+
+/* -----------------
+   1. Theme Variables (from home.css)
+----------------- */
+:root {
+  /* Dark Theme */
+  --theme-bg: #f0f2f5;
+  --theme-card-bg: #ffffff;
+  --theme-border: #d0d7de;
+  --theme-text-primary: #1f2937;
+  --theme-text-secondary: #6b7280;
+  --theme-text-muted: #9ca3af;
+  --theme-accent: #4f46e5;
+  --theme-accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --theme-btn-primary-bg: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --theme-btn-primary-text: #ffffff;
+  --theme-btn-secondary-bg: #f3f4f6;
+  --theme-btn-secondary-text: #1f2937;
+  --theme-btn-secondary-border: #d1d5db;
+  --theme-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  --theme-input-bg: #ffffff;
+  --theme-input-border: #d1d5db;
+  --theme-input-text: #1f2937;
+  --theme-bar-color: #4f46e5;
+  --theme-bar-text: #ffffff;
+  --theme-status-info: #3b82f6;
+  --theme-status-success: #16a34a;
+  --theme-status-warning: #f59e0b;
+  --theme-status-danger: #ef4444;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme */
+  --theme-bg: #0d1117;
+  --theme-card-bg: #21262d;
+  --theme-border: #30363d;
+  --theme-text-primary: #e6edf3;
+  --theme-text-secondary: #8b949e;
+  --theme-text-muted: #6e7681;
+  --theme-accent: #58a6ff;
+  --theme-accent-gradient: linear-gradient(135deg, #58a6ff 0%, #79c0ff 100%);
+  --theme-btn-primary-bg: linear-gradient(135deg, #58a6ff 0%, #79c0ff 100%);
+  --theme-btn-primary-text: #0d1117;
+  --theme-btn-secondary-bg: #30363d;
+  --theme-btn-secondary-text: #e6edf3;
+  --theme-btn-secondary-border: #4d5661;
+  --theme-card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --theme-input-bg: #21262d;
+  --theme-input-border: #4d5661;
+  --theme-input-text: #e6edf3;
+  --theme-bar-color: #58a6ff;
+  --theme-bar-text: #0d1117;
+  --theme-status-info: #58a6ff;
+  --theme-status-success: #238636;
+  --theme-status-warning: #d29922;
+  --theme-status-danger: #da3633;
+}
+
+/* -----------------
+   2. Base & Layout
+----------------- */
+body {
+  background-color: var(--theme-bg);
+  transition: background-color 0.3s ease;
+}
+
+.theme-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.theme-title {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--theme-text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* -----------------
+   3. Cards
+----------------- */
+.theme-card {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-border);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: var(--theme-card-shadow);
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.theme-card-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  margin-bottom: 1rem;
+}
+
+/* -----------------
+   4. Buttons
+----------------- */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background: var(--theme-btn-primary-bg);
+  color: var(--theme-btn-primary-text);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.btn-secondary {
+  background: var(--theme-btn-secondary-bg);
+  color: var(--theme-btn-secondary-text);
+  border-color: var(--theme-btn-secondary-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--theme-accent); 
+  color: var(--theme-btn-primary-text); 
+  border-color: var(--theme-accent);
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* -----------------
+   5. Forms
+----------------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--theme-text-secondary);
+}
+
+.form-control, .form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: var(--theme-input-bg);
+  border: 1px solid var(--theme-input-border);
+  color: var(--theme-input-text);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--theme-accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.form-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: var(--theme-border);
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--theme-accent);
+  cursor: pointer;
+  border-radius: 50%;
+  border: 3px solid var(--theme-card-bg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--theme-accent);
+  cursor: pointer;
+  border-radius: 50%;
+  border: 3px solid var(--theme-card-bg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* -----------------
+   6. Statistics Cards
+----------------- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  padding: 1rem;
+  border-radius: 16px;
+  text-align: center;
+  background: var(--hover-bg, #eaeef2);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--theme-text-secondary);
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--theme-text-primary);
+}
+
+/* -----------------
+   7. Specific Components (like Visualization)
+----------------- */
+.visualization-area {
+  min-height: 400px;
+  padding: 2rem;
+  background: var(--theme-bg); /* Use main bg for contrast */
+  border-radius: 16px;
+  border: 1px solid var(--theme-border);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.array-bar {
+  background-color: var(--theme-bar-color);
+  color: var(--theme-bar-text);
+  /* Structural styles for visualization bars */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  align-items: center;
+  margin: 0 1px;
+  border-radius: 6px 6px 0 0;
+  transition: height 0.3s ease, background-color 0.3s ease;
+  font-weight: 600;
+  padding: 4px 2px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* -----------------
+   8. Complexity Details
+----------------- */
+.complexity-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.complexity-item {
+  background: var(--theme-bg);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--theme-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.complexity-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--theme-text-secondary);
+}
+
+.complexity-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+}

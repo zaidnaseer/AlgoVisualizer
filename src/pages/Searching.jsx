@@ -5,8 +5,7 @@ import { linearSearch } from "../algorithms/linearSearch";
 import { jumpSearch } from "../algorithms/jumpSearch";
 import CodeExplanation from "../components/CodeExplanation";
 import SimpleExportControls from "../components/SimpleExportControls";
-import "../styles/App.css";
-import "../styles/pages.css";
+import "../styles/global-theme.css";
 import { useMediaQuery } from "react-responsive";
 
 // Pseudocode for searching algorithms
@@ -335,378 +334,130 @@ const Searching = () => {
       setIsSearching(false);
     }
   };
-  useEffect(() => {
-  const forceThemeReset = () => {
-    // Force remove any cached styles
-    const allElements = document.querySelectorAll('*');
-    allElements.forEach(el => {
-      if (el.style && el.style.color) {
-        const currentColor = el.style.color;
-        // Reset problematic light colors in light mode
-        if (!document.documentElement.hasAttribute('data-theme') || 
-            document.documentElement.getAttribute('data-theme') !== 'dark') {
-          if (currentColor.includes('rgb(224, 230, 237)') || 
-              currentColor.includes('rgb(184, 197, 209)') ||
-              currentColor.includes('#e0e6ed') ||
-              currentColor.includes('#b8c5d1') ||
-              currentColor.includes('rgb(102, 204, 255)')) {
-            el.style.color = '#374151';
-          }
-        }
-      }
-    });
-
-    // Force body theme
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.body.style.backgroundColor = isDark ? '#0d1117' : '#ffffff';
-    document.body.style.color = isDark ? '#e6edf3' : '#1e293b';
-    
-    // Force page container theme
-    const pageContainer = document.querySelector('.page-container');
-    if (pageContainer) {
-      pageContainer.style.backgroundColor = isDark ? '#0d1117' : '#ffffff';
-      pageContainer.style.color = isDark ? '#e6edf3' : '#1e293b';
-    }
-
-    // Trigger a small re-render by toggling a state
-    setMessage(prev => prev + ' '); // Add space to trigger re-render
-    setTimeout(() => {
-      setMessage(prev => prev.trim()); // Remove space
-    }, 10);
-  };
-
-  // Immediate reset
-  forceThemeReset();
-
-  // Watch for theme changes with MutationObserver
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-        // Small delay to ensure theme change is complete
-        setTimeout(forceThemeReset, 100);
-      }
-    });
-  });
-
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['data-theme']
-  });
-
-  // Cleanup
-  return () => observer.disconnect();
-}, [setMessage]);
 
 
 
   const getAlgorithmName = () => getAlgoLabel(algorithm);
 
   return (
-    <div
-      className="page-container"
-      style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}
-    >
-      <h1
-        className="page-title"
-        style={{ textAlign: "center", marginBottom: "30px" }}
-      >
-        Searching Algorithms
-      </h1>
+    <div className="theme-container">
+      <h1 className="theme-title">Searching Algorithms</h1>
 
       {/* Top control bar (select + target + actions) */}
-      <div
-        className="controls-section"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "12px",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          marginBottom: "16px",
-        }}
-      >
-        <select
-          aria-label="Select Algorithm"
-          value={algorithm}
-          onChange={(e) => setAlgorithm(e.target.value)}
-          disabled={isSearching}
-          className="input"
-          style={{ minWidth: "180px" }}
-        >
-          {[
-            "binarySearch",
-            "linearSearch",
-            "jumpSearch",
-            "exponentialSearch",
-          ].map((algo) => (
-            <option key={algo} value={algo}>
-              {getAlgoLabel(algo)}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          placeholder="Custom Array (e.g., 5, 12, 19)"
-          value={customArrayInput}
-          onChange={(e) => setCustomArrayInput(e.target.value)}
-          disabled={isSearching}
-          className="input"
-          style={{ flexGrow: 1, minWidth: "200px" }}
-        />
-        <input
-          type="number"
-          placeholder="Target"
-          value={target}
-          onChange={(e) => setTarget(e.target.value)}
-          disabled={isSearching}
-          className="input"
-          style={{ minWidth: "140px" }}
-        />
-        <button className="btn" onClick={handleSearch} disabled={isSearching}>
-          {isSearching ? "Searching..." : "Run Search"}
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={() => {
-            setIsSearching(false);
-            setMessage("Search stopped.");
-          }}
-          disabled={!isSearching}
-        >
-          Stop
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={generateArray}
-          disabled={isSearching}
-        >
-          Generate Array
-        </button>
-      </div>
-      {inputError && (
-        <div
-          style={{
-            color: "#ff6b6b",
-            textAlign: "center",
-            marginBottom: "16px",
-            fontWeight: "bold",
-          }}
-        >
-          {inputError}
+      <div className="theme-card">
+        <div className="form-grid">
+          <div className="form-group">
+            <label className="form-label" htmlFor="algorithm-select">Algorithm</label>
+            <select
+              id="algorithm-select"
+              value={algorithm}
+              onChange={(e) => setAlgorithm(e.target.value)}
+              disabled={isSearching}
+              className="form-select" // ✅ MODIFIED: Use new global class
+            >
+              {[
+                "binarySearch",
+                "linearSearch",
+                "jumpSearch",
+                "exponentialSearch",
+              ].map((algo) => (
+                <option key={algo} value={algo}>
+                  {getAlgoLabel(algo)}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label" htmlFor="custom-array">Custom Array (Sorted)</label>
+            <input
+              id="custom-array"
+              type="text"
+              placeholder="e.g., 5, 12, 19"
+              value={customArrayInput}
+              onChange={(e) => setCustomArrayInput(e.target.value)}
+              disabled={isSearching}
+              className="form-control" // ✅ MODIFIED: Use new global class
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label" htmlFor="target-input">Target</label>
+            <input
+              id="target-input"
+              type="number"
+              placeholder="Target"
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+              disabled={isSearching}
+              className="form-control" // ✅ MODIFIED: Use new global class
+            />
+          </div>
+
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
+            <button className="btn btn-primary" onClick={handleSearch} disabled={isSearching}>
+              {isSearching ? "Searching..." : "Run Search"}
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                setIsSearching(false);
+                setMessage("Search stopped.");
+              }}
+              disabled={!isSearching}
+            >
+              Stop
+            </button>
+            <button className="btn btn-secondary" onClick={generateArray} disabled={isSearching}>
+              Generate Array
+            </button>
+          </div>
         </div>
-      )}
+        {inputError && <div style={{ color: "var(--theme-status-danger)", textAlign: "center", marginTop: "1rem" }}>{inputError}</div>}
+      </div>
 
       {/* Controls & Export cards */}
-      <div
-        className="controls-section"
-        style={{
-          display: "grid",
-          gridTemplateColumns: isTabletOrBelow ? "1fr" : "1fr 1fr",
-          gap: "24px",
-          marginBottom: "12px",
-        }}
-      >
-        {/* Controls Box */}
-        <div
-          style={{
-            background: "rgba(15, 52, 96, 0.1)",
-            borderRadius: "15px",
-            border: "1px solid rgba(102,204,255,0.2)",
-            padding: "20px",
-          }}
-        >
-          <h3 style={{ color: "#66ccff", marginBottom: "12px" }}>
-            Visualization Controls
-          </h3>
-
-          {/* Array Size Control */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: isTabletOrBelow ? "column" : "row",
-              alignItems: isTabletOrBelow ? "flex-start" : "center",
-              gap: "10px",
-              justifyContent: "space-between",
-              marginBottom: "14px",
-            }}
-          >
-            <label
-              className="label"
-              htmlFor="arraySizeRange"
-              style={{ minWidth: isTabletOrBelow ? "auto" : "110px" }}
-            >
-              Array Size:
-            </label>
+      <div className="form-grid">
+        <div className="theme-card">
+          <div className="theme-card-header">
+            <h3>Visualization Controls</h3>
+          </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="arraySizeRange">Array Size: {arraySize}</label>
             <input
               id="arraySizeRange"
               type="range"
-              min="10"
-              max="50"
+              min="10" max="50"
               value={arraySize}
               onChange={(e) => setArraySize(parseInt(e.target.value))}
               disabled={isSearching}
-              className="input"
-              style={{
-                width: isTabletOrBelow ? "100%" : "200px",
-              }}
+              className="form-range" // ✅ MODIFIED: Use new global class
             />
-            <div
-              style={{
-                color: "#66ccff",
-                fontWeight: 600,
-                minWidth: isTabletOrBelow ? "auto" : "140px",
-                textAlign: isTabletOrBelow ? "left" : "right",
-              }}
-            >
-              {arraySize}{" "}
-              <span style={{ color: "#9bb3c7", fontWeight: 400 }}>
-                (with values)
-              </span>
-            </div>
           </div>
-
-          {/* Speed Control */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: isTabletOrBelow ? "column" : "row",
-              alignItems: isTabletOrBelow ? "flex-start" : "center",
-              gap: "10px",
-              justifyContent: "space-between",
-            }}
-          >
-            <label
-              className="label"
-              htmlFor="speedRange"
-              style={{ minWidth: isTabletOrBelow ? "auto" : "110px" }}
-            >
-              Speed:
-            </label>
+          <div className="form-group">
+            <label className="form-label" htmlFor="speedRange">Speed: {delay}ms</label>
             <input
               id="speedRange"
               type="range"
-              min="50"
-              max="1000"
+              min="50" max="1000"
               value={delay}
               onChange={(e) => setDelay(parseInt(e.target.value))}
               disabled={isSearching}
-              className="input"
-              style={{
-                width: isTabletOrBelow ? "100%" : "200px",
-              }}
+              className="form-range" // ✅ MODIFIED: Use new global class
             />
-            <div
-              style={{
-                color: "#66ccff",
-                fontWeight: 600,
-                minWidth: isTabletOrBelow ? "auto" : "140px",
-                textAlign: isTabletOrBelow ? "left" : "right",
-              }}
-            >
-              {delay}ms{" "}
-              <span style={{ color: "#9bb3c7", fontWeight: 400 }}>(fast)</span>
-            </div>
           </div>
         </div>
 
-        {/* Export Controls Box */}
         <SimpleExportControls containerId="search-visualization-container" />
       </div>
 
-      {/* Status message line */}
-      {message && (
-        <div
-          style={{
-            textAlign: "right",
-            color: "#66ccff",
-            fontWeight: 600,
-            margin: "8px 0 6px",
-          }}
-        >
-          {message}
-        </div>
-      )}
+      {message && <div style={{ textAlign: "center", color: "var(--theme-status-info)", fontWeight: 600, margin: "1rem 0" }}>{message}</div>}
 
-      {/* Step Navigation (Binary Search only) */}
-      {algorithm === "binarySearch" && steps.length > 0 && (
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            marginBottom: "10px",
-            justifyContent: isMobile ? "center" : "flex-start",
-          }}
-        >
-          <button
-            className="btn btn-secondary"
-            onClick={handlePrevStep}
-            disabled={currentStep === 0}
-          >
-            Previous Step
-          </button>
-          <button
-            className="btn btn-secondary"
-            onClick={handleNextStep}
-            disabled={currentStep >= steps.length - 1}
-          >
-            Next Step
-          </button>
-          <span
-            style={{
-              color: "#66ccff",
-              fontWeight: 600,
-              marginLeft: "15px",
-              fontSize: "14px",
-            }}
-          >
-            Step {currentStep + 1} / {steps.length}
-          </span>
-        </div>
-      )}
 
       {/* Visualization & Pseudocode */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: isTabletOrBelow ? "column" : "row",
-          flexWrap: "wrap",
-          gap: "30px",
-          alignItems: "flex-start",
-          marginBottom: "30px",
-        }}
-      >
-        <div
-          style={{
-            flex: "1 1 auto",
-            minWidth: "300px",
-            maxWidth: "100%",
-            overflowX: "hidden",
-          }}
-        >
-          <div
-            id="search-visualization-container"
-            className="visualization-area"
-            style={{
-              minHeight: "400px",
-              padding: "20px",
-              background: "rgba(15, 52, 96, 0.1)",
-              borderRadius: "15px",
-              border: "1px solid rgba(102, 204, 255, 0.2)",
-              margin: "20px 0",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-end",
-                height: "360px",
-                gap: gapValue,
-                padding: "20px 10px 50px 10px",
-                position: "relative",
-                flexWrap: "nowrap",
-              }}
-            >
+      <div className="form-grid">
+        <div className="visualization-area" id="search-visualization-container" style={{ gridColumn: 'span 2' }}>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", height: "100%", gap: gapValue }}>
               {(() => {
                 const data = steps[currentStep]?.array || array;
                 const maxVal = Math.max(...data, 1);
@@ -801,191 +552,47 @@ const Searching = () => {
           </div>
         </div>
 
-        <div
-          style={{
-            flex: "0 0 300px",
-            minWidth: "280px",
-            maxWidth: "100%",
-            background: "rgba(102,204,255,0.07)",
-            border: "1px solid rgba(102,204,255,0.15)",
-            borderRadius: "12px",
-            padding: "18px",
-            overflowX: "auto",
-          }}
-        >
-          <h3 style={{ color: "#66ccff", marginBottom: "10px" }}>
-            {getAlgorithmName()} Pseudocode
-          </h3>
-          <pre
-            style={{
-              background: "rgba(26,26,46,0.95)",
-              borderRadius: "8px",
-              padding: "14px",
-              fontSize: "15px",
-              color: "#e0e6ed",
-              marginBottom: "10px",
-              overflowX: "auto",
-            }}
-          >
-            {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line, idx) => (
-              <div
-                key={line.code}
-                style={{
-                  background:
-                    algorithm === "binarySearch" &&
-                    steps.length > 0 &&
-                    steps[currentStep]?.pseudoLine !== null &&
-                    ALGORITHM_PSEUDOCODE[algorithm][
-                      steps[currentStep]?.pseudoLine
-                    ]?.code === line.code
-                      ? "rgba(102,204,255,0.25)"
-                      : "none",
-                  borderRadius: "5px",
-                  padding: "2px 6px",
-                  fontWeight:
-                    algorithm === "binarySearch" &&
-                    steps.length > 0 &&
-                    ALGORITHM_PSEUDOCODE[algorithm][
-                      steps[currentStep]?.pseudoLine
-                    ]?.code === line.code
-                      ? 700
-                      : 400,
-                  color:
-                    algorithm === "binarySearch" &&
-                    steps.length > 0 &&
-                    ALGORITHM_PSEUDOCODE[algorithm][
-                      steps[currentStep]?.pseudoLine
-                    ]?.code === line.code
-                      ? "#66ccff"
-                      : "#e0e6ed",
-                }}
-              >
-                {line.code}
-              </div>
+        <div className="theme-card">
+          <div className="theme-card-header">
+            <h3>{getAlgorithmName()} Pseudocode</h3>
+          </div>
+          <pre style={{ background: 'var(--theme-bg)', borderRadius: '8px', padding: '1rem', color: 'var(--theme-text-secondary)', overflowX: 'auto' }}>
+            {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line) => (
+              <div key={line.code}>{line.code}</div>
             ))}
           </pre>
-          <div
-            style={{
-              background: "rgba(102,204,255,0.08)",
-              borderRadius: "8px",
-              padding: "10px 12px",
-              fontSize: "14px",
-              color: "#b8c5d1",
-              minHeight: "40px",
-            }}
-          >
-            <strong>Explanation:</strong>
-            <br />
-            {algorithm === "binarySearch" &&
-            steps.length > 0 &&
-            steps[currentStep]?.pseudoLine !== null
-              ? ALGORITHM_PSEUDOCODE[algorithm][steps[currentStep]?.pseudoLine]
-                  ?.explain
-              : "Enter a target and choose Binary Search to see step-by-step explanation."}
-          </div>
         </div>
-      </div>
+      
 
       {/* Algorithm Details */}
-      <div className="algorithm-info" style={{ marginBottom: "24px" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "12px",
-            flexWrap: "wrap",
-            gap: "12px",
-          }}
-        >
-          <h3 style={{ margin: 0 }}>
-            {getAlgorithmName()} - Algorithm Details
-          </h3>
-          <button
-            className="btn btn-secondary"
-            onClick={() => setShowCodeExplanation(true)}
-          >
+      <div className="theme-card">
+        <div className="theme-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <h3>{getAlgorithmName()} - Algorithm Details</h3>
+          <button className="btn btn-secondary" onClick={() => setShowCodeExplanation(true)}>
             View Code Explanation
           </button>
         </div>
-        {(() => {
-          const meta = SEARCHING_DETAILS[algorithm] || {
-            time: "—",
-            space: "—",
-            uses: [],
-          };
-          return (
-            <div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                  gap: "12px",
-                  marginBottom: "12px",
-                }}
-              >
-                <div
-                  style={{
-                    background: "rgba(102, 204, 255, 0.08)",
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border: "1px solid rgba(102, 204, 255, 0.2)",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "#66ccff",
-                      fontWeight: 600,
-                      marginBottom: "6px",
-                    }}
-                  >
-                    Time Complexity
-                  </div>
-                  <div style={{ color: "#e0e6ed" }}>{meta.time}</div>
-                </div>
-                <div
-                  style={{
-                    background: "rgba(102, 204, 255, 0.08)",
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border: "1px solid rgba(102, 204, 255, 0.2)",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "#66ccff",
-                      fontWeight: 600,
-                      marginBottom: "6px",
-                    }}
-                  >
-                    Space Complexity
-                  </div>
-                  <div style={{ color: "#e0e6ed" }}>{meta.space}</div>
-                </div>
-              </div>
-              <div>
-                <div
-                  style={{
-                    color: "#66ccff",
-                    fontWeight: 600,
-                    marginBottom: "6px",
-                  }}
-                >
-                  Real-life uses
-                </div>
-                <ul
-                  style={{ margin: 0, paddingLeft: "18px", color: "#e0e6ed" }}
-                >
-                  {meta.uses?.slice(0, 2).map((u) => (
-                    <li key={u}>{u}</li>
-                  ))}
-                </ul>
-              </div>
+        <div>
+          <div className="complexity-grid">
+            <div className="complexity-item">
+              <span className="complexity-label">Time Complexity:</span>
+              <span className="complexity-value">{SEARCHING_DETAILS[algorithm]?.time}</span>
             </div>
-          );
-        })()}
+            <div className="complexity-item">
+              <span className="complexity-label">Space Complexity:</span>
+              <span className="complexity-value">{SEARCHING_DETAILS[algorithm]?.space}</span>
+            </div>
+          </div>
+          <div style={{ marginTop: '1.5rem' }}>
+            <h4 style={{ color: 'var(--theme-text-primary)', marginBottom: '0.5rem' }}>Real-life Uses:</h4>
+            <ul style={{ margin: 0, paddingLeft: "18px", color: "var(--theme-text-secondary)" }}>
+              {(SEARCHING_DETAILS[algorithm]?.uses || []).map((use) => (
+                <li key={use}>{use}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
-
       <CodeExplanation
         algorithm={algorithm}
         isVisible={showCodeExplanation}

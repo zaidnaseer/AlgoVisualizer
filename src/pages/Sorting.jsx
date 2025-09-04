@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import CodeExplanation from "../components/CodeExplanation";
 import SimpleExportControls from "../components/SimpleExportControls";
-import "../styles/pages.css";
-import "../styles/Sorting.css";
+import "../styles/global-theme.css"; 
 import { useMediaQuery } from "react-responsive";
 
 // Pseudocode map used for step-mode highlighting/explanations
@@ -325,24 +324,6 @@ const Sorting = () => {
   });
   const stopSortingRef = useRef(false);
   const [showCodeExplanation, setShowCodeExplanation] = useState(false);
-
-  // Contributed By Devika Harshey
-  const [theme, setTheme] = useState("light");
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      if (document.documentElement.classList.contains("dark")) {
-        setTheme("dark");
-      } else {
-        setTheme("light");
-      }
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   const delayRef = useRef(delay);
   useEffect(() => {
@@ -1190,435 +1171,160 @@ const timSortWithStop = async (
   ];
 
   return (
-    <div
-      className="page-container"
-      style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}
-    >
-      <h1
-        className="page-title"
-        style={{ textAlign: "center", marginBottom: "20px" }}
-      >
-        Sorting Algorithms
-      </h1>
+    <div className="theme-container">
+      <h1 className="theme-title">Sorting Algorithms</h1>
 
       {/* Top control bar */}
-      <div
-        className="controls-section"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "12px",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          marginBottom: "16px",
-        }}
-      >
-        <select
-          aria-label="Select Algorithm"
-          value={algorithm}
-          onChange={(e) => setAlgorithm(e.target.value)}
-          disabled={isSorting}
-          className="input"
-          style={{ minWidth: "180px" }}
-        >
-          {algoOptions.map((algo) => (
-            <option key={algo} value={algo}>
-              {algorithmNames[algo]}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          placeholder="Custom Array (e.g., 8, 2, 5)"
-          value={customArrayInput}
-          onChange={(e) => setCustomArrayInput(e.target.value)}
-          disabled={isSorting}
-          className="input"
-          style={{ flexGrow: 1, minWidth: "220px" }}
-        />
-        <button className="btn" onClick={handleSort} disabled={isSorting}>
-          {isSorting ? "Sorting..." : "Start Sort"}
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={handleStop}
-          disabled={!isSorting}
-        >
-          Stop
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={generateArray}
-          disabled={isSorting}
-        >
-          Generate Array
-        </button>
-      </div>
-      {inputError && (
-        <div
-          style={{
-            color: "#ff6b6b",
-            textAlign: "center",
-            marginBottom: "16px",
-            fontWeight: "bold",
-          }}
-        >
-          {inputError}
+      <div className="theme-card">
+        <div className="form-grid">
+          <div className="form-group">
+            <label className="form-label" htmlFor="algorithm-select">Algorithm</label>
+            <select
+              id="algorithm-select"
+              value={algorithm}
+              onChange={(e) => setAlgorithm(e.target.value)}
+              disabled={isSorting}
+              className="form-select"
+            >
+              {algoOptions.map((algo) => (
+                <option key={algo} value={algo}>
+                  {algorithmNames[algo]}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group" style={{ gridColumn: 'span 2' }}>
+            <label className="form-label" htmlFor="custom-array">Custom Array</label>
+            <input
+              id="custom-array"
+              type="text"
+              placeholder="e.g., 8, 2, 5"
+              value={customArrayInput}
+              onChange={(e) => setCustomArrayInput(e.target.value)}
+              disabled={isSorting}
+              className="form-control"
+            />
+          </div>
+          
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
+             <button className="btn btn-primary" onClick={handleSort} disabled={isSorting}>
+               {isSorting ? "Sorting..." : "Start Sort"}
+             </button>
+             <button className="btn btn-secondary" onClick={handleStop} disabled={!isSorting}>
+               Stop
+             </button>
+             <button className="btn btn-secondary" onClick={generateArray} disabled={isSorting}>
+               Generate Array
+             </button>
+          </div>
         </div>
-      )}
+        {inputError && <div style={{ color: "var(--theme-status-danger)", textAlign: "center", marginTop: "1rem" }}>{inputError}</div>}
+      </div>
 
       {/* Controls & Export */}
-      <div
-        className="controls-section"
-        style={{
-          display: "grid",
-          gridTemplateColumns: isTabletOrBelow ? "1fr " : "1fr 1fr ",
-          gridTemplateRows: isTabletOrBelow ? "auto auto auto" : "auto auto",
-          gap: "24px",
-          marginBottom: "12px",
-          width: "100%",
-          alignItems: "start",
-        }}
-      >
-        <div
-          style={{
-            background: "rgba(15, 52, 96, 0.1)",
-            borderRadius: "15px",
-            border: "1px solid rgba(102,204,255,0.2)",
-            padding: "20px",
-            width: "100%",
-          }}
-        >
-          <h3 style={{ color: "#66ccff", marginBottom: "12px" }}>
-            Visualization Controls
-          </h3>
-
-          {/* Array Size Control */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: isTabletOrBelow ? "column" : "row",
-              alignItems: isTabletOrBelow ? "flex-start" : "center",
-              gap: "10px",
-              justifyContent: "space-between",
-              marginBottom: "14px",
-              width: "100%",
-            }}
-          >
-            <label
-              className="label"
-              htmlFor="arraySizeRange"
-              style={{ minWidth: "110px" }}
-            >
-              Array Size:
-            </label>
+      <div className="form-grid">
+        <div className="theme-card">
+          <div className="theme-card-header">
+            <h3>Visualization Controls</h3>
+          </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="arraySizeRange">Array Size: {arraySize}</label>
             <input
               id="arraySizeRange"
               type="range"
-              min="10"
-              max="60"
+              min="10" max="60"
               value={arraySize}
               onChange={(e) => setArraySize(parseInt(e.target.value))}
               disabled={isSorting}
-              className="input"
-              style={{ flex: 1, maxWidth: "100%" }}
+              className="form-range"
             />
-            <div
-              style={{
-                color: "#66ccff",
-                fontWeight: 600,
-                minWidth: isTabletOrBelow ? "auto" : "140px",
-                textAlign: isTabletOrBelow ? "left" : "right",
-                // width: "100%"
-              }}
-            >
-              {arraySize}{" "}
-              <span style={{ color: "#9bb3c7", fontWeight: 400 }}>
-                (elements)
-              </span>
-            </div>
           </div>
-
-          {/* Speed Control */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: isTabletOrBelow ? "column" : "row",
-              alignItems: isTabletOrBelow ? "flex-start" : "center",
-              gap: "10px",
-              justifyContent: "space-between",
-              width: "100%",
-              marginBottom: "4px",
-            }}
-          >
-            <label
-              className="label"
-              htmlFor="speedRange"
-              style={{ minWidth: "110px" }}
-            >
-              Speed:
-            </label>
+          <div className="form-group">
+            <label className="form-label" htmlFor="speedRange">Speed: {delay}ms</label>
             <input
               id="speedRange"
               type="range"
-              min="20"
-              max="1000"
+              min="20" max="1000"
               value={delay}
               onChange={(e) => setDelay(parseInt(e.target.value))}
               disabled={isSorting}
-              className="input"
-              style={{ flex: 1, maxWidth: "100%" }}
+              className="form-range"
             />
-            <div
-              style={{
-                color: "#66ccff",
-                fontWeight: 600,
-                minWidth: isTabletOrBelow ? "auto" : "140px",
-                textAlign: isTabletOrBelow ? "left" : "right",
-                // width: "100%",
-              }}
-            >
-              {delay}ms
-            </div>
           </div>
         </div>
 
         <SimpleExportControls containerId="sort-visualization-container" />
-        {/* Pseudocode panel */}
-        <div
-          style={{
-            flex: "0 0 300px",
-            minWidth: "280px",
-            maxWidth: "100%",
-            background: "rgba(102,204,255,0.07)",
-            border: "1px solid rgba(102,204,255,0.15)",
-            borderRadius: "12px",
-            padding: "18px",
-            overflowX: "auto",
-            marginTop: isTabletOrBelow ? "20px" : "0px",
-            height: "fit-content",
-            alignSelf: "flex-start",
-          }}
-        >
-          <h3 style={{ color: "#66ccff", marginBottom: "10px" }}>
-            {getAlgorithmName()} Pseudocode
-          </h3>
-          <pre
-            style={{
-              background:
-                theme === "dark"
-                  ? "rgba(26,26,46,0.95)"
-                  : "rgba(255,255,255,0.95)",
-              borderRadius: "8px",
-              padding: "14px",
-              fontSize: "15px",
-              color: "#e0e6ed",
-              marginBottom: "10px",
-              overflowX: "auto",
-            }}
-          >
-            {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line) => (
-              <div key={line.code} style={{ padding: "2px 6px" }}>
-                {line.code}
-              </div>
-            ))}
-          </pre>
-          <div
-            style={{
-              background: "rgba(102,204,255,0.08)",
-              borderRadius: "8px",
-              padding: "10px 12px",
-              fontSize: "14px",
-              color: "#b8c5d1",
-              minHeight: "40px",
-            }}
-          >
-            <strong>Explanation:</strong>
-            <br />
-            {(ALGORITHM_PSEUDOCODE[algorithm] || [])[0]?.explain ||
-              "Select an algorithm to view its pseudocode."}
-          </div>
+        
+        <div className="theme-card">
+           <div className="theme-card-header">
+             <h3>{getAlgorithmName()} Pseudocode</h3>
+           </div>
+           <pre style={{ background: 'var(--theme-bg)', borderRadius: '8px', padding: '1rem', color: 'var(--theme-text-secondary)', overflowX: 'auto' }}>
+             {(ALGORITHM_PSEUDOCODE[algorithm] || []).map((line) => (
+               <div key={line.code}>{line.code}</div>
+             ))}
+           </pre>
         </div>
       </div>
-
-      {/* Status */}
-      {message && (
-        <div
-          style={{
-            textAlign: "right",
-            color: "#66ccff",
-            fontWeight: 600,
-            margin: "8px 0 6px",
-          }}
-        >
-          {message}
-        </div>
-      )}
+      
+      {message && <div style={{ textAlign: "center", color: "var(--theme-status-info)", fontWeight: 600, margin: "1rem 0" }}>{message}</div>}
 
       {/* Visualization */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: isTabletOrBelow ? "column" : "row",
-          flexWrap: "wrap",
-          gap: "30px",
-          alignItems: "flex-start",
-          marginBottom: "30px",
-        }}
-      >
-        <div
-          style={{
-            flex: "1 1 auto",
-            minWidth: "300px",
-            maxWidth: "100%",
-            overflowX: "hidden",
-          }}
-        >
-          <div
-            id="sort-visualization-container"
-            className="visualization-area"
-            style={{
-              minHeight: "400px",
-              padding: "20px 20px 50px 20px",
-              background: "rgba(15, 52, 96, 0.1)",
-              borderRadius: "15px",
-              border: "1px solid rgba(102, 204, 255, 0.2)",
-              margin: "20px 0",
-              position: "relative",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-end",
-                height: "360px",
-                gap: gapValue,
-                padding: "0 10px",
-                flexWrap: "nowrap",
-              }}
-            >
-              {(() => {
-                const data = array;
-                const maxVal = Math.max(...data, 1);
-                return data.map((num, idx) => {
-                  const maxBarWidth = isTabletOrBelow ? 20 : 28;
-                  const baseWidth = Math.floor(
-                    (isTabletOrBelow ? 360 : 600) / Math.max(arraySize, 1)
-                  );
-                  const barWidth = Math.max(
-                    isTabletOrBelow ? 10 : 12,
-                    Math.min(maxBarWidth, baseWidth)
-                  );
-                  const showNumbers = arraySize <= 25;
-                  const heightPx = Math.max(
-                    40,
-                    Math.round((num / maxVal) * 280)
-                  );
-                  const col = colorArray[idx] || "#66ccff";
-                  return (
-                    <div
-                      key={`${num}-${idx}`}
-                      style={{
-                        height: `${heightPx}px`,
-                        width: `${barWidth}px`,
-                        backgroundColor: col,
-                        border: `1px solid ${col}`,
-                        borderRadius: "6px 6px 0 0",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "flex-end",
-                        fontWeight: "bold",
-                        fontSize: barFontSize,
-                        padding: "4px 2px",
-                        transition: "all 0.3s ease",
-                        boxShadow: `0 4px 12px ${col}30`,
-                        position: "relative",
-                        cursor: "default",
-                        color: "#ffffff",
-                      }}
-                      title={`Value: ${num}, Index: ${idx}`}
-                    >
-                      {showNumbers && (
-                        <div
-                          style={{
-                            textShadow: "1px 1px 2px rgba(0,0,0,0.8)",
-                            fontWeight: "bold",
-                            fontSize: "inherit",
-                            minHeight: "14px",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          {num}
-                        </div>
-                      )}
-                    </div>
-                  );
-                });
-              })()}
-            </div>
-            <div
-              style={{
-                position: "absolute",
-                bottom: "10px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                color: "#66ccff",
-                fontSize: "12px",
-                fontWeight: "600",
-                background: "rgba(26, 26, 46, 0.8)",
-                padding: "6px 12px",
-                borderRadius: "6px",
-                border: "1px solid rgba(102, 204, 255, 0.3)",
-              }}
-            >
-              Array Size: {array.length}
-            </div>
+      <div className="visualization-area" id="sort-visualization-container">
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", height: "100%", gap: computeGap() }}>
+            {array.map((num, idx) => {
+              const maxVal = Math.max(...array, 1);
+              const heightPx = Math.max(
+                40, // A minimum height to ensure small numbers are visible
+                Math.round((num / maxVal) * 280) // Scale height within a 280px range
+              );
+              const col = colorArray[idx] || 'var(--theme-bar-color)';
+              return (
+                  <div
+                    key={`${num}-${idx}`}
+                    className="array-bar"
+                    style={{
+                      height: `${heightPx}px`,
+                      backgroundColor: col,
+                      color: 'var(--theme-bar-text)',
+                      fontSize: computeBarFontSize()
+                    }}
+                  >
+                    {arraySize <= 25 && num}
+                  </div>
+                );
+            })}
           </div>
-        </div>
-
       </div>
 
       {/* Stats */}
-      <div className="stats-section" style={{ marginBottom: "24px" }}>
-        <h3 className="stats-title">Performance Statistics</h3>
+      <div className="stats-section">
+        <h3 className="theme-title" style={{ fontSize: '1.75rem' }}>Performance Statistics</h3>
         <div className="stats-grid">
-          <div className="stat-card comparisons">
-            <div className="stat-label comparisons">Comparisons</div>
-            <div className="stat-value">{statistics.comparisons}</div>
-          </div>
-          <div className="stat-card swaps">
-            <div className="stat-label swaps">Swaps/Moves</div>
-            <div className="stat-value">{statistics.swaps}</div>
-          </div>
-          <div className="stat-card time">
-            <div className="stat-label time">Elapsed Time</div>
-            <div className="stat-value">{statistics.time} ms</div>
-          </div>
-          <div className="stat-card array-size">
-            <div className="stat-label array-size">Array Size</div>
-            <div className="stat-value">{arraySize}</div>
-          </div>
+            <div className="stat-card">
+              <div className="stat-label">Comparisons</div>
+              <div className="stat-value">{statistics.comparisons}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-label">Swaps/Moves</div>
+              <div className="stat-value">{statistics.swaps}</div>
+            </div>
+             <div className="stat-card">
+              <div className="stat-label">Elapsed Time</div>
+              <div className="stat-value">{statistics.time} ms</div>
+            </div>
+             <div className="stat-card">
+              <div className="stat-label">Array Size</div>
+              <div className="stat-value">{arraySize}</div>
+            </div>
         </div>
       </div>
 
       {/* Algorithm details */}
-      <div className="algorithm-info">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "12px",
-            flexWrap: "wrap",
-            gap: "12px",
-          }}
-        >
-          <h3 style={{ margin: 0 }}>
-            {getAlgorithmName()} - Algorithm Details
-          </h3>
+      <div className="theme-card">
+        <div className="theme-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <h3>{getAlgorithmName()} - Algorithm Details</h3>
           <button
             className="btn btn-secondary"
             onClick={() => setShowCodeExplanation(true)}
@@ -1626,36 +1332,29 @@ const timSortWithStop = async (
             View Code Explanation
           </button>
         </div>
-        {(() => {
-          const meta = getAlgorithmInfo() || {};
-          return (
-            <div>
-              <p style={{ color: "#e0e6ed" }}>{meta.description}</p>
-              <div className="complexity-grid">
-                <div className="complexity-row">
-                  <span className="complexity-label">Time:</span>{" "}
-                  <span style={{ color: "#e0e6ed" }}>
-                    {meta.timeComplexity}
-                  </span>
-                </div>
-                <div className="complexity-row">
-                  <span className="complexity-label">Space:</span>{" "}
-                  <span style={{ color: "#e0e6ed" }}>
-                    {meta.spaceComplexity}
-                  </span>
-                </div>
-                <div className="complexity-row">
-                  <span className="complexity-label">Best Case:</span>{" "}
-                  <span style={{ color: "#e0e6ed" }}>{meta.bestCase}</span>
-                </div>
-                <div className="complexity-row">
-                  <span className="complexity-label">Stable:</span>{" "}
-                  <span style={{ color: "#e0e6ed" }}>{meta.stable}</span>
-                </div>
-              </div>
+        <div>
+          <p style={{ color: "var(--theme-text-secondary)", lineHeight: 1.6 }}>
+            {getAlgorithmInfo()?.description}
+          </p>
+          <div className="complexity-grid">
+            <div className="complexity-item">
+              <span className="complexity-label">Time Complexity:</span>
+              <span className="complexity-value">{getAlgorithmInfo()?.timeComplexity}</span>
             </div>
-          );
-        })()}
+            <div className="complexity-item">
+              <span className="complexity-label">Space Complexity:</span>
+              <span className="complexity-value">{getAlgorithmInfo()?.spaceComplexity}</span>
+            </div>
+            <div className="complexity-item">
+              <span className="complexity-label">Best Case:</span>
+              <span className="complexity-value">{getAlgorithmInfo()?.bestCase}</span>
+            </div>
+            <div className="complexity-item">
+              <span className="complexity-label">Stable:</span>
+              <span className="complexity-value">{getAlgorithmInfo()?.stable}</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <CodeExplanation

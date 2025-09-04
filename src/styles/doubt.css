@@ -26,6 +26,24 @@
   --ring: 0 0 0 8px rgba(90,162,255,0.12);
 }
 
+[data-theme="light"] {
+--doubt-bg: #f0f2f5; 
+--doubt-surface: rgba(255, 255, 255, 0.7);
+--doubt-text: #111827; /* Darker primary text */
+--doubt-subtext: #4b5563; /* Darker grey for subtitles and helpers */
+--doubt-input-bg: #ffffff;
+--doubt-input-text: #111827;
+--doubt-border: #d1d5db;
+--doubt-border-focus: #2563eb; /* A stronger blue for focus */
+--doubt-btn-from: #4f46e5; /* Darker, vibrant indigo */
+--doubt-btn-to: #7c3aed;   /* Darker, vibrant purple */
+--doubt-btn-hover-from: #4338ca;
+--doubt-btn-hover-to: #6d28d9;
+--doubt-btn-text: #ffffff;
+--doubt-error: #dc2626; /* A stronger red */
+--doubt-success: #059669; /* A stronger green */
+--ring: 0 0 0 8px rgba(59, 130, 246, 0.1);
+}
 
 
 /* Section background with subtle grid + overflow for blobs */
@@ -124,6 +142,12 @@
   background-clip: text;
   color: transparent;
   text-align: center;
+}
+[data-theme="light"] .doubt-title {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: var(--doubt-text);
 }
 
 .doubt-subtitle {

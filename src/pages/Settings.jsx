@@ -179,6 +179,79 @@ const Settings = () => {
             0%, 100% { opacity: 0.6; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.2); }
           }
+
+          .theme-switch-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+          }
+
+          .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+          }
+
+          .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+
+          .theme-switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 28px;
+          }
+
+          .theme-switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .theme-switch input:checked + .theme-switch-slider {
+            background-color: var(--accent, #6366f1);
+          }
+
+          .theme-switch input:checked + .theme-switch-slider:before {
+            transform: translateX(22px);
+          }
+
+          .theme-switch-icon {
+            pointer-events: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: opacity 0.3s ease;
+          }
+
+          .theme-switch-icon.sun {
+            left: 6px;
+            opacity: ${theme === 'light' ? 1 : 0};
+          }
+
+          .theme-switch-icon.moon {
+            right: 6px;
+            opacity: ${theme === 'dark' ? 1 : 0};
+          }
+
         `}
       </style>
       
@@ -222,61 +295,19 @@ const Settings = () => {
               Theme Preference
             </label>
             
-            <motion.button
-              className="theme-button"
-              onClick={toggleTheme}
-              style={buttonStyle}
-              whileHover={{ 
-                scale: 1.02,
-                y: -2,
-                boxShadow: "0 8px 25px rgba(99, 102, 241, 0.3)"
-              }}
-              whileTap={{ 
-                scale: 0.98,
-                y: 0
-              }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <motion.span style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={theme}
-                    initial={{ rotateY: -90, opacity: 0 }}
-                    animate={{ rotateY: 0, opacity: 1 }}
-                    exit={{ rotateY: 90, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                  >
-                    {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                  </motion.div>
-                </AnimatePresence>
-                <span style={{
-                  position: 'relative',
-                  overflow: 'hidden',
-                  display: 'inline-block',
-                  height: '1.2em'
-                }}>
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={theme === 'dark' ? 'light' : 'dark'}
-                      initial={{ y: theme === 'dark' ? 20 : -20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: theme === 'dark' ? -20 : 20, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      style={{
-                        position: 'absolute',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      {theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
-                    </motion.span>
-                  </AnimatePresence>
-                </span>
-              </motion.span>
-            </motion.button>
+            <div className='theme-switch-container'>
+              <Sun size={22} color={theme === 'light' ? '#f59e0b' : currentColors.textMuted} />
+              <label className="theme-switch">
+                <input
+                  type="checkbox"
+                  checked={theme === 'dark'}
+                  onChange={toggleTheme}
+                  aria-label="Theme toggle"
+                />
+                <span className="theme-switch-slider"></span>
+              </label>
+              <Moon size={22} color={theme === 'dark' ? currentColors.accent : currentColors.textMuted} />
+            </div>
           </motion.div>
           
           <motion.div 

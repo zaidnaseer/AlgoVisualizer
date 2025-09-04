@@ -15,6 +15,8 @@ import {
   X,
   ChevronRight
 } from "lucide-react";
+import { useTheme } from "../ThemeContext";
+
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState('/');
@@ -22,7 +24,44 @@ const Sidebar = () => {
   const linkRefs = useRef({});
   const [indicatorPos, setIndicatorPos] = useState({ top: 0 });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate(); 
+  const { theme } = useTheme();
+
+  const colors = {
+    dark: {
+      bg: 'linear-gradient(180deg, #1a1b23 0%, #16171d 100%)',
+      border: 'rgba(255, 255, 255, 0.1)',
+      textPrimary: '#ffffff',
+      textSecondary: 'rgba(255, 255, 255, 0.7)',
+      textMuted: 'rgba(255, 255, 255, 0.5)',
+      accent: '#667eea',
+      accentGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      accentText: '#ffffff',
+      hoverBg: 'rgba(255, 255, 255, 0.05)',
+      activeBg: 'linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%)',
+      subtleBg: 'rgba(255, 255, 255, 0.03)',
+      backdrop: 'rgba(0, 0, 0, 0.5)',
+      mobileMenuButton: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      mobileMenuButtonText: '#ffffff',
+    },
+    light: {
+      bg: '#ffffff',
+      border: '#e2e8f0',
+      textPrimary: '#1f2937',
+      textSecondary: '#64748b',
+      textMuted: '#94a3b8',
+      accent: '#4f46e5',
+      accentGradient: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+      accentText: '#ffffff',
+      hoverBg: '#f1f5f9',
+      activeBg: 'rgba(79, 70, 229, 0.1)',
+      subtleBg: '#f8fafc',
+      backdrop: 'rgba(255, 255, 255, 0.5)',
+      mobileMenuButton: '#ffffff',
+      mobileMenuButtonText: '#4f46e5',
+    }
+  };
+  const currentColors = colors[theme] || colors.dark;
 
   // Update active indicator position
   useEffect(() => {
@@ -136,7 +175,7 @@ const Sidebar = () => {
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle navigation menu"
       >
-        {isMobileMenuOpen ? <X size={24} color="#fff" /> : <Menu size={24} color="#fff" />}
+        {isMobileMenuOpen ? <X size={24} color={currentColors.mobileMenuButtonText} /> : <Menu size={24} color={currentColors.mobileMenuButtonText} />}
       </button>
 
       {/* Backdrop with blur effect */}
@@ -236,12 +275,12 @@ const Sidebar = () => {
         .mobile-menu-button {
           position: fixed;
           top: 1rem;
-          right: 1rem; /* Change from left: 1rem; to right: 1rem; */
+          left: 1rem; 
           z-index: 1100;
           width: 48px;
           height: 48px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          border: none;
+          background: ${currentColors.mobileMenuButton};
+          border: 1px solid ${currentColors.border};
           border-radius: 12px;
           cursor: pointer;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -260,6 +299,8 @@ const Sidebar = () => {
         .mobile-menu-button.active {
           background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+          left: calc(280px + 1rem);
+
         }
 
         .hamburger {
@@ -275,7 +316,7 @@ const Sidebar = () => {
           position: absolute;
           height: 2px;
           width: 100%;
-          background: white;
+          background: ${currentColors.mobileMenuButtonText};
           border-radius: 1px;
           opacity: 1;
           left: 0;
@@ -313,7 +354,7 @@ const Sidebar = () => {
         .sidebar-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.5);
+          background: ${currentColors.backdrop};
           backdrop-filter: blur(4px);
           opacity: 0;
           visibility: hidden;
@@ -332,8 +373,8 @@ const Sidebar = () => {
           top: 0;
           width: 280px;
           height: 100vh;
-          background: linear-gradient(180deg, #1a1b23 0%, #16171d 100%);
-          border-right: 1px solid rgba(255, 255, 255, 0.1);
+          background: ${currentColors.bg};
+          border-right: border-right: 1px solid ${currentColors.border};
           display: flex;
           flex-direction: column;
           z-index: 1000;
@@ -349,7 +390,7 @@ const Sidebar = () => {
 
         .sidebar-header {
           padding: 2rem 1.5rem 1.5rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          border-bottom: 1px solid ${currentColors.border};
         }
 
         .sidebar-logo {
@@ -367,12 +408,12 @@ const Sidebar = () => {
         .logo-icon {
           width: 48px;
           height: 48px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: ${currentColors.accentGradient};
           border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
+          color: ${currentColors.accentText};
           box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
 
@@ -383,14 +424,14 @@ const Sidebar = () => {
         .logo-main {
           font-size: 1.5rem;
           font-weight: 700;
-          color: white;
+          color: ${currentColors.textPrimary};
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         .logo-highlight {
           font-size: 1.5rem;
           font-weight: 700;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: ${currentColors.accentGradient};
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -399,7 +440,7 @@ const Sidebar = () => {
 
         .logo-subtitle {
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: ${currentColors.textSecondary};
           font-weight: 400;
           margin-top: 2px;
         }
@@ -429,7 +470,7 @@ const Sidebar = () => {
         .sidebar-group-title {
           font-size: 0.75rem;
           font-weight: 600;
-          color: rgba(255, 255, 255, 0.5);
+          color: ${currentColors.textMuted};
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
@@ -437,7 +478,7 @@ const Sidebar = () => {
         .sidebar-group-line {
           flex: 1;
           height: 1px;
-          background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+          background: linear-gradient(90deg, ${currentColors.border} 0%, transparent 100%);
         }
 
         .sidebar-group-items {
@@ -465,7 +506,7 @@ const Sidebar = () => {
           left: -100%;
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+          background: linear-gradient(90deg, ${currentColors.border} 0%, transparent 100%);
           transition: left 0.5s ease;
         }
 
@@ -474,13 +515,13 @@ const Sidebar = () => {
         }
 
         .sidebar-link:hover {
-          background: rgba(255, 255, 255, 0.05);
+          background: background: ${currentColors.hoverBg};
           transform: translateX(4px);
         }
 
         .sidebar-link.active {
-          background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
-          border: 1px solid rgba(102, 126, 234, 0.3);
+          background: ${currentColors.activeBg};
+          border: 1px solid ${currentColors.border};
           box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
         }
 
@@ -492,30 +533,30 @@ const Sidebar = () => {
         }
 
         .sidebar-icon {
-          color: rgba(255, 255, 255, 0.7);
+          color: ${currentColors.textSecondary};
           transition: all 0.3s ease;
         }
 
         .sidebar-link.active .sidebar-icon {
-          color: #667eea;
+          color: color: ${currentColors.accent};
         }
 
         .sidebar-label {
           font-size: 0.875rem;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.8);
+          color: color: ${currentColors.textSecondary};
           flex: 1;
           transition: all 0.3s ease;
         }
 
         .sidebar-link.active .sidebar-label {
-          color: white;
+          color: ${currentColors.textPrimary};
           font-weight: 600;
         }
 
         .sidebar-badge {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
+          background: ${currentColors.accentGradient};
+          color: ${currentColors.accentText};
           font-size: 0.75rem;
           font-weight: 600;
           padding: 0.125rem 0.5rem;
@@ -526,7 +567,7 @@ const Sidebar = () => {
         }
 
         .sidebar-arrow {
-          color: #667eea;
+          color: ${currentColors.accent};
           opacity: 0;
           transition: all 0.3s ease;
         }
@@ -538,7 +579,7 @@ const Sidebar = () => {
 
         .sidebar-footer {
           padding: 1rem 1.5rem 2rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          border-top: 1px solid ${currentColors.border};
         }
 
         .user-profile {
@@ -546,10 +587,10 @@ const Sidebar = () => {
           align-items: center;
           gap: 0.75rem;
           padding: 1rem;
-          background: rgba(255, 255, 255, 0.03);
+          background: ${currentColors.subtleBg};
           border-radius: 12px;
           margin-bottom: 1rem;
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          border: 1px solid ${currentColors.border};
         }
 
         .user-avatar {
@@ -562,11 +603,11 @@ const Sidebar = () => {
         .avatar-placeholder {
           width: 100%;
           height: 100%;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: ${currentColors.accentGradient};
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
+          color:  ${currentColors.accentText};
         }
 
         .user-info {
@@ -576,12 +617,12 @@ const Sidebar = () => {
         .user-name {
           font-size: 0.875rem;
           font-weight: 600;
-          color: white;
+          color: ${currentColors.textPrimary};
         }
 
         .user-status {
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: ${currentColors.textSecondary};
         }
 
         .sidebar-indicator {
@@ -589,7 +630,7 @@ const Sidebar = () => {
           left: 0;
           width: 4px;
           height: 48px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: ${currentColors.accentGradient};
           border-radius: 0 4px 4px 0;
           box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
         }
