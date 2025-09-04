@@ -77,7 +77,7 @@ const SimpleExportControls = ({ containerId }) => {
             onClick={handleStartRecording}
             style={{ backgroundColor: 'var(--theme-status-success)', borderColor: 'var(--theme-status-success)' }} // Keep brand color for start
           >
-            Start Recording
+            Start Recording.
           </button>
         ) : (
           <button

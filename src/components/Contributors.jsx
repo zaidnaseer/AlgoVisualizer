@@ -234,13 +234,75 @@ const Contributors = () => {
       <section className="contributors-section">
         <div className="container">
           <div className="loading-state">
-            <div className="loading-spinner"></div>
+            <motion.div
+              className="bouncing-loader"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="loader-dot" />
+              <div className="loader-dot" />
+              <div className="loader-dot" />
+            </motion.div>
             <p>Loading our amazing contributors...</p>
           </div>
         </div>
+
+        <style>{`
+          .contributors-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #fff;
+          }
+          .bouncing-loader {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 10px;
+            height: 50px;
+            margin-bottom: 16px;
+          }
+          .loader-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6, #2563eb);
+            box-shadow: 0 0 12px rgba(96,165,250,0.6);
+            animation: bounceScale 0.8s infinite alternate;
+          }
+          .loader-dot:nth-child(2) {
+            animation-delay: 0.2s;
+          }
+          .loader-dot:nth-child(3) {
+            animation-delay: 0.4s;
+          }
+
+          @keyframes bounceScale {
+            0% {
+              transform: translateY(0) scale(1);
+              opacity: 0.7;
+            }
+            100% {
+              transform: translateY(-20px) scale(1.3);
+              opacity: 1;
+            }
+          }
+
+          .loading-state p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.9;
+            text-align: center;
+            letter-spacing: 0.5px;
+          }
+        `}</style>
       </section>
     );
   }
+
 
   return (
     <section className="contributors-section">
