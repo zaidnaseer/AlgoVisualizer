@@ -120,8 +120,6 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
-![GSSoC Logo](/AlgoVisualizer/src/assets/gssoc%20logo.png)
-
 🌟 **Exciting News...**
 
 🚀 This project is now an official part of GirlScript Summer of Code – GSSoC'25! 💃🎉💻 We're thrilled to welcome contributors from all over India and beyond to collaborate, build, and grow *AlgoVisualizer!* Let’s make learning and career development smarter – together! 🌟👨‍💻👩‍💻
