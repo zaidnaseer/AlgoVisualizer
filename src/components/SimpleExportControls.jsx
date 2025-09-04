@@ -81,7 +81,7 @@ const SimpleExportControls = ({ containerId }) => {
             onClick={handleStartRecording}
             style={{ background: '#28a745', color: '#fff' }}
           >
-            Start Recording
+            Start Recording.
           </button>
         ) : (
           <button
