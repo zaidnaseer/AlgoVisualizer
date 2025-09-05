@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import Sorting from './pages/Sorting';
 import Searching from './pages/Searching';
 import DataStructures from './pages/DataStructures';
-import Graph from './pages/Graph'; 
+import Graph from './pages/Graph';
 import Quiz from './pages/Quiz';
 import Settings from './pages/Settings';
 import Contributors from './components/Contributors';
@@ -18,8 +18,9 @@ import PrivacyPolicy from './components/Privacy';
 import TermsOfService from './components/terms';
 import Doubt from './components/Doubt';
 import AlgorithmDocumentation from './pages/Documentation';
+import ComplexityBox from './components/ComplexityBox';
 import './styles/components.css';
-import { ThemeProvider } from './ThemeContext'; 
+import { ThemeProvider } from './ThemeContext';
 
 // Clerk imports
 import { SignIn, SignUp } from '@clerk/clerk-react';
@@ -27,10 +28,7 @@ import { SignIn, SignUp } from '@clerk/clerk-react';
 const AuthButtons = () => {
   const location = useLocation();
 
-  // Hide auth buttons when already on sign-in or sign-up page
-  if (location.pathname === "/sign-in" || location.pathname === "/sign-up") {
-    return null;
-  }
+  if (location.pathname === "/sign-in" || location.pathname === "/sign-up") return null;
 
   return (
     <div className="auth-buttons">
@@ -41,14 +39,14 @@ const AuthButtons = () => {
 };
 
 const App = () => {
+  const selectedAlgorithm = "bubbleSort"; // You can set this dynamically
+
   return (
     <ThemeProvider>
       <div className="app-container">
-        {/* This runs on every route change (Router is provided in index.jsx) */}
         <ScrollToTop />
-
         <Sidebar />
-        <AuthButtons /> {/* Top-left auth buttons */}
+        <AuthButtons />
 
         <main className="main-content main-content-with-sidebar">
           <Routes>
@@ -67,23 +65,14 @@ const App = () => {
             <Route path="/documentation" element={<AlgorithmDocumentation />} />
 
             {/* Clerk Authentication Routes */}
-            <Route
-              path="/sign-in"
-              element={
-                <div className="auth-page">
-                  <SignIn routing="path" path="/sign-in" />
-                </div>
-              }
-            />
-            <Route
-              path="/sign-up"
-              element={
-                <div className="auth-page">
-                  <SignUp routing="path" path="/sign-up" />
-                </div>
-              }
-            />
+            <Route path="/sign-in" element={<div className="auth-page"><SignIn routing="path" path="/sign-in" /></div>} />
+            <Route path="/sign-up" element={<div className="auth-page"><SignUp routing="path" path="/sign-up" /></div>} />
           </Routes>
+
+          {/* Complexity Info Box */}
+          <div style={{ marginTop: "2rem" }}>
+            <ComplexityBox algorithm={selectedAlgorithm} />
+          </div>
         </main>
 
         <Doubt />
