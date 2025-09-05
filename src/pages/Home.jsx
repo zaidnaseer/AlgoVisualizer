@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Code, Search, BarChart3, GitBranch, Users, Trophy, ArrowRight, Sparkles, BookOpen, Target, Clock, Star } from 'lucide-react';
+import { Play, Code, Search, BarChart3, GitBranch, Users, Trophy, ArrowRight, Sparkles, BookOpen, Target, Clock, Star, Share2 } from 'lucide-react';
 import '../styles/home.css';
 
 const Home = () => {
@@ -41,6 +41,15 @@ const Home = () => {
       gradient: "from-purple-500 to-indigo-500",
       algorithms: "15+ Structures",
       difficulty: "Intermediate to Expert"
+    },
+    {
+      icon: Share2,
+      title: "Graph Algorithms",
+      path: "/graph",
+      description: "Explore BFS, DFS, and Dijkstra. Load a default graph or build your own and visualize.",
+      gradient: "from-emerald-500 to-teal-500",
+      algorithms: "BFS • DFS • Dijkstra",
+      difficulty: "Beginner to Intermediate"
     }
   ];
 

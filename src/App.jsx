@@ -8,6 +8,9 @@ import Sorting from './pages/Sorting';
 import Searching from './pages/Searching';
 import DataStructures from './pages/DataStructures';
 import Graph from './pages/Graph';
+import GraphBFS from './pages/GraphBFS';
+import GraphDFS from './pages/GraphDFS';
+import GraphDijkstra from './pages/GraphDijkstra';
 import Quiz from './pages/Quiz';
 import Settings from './pages/Settings';
 import SignInPage from './pages/SignIn';
@@ -40,6 +43,9 @@ const App = () => {
             <Route path="/searching" element={<Searching />} />
             <Route path="/data-structures" element={<DataStructures />} />
             <Route path="/graph" element={<Graph />} />
+            <Route path="/graph/bfs" element={<GraphBFS />} />
+            <Route path="/graph/dfs" element={<GraphDFS />} />
+            <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/contributors" element={<Contributors />} />

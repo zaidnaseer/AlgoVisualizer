@@ -5,6 +5,7 @@ import {
   BookOpen,
   Users,
   Star,
+  GitBranch,
 } from "lucide-react";
 import "../styles/global-theme.css";
 
@@ -202,6 +203,43 @@ const algorithmDatabase = {
       },
     ],
   },
+  graph: {
+    title: "Graph Algorithms",
+    icon: "🧭",
+    color: "#66ccff",
+    algorithms: [
+      {
+        name: "Breadth-First Search (BFS)",
+        id: "graphBFS",
+        description:
+          "Explores the graph level by level from a source, visiting all neighbors before moving deeper. Finds shortest paths by edges in unweighted graphs.",
+        timeComplexity: { best: "O(V + E)", average: "O(V + E)", worst: "O(V + E)" },
+        spaceComplexity: "O(V)",
+        implemented: true,
+        subType: "bfs",
+      },
+      {
+        name: "Depth-First Search (DFS)",
+        id: "graphDFS",
+        description:
+          "Explores as deep as possible along each branch before backtracking. Useful for cycle detection, topological sort, and connected components.",
+        timeComplexity: { best: "O(V + E)", average: "O(V + E)", worst: "O(V + E)" },
+        spaceComplexity: "O(V)",
+        implemented: true,
+        subType: "dfs",
+      },
+      {
+        name: "Dijkstra's Algorithm",
+        id: "graphDijkstra",
+        description:
+          "Computes shortest path distances from a source to all vertices in a weighted graph with non‑negative weights using a priority queue.",
+        timeComplexity: { best: "O(E + V log V)", average: "O(E + V log V)", worst: "O(E + V log V)" },
+        spaceComplexity: "O(V)",
+        implemented: true,
+        subType: "dijkstra",
+      },
+    ],
+  },
 };
 
 const getComplexityColor = (complexity) => {
@@ -252,6 +290,17 @@ function AlgorithmDocumentation() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
+  const [graphSubcategory, setGraphSubcategory] = useState("all");
+
+  const graphCounts = useMemo(() => {
+    const list = algorithmDatabase.graph.algorithms;
+    return {
+      all: list.length,
+      bfs: list.filter(a => a.subType === 'bfs').length,
+      dfs: list.filter(a => a.subType === 'dfs').length,
+      dijkstra: list.filter(a => a.subType === 'dijkstra').length,
+    };
+  }, []);
 
   // Get all algorithms in a flat array for filtering
   const getAllAlgorithms = useCallback(() => {
@@ -277,6 +326,11 @@ function AlgorithmDocumentation() {
         (algo) => algo.category === selectedCategory
       );
     }
+    if (selectedCategory === "graph" && graphSubcategory !== "all") {
+      allAlgorithms = allAlgorithms.filter(
+        (algo) => algo.subType === graphSubcategory
+      );
+    }
     if (searchTerm) {
       allAlgorithms = allAlgorithms.filter(
         (algo) =>
@@ -285,7 +339,14 @@ function AlgorithmDocumentation() {
       );
     }
     setFilteredAlgorithms(allAlgorithms);
-  }, [searchTerm, selectedCategory, getAllAlgorithms]);
+  }, [searchTerm, selectedCategory, graphSubcategory, getAllAlgorithms]);
+
+  // Reset sub-filter when leaving Graph category
+  useEffect(() => {
+    if (selectedCategory !== 'graph' && graphSubcategory !== 'all') {
+      setGraphSubcategory('all');
+    }
+  }, [selectedCategory, graphSubcategory]);
 
   const categories = useMemo(
     () => [
@@ -312,6 +373,12 @@ function AlgorithmDocumentation() {
         label: "Data Structures",
         icon: Database,
         count: algorithmDatabase.dataStructures.algorithms.length,
+      },
+      {
+        key: "graph",
+        label: "Graph",
+        icon: GitBranch,
+        count: algorithmDatabase.graph.algorithms.length,
       },
     ],
     [getAllAlgorithms]
@@ -351,6 +418,27 @@ function AlgorithmDocumentation() {
             );
           })}
         </div>
+        {selectedCategory === 'graph' && (
+          <div className="category-filters" style={{ marginTop: '0.75rem' }}>
+            {[
+              { key: 'all', label: 'All', count: graphCounts.all },
+              { key: 'bfs', label: 'BFS', count: graphCounts.bfs },
+              { key: 'dfs', label: 'DFS', count: graphCounts.dfs },
+              { key: 'dijkstra', label: 'Dijkstra', count: graphCounts.dijkstra },
+            ].map(sub => (
+              <button
+                key={sub.key}
+                className={`btn ${graphSubcategory === sub.key ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setGraphSubcategory(sub.key)}
+                title={`Show ${sub.label} algorithms`}
+              >
+                <GitBranch size={16} />
+                {sub.label}
+                <span className="count-badge">{sub.count}</span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Results Grid */}
