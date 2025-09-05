@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import SimpleVisualizationExporter from '../utils/simpleExporter';
-import '../styles/Sorting.css';
 
 
 const SimpleExportControls = ({ containerId }) => {
@@ -58,66 +57,59 @@ const SimpleExportControls = ({ containerId }) => {
   };
 
   return (
-    <div style={{
-      background: 'rgba(15, 52, 96, 0.1)',
-      borderRadius: '15px',
-      border: '1px solid rgba(102, 204, 255, 0.2)',
-      padding: '25px',
-      textAlign: 'center',
-      gridRow: "1 / span 2",
-      width: '100%',
-      height: '100%',
-    }}>
-      <h3 style={{ color: '#66ccff', marginBottom: '10px' }}>Export Visualization</h3>
-      <p style={{ color: '#e0e6ed', margin: '6px 0 14px 0' }}>{message}</p>
+    // ✅ MODIFIED: Switched to the standard .theme-card class
+    <div className="theme-card" style={{ textAlign: 'center' }}>
+      <div className="theme-card-header">
+        {/* ✅ MODIFIED: Removed inline style */}
+        <h3>Export Visualization</h3>
+      </div>
+      
+      {/* ✅ MODIFIED: Used theme variables for text color */}
+      <p style={{ color: 'var(--theme-text-secondary)', margin: '0 0 1rem 0' }}>{message}</p>
       {frameCount > 0 && (
-        <p style={{ color: '#66ccff', fontSize: '14px', marginTop: 0 }}>Frames captured: {frameCount}</p>
+        <p style={{ color: 'var(--theme-accent)', fontSize: '0.9rem', marginTop: 0 }}>Frames captured: {frameCount}</p>
       )}
 
-      <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '12px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
         {!isRecording ? (
           <button
-            className="btn"
+            className="btn btn-primary" 
             onClick={handleStartRecording}
-            style={{ background: '#28a745', color: '#fff' }}
+            style={{ backgroundColor: 'var(--theme-status-success)', borderColor: 'var(--theme-status-success)' }} // Keep brand color for start
           >
             Start Recording.
           </button>
         ) : (
           <button
-            className="btn btn-secondary"
+            className="btn btn-primary" 
             onClick={handleStopRecording}
-            style={{ background: '#dc3545', color: '#fff' }}
+            style={{ backgroundColor: 'var(--theme-status-danger)', borderColor: 'var(--theme-status-danger)' }} // Keep brand color for stop
           >
             Stop Recording
           </button>
         )}
 
-        {/* Export buttons */}
-        <div style={{ display: 'flex', gap: '15px', flexWrap:'wrap', alignItems:'center', justifyContent:'center' }}>
+        <div style={{ display: 'flex', gap: '1rem', flexWrap:'wrap', justifyContent:'center' }}>
           <button
             onClick={handleExportGIF}
             disabled={frameCount === 0 || isRecording}
-            className="btn btn-secondary"
-            style={{ padding: '10px 20px', background: frameCount > 0 && !isRecording ? '#6c757d' : '#343a40', color: 'white', border: 'none', borderRadius: '8px', cursor: frameCount > 0 && !isRecording ? 'pointer' : 'not-allowed', fontWeight: 'bold' }}
+            className="btn btn-secondary" 
           >
             🎞️ Export GIF
           </button>
-
           <button
             onClick={handleExportVideo}
             disabled={frameCount === 0 || isRecording}
-            className="btn btn-secondary"
-            style={{ padding: '10px 20px', background: frameCount > 0 && !isRecording ? '#6c757d' : '#343a40', color: 'white', border: 'none', borderRadius: '8px', cursor: frameCount > 0 && !isRecording ? 'pointer' : 'not-allowed', fontWeight: 'bold' }}
+            className="btn btn-secondary" 
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M15 4V8H19V20H5V4H15ZM3.9985 2C3.44749 2 3 2.44405 3 2.9918V21.0082C3 21.5447 3.44476 22 3.9934 22H20.0066C20.5551 22 21 21.5489 21 20.9925L20.9997 7L16 2H3.9985ZM15.0008 11.667L10.1219 8.41435C10.0562 8.37054 9.979 8.34717 9.9 8.34717C9.6791 8.34717 9.5 8.52625 9.5 8.74717V15.2524C9.5 15.3314 9.5234 15.4086 9.5672 15.4743C9.6897 15.6581 9.9381 15.7078 10.1219 15.5852L15.0008 12.3326C15.0447 12.3033 15.0824 12.2656 15.1117 12.2217C15.2343 12.0379 15.1846 11.7895 15.0008 11.667Z"></path></svg>
-            Export Video
+            📹 Export Video
           </button>
         </div>
       </div>
 
-      <div style={{ marginTop: '14px', fontSize: '12px', color: '#aaa', lineHeight: 1.4 }}>
-        <div>Instructions:</div>
+      {/* ✅ MODIFIED: Used theme variables for instruction text color */}
+      <div style={{ marginTop: '1.5rem', fontSize: '0.8rem', color: 'var(--theme-text-muted)', lineHeight: 1.5 }}>
+        <div>**Instructions:**</div>
         <div>1. Click "Start Recording" before running your algorithm</div>
         <div>2. Run the sorting/searching algorithm</div>
         <div>3. Click "Stop Recording" when done</div>
