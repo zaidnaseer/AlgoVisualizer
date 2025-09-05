@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import "./ComplexityBox.css";
+import "./complexityBox.css";
 
 // Data for famous algorithms
 const dataMap = {
