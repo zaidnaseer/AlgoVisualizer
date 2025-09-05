@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../styles/Graph.css";
 
-const GraphVisualizer = () => {
+const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false }) => {
   class SimplePriorityQueue {
     constructor() {
       this.elements = [];
@@ -25,6 +24,7 @@ const GraphVisualizer = () => {
   const canvasRef = useRef(null);
   const [dijkstraStart, setDijkstraStart] = useState(null);
   const [dijkstraEnd, setDijkstraEnd] = useState(null);
+  const [algorithm, setAlgorithm] = useState(defaultAlgorithm || "Dijkstra");
   const [isVisualizing, setIsVisualizing] = useState(false);
   const [visualState, setVisualState] = useState({
     visited: new Set(),
@@ -40,6 +40,19 @@ const GraphVisualizer = () => {
     const ctx = canvas.getContext("2d");
     drawGraph(ctx);
   }, [nodes, edges, visualState, dijkstraStart, dijkstraEnd]);
+
+  useEffect(() => {
+    if (defaultAlgorithm) {
+      setAlgorithm(defaultAlgorithm);
+    }
+  }, [defaultAlgorithm]);
+
+  useEffect(() => {
+    if (autoLoadExample) {
+      loadDefaultExample();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoLoadExample]);
 
   const drawGraph = (ctx) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -230,6 +243,155 @@ const GraphVisualizer = () => {
     setResult(null);
   };
 
+  const loadDefaultExample = () => {
+    const exampleNodes = [
+      { x: 150, y: 120 },
+      { x: 350, y: 80 },
+      { x: 550, y: 120 },
+      { x: 200, y: 320 },
+      { x: 400, y: 300 },
+      { x: 600, y: 320 }
+    ];
+    const exampleEdges = [
+      { start: 0, end: 1, weight: 2 },
+      { start: 1, end: 2, weight: 3 },
+      { start: 0, end: 3, weight: 1 },
+      { start: 3, end: 4, weight: 4 },
+      { start: 4, end: 5, weight: 2 },
+      { start: 1, end: 4, weight: 2 },
+      { start: 2, end: 5, weight: 1 }
+    ];
+    setNodes(exampleNodes);
+    setEdges(exampleEdges);
+    setDijkstraStart(0);
+    setDijkstraEnd(5);
+    setVisualState({ visited: new Set(), path: [] });
+    setResult(null);
+    setMessage("Loaded default example graph. Choose an algorithm and run.");
+  };
+
+  const runBFS = () => {
+    if (dijkstraStart === null) {
+      alert("Please select a start node first.");
+      return;
+    }
+    const start = dijkstraStart;
+    const target = dijkstraEnd; // optional target, if provided we show path
+    setIsVisualizing(true);
+    setVisualState({ visited: new Set(), path: [] });
+    setMessage(target !== null ? `Running BFS from ${start} to ${target}...` : `Running BFS traversal from ${start}...`);
+
+    const queue = [start];
+    const visited = new Set([start]);
+    const prev = Array(nodes.length).fill(null);
+    const steps = [];
+
+    const getNeighbors = (u) => {
+      const neighbors = [];
+      edges.forEach((edge) => {
+        if (edge.start === u) neighbors.push(edge.end);
+        else if (edge.end === u) neighbors.push(edge.start);
+      });
+      return neighbors;
+    };
+
+    while (queue.length > 0) {
+      const u = queue.shift();
+      steps.push({ type: "visit", node: u });
+      if (target !== null && u === target) break;
+      const neighbors = getNeighbors(u);
+      neighbors.forEach((v) => {
+        if (!visited.has(v)) {
+          visited.add(v);
+          prev[v] = u;
+          queue.push(v);
+        }
+      });
+    }
+
+    let path = [];
+    if (target !== null) {
+      const pathEdges = [];
+      let current = target;
+      while (current !== null && current !== start) {
+        const p = prev[current];
+        if (p === null) break;
+        pathEdges.unshift({ start: p, end: current });
+        current = p;
+      }
+      path = pathEdges;
+      steps.push({ type: "path", path });
+    }
+    animateVisualization(steps, [], path);
+  };
+
+  const runDFS = () => {
+    if (dijkstraStart === null) {
+      alert("Please select a start node first.");
+      return;
+    }
+    const start = dijkstraStart;
+    const target = dijkstraEnd; // optional
+    setIsVisualizing(true);
+    setVisualState({ visited: new Set(), path: [] });
+    setMessage(target !== null ? `Running DFS from ${start} to ${target}...` : `Running DFS traversal from ${start}...`);
+
+    const steps = [];
+    const visited = new Set();
+    const prev = Array(nodes.length).fill(null);
+
+    const getNeighbors = (u) => {
+      const neighbors = [];
+      edges.forEach((edge) => {
+        if (edge.start === u) neighbors.push(edge.end);
+        else if (edge.end === u) neighbors.push(edge.start);
+      });
+      return neighbors;
+    };
+
+    let found = false;
+    const dfs = (u) => {
+      if (found) return;
+      visited.add(u);
+      steps.push({ type: "visit", node: u });
+      if (target !== null && u === target) {
+        found = true;
+        return;
+      }
+      const neighbors = getNeighbors(u);
+      for (const v of neighbors) {
+        if (!visited.has(v)) {
+          prev[v] = u;
+          dfs(v);
+          if (found) return;
+        }
+      }
+    };
+
+    dfs(start);
+
+    let path = [];
+    if (target !== null && visited.has(target)) {
+      const pathEdges = [];
+      let current = target;
+      while (current !== null && current !== start) {
+        const p = prev[current];
+        if (p === null) break;
+        pathEdges.unshift({ start: p, end: current });
+        current = p;
+      }
+      path = pathEdges;
+      steps.push({ type: "path", path });
+    }
+    animateVisualization(steps, [], path);
+  };
+
+  const runSelectedAlgorithm = () => {
+    if (algorithm === "Dijkstra") return runDijkstra();
+    if (algorithm === "BFS") return runBFS();
+    if (algorithm === "DFS") return runDFS();
+  };
+
   return (
     <div className="graph-visualizer-container">
       <div className="graph-controls">
@@ -248,6 +410,13 @@ const GraphVisualizer = () => {
           Add Edge
         </button>
         <button
+          className="btn"
+          onClick={loadDefaultExample}
+          disabled={isVisualizing}
+        >
+          Load Example
+        </button>
+        <button
           className="btn btn-secondary"
           onClick={handleClear}
           disabled={isVisualizing}
@@ -258,6 +427,18 @@ const GraphVisualizer = () => {
       <div className="algorithm-controls">
         {/* Left side for the controls */}
         <div className="controls-left">
+          <div className="control-group">
+            <label>Algorithm:</label>
+            <select
+              value={algorithm}
+              onChange={(e) => setAlgorithm(e.target.value)}
+              disabled={isVisualizing}
+            >
+              <option value="BFS">BFS</option>
+              <option value="DFS">DFS</option>
+              <option value="Dijkstra">Dijkstra</option>
+            </select>
+          </div>
           <div className="control-group">
             <label>Start Node:</label>
             <select
@@ -278,7 +459,7 @@ const GraphVisualizer = () => {
             </select>
           </div>
           <div className="control-group">
-            <label>End Node:</label>
+            <label>End Node (optional for BFS/DFS):</label>
             <select
               value={dijkstraEnd ?? ""}
               onChange={(e) =>
@@ -298,22 +479,22 @@ const GraphVisualizer = () => {
           </div>
           <button
             className="btn"
-            onClick={runDijkstra}
-            disabled={isVisualizing || nodes.length < 2}
+            onClick={runSelectedAlgorithm}
+            disabled={isVisualizing || nodes.length < 1}
           >
-            Run Dijkstra
+            {algorithm === "Dijkstra" ? "Run Dijkstra" : algorithm === "BFS" ? "Run BFS" : "Run DFS"}
           </button>
         </div>
 
         {/* Right side for the result, appears only when result is set */}
         {result && (
           <div className="result-box">
-            <h4>Shortest Path Result</h4>
+            <h4>{algorithm === "Dijkstra" ? "Shortest Path Result" : (dijkstraEnd !== null ? "Found Path" : "Traversal Order")}</h4>
             <p>
               <strong>Path:</strong> {result.path}
             </p>
             <p>
-              <strong>Total Weight:</strong> {result.weight}
+              <strong>{algorithm === "Dijkstra" ? "Total Weight" : "Weight"}:</strong> {result.weight}
             </p>
           </div>
         )}

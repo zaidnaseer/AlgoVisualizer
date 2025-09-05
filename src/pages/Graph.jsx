@@ -1,59 +1,73 @@
 import React from "react";
 import GraphVisualizer from "../components/GraphVisualizer";
-import "../styles/pages.css";
+import "../styles/global-theme.css";
 
 const Graph = () => {
   return (
-    <div
-      className="page-container"
-      style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}
-    >
-      <h1 className="page-title">Graph Algorithms Visualization</h1>
-      <p className="page-subtitle">
+    <div className="theme-container">
+      <h1 className="theme-title">Graph Algorithms Visualization</h1>
+      <p style={{ textAlign: 'center', maxWidth: '700px', margin: '-2rem auto 2rem auto', color: 'var(--theme-text-secondary)' }}>
         Create your own graph by adding nodes and edges, and visualize graph
         traversal algorithms.
       </p>
 
       {/* Informative Description Section */}
-      <div className="algorithm-info" style={{ marginBottom: "30px" }}>
-        <h3 style={{ color: "#66ccff" }}>What is a Graph?</h3>
-        <p className="info-text">
+      <div className="theme-card">
+        <div className="theme-card-header">
+          {/* ❌ REMOVE: style={{ color: "#66ccff" }} */}
+          <h3>What is a Graph?</h3>
+        </div>
+        <p style={{ color: "var(--theme-text-secondary)", lineHeight: 1.6 }}>
           A graph is a non-linear data structure consisting of a set of vertices
           (or nodes) and a set of edges connecting these vertices. Graphs are
           used to model relationships between objects and are fundamental in
           computer science for solving a wide variety of problems.
         </p>
         <div className="complexity-grid">
-          <div className="complexity-row">
+          <div className="complexity-item">
             <span className="complexity-label">Vertices (Nodes):</span>
-            <span className="info-text">
+            <span className="complexity-value" style={{ fontFamily: 'Inter, sans-serif' }}>
               The fundamental units of which graphs are formed.
             </span>
           </div>
-          <div className="complexity-row">
+          <div className="complexity-item">
             <span className="complexity-label">Edges:</span>
-            <span className="info-text">
+            <span className="complexity-value" style={{ fontFamily: 'Inter, sans-serif' }}>
               The connections between pairs of vertices.
             </span>
           </div>
         </div>
-        <p className="info-text" style={{ marginTop: "15px" }}>
+        <p style={{ color: "var(--theme-text-secondary)", lineHeight: 1.6, marginTop: "1rem" }}>
           <strong>Real-world applications:</strong> Social networks, GPS and
           mapping systems, computer networks, and recommendation engines all
           rely on graph structures to represent and analyze data.
         </p>
       </div>
-      <div className="algorithm-info" style={{ marginBottom: "30px" }}>
-        <h3 style={{ color: "#66ccff" }}>Dijkstra's Shortest Path Algorithm</h3>
-        <p className="info-text">
+      
+      {/* Graph Subsections */}
+      <div className="theme-card">
+        <div className="theme-card-header">
+          <h3>Graph Algorithms</h3>
+        </div>
+        <div className="category-filters" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <a href="/graph/bfs" className="btn btn-secondary" style={{ textDecoration: 'none' }}>BFS</a>
+          <a href="/graph/dfs" className="btn btn-secondary" style={{ textDecoration: 'none' }}>DFS</a>
+          <a href="/graph/dijkstra" className="btn btn-secondary" style={{ textDecoration: 'none' }}>Dijkstra</a>
+        </div>
+      </div>
+      <div className="theme-card">
+        <div className="theme-card-header">
+          <h3>Dijkstra's Shortest Path Algorithm</h3>
+        </div>
+        <p style={{ color: "var(--theme-text-secondary)", lineHeight: 1.6 }}>
           Dijkstra's algorithm finds the shortest path between two nodes in a
           weighted graph. It works by visiting nodes and greedily selecting the
           unvisited node with the smallest known distance.
         </p>
         <div className="complexity-grid">
-          <div className="complexity-row">
+          <div className="complexity-item">
             <span className="complexity-label">Time Complexity:</span>
-            <span className="info-text">O(E + V log V)</span>
+            <span className="complexity-value">O(E + V log V)</span>
           </div>
         </div>
       </div>
