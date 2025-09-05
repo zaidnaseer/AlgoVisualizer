@@ -61,8 +61,8 @@
 ------------------------ */
 .contributors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
   margin-bottom: 4rem;
 }
 
@@ -73,7 +73,7 @@
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 20px;
-  padding: 1.2rem;
+  padding: 1.5rem;
   position: relative;
   overflow: hidden;
   -webkit-backdrop-filter: blur(20px);
@@ -376,8 +376,8 @@
   }
   
   .contributor-avatar img {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
   }
   
   .contribute-cta {
