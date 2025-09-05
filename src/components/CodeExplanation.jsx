@@ -593,7 +593,94 @@ vector<int> bucketSort(vector<int> a, int bucketCount=10){
         { explanation: "After final merge, the array is fully sorted." }
       ]
     },
+ shellSort: {
+    title: "Shell Sort Algorithm",
+    description: "An improvement over insertion sort that allows the exchange of elements that are far apart. Uses a gap sequence that starts large and reduces to 1, making the final insertion sort pass very efficient.",
+    code: {
+      js: `function shellSort(arr) {
+  const n = arr.length;
+  // Start with a big gap, then reduce the gap
+  for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    // Do a gapped insertion sort for this gap size
+    for (let i = gap; i < n; i++) {
+      const temp = arr[i];
+      let j;
+      // Shift earlier gap-sorted elements up until correct location for arr[i] is found
+      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+        arr[j] = arr[j - gap];
+      }
+      // Put temp (original arr[i]) in its correct location
+      arr[j] = temp;
+    }
+  }
+  return arr;
+}`,
+      java: `public static int[] shellSort(int[] arr) {
+  int n = arr.length;
+  // Start with a big gap, then reduce the gap
+  for (int gap = n / 2; gap > 0; gap /= 2) {
+    // Do a gapped insertion sort for this gap size
+    for (int i = gap; i < n; i++) {
+      int temp = arr[i];
+      int j;
+      // Shift earlier gap-sorted elements up until correct location for arr[i] is found
+      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+        arr[j] = arr[j - gap];
+      }
+      // Put temp (original arr[i]) in its correct location
+      arr[j] = temp;
+    }
+  }
+  return arr;
+}`,
+      cpp: `#include <vector>
+using namespace std;
 
+vector<int> shellSort(vector<int> arr) {
+  int n = (int)arr.size();
+  // Start with a big gap, then reduce the gap
+  for (int gap = n / 2; gap > 0; gap /= 2) {
+    // Do a gapped insertion sort for this gap size
+    for (int i = gap; i < n; i++) {
+      int temp = arr[i];
+      int j;
+      // Shift earlier gap-sorted elements up until correct location for arr[i] is found  
+      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+        arr[j] = arr[j - gap];
+      }
+      // Put temp (original arr[i]) in its correct location
+      arr[j] = temp;
+    }
+  }
+  return arr;
+}`,
+      py: `def shell_sort(arr):
+  n = len(arr)
+  # Start with a big gap, then reduce the gap
+  gap = n // 2
+  while gap > 0:
+    # Do a gapped insertion sort for this gap size
+    for i in range(gap, n):
+      temp = arr[i]
+      j = i
+      # Shift earlier gap-sorted elements up until correct location for arr[i] is found
+      while j >= gap and arr[j - gap] > temp:
+        arr[j] = arr[j - gap]
+        j -= gap
+      # Put temp (original arr[i]) in its correct location
+      arr[j] = temp
+    gap //= 2
+  return arr`
+    },
+    steps: [
+      { explanation: "Start with gap = n/2 and reduce by half each iteration.", highlight: { js: "gap = Math.floor(n / 2)", java: "gap = n / 2", cpp: "gap = n / 2", py: "gap = n // 2" } },
+      { explanation: "For each gap, perform gapped insertion sort on subarrays.", highlight: { js: "for (let i = gap; i < n; i++)", java: "for (int i = gap; i < n; i++)", cpp: "for (int i = gap; i < n; i++)", py: "for i in range(gap, n):" } },
+      { explanation: "Store current element and find its correct position within gap-sorted elements.", highlight: { js: "const temp = arr[i];", java: "int temp = arr[i];", cpp: "int temp = arr[i];", py: "temp = arr[i]" } },
+      { explanation: "Shift larger elements gap positions ahead until insertion point found.", highlight: { js: "arr[j - gap] > temp", java: "arr[j - gap] > temp", cpp: "arr[j - gap] > temp", py: "arr[j - gap] > temp" } },
+      { explanation: "Insert the stored element at its correct position.", highlight: { js: "arr[j] = temp;", java: "arr[j] = temp;", cpp: "arr[j] = temp;", py: "arr[j] = temp" } },
+      { explanation: "Reduce gap and repeat until gap becomes 1 (regular insertion sort).", highlight: { js: "gap = Math.floor(gap / 2)", java: "gap /= 2", cpp: "gap /= 2", py: "gap //= 2" } }
+    ]
+  },
 
   introSort: {
     title: "IntroSort",
