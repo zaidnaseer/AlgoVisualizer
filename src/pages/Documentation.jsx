@@ -1,18 +1,12 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Search,
-  Clock,
   Database,
   BookOpen,
-  Zap,
   Users,
   Star,
-  X,
-  Youtube,
 } from "lucide-react";
-import { useTheme } from "../ThemeContext";
-
-import "../styles/Documentation.css";
+import "../styles/global-theme.css";
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -226,51 +220,26 @@ const getComplexityColor = (complexity) => {
 // 2. SUB-COMPONENTS
 // ============================================================================
 
-function AlgorithmCard({ algorithm, themeStyles }) {
-  // Generate a unique color for each card based on its id
-  const getCardColor = (id) => {
-    const hash = id
-      .split("")
-      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const r = (hash * 23) % 256;
-    const g = (hash * 17) % 256;
-    const b = (hash * 31) % 256;
-    return `rgb(${r}, ${g}, ${b})`;
-  };
-
-  const cardColor = getCardColor(algorithm.id);
-
+function AlgorithmCard({ algorithm }) {
   return (
-    <div
-      className="algorithm-card"
-      style={{ borderColor: `${cardColor}30` }}
-      title={algorithm.description}
-    >
+    <div className="theme-card algorithm-card" title={algorithm.description}>
       <div className="card-header">
-        <div>
-          <div className="card-title-group">
-            <span className="card-icon" style={{ color: cardColor }}>
-              {algorithm.categoryIcon}
-            </span>
-            <h3 style={{ color: cardColor }}>{algorithm.name}</h3>
-          </div>
-          <div
-            className="card-category-badge"
-            style={{ background: `${cardColor}15` }}
-          >
-            {algorithm.categoryTitle}
-          </div>
+        <div className="card-title-group">
+          <span className="card-icon">{algorithm.categoryIcon}</span>
+          {/* ✅ MODIFIED: The h3 now uses a standard class */}
+          <h3 className="card-title">{algorithm.name}</h3>
         </div>
+        {/* ✅ MODIFIED: The badges now use standard classes */}
         {algorithm.implemented ? (
-          <div className="implemented-badge">
-            <Star size={12} /> Implemented
-          </div>
+          <div className="status-badge implemented">Implemented</div>
         ) : (
-          <div className="comingsoon-badge">Coming Soon</div>
+          <div className="status-badge coming-soon">Coming Soon</div>
         )}
       </div>
       <p className="card-description">{algorithm.description}</p>
-      {/* Add more content sections as needed */} 
+      <div className="card-category-badge">
+        {algorithm.categoryTitle}
+      </div>
     </div>
   );
 }
@@ -280,7 +249,6 @@ function AlgorithmCard({ algorithm, themeStyles }) {
 // ============================================================================
 
 function AlgorithmDocumentation() {
-  const { theme } = useTheme();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
@@ -349,41 +317,31 @@ function AlgorithmDocumentation() {
     [getAllAlgorithms]
   );
 
-  // Assume themeStyles is provided by your ThemeContext setup
-  const themeStyles = {
-    cardBackground: theme === "light" ? "#fff" : "#222744",
-    secondaryText: theme === "light" ? "#555" : "#bbb",
-  };
-
   return (
-    <div className="documentation-container">
-      <div className="header">
-        <h1>Algorithm Documentation</h1>
-        {/* Add stats section, filters, and other UI here */}
-      </div>
-
-      {/* Search and Filter Section */}
-      <div className="filters-section">
+    <div className="theme-container">
+      <h1 className="theme-title">Algorithm Documentation</h1>
+      
+      {/* ✅ REFACTORED: The filters section is now a theme-card */}
+      <div className="theme-card filters-section">
         <div className="search-bar">
-          <label htmlFor="search" style={{ display: "flex" }}>
-            <Search size={20} />
-          </label>
+          <Search size={20} className="search-icon" />
           <input
-            id="search"
             type="text"
             placeholder="Search algorithms..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={e => setSearchTerm(e.target.value)}
+            className="form-control" // ✅ MODIFIED: Using global form class
           />
         </div>
         <div className="category-filters">
-          {categories.map((category) => {
+          {categories.map(category => {
             const IconComponent = category.icon;
             const isActive = selectedCategory === category.key;
             return (
+              // ✅ MODIFIED: The filter buttons now use our global button classes
               <button
                 key={category.key}
-                className={`category-chip ${isActive ? "active" : ""}`}
+                className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setSelectedCategory(category.key)}
               >
                 <IconComponent size={16} />
@@ -398,24 +356,21 @@ function AlgorithmDocumentation() {
       {/* Results Grid */}
       <div className="results-grid">
         {filteredAlgorithms.length > 0 ? (
-          filteredAlgorithms.map((algorithm) => (
+          filteredAlgorithms.map(algorithm => (
             <AlgorithmCard
               key={algorithm.id}
               algorithm={algorithm}
-              themeStyles={themeStyles}
             />
           ))
         ) : (
-          <div className="no-results">
+          <div className="no-results-card theme-card">
             <Search size={48} />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>
           </div>
         )}
       </div>
-      {/* Footer can be added here */}
     </div>
   );
 }
-
 export default AlgorithmDocumentation;

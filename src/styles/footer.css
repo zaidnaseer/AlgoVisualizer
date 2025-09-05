@@ -1,8 +1,8 @@
 /* ----------------- Blue Theme Footer Styles ----------------- */
 .footer-container {
   position: relative;
-  background: linear-gradient(135deg, #0a2540 0%, #100530 100%);
-  color: #ffffff;
+  background: var(--card-bg);
+  color: var(--text-color);
   padding: 70px 0 20px;
   opacity: 0;
   transform: translateY(20px);
@@ -31,7 +31,8 @@
 }
 
 .footer-wave .shape-fill {
-  fill: #0c2b47;
+  fill: var(--card-bg); 
+  transition: fill 0.3s ease;
 }
 
 .footer-content {
@@ -71,22 +72,22 @@
 
 .logo-icon {
   font-size: 28px;
-  color: #4fc3f7;
+  color: var(--primary-color);
   margin-right: 12px;
-  filter: drop-shadow(0 0 8px rgba(79, 195, 247, 0.6));
+  filter: drop-shadow(0 0 8px var(--shadow-color));
 }
 
 .logo-text {
   font-size: 24px;
   font-weight: 700;
-  background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .brand-tagline {
-  color: #bbdefb;
+  color: var(--subtext-color);
   font-size: 15px;
   line-height: 1.5;
   margin: 0;
@@ -100,27 +101,28 @@
 }
 
 .tech-pill {
-  background: rgba(41, 182, 246, 0.15);
-  color: #4fc3f7;
+  background: var(--hover-bg);
+  color: var(--primary-color);
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 500;
-  border: 1px solid rgba(79, 195, 247, 0.3);
+  border: 1px solid var(--card-border);
   transition: all 0.3s ease;
 }
 
 .tech-pill:hover {
-  background: rgba(41, 182, 246, 0.25);
+  background: var(--card-bg);
   transform: translateY(-2px);
 }
 
 .footer-credits {
-  margin-top: auto;
+  color: var(--subtext-color);
+  margin-top: 14px;
 }
 
 .footer-credits p {
-  color: #90caf9;
+  color: var(--primary-color);
   font-size: 14px;
   margin: 0;
   text-align: left;
@@ -158,7 +160,7 @@
 .column-title {
   font-size: 18px;
   font-weight: 600;
-  color: #e3f2fd;
+  color: var(--text-color);
   margin-bottom: 20px;
   position: relative;
   padding-bottom: 10px;
@@ -173,7 +175,7 @@
   transform: translateX(-50%);
   width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); 
   border-radius: 3px;
 }
 
@@ -194,7 +196,7 @@
 }
 
 .footer-links a {
-  color: #bbdefb;
+  color: var(--subtext-color);
   text-decoration: none;
   font-size: 15px;
   display: flex;
@@ -204,7 +206,7 @@
 }
 
 .footer-links a:hover {
-  color: #4fc3f7;
+  color: var(--primary-color); 
   transform: translateX(5px);
 }
 
@@ -222,7 +224,7 @@
 
 /* Newsletter Section */
 .newsletter-description {
-  color: #bbdefb;
+  color: var(--subtext-color);
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -244,7 +246,7 @@
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #90caf9;
+  color: var(--subtext-color);
   font-size: 16px;
 }
 
@@ -252,22 +254,22 @@
   width: 100%;
   padding: 14px 15px 14px 45px;
   border: none;
-  background: rgba(13, 45, 77, 0.6);
-  border: 1px solid rgba(79, 195, 247, 0.2);
+  background: var(--input-bg); 
+  border: 1px solid var(--card-border); 
+  color: var(--input-text); 
   border-radius: 8px;
-  color: #e3f2fd;
   font-size: 14px;
   transition: all 0.3s ease;
 }
 
 .newsletter-input:focus {
   outline: none;
-  border-color: #4fc3f7;
-  box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--shadow-color);
 }
 
 .newsletter-input::placeholder {
-  color: #90caf9;
+  color: var(--subtext-color);
 }
 
 .newsletter-btn {
@@ -276,8 +278,8 @@
   justify-content: center;
   gap: 8px;
   padding: 14px 20px;
-  background: linear-gradient(90deg, #0288d1, #029ae5);
-  color: white;
+  background: var(--btn-bg);
+  color: var(--btn-text);
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -288,9 +290,9 @@
 }
 
 .newsletter-btn:hover:not(.loading) {
-  background: linear-gradient(90deg, #029ae5, #03a9f4);
+  background: var(--btn-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(2, 136, 209, 0.4);
+  box-shadow: 0 6px 15px var(--shadow-color);
 }
 
 .newsletter-btn.loading {
@@ -319,9 +321,9 @@
 .subscription-success {
   text-align: center;
   padding: 20px 0;
-  background: rgba(13, 45, 77, 0.3);
+  background: var(--hover-bg);
   border-radius: 8px;
-  border: 1px solid rgba(79, 195, 247, 0.2);
+  border: 1px solid var(--card-border);
 }
 
 .success-checkmark {
@@ -351,13 +353,13 @@
 }
 
 .subscription-success h4 {
-  color: #e3f2fd;
+  color: var(--text-color);
   margin: 0 0 8px 0;
   font-size: 16px;
 }
 
 .subscription-success p {
-  color: #bbdefb;
+  color: var(--subtext-color); 
   margin: 0;
   font-size: 14px;
 }
@@ -376,19 +378,19 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: rgba(13, 45, 77, 0.6);
+  background: var(--hover-bg);
   border-radius: 50%;
-  color: #bbdefb;
+  color: var(--subtext-color);
   font-size: 16px;
   transition: all 0.3s ease;
-  border: 1px solid rgba(79, 195, 247, 0.2);
+  border: 1px solid var(--card-border);
 }
 
 .social-link:hover {
-  background: rgba(41, 182, 246, 0.2);
-  color: #4fc3f7;
+  background: var(--primary-color);
+  color: var(--btn-text); 
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(2, 136, 209, 0.3);
+  box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 /* Footer Bottom */
@@ -398,7 +400,7 @@
 
 .footer-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(79, 195, 247, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, var(--card-border), transparent);
   margin-bottom: 20px;
 }
 
@@ -412,7 +414,7 @@
 }
 
 .copyright p {
-  color: #90caf9;
+  color: var(--subtext-color);
   font-size: 14px;
   margin: 0;
 }
@@ -423,14 +425,14 @@
 }
 
 .legal-links a {
-  color: #bbdefb;
+  color: var(--subtext-color);
   text-decoration: none;
   font-size: 14px;
   transition: all 0.3s ease;
 }
 
 .legal-links a:hover {
-  color: #4fc3f7;
+  color: var(--primary-color);
 }
 
 /* Responsive Design */

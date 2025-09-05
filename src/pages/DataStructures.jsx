@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Search, Clock, Database, BookOpen, Zap, Users, Star, X } from 'lucide-react';
-import { useTheme } from '../ThemeContext';
-import '../styles/Documentation.css';
+import { Search, Database, BookOpen, Users, Star} from 'lucide-react';
+import "../styles/global-theme.css";
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -176,27 +175,22 @@ const getComplexityColor = (complexity) => {
 
 function AlgorithmCard({ algorithm, themeStyles }) {
   return (
-    <div className="algorithm-card" title={algorithm.description}>
+    <div className="theme-card algorithm-card" title={algorithm.description}>
       <div className="card-header">
-        <div>
-          <div className="card-title-group">
-            <span className="card-icon">{algorithm.categoryIcon}</span>
-            <h3 style={{ color: algorithm.categoryColor }}>{algorithm.name}</h3>
-          </div>
-          <div className="card-category-badge" style={{ background: `${algorithm.categoryColor}15` }}>
-            {algorithm.categoryTitle}
-          </div>
+        <div className="card-title-group">
+          <span className="card-icon">{algorithm.categoryIcon}</span>
+          <h3 className="card-title">{algorithm.name}</h3>
         </div>
         {algorithm.implemented ? (
-          <div className="implemented-badge">
-            <Star size={12} /> Implemented
-          </div>
+          <div className="status-badge implemented">Implemented</div>
         ) : (
-          <div className="comingsoon-badge">Coming Soon</div>
+          <div className="status-badge coming-soon">Coming Soon</div>
         )}
       </div>
       <p className="card-description">{algorithm.description}</p>
-      {/* Add more content sections as needed */}
+      <div className="card-category-badge">
+        {algorithm.categoryTitle}
+      </div>
     </div>
   );
 }
@@ -205,8 +199,7 @@ function AlgorithmCard({ algorithm, themeStyles }) {
 // 3. MAIN COMPONENT DEFINITION
 // ============================================================================
 
-function AlgorithmDocumentation() {
-  const { theme } = useTheme();
+function DataStructuresPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
@@ -249,28 +242,20 @@ function AlgorithmDocumentation() {
     { key: 'dataStructures', label: 'Data Structures', icon: Database, count: algorithmDatabase.dataStructures.algorithms.length }
   ], [getAllAlgorithms]);
 
-  // Assume themeStyles is provided by your ThemeContext setup
-  const themeStyles = {
-    cardBackground: theme === 'light' ? "#fff" : "#222744",
-    secondaryText: theme === 'light' ? "#555" : "#bbb"
-  };
-
   return (
-    <div className="documentation-container">
-      <div className="header">
-        <h1>Algorithm Documentation</h1>
-        {/* Add stats section, filters, and other UI here */}
-      </div>
+    <div className="theme-container">
+      <h1 className="theme-title">Algorithm Documentation</h1>
       
       {/* Search and Filter Section */}
-      <div className="filters-section">
+      <div className="theme-card filters-section">
         <div className="search-bar">
-          <Search size={20} />
+          <Search size={20} className="search-icon" />
           <input
             type="text"
             placeholder="Search algorithms..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
+            className="form-control"
           />
         </div>
         <div className="category-filters">
@@ -280,7 +265,7 @@ function AlgorithmDocumentation() {
             return (
               <button
                 key={category.key}
-                className={`category-chip ${isActive ? 'active' : ''}`}
+                className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setSelectedCategory(category.key)}
               >
                 <IconComponent size={16} />
@@ -299,11 +284,10 @@ function AlgorithmDocumentation() {
             <AlgorithmCard
               key={algorithm.id}
               algorithm={algorithm}
-              themeStyles={themeStyles}
             />
           ))
         ) : (
-          <div className="no-results">
+          <div className="no-results-card theme-card">
             <Search size={48} />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>
@@ -315,4 +299,4 @@ function AlgorithmDocumentation() {
   );
 }
 
-export default AlgorithmDocumentation;
+export default DataStructuresPage;
