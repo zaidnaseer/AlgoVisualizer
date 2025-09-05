@@ -23,6 +23,7 @@ import { ThemeProvider } from './ThemeContext';
 
 // Clerk imports
 import { SignIn, SignUp } from '@clerk/clerk-react';
+import ThemeToggle from './components/ThemeToggle';
 
 const AuthButtons = () => {
   const location = useLocation();
@@ -46,6 +47,7 @@ const App = () => {
       <div className="app-container">
         {/* This runs on every route change (Router is provided in index.jsx) */}
         <ScrollToTop />
+        <ThemeToggle />
 
         <Sidebar />
         <AuthButtons /> {/* Top-left auth buttons */}
