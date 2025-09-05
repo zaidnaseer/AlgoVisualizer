@@ -1,6 +1,7 @@
 // src/App.jsx
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, Link } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -18,15 +19,33 @@ import PrivacyPolicy from "./components/Privacy";
 import TermsOfService from "./components/terms";
 import Doubt from "./components/Doubt";
 import AlgorithmDocumentation from "./pages/Documentation";
-import "./styles/components.css";
 import ComplexityBox from "./components/ComplexityBox";
+import "./styles/components.css";
+import { ThemeProvider } from "./ThemeContext";
+
+// Clerk imports
+import { SignIn, SignUp } from "@clerk/clerk-react";
+
+// AuthButtons component
+const AuthButtons = () => {
+  const location = useLocation();
+
+  if (location.pathname === "/sign-in" || location.pathname === "/sign-up") return null;
+
+  return (
+    <div className="auth-buttons">
+      <Link to="/sign-in" className="auth-btn">Sign In</Link>
+      <Link to="/sign-up" className="auth-btn">Sign Up</Link>
+    </div>
+  );
+};
 
 const App = () => {
-  // 🔹 for now, hardcoded to bubbleSort (later we can make it dynamic)
   const selectedAlgorithm = "bubbleSort";
 
   return (
-    <div className="app-container">
+    <ThemeProvider>
+      <Analytics />
       <ScrollToTop />
 
       <Sidebar />
@@ -48,15 +67,18 @@ const App = () => {
           <Route path="/documentation" element={<AlgorithmDocumentation />} />
         </Routes>
 
-        {/* ✅ Complexity Info Box */}
+        {/* Complexity Info Box */}
         <div style={{ marginTop: "2rem" }}>
           <ComplexityBox algorithm={selectedAlgorithm} />
         </div>
+
+        {/* Auth buttons */}
+        <AuthButtons />
       </main>
 
       <Doubt />
       <Footer />
-    </div>
+    </ThemeProvider>
   );
 };
 
