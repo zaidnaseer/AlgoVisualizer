@@ -33,20 +33,11 @@
     "name": "Intro Sort",
     "description": "Intro Sort (Introspective Sort) is a hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth exceeds a certain level, and uses insertion sort for small partitions. This ensures both fast average performance and guaranteed worst-case efficiency.",
     "useCase": "It is commonly used in C++ Standard Library's std::sort() because it combines the fast performance of quicksort with the reliability of heapsort and the efficiency of insertion sort on small datasets."
-  },
-  {
-    "name": "Breadth-First Search (BFS)",
-    "description": "BFS explores the graph level by level starting from a source node, visiting all neighbors before moving deeper. Useful for finding the shortest number-of-edges path in unweighted graphs.",
-    "useCase": "Shortest paths in unweighted graphs, web crawlers, broadcasting in networks."
-  },
-  {
-    "name": "Depth-First Search (DFS)",
-    "description": "DFS explores as far as possible along each branch before backtracking. Useful for cycle detection, topological sorting, and connected components.",
-    "useCase": "Detecting cycles, path existence checks, topological sort in DAGs."
-  },
-  {
-    "name": "Dijkstra's Algorithm",
-    "description": "Computes shortest paths from a source to all nodes in a weighted graph with non-negative weights, using a greedy strategy with a priority queue.",
-    "useCase": "GPS routing, network routing protocols, optimal pathfinding in weighted graphs."
-  }  
+
+  }  , {
+  "name": "Shell Sort",
+  "description": "Shell Sort is an in-place comparison-based sorting algorithm that generalizes insertion sort. It allows the exchange of items that are far apart by comparing and swapping elements at specific intervals (gaps), gradually reducing the gap until it becomes 1, at which point the array is fully sorted using insertion sort.",
+  "useCase": "It is commonly used when insertion sort is too slow for large datasets. Shell sort significantly improves performance on moderately sized arrays, especially when the input data is partially sorted."
+}
+
 ]
