@@ -1,3 +1,5 @@
+@import './theme.css';
+
 /* =========================
    Sidebar Styles
 ========================= */
@@ -7,21 +9,21 @@
   left: 0;
   width: 70px;
   height: 100vh;
-  background: var(--bg-secondary, #21262d);
-  border-right: 1px solid var(--border-color, #30363d);
+  background: var(--surface-bg);
+  border-right: 1px solid var(--border-primary);
   display: flex;
   flex-direction: column;
   z-index: 1000;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: var(--transition-normal);
 }
 
 /* =========================
    Header Section
 ========================= */
 .sidebar-header {
-  padding: 1rem 0.5rem;
-  border-bottom: 1px solid var(--border-color, #30363d);
+  padding: var(--space-md) var(--space-sm);
+  border-bottom: 1px solid var(--border-primary);
   display: flex;
   justify-content: center;
 }
@@ -31,12 +33,12 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: var(--text-primary, #e6edf3);
-  transition: all 0.3s ease;
+  color: var(--text-primary);
+  transition: var(--transition-normal);
 }
 
 .sidebar-logo:hover {
-  color: var(--accent-color, #58a6ff);
+  color: var(--accent-primary);
 }
 
 .logo-icon {

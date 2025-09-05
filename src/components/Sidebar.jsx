@@ -13,9 +13,12 @@ import {
   FileText,
   Menu,
   X,
-  ChevronRight
+  ChevronRight,
+  LogIn,
+  UserPlus
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
+import { useUser } from "@clerk/clerk-react";
 
 
 const Sidebar = () => {
@@ -26,39 +29,40 @@ const Sidebar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate(); 
   const { theme } = useTheme();
+  const { isSignedIn, user } = useUser();
 
   const colors = {
     dark: {
-      bg: 'linear-gradient(180deg, #1a1b23 0%, #16171d 100%)',
-      border: 'rgba(255, 255, 255, 0.1)',
-      textPrimary: '#ffffff',
-      textSecondary: 'rgba(255, 255, 255, 0.7)',
-      textMuted: 'rgba(255, 255, 255, 0.5)',
-      accent: '#667eea',
-      accentGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      accentText: '#ffffff',
-      hoverBg: 'rgba(255, 255, 255, 0.05)',
-      activeBg: 'linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%)',
-      subtleBg: 'rgba(255, 255, 255, 0.03)',
+      bg: 'var(--sidebar-bg)',
+      border: 'var(--sidebar-border)',
+      textPrimary: 'var(--sidebar-text)',
+      textSecondary: 'var(--sidebar-text-secondary)',
+      textMuted: 'var(--text-muted)',
+      accent: 'var(--accent-primary)',
+      accentGradient: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%)',
+      accentText: 'var(--text-inverse)',
+      hoverBg: 'var(--sidebar-hover)',
+      activeBg: 'var(--sidebar-active)',
+      subtleBg: 'var(--surface-bg)',
       backdrop: 'rgba(0, 0, 0, 0.5)',
-      mobileMenuButton: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      mobileMenuButtonText: '#ffffff',
+      mobileMenuButton: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%)',
+      mobileMenuButtonText: 'var(--text-inverse)',
     },
     light: {
-      bg: '#ffffff',
-      border: '#e2e8f0',
-      textPrimary: '#1f2937',
-      textSecondary: '#64748b',
-      textMuted: '#94a3b8',
-      accent: '#4f46e5',
-      accentGradient: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-      accentText: '#ffffff',
-      hoverBg: '#f1f5f9',
-      activeBg: 'rgba(79, 70, 229, 0.1)',
-      subtleBg: '#f8fafc',
+      bg: 'var(--sidebar-bg)',
+      border: 'var(--sidebar-border)',
+      textPrimary: 'var(--sidebar-text)',
+      textSecondary: 'var(--sidebar-text-secondary)',
+      textMuted: 'var(--text-muted)',
+      accent: 'var(--accent-primary)',
+      accentGradient: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%)',
+      accentText: 'var(--text-inverse)',
+      hoverBg: 'var(--sidebar-hover)',
+      activeBg: 'var(--sidebar-active)',
+      subtleBg: 'var(--surface-bg)',
       backdrop: 'rgba(255, 255, 255, 0.5)',
-      mobileMenuButton: '#ffffff',
-      mobileMenuButtonText: '#4f46e5',
+      mobileMenuButton: 'var(--sidebar-bg)',
+      mobileMenuButtonText: 'var(--accent-primary)',
     }
   };
   const currentColors = colors[theme] || colors.dark;
@@ -164,7 +168,23 @@ const Sidebar = () => {
           label: "Contributors"
         }
       ]
-    }
+    },
+    // Add authentication section only if user is not signed in
+    ...(!isSignedIn ? [{
+      group: "Account",
+      items: [
+        {
+          path: "/sign-in",
+          icon: LogIn,
+          label: "Sign In"
+        },
+        {
+          path: "/sign-up",
+          icon: UserPlus,
+          label: "Sign Up"
+        }
+      ]
+    }] : [])
   ];
 
   return (
@@ -239,12 +259,26 @@ const Sidebar = () => {
           <div className="user-profile">
             <div className="user-avatar">
               <div className="avatar-placeholder">
-                <Users size={16} />
+                {isSignedIn ? (
+                  user?.imageUrl ? (
+                    <img src={user.imageUrl} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  ) : (
+                    <div style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                      {user?.firstName?.[0]}{user?.lastName?.[0]}
+                    </div>
+                  )
+                ) : (
+                  <Users size={16} />
+                )}
               </div>
             </div>
             <div className="user-info">
-              <div className="user-name">Guest User</div>
-              <div className="user-status">Learning Mode</div>
+              <div className="user-name">
+                {isSignedIn ? `${user?.firstName || ''} ${user?.lastName || ''}`.trim() || 'User' : 'Guest User'}
+              </div>
+              <div className="user-status">
+                {isSignedIn ? 'Signed In' : 'Learning Mode'}
+              </div>
             </div>
           </div>
           <SidebarLink

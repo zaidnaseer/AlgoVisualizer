@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useLocation, Link } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
@@ -10,6 +10,8 @@ import DataStructures from './pages/DataStructures';
 import Graph from './pages/Graph';
 import Quiz from './pages/Quiz';
 import Settings from './pages/Settings';
+import SignInPage from './pages/SignIn';
+import SignUpPage from './pages/SignUp';
 import Contributors from './components/Contributors';
 import ScrollToTop from './ScrollToTop';
 import About from './components/about';
@@ -22,22 +24,6 @@ import ComplexityBox from './components/ComplexityBox';
 import './styles/components.css';
 import { ThemeProvider } from './ThemeContext';
 
-// Clerk imports
-import { SignIn, SignUp } from '@clerk/clerk-react';
-
-const AuthButtons = () => {
-  const location = useLocation();
-
-  if (location.pathname === "/sign-in" || location.pathname === "/sign-up") return null;
-
-  return (
-    <div className="auth-buttons">
-      <Link to="/sign-in" className="auth-btn">Sign In</Link>
-      <Link to="/sign-up" className="auth-btn">Sign Up</Link>
-    </div>
-  );
-};
-
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // You can set this dynamically
 
@@ -46,7 +32,6 @@ const App = () => {
       <div className="app-container">
         <ScrollToTop />
         <Sidebar />
-        <AuthButtons />
 
         <main className="main-content main-content-with-sidebar">
           <Routes>
@@ -64,9 +49,9 @@ const App = () => {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/documentation" element={<AlgorithmDocumentation />} />
 
-            {/* Clerk Authentication Routes */}
-            <Route path="/sign-in" element={<div className="auth-page"><SignIn routing="path" path="/sign-in" /></div>} />
-            <Route path="/sign-up" element={<div className="auth-page"><SignUp routing="path" path="/sign-up" /></div>} />
+            {/* Authentication Routes */}
+            <Route path="/sign-in" element={<SignInPage />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
           </Routes>
 
           {/* Complexity Info Box */}
