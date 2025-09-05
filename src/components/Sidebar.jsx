@@ -171,6 +171,11 @@ const Sidebar = () => {
           path: "/contributors",
           icon: Users,
           label: "Contributors"
+        },
+        {
+          path: "/ContributorLeaderboard",
+          icon: Users,
+          label: "LeaderBoard"
         }
       ]
     },

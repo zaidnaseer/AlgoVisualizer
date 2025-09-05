@@ -27,6 +27,7 @@ import ComplexityBox from './components/ComplexityBox';
 import './styles/components.css';
 import { ThemeProvider } from './ThemeContext';
 import ThemeToggle from './components/ThemeToggle';
+import ContributorLeaderboard from './pages/ContributorLeaderboard'
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // You can set this dynamically
@@ -56,6 +57,7 @@ const App = () => {
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/documentation" element={<AlgorithmDocumentation />} />
+            <Route path='/ContributorLeaderboard' element={<ContributorLeaderboard />} />
 
             {/* Authentication Routes */}
             <Route path="/sign-in" element={<SignInPage />} />
