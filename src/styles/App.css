@@ -61,6 +61,12 @@ body {
     margin: 20px auto;
     max-width: 900px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+.searching-container:hover,
+.sorting-container:hover {
+    transform: translateY(-3px);
 }
 
 /* =========================
@@ -98,6 +104,7 @@ body {
 .sorting-button:hover:not(:disabled) {
     background-color: var(--button-hover);
     transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
 .searching-button:disabled,
@@ -139,6 +146,7 @@ body {
     border-radius: 4px;
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
+
 /* =========================
    Responsive Design
 ========================= */
@@ -179,14 +187,14 @@ body {
     .sorting-array-container {
         flex-wrap: wrap;
         gap: 2px;
-        height: auto; /* let bars define height */
+        height: auto;
         min-height: 100px;
     }
     
     .searching-array-bar,
     .sorting-array-bar {
         width: 10px;
-        min-height: 40px; /* ensures visibility even with many bars */
+        min-height: 40px;
     }
 
     .searching-button,
@@ -194,4 +202,41 @@ body {
         font-size: 13px;
         padding: 6px 12px;
     }
+}
+
+/* =========================
+   Auth Buttons (Top-left)
+========================= */
+.auth-buttons {
+    position: absolute;
+    top: 15px;
+    left: 25px; /* moved from right to left */
+    display: flex;
+    gap: 12px;
+    z-index: 1000;
+}
+
+.auth-btn {
+    padding: 8px 16px;
+    border-radius: 10px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.auth-btn:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+/* =========================
+   Auth Page Centering
+========================= */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
 }
