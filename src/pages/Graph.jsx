@@ -43,6 +43,18 @@ const Graph = () => {
           rely on graph structures to represent and analyze data.
         </p>
       </div>
+      
+      {/* Graph Subsections */}
+      <div className="theme-card">
+        <div className="theme-card-header">
+          <h3>Graph Algorithms</h3>
+        </div>
+        <div className="category-filters" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <a href="/graph/bfs" className="btn btn-secondary" style={{ textDecoration: 'none' }}>BFS</a>
+          <a href="/graph/dfs" className="btn btn-secondary" style={{ textDecoration: 'none' }}>DFS</a>
+          <a href="/graph/dijkstra" className="btn btn-secondary" style={{ textDecoration: 'none' }}>Dijkstra</a>
+        </div>
+      </div>
       <div className="theme-card">
         <div className="theme-card-header">
           <h3>Dijkstra's Shortest Path Algorithm</h3>

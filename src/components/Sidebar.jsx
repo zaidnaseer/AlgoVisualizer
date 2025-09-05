@@ -141,7 +141,12 @@ const Sidebar = () => {
           path: "/graph",
           icon: Share2,
           label: "Graph Theory",
-          badge: "6"
+          badge: "6",
+          children: [
+            { path: "/graph/bfs", label: "BFS" },
+            { path: "/graph/dfs", label: "DFS" },
+            { path: "/graph/dijkstra", label: "Dijkstra" }
+          ]
         }
       ]
     },
@@ -218,16 +223,31 @@ const Sidebar = () => {
               )}
               <div className="sidebar-group-items">
                 {group.items.map((item) => (
-                  <SidebarLink
-                    key={item.path}
-                    to={item.path}
-                    IconComponent={item.icon}
-                    label={item.label}
-                    badge={item.badge}
-                    isActive={activeTab === item.path}
-                    end={item.end}
-                    ref={(el) => (linkRefs.current[item.path] = el)}
-                  />
+                  <div key={item.path} className="sidebar-item-with-children">
+                    <SidebarLink
+                      to={item.path}
+                      IconComponent={item.icon}
+                      label={item.label}
+                      badge={item.badge}
+                      isActive={activeTab === item.path}
+                      end={item.end}
+                      ref={(el) => (linkRefs.current[item.path] = el)}
+                    />
+                    {item.children && item.children.length > 0 && (
+                      <div className="sidebar-subitems">
+                        {item.children.map((child) => (
+                          <SidebarLink
+                            key={child.path}
+                            to={child.path}
+                            IconComponent={ChevronRight}
+                            label={child.label}
+                            isActive={activeTab === child.path}
+                            ref={(el) => (linkRefs.current[child.path] = el)}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
@@ -486,6 +506,14 @@ const Sidebar = () => {
           flex-direction: column;
           gap: 0.25rem;
           padding: 0 1rem;
+        }
+
+        .sidebar-subitems {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          padding-left: 2.25rem;
+          margin-top: 0.25rem;
         }
 
         .sidebar-link {
