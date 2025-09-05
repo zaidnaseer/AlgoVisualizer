@@ -19,11 +19,14 @@ import TermsOfService from "./components/terms";
 import Doubt from "./components/Doubt";
 import AlgorithmDocumentation from "./pages/Documentation";
 import "./styles/components.css";
+import ComplexityBox from "./components/ComplexityBox";
 
 const App = () => {
+  // 🔹 for now, hardcoded to bubbleSort (later we can make it dynamic)
+  const selectedAlgorithm = "bubbleSort";
+
   return (
     <div className="app-container">
-      {/* This runs on every route change (Router is provided in index.jsx) */}
       <ScrollToTop />
 
       <Sidebar />
@@ -44,6 +47,11 @@ const App = () => {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/documentation" element={<AlgorithmDocumentation />} />
         </Routes>
+
+        {/* ✅ Complexity Info Box */}
+        <div style={{ marginTop: "2rem" }}>
+          <ComplexityBox algorithm={selectedAlgorithm} />
+        </div>
       </main>
 
       <Doubt />
