@@ -26,6 +26,7 @@ import AlgorithmDocumentation from './pages/Documentation';
 import ComplexityBox from './components/ComplexityBox';
 import './styles/components.css';
 import { ThemeProvider } from './ThemeContext';
+import ThemeToggle from './components/ThemeToggle';
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // You can set this dynamically
@@ -34,6 +35,7 @@ const App = () => {
     <ThemeProvider>
       <div className="app-container">
         <ScrollToTop />
+        <ThemeToggle />
         <Sidebar />
 
         <main className="main-content main-content-with-sidebar">
