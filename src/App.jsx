@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
-import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Sorting from './pages/Sorting';
@@ -24,7 +24,6 @@ import AlgorithmDocumentation from './pages/Documentation';
 import ComplexityBox from './components/ComplexityBox';
 import ThemeToggle from './components/ThemeToggle';
 import ContributorLeaderboard from './pages/ContributorLeaderboard';
-import { ThemeProvider } from './ThemeContext';
 import LinkedListPage from './components/pages/LinkedListPage';
 import './styles/components.css';
 
@@ -35,9 +34,9 @@ const App = () => {
     <div className="app-container">
       <ScrollToTop />
       <ThemeToggle />
-      <Sidebar />
+      <Navbar />
 
-      <main className="main-content main-content-with-sidebar">
+      <main className="main-content page-content">
         <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/sorting" element={<Sorting />} />
