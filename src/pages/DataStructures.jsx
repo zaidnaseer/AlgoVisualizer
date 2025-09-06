@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Search, Database, BookOpen, Users, Star} from 'lucide-react';
-import "../styles/global-theme.css";
+import { Search, Clock, Database, BookOpen, Zap, Users, Star, X } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
+import { useNavigate } from 'react-router-dom';
+import '../styles/Documentation.css'; // keep your linkedlist styles
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -127,7 +129,7 @@ const algorithmDatabase = {
         description: "Linear data structure where elements are stored in nodes.",
         timeComplexity: { insertion: "O(1)", deletion: "O(1)", search: "O(n)", access: "O(n)" },
         spaceComplexity: "O(n)",
-        implemented: false
+        implemented: true
       },
       {
         name: "Stack",
@@ -173,9 +175,30 @@ const getComplexityColor = (complexity) => {
 // 2. SUB-COMPONENTS
 // ============================================================================
 
-function AlgorithmCard({ algorithm, themeStyles }) {
+function AlgorithmCard({ algorithm }) {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (algorithm.implemented) {
+      if (algorithm.category === 'dataStructures' && algorithm.id === 'linkedList') {
+        navigate('/data-structures/linked-list');
+      } else if (algorithm.category === 'sorting') {
+        navigate(`/sorting/${algorithm.id}`);
+      } else if (algorithm.category === 'searching') {
+        navigate(`/searching/${algorithm.id}`);
+      } else if (algorithm.category === 'dataStructures') {
+        navigate(`/data-structures/${algorithm.id}`);
+      }
+    }
+  };
+
   return (
-    <div className="theme-card algorithm-card" title={algorithm.description}>
+    <div
+      className={`algorithm-card ${algorithm.implemented ? 'clickable' : ''}`}
+      onClick={handleCardClick}
+      title={algorithm.description}
+      style={{ cursor: algorithm.implemented ? 'pointer' : 'default' }}
+    >
       <div className="card-header">
         <div className="card-title-group">
           <span className="card-icon">{algorithm.categoryIcon}</span>
@@ -188,9 +211,7 @@ function AlgorithmCard({ algorithm, themeStyles }) {
         )}
       </div>
       <p className="card-description">{algorithm.description}</p>
-      <div className="card-category-badge">
-        {algorithm.categoryTitle}
-      </div>
+      <div className="card-category-badge">{algorithm.categoryTitle}</div>
     </div>
   );
 }
@@ -204,7 +225,6 @@ function DataStructuresPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
 
-  // Get all algorithms in a flat array for filtering
   const getAllAlgorithms = useCallback(() => {
     let allAlgos = [];
     Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
@@ -245,7 +265,7 @@ function DataStructuresPage() {
   return (
     <div className="theme-container">
       <h1 className="theme-title">Algorithm Documentation</h1>
-      
+
       {/* Search and Filter Section */}
       <div className="theme-card filters-section">
         <div className="search-bar">
@@ -281,10 +301,7 @@ function DataStructuresPage() {
       <div className="results-grid">
         {filteredAlgorithms.length > 0 ? (
           filteredAlgorithms.map(algorithm => (
-            <AlgorithmCard
-              key={algorithm.id}
-              algorithm={algorithm}
-            />
+            <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
           ))
         ) : (
           <div className="no-results-card theme-card">
@@ -294,7 +311,6 @@ function DataStructuresPage() {
           </div>
         )}
       </div>
-      {/* Footer can be added here */}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
@@ -24,56 +24,64 @@ import TermsOfService from './components/terms';
 import Doubt from './components/Doubt';
 import AlgorithmDocumentation from './pages/Documentation';
 import ComplexityBox from './components/ComplexityBox';
-import './styles/components.css';
-import { ThemeProvider } from './ThemeContext';
 import ThemeToggle from './components/ThemeToggle';
-import ContributorLeaderboard from './pages/ContributorLeaderboard'
+import ContributorLeaderboard from './pages/ContributorLeaderboard';
+import { ThemeProvider } from './ThemeContext';
+import LinkedListPage from './components/pages/LinkedListPage';
+import './styles/components.css';
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // You can set this dynamically
 
   return (
     <ThemeProvider>
-      <div className="app-container">
-        <ScrollToTop />
-        <ThemeToggle />
-        <Sidebar />
+      <Router>
+        <div className="app-container">
+          <ScrollToTop />
+          <ThemeToggle />
+          <Sidebar />
 
-        <main className="main-content main-content-with-sidebar">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sorting" element={<Sorting />} />
-            <Route path="/searching" element={<Searching />} />
-            <Route path="/data-structures" element={<DataStructures />} />
-            <Route path="/graph" element={<Graph />} />
-            <Route path="/graph/bfs" element={<GraphBFS />} />
-            <Route path="/graph/dfs" element={<GraphDFS />} />
-            <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
-            <Route path="/quiz" element={<Quiz />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/contributors" element={<Contributors />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/documentation" element={<AlgorithmDocumentation />} />
-            <Route path='/ContributorLeaderboard' element={<ContributorLeaderboard />} />
+          <main className="main-content main-content-with-sidebar">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/sorting" element={<Sorting />} />
+              <Route path="/searching" element={<Searching />} />
+              <Route path="/data-structures" element={<DataStructures />} />
+              <Route path="/data-structures/linked-list" element={<LinkedListPage />} />
 
-            {/* Authentication Routes */}
-            <Route path="/sign-in" element={<SignInPage />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
-          </Routes>
+              {/* Graph Routes */}
+              <Route path="/graph" element={<Graph />} />
+              <Route path="/graph/bfs" element={<GraphBFS />} />
+              <Route path="/graph/dfs" element={<GraphDFS />} />
+              <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
 
-          {/* Complexity Info Box */}
-          <div style={{ marginTop: "2rem" }}>
-            <ComplexityBox algorithm={selectedAlgorithm} />
-          </div>
-        </main>
+              {/* Other Pages */}
+              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/contributors" element={<Contributors />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/documentation" element={<AlgorithmDocumentation />} />
+              <Route path="/ContributorLeaderboard" element={<ContributorLeaderboard />} />
 
-        <Doubt />
-        <Footer />
-        <Analytics />
-      </div>
+              {/* Authentication Routes */}
+              <Route path="/sign-in" element={<SignInPage />} />
+              <Route path="/sign-up" element={<SignUpPage />} />
+            </Routes>
+
+            {/* Complexity Info Box */}
+            <div style={{ marginTop: "2rem" }}>
+              <ComplexityBox algorithm={selectedAlgorithm} />
+            </div>
+          </main>
+
+          <Doubt />
+          <Footer />
+          <Analytics />
+        </div>
+      </Router>
     </ThemeProvider>
   );
 };
