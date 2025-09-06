@@ -684,25 +684,79 @@ const Sorting = () => {
       while (j < right.length) a[k++] = right[j++];
       setArrayState([...a]);
     }
+const timSortWithStop = async (
+  arr,
+  setArrayState,
+  setColorState,
+  sleepFn,
+  stopRef,
+  setStats
+) => {
+  const a = [...arr];
+  const n = a.length;
+  let comparisons = 0, swaps = 0;
+  const RUN = 32; // or your chosen min run size
 
-    // TimSort main
-    for (let i = 0; i < n; i += RUN) {
-      await insertionSort(i, Math.min((i + RUN - 1), n - 1));
+  // Insertion sort for small runs
+  async function insertionSort(left, right) {
+    for (let i = left + 1; i <= right; i++) {
+      let key = a[i], j = i - 1;
+      while (j >= left && a[j] > key) {
+        if (stopRef.current) throw new Error("Stopped");
+        a[j + 1] = a[j];
+        swaps++;
+        comparisons++;
+        j--;
+        setArrayState([...a]);
+        setColorState(new Array(n).fill("#66ccff"));
+        await sleepFn();
+      }
+      a[j + 1] = key;
+      setArrayState([...a]);
     }
-    for (let size = RUN; size < n; size = 2 * size) {
-      for (let left = 0; left < n; left += 2 * size) {
-        let mid = Math.min(left + size - 1, n - 1);
-        let right = Math.min((left + 2 * size - 1), n - 1);
-        if (mid < right) {
-          await merge(left, mid, right);
-        }
+  }
+
+  // Merge function
+  async function merge(l, m, r) {
+    let left = a.slice(l, m + 1);
+    let right = a.slice(m + 1, r + 1);
+    let i = 0, j = 0, k = l;
+    while (i < left.length && j < right.length) {
+      if (stopRef.current) throw new Error("Stopped");
+      comparisons++;
+      if (left[i] <= right[j]) {
+        a[k++] = left[i++];
+      } else {
+        a[k++] = right[j++];
+      }
+      swaps++;
+      setArrayState([...a]);
+      setColorState(new Array(n).fill("#ffd93d"));
+      await sleepFn();
+    }
+    while (i < left.length) a[k++] = left[i++];
+    while (j < right.length) a[k++] = right[j++];
+    setArrayState([...a]);
+  }
+
+  // TimSort main
+  for (let i = 0; i < n; i += RUN) {
+    await insertionSort(i, Math.min((i + RUN - 1), n - 1));
+  }
+  for (let size = RUN; size < n; size = 2 * size) {
+    for (let left = 0; left < n; left += 2 * size) {
+      let mid = Math.min(left + size - 1, n - 1);
+      let right = Math.min((left + 2 * size - 1), n - 1);
+      if (mid < right) {
+        await merge(left, mid, right);
       }
     }
+  }
 
-    setStats({ comparisons, swaps, time: 0 });
-    setColorState(new Array(n).fill("#4ade80"));
-    return 0;
-  };
+  setStats({ comparisons, swaps, time: 0 });
+  setColorState(new Array(n).fill("#4ade80"));
+  return 0;
+};
   
   const introSortWithStop = async (
     arr,
