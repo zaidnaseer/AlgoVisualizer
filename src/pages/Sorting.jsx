@@ -4,7 +4,6 @@ import SimpleExportControls from "../components/SimpleExportControls";
 import "../styles/Sorting.css"; 
 import { useMediaQuery } from "react-responsive";
 
-
 // Pseudocode map used for step-mode highlighting/explanations
 const ALGORITHM_PSEUDOCODE = {
   bubbleSort: [
@@ -136,7 +135,6 @@ const ALGORITHM_PSEUDOCODE = {
       explain: "Combine all sorted buckets to get final result.",
     },
   ],
-
   heapSort: [
     {
       code: "buildMaxHeap(arr)",
@@ -155,7 +153,6 @@ const ALGORITHM_PSEUDOCODE = {
       explain: "Restore the max-heap property on the reduced heap.",
     },
   ],
-
   timSort: [
     { 
       code: "minRun = calculateMinRun(n)", 
@@ -206,7 +203,6 @@ const ALGORITHM_PSEUDOCODE = {
       explain: "Double the size and repeat merging." 
     },
   ],
-  
   introSort: [
     { 
       code: "maxDepth = 2 * log₂(n)", 
@@ -241,7 +237,7 @@ const ALGORITHM_PSEUDOCODE = {
       explain: "Ensure small pieces are fully sorted at the end." 
     }
   ],  
-   shellSort: [
+  shellSort: [
     {
       code: "gap = n / 2",
       explain: "Start with a large gap (half the array size).",
@@ -285,7 +281,6 @@ const ALGORITHM_PSEUDOCODE = {
   ],
 };
 
-
 const algorithmNames = {
   bubbleSort: "Bubble Sort",
   selectionSort: "Selection Sort",
@@ -298,14 +293,6 @@ const algorithmNames = {
   timSort: "Tim Sort",
   introSort: "Intro Sort", 
   shellSort: "Shell Sort", 
-};
-
-const algorithmFunctions = {
-  bubbleSort,
-  selectionSort,
-  mergeSort,
-  insertionSort,
-  quickSort
 };
 
 const Sorting = () => {
@@ -324,6 +311,46 @@ const Sorting = () => {
     swaps: 0,
     time: 0
   });
+
+  // Add missing refs and helper functions
+  const stopSortingRef = useRef(false);
+  
+  // Sleep function for delays
+  const sleep = (ms = delay) => new Promise(resolve => setTimeout(resolve, ms));
+
+  // Helper functions for selection sort
+  const createBaseColors = (n) => new Array(n).fill("#66ccff");
+  
+  const selectionScanForMin = async (a, start, n, colors, setColorState, sleepFn, stopRef, counts, setStats) => {
+    let minIdx = start;
+    for (let j = start + 1; j < n; j++) {
+      if (stopRef.current) throw new Error("Stopped");
+      counts.comparisons++;
+      colors[j] = "#ff6b6b";
+      setColorState([...colors]);
+      await sleepFn();
+      if (a[j] < a[minIdx]) {
+        minIdx = j;
+      }
+      setStats({ comparisons: counts.comparisons, swaps: counts.swaps, time: 0 });
+    }
+    return minIdx;
+  };
+
+  const selectionSwapIfNeeded = async (a, i, minIdx, setArrayState, sleepFn, counts) => {
+    if (i !== minIdx) {
+      [a[i], a[minIdx]] = [a[minIdx], a[i]];
+      counts.swaps++;
+      setArrayState([...a]);
+      await sleepFn();
+    }
+  };
+
+  const markSortedPrefix = (colors, upTo) => {
+    for (let k = 0; k <= upTo; k++) {
+      colors[k] = "#4ade80";
+    }
+  };
 
   // Generate random array
   const generateArray = () => {
@@ -368,41 +395,17 @@ const Sorting = () => {
     }
   };
 
-  // Handle sorting
-  const handleSort = async () => {
-    if (isSorting) return;
-    
-    setIsSorting(true);
-    setMessage(`Sorting using ${algorithmNames[algorithm]}...`);
-    
-    const startTime = Date.now();
-    const sortFunction = algorithmFunctions[algorithm];
-    
-    if (sortFunction) {
-      const sortedArray = [...array];
-      await sortFunction(sortedArray, setColorArray, delay);
-      setArray(sortedArray);
-      
-      const endTime = Date.now();
-      setStatistics(prev => ({
-        ...prev,
-        time: endTime - startTime
-      }));
-      setMessage(`Sorting completed using ${algorithmNames[algorithm]}!`);
-    } else {
-      setMessage(`${algorithmNames[algorithm]} implementation coming soon!`);
-    }
-    
-    setIsSorting(false);
-  };
-
   // Handle stop
   const handleStop = () => {
+    stopSortingRef.current = true;
     setIsSorting(false);
     setMessage("Sorting stopped");
   };
 
-  // Get algorithm info
+  // Get algorithm name helper
+  const getAlgorithmName = () => algorithmNames[algorithm] || "Unknown Algorithm";
+
+  // Get algorithm info - Fixed function
   const getAlgorithmInfo = () => {
     const algorithmInfo = {
       bubbleSort: {
@@ -438,18 +441,23 @@ const Sorting = () => {
         timeComplexity: "O(n log n)",
         spaceComplexity: "O(log n)",
         bestCase: "O(n log n)",
-
         stable: "No",
       },      
-     shellSort: {
-  description: "Sorts elements at specific gaps, reducing the gap until it becomes 1 (like insertion sort).",
-  timeComplexity: "O(n^1.5) to O(n²)",
-  spaceComplexity: "O(1)",
-  bestCase: "O(n log n)",
-  stable: "No",
-}
+      shellSort: {
+        description: "Sorts elements at specific gaps, reducing the gap until it becomes 1 (like insertion sort).",
+        timeComplexity: "O(n^1.5) to O(n²)",
+        spaceComplexity: "O(1)",
+        bestCase: "O(n log n)",
+        stable: "No",
+      }
     };
-    return info[algorithm];
+    return algorithmInfo[algorithm] || {
+      description: "Algorithm implementation coming soon!",
+      timeComplexity: "N/A",
+      spaceComplexity: "N/A",
+      bestCase: "N/A",
+      stable: "N/A"
+    };
   };
 
   // Sorting implementations with stop & visualization hooks
@@ -463,8 +471,7 @@ const Sorting = () => {
   ) => {
     const a = [...arr];
     const n = a.length;
-    let comparisons = 0,
-      swaps = 0;
+    let comparisons = 0, swaps = 0;
     for (let i = 0; i < n - 1; i++) {
       if (stopRef.current) throw new Error("Stopped");
       for (let j = 0; j < n - i - 1; j++) {
@@ -541,8 +548,7 @@ const Sorting = () => {
   ) => {
     const a = [...arr];
     const n = a.length;
-    let comparisons = 0,
-      swaps = 0;
+    let comparisons = 0, swaps = 0;
     for (let i = 1; i < n; i++) {
       if (stopRef.current) throw new Error("Stopped");
       const key = a[i];
@@ -573,8 +579,8 @@ const Sorting = () => {
     setColorState(new Array(n).fill("#4ade80"));
     return 0;
   };
-  
 
+  // Complete merge sort implementation
   const mergeSortWithStop = async (
     arr,
     setArrayState,
@@ -584,16 +590,13 @@ const Sorting = () => {
     setStats
   ) => {
     const a = [...arr];
-    let comparisons = 0,
-      swaps = 0;
+    let comparisons = 0, swaps = 0;
 
     const merge = async (left, mid, right) => {
       if (stopRef.current) throw new Error("Stopped");
       const leftArr = a.slice(left, mid + 1);
       const rightArr = a.slice(mid + 1, right + 1);
-      let i = 0,
-        j = 0,
-        k = left;
+      let i = 0, j = 0, k = left;
       while (i < leftArr.length && j < rightArr.length) {
         if (stopRef.current) throw new Error("Stopped");
         comparisons++;
@@ -630,135 +633,74 @@ const Sorting = () => {
         await sleepFn();
         j++;
         k++;
-
       }
     };
-    return algorithmInfo[algorithm] || {
-      description: "Algorithm implementation coming soon!",
-      timeComplexity: "N/A",
-      spaceComplexity: "N/A",
-      bestCase: "N/A",
-      stable: "N/A"
-    };
-  };
 
-
-    // Insertion sort for small runs
-    async function insertionSort(left, right) {
-      for (let i = left + 1; i <= right; i++) {
-        let key = a[i], j = i - 1;
-        while (j >= left && a[j] > key) {
-          if (stopRef.current) throw new Error("Stopped");
-          a[j + 1] = a[j];
-          swaps++;
-          comparisons++;
-          j--;
-          setArrayState([...a]);
-          setColorState(new Array(n).fill("#66ccff"));
-          await sleepFn();
-        }
-        a[j + 1] = key;
-        setArrayState([...a]);
-      }
-    }
-
-    // Merge function
-    async function merge(l, m, r) {
-      let left = a.slice(l, m + 1);
-      let right = a.slice(m + 1, r + 1);
-      let i = 0, j = 0, k = l;
-      while (i < left.length && j < right.length) {
-        if (stopRef.current) throw new Error("Stopped");
-        comparisons++;
-        if (left[i] <= right[j]) {
-          a[k++] = left[i++];
-        } else {
-          a[k++] = right[j++];
-        }
-        swaps++;
-        setArrayState([...a]);
-        setColorState(new Array(n).fill("#ffd93d"));
-        await sleepFn();
-      }
-      while (i < left.length) a[k++] = left[i++];
-      while (j < right.length) a[k++] = right[j++];
-      setArrayState([...a]);
-    }
-const timSortWithStop = async (
-  arr,
-  setArrayState,
-  setColorState,
-  sleepFn,
-  stopRef,
-  setStats
-) => {
-  const a = [...arr];
-  const n = a.length;
-  let comparisons = 0, swaps = 0;
-  const RUN = 32; // or your chosen min run size
-
-  // Insertion sort for small runs
-  async function insertionSort(left, right) {
-    for (let i = left + 1; i <= right; i++) {
-      let key = a[i], j = i - 1;
-      while (j >= left && a[j] > key) {
-        if (stopRef.current) throw new Error("Stopped");
-        a[j + 1] = a[j];
-        swaps++;
-        comparisons++;
-        j--;
-        setArrayState([...a]);
-        setColorState(new Array(n).fill("#66ccff"));
-        await sleepFn();
-      }
-      a[j + 1] = key;
-      setArrayState([...a]);
-    }
-  }
-
-  // Merge function
-  async function merge(l, m, r) {
-    let left = a.slice(l, m + 1);
-    let right = a.slice(m + 1, r + 1);
-    let i = 0, j = 0, k = l;
-    while (i < left.length && j < right.length) {
-      if (stopRef.current) throw new Error("Stopped");
-      comparisons++;
-      if (left[i] <= right[j]) {
-        a[k++] = left[i++];
-      } else {
-        a[k++] = right[j++];
-      }
-      swaps++;
-      setArrayState([...a]);
-      setColorState(new Array(n).fill("#ffd93d"));
-      await sleepFn();
-    }
-    while (i < left.length) a[k++] = left[i++];
-    while (j < right.length) a[k++] = right[j++];
-    setArrayState([...a]);
-  }
-
-  // TimSort main
-  for (let i = 0; i < n; i += RUN) {
-    await insertionSort(i, Math.min((i + RUN - 1), n - 1));
-  }
-  for (let size = RUN; size < n; size = 2 * size) {
-    for (let left = 0; left < n; left += 2 * size) {
-      let mid = Math.min(left + size - 1, n - 1);
-      let right = Math.min((left + 2 * size - 1), n - 1);
-      if (mid < right) {
+    const mergeSortHelper = async (left, right) => {
+      if (left < right) {
+        const mid = Math.floor((left + right) / 2);
+        await mergeSortHelper(left, mid);
+        await mergeSortHelper(mid + 1, right);
         await merge(left, mid, right);
       }
-    }
-  }
+    };
 
-  setStats({ comparisons, swaps, time: 0 });
-  setColorState(new Array(n).fill("#4ade80"));
-  return 0;
-};
-  
-  const introSortWithStop = async (
+    await mergeSortHelper(0, a.length - 1);
+    setColorState(new Array(a.length).fill("#4ade80"));
+    return 0;
+  };
+
+  const quickSortWithStop = async (
+    arr,
+    setArrayState,
+    setColorState,
+    sleepFn,
+    stopRef,
+    setStats
+  ) => {
+    const a = [...arr];
+    let comparisons = 0, swaps = 0;
+
+    const partition = async (low, high) => {
+      const pivot = a[high];
+      let i = low - 1;
+      for (let j = low; j < high; j++) {
+        if (stopRef.current) throw new Error("Stopped");
+        comparisons++;
+        const colors = new Array(a.length).fill("#66ccff");
+        colors[j] = "#ff6b6b";
+        colors[high] = "#ffd93d"; // pivot
+        setColorState([...colors]);
+        await sleepFn();
+        if (a[j] <= pivot) {
+          i++;
+          [a[i], a[j]] = [a[j], a[i]];
+          swaps++;
+          setArrayState([...a]);
+        }
+        setStats({ comparisons, swaps, time: 0 });
+      }
+      [a[i + 1], a[high]] = [a[high], a[i + 1]];
+      swaps++;
+      setArrayState([...a]);
+      return i + 1;
+    };
+
+    const quickSortHelper = async (low, high) => {
+      if (low < high) {
+        const pi = await partition(low, high);
+        await quickSortHelper(low, pi - 1);
+        await quickSortHelper(pi + 1, high);
+      }
+    };
+
+    await quickSortHelper(0, a.length - 1);
+    setColorState(new Array(a.length).fill("#4ade80"));
+    return 0;
+  };
+
+  // Shell sort implementation (keeping your existing one as it looks correct)
+  const shellSortWithStop = async (
     arr,
     setArrayState,
     setColorState,
@@ -769,235 +711,154 @@ const timSortWithStop = async (
     const a = [...arr];
     const n = a.length;
     let comparisons = 0, swaps = 0;
-    const THRESHOLD = 16;
-    const maxDepth = 2 * Math.floor(Math.log2(n));
 
-    async function insertionSort(left, right) {
-      for (let i = left + 1; i <= right; i++) {
-        let key = a[i];
-        let j = i - 1;
-        while (j >= left && a[j] > key) {
+    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+      if (stopRef.current) throw new Error("Stopped");
+      
+      for (let i = gap; i < n; i++) {
+        if (stopRef.current) throw new Error("Stopped");
+        
+        const temp = a[i];
+        let j;
+        
+        const colors = new Array(n).fill("#66ccff");
+        colors[i] = "#ffd93d";
+        
+        for (let k = i - gap; k >= 0; k -= gap) {
+          colors[k] = "#e0e7ff";
+        }
+        
+        setColorState([...colors]);
+        await sleepFn();
+        
+        for (j = i; j >= gap && a[j - gap] > temp; j -= gap) {
           if (stopRef.current) throw new Error("Stopped");
+          
           comparisons++;
-          a[j + 1] = a[j];
-          swaps++;
-          j--;
-          setArrayState([...a]);
-          setColorState(new Array(n).fill("#66ccff"));
+          
+          const compColors = new Array(n).fill("#66ccff");
+          compColors[j] = "#ff6b6b";
+          compColors[j - gap] = "#ff6b6b";
+          
+          for (let k = 0; k < n; k += gap) {
+            if (k !== j && k !== j - gap && compColors[k] === "#66ccff") {
+              compColors[k] = "#e0e7ff";
+            }
+          }
+          
+          setColorState([...compColors]);
           await sleepFn();
-        }
-        a[j + 1] = key;
-        setArrayState([...a]);
-      }
-    }
-
-    async function heapify(heapSize, i) {
-      if (stopRef.current) throw new Error("Stopped");
-      let largest = i;
-      const left = 2 * i + 1;
-      const right = 2 * i + 2;
-
-      if (left < heapSize) {
-        comparisons++;
-        if (a[left] > a[largest]) largest = left;
-      }
-      if (right < heapSize) {
-        comparisons++;
-        if (a[right] > a[largest]) largest = right;
-      }
-
-      if (largest !== i) {
-        [a[i], a[largest]] = [a[largest], a[i]];
-        swaps++;
-        setArrayState([...a]);
-        await sleepFn();
-        await heapify(heapSize, largest);
-      }
-    }
-
-    async function heapSort(start, end) {
-      const size = end - start + 1;
-      for (let i = Math.floor(size / 2) - 1; i >= 0; i--) {
-        await heapify(size, i);
-      }
-      for (let i = size - 1; i > 0; i--) {
-        [a[0], a[i]] = [a[i], a[0]];
-        swaps++;
-        setArrayState([...a]);
-        await sleepFn();
-        await heapify(i, 0);
-      }
-    }
-
-    async function partition(low, high) {
-      const pivot = a[high];
-      let i = low - 1;
-      for (let j = low; j < high; j++) {
-        if (stopRef.current) throw new Error("Stopped");
-        comparisons++;
-        if (a[j] <= pivot) {
-          i++;
-          [a[i], a[j]] = [a[j], a[i]];
+          
+          a[j] = a[j - gap];
           swaps++;
           setArrayState([...a]);
-          setColorState(new Array(n).fill("#ffd93d"));
+          
+          const swapColors = new Array(n).fill("#66ccff");
+          swapColors[j] = "#ffd93d";
+          swapColors[j - gap] = "#ffd93d";
+          setColorState([...swapColors]);
           await sleepFn();
+          
+          setStats({ comparisons, swaps, time: 0 });
         }
-      }
-      [a[i + 1], a[high]] = [a[high], a[i + 1]];
-      swaps++;
-      return i + 1;
-    }
-
-    async function introSortHelper(low, high, depthLimit) {
-      if (high - low <= THRESHOLD) {
-        await insertionSort(low, high);
-        return;
-      }
-      if (depthLimit === 0) {
-        await heapSort(low, high);
-        return;
-      }
-      const pi = await partition(low, high);
-      await introSortHelper(low, pi - 1, depthLimit - 1);
-      await introSortHelper(pi + 1, high, depthLimit - 1);
-    }
-
-    await introSortHelper(0, n - 1, maxDepth);
-
-    setStats({ comparisons, swaps, time: 0 });
-    setColorState(new Array(n).fill("#4ade80"));
-    return 0;
-  };
-  const shellSortWithStop = async (
-  arr,
-  setArrayState,
-  setColorState,
-  sleepFn,
-  stopRef,
-  setStats
-) => {
-  const a = [...arr];
-  const n = a.length;
-  let comparisons = 0, swaps = 0;
-
-  // Start with a big gap, then reduce the gap
-  for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
-    if (stopRef.current) throw new Error("Stopped");
-    
-    // Do a gapped insertion sort for this gap size
-    for (let i = gap; i < n; i++) {
-      if (stopRef.current) throw new Error("Stopped");
-      
-      const temp = a[i];
-      let j;
-      
-      // Highlight the current element being inserted
-      const colors = new Array(n).fill("#66ccff");
-      colors[i] = "#ffd93d"; // Current element (yellow)
-      
-      // Highlight elements in the current gap sequence
-      for (let k = i - gap; k >= 0; k -= gap) {
-        colors[k] = "#e0e7ff"; // Gap sequence elements (light blue)
-      }
-      
-      setColorState([...colors]);
-      await sleepFn();
-      
-      // Shift earlier gap-sorted elements up until the correct location for a[i] is found
-      for (j = i; j >= gap && a[j - gap] > temp; j -= gap) {
-        if (stopRef.current) throw new Error("Stopped");
         
-        comparisons++;
+        a[j] = temp;
+        setArrayState([...a]);
         
-        // Highlight comparison elements
-        const compColors = new Array(n).fill("#66ccff");
-        compColors[j] = "#ff6b6b"; // Current position (red)
-        compColors[j - gap] = "#ff6b6b"; // Comparing with this element (red)
+        const finalColors = new Array(n).fill("#66ccff");
+        finalColors[j] = "#4ade80";
         
-        // Keep gap sequence visible
-        for (let k = 0; k < n; k += gap) {
-          if (k !== j && k !== j - gap && compColors[k] === "#66ccff") {
-            compColors[k] = "#e0e7ff";
+        for (let k = 0; k < n; k++) {
+          if (k < i && (k % gap === j % gap)) {
+            finalColors[k] = "#4ade80";
           }
         }
         
-        setColorState([...compColors]);
-        await sleepFn();
-        
-        // Perform the shift
-        a[j] = a[j - gap];
-        swaps++;
-        setArrayState([...a]);
-        
-        // Show the swap
-        const swapColors = new Array(n).fill("#66ccff");
-        swapColors[j] = "#ffd93d"; // Moved element (yellow)
-        swapColors[j - gap] = "#ffd93d"; // Original position (yellow)
-        setColorState([...swapColors]);
+        setColorState([...finalColors]);
         await sleepFn();
         
         setStats({ comparisons, swaps, time: 0 });
       }
       
-      // Put temp (the original a[i]) in its correct location
-      a[j] = temp;
-      setArrayState([...a]);
+      const gapColors = new Array(n).fill("#66ccff");
       
-      // Show the final placement
-      const finalColors = new Array(n).fill("#66ccff");
-      finalColors[j] = "#4ade80"; // Successfully placed element (green)
-      
-      // Show sorted portion based on current gap
-      for (let k = 0; k < n; k++) {
-        if (k < i && (k % gap === j % gap)) {
-          finalColors[k] = "#4ade80"; // Elements in the same gap sequence that are sorted
+      for (let start = 0; start < gap; start++) {
+        for (let k = start; k < n; k += gap) {
+          gapColors[k] = "#4ade80";
         }
       }
       
-      setColorState([...finalColors]);
+      setColorState([...gapColors]);
       await sleepFn();
-      
-      setStats({ comparisons, swaps, time: 0 });
     }
     
-    // Brief pause between gap reductions to show progress
-    const gapColors = new Array(n).fill("#66ccff");
-    
-    // Highlight elements that are sorted within their gap sequences
-    for (let start = 0; start < gap; start++) {
-      for (let k = start; k < n; k += gap) {
-        gapColors[k] = "#4ade80";
-      }
-    }
-    
-    setColorState([...gapColors]);
-    await sleepFn();
-  }
-  
-  // Final state - all elements sorted
-  setColorState(new Array(n).fill("#4ade80"));
-  return 0;
-};
-  // Actions
+    setColorState(new Array(n).fill("#4ade80"));
+    return 0;
+  };
+
+  // Fixed handleSort function
   const handleSort = async () => {
     if (isSorting) return;
-    let arrayToSort = array;
-
-    if (customArrayInput.trim() !== "") {
-      const parsedArray = customArrayInput
-        .split(",")
-        .map((s) => s.trim())
-        .filter((s) => s !== "")
-        .map(Number);
-
-
-  // Initialize array on component mount and when arraySize changes
-  useEffect(() => {
-    generateArray();
-  }, [arraySize]);
-
-          case "shellSort":
+    
+    setIsSorting(true);
+    stopSortingRef.current = false;
+    setMessage(`Sorting using ${algorithmNames[algorithm]}...`);
+    
+    const startTime = Date.now();
+    
+    try {
+      switch (algorithm) {
+        case "bubbleSort":
+          await bubbleSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;
+        case "selectionSort":
+          await selectionSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;
+        case "insertionSort":
+          await insertionSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;
+        case "mergeSort":
+          await mergeSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;
+        case "quickSort":
+          await quickSortWithStop(
+            array,
+            setArray,
+            setColorArray,
+            sleep,
+            stopSortingRef,
+            (s) => setStatistics((prev) => ({ ...prev, ...s }))
+          );
+          break;
+        case "shellSort":
           await shellSortWithStop(
             array,
             setArray,
@@ -1006,34 +867,35 @@ const timSortWithStop = async (
             stopSortingRef,
             (s) => setStatistics((prev) => ({ ...prev, ...s }))
           );
-          break;  
-
+          break;
         default:
-          await bubbleSortWithStop(
-            arrayToSort,
-            setArray,
-            setColorArray,
-            sleep,
-            stopSortingRef,
-            (s) => setStatistics((prev) => ({ ...prev, ...s }))
-          );
+          setMessage(`${algorithmNames[algorithm]} implementation coming soon!`);
+          setIsSorting(false);
+          return;
       }
-      const elapsed = Date.now() - start;
-      setStatistics((prev) => ({ ...prev, time: elapsed }));
-      setMessage("Sorting completed.");
+      
+      const endTime = Date.now();
+      setStatistics(prev => ({
+        ...prev,
+        time: endTime - startTime
+      }));
+      setMessage(`Sorting completed using ${algorithmNames[algorithm]}!`);
     } catch (e) {
       if (e && e.message === "Stopped") {
         setMessage("Sorting stopped.");
       } else {
         setMessage("An error occurred while sorting.");
-        // eslint-disable-next-line no-console
         console.error(e);
       }
     } finally {
       setIsSorting(false);
-
     }
-  }, []);
+  };
+
+  // Initialize array on component mount and when arraySize changes
+  useEffect(() => {
+    generateArray();
+  }, [arraySize]);
 
   // UI helpers
   const isTabletOrBelow = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -1181,8 +1043,8 @@ const timSortWithStop = async (
             {array.map((num, idx) => {
               const maxVal = Math.max(...array, 1);
               const heightPx = Math.max(
-                40, // A minimum height to ensure small numbers are visible
-                Math.round((num / maxVal) * 280) // Scale height within a 280px range
+                40,
+                Math.round((num / maxVal) * 280)
               );
               const col = colorArray[idx] || 'var(--accent-primary)';
               return (
@@ -1269,6 +1131,7 @@ const timSortWithStop = async (
 
       <CodeExplanation
         algorithm={algorithm}
+        pseudocode={ALGORITHM_PSEUDOCODE[algorithm]}
         isVisible={showCodeExplanation}
         onClose={() => setShowCodeExplanation(false)}
       />
