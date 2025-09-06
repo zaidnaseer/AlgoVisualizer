@@ -1,0 +1,205 @@
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { 
+  Home, 
+  BarChart3, 
+  Search, 
+  Database, 
+  GitBranch, 
+  Users, 
+  Trophy, 
+  Settings,
+  Menu,
+  X,
+  ChevronDown
+} from 'lucide-react';
+import { useTheme } from '../ThemeContext';
+
+const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(null);
+  const location = useLocation();
+  const { theme } = useTheme();
+
+  const navigationItems = [
+    {
+      path: '/',
+      icon: Home,
+      label: 'Home'
+    },
+    {
+      path: '/sorting',
+      icon: BarChart3,
+      label: 'Sorting'
+    },
+    {
+      path: '/searching',
+      icon: Search,
+      label: 'Searching'
+    },
+    {
+      label: 'Data Structures',
+      icon: Database,
+      dropdown: [
+        { path: '/data-structures', label: 'Overview' },
+        { path: '/data-structures/linked-list', label: 'Linked List' }
+      ]
+    },
+    {
+      label: 'Graph',
+      icon: GitBranch,
+      dropdown: [
+        { path: '/graph', label: 'Overview' },
+        { path: '/graph/bfs', label: 'BFS' },
+        { path: '/graph/dfs', label: 'DFS' },
+        { path: '/graph/dijkstra', label: 'Dijkstra' }
+      ]
+    },
+    {
+      path: '/quiz',
+      icon: Trophy,
+      label: 'Quiz'
+    },
+    {
+      label: 'Community',
+      icon: Users,
+      dropdown: [
+        { path: '/contributors', label: 'Contributors' },
+        { path: '/ContributorLeaderboard', label: 'Leaderboard' }
+      ]
+    },
+    {
+      path: '/settings',
+      icon: Settings,
+      label: 'Settings'
+    }
+  ];
+
+  const isActive = (path) => location.pathname === path;
+
+  const handleDropdownToggle = (index) => {
+    setIsDropdownOpen(isDropdownOpen === index ? null : index);
+  };
+
+  return (
+    <>
+      <nav className="navbar">
+        <div className="navbar-container">
+          {/* Logo */}
+          <Link to="/" className="navbar-logo">
+            <div className="logo-icon">
+              <BarChart3 size={24} />
+            </div>
+            <span className="logo-text">AlgoVisualizer</span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="navbar-menu">
+            {navigationItems.map((item, index) => (
+              <div key={index} className="navbar-item">
+                {item.dropdown ? (
+                  <div className="dropdown">
+                    <button
+                      className={`dropdown-toggle ${isDropdownOpen === index ? 'active' : ''}`}
+                      onClick={() => handleDropdownToggle(index)}
+                    >
+                      <item.icon size={18} />
+                      <span>{item.label}</span>
+                      <ChevronDown size={16} className={`dropdown-arrow ${isDropdownOpen === index ? 'rotated' : ''}`} />
+                    </button>
+                    {isDropdownOpen === index && (
+                      <div className="dropdown-menu">
+                        {item.dropdown.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={subItem.path}
+                            className={`dropdown-item ${isActive(subItem.path) ? 'active' : ''}`}
+                            onClick={() => setIsDropdownOpen(null)}
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={item.path}
+                    className={`navbar-link ${isActive(item.path) ? 'active' : ''}`}
+                  >
+                    <item.icon size={18} />
+                    <span>{item.label}</span>
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="mobile-menu-button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+          {navigationItems.map((item, index) => (
+            <div key={index} className="mobile-menu-item">
+              {item.dropdown ? (
+                <div className="mobile-dropdown">
+                  <button
+                    className={`mobile-dropdown-toggle ${isDropdownOpen === index ? 'active' : ''}`}
+                    onClick={() => handleDropdownToggle(index)}
+                  >
+                    <item.icon size={18} />
+                    <span>{item.label}</span>
+                    <ChevronDown size={16} className={`dropdown-arrow ${isDropdownOpen === index ? 'rotated' : ''}`} />
+                  </button>
+                  {isDropdownOpen === index && (
+                    <div className="mobile-dropdown-menu">
+                      {item.dropdown.map((subItem, subIndex) => (
+                        <Link
+                          key={subIndex}
+                          to={subItem.path}
+                          className={`mobile-dropdown-item ${isActive(subItem.path) ? 'active' : ''}`}
+                          onClick={() => {
+                            setIsDropdownOpen(null);
+                            setIsMobileMenuOpen(false);
+                          }}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  to={item.path}
+                  className={`mobile-menu-link ${isActive(item.path) ? 'active' : ''}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <item.icon size={18} />
+                  <span>{item.label}</span>
+                </Link>
+              )}
+            </div>
+          ))}
+        </div>
+      </nav>
+
+      {/* Backdrop */}
+      {isMobileMenuOpen && (
+        <div 
+          className="navbar-backdrop"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+    </>
+  );
+};
+
+export default Navbar;
