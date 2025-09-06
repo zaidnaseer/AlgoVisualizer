@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Search, Clock, Database, BookOpen, Zap, Users, Star, X } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
 import '../styles/Documentation.css';
+import { useNavigate } from 'react-router-dom'; 
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -106,7 +107,7 @@ const algorithmDatabase = {
         description: "Linear data structure where elements are stored in nodes.",
         timeComplexity: { insertion: "O(1)", deletion: "O(1)", search: "O(n)", access: "O(n)" },
         spaceComplexity: "O(n)",
-        implemented: false
+        implemented: true
       },
       {
         name: "Stack",
@@ -153,8 +154,31 @@ const getComplexityColor = (complexity) => {
 // ============================================================================
 
 function AlgorithmCard({ algorithm, themeStyles }) {
+  const navigate = useNavigate(); // Add this hook
+
+  // Add click handler function
+  const handleCardClick = () => {
+    if (algorithm.implemented) {
+      // Navigate based on algorithm category and id
+      if (algorithm.category === 'dataStructures' && algorithm.id === 'linkedList') {
+        navigate('/data-structures/linked-list');
+      } else if (algorithm.category === 'sorting') {
+        navigate(`/sorting/${algorithm.id}`);
+      } else if (algorithm.category === 'searching') {
+        navigate(`/searching/${algorithm.id}`);
+      } else if (algorithm.category === 'dataStructures') {
+        navigate(`/data-structures/${algorithm.id}`);
+      }
+    }
+  };
+
   return (
-    <div className="algorithm-card" title={algorithm.description}>
+    <div 
+      className={`algorithm-card ${algorithm.implemented ? 'clickable' : ''}`} // Add clickable class
+      onClick={handleCardClick} // Add click handler
+      title={algorithm.description}
+      style={{ cursor: algorithm.implemented ? 'pointer' : 'default' }} // Add cursor styling
+    >
       <div className="card-header">
         <div>
           <div className="card-title-group">
@@ -178,7 +202,6 @@ function AlgorithmCard({ algorithm, themeStyles }) {
     </div>
   );
 }
-
 // ============================================================================
 // 3. MAIN COMPONENT DEFINITION
 // ============================================================================

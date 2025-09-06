@@ -20,6 +20,8 @@ import Doubt from './components/Doubt';
 import AlgorithmDocumentation from './pages/Documentation';
 import './styles/components.css';
 import { ThemeProvider } from './ThemeContext'; // ← import ThemeProvider
+import LinkedListPage from './components/pages/LinkedListPage';
+
 
 const App = () => {
     return (
@@ -42,6 +44,8 @@ const App = () => {
                             <Route path="/terms" element={<TermsOfService />} />
                             <Route path="/privacy" element={<PrivacyPolicy />} />
                             <Route path="/documentation" element={<AlgorithmDocumentation />} />
+                            <Route path="/data-structures/linked-list" element={<LinkedListPage />} />
+
                         </Routes>
                     </main>
                     <Doubt />
