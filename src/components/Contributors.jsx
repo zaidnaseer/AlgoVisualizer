@@ -1,7 +1,7 @@
 // cspell:words sandeepvashishtha Vashishtha rhythmpahwa Pahwa noopener noreferrer
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import '../styles/Contributors.css';
+import "../styles/global-theme.css";
 
 // Mock contributors data - moved outside component to avoid useEffect dependency issues
 const mockContributors = [
@@ -231,128 +231,126 @@ const Contributors = () => {
 
   if (loading) {
     return (
-      <section className="contributors-section">
-        <div className="container">
-          <div className="loading-state">
-            <div className="loading-spinner"></div>
-            <p>Loading our amazing contributors...</p>
-          </div>
+      <div className="theme-container">
+        <div className="loading-state">
+          <motion.div
+            className="bouncing-loader"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="loader-dot" />
+            <div className="loader-dot" />
+            <div className="loader-dot" />
+          </motion.div>
+          <p>Loading our amazing contributors...</p>
         </div>
-      </section>
+      </div>
     );
   }
 
+
+
   return (
-    <section className="contributors-section">
-      <div className="container">
-        <motion.div
-          className="contributors-header"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2>Our Amazing Contributors</h2>
-        </motion.div>
+    // ✅ MODIFIED: The main container now uses our global theme class.
+    <div className="theme-container">
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        {/* ✅ MODIFIED: The header now uses our global theme class. */}
+        <h1 className="theme-title">Our Amazing Contributors</h1>
+      </motion.div>
 
-        <motion.div
-          className="contributors-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {contributors.map((contributor, index) => (
-            <motion.div
-              key={contributor.id}
-              className="contributor-card"
-              variants={itemVariants}
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.2 }
-              }}
-            >
-              <div className="card-glow"></div>
-              <div className="contributor-avatar">
-                <img
-                  src={contributor.avatar_url}
-                  alt={contributor.name || contributor.login}
-                  onError={(e) => {
-                    e.target.src = `https://ui-avatars.com/api/?name=${contributor.name || contributor.login}&background=6366f1&color=ffffff&size=120`;
-                  }}
-                />
-                <div className="contribution-badge">
-                  <span className="contribution-count">{contributor.contributions}</span>
-                  <span className="contribution-label">commits</span>
-                </div>
+      {/* ✅ MODIFIED: The grid now uses our new global class. */}
+      <motion.div
+        className="contributors-grid"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        {contributors.map((contributor) => (
+          // ✅ MODIFIED: The card now uses our new global class.
+          <motion.div
+            key={contributor.id}
+            className="contributor-card"
+            variants={itemVariants}
+          >
+            <div className="contributor-avatar">
+              <img
+                src={contributor.avatar_url}
+                alt={contributor.name || contributor.login}
+                onError={(e) => {
+                  e.target.src = `https://ui-avatars.com/api/?name=${contributor.name || contributor.login}&background=6366f1&color=ffffff&size=120`;
+                }}
+              />
+              <div className="contribution-badge">
+                <span className="contribution-count">{contributor.contributions}</span>
+                <span className="contribution-label">commits</span>
               </div>
+            </div>
+            
+            {/* ✅ MODIFIED: All child elements now use our new global classes. */}
+            <div className="contributor-info">
+              <h3 className="contributor-name">{contributor.name || contributor.login}</h3>
+              <p className="contributor-role">{contributor.role}</p>
+              <p className="contributor-bio">{contributor.bio}</p>
               
-              <div className="contributor-info">
-                <h3 className="contributor-name">{contributor.name || contributor.login}</h3>
-                <p className="contributor-role">{contributor.role}</p>
-                <p className="contributor-bio">{contributor.bio}</p>
-                
-                <div className="contributor-links">
-                  <a
-                    href={contributor.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="github-link"
-                  >
-                    <svg viewBox="0 0 24 24" width="18" height="18">
-                      <path
-                        fill="currentColor"
-                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                      />
-                    </svg>
-                    View Profile
-                  </a>
-                </div>
+              <div style={{ marginTop: 'auto' }}>
+                <a
+                  href={contributor.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary" // ✅ MODIFIED: Using our global button class
+                >
+                  <svg viewBox="0 0 24 24" width="18" height="18" style={{ marginRight: '8px' }}>
+                    <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  View Profile
+                </a>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
 
-        {/* Call to Action Section */}
-        <motion.div
-          className="contribute-cta"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <h3>Join Our Community</h3>
-          <p>
-            Want to contribute to AlgoVisualizer? We welcome developers of all skill levels! 
-            Help us improve algorithm education and build amazing visualizations together.
-          </p>
-          <div className="cta-buttons">
-            <a
-              href="https://github.com/RhythmPahwa14/AlgoVisualizer"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              <svg viewBox="0 0 24 24" width="20" height="20">
-                <path
-                  fill="currentColor"
-                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                />
-              </svg>
-              Contribute on GitHub
-            </a>
-            <a
-              href="https://github.com/RhythmPahwa14/AlgoVisualizer/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-            >
-              Report Issues
-            </a>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+      {/* ✅ REFACTORED: The CTA is now a standard theme-card */}
+      <motion.div
+        className="theme-card"
+        style={{ textAlign: 'center' }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
+        <h3 className="theme-card-header">Join Our Community</h3>
+        <p style={{ color: "var(--theme-text-secondary)", maxWidth: '600px', margin: '0 auto 1.5rem auto' }}>
+          Want to contribute to AlgoVisualizer? We welcome developers of all skill levels! 
+          Help us improve algorithm education and build amazing visualizations together.
+        </p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <a
+            href="https://github.com/RhythmPahwa14/AlgoVisualizer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary" // ✅ MODIFIED
+          >
+            Contribute on GitHub
+          </a>
+          <a
+            href="https://github.com/RhythmPahwa14/AlgoVisualizer/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary" // ✅ MODIFIED
+          >
+            Report Issues
+          </a>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 

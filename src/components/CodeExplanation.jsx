@@ -376,6 +376,539 @@ vector<int> bucketSort(vector<int> a, int bucketCount=10){
   },
 
 
+  timSort: {
+      title: "TimSort",
+      description: "Hybrid stable sorting algorithm combining Insertion Sort and Merge Sort. It detects natural runs in the array, sorts them using insertion sort, and then merges them efficiently.",
+      code: {
+        js: `const MIN_MERGE = 32;
+
+    function minRunLength(n){
+      let r = 0;
+      while (n >= MIN_MERGE) {
+        r |= (n & 1);
+        n >>= 1;
+      }
+      return n + r;
+    }
+
+    function insertionSort(arr, left, right){
+      for (let i = left + 1; i <= right; i++) {
+        let key = arr[i];
+        let j = i - 1;
+        while (j >= left && arr[j] > key) {
+          arr[j + 1] = arr[j];
+          j--;
+        }
+        arr[j + 1] = key;
+      }
+    }
+
+    function merge(arr, l, m, r){
+      const left = arr.slice(l, m + 1);
+      const right = arr.slice(m + 1, r + 1);
+      let i = 0, j = 0, k = l;
+      while (i < left.length && j < right.length){
+        if (left[i] <= right[j]) arr[k++] = left[i++];
+        else arr[k++] = right[j++];
+      }
+      while (i < left.length) arr[k++] = left[i++];
+      while (j < right.length) arr[k++] = right[j++];
+    }
+
+    function timSort(arr){
+      const n = arr.length;
+      const minRun = minRunLength(n);
+
+      // Sort small runs with insertion sort
+      for (let i = 0; i < n; i += minRun){
+        insertionSort(arr, i, Math.min((i + minRun - 1), n - 1));
+      }
+
+      // Merge runs in size-doubling manner
+      for (let size = minRun; size < n; size = 2*size){
+        for (let left = 0; left < n; left += 2*size){
+          let mid = left + size - 1;
+          let right = Math.min((left + 2*size - 1), n - 1);
+          if (mid < right) merge(arr, left, mid, right);
+        }
+      }
+      return arr;
+    }`,
+
+        java: `static final int MIN_MERGE = 32;
+
+    static int minRunLength(int n){
+      int r = 0;
+      while (n >= MIN_MERGE){
+        r |= (n & 1);
+        n >>= 1;
+      }
+      return n + r;
+    }
+
+    static void insertionSort(int[] arr, int left, int right){
+      for (int i = left+1; i <= right; i++){
+        int key = arr[i], j = i-1;
+        while (j >= left && arr[j] > key){
+          arr[j+1] = arr[j];
+          j--;
+        }
+        arr[j+1] = key;
+      }
+    }
+
+    static void merge(int[] arr, int l, int m, int r){
+      int len1 = m - l + 1, len2 = r - m;
+      int[] left = new int[len1], right = new int[len2];
+      for (int i=0;i<len1;i++) left[i]=arr[l+i];
+      for (int i=0;i<len2;i++) right[i]=arr[m+1+i];
+      int i=0,j=0,k=l;
+      while (i<len1 && j<len2){
+        if (left[i]<=right[j]) arr[k++]=left[i++];
+        else arr[k++]=right[j++];
+      }
+      while (i<len1) arr[k++]=left[i++];
+      while (j<len2) arr[k++]=right[j++];
+    }
+
+    public static void timSort(int[] arr){
+      int n=arr.length;
+      int minRun=minRunLength(n);
+
+      for(int i=0;i<n;i+=minRun){
+        insertionSort(arr,i,Math.min(i+minRun-1,n-1));
+      }
+
+      for(int size=minRun;size<n;size*=2){
+        for(int left=0;left<n;left+=2*size){
+          int mid=left+size-1;
+          int right=Math.min((left+2*size-1),n-1);
+          if(mid<right) merge(arr,left,mid,right);
+        }
+      }
+    }`,
+
+        cpp: `#include <vector>
+    #include <algorithm>
+    using namespace std;
+    const int MIN_MERGE = 32;
+
+    int minRunLength(int n){
+      int r=0;
+      while(n>=MIN_MERGE){ r|=(n&1); n>>=1; }
+      return n+r;
+    }
+
+    void insertionSort(vector<int>& arr,int left,int right){
+      for(int i=left+1;i<=right;i++){
+        int key=arr[i],j=i-1;
+        while(j>=left && arr[j]>key){
+          arr[j+1]=arr[j]; j--;
+        }
+        arr[j+1]=key;
+      }
+    }
+
+    void merge(vector<int>& arr,int l,int m,int r){
+      vector<int> left(arr.begin()+l,arr.begin()+m+1);
+      vector<int> right(arr.begin()+m+1,arr.begin()+r+1);
+      int i=0,j=0,k=l;
+      while(i<left.size() && j<right.size()){
+        if(left[i]<=right[j]) arr[k++]=left[i++];
+        else arr[k++]=right[j++];
+      }
+      while(i<left.size()) arr[k++]=left[i++];
+      while(j<right.size()) arr[k++]=right[j++];
+    }
+
+    void timSort(vector<int>& arr){
+      int n=arr.size();
+      int minRun=minRunLength(n);
+
+      for(int i=0;i<n;i+=minRun){
+        insertionSort(arr,i,min(i+minRun-1,n-1));
+      }
+
+      for(int size=minRun;size<n;size*=2){
+        for(int left=0;left<n;left+=2*size){
+          int mid=left+size-1;
+          int right=min(left+2*size-1,n-1);
+          if(mid<right) merge(arr,left,mid,right);
+        }
+      }
+    }`,
+
+        py: `MIN_MERGE = 32
+
+    def min_run_length(n):
+      r=0
+      while n>=MIN_MERGE:
+        r|=n&1
+        n>>=1
+      return n+r
+
+    def insertion_sort(a,left,right):
+      for i in range(left+1,right+1):
+        key=a[i]; j=i-1
+        while j>=left and a[j]>key:
+          a[j+1]=a[j]; j-=1
+        a[j+1]=key
+
+    def merge(a,l,m,r):
+      left=a[l:m+1]
+      right=a[m+1:r+1]
+      i=j=0; k=l
+      while i<len(left) and j<len(right):
+        if left[i]<=right[j]:
+          a[k]=left[i]; i+=1
+        else:
+          a[k]=right[j]; j+=1
+        k+=1
+      while i<len(left):
+        a[k]=left[i]; i+=1; k+=1
+      while j<len(right):
+        a[k]=right[j]; j+=1; k+=1
+
+    def tim_sort(a):
+      n=len(a)
+      min_run=min_run_length(n)
+
+      for i in range(0,n,min_run):
+        insertion_sort(a,i,min(i+min_run-1,n-1))
+
+      size=min_run
+      while size<n:
+        for left in range(0,n,2*size):
+          mid=left+size-1
+          right=min(left+2*size-1,n-1)
+          if mid<right: merge(a,left,mid,right)
+        size*=2
+      return a`
+      },
+      steps: [
+        { explanation: "Compute a minRun size (≈32–64) based on array length." },
+        { explanation: "Split array into runs of size minRun." },
+        { explanation: "Sort each run individually with insertion sort." },
+        { explanation: "Iteratively merge runs in size-doubling fashion." },
+        { explanation: "After final merge, the array is fully sorted." }
+      ]
+    },
+ shellSort: {
+    title: "Shell Sort Algorithm",
+    description: "An improvement over insertion sort that allows the exchange of elements that are far apart. Uses a gap sequence that starts large and reduces to 1, making the final insertion sort pass very efficient.",
+    code: {
+      js: `function shellSort(arr) {
+  const n = arr.length;
+  // Start with a big gap, then reduce the gap
+  for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    // Do a gapped insertion sort for this gap size
+    for (let i = gap; i < n; i++) {
+      const temp = arr[i];
+      let j;
+      // Shift earlier gap-sorted elements up until correct location for arr[i] is found
+      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+        arr[j] = arr[j - gap];
+      }
+      // Put temp (original arr[i]) in its correct location
+      arr[j] = temp;
+    }
+  }
+  return arr;
+}`,
+      java: `public static int[] shellSort(int[] arr) {
+  int n = arr.length;
+  // Start with a big gap, then reduce the gap
+  for (int gap = n / 2; gap > 0; gap /= 2) {
+    // Do a gapped insertion sort for this gap size
+    for (int i = gap; i < n; i++) {
+      int temp = arr[i];
+      int j;
+      // Shift earlier gap-sorted elements up until correct location for arr[i] is found
+      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+        arr[j] = arr[j - gap];
+      }
+      // Put temp (original arr[i]) in its correct location
+      arr[j] = temp;
+    }
+  }
+  return arr;
+}`,
+      cpp: `#include <vector>
+using namespace std;
+
+vector<int> shellSort(vector<int> arr) {
+  int n = (int)arr.size();
+  // Start with a big gap, then reduce the gap
+  for (int gap = n / 2; gap > 0; gap /= 2) {
+    // Do a gapped insertion sort for this gap size
+    for (int i = gap; i < n; i++) {
+      int temp = arr[i];
+      int j;
+      // Shift earlier gap-sorted elements up until correct location for arr[i] is found  
+      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+        arr[j] = arr[j - gap];
+      }
+      // Put temp (original arr[i]) in its correct location
+      arr[j] = temp;
+    }
+  }
+  return arr;
+}`,
+      py: `def shell_sort(arr):
+  n = len(arr)
+  # Start with a big gap, then reduce the gap
+  gap = n // 2
+  while gap > 0:
+    # Do a gapped insertion sort for this gap size
+    for i in range(gap, n):
+      temp = arr[i]
+      j = i
+      # Shift earlier gap-sorted elements up until correct location for arr[i] is found
+      while j >= gap and arr[j - gap] > temp:
+        arr[j] = arr[j - gap]
+        j -= gap
+      # Put temp (original arr[i]) in its correct location
+      arr[j] = temp
+    gap //= 2
+  return arr`
+    },
+    steps: [
+      { explanation: "Start with gap = n/2 and reduce by half each iteration.", highlight: { js: "gap = Math.floor(n / 2)", java: "gap = n / 2", cpp: "gap = n / 2", py: "gap = n // 2" } },
+      { explanation: "For each gap, perform gapped insertion sort on subarrays.", highlight: { js: "for (let i = gap; i < n; i++)", java: "for (int i = gap; i < n; i++)", cpp: "for (int i = gap; i < n; i++)", py: "for i in range(gap, n):" } },
+      { explanation: "Store current element and find its correct position within gap-sorted elements.", highlight: { js: "const temp = arr[i];", java: "int temp = arr[i];", cpp: "int temp = arr[i];", py: "temp = arr[i]" } },
+      { explanation: "Shift larger elements gap positions ahead until insertion point found.", highlight: { js: "arr[j - gap] > temp", java: "arr[j - gap] > temp", cpp: "arr[j - gap] > temp", py: "arr[j - gap] > temp" } },
+      { explanation: "Insert the stored element at its correct position.", highlight: { js: "arr[j] = temp;", java: "arr[j] = temp;", cpp: "arr[j] = temp;", py: "arr[j] = temp" } },
+      { explanation: "Reduce gap and repeat until gap becomes 1 (regular insertion sort).", highlight: { js: "gap = Math.floor(gap / 2)", java: "gap /= 2", cpp: "gap /= 2", py: "gap //= 2" } }
+    ]
+  },
+
+  introSort: {
+    title: "IntroSort",
+    description: "Hybrid sorting algorithm that starts with Quick Sort, switches to Heap Sort when recursion depth exceeds a limit, and uses Insertion Sort for small partitions. Ensures O(n log n) worst-case time while keeping fast average case.",
+    code: {
+      js: `function insertionSort(arr, left, right){
+  for (let i=left+1;i<=right;i++){
+    let key=arr[i], j=i-1;
+    while(j>=left && arr[j]>key){
+      arr[j+1]=arr[j]; j--;
+    }
+    arr[j+1]=key;
+  }
+}
+
+function heapify(arr, n, i){
+  let largest=i, l=2*i+1, r=2*i+2;
+  if(l<n && arr[l]>arr[largest]) largest=l;
+  if(r<n && arr[r]>arr[largest]) largest=r;
+  if(largest!==i){
+    [arr[i],arr[largest]]=[arr[largest],arr[i]];
+    heapify(arr,n,largest);
+  }
+}
+
+function heapSort(arr,left,right){
+  let n=right-left+1;
+  for(let i=Math.floor(n/2)-1;i>=0;i--) heapify(arr.slice(left), n, i);
+  let tmp=arr.slice(left,right+1);
+  for(let i=n-1;i>=0;i--){
+    [tmp[0],tmp[i]]=[tmp[i],tmp[0]];
+    heapify(tmp,i,0);
+  }
+  for(let i=0;i<n;i++) arr[left+i]=tmp[i];
+}
+
+function partition(arr,left,right){
+  let pivot=arr[right], i=left-1;
+  for(let j=left;j<right;j++){
+    if(arr[j]<=pivot){
+      i++; [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
+  }
+  [arr[i+1],arr[right]]=[arr[right],arr[i+1]];
+  return i+1;
+}
+
+function introSortUtil(arr,left,right,depthLimit){
+  const size=right-left+1;
+  if(size<16){
+    insertionSort(arr,left,right);
+    return;
+  }
+  if(depthLimit===0){
+    heapSort(arr,left,right);
+    return;
+  }
+  let p=partition(arr,left,right);
+  introSortUtil(arr,left,p-1,depthLimit-1);
+  introSortUtil(arr,p+1,right,depthLimit-1);
+}
+
+function introSort(arr){
+  let depthLimit=2*Math.floor(Math.log2(arr.length));
+  introSortUtil(arr,0,arr.length-1,depthLimit);
+  return arr;
+}`,
+      java: `import java.util.*;
+
+class IntroSort {
+  static void insertionSort(int[] arr,int left,int right){
+    for(int i=left+1;i<=right;i++){
+      int key=arr[i],j=i-1;
+      while(j>=left && arr[j]>key){ arr[j+1]=arr[j]; j--; }
+      arr[j+1]=key;
+    }
+  }
+
+  static void heapify(int[] arr,int n,int i,int offset){
+    int largest=i, l=2*i+1, r=2*i+2;
+    if(l<n && arr[offset+l]>arr[offset+largest]) largest=l;
+    if(r<n && arr[offset+r]>arr[offset+largest]) largest=r;
+    if(largest!=i){
+      int tmp=arr[offset+i]; arr[offset+i]=arr[offset+largest]; arr[offset+largest]=tmp;
+      heapify(arr,n,largest,offset);
+    }
+  }
+
+  static void heapSort(int[] arr,int left,int right){
+    int n=right-left+1;
+    for(int i=n/2-1;i>=0;i--) heapify(arr,n,i,left);
+    for(int i=n-1;i>0;i--){
+      int tmp=arr[left]; arr[left]=arr[left+i]; arr[left+i]=tmp;
+      heapify(arr,i,0,left);
+    }
+  }
+
+  static int partition(int[] arr,int left,int right){
+    int pivot=arr[right]; int i=left-1;
+    for(int j=left;j<right;j++){
+      if(arr[j]<=pivot){
+        i++; int tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp;
+      }
+    }
+    int tmp=arr[i+1]; arr[i+1]=arr[right]; arr[right]=tmp;
+    return i+1;
+  }
+
+  static void introSortUtil(int[] arr,int left,int right,int depthLimit){
+    int size=right-left+1;
+    if(size<16){ insertionSort(arr,left,right); return; }
+    if(depthLimit==0){ heapSort(arr,left,right); return; }
+    int p=partition(arr,left,right);
+    introSortUtil(arr,left,p-1,depthLimit-1);
+    introSortUtil(arr,p+1,right,depthLimit-1);
+  }
+
+  public static void introSort(int[] arr){
+    int depthLimit=2*(int)(Math.log(arr.length)/Math.log(2));
+    introSortUtil(arr,0,arr.length-1,depthLimit);
+  }
+}`,
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+void insertionSort(vector<int>& arr,int left,int right){
+  for(int i=left+1;i<=right;i++){
+    int key=arr[i], j=i-1;
+    while(j>=left && arr[j]>key){ arr[j+1]=arr[j]; j--; }
+    arr[j+1]=key;
+  }
+}
+
+int partition(vector<int>& arr,int left,int right){
+  int pivot=arr[right]; int i=left-1;
+  for(int j=left;j<right;j++){
+    if(arr[j]<=pivot){ i++; swap(arr[i],arr[j]); }
+  }
+  swap(arr[i+1],arr[right]); return i+1;
+}
+
+void heapify(vector<int>& arr,int n,int i,int offset){
+  int largest=i,l=2*i+1,r=2*i+2;
+  if(l<n && arr[offset+l]>arr[offset+largest]) largest=l;
+  if(r<n && arr[offset+r]>arr[offset+largest]) largest=r;
+  if(largest!=i){
+    swap(arr[offset+i],arr[offset+largest]);
+    heapify(arr,n,largest,offset);
+  }
+}
+
+void heapSort(vector<int>& arr,int left,int right){
+  int n=right-left+1;
+  for(int i=n/2-1;i>=0;i--) heapify(arr,n,i,left);
+  for(int i=n-1;i>0;i--){
+    swap(arr[left],arr[left+i]);
+    heapify(arr,i,0,left);
+  }
+}
+
+void introSortUtil(vector<int>& arr,int left,int right,int depthLimit){
+  int size=right-left+1;
+  if(size<16){ insertionSort(arr,left,right); return; }
+  if(depthLimit==0){ heapSort(arr,left,right); return; }
+  int p=partition(arr,left,right);
+  introSortUtil(arr,left,p-1,depthLimit-1);
+  introSortUtil(arr,p+1,right,depthLimit-1);
+}
+
+void introSort(vector<int>& arr){
+  int depthLimit=2*log(arr.size());
+  introSortUtil(arr,0,arr.size()-1,depthLimit);
+}`,
+      py: `import math
+
+def insertion_sort(arr,left,right):
+  for i in range(left+1,right+1):
+    key=arr[i]; j=i-1
+    while j>=left and arr[j]>key:
+      arr[j+1]=arr[j]; j-=1
+    arr[j+1]=key
+
+def partition(arr,left,right):
+  pivot=arr[right]; i=left-1
+  for j in range(left,right):
+    if arr[j]<=pivot:
+      i+=1; arr[i],arr[j]=arr[j],arr[i]
+  arr[i+1],arr[right]=arr[right],arr[i+1]
+  return i+1
+
+def heapify(arr,n,i,offset):
+  largest=i; l=2*i+1; r=2*i+2
+  if l<n and arr[offset+l]>arr[offset+largest]: largest=l
+  if r<n and arr[offset+r]>arr[offset+largest]: largest=r
+  if largest!=i:
+    arr[offset+i],arr[offset+largest]=arr[offset+largest],arr[offset+i]
+    heapify(arr,n,largest,offset)
+
+def heap_sort(arr,left,right):
+  n=right-left+1
+  for i in range(n//2-1,-1,-1): heapify(arr,n,i,left)
+  for i in range(n-1,0,-1):
+    arr[left],arr[left+i]=arr[left+i],arr[left]
+    heapify(arr,i,0,left)
+
+def intro_sort_util(arr,left,right,depth_limit):
+  size=right-left+1
+  if size<16: insertion_sort(arr,left,right); return
+  if depth_limit==0: heap_sort(arr,left,right); return
+  p=partition(arr,left,right)
+  intro_sort_util(arr,left,p-1,depth_limit-1)
+  intro_sort_util(arr,p+1,right,depth_limit-1)
+
+def intro_sort(arr):
+  depth_limit=2*int(math.log2(len(arr)))
+  intro_sort_util(arr,0,len(arr)-1,depth_limit)
+  return arr`
+    },
+    steps: [
+      { explanation: "Start with Quick Sort for partitioning." },
+      { explanation: "If recursion depth exceeds 2*log₂(n), switch to Heap Sort to avoid O(n²)." },
+      { explanation: "For small subarrays (size < 16), use Insertion Sort for efficiency." },
+      { explanation: "Combines strengths: Quick Sort’s speed, Heap Sort’s worst-case guarantee, Insertion Sort’s efficiency on small inputs." },
+      { explanation: "Ensures overall O(n log n) worst-case time complexity." }
+    ]
+  },
+
+
   binarySearch: {
     title: "Binary Search Algorithm",
     description:

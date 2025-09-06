@@ -120,8 +120,6 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
-![GSSoC Logo](/AlgoVisualizer/src/assets/gssoc%20logo.png)
-
 🌟 **Exciting News...**
 
 🚀 This project is now an official part of GirlScript Summer of Code – GSSoC'25! 💃🎉💻 We're thrilled to welcome contributors from all over India and beyond to collaborate, build, and grow *AlgoVisualizer!* Let’s make learning and career development smarter – together! 🌟👨‍💻👩‍💻
@@ -331,12 +329,43 @@ Perfect for:
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
+<h2 id="project-admins">🧑‍💻 Project Admins</h2>
+
+Meet our amazing project admins:
+<table>
+<tr>
+<td align="center">
+<a href="https://github.com/RhythmPahwa14">
+  <img src="https://avatars.githubusercontent.com/u/170720661?v=4" height="140px" width="140px" alt="Rhythm">
+</a><br>
+<sub><b>Rhythm</b><br>
+<a href="https://www.linkedin.com/in/rhythmpahwa14/" target="_blank">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="20" height="20" alt="LinkedIn"/>
+</a>
+</sub>
+</td>
+<td align="center">
+<a href="https://github.com/sandeepvashishtha">
+  <img src="https://avatars.githubusercontent.com/u/64915843?v=4" height="140px" width="140px" alt="Sandeep">
+</a><br>
+<sub><b>Sandeep Vashishtha</b><br>
+<a href="https://www.linkedin.com/in/sandeepvashishtha/" target="_blank">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="20" height="20" alt="LinkedIn"/>
+</a>
+</sub>
+</td>
+</tr>
+</table>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+
 <h2 id="contributors">🏆 Contributors</h2>
 
-Meet our amazing contributors who make this project possible:
-
-- **[Sandeep Vashishtha](https://github.com/SandeepVashishtha)** 
-- **[Rhythm Pahwa](https://github.com/rhythmpahwa14)**
+Meet our amazing contributors:
+- **[Shitanshu Kumar](https://github.com/Shitanshukumar607)**
+- **[Aditya Singh Rathore](https://github.com/Adez017)**
+- **[SHIVANI PRAJAPATI](https://github.com/Shivin1016)**
+- **[Aleenaharoldpeter](https://github.com/aleenaharoldpeter)**
 
 > Want to see your name here? [Contribute to the project!](#-contributing)
 
@@ -495,22 +524,6 @@ This project is licensed under the MIT License - see the [`License`](https://git
     <img src="https://reporoster.com/forks/RhythmPahwa14/AlgoVisualizer?type=svg&limit=100&names=false" alt="Forkers" />
   </a>
 </div>
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
-
-<h2 id="project-admin" align="center">🧑‍💻Project Admin:</h2>
-<table>
-<tr>
-<td align="center">
-<a href="https://github.com/RhythmPahwa14"><img src="https://avatars.githubusercontent.com/u/170720661?v=4" height="140px" width="140px" alt="Rhythm"></a><br><sub><b>Rhythm</b><br><a href="https://www.linkedin.com/in/pahwa-rhythm/"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/73993775/278833250-adb040ea-e3ef-446e-bcd4-3e8d7d4c0176.png" width="45px" height="45px"></a>
-</sub>
-</td>
- <td align="center">
-<a href="https://github.com/sandeepvashishtha"><img src="https://avatars.githubusercontent.com/u/64915843?v=4" height="140px" width="140px" alt="Sandeep"></a><br><sub><b>Sandeep Vashishtha</b><br><a href="https://www.linkedin.com/in/sandeepvashishtha/"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/73993775/278833250-adb040ea-e3ef-446e-bcd4-3e8d7d4c0176.png" width="45px" height="45px"></a>
-</sub>
-</td>
-</tr>
-</table>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 

@@ -7,9 +7,14 @@ import Home from './pages/Home';
 import Sorting from './pages/Sorting';
 import Searching from './pages/Searching';
 import DataStructures from './pages/DataStructures';
-import Graph from './pages/Graph'; // <-- Import the new Graph component
+import Graph from './pages/Graph';
+import GraphBFS from './pages/GraphBFS';
+import GraphDFS from './pages/GraphDFS';
+import GraphDijkstra from './pages/GraphDijkstra';
 import Quiz from './pages/Quiz';
 import Settings from './pages/Settings';
+import SignInPage from './pages/SignIn';
+import SignUpPage from './pages/SignUp';
 import Contributors from './components/Contributors';
 import ScrollToTop from './ScrollToTop';
 import About from './components/about';
@@ -18,44 +23,67 @@ import PrivacyPolicy from './components/Privacy';
 import TermsOfService from './components/terms';
 import Doubt from './components/Doubt';
 import AlgorithmDocumentation from './pages/Documentation';
-import './styles/components.css';
-import { ThemeProvider } from './ThemeContext'; // ← import ThemeProvider
+import ComplexityBox from './components/ComplexityBox';
+import ThemeToggle from './components/ThemeToggle';
+import ContributorLeaderboard from './pages/ContributorLeaderboard';
+import { ThemeProvider } from './ThemeContext';
 import LinkedListPage from './components/pages/LinkedListPage';
-
+import './styles/components.css';
 
 const App = () => {
-    return (
-        <ThemeProvider> {/* ← Wrap entire app with ThemeProvider */}
-            <Router>
-                <div className="app-container">
-                    <Sidebar />
-                    <main className="main-content main-content-with-sidebar">
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/sorting" element={<Sorting />} />
-                            <Route path="/searching" element={<Searching />} />
-                            <Route path="/data-structures" element={<DataStructures />} />
-                            <Route path="/graph" element={<Graph />} /> {/* <-- Add the new route */}
-                            <Route path="/quiz" element={<Quiz />} />
-                            <Route path="/settings" element={<Settings />} />
-                            <Route path="/contributors" element={<Contributors />} />
-                            <Route path="/about" element={<About />} />
-                            <Route path="/contact" element={<Contact />} />
-                            <Route path="/terms" element={<TermsOfService />} />
-                            <Route path="/privacy" element={<PrivacyPolicy />} />
-                            <Route path="/documentation" element={<AlgorithmDocumentation />} />
-                            <Route path="/data-structures/linked-list" element={<LinkedListPage />} />
+  const selectedAlgorithm = "bubbleSort"; // You can set this dynamically
 
-                        </Routes>
-                    </main>
-                    <Doubt />
-                    <Footer />
-                    <ScrollToTop />
-                    <Analytics />
-                </div>
-            </Router>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider>
+      <Router>
+        <div className="app-container">
+          <ScrollToTop />
+          <ThemeToggle />
+          <Sidebar />
+
+          <main className="main-content main-content-with-sidebar">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/sorting" element={<Sorting />} />
+              <Route path="/searching" element={<Searching />} />
+              <Route path="/data-structures" element={<DataStructures />} />
+              <Route path="/data-structures/linked-list" element={<LinkedListPage />} />
+
+              {/* Graph Routes */}
+              <Route path="/graph" element={<Graph />} />
+              <Route path="/graph/bfs" element={<GraphBFS />} />
+              <Route path="/graph/dfs" element={<GraphDFS />} />
+              <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
+
+              {/* Other Pages */}
+              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/contributors" element={<Contributors />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/documentation" element={<AlgorithmDocumentation />} />
+              <Route path="/ContributorLeaderboard" element={<ContributorLeaderboard />} />
+
+              {/* Authentication Routes */}
+              <Route path="/sign-in" element={<SignInPage />} />
+              <Route path="/sign-up" element={<SignUpPage />} />
+            </Routes>
+
+            {/* Complexity Info Box */}
+            <div style={{ marginTop: "2rem" }}>
+              <ComplexityBox algorithm={selectedAlgorithm} />
+            </div>
+          </main>
+
+          <Doubt />
+          <Footer />
+          <Analytics />
+        </div>
+      </Router>
+    </ThemeProvider>
+  );
 };
 
 export default App;

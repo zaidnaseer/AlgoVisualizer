@@ -1,7 +1,13 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Search, Clock, Database, BookOpen, Zap, Users, Star, X } from 'lucide-react';
-import { useTheme } from '../ThemeContext';
-import '../styles/Documentation.css';
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import {
+  Search,
+  Database,
+  BookOpen,
+  Users,
+  Star,
+  GitBranch,
+} from "lucide-react";
+import "../styles/global-theme.css";
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -16,59 +22,94 @@ const algorithmDatabase = {
       {
         name: "Bubble Sort",
         id: "bubbleSort",
-        description: "Compares adjacent elements and swaps them if they are in wrong order. Simple but inefficient for large datasets.",
+        description:
+          "Compares adjacent elements and swaps them if they are in wrong order. Simple but inefficient for large datasets.",
         timeComplexity: { best: "O(n)", average: "O(n²)", worst: "O(n²)" },
         spaceComplexity: "O(1)",
         stability: "Stable",
         inPlace: true,
         adaptivity: "Adaptive",
-        implemented: true
+        implemented: true, 
       },
       {
         name: "Selection Sort",
         id: "selectionSort",
-        description: "Finds the minimum element and places it at the beginning. Makes fewer swaps than bubble sort.",
+        description:
+          "Finds the minimum element and places it at the beginning. Makes fewer swaps than bubble sort.",
         timeComplexity: { best: "O(n²)", average: "O(n²)", worst: "O(n²)" },
         spaceComplexity: "O(1)",
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
-        implemented: true
+        implemented: true, 
       },
       {
         name: "Insertion Sort",
         id: "insertionSort",
-        description: "Builds sorted array one element at a time. Efficient for small datasets and nearly sorted arrays.",
+        description:
+          "Builds sorted array one element at a time. Efficient for small datasets and nearly sorted arrays.",
         timeComplexity: { best: "O(n)", average: "O(n²)", worst: "O(n²)" },
         spaceComplexity: "O(1)",
         stability: "Stable",
         inPlace: true,
         adaptivity: "Adaptive",
-        implemented: true
+        implemented: true, 
       },
       {
         name: "Merge Sort",
         id: "mergeSort",
-        description: "Divides array into halves, sorts recursively, and merges them. Now includes a note on stability.",
-        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        description:
+          "Divides array into halves, sorts recursively, and merges them. Now includes a note on stability.",
+        timeComplexity: {
+          best: "O(n log n)",
+          average: "O(n log n)",
+          worst: "O(n log n)",
+        },
         spaceComplexity: "O(n)",
         stability: "Stable",
         inPlace: false,
         adaptivity: "Not Adaptive",
-        implemented: true
+        implemented: true, 
       },
       {
         name: "Quick Sort",
         id: "quickSort",
-        description: "Selects a pivot and partitions array around it. Fast average case but can degrade to O(n²).",
-        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n²)" },
+        description:
+          "Selects a pivot and partitions array around it. Fast average case but can degrade to O(n²).",
+        timeComplexity: {
+          best: "O(n log n)",
+          average: "O(n log n)",
+          worst: "O(n²)",
+        },
         spaceComplexity: "O(log n)",
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
+        implemented: true, 
+      },
+      {
+        name: "Tim Sort",
+        id: "timSort",
+        description: "Hybrid stable sorting algorithm combining Insertion Sort and Merge Sort. Detects natural runs, sorts them, and merges efficiently. Default in Python and Java.",
+        timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(n)",
+        stability: "Stable",
+        inPlace: false,
+        adaptivity: "Adaptive (leverages existing runs)",
         implemented: true
-      }
-    ]
+      },
+      {
+        name: "Intro Sort",
+        id: "introSort",
+        description: "Hybrid sorting algorithm that begins with Quick Sort, switches to Heap Sort if recursion depth is too deep, and uses Insertion Sort for small partitions.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(log n)",
+        stability: "Unstable",
+        inPlace: true,
+        adaptivity: "Partially Adaptive",
+        implemented: true
+      },      
+    ],
   },
   searching: {
     title: "Search Algorithms",
@@ -78,22 +119,28 @@ const algorithmDatabase = {
       {
         name: "Linear Search",
         id: "linearSearch",
-        description: "Searches through array sequentially until target is found. Works on unsorted arrays.",
+        description:
+          "Searches through array sequentially until target is found. Works on unsorted arrays.",
         timeComplexity: { best: "O(1)", average: "O(n)", worst: "O(n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "None (works on unsorted data)",
-        implemented: true
+        implemented: true, 
       },
       {
         name: "Binary Search",
         id: "binarySearch",
-        description: "Searches sorted array by repeatedly dividing search interval in half. Updated to note efficiency.",
-        timeComplexity: { best: "O(1)", average: "O(log n)", worst: "O(log n)" },
+        description:
+          "Searches sorted array by repeatedly dividing search interval in half. Updated to note efficiency.",
+        timeComplexity: {
+          best: "O(1)",
+          average: "O(log n)",
+          worst: "O(log n)",
+        },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true
-      }
-    ]
+        implemented: true, 
+      },
+    ],
   },
   dataStructures: {
     title: "Data Structures",
@@ -103,89 +150,134 @@ const algorithmDatabase = {
       {
         name: "Linked List",
         id: "linkedList",
-        description: "Linear data structure where elements are stored in nodes. Now includes traversal note.",
-        timeComplexity: { insertion: "O(1)", deletion: "O(1)", search: "O(n)", access: "O(n)" },
+        description:
+          "Linear data structure where elements are stored in nodes. Now includes traversal note.",
+        timeComplexity: {
+          insertion: "O(1)",
+          deletion: "O(1)",
+          search: "O(n)",
+          access: "O(n)",
+        },
         spaceComplexity: "O(n)",
-        implemented: false
+        implemented: false, 
       },
       {
         name: "Stack",
         id: "stack",
         description: "Last-In-First-Out (LIFO) data structure.",
-        timeComplexity: { push: "O(1)", pop: "O(1)", peek: "O(1)", search: "O(n)" },
+        timeComplexity: {
+          push: "O(1)",
+          pop: "O(1)",
+          peek: "O(1)",
+          search: "O(n)",
+        },
         spaceComplexity: "O(n)",
-        implemented: false
+        implemented: false, 
       },
       {
         name: "Queue",
         id: "queue",
         description: "First-In-First-Out (FIFO) data structure.",
-        timeComplexity: { enqueue: "O(1)", dequeue: "O(1)", front: "O(1)", search: "O(n)" },
+        timeComplexity: {
+          enqueue: "O(1)",
+          dequeue: "O(1)",
+          front: "O(1)",
+          search: "O(n)",
+        },
         spaceComplexity: "O(n)",
-        implemented: false
+        implemented: false, 
       },
       {
         name: "Binary Tree",
         id: "binaryTree",
-        description: "Hierarchical data structure where each node has at most two children.",
-        timeComplexity: { insertion: "O(log n)", deletion: "O(log n)", search: "O(log n)", traversal: "O(n)" },
+        description:
+          "Hierarchical data structure where each node has at most two children.",
+        timeComplexity: {
+          insertion: "O(log n)",
+          deletion: "O(log n)",
+          search: "O(log n)",
+          traversal: "O(n)",
+        },
         spaceComplexity: "O(n)",
-        implemented: false
-      }
-    ]
-  }
+        implemented: false, 
+      },
+    ],
+  },
+  graph: {
+    title: "Graph Algorithms",
+    icon: "🧭",
+    color: "#66ccff",
+    algorithms: [
+      {
+        name: "Breadth-First Search (BFS)",
+        id: "graphBFS",
+        description:
+          "Explores the graph level by level from a source, visiting all neighbors before moving deeper. Finds shortest paths by edges in unweighted graphs.",
+        timeComplexity: { best: "O(V + E)", average: "O(V + E)", worst: "O(V + E)" },
+        spaceComplexity: "O(V)",
+        implemented: true,
+        subType: "bfs",
+      },
+      {
+        name: "Depth-First Search (DFS)",
+        id: "graphDFS",
+        description:
+          "Explores as deep as possible along each branch before backtracking. Useful for cycle detection, topological sort, and connected components.",
+        timeComplexity: { best: "O(V + E)", average: "O(V + E)", worst: "O(V + E)" },
+        spaceComplexity: "O(V)",
+        implemented: true,
+        subType: "dfs",
+      },
+      {
+        name: "Dijkstra's Algorithm",
+        id: "graphDijkstra",
+        description:
+          "Computes shortest path distances from a source to all vertices in a weighted graph with non‑negative weights using a priority queue.",
+        timeComplexity: { best: "O(E + V log V)", average: "O(E + V log V)", worst: "O(E + V log V)" },
+        spaceComplexity: "O(V)",
+        implemented: true,
+        subType: "dijkstra",
+      },
+    ],
+  },
 };
 
 const getComplexityColor = (complexity) => {
   const colors = {
-    'O(1)': '#4ade80',
-    'O(log n)': '#66ccff',
-    'O(n)': '#ffd93d',
-    'O(n log n)': '#ff9500',
-    'O(n²)': '#ff6b6b',
-    'O(√n)': '#a78bfa'
+    "O(1)": "#4ade80",
+    "O(log n)": "#66ccff",
+    "O(n)": "#ffd93d",
+    "O(n log n)": "#ff9500",
+    "O(n²)": "#ff6b6b",
+    "O(√n)": "#a78bfa",
   };
-  return colors[complexity] || '#e0e6ed';
+  return colors[complexity] || "#e0e6ed";
 };
 
 // ============================================================================
 // 2. SUB-COMPONENTS
 // ============================================================================
 
-function AlgorithmCard({ algorithm, themeStyles }) {
-  // Generate a unique color for each card based on its id
-  const getCardColor = (id) => {
-    const hash = id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const r = (hash * 23) % 256;
-    const g = (hash * 17) % 256;
-    const b = (hash * 31) % 256;
-    return `rgb(${r}, ${g}, ${b})`;
-  };
-
-  const cardColor = getCardColor(algorithm.id);
-
+function AlgorithmCard({ algorithm }) {
   return (
-    <div className="algorithm-card" style={{ borderColor: `${cardColor}30` }} title={algorithm.description}>
+    <div className="theme-card algorithm-card" title={algorithm.description}>
       <div className="card-header">
-        <div>
-          <div className="card-title-group">
-            <span className="card-icon" style={{ color: cardColor }}>{algorithm.categoryIcon}</span>
-            <h3 style={{ color: cardColor }}>{algorithm.name}</h3>
-          </div>
-          <div className="card-category-badge" style={{ background: `${cardColor}15` }}>
-            {algorithm.categoryTitle}
-          </div>
+        <div className="card-title-group">
+          <span className="card-icon">{algorithm.categoryIcon}</span>
+          {/* ✅ MODIFIED: The h3 now uses a standard class */}
+          <h3 className="card-title">{algorithm.name}</h3>
         </div>
+        {/* ✅ MODIFIED: The badges now use standard classes */}
         {algorithm.implemented ? (
-          <div className="implemented-badge">
-            <Star size={12} /> Implemented
-          </div>
+          <div className="status-badge implemented">Implemented</div>
         ) : (
-          <div className="comingsoon-badge">Coming Soon</div>
+          <div className="status-badge coming-soon">Coming Soon</div>
         )}
       </div>
       <p className="card-description">{algorithm.description}</p>
-      {/* Add more content sections as needed */}
+      <div className="card-category-badge">
+        {algorithm.categoryTitle}
+      </div>
     </div>
   );
 }
@@ -195,22 +287,32 @@ function AlgorithmCard({ algorithm, themeStyles }) {
 // ============================================================================
 
 function AlgorithmDocumentation() {
-  const { theme } = useTheme();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
+  const [graphSubcategory, setGraphSubcategory] = useState("all");
+
+  const graphCounts = useMemo(() => {
+    const list = algorithmDatabase.graph.algorithms;
+    return {
+      all: list.length,
+      bfs: list.filter(a => a.subType === 'bfs').length,
+      dfs: list.filter(a => a.subType === 'dfs').length,
+      dijkstra: list.filter(a => a.subType === 'dijkstra').length,
+    };
+  }, []);
 
   // Get all algorithms in a flat array for filtering
   const getAllAlgorithms = useCallback(() => {
     let allAlgos = [];
     Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
-      category.algorithms.forEach(algo => {
+      category.algorithms.forEach((algo) => {
         allAlgos.push({
           ...algo,
           category: categoryKey,
           categoryTitle: category.title,
           categoryIcon: category.icon,
-          categoryColor: category.color
+          categoryColor: category.color,
         });
       });
     });
@@ -219,50 +321,83 @@ function AlgorithmDocumentation() {
 
   useEffect(() => {
     let allAlgorithms = getAllAlgorithms();
-    if (selectedCategory !== 'all') {
-      allAlgorithms = allAlgorithms.filter(algo => algo.category === selectedCategory);
+    if (selectedCategory !== "all") {
+      allAlgorithms = allAlgorithms.filter(
+        (algo) => algo.category === selectedCategory
+      );
+    }
+    if (selectedCategory === "graph" && graphSubcategory !== "all") {
+      allAlgorithms = allAlgorithms.filter(
+        (algo) => algo.subType === graphSubcategory
+      );
     }
     if (searchTerm) {
-      allAlgorithms = allAlgorithms.filter(algo =>
-        algo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        algo.description.toLowerCase().includes(searchTerm.toLowerCase())
+      allAlgorithms = allAlgorithms.filter(
+        (algo) =>
+          algo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          algo.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
     setFilteredAlgorithms(allAlgorithms);
-  }, [searchTerm, selectedCategory, getAllAlgorithms]);
+  }, [searchTerm, selectedCategory, graphSubcategory, getAllAlgorithms]);
 
-  const categories = useMemo(() => [
-    { key: 'all', label: 'All', icon: BookOpen, count: getAllAlgorithms().length },
-    { key: 'sorting', label: 'Sorting', icon: Users, count: algorithmDatabase.sorting.algorithms.length },
-    { key: 'searching', label: 'Searching', icon: Search, count: algorithmDatabase.searching.algorithms.length },
-    { key: 'dataStructures', label: 'Data Structures', icon: Database, count: algorithmDatabase.dataStructures.algorithms.length }
-  ], [getAllAlgorithms]);
+  // Reset sub-filter when leaving Graph category
+  useEffect(() => {
+    if (selectedCategory !== 'graph' && graphSubcategory !== 'all') {
+      setGraphSubcategory('all');
+    }
+  }, [selectedCategory, graphSubcategory]);
 
-  // Assume themeStyles is provided by your ThemeContext setup
-  const themeStyles = {
-    cardBackground: theme === 'light' ? "#fff" : "#222744",
-    secondaryText: theme === 'light' ? "#555" : "#bbb"
-  };
+  const categories = useMemo(
+    () => [
+      {
+        key: "all",
+        label: "All",
+        icon: BookOpen,
+        count: getAllAlgorithms().length,
+      },
+      {
+        key: "sorting",
+        label: "Sorting",
+        icon: Users,
+        count: algorithmDatabase.sorting.algorithms.length,
+      },
+      {
+        key: "searching",
+        label: "Searching",
+        icon: Search,
+        count: algorithmDatabase.searching.algorithms.length,
+      },
+      {
+        key: "dataStructures",
+        label: "Data Structures",
+        icon: Database,
+        count: algorithmDatabase.dataStructures.algorithms.length,
+      },
+      {
+        key: "graph",
+        label: "Graph",
+        icon: GitBranch,
+        count: algorithmDatabase.graph.algorithms.length,
+      },
+    ],
+    [getAllAlgorithms]
+  );
 
   return (
-    <div className="documentation-container">
-      <div className="header">
-        <h1>Algorithm Documentation</h1>
-        {/* Add stats section, filters, and other UI here */}
-      </div>
+    <div className="theme-container">
+      <h1 className="theme-title">Algorithm Documentation</h1>
       
-      {/* Search and Filter Section */}
-      <div className="filters-section">
+      {/* ✅ REFACTORED: The filters section is now a theme-card */}
+      <div className="theme-card filters-section">
         <div className="search-bar">
-          <label htmlFor="search" style={{display: "flex"}}>
-            <Search size={20} />
-          </label>
+          <Search size={20} className="search-icon" />
           <input
-            id="search"
             type="text"
             placeholder="Search algorithms..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
+            className="form-control" // ✅ MODIFIED: Using global form class
           />
         </div>
         <div className="category-filters">
@@ -270,9 +405,10 @@ function AlgorithmDocumentation() {
             const IconComponent = category.icon;
             const isActive = selectedCategory === category.key;
             return (
+              // ✅ MODIFIED: The filter buttons now use our global button classes
               <button
                 key={category.key}
-                className={`category-chip ${isActive ? 'active' : ''}`}
+                className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setSelectedCategory(category.key)}
               >
                 <IconComponent size={16} />
@@ -282,6 +418,27 @@ function AlgorithmDocumentation() {
             );
           })}
         </div>
+        {selectedCategory === 'graph' && (
+          <div className="category-filters" style={{ marginTop: '0.75rem' }}>
+            {[
+              { key: 'all', label: 'All', count: graphCounts.all },
+              { key: 'bfs', label: 'BFS', count: graphCounts.bfs },
+              { key: 'dfs', label: 'DFS', count: graphCounts.dfs },
+              { key: 'dijkstra', label: 'Dijkstra', count: graphCounts.dijkstra },
+            ].map(sub => (
+              <button
+                key={sub.key}
+                className={`btn ${graphSubcategory === sub.key ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setGraphSubcategory(sub.key)}
+                title={`Show ${sub.label} algorithms`}
+              >
+                <GitBranch size={16} />
+                {sub.label}
+                <span className="count-badge">{sub.count}</span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Results Grid */}
@@ -291,20 +448,17 @@ function AlgorithmDocumentation() {
             <AlgorithmCard
               key={algorithm.id}
               algorithm={algorithm}
-              themeStyles={themeStyles}
             />
           ))
         ) : (
-          <div className="no-results">
+          <div className="no-results-card theme-card">
             <Search size={48} />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>
           </div>
         )}
       </div>
-      {/* Footer can be added here */}
     </div>
   );
 }
-
 export default AlgorithmDocumentation;

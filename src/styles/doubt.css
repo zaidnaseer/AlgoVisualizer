@@ -1,205 +1,354 @@
 /* =========================
-   Doubt Section Styles
+   Doubt Section Styles — Next Level
 ========================= */
 
 /* Theme Variables */
 :root {
-    --doubt-bg: #f9f9f9;
-    --doubt-text: #333;
-    --doubt-subtext: #666;
-    --doubt-input-bg: #ffffff;
-    --doubt-input-text: #1a1a1a;
-    --doubt-border: #ccc;
-    --doubt-border-focus: #66ccff;
-    --doubt-btn-bg: #007bff;
-    --doubt-btn-text: #ffffff;
-    --doubt-btn-hover: #0056b3;
-    --doubt-error: #e53e3e;
+  --doubt-bg: #060d28;           
+  --doubt-surface: rgba(255,255,255,0.06);
+  --doubt-text: #e6edf3;
+  --doubt-subtext: #aab8d1;
+
+  --doubt-input-bg: rgba(255,255,255,0.06);
+  --doubt-input-text: #e6edf3;
+  --doubt-border: rgba(255,255,255,0.16);
+  --doubt-border-focus: #5aa2ff;
+
+  --doubt-btn-from: #4f7eff;
+  --doubt-btn-to: #7b5cff;
+  --doubt-btn-hover-from: #6a92ff;
+  --doubt-btn-hover-to: #9a7cff;
+  --doubt-btn-text: #ffffff;
+
+  --doubt-error: #ff6b6b;
+  --doubt-success: #35e19c;
+
+  --ring: 0 0 0 8px rgba(90,162,255,0.12);
 }
 
-[data-theme="dark"] {
-    --doubt-bg: #1a1a2e;
-    --doubt-text: #e0e6ed;
-    --doubt-subtext: #b0b8c1;
-    --doubt-input-bg: #2a2a3e;
-    --doubt-input-text: #e0e6ed;
-    --doubt-border: #444;
-    --doubt-border-focus: #4da6ff;
-    --doubt-btn-bg: #4da6ff;
-    --doubt-btn-text: #0a0a1a;
-    --doubt-btn-hover: #3399ff;
-    --doubt-error: #ff6b6b;
+[data-theme="light"] {
+--doubt-bg: #f0f2f5; 
+--doubt-surface: rgba(255, 255, 255, 0.7);
+--doubt-text: #111827; /* Darker primary text */
+--doubt-subtext: #4b5563; /* Darker grey for subtitles and helpers */
+--doubt-input-bg: #ffffff;
+--doubt-input-text: #111827;
+--doubt-border: #d1d5db;
+--doubt-border-focus: #2563eb; /* A stronger blue for focus */
+--doubt-btn-from: #4f46e5; /* Darker, vibrant indigo */
+--doubt-btn-to: #7c3aed;   /* Darker, vibrant purple */
+--doubt-btn-hover-from: #4338ca;
+--doubt-btn-hover-to: #6d28d9;
+--doubt-btn-text: #ffffff;
+--doubt-error: #dc2626; /* A stronger red */
+--doubt-success: #059669; /* A stronger green */
+--ring: 0 0 0 8px rgba(59, 130, 246, 0.1);
 }
 
+
+/* Section background with subtle grid + overflow for blobs */
 .doubt-section {
-    padding: 40px 20px;
-    background-color: var(--doubt-bg);
-    text-align: center;
-    margin-top: 20px;
-    color: var(--doubt-text);
-    transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 16px;
+  background: radial-gradient(1200px 600px at 10% -10%, #12205a 0%, transparent 60%),
+              radial-gradient(900px 500px at 110% 10%, #1a2e7f 0%, transparent 60%),
+              var(--doubt-bg);
+  isolation: isolate;
+  padding-bottom: 550px;
 }
 
-.doubt-section h2 {
-    font-size: 2em;
-    margin-bottom: 10px;
-    color: var(--doubt-text);
+/* subtle grid overlay */
+.doubt-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px, 28px 28px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.doubt-section p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    color: var(--doubt-subtext);
+/* floating gradient blobs */
+.doubt-blob {
+  position: absolute;
+  filter: blur(36px);
+  opacity: 0.8;
+  z-index: 0;
 }
 
-.doubt-section form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.blob-a {
+  top: -120px;
+  left: -120px;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle at 30% 30%, #5a8bff, transparent 60%),
+              radial-gradient(circle at 70% 70%, #9b6bff, transparent 55%);
+  border-radius: 50%;
 }
 
-.doubt-section input,
-.doubt-section textarea {
-    width: 80%;
-    max-width: 500px;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border: 1px solid var(--doubt-border);
-    border-radius: 10px;
-    font-size: 1em;
-    background-color: var(--doubt-input-bg);
-    color: var(--doubt-input-text);
-    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    resize: vertical;
+.blob-b {
+  right: -140px;
+  bottom: -160px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle at 30% 30%, #3bd1a3, transparent 60%),
+              radial-gradient(circle at 70% 70%, #4b86ff, transparent 55%);
+  border-radius: 50%;
 }
 
-.doubt-section input:focus,
-.doubt-section textarea:focus {
-    outline: none;
-    border-color: var(--doubt-border-focus);
-    box-shadow: 0 0 8px var(--doubt-border-focus);
+/* Card (glassmorphism + gradient border) */
+.doubt-card {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 28px 32px;
+  border-radius: 24px;
+  background: var(--doubt-surface);
+  border: 1px solid var(--doubt-border);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  backdrop-filter: blur(12px);
 }
 
-.doubt-section input.input-error,
-.doubt-section textarea.input-error {
-    border-color: var(--doubt-error);
+.doubt-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(122,161,255,0.6), rgba(155,114,255,0.5), rgba(59,209,163,0.5));
+  -webkit-mask: 
+     linear-gradient(#000 0 0) content-box, 
+     linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.doubt-section button {
-    padding: 12px 25px;
-    background-color: var(--doubt-btn-bg);
-    color: var(--doubt-btn-text);
-    border: none;
-    border-radius: 12px;
-    font-size: 1em;
-    cursor: pointer;
-    font-weight: 600;
-    
-    transition: background-color 0.3s ease, transform 0.2s ease;
+/* Headings */
+.doubt-title {
+  margin: 0 0 6px;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  background: linear-gradient(180deg, #ffffff 0%, #b8c7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+}
+[data-theme="light"] .doubt-title {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: var(--doubt-text);
 }
 
-.doubt-section button:hover:not(:disabled) {
-    background-color: var(--doubt-btn-hover);
-    transform: translateY(-2px) scale(1.02);
+.doubt-subtitle {
+  margin: 0 0 22px;
+  color: var(--doubt-subtext);
+  text-align: center;
+  font-size: clamp(15px, 1.7vw, 18px);
 }
 
-.doubt-section button:disabled {
-    background-color: grey;
-    cursor: not-allowed;
-    transform: none;
+/* Status banners */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  margin: 10px auto 6px;
+  width: min(680px, 95%);
+  box-shadow: var(--ring);
+}
+
+.banner.success {
+  background: rgba(53, 225, 156, 0.12);
+  color: var(--doubt-success);
+  border: 1px solid rgba(53, 225, 156, 0.35);
+}
+
+.banner.error {
+  background: rgba(255, 107, 107, 0.12);
+  color: var(--doubt-error);
+  border: 1px solid rgba(255, 107, 107, 0.35);
+}
+
+/* Form */
+.doubt-form {
+  display: grid;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+/* Field wrapper */
+.field {
+  position: relative;
+  width: min(680px, 95%);
+  margin-inline: auto;
+}
+
+.field-icon {
+  position: absolute;
+  top: 16px;
+  left: 14px;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Input / Textarea base */
+.field-input {
+  width: 100%;
+  padding: 16px 16px 14px 42px; /* left room for icon */
+  font-size: 15px;
+  border-radius: 14px;
+  border: 1px solid var(--doubt-border);
+  background: var(--doubt-input-bg);
+  color: var(--doubt-input-text);
+  outline: none;
+  transition: box-shadow .25s, border-color .25s, background-color .25s, transform .15s;
+  backdrop-filter: blur(6px);
+}
+
+.field-input.textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* Focus ring + gentle lift */
+.field-input:focus {
+  border-color: var(--doubt-border-focus);
+  box-shadow: var(--ring);
+  transform: translateY(-1px);
+}
+
+/* Floating label */
+.field-label {
+  position: absolute;
+  top: 14px;
+  left: 42px;
+  font-size: 14px;
+  color: var(--doubt-subtext);
+  pointer-events: none;
+  transition: transform .2s ease, color .2s ease, font-size .2s ease, top .2s ease;
+  background: transparent;
+}
+
+/* move label when focused or filled */
+.field-input:focus + .field-label,
+.field-input[data-filled="true"] + .field-label,
+.field-input:not(:placeholder-shown) + .field-label {
+  top: -8px;
+  left: 38px;
+  font-size: 12px;
+  color: var(--doubt-border-focus);
+  padding: 0 6px;
+  background: var(--doubt-bg);
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px var(--doubt-bg);
+}
+
+/* Errors */
+.has-error .field-input {
+  border-color: var(--doubt-error);
+  box-shadow: 0 0 0 6px rgba(255, 107, 107, 0.12);
 }
 
 .error-message {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--doubt-error);
-    margin-top: -5px;
-    margin-bottom: 10px;
-    font-size: 0.9em;
-    width: 80%;
-    max-width: 500px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--doubt-error);
+  font-size: 13px;
+  margin-top: 8px;
 }
 
 .error-icon {
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
-/* =========================
-   Enhanced Responsive Tweaks
-========================= */
+/* Helper + counter row */
+.assist-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
 
-/* Tablets */
+.helper {
+  font-size: 12.5px;
+  color: var(--doubt-subtext);
+}
+
+.counter {
+  font-size: 12.5px;
+  color: var(--doubt-subtext);
+  opacity: 0.85;
+}
+
+.counter.over {
+  color: var(--doubt-error);
+}
+
+/* Submit button */
+.submit-btn {
+  width: min(220px, 90%);
+  margin: 6px auto 0;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 14px;
+  font-weight: 700;
+  color: var(--doubt-btn-text);
+  background-image: linear-gradient(135deg, var(--doubt-btn-from), var(--doubt-btn-to));
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 12px 24px rgba(79, 126, 255, 0.28);
+  transition: transform .15s ease, box-shadow .25s, filter .25s, background-position .4s;
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-image: linear-gradient(135deg, var(--doubt-btn-hover-from), var(--doubt-btn-hover-to));
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 16px 34px rgba(79, 126, 255, 0.36);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* loading spinner */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Tweaks */
 @media (max-width: 768px) {
-    .doubt-section {
-        padding: 35px 18px;
-    }
-
-    .doubt-section h2 {
-        font-size: 1.8em;
-    }
-
-    .doubt-section p {
-        font-size: 1.05em;
-    }
-
-    .doubt-section input,
-    .doubt-section textarea {
-        font-size: 0.95em;
-        padding: 10px 14px;
-    }
+  .doubt-section { padding-bottom: 550px; }
+  .doubt-card { padding: 28px 18px; border-radius: 20px; }
 }
 
-/* Mobile phones */
 @media (max-width: 480px) {
-    .doubt-section {
-        padding: 25px 12px;
-    }
-
-    .doubt-section h2 {
-        font-size: 1.5em;
-    }
-
-    .doubt-section p {
-        font-size: 1em;
-        margin-bottom: 15px;
-    }
-
-    .doubt-section input,
-    .doubt-section textarea {
-        width: 100%;
-        font-size: 0.9em;
-        padding: 10px 12px;
-    }
-
-    .doubt-section button {
-        width: 100%;
-        padding: 10px;
-        font-size: 0.9em;
-    }
-
-    .error-message {
-        font-size: 0.85em;
-        width: 100%;
-    }
-}
-
-/* Landscape orientation on mobiles */
-@media (max-width: 768px) and (orientation: landscape) {
-    .doubt-section form {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .doubt-section input,
-    .doubt-section textarea {
-        width: 45%;
-        min-width: 200px;
-    }
-
-    .doubt-section button {
-        width: auto;
-    }
+  .doubt-title { font-size: 24px; }
+  .doubt-subtitle { font-size: 14px; }
+  .field-input { font-size: 14px; padding: 14px 14px 12px 40px; }
+  .field-label { left: 40px; }
 }

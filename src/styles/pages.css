@@ -1,21 +1,8 @@
+@import './theme.css';
+
 /* =========================
-   Theme Variables
+   Page Specific Styles
 ========================= */
-:root {
-    --bg-color: rgba(255, 255, 255, 0.02);
-    --container-bg: rgba(255, 255, 255, 0.02);
-    --text-color: #e0e6ed;
-    --bar-color: dodgerblue;
-    --btn-bg: #66ccff;
-    --btn-text: #1a1a2e;
-    --btn-hover: #4da6ff;
-    --secondary-btn-bg: rgba(255, 255, 255, 0.1);
-    --secondary-btn-text: #e0e6ed;
-    --input-bg: rgba(255, 255, 255, 0.05);
-    --input-text: #e0e6ed;
-    --border-color: rgba(102, 204, 255, 0.1);
-    --shadow-color: rgba(102, 204, 255, 0.2);
-}
 
 /* =========================
    Animations

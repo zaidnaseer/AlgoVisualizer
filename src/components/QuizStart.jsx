@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaPlay, FaClock, FaInfinity } from 'react-icons/fa6';
+import QuizTopicSelection from './QuizTopicSelection';
 
 const QuizStart = ({ 
   topics, 
@@ -37,111 +38,72 @@ const QuizStart = ({
   const canStart = selectedTopic && selectedDifficulty;
 
   return (
-    <div className="quiz-start">
+    <div className="theme-card">
       {/* Topic Selection */}
-      <div className="topic-selection">
-        <h2 className="section-title">Choose Your Topic</h2>
-        <div className="topic-grid">
-          {topics.map(topic => (
-            <div
-              key={topic.id}
-              className={`topic-card ${selectedTopic === topic.id ? 'selected' : ''}`}
-              onClick={() => handleTopicSelect(topic.id)}
-            >
-              <h3>{topic.name}</h3>
-              <p>{topic.description}</p>
-            </div>
-          ))}
+      <div style={{ marginBottom: '2rem' }}>
+        <h3 className="theme-card-header" style={{ textAlign: 'center' }}>Choose Your Topic</h3>
+        <QuizTopicSelection topics={topics} selectedTopic={selectedTopic} onTopicSelect={setSelectedTopic} />
+        <div className="quiz-options-grid" style={{ marginTop: '1rem' }}>
           <div
-            className={`topic-card ${selectedTopic === 'all' ? 'selected' : ''}`}
-            onClick={() => handleTopicSelect('all')}
+            className={`quiz-option-card ${selectedTopic === 'all' ? 'selected' : ''}`}
+            onClick={() => setSelectedTopic('all')}
           >
-            <h3>All Topics</h3>
+            <h4>All Topics</h4>
             <p>Mixed questions from all algorithm categories for a comprehensive challenge.</p>
           </div>
         </div>
       </div>
 
       {/* Difficulty Selection */}
-      <div className="difficulty-selection">
-        <h2 className="section-title">Select Difficulty</h2>
-        <div className="difficulty-buttons">
-          {difficulties.map(difficulty => (
-            <button
-              key={difficulty.id}
-              className={`difficulty-btn ${difficulty.id} ${selectedDifficulty === difficulty.id ? 'selected' : ''}`}
-              onClick={() => handleDifficultySelect(difficulty.id)}
-              title={difficulty.description}
-            >
-              {difficulty.name}
-            </button>
-          ))}
+      <div style={{ marginBottom: '2rem' }}>
+        <h3 className="theme-card-header" style={{ textAlign: 'center' }}>Quiz Mode</h3>
+        <div className="quiz-options-grid">
+          <label className={`quiz-option-card ${!timedMode ? 'selected' : ''}`}>
+            <input type="radio" name="quizMode" checked={!timedMode} onChange={() => setTimedMode(false)} style={{ display: 'none' }} />
+            <FaInfinity size={24} style={{ color: 'var(--theme-accent)', marginBottom: '0.5rem' }} />
+            <h4>Practice Mode</h4>
+            <p>Take your time, no time limit</p>
+          </label>
+          <label className={`quiz-option-card ${timedMode ? 'selected' : ''}`}>
+            <input type="radio" name="quizMode" checked={timedMode} onChange={() => setTimedMode(true)} style={{ display: 'none' }}/>
+            <FaClock size={24} style={{ color: 'var(--theme-accent)', marginBottom: '0.5rem' }} />
+            <h4>Timed Mode</h4>
+            <p>1 minute per question</p>
+          </label>
         </div>
       </div>
 
       {/* Quiz Mode Selection */}
-      <div className="quiz-mode-selection">
-        <h2 className="section-title">Quiz Mode</h2>
-        <div className="mode-options">
-          <label className="mode-option">
-            <input
-              type="radio"
-              name="quizMode"
-              checked={!timedMode}
-              onChange={() => setTimedMode(false)}
-            />
-            <div className="mode-content">
-              <FaInfinity className="mode-icon" />
-              <div>
-                <h3>Practice Mode</h3>
-                <p>Take your time, no time limit</p>
-              </div>
-            </div>
+      <div style={{ marginBottom: '2rem' }}>
+        <h3 className="theme-card-header" style={{ textAlign: 'center' }}>Quiz Mode</h3>
+        <div className="quiz-options-grid">
+          <label className={`quiz-option-card ${!timedMode ? 'selected' : ''}`}>
+            <input type="radio" name="quizMode" checked={!timedMode} onChange={() => setTimedMode(false)} style={{ display: 'none' }} />
+            <FaInfinity size={24} style={{ color: 'var(--theme-accent)', marginBottom: '0.5rem' }} />
+            <h4>Practice Mode</h4>
+            <p>Take your time, no time limit</p>
           </label>
-          <label className="mode-option">
-            <input
-              type="radio"
-              name="quizMode"
-              checked={timedMode}
-              onChange={() => setTimedMode(true)}
-            />
-            <div className="mode-content">
-              <FaClock className="mode-icon" />
-              <div>
-                <h3>Timed Mode</h3>
-                <p>1 minute per question</p>
-              </div>
-            </div>
+          <label className={`quiz-option-card ${timedMode ? 'selected' : ''}`}>
+            <input type="radio" name="quizMode" checked={timedMode} onChange={() => setTimedMode(true)} style={{ display: 'none' }}/>
+            <FaClock size={24} style={{ color: 'var(--theme-accent)', marginBottom: '0.5rem' }} />
+            <h4>Timed Mode</h4>
+            <p>1 minute per question</p>
           </label>
         </div>
       </div>
 
       {/* Quiz Controls: Show info line or Start button */}
-      <div className="quiz-controls">
+      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
         {canStart ? (
           <button 
-            className="quiz-btn ready"
+            className="btn btn-primary"
             onClick={handleStartQuiz}
           >
             <FaPlay />
             Start Quiz
           </button>
-          ) : (
-          <p className="select-info">Select Topic & Difficulty</p>
-        )}
-        {selectedTopic && selectedDifficulty && (
-          <p className="quiz-info">
-            Ready to test your knowledge of{' '}
-            <strong>
-              {selectedTopic === 'all' ? 'All Topics' : 
-               topics.find(t => t.id === selectedTopic)?.name}
-            </strong>{' '}
-            at{' '}
-            <strong>
-              {difficulties.find(d => d.id === selectedDifficulty)?.name}
-            </strong>{' '}
-            level {timedMode ? 'with timer' : 'without timer'}.
-          </p>
+        ) : (
+          <p style={{ color: 'var(--theme-text-secondary)' }}>Select a Topic & Difficulty to begin.</p>
         )}
       </div>
     </div>

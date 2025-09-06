@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Search, Clock, Database, BookOpen, Zap, Users, Star, X } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
-import '../styles/Documentation.css';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import '../styles/Documentation.css'; // keep your linkedlist styles
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -63,6 +63,28 @@ const algorithmDatabase = {
         id: "quickSort",
         description: "Selects a pivot and partitions array around it. Fast average case but can degrade to O(n²).",
         timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n²)" },
+        spaceComplexity: "O(log n)",
+        stability: "Unstable",
+        inPlace: true,
+        adaptivity: "Not Adaptive",
+        implemented: true
+      },
+      {
+        name: "Tim Sort",
+        id: "timSort",
+        description: "Hybrid stable sorting algorithm derived from merge sort and insertion sort. Optimized for real-world data by taking advantage of runs (already sorted subsequences).",
+        timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(n)",
+        stability: "Stable",
+        inPlace: false,
+        adaptivity: "Adaptive",
+        implemented: true
+      },
+      {
+        name: "Intro Sort",
+        id: "introSort",
+        description: "Hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth is too large, and uses insertion sort for small partitions. Combines fast average performance with worst-case guarantees.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
         spaceComplexity: "O(log n)",
         stability: "Unstable",
         inPlace: true,
@@ -153,13 +175,11 @@ const getComplexityColor = (complexity) => {
 // 2. SUB-COMPONENTS
 // ============================================================================
 
-function AlgorithmCard({ algorithm, themeStyles }) {
-  const navigate = useNavigate(); // Add this hook
+function AlgorithmCard({ algorithm }) {
+  const navigate = useNavigate();
 
-  // Add click handler function
   const handleCardClick = () => {
     if (algorithm.implemented) {
-      // Navigate based on algorithm category and id
       if (algorithm.category === 'dataStructures' && algorithm.id === 'linkedList') {
         navigate('/data-structures/linked-list');
       } else if (algorithm.category === 'sorting') {
@@ -173,46 +193,38 @@ function AlgorithmCard({ algorithm, themeStyles }) {
   };
 
   return (
-    <div 
-      className={`algorithm-card ${algorithm.implemented ? 'clickable' : ''}`} // Add clickable class
-      onClick={handleCardClick} // Add click handler
+    <div
+      className={`algorithm-card ${algorithm.implemented ? 'clickable' : ''}`}
+      onClick={handleCardClick}
       title={algorithm.description}
-      style={{ cursor: algorithm.implemented ? 'pointer' : 'default' }} // Add cursor styling
+      style={{ cursor: algorithm.implemented ? 'pointer' : 'default' }}
     >
       <div className="card-header">
-        <div>
-          <div className="card-title-group">
-            <span className="card-icon">{algorithm.categoryIcon}</span>
-            <h3 style={{ color: algorithm.categoryColor }}>{algorithm.name}</h3>
-          </div>
-          <div className="card-category-badge" style={{ background: `${algorithm.categoryColor}15` }}>
-            {algorithm.categoryTitle}
-          </div>
+        <div className="card-title-group">
+          <span className="card-icon">{algorithm.categoryIcon}</span>
+          <h3 className="card-title">{algorithm.name}</h3>
         </div>
         {algorithm.implemented ? (
-          <div className="implemented-badge">
-            <Star size={12} /> Implemented
-          </div>
+          <div className="status-badge implemented">Implemented</div>
         ) : (
-          <div className="comingsoon-badge">Coming Soon</div>
+          <div className="status-badge coming-soon">Coming Soon</div>
         )}
       </div>
       <p className="card-description">{algorithm.description}</p>
-      {/* Add more content sections as needed */}
+      <div className="card-category-badge">{algorithm.categoryTitle}</div>
     </div>
   );
 }
+
 // ============================================================================
 // 3. MAIN COMPONENT DEFINITION
 // ============================================================================
 
-function AlgorithmDocumentation() {
-  const { theme } = useTheme();
+function DataStructuresPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
 
-  // Get all algorithms in a flat array for filtering
   const getAllAlgorithms = useCallback(() => {
     let allAlgos = [];
     Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
@@ -250,28 +262,20 @@ function AlgorithmDocumentation() {
     { key: 'dataStructures', label: 'Data Structures', icon: Database, count: algorithmDatabase.dataStructures.algorithms.length }
   ], [getAllAlgorithms]);
 
-  // Assume themeStyles is provided by your ThemeContext setup
-  const themeStyles = {
-    cardBackground: theme === 'light' ? "#fff" : "#222744",
-    secondaryText: theme === 'light' ? "#555" : "#bbb"
-  };
-
   return (
-    <div className="documentation-container">
-      <div className="header">
-        <h1>Algorithm Documentation</h1>
-        {/* Add stats section, filters, and other UI here */}
-      </div>
-      
+    <div className="theme-container">
+      <h1 className="theme-title">Algorithm Documentation</h1>
+
       {/* Search and Filter Section */}
-      <div className="filters-section">
+      <div className="theme-card filters-section">
         <div className="search-bar">
-          <Search size={20} />
+          <Search size={20} className="search-icon" />
           <input
             type="text"
             placeholder="Search algorithms..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
+            className="form-control"
           />
         </div>
         <div className="category-filters">
@@ -281,7 +285,7 @@ function AlgorithmDocumentation() {
             return (
               <button
                 key={category.key}
-                className={`category-chip ${isActive ? 'active' : ''}`}
+                className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setSelectedCategory(category.key)}
               >
                 <IconComponent size={16} />
@@ -297,23 +301,18 @@ function AlgorithmDocumentation() {
       <div className="results-grid">
         {filteredAlgorithms.length > 0 ? (
           filteredAlgorithms.map(algorithm => (
-            <AlgorithmCard
-              key={algorithm.id}
-              algorithm={algorithm}
-              themeStyles={themeStyles}
-            />
+            <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
           ))
         ) : (
-          <div className="no-results">
+          <div className="no-results-card theme-card">
             <Search size={48} />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>
           </div>
         )}
       </div>
-      {/* Footer can be added here */}
     </div>
   );
 }
 
-export default AlgorithmDocumentation;
+export default DataStructuresPage;
