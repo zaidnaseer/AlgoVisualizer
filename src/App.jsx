@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
@@ -13,8 +13,6 @@ import GraphDFS from './pages/GraphDFS';
 import GraphDijkstra from './pages/GraphDijkstra';
 import Quiz from './pages/Quiz';
 import Settings from './pages/Settings';
-import SignInPage from './pages/SignIn';
-import SignUpPage from './pages/SignUp';
 import Contributors from './components/Contributors';
 import ScrollToTop from './ScrollToTop';
 import About from './components/about';
@@ -34,15 +32,13 @@ const App = () => {
   const selectedAlgorithm = "bubbleSort"; // You can set this dynamically
 
   return (
-    <ThemeProvider>
-      <Router>
-        <div className="app-container">
-          <ScrollToTop />
-          <ThemeToggle />
-          <Sidebar />
+    <div className="app-container">
+      <ScrollToTop />
+      <ThemeToggle />
+      <Sidebar />
 
-          <main className="main-content main-content-with-sidebar">
-            <Routes>
+      <main className="main-content main-content-with-sidebar">
+        <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/sorting" element={<Sorting />} />
               <Route path="/searching" element={<Searching />} />
@@ -65,10 +61,6 @@ const App = () => {
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/documentation" element={<AlgorithmDocumentation />} />
               <Route path="/ContributorLeaderboard" element={<ContributorLeaderboard />} />
-
-              {/* Authentication Routes */}
-              <Route path="/sign-in" element={<SignInPage />} />
-              <Route path="/sign-up" element={<SignUpPage />} />
             </Routes>
 
             {/* Complexity Info Box */}
@@ -81,8 +73,6 @@ const App = () => {
           <Footer />
           <Analytics />
         </div>
-      </Router>
-    </ThemeProvider>
   );
 };
 

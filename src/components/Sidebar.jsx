@@ -13,12 +13,9 @@ import {
   FileText,
   Menu,
   X,
-  ChevronRight,
-  LogIn,
-  UserPlus
+  ChevronRight
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
-import { useUser } from "@clerk/clerk-react";
 
 
 const Sidebar = () => {
@@ -29,7 +26,6 @@ const Sidebar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate(); 
   const { theme } = useTheme();
-  const { isSignedIn, user } = useUser();
 
   const colors = {
     dark: {
@@ -178,23 +174,7 @@ const Sidebar = () => {
           label: "LeaderBoard"
         }
       ]
-    },
-    // Add authentication section only if user is not signed in
-    ...(!isSignedIn ? [{
-      group: "Account",
-      items: [
-        {
-          path: "/sign-in",
-          icon: LogIn,
-          label: "Sign In"
-        },
-        {
-          path: "/sign-up",
-          icon: UserPlus,
-          label: "Sign Up"
-        }
-      ]
-    }] : [])
+    }
   ];
 
   return (
@@ -284,25 +264,15 @@ const Sidebar = () => {
           <div className="user-profile">
             <div className="user-avatar">
               <div className="avatar-placeholder">
-                {isSignedIn ? (
-                  user?.imageUrl ? (
-                    <img src={user.imageUrl} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  ) : (
-                    <div style={{ fontSize: '14px', fontWeight: 'bold' }}>
-                      {user?.firstName?.[0]}{user?.lastName?.[0]}
-                    </div>
-                  )
-                ) : (
-                  <Users size={16} />
-                )}
+                <Users size={16} />
               </div>
             </div>
             <div className="user-info">
               <div className="user-name">
-                {isSignedIn ? `${user?.firstName || ''} ${user?.lastName || ''}`.trim() || 'User' : 'Guest User'}
+                Guest User
               </div>
               <div className="user-status">
-                {isSignedIn ? 'Signed In' : 'Learning Mode'}
+                Learning Mode
               </div>
             </div>
           </div>
