@@ -187,6 +187,7 @@
 
 .stats-grid {
   display: grid;
+  grid-auto-flow: column;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--space-md);
 }
