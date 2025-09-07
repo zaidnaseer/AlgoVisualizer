@@ -14,7 +14,7 @@ const ThemeToggle = () => {
             .container {
                 position: fixed;
                 right: 40px;
-                bottom: 80px;
+                bottom: 100px;
                 height: 60px;
                 width: 60px;
                 border-radius: 50%;
