@@ -108,7 +108,18 @@ const algorithmDatabase = {
         inPlace: true,
         adaptivity: "Partially Adaptive",
         implemented: true
-      },      
+      },     
+      {
+  name: "Shell Sort",
+  id: "shellSort",
+  description: "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. It improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing the total number of moves.",
+  timeComplexity: { best: "O(n log n)", average: "O(n(log n)^2)", worst: "O(n(log n)^2)" },
+  spaceComplexity: "O(1)",
+  stability: "Unstable",
+  inPlace: true,
+  adaptivity: "Not Adaptive",
+  implemented: true
+}, 
     ],
   },
   searching: {
