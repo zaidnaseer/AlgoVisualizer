@@ -186,7 +186,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .footer-links li {
@@ -201,7 +201,7 @@
   font-size: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   transition: all 0.3s ease;
 }
 
