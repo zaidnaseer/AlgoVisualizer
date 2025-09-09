@@ -1,6 +1,5 @@
-import React from "react";
-import "../styles/algorithm.css";
 import React, { useEffect, useState } from "react";
+import "../styles/algorithm.css";
 import algorithmsData from "./algorithms.json";
 import "./AlgorithmList.css";
 
