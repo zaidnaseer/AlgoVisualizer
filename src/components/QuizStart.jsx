@@ -73,24 +73,6 @@ const QuizStart = ({
         </div>
       </div>
 
-      {/* Quiz Mode Selection */}
-      <div style={{ marginBottom: '2rem' }}>
-        <h3 className="theme-card-header" style={{ textAlign: 'center' }}>Quiz Mode</h3>
-        <div className="quiz-options-grid">
-          <label className={`quiz-option-card ${!timedMode ? 'selected' : ''}`}>
-            <input type="radio" name="quizMode" checked={!timedMode} onChange={() => setTimedMode(false)} style={{ display: 'none' }} />
-            <FaInfinity size={24} style={{ color: 'var(--theme-accent)', marginBottom: '0.5rem' }} />
-            <h4>Practice Mode</h4>
-            <p>Take your time, no time limit</p>
-          </label>
-          <label className={`quiz-option-card ${timedMode ? 'selected' : ''}`}>
-            <input type="radio" name="quizMode" checked={timedMode} onChange={() => setTimedMode(true)} style={{ display: 'none' }}/>
-            <FaClock size={24} style={{ color: 'var(--theme-accent)', marginBottom: '0.5rem' }} />
-            <h4>Timed Mode</h4>
-            <p>1 minute per question</p>
-          </label>
-        </div>
-      </div>
 
       {/* Quiz Controls: Show info line or Start button */}
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
