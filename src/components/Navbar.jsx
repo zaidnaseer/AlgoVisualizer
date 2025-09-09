@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -22,20 +23,22 @@ const Navbar = () => {
   const { theme } = useTheme();
 
   const navigationItems = [
+    { path: '/', icon: Home, label: 'Home' },
     {
-      path: '/',
-      icon: Home,
-      label: 'Home'
-    },
-    {
-      path: '/sorting',
+      label: 'Sorting',
       icon: BarChart3,
-      label: 'Sorting'
+      dropdown: [
+        { path: '/sorting', label: 'Overview' },
+        { path: '/components/AlgorithmComparison', label: 'Algorithm Comparison' } 
+      ]
     },
     {
-      path: '/searching',
+      label: 'Searching',
       icon: Search,
-      label: 'Searching'
+      dropdown: [
+        { path: '/searching', label: 'Overview' },
+        { path: '/searching/comparison', label: 'Algorithm Comparison' } 
+      ]
     },
     {
       label: 'Data Structures',
@@ -52,14 +55,11 @@ const Navbar = () => {
         { path: '/graph', label: 'Overview' },
         { path: '/graph/bfs', label: 'BFS' },
         { path: '/graph/dfs', label: 'DFS' },
-        { path: '/graph/dijkstra', label: 'Dijkstra' }
+        { path: '/graph/dijkstra', label: 'Dijkstra' },
+        { path: '/graph/comparison', label: 'Graph Comparison' }
       ]
     },
-    {
-      path: '/quiz',
-      icon: Trophy,
-      label: 'Quiz'
-    },
+    { path: '/quiz', icon: Trophy, label: 'Quiz' },
     {
       label: 'Community',
       icon: Users,
@@ -68,11 +68,7 @@ const Navbar = () => {
         { path: '/ContributorLeaderboard', label: 'Leaderboard' }
       ]
     },
-    {
-      path: '/settings',
-      icon: Settings,
-      label: 'Settings'
-    }
+    { path: '/settings', icon: Settings, label: 'Settings' }
   ];
 
   const isActive = (path) => location.pathname === path;

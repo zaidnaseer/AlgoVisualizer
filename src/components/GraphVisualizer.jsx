@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false }) => {
+const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, canvasWidth = 520, canvasHeight = 380 }) => {
   class SimplePriorityQueue {
     constructor() {
       this.elements = [];
@@ -503,8 +503,8 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false }) =
 
       <canvas
         ref={canvasRef}
-        width={800}
-        height={500}
+        width={canvasWidth}
+        height={canvasHeight}
         className="graph-canvas"
         onClick={handleCanvasClick}
       />
