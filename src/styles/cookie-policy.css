@@ -1,0 +1,186 @@
+/* =========================
+   Theme Variables
+========================= */
+:root {
+    --bg-color: #1a1a1a;
+    --container-bg: rgba(30, 30, 30, 0.8);
+    --text-color: #e0e6ed;
+    --heading-color: #ffffff;
+    --subtext-color: #9ca3af;
+    --accent-color: rgb(8, 179, 231);
+    --link-color: rgb(8, 179, 231);
+    --link-hover: #4fd1ff;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --section-border: rgba(8, 179, 231, 0.3);
+}
+
+[data-theme="light"] {
+    --bg-color: #f6f0d6;
+    --container-bg: rgba(255, 255, 255, 0.9);
+    --text-color: #1a1a1a;
+    --heading-color: #1a1a1a;
+    --subtext-color: #4b5563;
+    --accent-color: #0077cc;
+    --link-color: #0077cc;
+    --link-hover: #3385ff;
+    --border-color: rgba(0, 119, 204, 0.2);
+    --section-border: rgba(0, 119, 204, 0.3);
+}
+
+/* =========================
+   Container
+========================= */
+.cookie-policy-container {
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.cookie-policy-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--container-bg);
+    border-radius: 12px;
+    padding: 2.5rem;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+/* =========================
+   Header
+========================= */
+.cookie-policy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cookie-policy-header h1 {
+    color: var(--heading-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.cookie-policy-header .effective-date {
+    color: var(--subtext-color);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   Sections
+========================= */
+.cookie-policy-sections {
+    margin-top: 2rem;
+}
+
+.cookie-policy-section {
+    margin-bottom: 3rem;
+}
+
+.cookie-policy-section h2 {
+    color: var(--heading-color);
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--section-border);
+    transition: all 0.3s ease;
+}
+
+.cookie-policy-section p {
+    color: var(--text-color);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+/* =========================
+   Lists
+========================= */
+.cookie-policy-list {
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    list-style: none;
+}
+
+.cookie-policy-list li {
+    color: var(--text-color);
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.cookie-policy-list li::before {
+    content: "▸";
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.cookie-policy-list strong {
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+/* =========================
+   Links
+========================= */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+/* =========================
+   Responsive Design
+========================= */
+@media (max-width: 768px) {
+    .cookie-policy-content {
+        padding: 1.5rem;
+    }
+    
+    .cookie-policy-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .cookie-policy-header h1 {
+        font-size: 2rem;
+    }
+    
+    .cookie-policy-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cookie-policy-content {
+        padding: 1.25rem;
+    }
+    
+    .cookie-policy-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .cookie-policy-list {
+        padding-left: 1rem;
+    }
+}

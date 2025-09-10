@@ -21,6 +21,7 @@ import About from './components/about';
 import Contact from './components/contact';
 import PrivacyPolicy from './components/Privacy';
 import TermsOfService from './components/terms';
+import CookiePolicy from './components/cookie-policy';
 import Doubt from './components/Doubt';
 import AlgorithmDocumentation from './pages/Documentation';
 import ComplexityBox from './components/ComplexityBox';
@@ -72,6 +73,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/cookies" element={<CookiePolicy />} />
           <Route path="/documentation" element={<AlgorithmDocumentation />} />
           <Route path="/ContributorLeaderboard" element={<ContributorLeaderboard />} />
         </Routes>
