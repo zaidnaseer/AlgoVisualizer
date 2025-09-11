@@ -14,9 +14,11 @@
    Header Component Styles
 ========================= */
 :root {
-    --header-height: 70px;
+    --header-height: 90px;
 }
-
+body {
+  padding-top: 64px;    /* same as navbar height to push content down */
+}
 /* =========================
    Header Container
 ========================= */
