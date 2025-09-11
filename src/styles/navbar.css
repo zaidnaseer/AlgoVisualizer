@@ -56,30 +56,37 @@ body {
 /* =========================
    Logo Section
 ========================= */
-.logo {
-    flex-shrink: 0;
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
 }
 
-.logo-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    text-decoration: none;
-    color: inherit;
-    padding: var(--space-xs) 0;
-    transition: var(--transition-normal);
+.logo-img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;           /* keeps it sharp */
+  border-radius: 8px;           /* soften corners just slightly */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* subtle shadow for lift */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.logo-link:hover {
-    transform: translateY(-1px);
+.logo-img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.logo-icon {
-    width: 32px;
-    height: 32px;
-    color: var(--accent-primary);
-    transition: var(--transition-normal);
+.logo-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1c1c1c;
 }
+
+.logo-text span {
+  color: #2575fc;  /* make 'Visualizer' pop with brand color */
+}
+
 
 .logo-icon:hover {
     color: var(--accent-secondary);
