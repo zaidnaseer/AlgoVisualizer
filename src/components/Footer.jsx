@@ -156,7 +156,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/tutorials">
+                <Link to="/data-structures">
                   <FaArrowRight className="link-icon" />
                   Tutorials
                 </Link>
@@ -168,7 +168,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/community">
+                <Link to="/contributors">
                   <FaArrowRight className="link-icon" />
                   Community
                 </Link>
