@@ -22,6 +22,17 @@ body.dark,
   --shadow-hover: 0 16px 40px rgba(0,0,0,0.35);
   --accent: #4f8cff;
 }
+[data-theme="dark"] .about {
+  --background: linear-gradient(135deg, #181c24 60%, #23283a 100%);
+  --card-bg: #23283a;
+  --text-main: #f3f6fa;
+  --text-secondary: #bfc8e2;
+  --primary: #4f8cff;
+  --primary-dark: #2563eb;
+  --shadow: 0 8px 32px rgba(0,0,0,0.25);
+  --shadow-hover: 0 16px 40px rgba(0,0,0,0.35);
+  --accent: #4f8cff;
+}
 
 .about {
   font-family: 'Segoe UI', Arial, sans-serif;

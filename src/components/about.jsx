@@ -1,6 +1,6 @@
 import React from "react";
 import "./about.css";
-
+{/*import "../ThemeContext.jsx";*/}
 export default function About() {
   return (
     <div className="about">
