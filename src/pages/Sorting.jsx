@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import CodeExplanation from "../components/CodeExplanation";
 import SimpleExportControls from "../components/SimpleExportControls";
 import "../styles/Sorting.css"; 
+import { sortingAlgorithms } from "../data/allCodes";
 import { useMediaQuery } from "react-responsive";
 
 // Pseudocode map used for step-mode highlighting/explanations
@@ -306,6 +307,7 @@ const Sorting = () => {
   const [inputError, setInputError] = useState("");
   const [message, setMessage] = useState("");
   const [showCodeExplanation, setShowCodeExplanation] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [statistics, setStatistics] = useState({
     comparisons: 0,
     swaps: 0,
@@ -1135,6 +1137,71 @@ const Sorting = () => {
         isVisible={showCodeExplanation}
         onClose={() => setShowCodeExplanation(false)}
       />
+
+      {/* Code Implementation Section */}
+      <div className="theme-card">
+        <div className="theme-card-header">
+          <h3>{getAlgorithmName()} - Code Implementation</h3>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <button
+              className={`btn ${selectedLanguage === 'java' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setSelectedLanguage('java')}
+              style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+            >
+              Java
+            </button>
+            <button
+              className={`btn ${selectedLanguage === 'python' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setSelectedLanguage('python')}
+              style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+            >
+              Python
+            </button>
+            <button
+              className={`btn ${selectedLanguage === 'cpp' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setSelectedLanguage('cpp')}
+              style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+            >
+              C++
+            </button>
+          </div>
+        </div>
+        <div style={{
+          background: 'var(--surface-bg)',
+          borderRadius: '8px',
+          padding: '1.5rem',
+          overflow: 'auto',
+          maxHeight: '500px'
+        }}>
+          <pre style={{
+            margin: 0,
+            fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+            fontSize: '0.9rem',
+            lineHeight: '1.5',
+            color: 'var(--text-primary)',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word'
+          }}>
+            <code>
+              {sortingAlgorithms[algorithm] && sortingAlgorithms[algorithm][selectedLanguage] 
+                ? sortingAlgorithms[algorithm][selectedLanguage]
+                : `// ${getAlgorithmName()} implementation in ${selectedLanguage.toUpperCase()} coming soon!`
+              }
+            </code>
+          </pre>
+        </div>
+        <div style={{ 
+          marginTop: '1rem', 
+          padding: '0.75rem', 
+          background: 'var(--accent-warning-bg)', 
+          borderRadius: '6px',
+          fontSize: '0.9rem',
+          color: 'var(--text-secondary)'
+        }}>
+          <strong>Note:</strong> This is the actual implementation code for {getAlgorithmName()} in {selectedLanguage.toUpperCase()}. 
+          You can copy and use this code in your projects.
+        </div>
+      </div>
     </div>
   );
 };

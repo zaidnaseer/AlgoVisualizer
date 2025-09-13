@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw, Plus, Search, Trash2, Download, Camera, StepForward, StepBack } from 'lucide-react';
 import LinkedListNode from './LinkedListNode';
 import { LinkedListNode as ListNode, linkedListOperations } from '../../algorithms/linkedListAlgorithms';
+import { linkedListAlgorithms } from '../../data/allCodes';
 import '../../styles/LinkedList.css';
 
 const LinkedListVisualizer = () => {
@@ -21,6 +22,8 @@ const LinkedListVisualizer = () => {
   const [animationSteps, setAnimationSteps] = useState([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [stats, setStats] = useState({ operations: 0, comparisons: 0 });
+  const [selectedLanguage, setSelectedLanguage] = useState("java");
+  const [selectedOperation, setSelectedOperation] = useState("insertAtBeginning");
   
   const visualizationRef = useRef(null);
   const animationTimeoutRef = useRef(null);
@@ -638,8 +641,180 @@ const LinkedListVisualizer = () => {
           </div>
         )}
       </div>
+
+      {/* Code Implementation Section */}
+      <div className="theme-card" style={{ marginTop: '2rem' }}>
+        <div className="theme-card-header">
+          <h3>Linked List Operations - Code Implementation</h3>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button
+                className={`btn ${selectedLanguage === 'java' ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setSelectedLanguage('java')}
+                style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+              >
+                Java
+              </button>
+              <button
+                className={`btn ${selectedLanguage === 'python' ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setSelectedLanguage('python')}
+                style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+              >
+                Python
+              </button>
+              <button
+                className={`btn ${selectedLanguage === 'cpp' ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setSelectedLanguage('cpp')}
+                style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+              >
+                C++
+              </button>
+            </div>
+            <select
+              value={selectedOperation}
+              onChange={(e) => setSelectedOperation(e.target.value)}
+              style={{
+                padding: '0.5rem',
+                borderRadius: '4px',
+                border: '1px solid var(--accent-primary)',
+                backgroundColor: 'var(--surface-bg)',
+                color: 'var(--text-primary)'
+              }}
+            >
+              <option value="insertAtBeginning">Insert at Beginning</option>
+              <option value="insertAtEnd">Insert at End</option>
+              <option value="insertAtPosition">Insert at Position</option>
+              <option value="deleteNode">Delete Node</option>
+              <option value="deleteAtPosition">Delete at Position</option>
+              <option value="traverse">Traverse</option>
+              <option value="reverse">Reverse</option>
+              <option value="search">Search</option>
+              <option value="getSize">Get Size</option>
+              <option value="clear">Clear List</option>
+            </select>
+          </div>
+        </div>
+        
+        <div style={{
+          background: 'var(--surface-bg)',
+          borderRadius: '8px',
+          padding: '1.5rem',
+          overflow: 'auto',
+          maxHeight: '500px'
+        }}>
+          <pre style={{
+            margin: 0,
+            fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+            fontSize: '0.9rem',
+            lineHeight: '1.5',
+            color: 'var(--text-primary)',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word'
+          }}>
+            <code>
+              {linkedListAlgorithms[selectedOperation] && linkedListAlgorithms[selectedOperation][selectedLanguage] 
+                ? linkedListAlgorithms[selectedOperation][selectedLanguage]
+                : `// ${selectedOperation} implementation in ${selectedLanguage.toUpperCase()} coming soon!`
+              }
+            </code>
+          </pre>
+        </div>
+        
+        <div style={{ 
+          marginTop: '1rem', 
+          padding: '0.75rem', 
+          background: 'var(--accent-warning-bg)', 
+          borderRadius: '6px',
+          fontSize: '0.9rem',
+          color: 'var(--text-secondary)'
+        }}>
+          <strong>Note:</strong> This is the actual implementation code for {selectedOperation} in {selectedLanguage.toUpperCase()}. 
+          You can copy and use this code in your projects.
+        </div>
+
+        {/* Operation Details */}
+        <div style={{ marginTop: '1.5rem' }}>
+          <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>
+            {selectedOperation.charAt(0).toUpperCase() + selectedOperation.slice(1)} Details
+          </h4>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '1rem',
+            marginTop: '1rem'
+          }}>
+            <div style={{
+              padding: '1rem',
+              background: 'var(--theme-bg)',
+              borderRadius: '6px',
+              border: '1px solid var(--accent-primary)'
+            }}>
+              <strong style={{ color: 'var(--accent-primary)' }}>Time Complexity:</strong>
+              <div style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+                {getOperationComplexity(selectedOperation).time}
+              </div>
+            </div>
+            <div style={{
+              padding: '1rem',
+              background: 'var(--theme-bg)',
+              borderRadius: '6px',
+              border: '1px solid var(--accent-primary)'
+            }}>
+              <strong style={{ color: 'var(--accent-primary)' }}>Space Complexity:</strong>
+              <div style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+                {getOperationComplexity(selectedOperation).space}
+              </div>
+            </div>
+            <div style={{
+              padding: '1rem',
+              background: 'var(--theme-bg)',
+              borderRadius: '6px',
+              border: '1px solid var(--accent-primary)'
+            }}>
+              <strong style={{ color: 'var(--accent-primary)' }}>Description:</strong>
+              <div style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+                {getOperationDescription(selectedOperation)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
+
+  // Helper function to get operation complexity
+  function getOperationComplexity(operation) {
+    const complexities = {
+      insertAtBeginning: { time: 'O(1)', space: 'O(1)' },
+      insertAtEnd: { time: 'O(n)', space: 'O(1)' },
+      insertAtPosition: { time: 'O(n)', space: 'O(1)' },
+      deleteNode: { time: 'O(n)', space: 'O(1)' },
+      deleteAtPosition: { time: 'O(n)', space: 'O(1)' },
+      traverse: { time: 'O(n)', space: 'O(1)' },
+      reverse: { time: 'O(n)', space: 'O(1)' },
+      search: { time: 'O(n)', space: 'O(1)' },
+      getSize: { time: 'O(1) or O(n)', space: 'O(1)' },
+      clear: { time: 'O(1) or O(n)', space: 'O(1)' }
+    };
+    return complexities[operation] || { time: 'N/A', space: 'N/A' };
+  }
+
+  // Helper function to get operation description
+  function getOperationDescription(operation) {
+    const descriptions = {
+      insertAtBeginning: 'Adds a new node at the start of the list, updating the head pointer.',
+      insertAtEnd: 'Traverses to the end of the list and adds a new node there.',
+      insertAtPosition: 'Inserts a new node at a specific position in the list.',
+      deleteNode: 'Finds and removes the first occurrence of a value from the list.',
+      deleteAtPosition: 'Removes the node at a specific position in the list.',
+      traverse: 'Visits every node in the list from head to tail.',
+      reverse: 'Reverses the direction of all pointers in the list.',
+      search: 'Looks for a specific value in the list and returns its position.',
+      getSize: 'Returns the number of nodes in the list.',
+      clear: 'Removes all nodes from the list and resets it to empty state.'
+    };
+    return descriptions[operation] || 'Operation description not available.';
+  }
 };
 
 export default LinkedListVisualizer;
