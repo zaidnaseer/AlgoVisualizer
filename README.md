@@ -214,7 +214,7 @@
 3. **Start the development server:**
 
    ```bash
-   npm run dev
+   npm run de
    ```
 
 4. **Open your browser:**
