@@ -1,29 +1,52 @@
-export function quickSort(arr) {
-    const animations = [];
-    function partition(low, high) {
-        let pivot = arr[high];
-        let i = low - 1;
-        for (let j = low; j < high; j++) {
-            animations.push({type: 'compare', indices: [j, high]});
-            if (arr[j] < pivot) {
-                i++;
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-                animations.push({type: 'swap', indices: [i, j], values: [arr[i], arr[j]]});
-            }
-        }
-        [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-        animations.push({type: 'swap', indices: [i + 1, high], values: [arr[i + 1], arr[high]]});
-        return i + 1;
-    }
+import { COLOR, createBaseColors, markAllSorted, sleep } from "../utils/sortingHelpers";
 
-    function quickSortHelper(low, high) {
-        if (low < high) {
-            let pi = partition(low, high);
-            quickSortHelper(low, pi - 1);
-            quickSortHelper(pi + 1, high);
-        }
-    }
+export async function quickSortWithStop(arr, setArray, setColorArray, delay, stopRef, updateStats) {
+  const a = [...arr];
+  let comparisons = 0, swaps = 0;
 
-    quickSortHelper(0, arr.length - 1);
-    return animations;
+  const partition = async (low, high) => {
+    if (stopRef.current) throw new Error("Stopped");
+    const pivot = a[high];
+    let i = low - 1;
+    for (let j = low; j < high; j++) {
+      if (stopRef.current) throw new Error("Stopped");
+      comparisons++;
+      const colors = createBaseColors(a.length);
+      colors[j] = COLOR.comparing;
+      colors[high] = COLOR.pivot;
+      setColorArray([...colors]);
+      await sleep(delay);
+      if (a[j] <= pivot) {
+        i++;
+        [a[i], a[j]] = [a[j], a[i]];
+        swaps++;
+        setArray([...a]);
+        updateStats({ comparisons, swaps, time: 0 });
+        const swapColors = createBaseColors(a.length);
+        swapColors[i] = COLOR.swapping;
+        swapColors[j] = COLOR.swapping;
+        setColorArray([...swapColors]);
+        await sleep(delay);
+      }
+    }
+    [a[i + 1], a[high]] = [a[high], a[i + 1]];
+    swaps++;
+    setArray([...a]);
+    updateStats({ comparisons, swaps, time: 0 });
+    await sleep(delay);
+    return i + 1;
+  };
+
+  const quickSortHelper = async (low, high) => {
+    if (stopRef.current) throw new Error("Stopped");
+    if (low < high) {
+      const pi = await partition(low, high);
+      await quickSortHelper(low, pi - 1);
+      await quickSortHelper(pi + 1, high);
+    }
+  };
+
+  await quickSortHelper(0, a.length - 1);
+  markAllSorted(a.length, setColorArray);
+  return 0;
 }

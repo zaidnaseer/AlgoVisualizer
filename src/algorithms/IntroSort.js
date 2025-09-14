@@ -1,117 +1,111 @@
-// IntroSort = QuickSort + HeapSort (depth limited quicksort)
-// Uses quicksort until recursion depth runs out, then switches to heapsort
+import { COLOR, createBaseColors, markAllSorted, sleep } from "../utils/sortingHelpers";
 
-async function partition(arr, low, high, setArray, setColorArray, delay) {
-  const n = arr.length;
-  const pivot = arr[high];
-  let i = low - 1;
+export async function introSortWithStop(arr, setArray, setColorArray, delay, stopRef, updateStats) {
+  const a = [...arr];
+  const n = a.length;
+  let comparisons = 0, swaps = 0;
+  const maxDepth = 2 * Math.floor(Math.log2(Math.max(2, n)));
 
-  for (let j = low; j < high; j++) {
-    // highlight comparison
-    const colors = new Array(n).fill("lightgrey");
-    colors[j] = "red";
-    colors[high] = "blue"; // pivot
-    setColorArray([...colors]);
-
-    await new Promise(resolve => setTimeout(resolve, delay));
-
-    if (arr[j] <= pivot) {
-      i++;
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-      await setArray([...arr]);
-      await new Promise(resolve => setTimeout(resolve, delay));
-    }
-  }
-  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-  await setArray([...arr]);
-  await new Promise(resolve => setTimeout(resolve, delay));
-
-  return i + 1;
-}
-
-async function heapify(arr, n, i, setArray, setColorArray, delay) {
-  let largest = i;
-  const l = 2 * i + 1;
-  const r = 2 * i + 2;
-
-  const colors = new Array(n).fill("lightgrey");
-  colors[i] = "blue"; // root
-  if (l < n) colors[l] = "red"; // left child comparison
-  if (r < n) colors[r] = "red"; // right child comparison
-  setColorArray([...colors]);
-  await new Promise(resolve => setTimeout(resolve, delay));
-
-  if (l < n && arr[l] > arr[largest]) largest = l;
-  if (r < n && arr[r] > arr[largest]) largest = r;
-
-  if (largest !== i) {
-    [arr[i], arr[largest]] = [arr[largest], arr[i]];
-    await setArray([...arr]);
-    await new Promise(resolve => setTimeout(resolve, delay));
-    await heapify(arr, n, largest, setArray, setColorArray, delay);
-  }
-}
-
-async function heapSort(arr, setArray, setColorArray, delay) {
-  let n = arr.length;
-
-  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-    await heapify(arr, n, i, setArray, setColorArray, delay);
-  }
-
-  for (let i = n - 1; i > 0; i--) {
-    [arr[0], arr[i]] = [arr[i], arr[0]];
-    await setArray([...arr]);
-
-    const colors = new Array(n).fill("lightgrey");
-    for (let k = i; k < n; k++) colors[k] = "green"; // sorted tail
-    setColorArray([...colors]);
-
-    await new Promise(resolve => setTimeout(resolve, delay));
-    await heapify(arr, i, 0, setArray, setColorArray, delay);
-  }
-}
-
-async function introSortUtil(arr, low, high, depthLimit, setArray, setColorArray, delay) {
-  const size = high - low + 1;
-  if (size <= 16) {
-    // Insertion sort for small arrays
-    for (let i = low + 1; i <= high; i++) {
-      let key = arr[i];
+  const insertionRange = async (left, right) => {
+    for (let i = left + 1; i <= right; i++) {
+      if (stopRef.current) throw new Error("Stopped");
+      const key = a[i];
       let j = i - 1;
-      while (j >= low && arr[j] > key) {
-        const colors = new Array(arr.length).fill("lightgrey");
-        colors[j] = "red";
-        colors[j + 1] = "red";
-        setColorArray([...colors]);
-
-        arr[j + 1] = arr[j];
-        await setArray([...arr]);
-        await new Promise(resolve => setTimeout(resolve, delay));
+      while (j >= left && a[j] > key) {
+        a[j + 1] = a[j];
         j--;
+        swaps++;
+        setArray([...a]);
+        await sleep(delay);
+        updateStats({ comparisons, swaps, time: 0 });
       }
-      arr[j + 1] = key;
-      await setArray([...arr]);
+      a[j + 1] = key;
     }
-    return;
-  }
+  };
 
-  if (depthLimit === 0) {
-    await heapSort(arr, setArray, setColorArray, delay);
-    return;
-  }
+  const heapifyLocal = async (heapSize, root) => {
+    if (stopRef.current) throw new Error("Stopped");
+    let largest = root;
+    const left = 2 * root + 1;
+    const right = 2 * root + 2;
+    if (left < heapSize) {
+      comparisons++;
+      if (a[left] > a[largest]) largest = left;
+    }
+    if (right < heapSize) {
+      comparisons++;
+      if (a[right] > a[largest]) largest = right;
+    }
+    if (largest !== root) {
+      [a[root], a[largest]] = [a[largest], a[root]];
+      swaps++;
+      setArray([...a]);
+      await sleep(delay);
+      await heapifyLocal(heapSize, largest);
+    }
+  };
 
-  const p = await partition(arr, low, high, setArray, setColorArray, delay);
-  await introSortUtil(arr, low, p - 1, depthLimit - 1, setArray, setColorArray, delay);
-  await introSortUtil(arr, p + 1, high, depthLimit - 1, setArray, setColorArray, delay);
+  const heapSortLocal = async (left, right) => {
+    if (stopRef.current) throw new Error("Stopped");
+    const size = right - left + 1;
+    for (let i = Math.floor(size / 2) - 1; i >= 0; i--) {
+      await heapifyLocal(size, i);
+    }
+    for (let i = size - 1; i > 0; i--) {
+      [a[left], a[left + i]] = [a[left + i], a[left]];
+      swaps++;
+      setArray([...a]);
+      await sleep(delay);
+      await heapifyLocal(i, 0);
+    }
+  };
+
+  const partition = async (low, high) => {
+    if (stopRef.current) throw new Error("Stopped");
+    const pivot = a[high];
+    let i = low - 1;
+    for (let j = low; j < high; j++) {
+      if (stopRef.current) throw new Error("Stopped");
+      comparisons++;
+      const colors = createBaseColors(n);
+      colors[j] = COLOR.comparing;
+      colors[high] = COLOR.pivot;
+      setColorArray([...colors]);
+      await sleep(delay);
+      if (a[j] <= pivot) {
+        i++;
+        [a[i], a[j]] = [a[j], a[i]];
+        swaps++;
+        setArray([...a]);
+        await sleep(delay);
+        updateStats({ comparisons, swaps, time: 0 });
+      }
+    }
+    [a[i + 1], a[high]] = [a[high], a[i + 1]];
+    swaps++;
+    setArray([...a]);
+    await sleep(delay);
+    return i + 1;
+  };
+
+  const introHelper = async (low, high, depth) => {
+    if (stopRef.current) throw new Error("Stopped");
+    const size = high - low + 1;
+    if (size <= 16) {
+      await insertionRange(low, high);
+      return;
+    }
+    if (depth === 0) {
+      await heapSortLocal(low, high);
+      return;
+    }
+    const pi = await partition(low, high);
+    await introHelper(low, pi - 1, depth - 1);
+    await introHelper(pi + 1, high, depth - 1);
+  };
+
+  await introHelper(0, n - 1, maxDepth);
+  markAllSorted(n, setColorArray);
+  updateStats({ comparisons, swaps, time: 0 });
+  return 0;
 }
-
-export const introSort = async (arr, setArray, setColorArray, delay) => {
-  const n = arr.length;
-  const depthLimit = 2 * Math.floor(Math.log2(n));
-
-  await introSortUtil(arr, 0, n - 1, depthLimit, setArray, setColorArray, delay);
-
-  setColorArray(new Array(n).fill("green")); // all sorted
-  return arr;
-};

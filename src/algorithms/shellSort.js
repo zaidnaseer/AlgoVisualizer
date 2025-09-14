@@ -1,54 +1,61 @@
-export const shellSort = async (array, setColorArray, delay) => {
-    const n = array.length;
-    const colorArray = new Array(n).fill('lightgrey');
-    
-    // Start with a big gap, then reduce the gap
-    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
-        
-        // Do a gapped insertion sort for this gap size
-        for (let i = gap; i < n; i++) {
-            let temp = array[i];
-            let j;
-            
-            // Highlight the current element being processed
-            colorArray[i] = 'red';
-            setColorArray([...colorArray]);
-            await new Promise(resolve => setTimeout(resolve, delay));
-            
-            // Shift earlier gap-sorted elements up until the correct location for array[i] is found
-            for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
-                // Highlight the element being compared
-                colorArray[j - gap] = 'orange';
-                setColorArray([...colorArray]);
-                await new Promise(resolve => setTimeout(resolve, delay));
-                
-                // Move the element
-                array[j] = array[j - gap];
-                
-                // Reset color after moving
-                colorArray[j - gap] = 'lightgrey';
-                setColorArray([...colorArray]);
-                await new Promise(resolve => setTimeout(resolve, delay));
-            }
-            
-            // Put temp (the original array[i]) in its correct location
-            array[j] = temp;
-            
-            // Reset the color of the current element
-            colorArray[i] = 'lightgrey';
-            setColorArray([...colorArray]);
-        }
-        
-        // Brief pause between gap iterations
-        await new Promise(resolve => setTimeout(resolve, delay * 2));
+import { COLOR, createBaseColors, markAllSorted, sleep } from "../utils/sortingHelpers";
+
+export async function shellSortWithStop(arr, setArray, setColorArray, delay, stopRef, updateStats) {
+  const a = [...arr];
+  const n = a.length;
+  let comparisons = 0, swaps = 0;
+
+  for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    if (stopRef.current) throw new Error("Stopped");
+
+    for (let i = gap; i < n; i++) {
+      if (stopRef.current) throw new Error("Stopped");
+
+      const temp = a[i];
+      let j;
+      const colors = createBaseColors(n);
+      colors[i] = COLOR.comparing;
+      setColorArray([...colors]);
+      await sleep(delay);
+
+      for (j = i; j >= gap && a[j - gap] > temp; j -= gap) {
+        if (stopRef.current) throw new Error("Stopped");
+        comparisons++;
+        const compColors = createBaseColors(n);
+        compColors[j] = COLOR.comparing;
+        compColors[j - gap] = COLOR.comparing;
+        setColorArray([...compColors]);
+        await sleep(delay);
+        a[j] = a[j - gap];
+        swaps++;
+        setArray([...a]);
+        const swapColors = createBaseColors(n);
+        swapColors[j] = COLOR.swapping;
+        swapColors[j - gap] = COLOR.swapping;
+        setColorArray([...swapColors]);
+        await sleep(delay);
+        updateStats({ comparisons, swaps, time: 0 });
+      }
+
+      a[j] = temp;
+      setArray([...a]);
+      const finalColors = createBaseColors(n);
+      finalColors[j] = COLOR.sorted;
+      setColorArray([...finalColors]);
+      await sleep(delay);
+      updateStats({ comparisons, swaps, time: 0 });
     }
-    
-    // Final coloring - turn all elements green to show completion
-    for (let i = 0; i < n; i++) {
-        colorArray[i] = 'green';
-        setColorArray([...colorArray]);
-        await new Promise(resolve => setTimeout(resolve, delay));
+
+    const gapColors = createBaseColors(n);
+    for (let start = 0; start < gap; start++) {
+      for (let k = start; k < n; k += gap) {
+        gapColors[k] = COLOR.sorted;
+      }
     }
-    
-    return array;
-};
+    setColorArray([...gapColors]);
+    await sleep(delay);
+  }
+
+  markAllSorted(n, setColorArray);
+  return 0;
+}
