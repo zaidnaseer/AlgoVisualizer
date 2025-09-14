@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import logo from "/public/logo.jpg";
@@ -64,6 +65,7 @@ const Navbar = () => {
       ],
     },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
+    { path: "/blog", icon: BookOpen, label: "Blog" },
     {
       label: "Community",
       icon: Users,
