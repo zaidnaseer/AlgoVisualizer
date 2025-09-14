@@ -17,6 +17,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/footer.css";
 import logo from "/public/logo.jpg"
+import { FaXTwitter } from "react-icons/fa6";
+
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -246,7 +248,7 @@ const Footer = () => {
                 <FaLinkedin />
               </a>
               <a href="#" className="social-link">
-                <FaTwitter />
+                <FaXTwitter />
               </a>
               <a href="#" className="social-link">
                 <FaDiscord />
