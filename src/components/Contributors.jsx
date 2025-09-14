@@ -27,6 +27,85 @@ const mockContributors = [
   }
 ];
 
+// Helper function to get commit badge styling based on contribution count
+const getCommitBadgeStyle = (contributions) => {
+  if (contributions >= 200) {
+    return {
+      backgroundColor: 'linear-gradient(135deg, #FFD700, #FFA500)',
+      color: '#000',
+      border: '2px solid #FFD700',
+      glow: '0 0 15px rgba(255, 215, 0, 0.5)',
+      label: 'Legend'
+    };
+  } else if (contributions >= 51) {
+    return {
+      backgroundColor: 'linear-gradient(135deg, #16a34a, #22c55e)',
+      color: '#fff',
+      border: '2px solid #16a34a',
+      glow: '0 0 12px rgba(34, 197, 94, 0.4)',
+      label: 'Expert'
+    };
+  } else if (contributions >= 10) {
+    return {
+      backgroundColor: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
+      color: '#fff',
+      border: '2px solid #3b82f6',
+      glow: '0 0 10px rgba(59, 130, 246, 0.4)',
+      label: 'Active'
+    };
+  } else {
+    return {
+      backgroundColor: 'linear-gradient(135deg, #6b7280, #9ca3af)',
+      color: '#fff',
+      border: '2px solid #6b7280',
+      glow: '0 0 8px rgba(107, 114, 128, 0.3)',
+      label: 'New'
+    };
+  }
+};
+
+// Helper function to get avatar ring style based on activity level
+const getAvatarRingStyle = (contributions) => {
+  if (contributions >= 200) {
+    return {
+      background: 'conic-gradient(from 0deg, #FFD700, #FFA500, #FFD700)',
+      animation: 'spin 3s linear infinite',
+      filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.6))'
+    };
+  } else if (contributions >= 51) {
+    return {
+      background: 'conic-gradient(from 0deg, #16a34a, #22c55e, #16a34a)',
+      animation: 'spin 4s linear infinite',
+      filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.5))'
+    };
+  } else if (contributions >= 10) {
+    return {
+      background: 'conic-gradient(from 0deg, #3b82f6, #60a5fa, #3b82f6)',
+      animation: 'spin 5s linear infinite',
+      filter: 'drop-shadow(0 0 6px rgba(59, 130, 246, 0.4))'
+    };
+  } else {
+    return {
+      background: 'linear-gradient(135deg, #6b7280, #9ca3af)',
+      filter: 'drop-shadow(0 0 4px rgba(107, 114, 128, 0.3))'
+    };
+  }
+};
+
+// Helper function to get role badge icon
+const getRoleBadgeIcon = (role) => {
+  if (role.includes('Lead') || role.includes('Maintainer')) {
+    return '👑';
+  } else if (role.includes('Senior') || role.includes('Core')) {
+    return '⭐';
+  } else if (role.includes('Mentor')) {
+    return '🎯';
+  } else if (role.includes('Active')) {
+    return '🔥';
+  }
+  return '💎';
+};
+
 // Helper function to assign roles based on GitHub activity and profile
 const getRoleByGitHubActivity = (contributor) => {
   const { 
@@ -253,15 +332,17 @@ const Contributors = () => {
 
   return (
     // ✅ MODIFIED: The main container now uses our global theme class.
-    <div className="theme-container">
+    <div className="theme-container contributors-section">
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
+        className="contributors-header"
       >
         {/* ✅ MODIFIED: The header now uses our global theme class. */}
         <h1 className="theme-title">Our Amazing Contributors</h1>
+        <p className="contributors-subtitle">Building Together, Growing Together</p>
       </motion.div>
 
       {/* ✅ MODIFIED: The grid now uses our new global class. */}
@@ -272,49 +353,116 @@ const Contributors = () => {
         whileInView="visible"
         viewport={{ once: true }}
       >
-        {contributors.map((contributor) => (
+        {contributors.map((contributor) => {
+          const badgeStyle = getCommitBadgeStyle(contributor.contributions);
+          const avatarRingStyle = getAvatarRingStyle(contributor.contributions);
+          const roleIcon = getRoleBadgeIcon(contributor.role);
+          
+          return (
           // ✅ MODIFIED: The card now uses our new global class.
           <motion.div
             key={contributor.id}
-            className="contributor-card"
+            className="contributor-card enhanced-card"
             variants={itemVariants}
+            whileHover={{ 
+              y: -8, 
+              boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+              transition: { duration: 0.3 }
+            }}
           >
+            <div className="card-glow"></div>
+            
             <div className="contributor-avatar">
-              <img
-                src={contributor.avatar_url}
-                alt={contributor.name || contributor.login}
-                onError={(e) => {
-                  e.target.src = `https://ui-avatars.com/api/?name=${contributor.name || contributor.login}&background=6366f1&color=ffffff&size=120`;
+              {/* Enhanced avatar with animated ring */}
+              <div className="avatar-container">
+                <div className="avatar-ring" style={avatarRingStyle}></div>
+                <img
+                  src={contributor.avatar_url}
+                  alt={contributor.name || contributor.login}
+                  onError={(e) => {
+                    e.target.src = `https://ui-avatars.com/api/?name=${contributor.name || contributor.login}&background=6366f1&color=ffffff&size=120`;
+                  }}
+                />
+                {/* Role badge overlay */}
+                <div className="role-badge-overlay" title={contributor.role}>
+                  <span>{roleIcon}</span>
+                </div>
+              </div>
+              
+              {/* Enhanced commit badge */}
+              <div 
+                className="contribution-badge enhanced-badge"
+                style={{
+                  background: badgeStyle.backgroundColor,
+                  color: badgeStyle.color,
+                  border: badgeStyle.border,
+                  boxShadow: badgeStyle.glow
                 }}
-              />
-              <div className="contribution-badge">
-                <span className="contribution-count">{contributor.contributions}</span>
-                <span className="contribution-label">commits</span>
+              >
+                <div className="badge-content">
+                  <span className="contribution-count">{contributor.contributions}</span>
+                  <span className="contribution-label">commits</span>
+                  <span className="contribution-level">{badgeStyle.label}</span>
+                </div>
               </div>
             </div>
             
             {/* ✅ MODIFIED: All child elements now use our new global classes. */}
-            <div className="contributor-info">
+            <div className="contributor-info enhanced-info">
               <h3 className="contributor-name">{contributor.name || contributor.login}</h3>
-              <p className="contributor-role">{contributor.role}</p>
+              <p className="contributor-role">
+                <span className="role-icon">{roleIcon}</span>
+                {contributor.role}
+              </p>
               <p className="contributor-bio">{contributor.bio}</p>
               
-              <div style={{ marginTop: 'auto' }}>
+              {/* Contribution stats section */}
+              <div className="contribution-stats">
+                <div className="stat-item">
+                  <span className="stat-icon">📊</span>
+                  <span className="stat-value">{contributor.contributions}</span>
+                  <span className="stat-label">Commits</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-icon">🔧</span>
+                  <span className="stat-value">{Math.floor(contributor.contributions / 3)}</span>
+                  <span className="stat-label">PRs</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-icon">🐛</span>
+                  <span className="stat-value">{Math.floor(contributor.contributions / 5)}</span>
+                  <span className="stat-label">Issues</span>
+                </div>
+              </div>
+              
+              {/* Enhanced action buttons */}
+              <div className="contributor-actions">
                 <a
                   href={contributor.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-secondary" // ✅ MODIFIED: Using our global button class
+                  className="btn btn-primary enhanced-btn" 
                 >
-                  <svg viewBox="0 0 24 24" width="18" height="18" style={{ marginRight: '8px' }}>
+                  <svg viewBox="0 0 24 24" width="18" height="18">
                     <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                   </svg>
                   View Profile
                 </a>
+                <button 
+                  className="btn btn-secondary enhanced-btn"
+                  onClick={() => {
+                    // Could open a modal or navigate to a appreciation page
+                    alert(`Thanks for appreciating ${contributor.name || contributor.login}! 🎉`);
+                  }}
+                >
+                  <span>💝</span>
+                  Send Appreciation
+                </button>
               </div>
             </div>
           </motion.div>
-        ))}
+        )}
+      )}
       </motion.div>
 
       {/* ✅ REFACTORED: The CTA is now a standard theme-card */}
