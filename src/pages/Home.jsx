@@ -479,6 +479,7 @@ const Home = () => {
               </div>
             </h1>
             
+        
             <p className="hero-description">
               Transform complex computer science concepts into beautiful, interactive experiences. 
               Learn algorithms the way they were meant to be understood—visually and intuitively.
@@ -710,3 +711,4 @@ const Home = () => {
 };
 
 export default Home;
+
