@@ -10,7 +10,7 @@
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.2s ease, color 0.3s ease;
 }
 
 .contributors-section::before {
@@ -69,11 +69,12 @@
 }
 
 .contributors-subtitle {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: var(--subtext-color);
   font-style: italic;
   margin-top: 0.5rem;
   opacity: 0.8;
+  text-align: center;
 }
 
 @keyframes gradient-shift {
@@ -359,6 +360,7 @@
   gap: 0.75rem;
   margin-top: auto;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .enhanced-btn {
@@ -523,6 +525,7 @@
   padding: 0.875rem 2rem;
   border-radius: 12px;
   font-weight: 600;
+  margin-left: auto;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
