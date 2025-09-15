@@ -503,7 +503,7 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
 
       <canvas
         ref={canvasRef}
-        width={400}
+        width={800}
         height={500}
         className="graph-canvas"
         onClick={handleCanvasClick}
