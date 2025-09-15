@@ -1,5 +1,4 @@
-// src/components/Navbar.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Home,
@@ -13,6 +12,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import logo from "/public/logo.jpg";
@@ -22,6 +22,8 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const location = useLocation();
   const { theme } = useTheme();
+
+  const navbarRef = useRef(null); // added ref to the navbar
 
   const navigationItems = [
     { path: "/", icon: Home, label: "Home" },
@@ -64,10 +66,12 @@ const Navbar = () => {
       ],
     },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
+    { path: "/blog", icon: BookOpen, label: "Blog" },
     {
       label: "Community",
       icon: Users,
       dropdown: [
+        { path: "/community", label: "Overview" },
         { path: "/contributors", label: "Contributors" },
         { path: "/ContributorLeaderboard", label: "Leaderboard" },
       ],
@@ -81,9 +85,25 @@ const Navbar = () => {
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar" ref={navbarRef}>
         <div className="navbar-container">
           {/* Logo */}
           <Link to="/" className="navbar-logo">

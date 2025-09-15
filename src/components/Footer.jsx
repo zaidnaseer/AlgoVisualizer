@@ -16,6 +16,9 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/footer.css";
+import logo from "/public/logo.jpg"
+import { FaXTwitter } from "react-icons/fa6";
+
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -92,9 +95,9 @@ const Footer = () => {
           <div className="footer-column brand-column">
             <div className="brand-header">
               <div className="logo-wrapper">
-                <FaRocket className="logo-icon" />
-                <span className="logo-text">AlgoVisualizer</span>
-              </div>
+  <img src={logo} alt="AlgoVisualizer Logo" className="logo-image" />
+  <span className="logo-text">AlgoVisualizer</span>
+</div>
               <p className="brand-tagline">
                 Visualize algorithms. Master coding. Elevate skills.
               </p>
@@ -156,7 +159,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/tutorials">
+                <Link to="/data-structures">
                   <FaArrowRight className="link-icon" />
                   Tutorials
                 </Link>
@@ -245,7 +248,7 @@ const Footer = () => {
                 <FaLinkedin />
               </a>
               <a href="#" className="social-link">
-                <FaTwitter />
+                <FaXTwitter />
               </a>
               <a href="#" className="social-link">
                 <FaDiscord />

@@ -101,6 +101,31 @@ body {
   color: var(--theme-text-primary);
   margin-bottom: 1rem;
 }
+.theme-selection{
+  color: var(--theme-text-primary);
+  background-color: var(--theme-input-border);
+}
+.color-theme{
+  display: block;
+  width: 100%; 
+  padding: 1.2rem;
+}
+.color-theme input{ 
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.preview-color{
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--theme-text-primary);
+  margin-bottom: 1rem;
+}
+@media (max-width : 415px){
+  .color-theme input{
+    width: 100%;
+  } 
+}
+
 
 /* -----------------
    4. Buttons
@@ -140,7 +165,7 @@ body {
 
 .btn-secondary:hover:not(:disabled) {
   background: var(--theme-accent); 
-  color: var(--theme-btn-primary-text); 
+  color: white; 
   border-color: var(--theme-accent);
   transform: translateY(-2px);
 }
@@ -150,7 +175,10 @@ body {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  background: #555 !important; /* or var(--theme-disabled-bg) if you want theme-based */
+  color: white !important;     /* force white text */
 }
+
 
 /* -----------------
    5. Forms
@@ -473,6 +501,16 @@ body {
   justify-content: center;
   margin-bottom: 1.5rem;
 }
+.graph-canvas-container {
+  width: 120px;
+  height: 50px;
+  border: 1px solid var(--theme-border);
+  border-radius: 16px;
+  overflow: auto;
+  background-color: var(--theme-card-bg);
+  margin: 0 auto;
+}
+
 
 .graph-canvas {
   background: var(--theme-card-bg);
@@ -507,6 +545,20 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+/* Base select style */
+.algorithm-controls select {
+  background-color: var(--theme-input-bg);
+  color: var(--theme-input-text);
+  border: 1px solid var(--theme-input-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+/* Options (inside the dropdown) */
+.algorithm-controls select option {
+  background-color: var(--theme-input-bg);
+  color: var(--theme-input-text);
 }
 
 .algorithm-controls label {
