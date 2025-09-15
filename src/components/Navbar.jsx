@@ -70,6 +70,7 @@ const Navbar = () => {
       label: "Community",
       icon: Users,
       dropdown: [
+        { path: "/community", label: "Overview" },
         { path: "/contributors", label: "Contributors" },
         { path: "/ContributorLeaderboard", label: "Leaderboard" },
       ],
