@@ -9,39 +9,16 @@ export default function Contact() {
         <div className="contact">
             {/* Hero Section */}
             <div className="hero-section">
-                <div className="hero-content">
-                    <h1 className="hero-title">
-                        <span className="gradient-text">Get In Touch</span>
-                    </h1>
-                    <p className="hero-subtitle">
-                        Ready to visualize your learning journey? Let's connect!
-                    </p>
-                </div>
+                <h1 className="hero-title">
+                    <span className="gradient-text">Get In Touch</span>
+                </h1>
+                <p className="hero-subtitle">
+                    Ready to visualize your learning journey? Let's connect and make algorithms come alive!
+                </p>
                 <div className="floating-elements">
                     <div className="floating-icon icon-1"><FaCode /></div>
                     <div className="floating-icon icon-2"><FaLightbulb /></div>
                     <div className="floating-icon icon-3"><FaUsers /></div>
-                </div>
-            </div>
-
-            {/* Mission Statement */}
-            <div className="mission-section">
-                <div className="mission-card">
-                    <div className="mission-icon">
-                        <FaLightbulb />
-                    </div>
-                    <div className="mission-content">
-                        <h2>Our Mission</h2>
-                        <p>
-                            AlgoVisualizer is more than just a tool—it's a bridge between abstract algorithms 
-                            and intuitive understanding. Whether you're a student struggling with sorting concepts, 
-                            a developer prepping for interviews, or an educator seeking dynamic teaching aids, 
-                            we're here to help.
-                        </p>
-                        <div className="mission-tagline">
-                            <span className="tagline-text">Visualizing Algorithms, Simplifying Learning</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -86,10 +63,12 @@ export default function Contact() {
                             ></textarea>
                         </div>
                         
-                        <button type="submit" className="submit-btn">
-                            <FaPaperPlane />
-                            <span>Send Message</span>
-                        </button>
+                        <div className="submit-container">
+                            <button type="submit" className="submit-btn">
+                                <FaPaperPlane />
+                                <span>Send Message</span>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
