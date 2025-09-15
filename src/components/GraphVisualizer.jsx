@@ -503,8 +503,13 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
 
       <canvas
         ref={canvasRef}
+        Dijkstragraph
         width={800}
         height={500}
+
+        width={500}
+        height={400}
+
         className="graph-canvas"
         onClick={handleCanvasClick}
       />
