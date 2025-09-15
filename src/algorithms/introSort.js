@@ -109,3 +109,5 @@ export async function introSortWithStop(arr, setArray, setColorArray, delay, sto
   updateStats({ comparisons, swaps, time: 0 });
   return 0;
 }
+
+
