@@ -278,6 +278,8 @@ body {
 
 .hero-features {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: var(--space-md);
   margin-bottom: var(--space-xl);
@@ -653,6 +655,7 @@ body {
 
 .card-header {
   display: flex;
+  gap: 10px;
   justify-content: space-between;
   align-items: flex-start;
 }
