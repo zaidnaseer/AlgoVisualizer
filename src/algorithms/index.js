@@ -33,7 +33,7 @@ export async function timSort(arr, setColorArray, delay) {
   return await timSortWithStop(arr, noopSetArray, setColorArray, delay, makeStopRef(), noopUpdateStats);
 }
 
-import { introSortWithStop } from "./IntroSort.js";
+import { introSortWithStop } from "./introSort.js";
 export async function introSort(arr, setColorArray, delay) {
   return await introSortWithStop(arr, noopSetArray, setColorArray, delay, makeStopRef(), noopUpdateStats);
 }
