@@ -473,6 +473,16 @@ body {
   justify-content: center;
   margin-bottom: 1.5rem;
 }
+.graph-canvas-container {
+  width: 120px;
+  height: 50px;
+  border: 1px solid var(--theme-border);
+  border-radius: 16px;
+  overflow: auto;
+  background-color: var(--theme-card-bg);
+  margin: 0 auto;
+}
+
 
 .graph-canvas {
   background: var(--theme-card-bg);
