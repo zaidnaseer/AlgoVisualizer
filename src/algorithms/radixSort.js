@@ -1,91 +1,63 @@
-export const radixSort = async (array, setArray, setColorArray, delay, stopRef, setStats) => {
-    const newArray = [...array];
-    const n = newArray.length;
-    let comparisons = 0, swaps = 0;
+import { COLOR, createBaseColors, markAllSorted, sleep } from "../utils/sortingHelpers";
 
-    // Find the maximum number to know number of digits
-    const getMax = (arr) => {
-        let max = arr[0];
-        for (let i = 1; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-                comparisons++;
-            }
-        }
-        return max;
-    };
+const countingSortForRadix = async (a, exp, setArray, setColorArray, delay, stopRef, updateStats, counters) => {
+  const n = a.length;
+  const output = new Array(n).fill(0);
+  const count = new Array(10).fill(0);
 
-    // A function to do counting sort of arr[] according to the digit represented by exp
-    const countingSort = async (arr, exp) => {
-        const output = new Array(n);
-        const count = new Array(10).fill(0);
+  for (let i = 0; i < n; i++) {
+    if (stopRef.current) throw new Error("Stopped");
+    const index = Math.floor((a[i] / exp) % 10);
+    count[index]++;
+    counters.comparisons++;
+  }
 
-        // Store count of occurrences in count[]
-        for (let i = 0; i < n; i++) {
-            if (stopRef.current) throw new Error('Stopped');
-            
-            const digit = Math.floor(arr[i] / exp) % 10;
-            count[digit]++;
-            
-            // Highlight current element being processed
-            const colors = new Array(n).fill('#66ccff');
-            colors[i] = '#ff6b6b';
-            setColorArray([...colors]);
-            setStats({ comparisons, swaps, time: 0 });
-            
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
+  for (let i = 1; i < 10; i++) count[i] += count[i - 1];
 
-        // Change count[i] so that count[i] now contains actual position of this digit in output[]
-        for (let i = 1; i < 10; i++) {
-            count[i] += count[i - 1];
-        }
+  for (let i = n - 1; i >= 0; i--) {
+    if (stopRef.current) throw new Error("Stopped");
+    const index = Math.floor((a[i] / exp) % 10);
+    output[count[index] - 1] = a[i];
+    count[index]--;
+    counters.swaps++;
+    setArray([...output.map((v, idx) => (v === 0 ? a[idx] : v))]);
+    const colors = createBaseColors(n);
+    colors[i] = COLOR.comparing;
+    setColorArray([...colors]);
+    await sleep(delay);
+    updateStats({ comparisons: counters.comparisons, swaps: counters.swaps, time: 0 });
+  }
 
-        // Build the output array
-        for (let i = n - 1; i >= 0; i--) {
-            if (stopRef.current) throw new Error('Stopped');
-            
-            const digit = Math.floor(arr[i] / exp) % 10;
-            output[count[digit] - 1] = arr[i];
-            count[digit]--;
-            
-            // Highlight elements being placed
-            const colors = new Array(n).fill('#66ccff');
-            colors[i] = '#ffd93d';
-            colors[count[digit]] = '#4da6ff';
-            setColorArray([...colors]);
-            setStats({ comparisons, swaps, time: 0 });
-            
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
-
-        // Copy the output array to arr[], so that arr[] now contains sorted numbers according to current digit
-        for (let i = 0; i < n; i++) {
-            if (stopRef.current) throw new Error('Stopped');
-            
-            arr[i] = output[i];
-            swaps++;
-            
-            // Highlight the placement
-            const colors = new Array(n).fill('#66ccff');
-            colors[i] = '#4ade80';
-            setColorArray([...colors]);
-            setArray([...arr]);
-            setStats({ comparisons, swaps, time: 0 });
-            
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
-    };
-
-    const max = getMax(newArray);
-
-    // Do counting sort for every digit
-    for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
-        if (stopRef.current) throw new Error('Stopped');
-        await countingSort(newArray, exp);
-    }
-
-    // Final green coloring to show completion
-    setColorArray(new Array(n).fill('#4ade80'));
-    return 0;
+  for (let i = 0; i < n; i++) a[i] = output[i];
+  setArray([...a]);
+  await sleep(delay);
 };
+
+export async function radixSortWithStop(arr, setArray, setColorArray, delay, stopRef, updateStats) {
+  const a = [...arr];
+  const n = a.length;
+  if (n === 0) return 0;
+
+  const minVal = Math.min(...a);
+  let shift = 0;
+  if (minVal < 0) {
+    shift = -minVal;
+    for (let i = 0; i < n; i++) a[i] += shift;
+  }
+
+  let max = Math.max(...a);
+  let exp = 1;
+  const counters = { comparisons: 0, swaps: 0 };
+  while (Math.floor(max / exp) > 0) {
+    if (stopRef.current) throw new Error("Stopped");
+    await countingSortForRadix(a, exp, setArray, setColorArray, delay, stopRef, updateStats, counters);
+    exp *= 10;
+  }
+
+  if (shift) for (let i = 0; i < n; i++) a[i] -= shift;
+
+  setArray([...a]);
+  markAllSorted(n, setColorArray);
+  updateStats({ comparisons: counters.comparisons, swaps: counters.swaps, time: 0 });
+  return 0;
+}
