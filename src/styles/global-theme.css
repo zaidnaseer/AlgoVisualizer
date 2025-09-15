@@ -165,7 +165,7 @@ body {
 
 .btn-secondary:hover:not(:disabled) {
   background: var(--theme-accent); 
-  color: var(--theme-btn-primary-text); 
+  color: white; 
   border-color: var(--theme-accent);
   transform: translateY(-2px);
 }
@@ -175,7 +175,10 @@ body {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  background: #555 !important; /* or var(--theme-disabled-bg) if you want theme-based */
+  color: white !important;     /* force white text */
 }
+
 
 /* -----------------
    5. Forms
@@ -542,6 +545,20 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+/* Base select style */
+.algorithm-controls select {
+  background-color: var(--theme-input-bg);
+  color: var(--theme-input-text);
+  border: 1px solid var(--theme-input-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+/* Options (inside the dropdown) */
+.algorithm-controls select option {
+  background-color: var(--theme-input-bg);
+  color: var(--theme-input-text);
 }
 
 .algorithm-controls label {
