@@ -194,11 +194,14 @@
   position: relative;
   width: min(680px, 95%);
   margin-inline: auto;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
 
 .field-icon {
   position: absolute;
-  top: 16px;
+  top: 14px;
   left: 14px;
   opacity: 0.8;
   pointer-events: none;
@@ -207,9 +210,9 @@
 /* Input / Textarea base */
 .field-input {
   width: 100%;
-  padding: 16px 16px 14px 42px; /* left room for icon */
+  padding: 16px 16px 16px 42px; /* left room for icon */
   font-size: 15px;
-  border-radius: 14px;
+  border-radius: 16px;
   border: 1px solid var(--doubt-border);
   background: var(--doubt-input-bg);
   color: var(--doubt-input-text);
