@@ -1,9 +1,12 @@
 import React from 'react';
+import { useTheme } from '../ThemeContext';
 import "../styles/cookie-policy.css";
 
 const CookiePolicy = () => {
+    const { theme } = useTheme();
+    
     return (
-        <div className="cookie-policy-container">
+        <div className="cookie-policy-container" data-theme={theme}>
             <div className="cookie-policy-content">
                 <div className="cookie-policy-header">
                     <h1>Cookie Policy</h1>
