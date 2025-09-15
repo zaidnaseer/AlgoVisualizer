@@ -1,53 +1,30 @@
 /* =========================
-   Theme Variables
+   Cookie Policy - Using Unified Theme System
+   Inherits from theme.css for consistency
 ========================= */
-:root {
-    --bg-color: #1a1a1a;
-    --container-bg: rgba(30, 30, 30, 0.8);
-    --text-color: #e0e6ed;
-    --heading-color: #ffffff;
-    --subtext-color: #9ca3af;
-    --accent-color: rgb(8, 179, 231);
-    --link-color: rgb(8, 179, 231);
-    --link-hover: #4fd1ff;
-    --border-color: rgba(255, 255, 255, 0.1);
-    --section-border: rgba(8, 179, 231, 0.3);
-}
-
-[data-theme="light"] {
-    --bg-color: #f6f0d6;
-    --container-bg: rgba(255, 255, 255, 0.9);
-    --text-color: #1a1a1a;
-    --heading-color: #1a1a1a;
-    --subtext-color: #4b5563;
-    --accent-color: #0077cc;
-    --link-color: #0077cc;
-    --link-hover: #3385ff;
-    --border-color: rgba(0, 119, 204, 0.2);
-    --section-border: rgba(0, 119, 204, 0.3);
-}
 
 /* =========================
    Container
 ========================= */
 .cookie-policy-container {
-    background-color: var(--bg-color);
+    background-color: var(--primary-bg);
     min-height: 100vh;
     padding: 2rem 1rem;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--text-color);
-    transition: all 0.3s ease;
+    color: var(--text-primary);
+    transition: all var(--transition-normal);
 }
 
 .cookie-policy-content {
     max-width: 800px;
     margin: 0 auto;
-    background: var(--container-bg);
-    border-radius: 12px;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
     padding: 2.5rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-primary);
     backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-normal);
 }
 
 /* =========================
@@ -59,18 +36,18 @@
     align-items: center;
     margin-bottom: 3rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-primary);
 }
 
 .cookie-policy-header h1 {
-    color: var(--heading-color);
+    color: var(--text-primary);
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
 .cookie-policy-header .effective-date {
-    color: var(--subtext-color);
+    color: var(--text-secondary);
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -88,17 +65,17 @@
 }
 
 .cookie-policy-section h2 {
-    color: var(--heading-color);
+    color: var(--text-primary);
     font-size: 1.75rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--section-border);
-    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--accent-primary);
+    transition: all var(--transition-normal);
 }
 
 .cookie-policy-section p {
-    color: var(--text-color);
+    color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 1.5rem;
     font-size: 1.05rem;
@@ -114,7 +91,7 @@
 }
 
 .cookie-policy-list li {
-    color: var(--text-color);
+    color: var(--text-secondary);
     margin-bottom: 0.8rem;
     line-height: 1.6;
     position: relative;
@@ -123,14 +100,14 @@
 
 .cookie-policy-list li::before {
     content: "▸";
-    color: var(--accent-color);
+    color: var(--accent-primary);
     position: absolute;
     left: 0;
     font-weight: bold;
 }
 
 .cookie-policy-list strong {
-    color: var(--heading-color);
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -138,13 +115,13 @@
    Links
 ========================= */
 a {
-    color: var(--link-color);
+    color: var(--accent-primary);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color var(--transition-fast);
 }
 
 a:hover {
-    color: var(--link-hover);
+    color: var(--accent-hover);
     text-decoration: underline;
 }
 
