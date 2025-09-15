@@ -329,3 +329,12 @@ body.dark,
 }
 
 .about-card { color: var(--text-main); } .about-card .about-text, .about-card .about-list { color: var(--text-secondary); }
+
+.about-section {
+  color: var(--text-main);
+}
+
+.about-section .about-text,
+.about-section .about-list {
+  color: var(--text-secondary);
+}
