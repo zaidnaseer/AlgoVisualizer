@@ -83,3 +83,9 @@
     padding: 8px;
   }
 }
+/* Make first two cards align evenly */
+.algorithm-container .algorithm-card:nth-child(1),
+.algorithm-container .algorithm-card:nth-child(2) {
+  flex: 1 1 calc(50% - 20px); /* Two cards per row */
+  max-width: 400px;           /* Optional: prevent over-stretch */
+}

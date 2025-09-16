@@ -327,3 +327,14 @@ body.dark,
   from { opacity: 0; transform: translateY(40px);}
   to { opacity: 1; transform: translateY(0);}
 }
+
+.about-card { color: var(--text-main); } .about-card .about-text, .about-card .about-list { color: var(--text-secondary); }
+
+.about-section {
+  color: var(--text-main);
+}
+
+.about-section .about-text,
+.about-section .about-list {
+  color: var(--text-secondary);
+}

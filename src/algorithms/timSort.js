@@ -1,78 +1,103 @@
-const RUN = 32;
+import { COLOR, createBaseColors, markAllSorted, sleep } from "../utils/sortingHelpers";
 
-async function insertionSort(arr, left, right, setArray, setColorArray, delay) {
-  const n = arr.length;
-  for (let i = left + 1; i <= right; i++) {
-    let temp = arr[i];
-    let j = i - 1;
+function calcMinRun(n) {
+  let r = 0;
+  while (n >= 64) {
+    r |= n & 1;
+    n >>= 1;
+  }
+  return n + r;
+}
 
-    while (j >= left && arr[j] > temp) {
-      const colors = new Array(n).fill("lightgrey");
-      colors[j] = "red"; // element being compared
-      colors[j + 1] = "red";
+export async function timSortWithStop(arr, setArray, setColorArray, delay, stopRef, updateStats) {
+  const a = [...arr];
+  const n = a.length;
+  const minRun = calcMinRun(n);
+  const counters = { comparisons: 0, swaps: 0 };
+
+  const insertionSortRange = async (left, right) => {
+    for (let i = left + 1; i <= right; i++) {
+      if (stopRef.current) throw new Error("Stopped");
+      const key = a[i];
+      let j = i - 1;
+      while (j >= left && a[j] > key) {
+        if (stopRef.current) throw new Error("Stopped");
+        a[j + 1] = a[j];
+        j--;
+        counters.comparisons++;
+        counters.swaps++;
+        setArray([...a]);
+        const colors = createBaseColors(n);
+        colors[j + 1] = COLOR.swapping;
+        setColorArray([...colors]);
+        await sleep(delay);
+        updateStats({ comparisons: counters.comparisons, swaps: counters.swaps });
+      }
+      a[j + 1] = key;
+    }
+  };
+
+  const timMerge = async (l, m, r) => {
+    if (stopRef.current) throw new Error("Stopped");
+    const len1 = m - l + 1;
+    const len2 = r - m;
+    const left = a.slice(l, m + 1);
+    const right = a.slice(m + 1, r + 1);
+    let i = 0, j = 0, k = l;
+    while (i < len1 && j < len2) {
+      if (stopRef.current) throw new Error("Stopped");
+      counters.comparisons++;
+      if (left[i] <= right[j]) {
+        a[k++] = left[i++];
+      } else {
+        a[k++] = right[j++];
+      }
+      counters.swaps++;
+      setArray([...a]);
+      const colors = createBaseColors(n);
+      colors[k - 1] = COLOR.comparing;
       setColorArray([...colors]);
-
-      arr[j + 1] = arr[j];
-      await setArray([...arr]);
-      await new Promise(resolve => setTimeout(resolve, delay));
-      j--;
+      await sleep(delay);
+      updateStats({ comparisons: counters.comparisons, swaps: counters.swaps });
     }
-    arr[j + 1] = temp;
-    await setArray([...arr]);
-  }
-}
-
-async function merge(arr, l, m, r, setArray, setColorArray, delay) {
-  const n = arr.length;
-  let left = arr.slice(l, m + 1);
-  let right = arr.slice(m + 1, r + 1);
-
-  let i = 0, j = 0, k = l;
-  while (i < left.length && j < right.length) {
-    const colors = new Array(n).fill("lightgrey");
-    colors[k] = "red"; // current position being written
-    setColorArray([...colors]);
-
-    if (left[i] <= right[j]) {
-      arr[k++] = left[i++];
-    } else {
-      arr[k++] = right[j++];
+    while (i < len1) {
+      if (stopRef.current) throw new Error("Stopped");
+      a[k++] = left[i++];
+      counters.swaps++;
+      setArray([...a]);
+      await sleep(delay);
     }
-    await setArray([...arr]);
-    await new Promise(resolve => setTimeout(resolve, delay));
+    while (j < len2) {
+      if (stopRef.current) throw new Error("Stopped");
+      a[k++] = right[j++];
+      counters.swaps++;
+      setArray([...a]);
+      await sleep(delay);
+    }
+  };
+
+  for (let start = 0; start < n; start += minRun) {
+    if (stopRef.current) throw new Error("Stopped");
+    const end = Math.min(start + minRun - 1, n - 1);
+    await insertionSortRange(start, end);
   }
 
-  while (i < left.length) {
-    arr[k++] = left[i++];
-    await setArray([...arr]);
-    await new Promise(resolve => setTimeout(resolve, delay));
-  }
-  while (j < right.length) {
-    arr[k++] = right[j++];
-    await setArray([...arr]);
-    await new Promise(resolve => setTimeout(resolve, delay));
-  }
-}
-
-export const timSort = async (arr, setArray, setColorArray, delay) => {
-  let n = arr.length;
-
-  // Sort small runs with insertion sort
-  for (let i = 0; i < n; i += RUN) {
-    await insertionSort(arr, i, Math.min((i + RUN - 1), n - 1), setArray, setColorArray, delay);
-  }
-
-  // Merge runs in size-doubling manner
-  for (let size = RUN; size < n; size = 2 * size) {
+  let size = minRun;
+  while (size < n) {
+    if (stopRef.current) throw new Error("Stopped");
     for (let left = 0; left < n; left += 2 * size) {
-      let mid = Math.min(left + size - 1, n - 1);
-      let right = Math.min((left + 2 * size - 1), n - 1);
+      if (stopRef.current) throw new Error("Stopped");
+      const mid = Math.min(n - 1, left + size - 1);
+      const right = Math.min(n - 1, left + 2 * size - 1);
       if (mid < right) {
-        await merge(arr, left, mid, right, setArray, setColorArray, delay);
+        await timMerge(left, mid, right);
       }
     }
+    size = 2 * size;
   }
 
-  setColorArray(new Array(n).fill("green")); // mark fully sorted
-  return arr;
-};
+  setArray([...a]);
+  markAllSorted(n, setColorArray);
+  updateStats({ comparisons: counters.comparisons, swaps: counters.swaps, time: 0 });
+  return 0;
+}
