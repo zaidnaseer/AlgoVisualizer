@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Play,
   Code,
-  Search,
+  Search as SearchIcon,
   BarChart3,
   GitBranch,
   Users,
@@ -15,14 +15,10 @@ import {
   Clock,
   Star,
   Share2,
-  Brain,
-  Rocket,
-  Award,
-  Zap
 } from "lucide-react";
-import "../styles/homerestyle.css";
+import "../styles/home.css";
 
-// Theme helpers
+/** ---------- Theme helpers ---------- */
 function useColorScheme() {
   const [isLight, setIsLight] = useState(() => {
     const htmlTheme = document.documentElement.getAttribute("data-theme");
@@ -40,6 +36,7 @@ function useColorScheme() {
     return () => mq.removeEventListener?.("change", onChange);
   }, []);
 
+  // Also react to manual toggles via data-theme on <html>
   useEffect(() => {
     const obs = new MutationObserver(() => {
       const htmlTheme = document.documentElement.getAttribute("data-theme");
@@ -54,6 +51,7 @@ function useColorScheme() {
 
 function getTheme(isLight) {
   if (!isLight) {
+    // Dark theme (your existing look, slightly tuned)
     return {
       textPrimary: "#e5e7eb",
       textSecondary: "rgba(229,231,235,.85)",
@@ -74,6 +72,7 @@ function getTheme(isLight) {
       pillBorder: "1px solid rgba(255,255,255,.08)",
     };
   }
+  // Light theme (new palette)
   return {
     textPrimary: "#0b1020",
     textSecondary: "rgba(11,16,32,.75)",
@@ -95,7 +94,7 @@ function getTheme(isLight) {
   };
 }
 
-// Shared layout styles
+/** ---------- Shared layout styles ---------- */
 const container = { width: "100%", display: "flex", justifyContent: "center" };
 const inner = { width: "min(1200px, 100%)", padding: "1.5rem" };
 
@@ -103,7 +102,7 @@ const Home = () => {
   const isLight = useColorScheme();
   const T = getTheme(isLight);
 
-  // Bubble Sort Animation
+  /** ===== Bubble Sort — continuous ===== */
   const BAR_COUNT = 12;
   const STEP_MS = 350;
   const initial = useMemo(
@@ -172,10 +171,7 @@ const Home = () => {
   const activeB = idx + 1;
   const sortedStart = values.length - pass;
 
-
   /** ===== Data ===== */
-// Data
-
   const features = [
     {
       icon: BarChart3,
@@ -186,7 +182,7 @@ const Home = () => {
       badges: ["12+ algos", "Live steps", "Big-O"],
     },
     {
-      icon: Search,
+      icon: SearchIcon,
       title: "Searching",
       path: "/searching",
       description: "Binary, Linear, Jump, Exponential—visual & fast.",
@@ -242,7 +238,7 @@ const Home = () => {
     },
   ];
 
-  // Quick responsive helpers
+  /** ===== Quick responsive helpers (no external CSS changes) ===== */
   const gridStyles = `
     .hero-grid { display:grid; grid-template-columns: 1.08fr 1fr; gap:2.25rem; align-items:stretch; }
     .grid-2 { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:1.25rem; }
@@ -256,11 +252,11 @@ const Home = () => {
     <div className="home-dashboard">
       <style>{gridStyles}</style>
 
-      {/* Hero Section */}
+      {/* ===== Hero ===== */}
       <section style={{ ...container, padding: "4.25rem 1.5rem 2rem" }}>
         <div style={{ ...inner }}>
           <div className="hero-grid">
-            {/* LEFT: Bubble Sort Demo */}
+            {/* LEFT: Bubble Sort */}
             <div
               style={{
                 background: T.demoShellBg,
@@ -357,7 +353,7 @@ const Home = () => {
               </div>
             </div>
 
-            {/* RIGHT: Hero Content */}
+            {/* RIGHT: copy */}
             <div style={{ padding: ".4rem 0", display: "grid", gridTemplateRows: "auto auto 1fr auto", alignItems: "start" }}>
               <div
                 className="hero-badge"
@@ -381,7 +377,7 @@ const Home = () => {
                   WebkitBackgroundClip: "text", backgroundClip: "text",
                 }}
               >
-                Master Algorithms Through <span style={{ opacity: 0.9 }}>Visual Learning</span>
+                Master Algorithms Through Visual Learning  <span style={{ opacity: 0.9 }}>Visually</span>
               </h1>
 
               <p className="hero-subtitle" style={{ marginTop: ".9rem", color: T.textSecondary, maxWidth: 560, fontSize: "1rem" }}>
@@ -389,31 +385,21 @@ const Home = () => {
               </p>
 
               <div className="hero-features" style={{ marginTop: "1rem", display: "flex", gap: ".6rem", flexWrap: "wrap" }}>
-                <div className="feature-highlight" style={{ background: T.badgeBg, border: T.badgeBorder, padding: "6px 12px", borderRadius: 999, display: "flex", alignItems: "center", gap: 6, color: T.textSecondary }}>
-                  <Clock size={16} /><span>Real-time views</span>
-                </div>
-                <div className="feature-highlight" style={{ background: T.badgeBg, border: T.badgeBorder, padding: "6px 12px", borderRadius: 999, display: "flex", alignItems: "center", gap: 6, color: T.textSecondary }}>
-                  <BookOpen size={16} /><span>Step guides</span>
-                </div>
-                <div className="feature-highlight" style={{ background: T.badgeBg, border: T.badgeBorder, padding: "6px 12px", borderRadius: 999, display: "flex", alignItems: "center", gap: 6, color: T.textSecondary }}>
-                  <Target size={16} /><span>Hands-on practice</span>
-                </div>
+                <div className="feature-highlight" style={{ background: T.badgeBg, border: T.badgeBorder }}><Clock size={16} /><span>Real-time views</span></div>
+                <div className="feature-highlight" style={{ background: T.badgeBg, border: T.badgeBorder }}><BookOpen size={16} /><span>Step guides</span></div>
+                <div className="feature-highlight" style={{ background: T.badgeBg, border: T.badgeBorder }}><Target size={16} /><span>Hands-on practice</span></div>
               </div>
 
               <div style={{ marginTop: "1.4rem", display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
-                <Link to="/sorting" className="btn-primary-new" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8, padding: "12px 20px", borderRadius: 12, background: "linear-gradient(135deg, #6366f1, #8b5cf6)", color: "white", fontWeight: 600 }}>
-                  <Play size={16} />Start Learning
-                </Link>
-                <Link to="/quiz" className="btn-secondary-new" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8, padding: "12px 20px", borderRadius: 12, background: T.badgeBg, border: T.badgeBorder, color: T.textPrimary, fontWeight: 600 }}>
-                  <Trophy size={16} />Take a Quiz
-                </Link>
+                <Link to="/sorting" className="btn-primary-new"><Play size={16} />Start Learning</Link>
+                <Link to="/quiz" className="btn-secondary-new"><Trophy size={16} />Take a Quiz</Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features (2×2) */}
+      {/* ===== Features (2×2) ===== */}
       <section style={{ ...container }}>
         <div style={{ ...inner, paddingTop: 0 }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:"1rem" }}>
@@ -435,14 +421,12 @@ const Home = () => {
                   flexDirection: "column",
                   justifyContent: "space-between",
                   minHeight: 280,
-                  textDecoration: "none",
-                  color: "inherit"
                 }}
               >
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12 }}>
                   <div className={`feature-icon bg-gradient-to-br ${f.gradient}`}
-                       style={{ width:44, height:44, borderRadius:12, display:"grid", placeItems:"center", border: T.badgeBorder, background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}>
-                    <f.icon size={22} color="white" />
+                       style={{ width:44, height:44, borderRadius:12, display:"grid", placeItems:"center", border: T.badgeBorder }}>
+                    <f.icon size={22} />
                   </div>
                   <div style={{ textAlign:"right" }}>
                     <div style={{ display:"flex", gap:6, flexWrap:"wrap", justifyContent:"flex-end" }}>
@@ -475,7 +459,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Recent Updates */}
+      {/* ===== Recent Updates ===== */}
       <section style={{ ...container, paddingBottom:"1.5rem" }}>
         <div style={{ ...inner, paddingTop:"1.15rem" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:"1rem" }}>
@@ -522,7 +506,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Learning Paths */}
+      {/* ===== Learning Paths (curriculum, at the end) ===== */}
       <section style={{ ...container, paddingBottom:"2.25rem" }}>
         <div style={{ ...inner, paddingTop: 0 }}>
           <h2
@@ -550,7 +534,7 @@ const Home = () => {
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: 6 }}>
                   <h3 style={{ color: T.textPrimary, fontWeight: 700, fontSize: "1.05rem" }}>{p.title}</h3>
                   <span style={{
-                    fontSize: ".8rem", fontWeight: 700, color: "#0b1020",
+                    fontSize: ".8rem", fontWeight: 700, color: isLight ? "#0b1020" : "#0b1020",
                     backgroundImage: p.color,
                     padding: "6px 10px", borderRadius: 999,
                     boxShadow: isLight ? "0 1px 0 rgba(255,255,255,.7) inset" : "0 1px 0 rgba(255,255,255,.15) inset",
