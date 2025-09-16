@@ -287,7 +287,7 @@ function AlgoVisualizer({
       cancelAnimationFrame(raf);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [runToken]); // re-run animation when user clicks Run
+  } [runToken]); // re-run animation when user clicks Run
 
   // layout math
   const sortedItems = items.slice().sort((a, b) => a.index - b.index);
