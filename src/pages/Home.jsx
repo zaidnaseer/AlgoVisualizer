@@ -172,7 +172,10 @@ const Home = () => {
   const activeB = idx + 1;
   const sortedStart = values.length - pass;
 
-  // Data
+
+  /** ===== Data ===== */
+// Data
+
   const features = [
     {
       icon: BarChart3,

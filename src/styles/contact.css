@@ -66,14 +66,9 @@ body {
 .hero-section {
     position: relative;
     text-align: center;
-
-    padding: 40px 20px;
-    margin-bottom: 60px;
-
     padding: 100px 20px 80px;
     margin-bottom: 80px;
     width: 100%;
-
     background: linear-gradient(135deg, var(--section-bg) 0%, transparent 100%);
     border-radius: 25px;
     overflow: hidden;
