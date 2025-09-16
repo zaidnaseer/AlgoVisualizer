@@ -17,9 +17,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/footer.css";
 import logo from "/public/logo.jpg"
+
+import { ImageOff } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
-
-
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
