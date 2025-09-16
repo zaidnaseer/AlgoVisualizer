@@ -99,6 +99,7 @@
   font-size: 1rem;
   width: 100%;
   outline: none;
+  color: #1a2233; /* Always dark text for visibility */
 }
 .quiz-selection input:focus {
   border-color: none !important;
