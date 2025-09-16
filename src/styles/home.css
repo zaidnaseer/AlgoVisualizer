@@ -1,5 +1,5 @@
 @import './theme.css';
-
+/* @import "tailwindcss"; */
 /* =========================
    Homepage Specific Styles
 ========================= */
@@ -1776,4 +1776,9 @@ font-weight: 1000;
 .activity-item:focus {
   outline: 2px solid rgba(99, 102, 241, 0.6);
   outline-offset: 2px;
+ UI
 }
+
+}
+
+
