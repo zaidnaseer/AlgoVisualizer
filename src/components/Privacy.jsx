@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../styles/privacy.css";
 import { Link } from "react-router-dom";
+
 const Privacy = () => {
   const [theme, setTheme] = useState("dark");
+  const [openSection, setOpenSection] = useState(null);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "dark";
@@ -15,6 +17,17 @@ const Privacy = () => {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
+  };
+
+  const handleSectionClick = (sectionId) => {
+    // console.log('Section clicked:', sectionId);
+    // console.log('Current open section:', openSection);
+    
+    if (openSection === sectionId) {
+      setOpenSection(null); // Close if already open
+    } else {
+      setOpenSection(sectionId); // Open this section
+    }
   };
 
   const privacySections = [
@@ -89,36 +102,53 @@ const Privacy = () => {
         </div>
 
         <div className="privacy-sections">
-          {privacySections.map((section, index) => (
-            <section
-              key={section.id}
-              className="privacy-section"
-              id={section.id}
-            >
-              <div className="section-header">
-                <div className="section-icon">
-                  <span>{section.icon}</span>
+          <p style={{color: 'white', marginBottom: '1rem'}}>
+            {/* Debug - Open section: {openSection || 'none'} */}
+          </p>
+          
+          {privacySections.map((section, index) => {
+            const isOpen = openSection === section.id;
+            
+            return (
+              <section
+                key={section.id}
+                className="privacy-section"
+                id={section.id}
+              >
+                <div 
+                  className="section-header clickable"
+                  onClick={() => handleSectionClick(section.id)}
+                  style={{cursor: 'pointer'}}
+                >
+                  <div className="section-icon">
+                    <span>{section.icon}</span>
+                  </div>
+                  <h2 className="section-title">
+                    {index + 1}. {section.title}
+                  </h2>
+                  <div className="toggle-icon">
+                    {isOpen ? '−' : '+'}
+                  </div>
                 </div>
-                <h2 className="section-title">
-                  {index + 1}. {section.title}
-                </h2>
-              </div>
 
-              <div className="section-content">
-                <p className="section-description">{section.content}</p>
+                {isOpen && (
+                  <div className="section-content">
+                    <p className="section-description">{section.content}</p>
 
-                {section.items && (
-                  <ul className="privacy-list">
-                    {section.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="privacy-list-item">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                    {section.items && (
+                      <ul className="privacy-list">
+                        {section.items.map((item, itemIndex) => (
+                          <li key={itemIndex} className="privacy-list-item">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 )}
-              </div>
-            </section>
-          ))}
+              </section>
+            );
+          })}
         </div>
 
         <div className="contact-section">
