@@ -3,7 +3,7 @@
 ========================= */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 @import './theme.css';
-@import "tailwindcss";
+
 /* Import component styles */
 @import './navbar.css';
 @import './navbar-top.css';
