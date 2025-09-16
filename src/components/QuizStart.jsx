@@ -33,7 +33,7 @@ const QuizStart = ({
     <div className="quiz-start">
       {/* Topic Selection */}
       <div className="topic-selection">
-        <h2 className="section-title">Step 1: Choose a Topic</h2>
+        <h2 className="section-title">Choose a Topic</h2>
         <div className="topic-grid">
           {topics.map((topic) => (
             <div
@@ -57,7 +57,7 @@ const QuizStart = ({
 
       {/* Difficulty Selection */}
       <div className="difficulty-selection">
-        <h2 className="section-title">Step 2: Choose a Difficulty</h2>
+        <h2 className="section-title">Choose a Difficulty</h2>
         <div className="difficulty-buttons">
           {difficulties.map((difficulty) => (
             <button
@@ -74,7 +74,7 @@ const QuizStart = ({
 
       {/* Quiz Mode */}
       <div className="quiz-mode-selection">
-        <h2 className="section-title">Step 3: Select Mode</h2>
+        <h2 className="section-title">Select Mode</h2>
         <div className="mode-options centered">
           <label className="mode-option">
             <input
