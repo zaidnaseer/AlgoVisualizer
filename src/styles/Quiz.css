@@ -93,24 +93,31 @@
   margin-bottom: 1.5rem;
   transition: var(--transition);
 }
+
 .quiz-selection input {
-  border: none;
   background: transparent;
   font-size: 1rem;
   width: 100%;
   outline: none;
   color: #1a2233; /* Always dark text for visibility */
+  color: black;
+  padding: 0.5rem 0.75rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  box-shadow: none;
 }
-.quiz-selection input:focus {
-  border-color: none !important;
-  box-shadow: 0 0 1px var(--color-text);
+
+.quiz-selection input::placeholder {
+  color: #8b949e; /* softer gray */
+  opacity: 0.8;
+  transition: color 0.2s ease;
 }
+
 /* on focus of input search bar will transform */
 .quiz-selection:focus-within  {
   border-color: var(--color-bg);
   width: 100%;
   transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(115, 176, 219, 0.5);
 } 
 .topic-selection {
     margin-bottom: 2rem;

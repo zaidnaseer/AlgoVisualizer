@@ -92,7 +92,7 @@ async function runSorting(algorithmName, array) {
     case "Intro Sort":
       return await adaptColorArrayAlgorithm(introSort, working, 0);
     case "Quick Sort":
-      return adaptQuickSort(working);
+      return await adaptColorArrayAlgorithm(quickSort, working, 0);
     case "Merge Sort": {
       // mergeSort implementation returns sorted array without colors; we run it and emit final state.
       const result = await mergeSort(working.slice());

@@ -1,26 +1,36 @@
-export const bubbleSort = async (array, setColorArray, delay) => {
-    const n = array.length;
-    const colorArray = new Array(n).fill('lightgrey');
+import { COLOR, createBaseColors, markAllSorted, sleep } from "../utils/sortingHelpers";
 
-    for (let i = 0; i < n - 1; i++) {
-        for (let j = 0; j < n - i - 1; j++) {
-            colorArray[j] = 'red';
-            colorArray[j + 1] = 'red';
-            setColorArray([...colorArray]);
-            await new Promise(resolve => setTimeout(resolve, delay));
+export async function bubbleSortWithStop(arr, setArray, setColorArray, delay, stopRef, updateStats) {
+  const a = [...arr];
+  const n = a.length;
+  let comparisons = 0, swaps = 0;
 
-            if (array[j] > array[j + 1]) {
-                [array[j], array[j + 1]] = [array[j + 1], array[j]];
-            }
-
-            colorArray[j] = 'lightgrey';
-            colorArray[j + 1] = 'lightgrey';
-            setColorArray([...colorArray]);
-        }
-        colorArray[n - i - 1] = 'green';
-        setColorArray([...colorArray]);
+  for (let i = 0; i < n - 1; i++) {
+    if (stopRef.current) throw new Error("Stopped");
+    for (let j = 0; j < n - i - 1; j++) {
+      if (stopRef.current) throw new Error("Stopped");
+      comparisons++;
+      const colors = createBaseColors(n);
+      colors[j] = COLOR.comparing;
+      colors[j + 1] = COLOR.comparing;
+      setColorArray([...colors]);
+      await sleep(delay);
+      if (a[j] > a[j + 1]) {
+        [a[j], a[j + 1]] = [a[j + 1], a[j]];
+        swaps++;
+        setArray([...a]);
+        const swapColors = createBaseColors(n);
+        swapColors[j] = COLOR.swapping;
+        swapColors[j + 1] = COLOR.swapping;
+        setColorArray([...swapColors]);
+        await sleep(delay);
+      }
+      updateStats({ comparisons, swaps, time: 0 });
     }
-    colorArray[0] = 'green';
-    setColorArray([...colorArray]);
-    return array;
-};
+    const passColors = createBaseColors(n);
+    for (let k = n - i - 1; k < n; k++) passColors[k] = COLOR.sorted;
+    setColorArray([...passColors]);
+  }
+  markAllSorted(n, setColorArray);
+  return 0;
+}

@@ -26,7 +26,6 @@ function QuizTopicSelection({ topics = [] }) {
           placeholder="Search topics…"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="topic-search"
         />
       </div>
 

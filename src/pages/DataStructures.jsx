@@ -9,102 +9,102 @@ import '../styles/Documentation.css'; // keep your linkedlist styles
 // ============================================================================
 
 const algorithmDatabase = {
-  sorting: {
-    title: "Sorting Algorithms",
-    icon: "🔄",
-    color: "#66ccff",
-    algorithms: [
-      {
-        name: "Bubble Sort",
-        id: "bubbleSort",
-        description: "Compares adjacent elements and swaps them if they are in wrong order. Simple but inefficient for large datasets.",
-        timeComplexity: { best: "O(n)", average: "O(n²)", worst: "O(n²)" },
-        spaceComplexity: "O(1)",
-        stability: "Stable",
-        inPlace: true,
-        adaptivity: "Adaptive",
-        implemented: true
-      },
-      {
-        name: "Selection Sort",
-        id: "selectionSort",
-        description: "Finds the minimum element and places it at the beginning. Makes fewer swaps than bubble sort.",
-        timeComplexity: { best: "O(n²)", average: "O(n²)", worst: "O(n²)" },
-        spaceComplexity: "O(1)",
-        stability: "Unstable",
-        inPlace: true,
-        adaptivity: "Not Adaptive",
-        implemented: true
-      },
-      {
-        name: "Insertion Sort",
-        id: "insertionSort",
-        description: "Builds sorted array one element at a time. Efficient for small datasets and nearly sorted arrays.",
-        timeComplexity: { best: "O(n)", average: "O(n²)", worst: "O(n²)" },
-        spaceComplexity: "O(1)",
-        stability: "Stable",
-        inPlace: true,
-        adaptivity: "Adaptive",
-        implemented: true
-      },
-      {
-        name: "Merge Sort",
-        id: "mergeSort",
-        description: "Divides array into halves, sorts recursively, and merges them.",
-        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
-        spaceComplexity: "O(n)",
-        stability: "Stable",
-        inPlace: false,
-        adaptivity: "Not Adaptive",
-        implemented: true
-      },
-      {
-        name: "Quick Sort",
-        id: "quickSort",
-        description: "Selects a pivot and partitions array around it. Fast average case but can degrade to O(n²).",
-        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n²)" },
-        spaceComplexity: "O(log n)",
-        stability: "Unstable",
-        inPlace: true,
-        adaptivity: "Not Adaptive",
-        implemented: true
-      },
-      {
-        name: "Tim Sort",
-        id: "timSort",
-        description: "Hybrid stable sorting algorithm derived from merge sort and insertion sort. Optimized for real-world data by taking advantage of runs (already sorted subsequences).",
-        timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
-        spaceComplexity: "O(n)",
-        stability: "Stable",
-        inPlace: false,
-        adaptivity: "Adaptive",
-        implemented: true
-      },
-      {
-        name: "Intro Sort",
-        id: "introSort",
-        description: "Hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth is too large, and uses insertion sort for small partitions. Combines fast average performance with worst-case guarantees.",
-        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
-        spaceComplexity: "O(log n)",
-        stability: "Unstable",
-        inPlace: true,
-        adaptivity: "Not Adaptive",
-        implemented: true
-      },
-      {
-  name: "Shell Sort",
-  id: "shellSort",
-  description: "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. It improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing the total number of moves.",
-  timeComplexity: { best: "O(n log n)", average: "O(n(log n)^2)", worst: "O(n(log n)^2)" },
-  spaceComplexity: "O(1)",
-  stability: "Unstable",
-  inPlace: true,
-  adaptivity: "Not Adaptive",
-  implemented: true
-}
+//   sorting: {
+//     title: "Sorting Algorithms",
+//     icon: "🔄",
+//     color: "#66ccff",
+//     algorithms: [
+//       {
+//         name: "Bubble Sort",
+//         id: "bubbleSort",
+//         description: "Compares adjacent elements and swaps them if they are in wrong order. Simple but inefficient for large datasets.",
+//         timeComplexity: { best: "O(n)", average: "O(n²)", worst: "O(n²)" },
+//         spaceComplexity: "O(1)",
+//         stability: "Stable",
+//         inPlace: true,
+//         adaptivity: "Adaptive",
+//         implemented: true
+//       },
+//       {
+//         name: "Selection Sort",
+//         id: "selectionSort",
+//         description: "Finds the minimum element and places it at the beginning. Makes fewer swaps than bubble sort.",
+//         timeComplexity: { best: "O(n²)", average: "O(n²)", worst: "O(n²)" },
+//         spaceComplexity: "O(1)",
+//         stability: "Unstable",
+//         inPlace: true,
+//         adaptivity: "Not Adaptive",
+//         implemented: true
+//       },
+//       {
+//         name: "Insertion Sort",
+//         id: "insertionSort",
+//         description: "Builds sorted array one element at a time. Efficient for small datasets and nearly sorted arrays.",
+//         timeComplexity: { best: "O(n)", average: "O(n²)", worst: "O(n²)" },
+//         spaceComplexity: "O(1)",
+//         stability: "Stable",
+//         inPlace: true,
+//         adaptivity: "Adaptive",
+//         implemented: true
+//       },
+//       {
+//         name: "Merge Sort",
+//         id: "mergeSort",
+//         description: "Divides array into halves, sorts recursively, and merges them.",
+//         timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+//         spaceComplexity: "O(n)",
+//         stability: "Stable",
+//         inPlace: false,
+//         adaptivity: "Not Adaptive",
+//         implemented: true
+//       },
+//       {
+//         name: "Quick Sort",
+//         id: "quickSort",
+//         description: "Selects a pivot and partitions array around it. Fast average case but can degrade to O(n²).",
+//         timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n²)" },
+//         spaceComplexity: "O(log n)",
+//         stability: "Unstable",
+//         inPlace: true,
+//         adaptivity: "Not Adaptive",
+//         implemented: true
+//       },
+//       {
+//         name: "Tim Sort",
+//         id: "timSort",
+//         description: "Hybrid stable sorting algorithm derived from merge sort and insertion sort. Optimized for real-world data by taking advantage of runs (already sorted subsequences).",
+//         timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
+//         spaceComplexity: "O(n)",
+//         stability: "Stable",
+//         inPlace: false,
+//         adaptivity: "Adaptive",
+//         implemented: true
+//       },
+//       {
+//         name: "Intro Sort",
+//         id: "introSort",
+//         description: "Hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth is too large, and uses insertion sort for small partitions. Combines fast average performance with worst-case guarantees.",
+//         timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+//         spaceComplexity: "O(log n)",
+//         stability: "Unstable",
+//         inPlace: true,
+//         adaptivity: "Not Adaptive",
+//         implemented: true
+//       },
+//       {
+//   name: "Shell Sort",
+//   id: "shellSort",
+//   description: "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. It improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing the total number of moves.",
+//   timeComplexity: { best: "O(n log n)", average: "O(n(log n)^2)", worst: "O(n(log n)^2)" },
+//   spaceComplexity: "O(1)",
+//   stability: "Unstable",
+//   inPlace: true,
+//   adaptivity: "Not Adaptive",
+//   implemented: true
+// }
 
-    ]
-  },
+//     ]
+//   },
   searching: {
     title: "Search Algorithms",
     icon: "🔍",
