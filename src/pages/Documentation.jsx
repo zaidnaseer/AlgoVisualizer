@@ -138,8 +138,6 @@ const algorithmDatabase = {
         implemented: true, 
       },
       {
-
- {
   name: "Jump Search",
   id: "jumpSearch",
   description:
