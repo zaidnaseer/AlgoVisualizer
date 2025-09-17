@@ -373,11 +373,11 @@ const Home = () => {
                   marginTop: "1rem", lineHeight: 1.05, fontSize: "clamp(28px, 5vw, 44px)",
                   fontWeight: 900, letterSpacing: "-.3px",
                   color: "transparent",
-                  background: T.heroGradient,
+                  background: T.hero,
                   WebkitBackgroundClip: "text", backgroundClip: "text",
                 }}
               >
-                Master Algorithms Through Visual Learning  <span style={{ opacity: 0.9 }}>Visually</span>
+                Master Algorithms Through Visual Learning  <span style={{ opacity: 1 }}>Visually</span>
               </h1>
 
               <p className="hero-subtitle" style={{ marginTop: ".9rem", color: T.textSecondary, maxWidth: 560, fontSize: "1rem" }}>
