@@ -118,7 +118,16 @@ const algorithmDatabase = {
         spaceComplexity: "O(1)",
         dataRequirement: "None (works on unsorted data)",
         implemented: true
-      },
+      },{
+  name: "Jump Search",
+  id: "jumpSearch",
+  description: "Searches sorted array by jumping ahead by fixed steps and then performing linear search within the block.",
+  timeComplexity: { best: "O(1)", average: "O(√n)", worst: "O(√n)" },
+  spaceComplexity: "O(1)",
+  dataRequirement: "Sorted array",
+  implemented: true
+},
+
       {
         name: "Binary Search",
         id: "binarySearch",
