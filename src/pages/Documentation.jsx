@@ -137,8 +137,8 @@ const algorithmDatabase = {
         dataRequirement: "None (works on unsorted data)",
         implemented: true, 
       },
-      {
-
+      
+{
   name: "Exponential Search",
   id: "exponentialSearch",
   description:
@@ -147,8 +147,14 @@ const algorithmDatabase = {
     best: "O(1)",
     average: "O(log n)",
     worst: "O(log n)"
+  },
+  spaceComplexity: "O(1)",
+  dataRequirement: "Sorted array",
+  implemented: true
+}, // <--- Add this comma!
+{
 
-  name: "Ternary Search",
+name: "Ternary Search",
   id: "ternarySearch",
   description:
     "Searches sorted array by repeatedly dividing search interval into three parts for faster narrowing of search space.",
