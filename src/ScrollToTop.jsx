@@ -76,7 +76,7 @@ export default function ScrollToTop() {
           onClick={() => forceScrollTop(true)}
           aria-label="Scroll to top"
           title="Back to top"
-          className="scroll-to-top-btn"
+          className="floating-btn scroll-to-top-btn"
         >
           <i className="fa-solid fa-arrow-up" aria-hidden="true" />
           <span className="sr-only">Back to top</span>
@@ -85,25 +85,30 @@ export default function ScrollToTop() {
 
       <style>
         {`
-          .scroll-to-top-btn {
+          /* Shared floating button style */
+          .floating-btn {
             position: fixed;
             bottom: 25px;
-            right: 25px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 50%;
             width: 55px;
             height: 55px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 24px;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1000;
-            transition: opacity 0.4s ease, transform 0.3s ease;
+            transition: all 0.3s ease;
+          }
+
+          /* Scroll-to-top specific */
+          .scroll-to-top-btn {
+            right: 25px; /* bottom-right */
+            background-color: #007bff;
+            color: white;
+            font-size: 24px;
             animation: float 2s ease-in-out infinite;
+            border: none;
           }
 
           .scroll-to-top-btn:hover {
@@ -115,6 +120,22 @@ export default function ScrollToTop() {
           .scroll-to-top-btn:focus {
             outline: 2px solid #fff;
             outline-offset: 3px;
+          }
+
+          /* Theme toggle (for reference) */
+          .theme-toggle-btn {
+            left: 25px; /* bottom-left */
+            bottom: 25px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
           }
 
           @keyframes float {
