@@ -373,7 +373,6 @@ const Home = () => {
                   marginTop: "1rem", lineHeight: 1.05, fontSize: "clamp(28px, 5vw, 44px)",
                   fontWeight: 900, letterSpacing: "-.3px",
                   color: "transparent",
-                  background: T.heroGradient,
                   WebkitBackgroundClip: "text", backgroundClip: "text",
                 }}
               >
