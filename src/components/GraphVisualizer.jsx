@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import "../styles/global-theme.css";
 
 const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, canvasWidth = 520, canvasHeight = 380 }) => {
   class SimplePriorityQueue {
