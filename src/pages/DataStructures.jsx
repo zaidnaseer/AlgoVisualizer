@@ -118,7 +118,16 @@ const algorithmDatabase = {
         spaceComplexity: "O(1)",
         dataRequirement: "None (works on unsorted data)",
         implemented: true
-      },
+      },{
+  name: "Exponential Search",
+  id: "exponentialSearch",
+  description: "Searches sorted array by finding a range where the element may exist using exponential jumps, then performs binary search within that range.",
+  timeComplexity: { best: "O(1)", average: "O(log n)", worst: "O(log n)" },
+  spaceComplexity: "O(1)",
+  dataRequirement: "Sorted array",
+  implemented: true
+},
+
       {
         name: "Binary Search",
         id: "binarySearch",
