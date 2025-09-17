@@ -110,16 +110,16 @@ const algorithmDatabase = {
         implemented: true
       },     
       {
-  name: "Shell Sort",
-  id: "shellSort",
-  description: "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. It improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing the total number of moves.",
-  timeComplexity: { best: "O(n log n)", average: "O(n(log n)^2)", worst: "O(n(log n)^2)" },
-  spaceComplexity: "O(1)",
-  stability: "Unstable",
-  inPlace: true,
-  adaptivity: "Not Adaptive",
-  implemented: true
-}, 
+        name: "Shell Sort",
+        id: "shellSort",
+        description: "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. It improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing the total number of moves.",
+        timeComplexity: { best: "O(n log n)", average: "O(n(log n)^2)", worst: "O(n(log n)^2)" },
+        spaceComplexity: "O(1)",
+        stability: "Unstable",
+        inPlace: true,
+        adaptivity: "Not Adaptive",
+        implemented: true
+      }, 
     ],
   },
   searching: {
@@ -137,49 +137,6 @@ const algorithmDatabase = {
         dataRequirement: "None (works on unsorted data)",
         implemented: true, 
       },
-
-      
-{
-  name: "Exponential Search",
-  id: "exponentialSearch",
-  description:
-    "Searches sorted array by finding a range where the element may exist using exponential jumps, then performing binary search within that range.",
-  timeComplexity: {
-    best: "O(1)",
-    average: "O(log n)",
-    worst: "O(log n)"
-  },
-  spaceComplexity: "O(1)",
-  dataRequirement: "Sorted array",
-  implemented: true
-}, // <--- Add this comma!
-{
-
-name: "Ternary Search",
-  id: "ternarySearch",
-
-      {
-  name: "Jump Search",
-  id: "jumpSearch",
-
-  description:
-    "Searches sorted array by jumping ahead by fixed steps and then performing linear search within the block.",
-  timeComplexity: {
-    best: "O(1)",
-
-    average: "O(log₃ n)",
-    worst: "O(log₃ n)"
-
-
-    average: "O(√n)",
-    worst: "O(√n)"
-
-  },
-  spaceComplexity: "O(1)",
-  dataRequirement: "Sorted array",
-  implemented: true
-}, 
-
       {
         name: "Binary Search",
         id: "binarySearch",
@@ -193,6 +150,48 @@ name: "Ternary Search",
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
         implemented: true, 
+      },
+      {
+        name: "Jump Search",
+        id: "jumpSearch",
+        description:
+          "Searches sorted array by jumping ahead by fixed steps and then performing linear search within the block.",
+        timeComplexity: {
+          best: "O(1)",
+          average: "O(√n)",
+          worst: "O(√n)"
+        },
+        spaceComplexity: "O(1)",
+        dataRequirement: "Sorted array",
+        implemented: true
+      },
+      {
+        name: "Exponential Search",
+        id: "exponentialSearch",
+        description:
+          "Searches sorted array by finding a range where the element may exist using exponential jumps, then performing binary search within that range.",
+        timeComplexity: {
+          best: "O(1)",
+          average: "O(log n)",
+          worst: "O(log n)"
+        },
+        spaceComplexity: "O(1)",
+        dataRequirement: "Sorted array",
+        implemented: true
+      },
+      {
+        name: "Ternary Search",
+        id: "ternarySearch",
+        description:
+          "Searches sorted array by dividing it into three parts and determining which part contains the target element.",
+        timeComplexity: {
+          best: "O(1)",
+          average: "O(log₃ n)",
+          worst: "O(log₃ n)"
+        },
+        spaceComplexity: "O(1)",
+        dataRequirement: "Sorted array",
+        implemented: true
       },
     ],
   },
@@ -318,10 +317,8 @@ function AlgorithmCard({ algorithm }) {
       <div className="card-header">
         <div className="card-title-group">
           <span className="card-icon">{algorithm.categoryIcon}</span>
-          {/* ✅ MODIFIED: The h3 now uses a standard class */}
           <h3 className="card-title">{algorithm.name}</h3>
         </div>
-        {/* ✅ MODIFIED: The badges now use standard classes */}
         {algorithm.implemented ? (
           <div className="status-badge implemented">Implemented</div>
         ) : (
@@ -442,7 +439,6 @@ function AlgorithmDocumentation() {
     <div className="theme-container">
       <h1 className="theme-title">Algorithm Documentation</h1>
       
-      {/* ✅ REFACTORED: The filters section is now a theme-card */}
       <div className="theme-card filters-section">
         <div className="search-bar">
           <Search size={20} className="search-icon" />
@@ -451,7 +447,7 @@ function AlgorithmDocumentation() {
             placeholder="Search algorithms..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="form-control" // ✅ MODIFIED: Using global form class
+            className="form-control"
           />
         </div>
         <div className="category-filters">
@@ -459,7 +455,6 @@ function AlgorithmDocumentation() {
             const IconComponent = category.icon;
             const isActive = selectedCategory === category.key;
             return (
-              // ✅ MODIFIED: The filter buttons now use our global button classes
               <button
                 key={category.key}
                 className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'}`}
@@ -515,4 +510,5 @@ function AlgorithmDocumentation() {
     </div>
   );
 }
+
 export default AlgorithmDocumentation;
