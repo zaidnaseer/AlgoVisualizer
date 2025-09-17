@@ -138,6 +138,21 @@ const algorithmDatabase = {
         implemented: true, 
       },
       {
+  name: "Ternary Search",
+  id: "ternarySearch",
+  description:
+    "Searches sorted array by repeatedly dividing search interval into three parts for faster narrowing of search space.",
+  timeComplexity: {
+    best: "O(1)",
+    average: "O(log₃ n)",
+    worst: "O(log₃ n)"
+  },
+  spaceComplexity: "O(1)",
+  dataRequirement: "Sorted array",
+  implemented: true
+},
+
+      {
         name: "Binary Search",
         id: "binarySearch",
         description:
