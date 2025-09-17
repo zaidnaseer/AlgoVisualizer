@@ -138,19 +138,19 @@ const algorithmDatabase = {
         implemented: true, 
       },
       {
-  name: "Ternary Search",
-  id: "ternarySearch",
+  name: "Jump Search",
+  id: "jumpSearch",
   description:
-    "Searches sorted array by repeatedly dividing search interval into three parts for faster narrowing of search space.",
+    "Searches sorted array by jumping ahead by fixed steps and then performing linear search within the block.",
   timeComplexity: {
     best: "O(1)",
-    average: "O(log₃ n)",
-    worst: "O(log₃ n)"
+    average: "O(√n)",
+    worst: "O(√n)"
   },
   spaceComplexity: "O(1)",
   dataRequirement: "Sorted array",
   implemented: true
-},
+}, 
 
       {
         name: "Binary Search",
