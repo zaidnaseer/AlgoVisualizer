@@ -281,3 +281,694 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ---- Sorting page layout polish ---- */
+.sorting-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.1fr) minmax(520px, 1.9fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.sorting-left,
+.sorting-right {
+  width: 100%;
+}
+
+.theme-card-header.no-border {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.theme-card-header.between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-like {
+  background: var(--surface-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* keep the canvas visually aligned with cards */
+.viz-canvas {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 420px;           /* consistent visual height */
+  padding: 0.75rem 0.5rem; /* matches card inner padding */
+  border-radius: 8px;
+  background: var(--surface-bg);
+}
+
+/* tighter spacing for form rows inside cards */
+.form-grid.tight-grid {
+  row-gap: 0.75rem;
+}
+
+.form-group.span-2 {
+  grid-column: span 2;
+}
+
+.row-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* inline error styling */
+.inline-error {
+  color: var(--accent-danger);
+  text-align: left;
+  margin-top: 0.75rem;
+}
+
+/* subtle status message alignment */
+.status-message {
+  text-align: left;
+  color: var(--accent-primary);
+  font-weight: 600;
+  margin: 0.75rem 0 0.25rem;
+}
+
+/* responsive: stack on tablets/phones */
+@media (max-width: 1024px) {
+  .sorting-grid {
+    grid-template-columns: 1fr;
+  }
+  .viz-canvas {
+    height: 360px;
+  }
+}
+
+/* ---------- Base + reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --page-max: 1200px;
+  --gap: 16px;
+  --gap-sm: 12px;
+
+  --surface-bg: #0b0f14;    /* already referenced inline */
+  --surface: #0f1520;
+  --border: #1f2a38;
+  --text: #e8eef7;
+  --muted: #a9b4c1;
+  --accent: #4da3ff;
+}
+
+body {
+  color: var(--text);
+}
+
+/* ---------- Page layout ---------- */
+.theme-container {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.theme-title {
+  margin: 0 0 20px 0;
+}
+
+/* Two-column grid: left = content cards, right = visualization */
+.sorting-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr; /* laptop/desktop split */
+  align-items: start;               /* TOP align both columns */
+  gap: var(--gap);
+}
+
+/* Left column contains only cards, laid out in a neat vertical stack */
+.sorting-left {
+  display: grid;
+  gap: var(--gap);
+}
+
+/* Right column is just one big card (viz) */
+.sorting-right {
+  position: sticky;
+  top: 20px;             /* keeps the viz visible while scrolling on wide screens */
+  align-self: start;
+}
+
+/* ---------- Cards ---------- */
+.theme-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.theme-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.theme-card-header.no-border {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.theme-card-header.between {
+  justify-content: space-between;
+}
+
+/* ---------- Forms & controls ---------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.form-grid.tight-grid {
+  gap: var(--gap-sm);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.span-2 {
+  grid-column: span 2;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.form-select,
+.form-control,
+.form-range {
+  width: 100%;
+}
+
+.form-control,
+.form-select {
+  background: #0c1118;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: #6f7b88;
+}
+
+.form-range {
+  accent-color: var(--accent);
+}
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: #121924;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06101d;
+  font-weight: 600;
+}
+
+.btn-secondary {}
+
+/* ---------- Viz ---------- */
+.viz-canvas {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 320px;                 /* matches your JS math (max 280 + padding) */
+  padding: 12px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  overflow: hidden;              /* keeps bars inside */
+  background: #0c1118;
+}
+
+/* ---------- Stats / Complexity grids ---------- */
+.stats-grid,
+.complexity-grid {
+  display: grid;
+  gap: var(--gap-sm);
+}
+
+.stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.complexity-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stat-card,
+.complexity-item {
+  background: #0c1118;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.stat-label,
+.complexity-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.stat-value,
+.complexity-value {
+  font-weight: 700;
+}
+
+/* ---------- Code-like blocks & messages ---------- */
+.code-like {
+  background: #0c1118;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.inline-error {
+  color: #ff6b6b;
+  background: #2a1212;
+  border: 1px solid #5a1f1f;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-top: 6px;
+}
+
+.status-message {
+  background: #0c1118;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--text);
+}
+
+/* ---------- Export block spacing ---------- */
+#sort-visualization-container .theme-card-header.no-border h3,
+.theme-card-header.no-border h3 {
+  margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .sorting-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sorting-grid {
+    grid-template-columns: 1fr;  /* stack on tablet/phone */
+  }
+
+  .sorting-right {
+    position: static;            /* no sticky on small screens */
+    order: -1;                   /* show viz first on mobile (optional) */
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;  /* controls stack vertically */
+  }
+
+  .form-group.span-2 {
+    grid-column: span 1;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .complexity-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ---------- Base + reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --page-max: 1200px;
+  --gap: 16px;
+  --gap-sm: 12px;
+
+  --surface-bg: #0b0f14;
+  --surface: #0f1520;
+  --border: #1f2a38;
+  --text: #e8eef7;
+  --muted: #a9b4c1;
+  --accent: #4da3ff;
+}
+
+body {
+  color: var(--text);
+}
+
+/* ---------- Page layout ---------- */
+.theme-container {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.theme-title {
+  margin: 0 0 20px 0;
+}
+
+/* Two-column grid: left = content cards, right = visualization */
+.sorting-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr; /* laptop/desktop split */
+  align-items: start;               /* TOP align both columns */
+  gap: var(--gap);
+}
+
+/* Left column contains only cards, laid out in a neat vertical stack */
+.sorting-left {
+  display: grid;
+  gap: var(--gap);
+}
+
+/* Right column stacks viz + compact stats */
+.sorting-right {
+  display: grid;
+  gap: var(--gap);
+  position: sticky;
+  top: 76px;        /* sit below your navbar; tweak to match your header height */
+  align-self: start;
+  z-index: 1;
+}
+
+/* ---------- Cards ---------- */
+.theme-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.theme-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.theme-card-header.no-border {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.theme-card-header.between {
+  justify-content: space-between;
+}
+
+/* stronger, crisper headers (fixes low-contrast “Visualization”) */
+.theme-card-header h3 {
+  color: var(--text);
+  font-weight: 750;
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+
+.viz-header {
+  margin-bottom: 2px;
+}
+
+/* ---------- Forms & controls ---------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.form-grid.tight-grid {
+  gap: var(--gap-sm);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.span-2 {
+  grid-column: span 2;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.form-select,
+.form-control,
+.form-range {
+  width: 100%;
+}
+
+.form-control,
+.form-select {
+  background: #0c1118;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: #6f7b88;
+}
+
+.form-range {
+  accent-color: var(--accent);
+}
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: #121924;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06101d;
+  font-weight: 600;
+}
+
+.btn-secondary {}
+
+/* ---------- Viz ---------- */
+.viz-canvas {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 320px;                 /* matches JS math (max 280 + padding) */
+  padding: 12px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0c1118;
+}
+
+/* ---------- Stats / Complexity grids ---------- */
+.stats-grid,
+.complexity-grid {
+  display: grid;
+  gap: var(--gap-sm);
+}
+
+.stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stats-grid.compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.compact-card .stat-card {
+  padding: 10px;
+}
+
+.compact-card .stat-label {
+  font-size: 0.78rem;
+}
+
+.compact-card .stat-value {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.complexity-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stat-card,
+.complexity-item {
+  background: #0c1118;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.stat-label,
+.complexity-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.stat-value,
+.complexity-value {
+  font-weight: 700;
+}
+
+/* ---------- Code-like blocks & messages ---------- */
+.code-like {
+  background: #0c1118;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.inline-error {
+  color: #ff6b6b;
+  background: #2a1212;
+  border: 1px solid #5a1f1f;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-top: 6px;
+}
+
+.status-message {
+  background: #0c1118;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--text);
+}
+
+/* ---------- Export block spacing ---------- */
+#sort-visualization-container .theme-card-header.no-border h3,
+.theme-card-header.no-border h3 {
+  margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .sorting-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sorting-grid {
+    grid-template-columns: 1fr;  /* stack on tablet/phone */
+  }
+
+  .sorting-right {
+    position: static;            /* no sticky on small screens */
+    top: auto;
+    order: -1;                   /* show viz first on mobile (optional) */
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;  /* controls stack vertically */
+  }
+
+  .form-group.span-2 {
+    grid-column: span 1;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .complexity-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compact-card {
+  max-height: 180px;   /* adjust as you like */
+  overflow-y: auto;    /* adds scrollbar if content overflows */
+}
