@@ -402,172 +402,64 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ===== Features (2×2) ===== */}
-      <section style={{ ...container }}>
-        <div style={{ ...inner, paddingTop: 0 }}>
-          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:"1rem" }}>
-            <h2 style={{ fontSize:"1.35rem", fontWeight:800, letterSpacing:".2px", color: T.textPrimary }}>Learning Paths</h2>
-            <div style={{ fontSize:".95rem", color: T.subText }}>Pick a topic • Visualize • Practice</div>
-          </div>
 
-          <div className="grid-2">
-            {features.map((f, i) => (
-              <Link key={i} to={f.path} className="feature-card"
-                style={{
-                  position:"relative",
-                  background: T.cardBg,
-                  border: T.cardBorder,
-                  borderRadius: 18,
-                  padding: "1.1rem 1.15rem",
-                  boxShadow: T.shadow,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  minHeight: 280,
-                }}
-              >
-                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12 }}>
-                  <div className={`feature-icon bg-gradient-to-br ${f.gradient}`}
-                       style={{ width:44, height:44, borderRadius:12, display:"grid", placeItems:"center", border: T.badgeBorder }}>
-                    <f.icon size={22} />
-                  </div>
-                  <div style={{ textAlign:"right" }}>
-                    <div style={{ display:"flex", gap:6, flexWrap:"wrap", justifyContent:"flex-end" }}>
-                      {f.badges.map((b, k) => (
-                        <span key={k}
-                              style={{
-                                fontSize:".76rem", padding:"3px 8px", borderRadius:999,
-                                border: T.badgeBorder, color: isLight ? "#1f2937" : "rgba(229,231,235,.9)",
-                                background: T.badgeBg
-                              }}>
-                          {b}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
 
-                <div style={{ marginTop:10 }}>
-                  <h3 style={{ marginBottom:6, fontSize:"1.05rem", fontWeight:700, color: T.textPrimary }}>{f.title}</h3>
-                  <p style={{ opacity: 0.9, color: T.textSecondary }}>{f.description}</p>
-                </div>
+        {/* Feature Cards with detailed content */}
+        {/* ADD THIS NEW SECTION */}
+        <div className="algo-learning-updates-container">
+       <section className="algorithm-buttons">
+        <h2 className='buttons-heading'>Resources</h2>
 
-                <div style={{ marginTop:14, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                  <span className="feature-cta" style={{ color: isLight ? "#1f2937" : undefined }}>Explore</span>
-                  <div className="feature-arrow"><ArrowRight size={16} /></div>
-                </div>
-              </Link>
-            ))}
+        {features.map((feature,index)=>(
+          <Link key={index} to={feature.path} className={`clean-button-link feature-${index+1}`}>
+            <div className='button-icon'>
+              <feature.icon size={35}/>
+            </div>
+            <span>{feature.title}</span>
+          </Link>
+        ))}
+       </section>
+       
+ <div className='vertical-steps-container'>
+  <h2 className='steps-heading'>Learning paths</h2>
+     {learningPaths.map((path,index)=>(
+      <div key={index} className={`step-button step-${index+1}`}>
+        <div className='step-content-wrapper'>
+          <div className='step-text'>
+            <span className='step-title'>{path.title}</span>
+            <p className='step-description'>{path.description}</p>
+            <div>
+              <div className='step-duration-tag'>{path.duration}</div>
+            </div>
           </div>
         </div>
-      </section>
-
-      {/* ===== Recent Updates ===== */}
-      <section style={{ ...container, paddingBottom:"1.5rem" }}>
-        <div style={{ ...inner, paddingTop:"1.15rem" }}>
-          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:"1rem" }}>
-            <h2 style={{ fontSize:"1.35rem", fontWeight:800, letterSpacing:".2px", color: T.textPrimary }}>Recent Updates</h2>
-            <div style={{ fontSize:".95rem", color: T.subText }}>Fresh improvements across the app</div>
-          </div>
-
-          <div className="updates-grid">
-            {recentUpdates.map((u, i) => (
-              <div key={i} style={{
-                background: T.updatesCardBg,
-                border: T.cardBorder,
-                borderRadius: 16,
-                padding: "0.9rem 1rem",
-                display: "flex",
-                gap: 12,
-                alignItems: "flex-start",
-                boxShadow: T.shadow,
-              }}>
-                <div style={{
-                  width: 36, height: 36, borderRadius: 10, display: "grid", placeItems: "center",
-                  background:
-                    u.type === "new" ? (isLight ? "rgba(59,130,246,.18)" : "rgba(99,102,241,.2)") :
-                    u.type === "update" ? (isLight ? "rgba(37,99,235,.18)" : "rgba(59,130,246,.2)") :
-                    u.type === "feature" ? (isLight ? "rgba(234,179,8,.18)" : "rgba(234,179,8,.2)") :
-                    (isLight ? "rgba(16,185,129,.18)" : "rgba(16,185,129,.2)"),
-                  border: T.badgeBorder,
-                }}>
-                  {u.type === "new" && <Sparkles size={16} />}
-                  {u.type === "update" && <Code size={16} />}
-                  {u.type === "feature" && <Star size={16} />}
-                  {u.type === "community" && <Users size={16} />}
+      </div>
+    ))}
+    
+  </div>
+        {/* Enhanced Activity Feed */}
+        <div className="activity-feed">
+          <h3 className="activity-title">Recent Updates</h3>
+          <div className="activity-items">
+            {recentUpdates.map((update, index) => (
+              <div key={index} className="activity-item">
+                <div className={`activity-icon ${update.type}`}>
+                  {update.type === 'new' && <Sparkles size={14} />}
+                  {update.type === 'update' && <Code size={14} />}
+                  {update.type === 'feature' && <Star size={14} />}
+                  {update.type === 'community' && <Users size={14} />}
                 </div>
-
-                <div style={{ flex: 1 }}>
-                  <h4 style={{ color: T.textPrimary, marginBottom: 4, fontWeight: 700 }}>{u.title}</h4>
-                  <p style={{ color: T.textSecondary }}>{u.description}</p>
-                </div>
-
-                <span style={{ fontSize: ".85rem", color: T.subText, whiteSpace: "nowrap" }}>{u.time}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== Learning Paths (curriculum, at the end) ===== */}
-      <section style={{ ...container, paddingBottom:"2.25rem" }}>
-        <div style={{ ...inner, paddingTop: 0 }}>
-          <h2
-            style={{
-              fontSize:"1.35rem", fontWeight:800, letterSpacing:".2px",
-              background: isLight
-                ? "linear-gradient(92deg,#2563eb,#059669,#06b6d4)"
-                : "linear-gradient(92deg,#60a5fa,#34d399,#f472b6)",
-              WebkitBackgroundClip:"text", color:"transparent"
-            }}
-          >
-            Learning Paths
-          </h2>
-
-          <div className="paths-grid">
-            {learningPaths.map((p, i) => (
-              <div key={i}
-                   style={{
-                     background: T.cardBg,
-                     border: T.cardBorder,
-                     borderRadius: 18,
-                     padding: "1rem 1.1rem",
-                     boxShadow: T.shadow,
-                   }}>
-                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: 6 }}>
-                  <h3 style={{ color: T.textPrimary, fontWeight: 700, fontSize: "1.05rem" }}>{p.title}</h3>
-                  <span style={{
-                    fontSize: ".8rem", fontWeight: 700, color: isLight ? "#0b1020" : "#0b1020",
-                    backgroundImage: p.color,
-                    padding: "6px 10px", borderRadius: 999,
-                    boxShadow: isLight ? "0 1px 0 rgba(255,255,255,.7) inset" : "0 1px 0 rgba(255,255,255,.15) inset",
-                    border: isLight ? "1px solid rgba(15,23,42,.08)" : "1px solid rgba(255,255,255,.08)",
-                  }}>
-                    {p.duration}
-                  </span>
-                </div>
-                <p style={{ color: T.textSecondary, marginBottom: 10 }}>{p.desc}</p>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  {p.tags.map((t, k) => (
-                    <span key={k}
-                          style={{
-                            fontSize: ".85rem",
-                            color: T.textPrimary,
-                            background: T.pillBg,
-                            border: T.pillBorder,
-                            borderRadius: 10,
-                            padding: "6px 10px",
-                          }}>
-                      {t}
-                    </span>
-                  ))}
+                <div className="activity-content">
+                  <h4 className="activity-item-title">{update.title}</h4>
+                  <p className="activity-description">{update.description}</p>
+                  <span className="activity-time">{update.time}</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
-    </div>
+        </div>
+      </div>
   );
 };
 
