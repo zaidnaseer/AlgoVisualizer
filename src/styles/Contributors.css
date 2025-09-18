@@ -664,11 +664,7 @@
     gap: 0.75rem;
   }
   
-  .stat-item {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
-  }
+  
 }
 
 /* Loading State */
