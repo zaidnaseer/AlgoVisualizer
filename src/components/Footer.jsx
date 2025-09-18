@@ -104,11 +104,12 @@ const Footer = () => {
             </div>
 
             <div className="tech-pills">
-              <span className="tech-pill">React</span>
-              <span className="tech-pill">JavaScript</span>
-              <span className="tech-pill">D3.js</span>
-              <span className="tech-pill">Node.js</span>
-            </div>
+  <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" className="tech-pill">React</a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" className="tech-pill">JavaScript</a>
+  <a href="https://d3js.org/" target="_blank" rel="noopener noreferrer" className="tech-pill">D3.js</a>
+  <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" className="tech-pill">Node.js</a>
+</div>
+
           </div>
 
           {/* Quick Links */}
