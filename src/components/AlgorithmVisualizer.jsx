@@ -5,7 +5,12 @@ import algorithmsData from "../algorithms/algorithms.json";
 // Import all your algorithm functions here
 import { runAlgorithmAsync, getAlgorithmType } from "../algorithms/runner";
 
-export default function AlgorithmVisualizer({ algorithmName, initialArray, visualOnly = false, hideTitle = false }) {
+export default function AlgorithmVisualizer({
+  algorithmName,
+  initialArray,
+  visualOnly = false,
+  hideTitle = false,
+}) {
   const [array, setArray] = useState([]);
   const [steps, setSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
@@ -19,8 +24,9 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
 
   // Generate new array
   const generateArray = () => {
-    const newArr = Array.from({ length: 15 }, () =>
-      Math.floor(Math.random() * 50) + 5
+    const newArr = Array.from(
+      { length: 15 },
+      () => Math.floor(Math.random() * 50) + 5
     );
     setArray(newArr);
     setSteps([]);
@@ -41,9 +47,13 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
       setArray([...initialArray]);
       setSteps([]);
       setCurrentStep(0);
-      const algoType = algorithmsData.find((a) => a.name === algorithmName)?.type;
+      const algoType = algorithmsData.find(
+        (a) => a.name === algorithmName
+      )?.type;
       if (algoType === "searching") {
-        setTarget(initialArray[Math.floor(Math.random() * initialArray.length)]);
+        setTarget(
+          initialArray[Math.floor(Math.random() * initialArray.length)]
+        );
       } else {
         setTarget(null);
       }
@@ -68,9 +78,6 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
     // Do not auto-run; wait for Start
   }, [visualOnly]);
 
-  // Simple built-in bubble sort steps generator
-  // Delegate to centralized runner
-
   const handleStart = () => {
     if (visualOnly) return; // nothing to animate in visual-only
     (async () => {
@@ -85,6 +92,12 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
     setSteps([]);
     setCurrentStep(0);
     setIsAnimating(false);
+    // Reset array to original state
+    if (Array.isArray(initialArray) && initialArray.length > 0) {
+      setArray([...initialArray]);
+    } else {
+      generateArray();
+    }
   };
 
   // Animate steps
@@ -95,6 +108,10 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
         const next = prev + 1;
         const step = steps[next];
         if (step && step.type === "swap" && Array.isArray(step.array)) {
+          setArray(step.array);
+        } else if (step && step.type === "move" && Array.isArray(step.array)) {
+          setArray(step.array);
+        } else if (step && step.type === "cycle" && Array.isArray(step.array)) {
           setArray(step.array);
         } else if (step && step.type === "done" && Array.isArray(step.array)) {
           setArray(step.array);
@@ -116,7 +133,9 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
       style={{ backgroundColor: "#0b1220", borderColor: "#1f2937" }}
     >
       {!hideTitle && (
-        <h2 className="text-xl font-bold mb-2 text-center text-white">{algorithmName}</h2>
+        <h2 className="text-xl font-bold mb-2 text-center text-white">
+          {algorithmName}
+        </h2>
       )}
       {!visualOnly && (
         <button
@@ -128,13 +147,37 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
       )}
       {!visualOnly && (
         <div className="flex items-center justify-center gap-3 mb-3">
-          <button onClick={handleStart} disabled={isAnimating} className={`px-3 py-2 text-white rounded ${isAnimating ? 'bg-green-400 cursor-not-allowed' : 'bg-green-600'}`}>Start</button>
-          <button onClick={() => setIsAnimating(false)} disabled={!isAnimating} className={`px-3 py-2 text-white rounded ${!isAnimating ? 'bg-yellow-400 cursor-not-allowed' : 'bg-yellow-600'}`}>Stop</button>
-          <button onClick={handleReset} className="px-3 py-2 bg-gray-500 text-white rounded">Reset</button>
-          {algorithmsData.find((a) => a.name === algorithmName)?.type === "searching" && (
+          <button
+            onClick={handleStart}
+            disabled={isAnimating}
+            className={`px-3 py-2 text-white rounded ${
+              isAnimating ? "bg-green-400 cursor-not-allowed" : "bg-green-600"
+            }`}
+          >
+            Start
+          </button>
+          <button
+            onClick={() => setIsAnimating(false)}
+            disabled={!isAnimating}
+            className={`px-3 py-2 text-white rounded ${
+              !isAnimating
+                ? "bg-yellow-400 cursor-not-allowed"
+                : "bg-yellow-600"
+            }`}
+          >
+            Stop
+          </button>
+          <button
+            onClick={handleReset}
+            className="px-3 py-2 bg-gray-500 text-white rounded"
+          >
+            Reset
+          </button>
+          {algorithmsData.find((a) => a.name === algorithmName)?.type ===
+            "searching" && (
             <input
               type="number"
-              value={target ?? ''}
+              value={target ?? ""}
               onChange={(e) => setTarget(Number(e.target.value))}
               placeholder="Target"
               className="px-2 py-1 border rounded"
@@ -155,7 +198,12 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
               value={animationSpeedMs}
               onChange={(e) => setAnimationSpeedMs(Number(e.target.value))}
             />
-            <span className="text-xs opacity-60" style={{ width: 40, textAlign: 'right' }}>{animationSpeedMs}ms</span>
+            <span
+              className="text-xs opacity-60"
+              style={{ width: 40, textAlign: "right" }}
+            >
+              {animationSpeedMs}ms
+            </span>
           </div>
           <label className="flex items-center gap-2">
             <input
@@ -169,11 +217,19 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
         </div>
       )}
 
-      {algoType === "searching" && <p className="text-center mb-2">Target: {target}</p>}
+      {algoType === "searching" && (
+        <p className="text-center mb-2 text-white">Target: {target}</p>
+      )}
 
       <div
         className="px-2 py-4 overflow-x-auto"
-        style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: 12, flexWrap: "nowrap" }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-end",
+          gap: 12,
+          flexWrap: "nowrap",
+        }}
       >
         {array.map((val, idx) => {
           let colorClass = "bg-blue-500"; // default visible blue
@@ -184,8 +240,14 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
               isHighlighted = step.indices.includes(idx);
               if (isHighlighted) colorClass = "bg-amber-400"; // compare highlight
             } else if (step.type === "swap") {
-              isHighlighted = true;
-              colorClass = "bg-rose-500"; // swap pulse
+              isHighlighted = step.indices && step.indices.includes(idx);
+              if (isHighlighted) colorClass = "bg-rose-500"; // swap pulse
+            } else if (step.type === "move") {
+              isHighlighted = step.indices && step.indices.includes(idx);
+              if (isHighlighted) colorClass = "bg-purple-500"; // move operation
+            } else if (step.type === "cycle") {
+              isHighlighted = step.indices && step.indices.includes(idx);
+              if (isHighlighted) colorClass = "bg-indigo-500"; // cycle operation
             } else if (step.type === "probe") {
               isHighlighted = step.index === idx;
               if (isHighlighted) colorClass = "bg-amber-400";
@@ -209,12 +271,14 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
                 border: isHighlighted
                   ? "2px solid rgba(245,158,11,0.85)"
                   : "1px solid rgba(59,130,246,0.35)",
-                filter: isHighlighted ? "saturate(1.25) brightness(1.08)" : "none",
+                filter: isHighlighted
+                  ? "saturate(1.25) brightness(1.08)"
+                  : "none",
                 transform: isHighlighted ? "scaleY(1.12)" : "scaleY(1)",
                 position: "relative",
                 display: "flex",
                 alignItems: "flex-end",
-                justifyContent: "center"
+                justifyContent: "center",
               }}
               className={`rounded ${colorClass}`}
             >
@@ -225,7 +289,7 @@ export default function AlgorithmVisualizer({ algorithmName, initialArray, visua
                   fontSize: 10,
                   color: "rgba(255,255,255,0.9)",
                   textShadow: "0 1px 2px rgba(0,0,0,0.25)",
-                  userSelect: "none"
+                  userSelect: "none",
                 }}
               >
                 {val}

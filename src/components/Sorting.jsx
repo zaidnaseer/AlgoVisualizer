@@ -20,6 +20,7 @@ import { introSortWithStop } from "../algorithms/introSort";
 import { shellSortWithStop } from "../algorithms/shellSort";
 
 import { COLOR } from "../utils/sortingHelpers";
+import { cycleSortWithStop } from "../algorithms/cycleSort";
 
 const algorithmNames = {
   bubbleSort: "Bubble Sort",
@@ -33,6 +34,7 @@ const algorithmNames = {
   timSort: "Tim Sort",
   introSort: "Intro Sort",
   shellSort: "Shell Sort",
+  cycleSort: "Cycle Sort",
 };
 
 const algorithms = {
@@ -47,6 +49,7 @@ const algorithms = {
   timSort: timSortWithStop,
   introSort: introSortWithStop,
   shellSort: shellSortWithStop,
+  cycleSort: cycleSortWithStop,
 };
 
 const Sorting = () => {
