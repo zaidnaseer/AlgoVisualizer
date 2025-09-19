@@ -32,6 +32,8 @@ import AlgorithmComparison from "./components/AlgorithmComparison";
 import Blog from "./pages/Blog";
 import CommunityLanding from "./pages/CommunityLanding";
 import "./styles/components.css";
+import SortingDoc from "./pages/SortingDoc.jsx"; // adjust path if your structure differs
+
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
@@ -77,6 +79,8 @@ const App = () => {
             path="/data-structures/linked-list"
             element={<LinkedListPage />}
           />
+      
+           <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
 
           {/* Graph */}
           <Route path="/graph" element={<Graph />} />

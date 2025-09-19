@@ -221,7 +221,7 @@ function AlgorithmCard({ algorithm }) {
       if (algorithm.category === 'dataStructures' && algorithm.id === 'linkedList') {
         navigate('/data-structures/linked-list');
       } else if (algorithm.category === 'sorting') {
-        navigate(`/sorting/${algorithm.id}`);
+        navigate(`/sorting/${algorithm.id}/docs`);
       } else if (algorithm.category === 'searching') {
         navigate(`/searching/${algorithm.id}`);
       } else if (algorithm.category === 'dataStructures') {
