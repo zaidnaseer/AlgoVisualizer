@@ -66,7 +66,9 @@ const Sorting = () => {
     time: 0,
   });
 
+  const skipNextGenerateRef = useRef(false);
   const stopSortingRef = useRef(false);
+
   const updateStats = (partial) =>
     setStatistics((prev) => ({ ...prev, ...partial }));
 
@@ -98,6 +100,7 @@ const Sorting = () => {
         return;
       }
 
+      skipNextGenerateRef.current = true;
       setArray(customArray);
       setArraySize(customArray.length);
       setColorArray(new Array(customArray.length).fill(COLOR.base));
@@ -171,13 +174,16 @@ const Sorting = () => {
   };
 
   useEffect(() => {
+    if (skipNextGenerateRef.current) {
+      skipNextGenerateRef.current = false;
+      return;
+    }
     generateArray();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arraySize]);
 
   const isTabletOrBelow = useMediaQuery({ query: "(max-width: 1024px)" });
 
-  // single declaration
   const currentLen = array.length || arraySize;
 
   const computeGap = () => {
@@ -333,7 +339,7 @@ const Sorting = () => {
             </div>
           </div>
 
-          {/* Message */}
+          {/* Status message */}
           {message && (
             <div className="theme-card">
               <div className="status-message">{message}</div>
