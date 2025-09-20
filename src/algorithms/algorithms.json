@@ -36,6 +36,12 @@
     "useCase": "It is the default sorting algorithm in Python and Java, optimized for real-world data patterns and partially ordered datasets."
   },
   {
+  "name": "Cycle Sort",
+  "type": "sorting",
+  "description": "Cycle Sort is a comparison-based, in-place sorting algorithm that minimizes the number of writes to the array by rotating elements to their correct positions in cycles. It is efficient when write operations are costly but has quadratic time complexity.",
+  "useCase": "Best suited for scenarios where minimizing the number of write operations is critical, such as sorting data in EEPROM or flash memory where write operations are expensive or limited."
+},
+  {
     "name": "Intro Sort",
     "type": "sorting",
     "description": "Intro Sort (Introspective Sort) is a hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth exceeds a certain level, and uses insertion sort for small partitions. This ensures both fast average performance and guaranteed worst-case efficiency.",

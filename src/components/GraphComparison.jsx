@@ -86,11 +86,11 @@ export default function GraphComparison() {
           overflowX: "auto",
         }}
       >
-        <div className="bg-white p-4 rounded-2xl shadow-lg" style={{ overflow: "auto" }}>
+        <div className="p-4 rounded-2xl shadow-lg" style={{ overflow: "auto" }}>
           <h2 className="text-xl font-semibold mb-4 text-center">{algo1}</h2>
           <GraphVisualizer defaultAlgorithm={algo1} autoLoadExample={true} canvasWidth={640} canvasHeight={420} />
         </div>
-        <div className="bg-white p-4 rounded-2xl shadow-lg" style={{ overflow: "auto" }}>
+        <div className="p-4 rounded-2xl shadow-lg" style={{ overflow: "auto" }}>
           <h2 className="text-xl font-semibold mb-4 text-center">{algo2}</h2>
           <GraphVisualizer defaultAlgorithm={algo2} autoLoadExample={true} canvasWidth={640} canvasHeight={420} />
         </div>
