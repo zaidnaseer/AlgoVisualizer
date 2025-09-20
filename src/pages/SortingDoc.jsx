@@ -12,7 +12,7 @@ export default function SortingDoc() {
     return (
       <div className="doc-page">
         <header className="doc-hero">
-          <h1>Documentation not available</h1>
+          <h1 className="doc-title">Documentation not available</h1>
           <p className="muted">
             Only Bubble Sort docs are implemented right now.
           </p>
@@ -29,12 +29,13 @@ export default function SortingDoc() {
   const pseudocode = PSEUDO?.["Bubble Sort"];
 
   if (!info) {
-    // If repo data is missing, still show a friendly page
     return (
       <div className="doc-page">
         <header className="doc-hero">
-          <h1>Bubble Sort — Documentation</h1>
-          <p className="muted">Info not found in ALGORITHM_INFO. You can still try the visualizer.</p>
+          <h1 className="doc-title">Bubble Sort — Documentation</h1>
+          <p className="muted">
+            Info not found in ALGORITHM_INFO. You can still try the visualizer.
+          </p>
           <div className="cta-row">
             <Link className="btn primary" to="/sorting">Open Visualizer</Link>
           </div>
@@ -47,32 +48,37 @@ export default function SortingDoc() {
     <div className="doc-page">
       <header className="doc-hero">
         <div className="hero-text">
-          <h1>
+          <h1 className="doc-title">
             Bubble Sort <span className="tag">docs</span>
           </h1>
-          <p className="muted">{info?.description ?? "No description available."}</p>
-          <div className="cta-row">
+          <p className="muted">
+            {info?.description ?? "No description available."}
+          </p>
+
+          <nav className="cta-row" aria-label="Quick links">
             <Link to="/sorting" className="btn primary">Open Visualizer</Link>
-            {pseudocode && <a className="btn" href="#pseudocode">Pseudocode</a>}
+            {pseudocode && (
+              <a className="btn" href="#pseudocode">Pseudocode</a>
+            )}
             <a className="btn" href="#walkthrough">Walkthrough</a>
-          </div>
+          </nav>
         </div>
       </header>
 
       <section className="stats-grid" aria-label="Key properties">
-        <article className="stat-card">
+        <article className="stat-card" role="article">
           <h3>Time Complexity</h3>
           <p><strong>Avg/Worst:</strong> {info.timeComplexity}</p>
           <p><strong>Best:</strong> {info.bestCase}</p>
         </article>
-        <article className="stat-card">
+        <article className="stat-card" role="article">
           <h3>Space</h3>
           <p>
             <strong>{info.spaceComplexity}</strong>
             {info.inPlace ? " (in-place)" : ""}
           </p>
         </article>
-        <article className="stat-card">
+        <article className="stat-card" role="article">
           <h3>Stable</h3>
           <p>
             <strong>
@@ -80,7 +86,7 @@ export default function SortingDoc() {
             </strong>
           </p>
         </article>
-        <article className="stat-card">
+        <article className="stat-card" role="article">
           <h3>Pattern</h3>
           <p>Adjacent compare &amp; swap</p>
         </article>
@@ -97,7 +103,7 @@ export default function SortingDoc() {
       {pseudocode && (
         <section id="pseudocode" className="doc-section">
           <h2>Pseudocode</h2>
-          <pre aria-label="Bubble Sort pseudocode" tabIndex="0">
+          <pre aria-label="Bubble Sort pseudocode" tabIndex={0}>
             <code>{pseudocode}</code>
           </pre>
           <details className="tip">
@@ -110,32 +116,34 @@ export default function SortingDoc() {
       <section id="walkthrough" className="doc-section">
         <h2>Step-by-step walkthrough</h2>
         <p className="muted">Example: <code>[5, 1, 4, 2, 8]</code></p>
-        <div className="steps">
-          <div className="step">
+
+        <ol className="steps" role="list">
+          <li className="step">
             <div className="step-no">1</div>
             <div className="step-body">
               <p><strong>Pass 1</strong>: bubble <code>8</code> to the end.</p>
             </div>
-          </div>
-          <div className="step">
+          </li>
+          <li className="step">
             <div className="step-no">2</div>
             <div className="step-body">
               <p><strong>Pass 2</strong>: bubble next largest (<code>5</code>).</p>
             </div>
-          </div>
-          <div className="step">
+          </li>
+          <li className="step">
             <div className="step-no">3</div>
             <div className="step-body">
               <p><strong>Stop early</strong> if no swaps in a pass.</p>
             </div>
-          </div>
-        </div>
+          </li>
+        </ol>
       </section>
 
       <section className="doc-section">
         <h2>Reference implementation</h2>
         <h3>JavaScript</h3>
-        <pre><code>{`function bubbleSort(arr) {
+        <pre>
+          <code>{`function bubbleSort(arr) {
   const a = arr.slice();
   for (let i = 0; i < a.length - 1; i++) {
     let swapped = false;
@@ -148,7 +156,8 @@ export default function SortingDoc() {
     if (!swapped) break;
   }
   return a;
-}`}</code></pre>
+}`}</code>
+        </pre>
       </section>
 
       <section className="doc-section center">
