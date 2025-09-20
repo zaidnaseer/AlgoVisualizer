@@ -1,17 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import {
-  Search,
-  Clock,
-  Database,
-  BookOpen,
-  Zap,
-  Users,
-  Star,
-  X,
-} from "lucide-react";
-import { useTheme } from "../ThemeContext";
+import { Search, Database, BookOpen, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Documentation.css"; // keep your linkedlist styles
+import "../styles/Documentation.css";
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -234,8 +224,7 @@ const algorithmDatabase = {
       {
         name: "Linked List",
         id: "linkedList",
-        description:
-          "Linear data structure where elements are stored in nodes.",
+        description: "Linear data structure where elements are stored in nodes.",
         timeComplexity: {
           insertion: "O(1)",
           deletion: "O(1)",
@@ -289,18 +278,6 @@ const algorithmDatabase = {
   },
 };
 
-const getComplexityColor = (complexity) => {
-  const colors = {
-    "O(1)": "#4ade80",
-    "O(log n)": "#66ccff",
-    "O(n)": "#ffd93d",
-    "O(n log n)": "#ff9500",
-    "O(n²)": "#ff6b6b",
-    "O(√n)": "#a78bfa",
-  };
-  return colors[complexity] || "#e0e6ed";
-};
-
 // ============================================================================
 // 2. SUB-COMPONENTS
 // ============================================================================
@@ -309,27 +286,30 @@ function AlgorithmCard({ algorithm }) {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    if (algorithm.implemented) {
+    if (!algorithm.implemented) return;
 
-      if (algorithm.category === 'dataStructures' && algorithm.id === 'linkedList') {
-        navigate('/data-structures/linked-list');
-      } else if (algorithm.category === 'sorting') {
-        navigate(`/sorting/${algorithm.id}/docs`);
-      } else if (algorithm.category === 'searching') {
-
-      if (
-        algorithm.category === "dataStructures" &&
-        algorithm.id === "linkedList"
-      ) {
+    // Route by category
+    if (algorithm.category === "dataStructures") {
+      if (algorithm.id === "linkedList") {
         navigate("/data-structures/linked-list");
-      } else if (algorithm.category === "sorting") {
-        navigate(`/sorting/${algorithm.id}`);
-      } else if (algorithm.category === "searching") {
-
-        navigate(`/searching/${algorithm.id}`);
-      } else if (algorithm.category === "dataStructures") {
+      } else {
         navigate(`/data-structures/${algorithm.id}`);
       }
+      return;
+    }
+
+    if (algorithm.category === "sorting") {
+      // Choose one: with docs suffix, or plain.
+      // If you want docs pages, use the next line:
+      navigate(`/sorting/${algorithm.id}/docs`);
+      // Otherwise:
+      // navigate(`/sorting/${algorithm.id}`);
+      return;
+    }
+
+    if (algorithm.category === "searching") {
+      navigate(`/searching/${algorithm.id}`);
+      return;
     }
   };
 
@@ -367,7 +347,7 @@ function DataStructuresPage() {
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
 
   const getAllAlgorithms = useCallback(() => {
-    let allAlgos = [];
+    const allAlgos = [];
     Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
       category.algorithms.forEach((algo) => {
         allAlgos.push({
@@ -384,18 +364,22 @@ function DataStructuresPage() {
 
   useEffect(() => {
     let allAlgorithms = getAllAlgorithms();
+
     if (selectedCategory !== "all") {
       allAlgorithms = allAlgorithms.filter(
         (algo) => algo.category === selectedCategory
       );
     }
+
     if (searchTerm) {
+      const q = searchTerm.toLowerCase();
       allAlgorithms = allAlgorithms.filter(
         (algo) =>
-          algo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          algo.description.toLowerCase().includes(searchTerm.toLowerCase())
+          algo.name.toLowerCase().includes(q) ||
+          algo.description.toLowerCase().includes(q)
       );
     }
+
     setFilteredAlgorithms(allAlgorithms);
   }, [searchTerm, selectedCategory, getAllAlgorithms]);
 
