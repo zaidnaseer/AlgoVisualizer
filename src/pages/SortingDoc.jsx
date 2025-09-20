@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { ALGORITHM_INFO } from "../data/algorithmInfo";
 import { ALGORITHM_PSEUDOCODE as PSEUDO } from "../data/pseudocode";
 import "../styles/SortingDoc.css";
@@ -10,7 +10,7 @@ export default function SortingDoc() {
   // Only support Bubble Sort for now
   if (algoId !== "bubbleSort") {
     return (
-      <main className="doc-page">
+      <div className="doc-page">
         <header className="doc-hero">
           <h1>Documentation not available</h1>
           <p className="muted">
@@ -21,7 +21,7 @@ export default function SortingDoc() {
             <Link className="btn primary" to="/sorting">Open Visualizer</Link>
           </div>
         </header>
-      </main>
+      </div>
     );
   }
 
@@ -31,7 +31,7 @@ export default function SortingDoc() {
   if (!info) {
     // If repo data is missing, still show a friendly page
     return (
-      <main className="doc-page">
+      <div className="doc-page">
         <header className="doc-hero">
           <h1>Bubble Sort — Documentation</h1>
           <p className="muted">Info not found in ALGORITHM_INFO. You can still try the visualizer.</p>
@@ -39,19 +39,21 @@ export default function SortingDoc() {
             <Link className="btn primary" to="/sorting">Open Visualizer</Link>
           </div>
         </header>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="doc-page">
+    <div className="doc-page">
       <header className="doc-hero">
         <div className="hero-text">
-          <h1>Bubble Sort <span className="tag">docs</span></h1>
-          <p className="muted">{info.description}</p>
+          <h1>
+            Bubble Sort <span className="tag">docs</span>
+          </h1>
+          <p className="muted">{info?.description ?? "No description available."}</p>
           <div className="cta-row">
             <Link to="/sorting" className="btn primary">Open Visualizer</Link>
-            <a className="btn" href="#pseudocode">Pseudocode</a>
+            {pseudocode && <a className="btn" href="#pseudocode">Pseudocode</a>}
             <a className="btn" href="#walkthrough">Walkthrough</a>
           </div>
         </div>
@@ -65,11 +67,18 @@ export default function SortingDoc() {
         </article>
         <article className="stat-card">
           <h3>Space</h3>
-          <p><strong>{info.spaceComplexity}</strong> (in-place)</p>
+          <p>
+            <strong>{info.spaceComplexity}</strong>
+            {info.inPlace ? " (in-place)" : ""}
+          </p>
         </article>
         <article className="stat-card">
           <h3>Stable</h3>
-          <p><strong>{String(info.stable) === "true" ? "Yes" : info.stable}</strong></p>
+          <p>
+            <strong>
+              {info.stable === true ? "Yes" : info.stable === false ? "No" : String(info.stable)}
+            </strong>
+          </p>
         </article>
         <article className="stat-card">
           <h3>Pattern</h3>
@@ -88,7 +97,9 @@ export default function SortingDoc() {
       {pseudocode && (
         <section id="pseudocode" className="doc-section">
           <h2>Pseudocode</h2>
-          <pre aria-label="Bubble Sort pseudocode"><code>{pseudocode}</code></pre>
+          <pre aria-label="Bubble Sort pseudocode" tabIndex="0">
+            <code>{pseudocode}</code>
+          </pre>
           <details className="tip">
             <summary>Optimization tip</summary>
             <p>Track last swap index to shrink the next pass range.</p>
@@ -143,6 +154,6 @@ export default function SortingDoc() {
       <section className="doc-section center">
         <Link to="/sorting" className="btn primary lg">Try in Visualizer</Link>
       </section>
-    </main>
+    </div>
   );
 }
