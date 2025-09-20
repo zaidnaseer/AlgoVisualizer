@@ -125,7 +125,7 @@ const Navbar = () => {
                       }`}
                       onClick={() => handleDropdownToggle(index)}
                     >
-                      <item.icon size={18} />
+                      <item.icon size={18} className="drop-icon" />
                       <span>{item.label}</span>
                       <ChevronDown
                         size={16}
@@ -158,7 +158,7 @@ const Navbar = () => {
                       isActive(item.path) ? "active" : ""
                     }`}
                   >
-                    <item.icon size={18} />
+                    <item.icon size={18} className="icon" />
                     <span>{item.label}</span>
                   </Link>
                 )}

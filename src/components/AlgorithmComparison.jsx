@@ -29,17 +29,35 @@ function AlgoVisualizer({
 }) {
   const containerRef = useRef(null);
   const [items, setItems] = useState([]); // [{id, value, index}]
-  const [active, setActive] = useState({ i: -1, j: -1, low: -1, mid: -1, high: -1, found: -1 });
+  const [active, setActive] = useState({
+    i: -1,
+    j: -1,
+    low: -1,
+    mid: -1,
+    high: -1,
+    found: -1,
+    cycleStart: -1,
+    pos: -1,
+  });
 
   // rebuild items whenever initialArray changes
   useEffect(() => {
-    const withIds = initialArray.map((v, idx) => ({ 
-      id: `${idx}-${v}-${Math.random()}`, 
-      value: v, 
-      index: idx 
+    const withIds = initialArray.map((v, idx) => ({
+      id: `${idx}-${v}-${Math.random()}`,
+      value: v,
+      index: idx,
     }));
     setItems(withIds);
-    setActive({ i: -1, j: -1, low: -1, mid: -1, high: -1, found: -1 });
+    setActive({
+      i: -1,
+      j: -1,
+      low: -1,
+      mid: -1,
+      high: -1,
+      found: -1,
+      cycleStart: -1,
+      pos: -1,
+    });
   }, [initialArray]);
 
   // core: animate on runToken change
@@ -130,7 +148,70 @@ function AlgoVisualizer({
         }
       };
 
+      // Cycle Sort
+      const cycle = () => {
+        const a = arrValues.slice();
+        const n = a.length;
+
+        for (let cycleStart = 0; cycleStart < n - 1; cycleStart++) {
+          let item = a[cycleStart];
+          let pos = cycleStart;
+
+          // Find position where we put the item
+          steps.push({ type: "cycle-start", cycleStart });
+          for (let i = cycleStart + 1; i < n; i++) {
+            steps.push({ type: "cycle-compare", cycleStart, i, pos });
+            if (a[i] < item) {
+              pos++;
+            }
+          }
+
+          // If item is already in correct position
+          if (pos === cycleStart) {
+            steps.push({ type: "cycle-skip", cycleStart });
+            continue;
+          }
+
+          // Skip duplicates
+          while (item === a[pos]) {
+            pos++;
+          }
+
+          // Put the item to the right position
+          if (pos !== cycleStart) {
+            [item, a[pos]] = [a[pos], item];
+            steps.push({ type: "cycle-swap", cycleStart, pos });
+          }
+
+          // Rotate the rest of the cycle
+          while (pos !== cycleStart) {
+            pos = cycleStart;
+
+            // Find position where we put the item
+            for (let i = cycleStart + 1; i < n; i++) {
+              steps.push({ type: "cycle-compare", cycleStart, i, pos });
+              if (a[i] < item) {
+                pos++;
+              }
+            }
+
+            // Skip duplicates
+            while (item === a[pos]) {
+              pos++;
+            }
+
+            // Put the item to the right position
+            if (item !== a[pos]) {
+              [item, a[pos]] = [a[pos], item];
+              steps.push({ type: "cycle-swap", cycleStart, pos });
+            }
+          }
+        }
+      };
+
       if (name.includes("bubble")) bubble();
+      else if (name.includes("insertion")) insertion();
+      else if (name.includes("cycle")) cycle();
       else insertion(); // default/fallback keeps it simple
     } else {
       // searching
@@ -171,7 +252,16 @@ function AlgoVisualizer({
     const run = () => {
       if (cancelled) return;
       if (k >= steps.length) {
-        setActive((s) => ({ ...s, i: -1, j: -1, low: -1, mid: -1, high: -1 }));
+        setActive((s) => ({
+          ...s,
+          i: -1,
+          j: -1,
+          low: -1,
+          mid: -1,
+          high: -1,
+          cycleStart: -1,
+          pos: -1,
+        }));
         onFinished?.();
         return;
       }
@@ -203,13 +293,46 @@ function AlgoVisualizer({
           nextFrame(run, speedMs * 0.8);
           return;
         }
+        // Cycle Sort specific steps
+        if (step.type === "cycle-start") {
+          setActive((s) => ({ ...s, cycleStart: step.cycleStart, pos: -1 }));
+          nextFrame(run, speedMs * 1.2);
+          return;
+        }
+        if (step.type === "cycle-compare") {
+          setActive((s) => ({
+            ...s,
+            i: step.i,
+            j: step.cycleStart,
+            cycleStart: step.cycleStart,
+            pos: step.pos,
+          }));
+          nextFrame(run, speedMs * 0.8);
+          return;
+        }
+        if (step.type === "cycle-swap") {
+          applySwap(step.cycleStart, step.pos);
+          setActive((s) => ({ ...s, i: step.cycleStart, j: step.pos }));
+          nextFrame(run, speedMs * 1.1);
+          return;
+        }
+        if (step.type === "cycle-skip") {
+          setActive((s) => ({
+            ...s,
+            cycleStart: step.cycleStart,
+            i: -1,
+            j: -1,
+          }));
+          nextFrame(run, speedMs * 0.7);
+          return;
+        }
       } else {
         if (step.type === "preset-sorted-array") {
           // render sorted array instantly for binary search baseline
-          const withIds = step.sorted.map((v, idx) => ({ 
-            id: `${idx}-${v}-${Math.random()}`, 
-            value: v, 
-            index: idx 
+          const withIds = step.sorted.map((v, idx) => ({
+            id: `${idx}-${v}-${Math.random()}`,
+            value: v,
+            index: idx,
           }));
           setItems(withIds);
           nextFrame(run, speedMs);
@@ -221,7 +344,12 @@ function AlgoVisualizer({
           return;
         }
         if (step.type === "bin-scan") {
-          setActive((s) => ({ ...s, low: step.low, mid: step.mid, high: step.high }));
+          setActive((s) => ({
+            ...s,
+            low: step.low,
+            mid: step.mid,
+            high: step.high,
+          }));
           nextFrame(run);
           return;
         }
@@ -248,8 +376,15 @@ function AlgoVisualizer({
   const cardPadding = 12;
   const barGap = 4;
   const barCount = Math.max(1, sortedItems.length);
-  const width = Math.min(620, Math.max(360, barCount * 18 + (barCount - 1) * barGap + cardPadding * 2));
-  const barWidth = clamp((width - cardPadding * 2 - (barCount - 1) * barGap) / barCount, 6, 24);
+  const width = Math.min(
+    620,
+    Math.max(360, barCount * 18 + (barCount - 1) * barGap + cardPadding * 2)
+  );
+  const barWidth = clamp(
+    (width - cardPadding * 2 - (barCount - 1) * barGap) / barCount,
+    6,
+    24
+  );
 
   return (
     <div
@@ -269,6 +404,8 @@ function AlgoVisualizer({
         const x = renderIndex * (barWidth + barGap);
         const isCompare = renderIndex === active.i || renderIndex === active.j;
         const isFound = renderIndex === active.found;
+        const isCycleStart = renderIndex === active.cycleStart;
+        const isCyclePos = renderIndex === active.pos;
 
         // binary pointers
         const isLow = renderIndex === active.low;
@@ -279,6 +416,8 @@ function AlgoVisualizer({
         if (isFound) bg = "#16a34a"; // green
         else if (isMid) bg = "#f59e0b"; // amber
         else if (isLow || isHigh) bg = "#0284c7"; // blue
+        else if (isCycleStart) bg = "#dc2626"; // red - cycle start
+        else if (isCyclePos) bg = "#9333ea"; // purple - cycle position
         else if (isCompare) bg = "#ef4444"; // red
 
         return (
@@ -291,7 +430,8 @@ function AlgoVisualizer({
               width: barWidth,
               height: h,
               transform: `translateX(${x}px)`,
-              transition: "transform 220ms ease, background-color 160ms ease, height 160ms ease",
+              transition:
+                "transform 220ms ease, background-color 160ms ease, height 160ms ease",
               background: bg,
               borderRadius: 6,
               boxShadow: "0 6px 12px rgba(0,0,0,0.08)",
@@ -333,17 +473,26 @@ function Legend({ color, label }) {
 /* ----------------------------- the page ------------------------------- */
 export default function AlgorithmComparison() {
   const [mode, setMode] = useState("sorting");
-  const pool = useMemo(() => algorithmsData.filter((a) => a.type === mode), [mode]);
+  const pool = useMemo(
+    () => algorithmsData.filter((a) => a.type === mode),
+    [mode]
+  );
 
   const fallback =
     mode === "sorting"
-      ? [{ name: "Bubble Sort" }, { name: "Insertion Sort" }]
+      ? [
+          { name: "Bubble Sort" },
+          { name: "Insertion Sort" },
+          { name: "Cycle Sort" },
+        ]
       : [{ name: "Linear Search" }, { name: "Binary Search" }];
 
   const options = pool.length ? pool : fallback;
 
   const [leftAlgo, setLeftAlgo] = useState(options[0]?.name || "");
-  const [rightAlgo, setRightAlgo] = useState(options[1]?.name || options[0]?.name || "");
+  const [rightAlgo, setRightAlgo] = useState(
+    options[1]?.name || options[0]?.name || ""
+  );
 
   const [leftText, setLeftText] = useState("5,2,9,1,5,6");
   const [rightText, setRightText] = useState("7,3,8,2,4,6");
@@ -374,16 +523,23 @@ export default function AlgorithmComparison() {
   // when mode changes, keep selections valid and reset mirror
   useEffect(() => {
     if (options.length >= 2) {
-      setLeftAlgo((p) => (options.some((x) => x.name === p) ? p : options[0].name));
-      setRightAlgo((p) => (options.some((x) => x.name === p) ? p : options[1].name));
+      setLeftAlgo((p) =>
+        options.some((x) => x.name === p) ? p : options[0].name
+      );
+      setRightAlgo((p) =>
+        options.some((x) => x.name === p) ? p : options[1].name
+      );
     }
     setMirror(false);
   }, [mode, options]);
 
   return (
-    <div className="theme-container" style={{ maxWidth: 1400, marginInline: "auto" }}>
+    <div
+      className="theme-container"
+      style={{ maxWidth: 1400, marginInline: "auto" }}
+    >
       <h1 className="theme-title">Algorithm Comparison</h1>
-      
+
       <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
         Select whether you want to compare sorting or searching algorithms, then
         choose two algorithms to compare side by side.
@@ -473,10 +629,14 @@ export default function AlgorithmComparison() {
             <div className="mt-3 flex items-center gap-2">
               <input
                 type="text"
-                placeholder={mode === "sorting" ? "e.g. 5,2,9,1,5,6" : "e.g. 7,3,8,2,4,6"}
+                placeholder={
+                  mode === "sorting" ? "e.g. 5,2,9,1,5,6" : "e.g. 7,3,8,2,4,6"
+                }
                 value={leftText}
                 onChange={(e) => setLeftText(e.target.value)}
-                className={`flex-1 p-2 border rounded-lg ${badLeft ? "border-red-400" : ""}`}
+                className={`flex-1 p-2 border rounded-lg ${
+                  badLeft ? "border-red-400" : ""
+                }`}
                 aria-invalid={badLeft}
                 disabled={mirror}
               />
@@ -495,7 +655,11 @@ export default function AlgorithmComparison() {
                 Reset
               </button>
             </div>
-            {badLeft && <p className="text-xs text-red-600 mt-1">Please enter comma-separated numbers.</p>}
+            {badLeft && (
+              <p className="text-xs text-red-600 mt-1">
+                Please enter comma-separated numbers.
+              </p>
+            )}
           </header>
 
           <div className="pt-4">
@@ -513,6 +677,8 @@ export default function AlgorithmComparison() {
             {mode === "sorting" ? (
               <>
                 <Legend color="#ef4444" label="Compare" />
+                <Legend color="#dc2626" label="Cycle Start" />
+                <Legend color="#9333ea" label="Cycle Pos" />
                 <Legend color="#4f46e5" label="Bar" />
               </>
             ) : (
@@ -554,10 +720,14 @@ export default function AlgorithmComparison() {
             <div className="mt-3 flex items-center gap-2">
               <input
                 type="text"
-                placeholder={mode === "sorting" ? "e.g. 7,3,8,2,4,6" : "e.g. 1,4,9,2,6"}
+                placeholder={
+                  mode === "sorting" ? "e.g. 7,3,8,2,4,6" : "e.g. 1,4,9,2,6"
+                }
                 value={rightText}
                 onChange={(e) => setRightText(e.target.value)}
-                className={`flex-1 p-2 border rounded-lg ${badRight ? "border-red-400" : ""}`}
+                className={`flex-1 p-2 border rounded-lg ${
+                  badRight ? "border-red-400" : ""
+                }`}
                 aria-invalid={badRight}
               />
               <button
@@ -575,7 +745,11 @@ export default function AlgorithmComparison() {
                 Reset
               </button>
             </div>
-            {badRight && <p className="text-xs text-red-600 mt-1">Please enter comma-separated numbers.</p>}
+            {badRight && (
+              <p className="text-xs text-red-600 mt-1">
+                Please enter comma-separated numbers.
+              </p>
+            )}
           </header>
 
           <div className="pt-4">
@@ -593,6 +767,8 @@ export default function AlgorithmComparison() {
             {mode === "sorting" ? (
               <>
                 <Legend color="#ef4444" label="Compare" />
+                <Legend color="#dc2626" label="Cycle Start" />
+                <Legend color="#9333ea" label="Cycle Pos" />
                 <Legend color="#4f46e5" label="Bar" />
               </>
             ) : (

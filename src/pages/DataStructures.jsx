@@ -1,8 +1,17 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Search, Clock, Database, BookOpen, Zap, Users, Star, X } from 'lucide-react';
-import { useTheme } from '../ThemeContext';
-import { useNavigate } from 'react-router-dom';
-import '../styles/Documentation.css'; // keep your linkedlist styles
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import {
+  Search,
+  Clock,
+  Database,
+  BookOpen,
+  Zap,
+  Users,
+  Star,
+  X,
+} from "lucide-react";
+import { useTheme } from "../ThemeContext";
+import { useNavigate } from "react-router-dom";
+import "../styles/Documentation.css"; // keep your linkedlist styles
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -17,92 +26,120 @@ const algorithmDatabase = {
       {
         name: "Bubble Sort",
         id: "bubbleSort",
-        description: "Compares adjacent elements and swaps them if they are in wrong order. Simple but inefficient for large datasets.",
+        description:
+          "Compares adjacent elements and swaps them if they are in wrong order. Simple but inefficient for large datasets.",
         timeComplexity: { best: "O(n)", average: "O(n²)", worst: "O(n²)" },
         spaceComplexity: "O(1)",
         stability: "Stable",
         inPlace: true,
         adaptivity: "Adaptive",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Selection Sort",
         id: "selectionSort",
-        description: "Finds the minimum element and places it at the beginning. Makes fewer swaps than bubble sort.",
+        description:
+          "Finds the minimum element and places it at the beginning. Makes fewer swaps than bubble sort.",
         timeComplexity: { best: "O(n²)", average: "O(n²)", worst: "O(n²)" },
         spaceComplexity: "O(1)",
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Insertion Sort",
         id: "insertionSort",
-        description: "Builds sorted array one element at a time. Efficient for small datasets and nearly sorted arrays.",
+        description:
+          "Builds sorted array one element at a time. Efficient for small datasets and nearly sorted arrays.",
         timeComplexity: { best: "O(n)", average: "O(n²)", worst: "O(n²)" },
         spaceComplexity: "O(1)",
         stability: "Stable",
         inPlace: true,
         adaptivity: "Adaptive",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Merge Sort",
         id: "mergeSort",
-        description: "Divides array into halves, sorts recursively, and merges them.",
-        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        description:
+          "Divides array into halves, sorts recursively, and merges them.",
+        timeComplexity: {
+          best: "O(n log n)",
+          average: "O(n log n)",
+          worst: "O(n log n)",
+        },
         spaceComplexity: "O(n)",
         stability: "Stable",
         inPlace: false,
         adaptivity: "Not Adaptive",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Quick Sort",
         id: "quickSort",
-        description: "Selects a pivot and partitions array around it. Fast average case but can degrade to O(n²).",
-        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n²)" },
+        description:
+          "Selects a pivot and partitions array around it. Fast average case but can degrade to O(n²).",
+        timeComplexity: {
+          best: "O(n log n)",
+          average: "O(n log n)",
+          worst: "O(n²)",
+        },
         spaceComplexity: "O(log n)",
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Tim Sort",
         id: "timSort",
-        description: "Hybrid stable sorting algorithm derived from merge sort and insertion sort. Optimized for real-world data by taking advantage of runs (already sorted subsequences).",
-        timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
+        description:
+          "Hybrid stable sorting algorithm derived from merge sort and insertion sort. Optimized for real-world data by taking advantage of runs (already sorted subsequences).",
+        timeComplexity: {
+          best: "O(n)",
+          average: "O(n log n)",
+          worst: "O(n log n)",
+        },
         spaceComplexity: "O(n)",
         stability: "Stable",
         inPlace: false,
         adaptivity: "Adaptive",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Intro Sort",
         id: "introSort",
-        description: "Hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth is too large, and uses insertion sort for small partitions. Combines fast average performance with worst-case guarantees.",
-        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        description:
+          "Hybrid sorting algorithm that begins with quicksort, switches to heapsort when recursion depth is too large, and uses insertion sort for small partitions. Combines fast average performance with worst-case guarantees.",
+        timeComplexity: {
+          best: "O(n log n)",
+          average: "O(n log n)",
+          worst: "O(n log n)",
+        },
         spaceComplexity: "O(log n)",
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Shell Sort",
         id: "shellSort",
-        description: "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. It improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing the total number of moves.",
-        timeComplexity: { best: "O(n log n)", average: "O(n(log n)^2)", worst: "O(n(log n)^2)" },
+        description:
+          "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. It improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing the total number of moves.",
+        timeComplexity: {
+          best: "O(n log n)",
+          average: "O(n(log n)^2)",
+          worst: "O(n(log n)^2)",
+        },
         spaceComplexity: "O(1)",
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
-        implemented: true
-      }
-    ]
+        implemented: true,
+      },
+    ],
   },
   searching: {
     title: "Search Algorithms",
@@ -112,49 +149,82 @@ const algorithmDatabase = {
       {
         name: "Linear Search",
         id: "linearSearch",
-        description: "Searches through array sequentially until target is found. Works on unsorted arrays.",
+        description:
+          "Searches through array sequentially until target is found. Works on unsorted arrays.",
         timeComplexity: { best: "O(1)", average: "O(n)", worst: "O(n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "None (works on unsorted data)",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Binary Search",
         id: "binarySearch",
-        description: "Searches sorted array by repeatedly dividing search interval in half.",
-        timeComplexity: { best: "O(1)", average: "O(log n)", worst: "O(log n)" },
+        description:
+          "Searches sorted array by repeatedly dividing search interval in half.",
+        timeComplexity: {
+          best: "O(1)",
+          average: "O(log n)",
+          worst: "O(log n)",
+        },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Exponential Search",
         id: "exponentialSearch",
-        description: "Searches sorted array by finding a range where the element may exist using exponential jumps, then performs binary search within that range.",
-        timeComplexity: { best: "O(1)", average: "O(log n)", worst: "O(log n)" },
+        description:
+          "Searches sorted array by finding a range where the element may exist using exponential jumps, then performs binary search within that range.",
+        timeComplexity: {
+          best: "O(1)",
+          average: "O(log n)",
+          worst: "O(log n)",
+        },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Jump Search",
         id: "jumpSearch",
-        description: "Searches sorted array by jumping ahead by fixed steps and then performing linear search within the block.",
+        description:
+          "Searches sorted array by jumping ahead by fixed steps and then performing linear search within the block.",
         timeComplexity: { best: "O(1)", average: "O(√n)", worst: "O(√n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true
+        implemented: true,
+      },
+      {
+        name: "Cycle Sort",
+        id: "cycleSort",
+        description:
+          "Minimizes the number of writes by rotating elements to their correct positions. Useful when write operations are costly.",
+        timeComplexity: {
+          best: "O(n²)",
+          average: "O(n²)",
+          worst: "O(n²)",
+        },
+        spaceComplexity: "O(1)",
+        stability: "Unstable",
+        inPlace: true,
+        adaptivity: "Not Adaptive",
+        implemented: true,
       },
       {
         name: "Ternary Search",
         id: "ternarySearch",
-        description: "Searches sorted array by repeatedly dividing search interval into three parts.",
-        timeComplexity: { best: "O(1)", average: "O(log₃ n)", worst: "O(log₃ n)" },
+        description:
+          "Searches sorted array by repeatedly dividing search interval into three parts.",
+        timeComplexity: {
+          best: "O(1)",
+          average: "O(log₃ n)",
+          worst: "O(log₃ n)",
+        },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true
-      }
-    ]
+        implemented: true,
+      },
+    ],
   },
   dataStructures: {
     title: "Data Structures",
@@ -164,49 +234,71 @@ const algorithmDatabase = {
       {
         name: "Linked List",
         id: "linkedList",
-        description: "Linear data structure where elements are stored in nodes.",
-        timeComplexity: { insertion: "O(1)", deletion: "O(1)", search: "O(n)", access: "O(n)" },
+        description:
+          "Linear data structure where elements are stored in nodes.",
+        timeComplexity: {
+          insertion: "O(1)",
+          deletion: "O(1)",
+          search: "O(n)",
+          access: "O(n)",
+        },
         spaceComplexity: "O(n)",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Stack",
         id: "stack",
         description: "Last-In-First-Out (LIFO) data structure.",
-        timeComplexity: { push: "O(1)", pop: "O(1)", peek: "O(1)", search: "O(n)" },
+        timeComplexity: {
+          push: "O(1)",
+          pop: "O(1)",
+          peek: "O(1)",
+          search: "O(n)",
+        },
         spaceComplexity: "O(n)",
-        implemented: false
+        implemented: false,
       },
       {
         name: "Queue",
         id: "queue",
         description: "First-In-First-Out (FIFO) data structure.",
-        timeComplexity: { enqueue: "O(1)", dequeue: "O(1)", front: "O(1)", search: "O(n)" },
+        timeComplexity: {
+          enqueue: "O(1)",
+          dequeue: "O(1)",
+          front: "O(1)",
+          search: "O(n)",
+        },
         spaceComplexity: "O(n)",
-        implemented: false
+        implemented: false,
       },
       {
         name: "Binary Tree",
         id: "binaryTree",
-        description: "Hierarchical data structure where each node has at most two children.",
-        timeComplexity: { insertion: "O(log n)", deletion: "O(log n)", search: "O(log n)", traversal: "O(n)" },
+        description:
+          "Hierarchical data structure where each node has at most two children.",
+        timeComplexity: {
+          insertion: "O(log n)",
+          deletion: "O(log n)",
+          search: "O(log n)",
+          traversal: "O(n)",
+        },
         spaceComplexity: "O(n)",
-        implemented: false
-      }
-    ]
-  }
+        implemented: false,
+      },
+    ],
+  },
 };
 
 const getComplexityColor = (complexity) => {
   const colors = {
-    'O(1)': '#4ade80',
-    'O(log n)': '#66ccff',
-    'O(n)': '#ffd93d',
-    'O(n log n)': '#ff9500',
-    'O(n²)': '#ff6b6b',
-    'O(√n)': '#a78bfa'
+    "O(1)": "#4ade80",
+    "O(log n)": "#66ccff",
+    "O(n)": "#ffd93d",
+    "O(n log n)": "#ff9500",
+    "O(n²)": "#ff6b6b",
+    "O(√n)": "#a78bfa",
   };
-  return colors[complexity] || '#e0e6ed';
+  return colors[complexity] || "#e0e6ed";
 };
 
 // ============================================================================
@@ -218,13 +310,24 @@ function AlgorithmCard({ algorithm }) {
 
   const handleCardClick = () => {
     if (algorithm.implemented) {
+
       if (algorithm.category === 'dataStructures' && algorithm.id === 'linkedList') {
         navigate('/data-structures/linked-list');
       } else if (algorithm.category === 'sorting') {
         navigate(`/sorting/${algorithm.id}/docs`);
       } else if (algorithm.category === 'searching') {
+
+      if (
+        algorithm.category === "dataStructures" &&
+        algorithm.id === "linkedList"
+      ) {
+        navigate("/data-structures/linked-list");
+      } else if (algorithm.category === "sorting") {
+        navigate(`/sorting/${algorithm.id}`);
+      } else if (algorithm.category === "searching") {
+
         navigate(`/searching/${algorithm.id}`);
-      } else if (algorithm.category === 'dataStructures') {
+      } else if (algorithm.category === "dataStructures") {
         navigate(`/data-structures/${algorithm.id}`);
       }
     }
@@ -232,10 +335,10 @@ function AlgorithmCard({ algorithm }) {
 
   return (
     <div
-      className={`algorithm-card ${algorithm.implemented ? 'clickable' : ''}`}
+      className={`algorithm-card ${algorithm.implemented ? "clickable" : ""}`}
       onClick={handleCardClick}
       title={algorithm.description}
-      style={{ cursor: algorithm.implemented ? 'pointer' : 'default' }}
+      style={{ cursor: algorithm.implemented ? "pointer" : "default" }}
     >
       <div className="card-header">
         <div className="card-title-group">
@@ -259,20 +362,20 @@ function AlgorithmCard({ algorithm }) {
 // ============================================================================
 
 function DataStructuresPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
 
   const getAllAlgorithms = useCallback(() => {
     let allAlgos = [];
     Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
-      category.algorithms.forEach(algo => {
+      category.algorithms.forEach((algo) => {
         allAlgos.push({
           ...algo,
           category: categoryKey,
           categoryTitle: category.title,
           categoryIcon: category.icon,
-          categoryColor: category.color
+          categoryColor: category.color,
         });
       });
     });
@@ -281,24 +384,50 @@ function DataStructuresPage() {
 
   useEffect(() => {
     let allAlgorithms = getAllAlgorithms();
-    if (selectedCategory !== 'all') {
-      allAlgorithms = allAlgorithms.filter(algo => algo.category === selectedCategory);
+    if (selectedCategory !== "all") {
+      allAlgorithms = allAlgorithms.filter(
+        (algo) => algo.category === selectedCategory
+      );
     }
     if (searchTerm) {
-      allAlgorithms = allAlgorithms.filter(algo =>
-        algo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        algo.description.toLowerCase().includes(searchTerm.toLowerCase())
+      allAlgorithms = allAlgorithms.filter(
+        (algo) =>
+          algo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          algo.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
     setFilteredAlgorithms(allAlgorithms);
   }, [searchTerm, selectedCategory, getAllAlgorithms]);
 
-  const categories = useMemo(() => [
-    { key: 'all', label: 'All', icon: BookOpen, count: getAllAlgorithms().length },
-    { key: 'sorting', label: 'Sorting', icon: Users, count: algorithmDatabase.sorting.algorithms.length },
-    { key: 'searching', label: 'Searching', icon: Search, count: algorithmDatabase.searching.algorithms.length },
-    { key: 'dataStructures', label: 'Data Structures', icon: Database, count: algorithmDatabase.dataStructures.algorithms.length }
-  ], [getAllAlgorithms]);
+  const categories = useMemo(
+    () => [
+      {
+        key: "all",
+        label: "All",
+        icon: BookOpen,
+        count: getAllAlgorithms().length,
+      },
+      {
+        key: "sorting",
+        label: "Sorting",
+        icon: Users,
+        count: algorithmDatabase.sorting.algorithms.length,
+      },
+      {
+        key: "searching",
+        label: "Searching",
+        icon: Search,
+        count: algorithmDatabase.searching.algorithms.length,
+      },
+      {
+        key: "dataStructures",
+        label: "Data Structures",
+        icon: Database,
+        count: algorithmDatabase.dataStructures.algorithms.length,
+      },
+    ],
+    [getAllAlgorithms]
+  );
 
   return (
     <div className="theme-container">
@@ -312,18 +441,18 @@ function DataStructuresPage() {
             type="text"
             placeholder="Search algorithms..."
             value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="form-control"
           />
         </div>
         <div className="category-filters">
-          {categories.map(category => {
+          {categories.map((category) => {
             const IconComponent = category.icon;
             const isActive = selectedCategory === category.key;
             return (
               <button
                 key={category.key}
-                className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'}`}
+                className={`btn ${isActive ? "btn-primary" : "btn-secondary"}`}
                 onClick={() => setSelectedCategory(category.key)}
               >
                 <IconComponent size={16} />
@@ -338,7 +467,7 @@ function DataStructuresPage() {
       {/* Results Grid */}
       <div className="results-grid">
         {filteredAlgorithms.length > 0 ? (
-          filteredAlgorithms.map(algorithm => (
+          filteredAlgorithms.map((algorithm) => (
             <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
           ))
         ) : (
