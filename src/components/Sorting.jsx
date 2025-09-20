@@ -177,12 +177,15 @@ const Sorting = () => {
 
   const isTabletOrBelow = useMediaQuery({ query: "(max-width: 1024px)" });
 
+  // single declaration
   const currentLen = array.length || arraySize;
+
   const computeGap = () => {
     if (currentLen > 40) return isTabletOrBelow ? "1px" : "2px";
     if (currentLen > 25) return "3px";
     return "6px";
   };
+
   const computeBarFontSize = () => {
     if (currentLen > 40) return "8px";
     if (currentLen > 30) return "9px";
@@ -196,11 +199,10 @@ const Sorting = () => {
     <div className="theme-container">
       <h1 className="theme-title">Sorting Algorithms</h1>
 
-      {/* --- PRO two-column layout --- */}
       <div className="sorting-grid">
-        {/* LEFT COLUMN: all cards */}
+        {/* LEFT COLUMN */}
         <div className="sorting-left">
-          {/* Top control bar */}
+          {/* Controls */}
           <div className="theme-card">
             <div className="theme-card-header no-border">
               <h3>Controls</h3>
@@ -293,9 +295,7 @@ const Sorting = () => {
                   min="10"
                   max="60"
                   value={arraySize}
-                  onChange={(e) =>
-                    setArraySize(parseInt(e.target.value, 10))
-                  }
+                  onChange={(e) => setArraySize(parseInt(e.target.value, 10))}
                   disabled={isSorting}
                   className="form-range"
                 />
@@ -333,14 +333,14 @@ const Sorting = () => {
             </div>
           </div>
 
-          {/* Status message (wrapped in card for alignment) */}
+          {/* Message */}
           {message && (
             <div className="theme-card">
               <div className="status-message">{message}</div>
             </div>
           )}
 
-          {/* Stats (detailed, left column) */}
+          {/* Stats */}
           <div className="theme-card">
             <div className="theme-card-header">
               <h3>Performance Statistics</h3>
@@ -408,7 +408,7 @@ const Sorting = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: visualization + compact stats */}
+        {/* RIGHT COLUMN */}
         <div className="sorting-right" id="sort-visualization-container">
           <div className="theme-card">
             <div className="theme-card-header no-border viz-header">
@@ -417,10 +417,7 @@ const Sorting = () => {
             <div className="viz-canvas" style={{ gap: computeGap() }}>
               {array.map((num, idx) => {
                 const maxVal = Math.max(...array, 1);
-                const heightPx = Math.max(
-                  40,
-                  Math.round((num / maxVal) * 280)
-                );
+                const heightPx = Math.max(40, Math.round((num / maxVal) * 280));
                 const col = colorArray[idx] || COLOR.base;
                 return (
                   <div
@@ -451,7 +448,7 @@ const Sorting = () => {
             </div>
           </div>
 
-          {/* Compact stats mirrored on the right for students */}
+          {/* Compact stats */}
           <div className="theme-card compact-card">
             <div className="theme-card-header no-border">
               <h3>Performance Stats</h3>
