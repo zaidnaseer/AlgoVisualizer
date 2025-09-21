@@ -319,10 +319,10 @@ function AlgorithmCard({ algorithm }) {
         navigate(`/sorting/${algorithm.id}/docs`);
       } else if (algorithm.category === "searching") {
         if (algorithm.id === "ternarySearch") {
-        navigate("/searching/ternarySearch"); // ✅ only fix ternary search
+        navigate("/searching/ternarySearch"); 
         }
         if (algorithm.id === "binarySearch") {
-        navigate("/searching/binarySearch"); // ✅ only fix ternary search
+        navigate("/searching/binarySearch"); 
         }
       } else if (algorithm.category === "dataStructures") {
         navigate(`/data-structures/${algorithm.id}`);
