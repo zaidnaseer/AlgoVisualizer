@@ -155,21 +155,12 @@ const Searching = () => {
     // Pick algorithm based on /searching/:id (if provided)
   useEffect(() => {
     const allowed = new Set([
-      "ternarySearch",
-
-      "binarySearch",
-
-      "jumpSearch",
-
-
-      "exponentialSearch"
-
-      "cycleSort",
-
-
-
-
-    ]);
+  "linearSearch",
+  "binarySearch",
+  "jumpSearch",
+  "exponentialSearch", 
+  "cycleSort"
+]);
     if (id && allowed.has(id)) {
       setAlgorithm(id);
     }
