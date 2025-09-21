@@ -47,12 +47,11 @@ const ALGORITHM_PSEUDOCODE = {
 ],
 
   exponentialSearch: [
-    { code: "bound = 1", explain: "Find range exponentially." },
-    { code: "while bound < n and arr[bound] < target", explain: "Grow bound." },
-    {
-      code: "binary search in [bound/2, min(bound, n-1)]",
-      explain: "Search within range.",
-    },
+    { code: "if arr[0] == target → return 0", explain: "Quick check." },
+    { code: "bound = 1", explain: "Start with a small bound." },
+    { code: "while bound < n and arr[bound] < target", explain: "Double the bound (1,2,4,8,…) to find a range that may contain target." },
+    { code: "low = floor(bound / 2), high = min(bound, n - 1)", explain: "Clamp the range to array limits." },
+    { code: "binary search in [low, high]", explain: "Run standard binary search inside the bounded range." },
   ],
 };
 
@@ -143,6 +142,7 @@ const Searching = () => {
     const allowed = new Set([
       "ternarySearch",
       "jumpSearch",
+      "exponentialSearch"
     ]);
     if (id && allowed.has(id)) {
       setAlgorithm(id);
@@ -265,6 +265,13 @@ const Searching = () => {
     setSteps(s);
     setCurrentStep(0);
   }, [algorithm, array, target]);
+
+  useEffect(() => {
+    if (algorithm === "exponentialSearch") {
+      setMessage("Tip: exponential grows the bound (1,2,4,8,…) then binary-searches the bounded range.");
+    }
+  }, [algorithm]);
+
   const getStepColorArray = () => {
     if (!steps[currentStep]) return colorArray;
     const step = steps[currentStep];

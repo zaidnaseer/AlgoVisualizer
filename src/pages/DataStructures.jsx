@@ -174,7 +174,7 @@ const algorithmDatabase = {
         name: "Exponential Search",
         id: "exponentialSearch",
         description:
-          "Searches sorted array by finding a range where the element may exist using exponential jumps, then performs binary search within that range.",
+          "For sorted arrays: expands the search range exponentially (1, 2, 4, 8, …) until it bounds the target, then performs binary search within that range.",        
         timeComplexity: {
           best: "O(1)",
           average: "O(log n)",
@@ -184,6 +184,7 @@ const algorithmDatabase = {
         dataRequirement: "Sorted array",
         implemented: true,
       },
+
       {
         name: "Jump Search",
         id: "jumpSearch",
@@ -325,6 +326,10 @@ function AlgorithmCard({ algorithm }) {
         if (algorithm.id === "jumpSearch") {
         navigate("/searching/jumpSearch");
         }
+        if (algorithm.id === "exponentialSearch") {
+        navigate("/searching/exponentialSearch");
+        }
+        
         
       } else if (algorithm.category === "dataStructures") {
         navigate(`/data-structures/${algorithm.id}`);
