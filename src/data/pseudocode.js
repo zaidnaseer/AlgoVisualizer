@@ -93,4 +93,13 @@ export const ALGORITHM_PSEUDOCODE = {
     { code: "    arr[j] = temp", explain: "Place the stored element in its correct position." },
     { code: "  gap = gap / 2", explain: "Reduce the gap for the next pass." },
   ],
+  cycleSort: [
+    { code: "for cycle_start in [0..n-2]", explain: "Choose cycle starting index" },
+    { code: "item = arr[cycle_start]", explain: "Store the starting item" },
+    { code: "pos = cycle_start", explain: "Find the correct position of item" },
+    { code: "for i in [cycle_start+1..n-1]", explain: "Count smaller elements" },
+    { code: "while item != arr[pos]", explain: "Swap and continue the cycle" },
+    { code: "swap(item, arr[pos])", explain: "Place item at its correct position" },
+  ],
+
 };

@@ -5,6 +5,11 @@ import {
   sleep,
 } from "../utils/sortingHelpers";
 
+/**
+ * Cycle Sort with visualization and stop support.
+ * Efficient for minimizing writes: each element is placed
+ * directly in its correct cycle position.
+ */
 export async function cycleSortWithStop(
   arr,
   setArray,
@@ -24,24 +29,28 @@ export async function cycleSortWithStop(
     let item = a[cycleStart];
     let pos = cycleStart;
 
-    // Find where to place the item
+    // 🔎 Step 1: Find correct position of item
     for (let i = cycleStart + 1; i < n; i++) {
       if (stopRef.current) throw new Error("Stopped");
       comparisons++;
       if (a[i] < item) pos++;
     }
 
-    // If the item is already in the correct position, skip
+    // If already in correct position, skip
     if (pos === cycleStart) continue;
 
-    // Skip duplicates
-    while (item === a[pos]) pos++;
+    // Handle duplicates
+    while (pos < n && item === a[pos]) pos++;
 
-    // Place the item to its correct position
-    if (item !== a[pos]) {
+    // 🔄 Step 2: Rotate cycle
+    while (pos !== cycleStart) {
+      if (stopRef.current) throw new Error("Stopped");
+
+      // Place item at its position
       [a[pos], item] = [item, a[pos]];
       swaps++;
 
+      // Visualization update
       const colors = createBaseColors(n);
       colors[pos] = COLOR.swapping;
       colors[cycleStart] = COLOR.comparing;
@@ -49,40 +58,24 @@ export async function cycleSortWithStop(
       setColorArray([...colors]);
       await sleep(delay);
       updateStats({ comparisons, swaps, time: 0 });
-    }
 
-    // Rotate the rest of the cycle
-    while (pos !== cycleStart) {
-      if (stopRef.current) throw new Error("Stopped");
-
+      // Recompute correct position for new item
       pos = cycleStart;
       for (let i = cycleStart + 1; i < n; i++) {
         if (stopRef.current) throw new Error("Stopped");
         comparisons++;
         if (a[i] < item) pos++;
       }
-
-      while (item === a[pos]) pos++;
-
-      if (item !== a[pos]) {
-        [a[pos], item] = [item, a[pos]];
-        swaps++;
-
-        const colors = createBaseColors(n);
-        colors[pos] = COLOR.swapping;
-        colors[cycleStart] = COLOR.comparing;
-        setArray([...a]);
-        setColorArray([...colors]);
-        await sleep(delay);
-        updateStats({ comparisons, swaps, time: 0 });
-      }
+      while (pos < n && item === a[pos]) pos++;
     }
 
+    // Mark elements up to cycleStart as sorted
     const colors = createBaseColors(n);
     for (let k = 0; k <= cycleStart; k++) colors[k] = COLOR.sorted;
     setColorArray([...colors]);
     await sleep(delay);
   }
 
+  // ✅ All sorted
   markAllSorted(n, setColorArray);
 }
