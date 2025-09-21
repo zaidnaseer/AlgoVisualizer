@@ -318,7 +318,9 @@ function AlgorithmCard({ algorithm }) {
       } else if (algorithm.category === "sorting") {
         navigate(`/sorting/${algorithm.id}/docs`);
       } else if (algorithm.category === "searching") {
-        navigate(`/searching/${algorithm.id}`);
+        if (algorithm.id === "ternarySearch") {
+        navigate("/searching/ternarySearch"); // ✅ only fix ternary search
+      }
       } else if (algorithm.category === "dataStructures") {
         navigate(`/data-structures/${algorithm.id}`);
       }

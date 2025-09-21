@@ -68,6 +68,7 @@ const App = () => {
 
           {/* Searching */}
           <Route path="/searching" element={<Searching />} />
+          <Route path="/searching/:id" element={<Searching />} />
           <Route
             path="/searching/comparison"
             element={<AlgorithmComparison />}
