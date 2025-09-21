@@ -400,13 +400,39 @@ AlgoVisualizer/
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
-<h2 id="getting-started">Getting Started</h2>
+<h2 id="getting-started">Getting Started With Contributions</h2>
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+```bash
+# Fork the repository on GitHub, then clone your fork:
+git clone https://github.com/your-username/AlgoVisualizer.git
+cd AlgoVisualizer
+``` 
+2. Set Up Upstream
+```bash
+# Add the original repository as upstream:
+git remote add upstream https://github.com/RhythmPahwa14/AlgoVisualizer.git
+git fetch upstream
+``` 
+3. Create your feature branch
+```bash
+# Create a new branch for your feature or bug fix:
+git checkout -b feature/your-feature-name
+# or
+git checkout -b fix/your-bug-fix
+``` 
+4. Commit your changes
+```bash
+# Stage and commit your changes:
+git add .
+git commit -m "feature: add awesome feature"
+``` 
+5. Push to the branch & Create PR
+```bash
+# Push your branch to your fork and open a Pull Request:
+git push origin feature/your-feature-name
+``` 
+Then go to AlgoVisualizer Pull Requests and create a PR with a clear description of your changes.
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
@@ -536,6 +562,8 @@ We love contributions from the community! Whether it's a bug report, a new featu
 1.  **Fork the repository** and create a new branch for your changes.
 2.  **Make your changes** and ensure everything is working as expected.
 3.  **Submit a pull request** with a clear description of your changes.
+
+or check out <a href="#getting-started">Getting Started With Contributions</a>
 
 ***Found a Bug?***
 
