@@ -18,6 +18,8 @@ const QuizManager = () => {
   const [timedMode, setTimedMode] = useState(false);
   const [quizStartTime, setQuizStartTime] = useState(null);
   const [quizEndTime, setQuizEndTime] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   // Available topics
   const topics = [
@@ -40,7 +42,7 @@ const QuizManager = () => {
 
   // Timer effect
   useEffect(() => {
-    if (timedMode && timeRemaining > 0 && currentStep === 'quiz') {
+    if (timedMode && timeRemaining > 0 && currentStep === 'quiz' && !isPaused) {
       const timer = setTimeout(() => {
         setTimeRemaining(time => time - 1);
       }, 1000);
@@ -48,7 +50,7 @@ const QuizManager = () => {
     } else if (timedMode && timeRemaining === 0 && currentStep === 'quiz') {
       handleSubmitQuiz();
     }
-  }, [timeRemaining, timedMode, currentStep]);
+  }, [timeRemaining, timedMode, currentStep, isPaused]);
 
   const startQuiz = (topic, difficulty, timed = false) => {
     // Create topic mapping for better filtering
@@ -170,6 +172,15 @@ const QuizManager = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const handlePause = () => setIsPaused(true);
+  const handleResume = () => setIsPaused(false);
+  const handleExit = () => setShowExitConfirm(true);
+  const confirmExit = () => {
+    setShowExitConfirm(false);
+    restartQuiz();
+  };
+  const cancelExit = () => setShowExitConfirm(false);
+
   if (currentStep === 'start') {
     return (
       <div className="theme-container">
@@ -195,6 +206,34 @@ const QuizManager = () => {
 
     return (
       <div className="theme-container">
+        {/* Pause/Exit Buttons */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginBottom: 10 }}>
+          <button onClick={handlePause} disabled={isPaused}>Pause</button>
+          <button onClick={handleExit}>Exit</button>
+        </div>
+        {/* Pause Overlay */}
+        {isPaused && (
+          <div style={{
+            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+            background: 'rgba(0,0,0,0.6)', zIndex: 1000, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', color: '#fff'
+          }}>
+            <h2>Quiz Paused</h2>
+            <button onClick={handleResume}>Resume</button>
+          </div>
+        )}
+        {/* Exit Confirmation */}
+        {showExitConfirm && (
+          <div style={{
+            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+            background: 'rgba(0,0,0,0.6)', zIndex: 1000, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', color: '#fff'
+          }}>
+            <h2>Are you sure you want to exit the quiz?</h2>
+            <button onClick={confirmExit}>Yes, Exit</button>
+            <button onClick={cancelExit}>Cancel</button>
+          </div>
+        )}
         <QuestionCard
           question={currentQuestion}
           questionNumber={currentQuestionIndex + 1}
