@@ -13,16 +13,15 @@ import { useMediaQuery } from "react-responsive";
 // Pseudocode for searching algorithms
 const ALGORITHM_PSEUDOCODE = {
   binarySearch: [
-    { code: "l = 0, r = n - 1", explain: "Initialize search range." },
-    { code: "while l <= r", explain: "While the range is valid..." },
+    { code: "l = 0, r = n - 1", explain: "Initialize the search bounds." },
+    { code: "while l <= r", explain: "Continue while the range is valid." },
     { code: "  mid = floor((l + r) / 2)", explain: "Pick the middle index." },
-    { code: "  if arr[mid] == target", explain: "Found the target." },
-    {
-      code: "  else if arr[mid] < target",
-      explain: "Search right half (l = mid + 1).",
-    },
-    { code: "  else", explain: "Search left half (r = mid - 1)." },
-  ],ternarySearch: [
+    { code: "  if arr[mid] == target → return mid", explain: "Found the target." },
+    { code: "  else if arr[mid] < target → l = mid + 1", explain: "Search the right half." },
+    { code: "  else → r = mid - 1", explain: "Search the left half." },
+    { code: "return -1", explain: "Target not found." },
+  ],
+  ternarySearch: [
   { code: "l = 0, r = n - 1", explain: "Initialize search range." },
   { code: "while l <= r", explain: "While the range is valid..." },
   { code: "  mid1 = l + floor((r - l) / 3)", explain: "Calculate first mid index." },
@@ -142,7 +141,11 @@ const Searching = () => {
   useEffect(() => {
     const allowed = new Set([
       "ternarySearch",
+
+      "binarySearch",
+
       "jumpSearch",
+
     ]);
     if (id && allowed.has(id)) {
       setAlgorithm(id);

@@ -160,7 +160,7 @@ const algorithmDatabase = {
         name: "Binary Search",
         id: "binarySearch",
         description:
-          "Searches sorted array by repeatedly dividing search interval in half.",
+          "Searches a sorted array by repeatedly halving the search interval: compare the middle element to the target and discard the half that cannot contain it.",
         timeComplexity: {
           best: "O(1)",
           average: "O(log n)",
@@ -322,10 +322,16 @@ function AlgorithmCard({ algorithm }) {
         if (algorithm.id === "ternarySearch") {
         navigate("/searching/ternarySearch"); 
         }
+
+        if (algorithm.id === "binarySearch") {
+        navigate("/searching/binarySearch"); 
+        }
+
         if (algorithm.id === "jumpSearch") {
         navigate("/searching/jumpSearch");
         }
         
+
       } else if (algorithm.category === "dataStructures") {
         navigate(`/data-structures/${algorithm.id}`);
       }
