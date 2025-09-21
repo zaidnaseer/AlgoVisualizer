@@ -37,10 +37,14 @@ const ALGORITHM_PSEUDOCODE = {
     { code: "  if arr[i] == target", explain: "Return index." },
   ],
   jumpSearch: [
-    { code: "step = floor(sqrt(n))", explain: "Jump size." },
-    { code: "while arr[min(step,n)-1] < target", explain: "Jump ahead." },
-    { code: "linear search in last block", explain: "Find within block." },
-  ],
+  { code: "step = floor(sqrt(n))", explain: "Choose jump size (≈ √n)." },
+  { code: "prev = 0", explain: "Start of current block." },
+  { code: "while arr[min(step, n) - 1] < target", explain: "Jump forward by step until block surpasses target." },
+  { code: "  prev = step; step += floor(sqrt(n))", explain: "Advance to next block." },
+  { code: "if prev >= n", explain: "Target larger than all elements → not found." },
+  { code: "linear search from prev to min(step, n) - 1", explain: "Scan within the block to find the target." },
+],
+
   exponentialSearch: [
     { code: "bound = 1", explain: "Find range exponentially." },
     { code: "while bound < n and arr[bound] < target", explain: "Grow bound." },
@@ -137,7 +141,11 @@ const Searching = () => {
   useEffect(() => {
     const allowed = new Set([
       "ternarySearch",
+
       "binarySearch",
+
+      "jumpSearch",
+
     ]);
     if (id && allowed.has(id)) {
       setAlgorithm(id);

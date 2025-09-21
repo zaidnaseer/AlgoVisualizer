@@ -1,59 +1,59 @@
+@import './theme.css';
+
 /* =========================
-   Doubt Section Styles — Next Level
+   Doubt Section Styles — Clean & Consistent
 ========================= */
 
 /* Theme Variables */
 :root {
-  --doubt-bg: #060d28;           
-  --doubt-surface: rgba(255,255,255,0.06);
-  --doubt-text: #e6edf3;
-  --doubt-subtext: #aab8d1;
+  --doubt-bg: var(--primary-bg);           
+  --doubt-surface: var(--card-bg);
+  --doubt-text: var(--text-primary);
+  --doubt-subtext: var(--text-secondary);
 
-  --doubt-input-bg: rgba(255,255,255,0.06);
-  --doubt-input-text: #e6edf3;
-  --doubt-border: rgba(255,255,255,0.16);
-  --doubt-border-focus: #5aa2ff;
+  --doubt-input-bg: var(--surface-bg);
+  --doubt-input-text: var(--text-primary);
+  --doubt-border: var(--border-primary);
+  --doubt-border-focus: var(--accent-primary);
 
-  --doubt-btn-from: #4f7eff;
-  --doubt-btn-to: #7b5cff;
-  --doubt-btn-hover-from: #6a92ff;
-  --doubt-btn-hover-to: #9a7cff;
-  --doubt-btn-text: #ffffff;
+  --doubt-btn-from: var(--button-primary-bg);
+  --doubt-btn-to: var(--button-primary-bg);
+  --doubt-btn-hover-from: var(--button-primary-hover);
+  --doubt-btn-hover-to: var(--button-primary-hover);
+  --doubt-btn-text: var(--button-primary-text);
 
-  --doubt-error: #ff6b6b;
-  --doubt-success: #35e19c;
+  --doubt-error: var(--error);
+  --doubt-success: var(--success);
 
-  --ring: 0 0 0 8px rgba(90,162,255,0.12);
+  --ring: 0 0 0 8px var(--accent-light);
 }
 
 [data-theme="light"] {
---doubt-bg: #f0f2f5; 
---doubt-surface: rgba(255, 255, 255, 0.7);
---doubt-text: #111827; /* Darker primary text */
---doubt-subtext: #4b5563; /* Darker grey for subtitles and helpers */
---doubt-input-bg: #ffffff;
---doubt-input-text: #111827;
---doubt-border: #d1d5db;
---doubt-border-focus: #2563eb; /* A stronger blue for focus */
---doubt-btn-from: #4f46e5; /* Darker, vibrant indigo */
---doubt-btn-to: #7c3aed;   /* Darker, vibrant purple */
---doubt-btn-hover-from: #4338ca;
---doubt-btn-hover-to: #6d28d9;
---doubt-btn-text: #ffffff;
---doubt-error: #dc2626; /* A stronger red */
---doubt-success: #059669; /* A stronger green */
---ring: 0 0 0 8px rgba(59, 130, 246, 0.1);
+--doubt-bg: var(--primary-bg); 
+--doubt-surface: var(--card-bg);
+--doubt-text: var(--text-primary);
+--doubt-subtext: var(--text-secondary);
+--doubt-input-bg: var(--surface-bg);
+--doubt-input-text: var(--text-primary);
+--doubt-border: var(--border-primary);
+--doubt-border-focus: var(--accent-primary);
+--doubt-btn-from: var(--button-primary-bg);
+--doubt-btn-to: var(--button-primary-bg);
+--doubt-btn-hover-from: var(--button-primary-hover);
+--doubt-btn-hover-to: var(--button-primary-hover);
+--doubt-btn-text: var(--button-primary-text);
+--doubt-error: var(--error);
+--doubt-success: var(--success);
+--ring: 0 0 0 8px var(--accent-light);
 }
 
 
-/* Section background with subtle grid + overflow for blobs */
+/* Section background with subtle grid */
 .doubt-section {
   position: relative;
   overflow: hidden;
   padding: 80px 16px;
-  background: radial-gradient(1200px 600px at 10% -10%, #12205a 0%, transparent 60%),
-              radial-gradient(900px 500px at 110% 10%, #1a2e7f 0%, transparent 60%),
-              var(--doubt-bg);
+  background: var(--doubt-bg);
   isolation: isolate;
   padding-bottom: 550px;
 }
@@ -72,33 +72,7 @@
   z-index: 0;
 }
 
-/* floating gradient blobs */
-.doubt-blob {
-  position: absolute;
-  filter: blur(36px);
-  opacity: 0.8;
-  z-index: 0;
-}
-
-.blob-a {
-  top: -120px;
-  left: -120px;
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle at 30% 30%, #5a8bff, transparent 60%),
-              radial-gradient(circle at 70% 70%, #9b6bff, transparent 55%);
-  border-radius: 50%;
-}
-
-.blob-b {
-  right: -140px;
-  bottom: -160px;
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle at 30% 30%, #3bd1a3, transparent 60%),
-              radial-gradient(circle at 70% 70%, #4b86ff, transparent 55%);
-  border-radius: 50%;
-}
+/* floating gradient blobs - removed for cleaner design */
 
 /* Card (glassmorphism + gradient border) */
 .doubt-card {
@@ -120,12 +94,7 @@
   inset: -1px;
   border-radius: 24px;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(122,161,255,0.6), rgba(155,114,255,0.5), rgba(59,209,163,0.5));
-  -webkit-mask: 
-     linear-gradient(#000 0 0) content-box, 
-     linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
+  background: var(--doubt-border);
   pointer-events: none;
   z-index: -1;
 }
@@ -137,17 +106,8 @@
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: 0.2px;
-  background: linear-gradient(180deg, #ffffff 0%, #b8c7ff 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-align: center;
-}
-[data-theme="light"] .doubt-title {
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
   color: var(--doubt-text);
+  text-align: center;
 }
 
 .doubt-subtitle {
@@ -311,22 +271,20 @@
   border-radius: 14px;
   font-weight: 700;
   color: var(--doubt-btn-text);
-  background-image: linear-gradient(135deg, var(--doubt-btn-from), var(--doubt-btn-to));
+  background: var(--doubt-btn-from);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 12px 24px rgba(79, 126, 255, 0.28);
-  transition: transform .15s ease, box-shadow .25s, filter .25s, background-position .4s;
-  background-size: 200% 200%;
-  background-position: 0% 50%;
+  box-shadow: var(--shadow-md);
+  transition: transform .15s ease, box-shadow .25s, filter .25s;
 }
 
 .submit-btn:hover:not(:disabled) {
-  background-image: linear-gradient(135deg, var(--doubt-btn-hover-from), var(--doubt-btn-hover-to));
+  background: var(--doubt-btn-hover-from);
   transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 16px 34px rgba(79, 126, 255, 0.36);
+  box-shadow: var(--shadow-lg);
 }
 
 .submit-btn:disabled {
@@ -335,14 +293,7 @@
   transform: none;
 }
 
-/* loading spinner */
-.spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+/* loading spinner - animation removed for consistency */
 
 /* Responsive Tweaks */
 @media (max-width: 768px) {
