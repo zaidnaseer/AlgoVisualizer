@@ -264,40 +264,47 @@ const Footer = () => {
         <div className="footer-bottom">
           <div className="footer-divider"></div>
           <div className="bottom-content">
+            <div className="footer-main-row">
             <div className="copyright">
               <p>
-                &copy; {new Date().getFullYear()} AlgoVisualizer. All rights
-                reserved.
+               &copy; {new Date().getFullYear()} AlgoVisualizer. All rights reserved.
               </p>
-            </div>
+            </div
+            <div className="footer-separator">•</div>
+
 
             <div className="footer-credits">
               <p>
-                Made with <FaHeart className="heart-icon" /> by
+                 Made with <FaHeart className="heart-icon" /> by{" "}
                 <a
                   href="https://github.com/rhythmpahwa14"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {" "}
                   Rhythm Pahwa
                 </a>{" "}
-                &
+                 &{" "}
                 <a
                   href="https://github.com/sandeepvashishtha"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {" "}
+        
                   Sandeep Vashishtha
                 </a>
               </p>
             </div>
-            <div className="legal-links">
-              <Link to="/privacy">Privacy Policy</Link>
-              <Link to="/terms">Terms of Service</Link>
-              <Link to="/cookies">Cookie Policy</Link>
-            </div>
+           </div>
+            
+            <div className="footer-legal-row">
+              <div className="legal-links">
+                <Link to="/privacy">Privacy Policy</Link>
+                <span className="legal-separator">|</span>
+                <Link to="/terms">Terms of Service</Link>
+                <span className="legal-separator">|</span>
+                <Link to="/cookies">Cookie Policy</Link>
+                </div>
+              </div>
           </div>
         </div>
       </footer>
