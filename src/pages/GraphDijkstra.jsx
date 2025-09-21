@@ -43,7 +43,7 @@ const GraphDijkstra = () => {
           </div>
         </div>
         <div style={{
-          background: 'var(--surface-bg)',
+          background: 'var(--code-bg)',
           borderRadius: '8px',
           padding: '1.5rem',
           overflow: 'auto',
@@ -52,9 +52,10 @@ const GraphDijkstra = () => {
           <pre style={{
             margin: 0,
             fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-            fontSize: '0.9rem',
-            lineHeight: '1.5',
-            color: 'var(--text-primary)',
+            fontSize: '0.95rem',
+            lineHeight: '1.6',
+            color: 'var(--code-text)',
+            background: 'var(--code-bg)',
             whiteSpace: 'pre-wrap',
             wordBreak: 'break-word'
           }}>
