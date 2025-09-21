@@ -188,12 +188,13 @@ const algorithmDatabase = {
         name: "Jump Search",
         id: "jumpSearch",
         description:
-          "Searches sorted array by jumping ahead by fixed steps and then performing linear search within the block.",
+          "Efficient search on sorted arrays that jumps ahead by fixed steps (√n) and then performs a linear search within the identified block.",
         timeComplexity: { best: "O(1)", average: "O(√n)", worst: "O(√n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
         implemented: true,
       },
+
       {
         name: "Cycle Sort",
         id: "cycleSort",
@@ -319,8 +320,12 @@ function AlgorithmCard({ algorithm }) {
         navigate(`/sorting/${algorithm.id}/docs`);
       } else if (algorithm.category === "searching") {
         if (algorithm.id === "ternarySearch") {
-        navigate("/searching/ternarySearch"); // ✅ only fix ternary search
-      }
+        navigate("/searching/ternarySearch"); 
+        }
+        if (algorithm.id === "jumpSearch") {
+        navigate("/searching/jumpSearch");
+        }
+        
       } else if (algorithm.category === "dataStructures") {
         navigate(`/data-structures/${algorithm.id}`);
       }
