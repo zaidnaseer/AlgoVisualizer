@@ -59,6 +59,17 @@
   --theme-status-danger: #da3633;
 }
 
+/* Theme-aware code block styles */
+:root {
+  --code-bg: #f5f5f7;
+  --code-text: #222;
+}
+
+[data-theme="dark"], .dark-theme {
+  --code-bg: #23272e;
+  --code-text: #f8f8f2;
+}
+
 /* -----------------
    2. Base & Layout
 ----------------- */
@@ -806,6 +817,7 @@ body {
 .result-answers p {
   margin: 0.5rem 0;
   font-size: 0.9rem;
+  color: var(--theme-text-secondary);
 }
 
 /* =======================================================
@@ -1024,6 +1036,7 @@ body {
 .result-answers p {
   margin: 0.5rem 0;
   font-size: 0.9rem;
+  color: var(--theme-text-secondary);
 }
 
 /* =======================================================
@@ -1215,4 +1228,16 @@ body {
 
 .theme-switch input:checked + .theme-switch-slider:before {
   transform: translateX(22px);
+}
+
+/* Code block styling */
+.theme-card pre,
+.theme-card code {
+  background: var(--code-bg) !important;
+  color: var(--code-text) !important;
+  border-radius: 8px;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 0;
 }
