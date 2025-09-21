@@ -7,6 +7,7 @@ import { ternarySearch } from "../algorithms/ternarySearch";
 import CodeExplanation from "../components/CodeExplanation";
 import SimpleExportControls from "../components/SimpleExportControls";
 import "../styles/global-theme.css";
+import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 // Pseudocode for searching algorithms
@@ -106,6 +107,7 @@ function getBarFontSize(arraySize) {
 }
 
 const Searching = () => {
+  const { id } = useParams();
   const [array, setArray] = useState([]);
   const [target, setTarget] = useState("");
   const [colorArray, setColorArray] = useState([]);
@@ -132,6 +134,17 @@ const Searching = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arraySize]);
 
+    // Pick algorithm based on /searching/:id (if provided)
+  useEffect(() => {
+    const allowed = new Set([
+      "ternarySearch",
+    ]);
+    if (id && allowed.has(id)) {
+      setAlgorithm(id);
+    }
+  }, [id]);
+
+
   const generateArray = () => {
     const randomArray = Array.from({ length: arraySize }, () =>
       Math.floor(Math.random() * 100)
@@ -146,7 +159,7 @@ const Searching = () => {
 
   const getAlgoLabel = (algo) =>
     ({
-      TernarySearch: "Ternary Search",
+      ternarySearch: "Ternary Search",
       binarySearch: "Binary Search",
       linearSearch: "Linear Search",
       jumpSearch: "Jump Search",
