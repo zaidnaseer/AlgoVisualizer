@@ -54,6 +54,14 @@ const ALGORITHM_PSEUDOCODE = {
       explain: "Search within range.",
     },
   ],
+
+  cycleSort: [
+    { code: "for cycle_start in 0..n-2", explain: "Pick start element of the cycle." },
+    { code: "  item = arr[cycle_start]", explain: "Initialize item." },
+    { code: "  find correct position of item", explain: "Count smaller elements to the right." },
+    { code: "  while item not at correct position", explain: "Rotate cycle by putting item in correct position." },
+    { code: "  repeat until cycle is complete", explain: "Continue rotations until back to start." }
+  ],
 };
 
 // Algorithm details: time, space, and two real-life uses
@@ -94,6 +102,14 @@ const SEARCHING_DETAILS = {
     uses: [
       "Unknown/unbounded size arrays",
       "Stream data: find range then binary search",
+    ],
+  },
+  cycleSort: {
+    time: "Best/Average/Worst O(n²)",
+    space: "O(1)",
+    uses: [
+      "Useful where memory writes are expensive (e.g., flash memory, EEPROM)",
+      "Minimizing writes in embedded systems",
     ],
   },
 };
@@ -143,6 +159,7 @@ const Searching = () => {
     const allowed = new Set([
       "ternarySearch",
       "jumpSearch",
+      "cycleSort",
     ]);
     if (id && allowed.has(id)) {
       setAlgorithm(id);

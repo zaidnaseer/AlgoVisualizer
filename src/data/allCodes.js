@@ -640,6 +640,77 @@ void introSortUtil(vector<int>& arr, int low, int high, int depthLimit) {
 }`
   },
 
+
+cycleSort: {
+        java: `
+        void cycleSort(int arr[]) {
+        int n = arr.length;
+        for (int cycle_start = 0; cycle_start <= n - 2; cycle_start++) {
+            int item = arr[cycle_start];
+            int pos = cycle_start;
+            for (int i = cycle_start + 1; i < n; i++)
+            if (arr[i] < item) pos++;
+            if (pos == cycle_start) continue;
+            while (item == arr[pos]) pos++;
+            int temp = arr[pos]; arr[pos] = item; item = temp;
+            while (pos != cycle_start) {
+            pos = cycle_start;
+            for (int i = cycle_start + 1; i < n; i++)
+                if (arr[i] < item) pos++;
+            while (item == arr[pos]) pos++;
+            temp = arr[pos]; arr[pos] = item; item = temp;
+            }
+        }
+        }
+        `,
+        python: `
+        def cycle_sort(arr):
+            n = len(arr)
+            for cycle_start in range(0, n - 1):
+                item = arr[cycle_start]
+                pos = cycle_start
+                for i in range(cycle_start + 1, n):
+                    if arr[i] < item:
+                        pos += 1
+                if pos == cycle_start:
+                    continue
+                while item == arr[pos]:
+                    pos += 1
+                arr[pos], item = item, arr[pos]
+                while pos != cycle_start:
+                    pos = cycle_start
+                    for i in range(cycle_start + 1, n):
+                        if arr[i] < item:
+                            pos += 1
+                    while item == arr[pos]:
+                        pos += 1
+                    arr[pos], item = item, arr[pos]
+        `,
+        cpp: `
+        void cycleSort(int arr[], int n) {
+        for (int cycle_start = 0; cycle_start <= n - 2; cycle_start++) {
+            int item = arr[cycle_start];
+            int pos = cycle_start;
+            for (int i = cycle_start + 1; i < n; i++)
+            if (arr[i] < item) pos++;
+            if (pos == cycle_start) continue;
+            while (item == arr[pos]) pos++;
+            swap(item, arr[pos]);
+            while (pos != cycle_start) {
+            pos = cycle_start;
+            for (int i = cycle_start + 1; i < n; i++)
+                if (arr[i] < item) pos++;
+            while (item == arr[pos]) pos++;
+            swap(item, arr[pos]);
+            }
+        }
+        }
+        `,
+        },
+
+
+
+
   shellSort: {
     java: `public static void shellSort(int[] arr) {
     int n = arr.length;
@@ -756,6 +827,8 @@ void introSortUtil(vector<int>& arr, int low, int high, int depthLimit) {
     arr = output;
 }`
   }
+
+  
 };
 
 export const searchAlgorithms = {
