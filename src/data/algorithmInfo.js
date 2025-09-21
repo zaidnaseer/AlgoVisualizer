@@ -77,4 +77,13 @@ export const ALGORITHM_INFO = {
     bestCase: "O(n log n)",
     stable: "No",
   },
+  cycleSort: {
+  description:
+      "An in-place, unstable sorting algorithm that minimizes writes by rotating elements into correct position in a cycle. Useful when memory writes are costly.",
+    timeComplexity: "O(n²)",
+    bestCase: "O(n²)",
+    spaceComplexity: "O(1)",
+    stable: false,
+  },
+
 };
