@@ -380,7 +380,7 @@ const Home = () => {
                   WebkitBackgroundClip: "text", backgroundClip: "text",
                 }}
               >
-                Master Algorithms Through Visual Learning  <span style={{ opacity: 1 }}>Visually</span>
+                Master Algorithms Through Visual Learning  <span style={{ opacity: 1 }}>- simplified</span>
               </h1>
 
               <p className="hero-subtitle" style={{ marginTop: ".9rem", color: T.textSecondary, maxWidth: 560, fontSize: "1rem" }}>
@@ -395,7 +395,7 @@ const Home = () => {
 
               <div style={{ marginTop: "1.4rem", display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
                 <Link to="/sorting" className="btn-primary-new"><Play size={16} />Start Learning</Link>
-                <Link to="/quiz" className="btn-secondary-new"><Trophy size={16} />Take a Quiz</Link>
+                <Link to="/quiz" className="btn-secondary-new"><Trophy size={16} /> Take a Quiz</Link>
               </div>
             </div>
           </div>
