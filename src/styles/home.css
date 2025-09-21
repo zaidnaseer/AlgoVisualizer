@@ -917,6 +917,7 @@ body.dark-mode .stat-card {
   background: var(--dashboard-btn-secondary-bg); 
   color: var(--dashboard-text-primary); 
   padding: 0.875rem 1.5rem;
+  gap: 8px;
   border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
