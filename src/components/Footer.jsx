@@ -269,7 +269,7 @@ const Footer = () => {
               <p>
                &copy; {new Date().getFullYear()} AlgoVisualizer. All rights reserved.
               </p>
-            </div
+            </div>
             <div className="footer-separator">•</div>
 
 
