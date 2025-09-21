@@ -42,8 +42,8 @@ const Navbar = () => {
       label: "Searching",
       icon: Search,
       dropdown: [
-        { path: "/searching", label: "Overview" },
-        { path: "/searching/comparison", label: "Algorithm Comparison" },
+        { path: "/searchingOverview", label: "Overview" },
+        { path: "/searching", label: "Searching Algorithm" },
       ],
     },
     {
