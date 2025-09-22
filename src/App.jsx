@@ -2,6 +2,7 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
+import { SettingsProvider } from "./contexts/SettingsContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -50,10 +51,11 @@ const App = () => {
   ];
 
   return (
-    <div className="app-container">
-      <ScrollToTop />
-      <ThemeToggle />
-      <Navbar />
+    <SettingsProvider>
+      <div className="app-container">
+        <ScrollToTop />
+        <ThemeToggle />
+        <Navbar />
 
       <main className="main-content page-content">
         <Routes>
@@ -122,6 +124,7 @@ const App = () => {
       <Footer />
       <Analytics />
     </div>
+    </SettingsProvider>
   );
 };
 
