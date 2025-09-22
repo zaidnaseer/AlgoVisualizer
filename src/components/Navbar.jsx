@@ -13,6 +13,7 @@ import {
   X,
   ChevronDown,
   BookOpen,
+  HelpCircle,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import logo from "/public/logo.jpg";
@@ -67,6 +68,7 @@ const Navbar = () => {
     },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },
+    { path: "/faq", icon: HelpCircle, label: "FAQ" },
     {
       label: "Community",
       icon: Users,
