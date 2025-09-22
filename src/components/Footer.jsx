@@ -159,6 +159,12 @@ const Footer = () => {
                   Documentation
                 </Link>
               </li>
+                <li>
+                <Link to="/faq">
+                  <FaArrowRight className="link-icon" />
+                  FAQ
+                </Link>
+               </li>
               <li>
                 <Link to="/data-structures">
                   <FaArrowRight className="link-icon" />
