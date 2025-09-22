@@ -95,21 +95,20 @@ const Footer = () => {
           <div className="footer-column brand-column">
             <div className="brand-header">
               <div className="logo-wrapper">
-  <img src={logo} alt="AlgoVisualizer Logo" className="logo-image" />
-  <span className="logo-text">AlgoVisualizer</span>
-</div>
+                <img src={logo} alt="AlgoVisualizer Logo" className="logo-image" />
+                <span className="logo-text">AlgoVisualizer</span>
+              </div>
               <p className="brand-tagline">
                 Visualize algorithms. Master coding. Elevate skills.
               </p>
             </div>
 
             <div className="tech-pills">
-  <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" className="tech-pill">React</a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" className="tech-pill">JavaScript</a>
-  <a href="https://d3js.org/" target="_blank" rel="noopener noreferrer" className="tech-pill">D3.js</a>
-  <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" className="tech-pill">Node.js</a>
-</div>
-
+              <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" className="tech-pill">React</a>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" className="tech-pill">JavaScript</a>
+              <a href="https://d3js.org/" target="_blank" rel="noopener noreferrer" className="tech-pill">D3.js</a>
+              <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" className="tech-pill">Node.js</a>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -237,6 +236,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
+                title="GitHub"
               >
                 <FaGithub />
               </a>
@@ -245,16 +245,17 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
+                title="LinkedIn"
               >
                 <FaLinkedin />
               </a>
-              <a href="#" className="social-link">
+              <a href="#" className="social-link" title="Twitter">
                 <FaXTwitter />
               </a>
-              <a href="#" className="social-link">
+              <a href="#" className="social-link" title="Discord">
                 <FaDiscord />
               </a>
-              <a href="#" className="social-link">
+              <a href="#" className="social-link" title="YouTube">
                 <FaYoutube />
               </a>
             </div>
@@ -265,36 +266,33 @@ const Footer = () => {
           <div className="footer-divider"></div>
           <div className="bottom-content">
             <div className="footer-main-row">
-            <div className="copyright">
-              <p>
-               &copy; {new Date().getFullYear()} AlgoVisualizer. All rights reserved.
-              </p>
+              <div className="copyright">
+                <p>
+                  &copy; {new Date().getFullYear()} AlgoVisualizer. All rights reserved.
+                </p>
+              </div>
+              <div className="footer-separator">•</div>
+              <div className="footer-credits">
+                <p>
+                  Made with <FaHeart className="heart-icon" /> by{" "}
+                  <a
+                    href="https://github.com/rhythmpahwa14"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Rhythm Pahwa
+                  </a>{" "}
+                  &{" "}
+                  <a
+                    href="https://github.com/sandeepvashishtha"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Sandeep Vashishtha
+                  </a>
+                </p>
+              </div>
             </div>
-            <div className="footer-separator">•</div>
-
-
-            <div className="footer-credits">
-              <p>
-                 Made with <FaHeart className="heart-icon" /> by{" "}
-                <a
-                  href="https://github.com/rhythmpahwa14"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Rhythm Pahwa
-                </a>{" "}
-                 &{" "}
-                <a
-                  href="https://github.com/sandeepvashishtha"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-        
-                  Sandeep Vashishtha
-                </a>
-              </p>
-            </div>
-           </div>
             
             <div className="footer-legal-row">
               <div className="legal-links">
@@ -303,8 +301,8 @@ const Footer = () => {
                 <Link to="/terms">Terms of Service</Link>
                 <span className="legal-separator">|</span>
                 <Link to="/cookies">Cookie Policy</Link>
-                </div>
               </div>
+            </div>
           </div>
         </div>
       </footer>
