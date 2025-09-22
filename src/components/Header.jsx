@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import '../styles/navbar.css';
 import { useTheme } from '../ThemeContext';
-import { FaGithub, FaMoon, FaSun, FaCode, FaSearch, FaDatabase, FaBrain, FaUsers, FaBook, FaProjectDiagram } from 'react-icons/fa';
-
+import { FaGithub, FaMoon, FaSun, FaCode, FaSearch, FaDatabase, FaBrain, FaUsers, FaBook, FaProjectDiagram, FaQuestionCircle } from 'react-icons/fa';
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -50,7 +49,8 @@ const Header = () => {
         { path: '/graph', label: 'Graph', icon: FaProjectDiagram, group: 'learn' },
         { path: '/quiz', label: 'Quiz', icon: FaBrain, group: 'test' },
         { path: '/contributors', label: 'Contributors', icon: FaUsers, group: 'community' },
-        { path: '/documentation', label: 'Documentation', icon: FaBook, group: 'help' }
+        { path: '/documentation', label: 'Documentation', icon: FaBook, group: 'help' },
+        { path: '/faq', label: 'FAQ', icon: FaQuestionCircle, group: 'help' }
     ];
 
     return (
