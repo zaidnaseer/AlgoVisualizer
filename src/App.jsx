@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Sorting from "./pages/Sorting";
 import Searching from "./pages/Searching";
+import SearchingOverview from "./pages/SearchingOverview.jsx";
 import DataStructures from "./pages/DataStructures";
 import Graph from "./pages/Graph";
 import GraphBFS from "./pages/GraphBFS";
@@ -73,6 +74,7 @@ const App = () => {
             path="/searching/comparison"
             element={<AlgorithmComparison />}
           />
+          <Route path="/searchingOverview" element={<SearchingOverview/>}/>
 
           {/* Data Structures */}
           <Route path="/data-structures" element={<DataStructures />} />
