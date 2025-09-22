@@ -33,7 +33,7 @@ import Blog from "./pages/Blog";
 import CommunityLanding from "./pages/CommunityLanding";
 import "./styles/components.css";
 import SortingDoc from "./pages/SortingDoc.jsx"; // adjust path if your structure differs
-
+import FAQ from "./pages/FAQ";
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
@@ -102,6 +102,7 @@ const App = () => {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<CookiePolicy />} />
           <Route path="/documentation" element={<AlgorithmDocumentation />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route
             path="/ContributorLeaderboard"
             element={<ContributorLeaderboard />}
