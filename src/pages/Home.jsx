@@ -395,7 +395,7 @@ const Home = () => {
 
               <div style={{ marginTop: "1.4rem", display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
                 <Link to="/sorting" className="btn-primary-new"><Play size={16} />Start Learning</Link>
-                <Link to="/quiz" className="btn-secondary-new"><Trophy size={16} /> Take a Quiz</Link>
+                <Link to="/quiz" className="btn-secondary-new"><Trophy size={16} />Take a Quiz</Link>
               </div>
             </div>
           </div>
