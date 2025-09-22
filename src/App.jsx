@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Sorting from "./pages/Sorting";
 import Searching from "./pages/Searching";
-import SearchingOverview from "./pages/searchingOverview.jsx";
+import SearchingOverview from "./pages/SearchingOverview.jsx";
 import DataStructures from "./pages/DataStructures";
 import Graph from "./pages/Graph";
 import GraphBFS from "./pages/GraphBFS";
