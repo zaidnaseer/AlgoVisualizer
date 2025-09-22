@@ -40,6 +40,13 @@ const GraphBFS = () => {
             >
               C++
             </button>
+             <button
+              className={`btn ${selectedLanguage === 'javascript' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setSelectedLanguage('javascript')}
+              style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+            >
+            Javascript
+            </button>
           </div>
         </div>
         <div style={{

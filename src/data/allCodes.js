@@ -947,6 +947,7 @@ def bfs(graph, start):
                 queue.append(neighbor)
     
     return result`,
+
     cpp: `void BFS(vector<vector<int>>& adj, int start) {
     vector<bool> visited(adj.size(), false);
     queue<int> q;
@@ -966,7 +967,27 @@ def bfs(graph, start):
             }
         }
     }
-}`
+}`,
+javascript: `function BFS(adj, start) {
+    let visited = new Array(adj.length).fill(false);
+    let q = [];
+
+    visited[start] = true;
+    q.push(start);
+
+    while (q.length > 0) {
+        let node = q.shift();  // dequeue
+        process.stdout.write(node + " "); // similar to cout in C++
+
+        for (let neighbor of adj[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                q.push(neighbor);
+            }
+        }
+    }
+}
+`
   },
 
   dfs: {
