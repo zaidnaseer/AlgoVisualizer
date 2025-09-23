@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
@@ -34,8 +33,10 @@ import AlgorithmComparison from "./components/AlgorithmComparison";
 import Blog from "./pages/Blog";
 import CommunityLanding from "./pages/CommunityLanding";
 import "./styles/components.css";
-import SortingDoc from "./pages/SortingDoc.jsx"; // adjust path if your structure differs
+import SortingDoc from "./pages/SortingDoc.jsx";
 import FAQ from "./pages/FAQ";
+import BacktrackingOverview from "./pages/BacktrackingOverview";
+import BacktrackingPage from "./pages/BacktrackingPage";
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
@@ -57,73 +58,80 @@ const App = () => {
         <ThemeToggle />
         <Navbar />
 
-      <main className="main-content page-content">
-        <Routes>
-          {/* Home */}
-          <Route path="/" element={<Home />} />
+        <main className="main-content page-content">
+          <Routes>
+            {/* Home */}
+            <Route path="/" element={<Home />} />
 
-          {/* Sorting */}
-          <Route path="/sorting" element={<Sorting />} />
-          <Route
-            path="/components/AlgorithmComparison"
-            element={<AlgorithmComparison />}
-          />
+            {/* Sorting */}
+            <Route path="/sorting" element={<Sorting />} />
+            <Route
+              path="/components/AlgorithmComparison"
+              element={<AlgorithmComparison />}
+            />
 
-          {/* Searching */}
-          <Route path="/searching" element={<Searching />} />
-          <Route path="/searching/:id" element={<Searching />} />
-          <Route
-            path="/searching/comparison"
-            element={<AlgorithmComparison />}
-          />
-          <Route path="/searchingOverview" element={<SearchingOverview/>}/>
+            {/* Searching */}
+            <Route path="/searching" element={<Searching />} />
+            <Route path="/searching/:id" element={<Searching />} />
+            <Route
+              path="/searching/comparison"
+              element={<AlgorithmComparison />}
+            />
+            <Route path="/searchingOverview" element={<SearchingOverview />} />
 
-          {/* Data Structures */}
-          <Route path="/data-structures" element={<DataStructures />} />
-          <Route
-            path="/data-structures/linked-list"
-            element={<LinkedListPage />}
-          />
-      
-           <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
+            {/* Data Structures */}
+            <Route path="/data-structures" element={<DataStructures />} />
+            <Route
+              path="/data-structures/linked-list"
+              element={<LinkedListPage />}
+            />
 
-          {/* Graph */}
-          <Route path="/graph" element={<Graph />} />
-          <Route path="/graph/bfs" element={<GraphBFS />} />
-          <Route path="/graph/dfs" element={<GraphDFS />} />
-          <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
-          <Route path="/graph/comparison" element={<GraphComparison />} />
+            <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
 
-          {/* Other Pages */}
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/community" element={<CommunityLanding />} />
-          <Route path="/contributors" element={<Contributors />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/cookies" element={<CookiePolicy />} />
-          <Route path="/documentation" element={<AlgorithmDocumentation />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route
-            path="/ContributorLeaderboard"
-            element={<ContributorLeaderboard />}
-          />
-        </Routes>
+            {/* Graph */}
+            <Route path="/graph" element={<Graph />} />
+            <Route path="/graph/bfs" element={<GraphBFS />} />
+            <Route path="/graph/dfs" element={<GraphDFS />} />
+            <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
+            <Route path="/graph/comparison" element={<GraphComparison />} />
 
-        {showComplexityBoxOn.includes(location.pathname) && (
-          <div style={{ marginTop: "2rem" }}>
-            <ComplexityBox algorithm={selectedAlgorithm} />
-          </div>
-        )}
-      </main>
+            {/* Backtracking */}
+            <Route
+              path="/backtracking-overview"
+              element={<BacktrackingOverview />}
+            />
+            <Route path="/backtracking" element={<BacktrackingPage />} />
 
-      <Doubt />
-      <Footer />
-      <Analytics />
-    </div>
+            {/* Other Pages */}
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/community" element={<CommunityLanding />} />
+            <Route path="/contributors" element={<Contributors />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/cookies" element={<CookiePolicy />} />
+            <Route path="/documentation" element={<AlgorithmDocumentation />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route
+              path="/ContributorLeaderboard"
+              element={<ContributorLeaderboard />}
+            />
+          </Routes>
+
+          {showComplexityBoxOn.includes(location.pathname) && (
+            <div style={{ marginTop: "2rem" }}>
+              <ComplexityBox algorithm={selectedAlgorithm} />
+            </div>
+          )}
+        </main>
+
+        <Doubt />
+        <Footer />
+        <Analytics />
+      </div>
     </SettingsProvider>
   );
 };
