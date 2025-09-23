@@ -160,22 +160,20 @@ const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const { name, complexity } = payload[0].payload;
     // Use data-theme attribute for theme detection
-    const isDarkMode =
-      document.documentElement.getAttribute("data-theme") === "dark";
     return (
       <div
         style={{
-          backgroundColor: isDarkMode ? "#1f2937" : "#ffffff",
-          padding: "10px 14px",
-          borderRadius: "8px",
-          border: `1px solid ${isDarkMode ? "#374151" : "#e5e7eb"}`,
-          color: isDarkMode ? "#e4e6ef" : "#1f2937",
-          fontSize: "0.9rem",
-          fontWeight: "500",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+       background: "var(--theme-card-bg)",
+       color: "var(--theme-text-primary)",
+       border: "1px solid var(--theme-border)",
+       boxShadow: "var(--theme-card-shadow)",
+       padding: "10px 14px",
+       borderRadius: "8px",
+       fontSize: "0.9rem",
+       fontWeight: "500",
         }}
       >
-        <p style={{ margin: 0, fontWeight: "600", color: "#38bdf8" }}>
+         <p style={{ margin: 0, fontWeight: 600, color: "var(--theme-accent)" }}>
           {name} Case
         </p>
         <p style={{ margin: 0 }}>
@@ -236,7 +234,19 @@ const ComplexityBox = () => {
           <BarChart data={chartData} barSize={60}>
             <XAxis dataKey="name" stroke={isDarkMode ? "#9ca3af" : "#6b7280"} />
             <YAxis stroke={isDarkMode ? "#9ca3af" : "#6b7280"} />
-            <Tooltip content={<CustomTooltip />} />
+             <Tooltip
+               content={<CustomTooltip />}
+              
+                  cursor={false}
+
+                wrapperStyle={{ background: 'transparent', border: 'none', boxShadow: 'none', padding: 0 }}
+                 contentStyle={{ background: 'transparent', border: 'none', boxShadow: 'none', padding: 0 }}
+                 labelStyle={{ color: 'var(--theme-text-primary)' }}
+                 itemStyle={{ color: 'var(--theme-text-primary)' }}
+                 trigger="hover"              // prevent click-to-toggle behavior
+                 allowEscapeViewBox={{ x: true, y: true }}
+             />
+
             <Bar dataKey="value" radius={[10, 10, 0, 0]}>
               {chartData.map((entry, index) => (
                 <Cell
