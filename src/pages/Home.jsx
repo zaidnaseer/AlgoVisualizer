@@ -282,7 +282,7 @@ const Home = () => {
                   />
                   <strong style={{ letterSpacing: ".2px" }}>Live Demo</strong>
                 </div>
-                <span style={{ opacity: 0.85, fontSize: ".9rem", color: isLight ? "#334155" : undefined }}>
+                <span style={{ opacity: 0.9, fontSize: ".9rem", color: isLight ? "#334155" : undefined }}>
                   Bubble Sort · {values.length} bars
                 </span>
               </div>
@@ -411,12 +411,16 @@ const Home = () => {
         <h2 className='buttons-heading'>Resources</h2>
 
         {features.map((feature,index)=>(
-          <Link key={index} to={feature.path} className={`clean-button-link feature-${index+1}`}>
-            <div className='button-icon'>
-              <feature.icon size={35}/>
-            </div>
-            <span>{feature.title}</span>
-          </Link>
+          <Link 
+  key={index} 
+  to={feature.path} 
+  className={`clean-button-link feature-${index+1}`}
+>
+  <div className='button-icon'>
+    <feature.icon size={35}/>
+  </div>
+  <span className="feature-title">{feature.title}</span>
+</Link>
         ))}
        </section>
        
@@ -427,7 +431,7 @@ const Home = () => {
         <div className='step-content-wrapper'>
           <div className='step-text'>
             <span className='step-title'>{path.title}</span>
-            <p className='step-description'>{path.description}</p>
+            <p className='step-description'>{path.desc}</p>
             <div>
               <div className='step-duration-tag'>{path.duration}</div>
             </div>
