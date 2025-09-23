@@ -8,6 +8,7 @@
   transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
   min-height: 400px;
+  z-index: 1;
 }
 
 .footer-container.visible {
@@ -22,13 +23,15 @@
   width: 100%;
   overflow: hidden;
   line-height: 0;
+  z-index: 0;
 }
 
 .footer-wave svg {
   position: relative;
   display: block;
-  width: calc(100% + 1.3px);
+  width: 100%;
   height: 55px;
+  min-height: 55px;
 }
 
 .footer-wave .shape-fill {
@@ -47,28 +50,40 @@
   position: relative;
   z-index: 2;
   flex: 1;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+  overflow: visible;
+}
+
+.footer-container.visible .footer-content {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Footer Columns */
 .footer-column {
   display: flex;
   flex-direction: column;
+  overflow: visible;
 }
 
 .brand-column {
   padding-right: 20px;
-
+  overflow: visible;
 }
 
 /* Brand Section */
 .brand-header {
   margin-bottom: 25px;
+  overflow: visible;
 }
 
 .logo-wrapper {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
+  overflow: visible;
 }
 
 .logo-icon {
@@ -84,18 +99,25 @@
   background: linear-gradient(90deg, var(--text-primary), var(--accent-color));
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(--primary-color); /* fallback if gradient doesn’t render */
+  color: var(--primary-color); /* fallback if gradient doesn't render */
   -webkit-text-fill-color: transparent;
-}
-.logo-image {
-  width: 50px;              /* slightly bigger for visibility */
-  height: 50px;             /* fixed height to make border-radius work */
-  border-radius: 10%;       /* makes it a perfect circle */
-  margin-right: 12px;
-  object-fit: cover;        /* ensures the image fills the circle */
-  display: block;
+  letter-spacing: -0.5px;
 }
 
+.logo-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  margin-right: 12px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+}
 
 .brand-tagline {
   color: var(--text-secondary, rgba(230, 237, 243, 0.8));
@@ -103,6 +125,7 @@
   line-height: 1.6;
   margin: 0;
   max-width: 280px;
+  font-weight: 400;
 }
 
 .tech-pills {
@@ -110,6 +133,7 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 25px;
+  overflow: visible;
 }
 
 .tech-pill {
@@ -122,12 +146,30 @@
   border: 1px solid var(--border-primary, rgba(240, 246, 252, 0.1));
   transition: all 0.3s ease;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.tech-pill:hover::before {
+  left: 100%;
 }
 
 .tech-pill:hover {
   background: var(--accent-light, rgba(88, 166, 255, 0.1));
   transform: translateY(-2px);
   border-color: var(--accent-primary, #58a6ff);
+  box-shadow: 0 4px 12px rgba(88, 166, 255, 0.15);
 }
 
 .footer-credits a {
@@ -136,6 +178,22 @@
   font-weight: 500;
   transition: all 0.3s ease;
   margin: 0 2px;
+  position: relative;
+}
+
+.footer-credits a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #4fc3f7;
+  transition: width 0.3s ease;
+}
+
+.footer-credits a:hover::after {
+  width: 100%;
 }
 
 .footer-credits a:hover {
@@ -188,11 +246,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow: visible;
 }
 
 .footer-links li {
   margin-bottom: 12px;
   width: 100%;
+  position: relative;
 }
 
 .footer-links a {
@@ -204,6 +264,23 @@
   justify-content: flex-start;
   transition: all 0.3s ease;
   padding: 4px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-links a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-primary, #58a6ff);
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover::before {
+  width: 100%;
 }
 
 .footer-links a:hover {
@@ -230,16 +307,19 @@
   line-height: 1.6;
   margin-bottom: 20px;
   text-align: left;
+  overflow: visible;
 }
 
 .newsletter-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  overflow: visible;
 }
 
 .input-container {
   position: relative;
+  overflow: visible;
 }
 
 .input-icon {
@@ -249,6 +329,7 @@
   transform: translateY(-50%);
   color: var(--text-muted, rgba(230, 237, 243, 0.6));
   font-size: 16px;
+  transition: color 0.3s ease;
 }
 
 .newsletter-input {
@@ -261,6 +342,11 @@
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
+}
+
+.newsletter-input:focus + .input-icon,
+.newsletter-input:valid + .input-icon {
+  color: var(--accent-primary, #58a6ff);
 }
 
 .newsletter-input:focus {
@@ -288,6 +374,23 @@
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.newsletter-btn:hover::before {
+  left: 100%;
 }
 
 .newsletter-btn:hover:not(.loading) {
@@ -325,6 +428,13 @@
   background: var(--surface-bg, rgba(255, 255, 255, 0.05));
   border-radius: 8px;
   border: 1px solid var(--border-primary, rgba(240, 246, 252, 0.1));
+  animation: fadeIn 0.5s ease;
+  overflow: visible;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .success-checkmark {
@@ -339,6 +449,13 @@
   background: #4caf50;
   border-radius: 50%;
   position: relative;
+  animation: popIn 0.3s ease 0.2s both;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); }
+  80% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 .check-icon::before {
@@ -371,6 +488,8 @@
   gap: 12px;
   margin-top: 20px;
   justify-content: center;
+  flex-wrap: wrap;
+  overflow: visible;
 }
 
 .social-link {
@@ -385,6 +504,23 @@
   font-size: 16px;
   transition: all 0.3s ease;
   border: 1px solid var(--border-primary, rgba(240, 246, 252, 0.1));
+  position: relative;
+  overflow: hidden;
+}
+
+.social-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.social-link:hover::before {
+  left: 100%;
 }
 
 .social-link:hover {
@@ -397,6 +533,7 @@
 /* Footer Bottom */
 .footer-bottom {
   margin-top: auto;
+  overflow: visible;
 }
 
 .footer-divider {
@@ -413,6 +550,7 @@
   margin: 0 auto;
   padding: 0 20px;
   text-align: center;
+  overflow: visible;
 }
 
 /* Footer Main Row */
@@ -422,6 +560,7 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+  overflow: visible;
 }
 
 .footer-separator {
@@ -452,6 +591,8 @@
   justify-content: center;
   align-items: center;
   margin-top: 8px;
+  overflow: visible;
+  flex-wrap: wrap;
 }
 
 .legal-links {
@@ -460,6 +601,7 @@
   gap: 0;
   justify-content: center;
   flex-wrap: wrap;
+  overflow: visible;
 }
 
 .legal-links a {
@@ -470,6 +612,23 @@
   padding: 4px 12px;
   border-radius: 6px;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.legal-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-primary, #58a6ff);
+  transition: width 0.3s ease;
+}
+
+.legal-links a:hover::after {
+  width: 100%;
 }
 
 .legal-links a:hover {
@@ -487,7 +646,7 @@
 }
 
 /* Responsive Design - Improved Mobile Experience */
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (min-width: 769px) {
   .footer-content {
     grid-template-columns: 1fr 1fr;
     gap: 30px;
@@ -528,13 +687,9 @@
     padding: 0 15px;
   }
   
-  .brand-column,
-  .newsletter-column {
+  .brand-column {
     grid-column: span 1;
     text-align: center;
-  }
-  
-  .brand-column {
     order: 1;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border-primary, rgba(240, 246, 252, 0.1));
@@ -785,6 +940,217 @@
   /* Keep legal links section hidden on mobile */
   .footer-legal-row {
     display: none;
+  }
+}
+
+/* Desktop Enhancements - Make footer more attractive on desktop */
+@media (min-width: 769px) {
+  .footer-container {
+    padding: 80px 0 30px;
+    background: linear-gradient(180deg, var(--card-bg, #21262d) 0%, var(--card-bg, #21262d) 90%, transparent 100%);
+    position: relative;
+    overflow: visible;
+  }
+  
+  .footer-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-primary, #58a6ff), var(--accent-hover, #79c0ff), var(--accent-primary, #58a6ff));
+    background-size: 200% 100%;
+    animation: gradientShift 3s linear infinite;
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  
+  .footer-content {
+    gap: 50px;
+    padding: 0 30px;
+    margin-bottom: 40px;
+    max-width: 1400px;
+  }
+  
+  .brand-column {
+    padding-right: 30px;
+    overflow: visible;
+  }
+  
+  .brand-header {
+    margin-bottom: 30px;
+    overflow: visible;
+  }
+  
+  .logo-wrapper {
+    margin-bottom: 20px;
+    overflow: visible;
+  }
+  
+  .logo-text {
+    font-size: 28px;
+    letter-spacing: -0.8px;
+    overflow: visible;
+  }
+  
+  .logo-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    margin-right: 15px;
+    overflow: visible;
+  }
+  
+  .brand-tagline {
+    font-size: 16px;
+    max-width: 100%;
+    line-height: 1.7;
+    overflow: visible;
+  }
+  
+  .tech-pills {
+    margin-bottom: 30px;
+    gap: 10px;
+    overflow: visible;
+  }
+  
+  .tech-pill {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+  }
+  
+  .column-title {
+    font-size: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    overflow: visible;
+  }
+  
+  .column-title::after {
+    width: 50px;
+    height: 4px;
+    overflow: visible;
+  }
+  
+  .footer-links li {
+    margin-bottom: 15px;
+    overflow: visible;
+  }
+  
+  .footer-links a {
+    font-size: 16px;
+    padding: 6px 0;
+    overflow: visible;
+  }
+  
+  .link-icon {
+    font-size: 14px;
+    overflow: visible;
+  }
+  
+  .newsletter-description {
+    font-size: 15px;
+    margin-bottom: 25px;
+    line-height: 1.7;
+    overflow: visible;
+  }
+  
+  .newsletter-form {
+    gap: 18px;
+    overflow: visible;
+  }
+  
+  .input-container {
+    position: relative;
+    overflow: visible;
+  }
+  
+  .newsletter-input {
+    padding: 16px 20px 16px 50px;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.4s ease;
+    overflow: visible;
+  }
+  
+  .input-icon {
+    left: 20px;
+    font-size: 18px;
+    overflow: visible;
+  }
+  
+  .newsletter-btn {
+    padding: 16px 25px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    overflow: visible;
+  }
+  
+  .social-links {
+    margin-top: 25px;
+    gap: 15px;
+    overflow: visible;
+  }
+  
+  .social-link {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: visible;
+  }
+  
+  .footer-divider {
+    margin-bottom: 30px;
+    height: 2px;
+    overflow: visible;
+  }
+  
+  .bottom-content {
+    gap: 20px;
+    padding: 0 30px;
+    max-width: 1400px;
+  }
+  
+  .footer-main-row {
+    gap: 15px;
+    overflow: visible;
+  }
+  
+  .copyright p,
+  .footer-credits p {
+    font-size: 15px;
+    font-weight: 600;
+    overflow: visible;
+  }
+  
+  .footer-legal-row {
+    margin-top: 12px;
+    overflow: visible;
+  }
+  
+  .legal-links a {
+    font-size: 14px;
+    padding: 6px 15px;
+    border-radius: 8px;
+    overflow: visible;
+  }
+  
+  .legal-separator {
+    margin: 0 12px;
+    overflow: visible;
   }
 }
 
