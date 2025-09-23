@@ -33,7 +33,7 @@ const Privacy = () => {
   const privacySections = [
     {
       id: "information-collection",
-      icon: "👁️",
+      icon: "1.",
       title: "Information Collection",
       content: "We collect information when you:",
       items: [
@@ -44,7 +44,7 @@ const Privacy = () => {
     },
     {
       id: "use-of-information",
-      icon: "📋",
+      icon: "2.",
       title: "Use of Information",
       content: "We use collected information to:",
       items: [
@@ -55,7 +55,7 @@ const Privacy = () => {
     },
     {
       id: "data-protection",
-      icon: "🔒",
+      icon: "3.",
       title: "Data Protection",
       content: "Security measures include:",
       items: [
@@ -66,13 +66,13 @@ const Privacy = () => {
     },
     {
       id: "third-party-services",
-      icon: "👥",
+      icon: "4.",
       title: "Third-Party Services",
       content: "We may use services like Google Analytics for usage tracking.",
     },
     {
       id: "your-rights",
-      icon: "✅",
+      icon: "5.",
       title: "Your Rights",
       content: "You can request to:",
       items: [
@@ -124,7 +124,7 @@ const Privacy = () => {
                     <span>{section.icon}</span>
                   </div>
                   <h2 className="section-title">
-                    {index + 1}. {section.title}
+                    {section.title}
                   </h2>
                   <div className="toggle-icon">
                     {isOpen ? '−' : '+'}
