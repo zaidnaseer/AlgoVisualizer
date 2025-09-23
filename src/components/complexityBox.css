@@ -69,19 +69,6 @@
 .dropdown-container select option:hover {
   background-color: #f3f4f6;
 }
-/* Kill Recharts' default tooltip (the white box) if it mounts on click */
-.complexity-container .recharts-default-tooltip {
-  display: none !important;
-}
-
-/* Extra belt-and-suspenders: make wrapper transparent and unclickable */
-.complexity-container .recharts-tooltip-wrapper {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  pointer-events: none !important; /* so it never takes focus on click */
-}
 
 .chart-wrapper {
   margin-top: 10px;
@@ -89,13 +76,6 @@
   padding: 16px;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
-}
-/* Kill default Recharts tooltip white box */
-.complexity-container .recharts-default-tooltip {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
 }
 
 /* Chart bar effects */
