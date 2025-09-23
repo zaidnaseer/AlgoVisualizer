@@ -214,21 +214,6 @@ const algorithmDatabase = {
       },
 
       {
-        name: "Cycle Sort",
-        id: "cycleSort",
-         description:
-          "In-place algorithm that minimizes writes by rotating elements directly to their correct positions. It’s efficient when write operations (e.g., on EEPROM/flash memory) are costly.",
-        timeComplexity: {
-          best: "O(n²)", average: "O(n²)", worst: "O(n²)"
-        },
-        spaceComplexity: "O(1) (only a few variables)",
-          stability: "Unstable",
-        inPlace: true,
-        adaptivity: "Not Adaptive",
-        implemented: true,
-
-      },
-      {
         name: "Ternary Search",
         id: "ternarySearch",
         description:
@@ -351,14 +336,6 @@ function AlgorithmCard({ algorithm }) {
         if (algorithm.id === "exponentialSearch") {
         navigate("/searching/exponentialSearch");
         }
-        
-
-        if (algorithm.id === "cycleSort") {
-        navigate("/searching/cycleSort");
-        }
-
-        
-
       } else if (algorithm.category === "dataStructures") {
         navigate(`/data-structures/${algorithm.id}`);
       }
