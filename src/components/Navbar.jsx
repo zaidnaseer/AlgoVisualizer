@@ -16,15 +16,32 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
-import logo from "/public/logo.jpg";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
   const { theme } = useTheme();
 
-  const navbarRef = useRef(null); // added ref to the navbar
+  const navbarRef = useRef(null);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      // Always keep menu closed by default
+      if (window.innerWidth > 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const navigationItems = [
     { path: "/", icon: Home, label: "Home" },
@@ -107,13 +124,68 @@ const Navbar = () => {
     <>
       <nav className="navbar" ref={navbarRef}>
         <div className="navbar-container">
-          {/* Logo */}
-          <Link to="/" className="navbar-logo">
-            <img src={logo} alt="AlgoVisualizer Logo" className="logo-img" />
-            <span className="logo-text">
-              Algo<span>Visualizer</span>
-            </span>
-          </Link>
+          {/* Mobile Header Row */}
+          {isMobile && (
+            <div className="navbar-header">
+              <Link to="/" className="navbar-logo">
+                <img 
+                  src="/logo.jpg" 
+                  alt="AlgoVisualizer Logo" 
+                  className="logo-img"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
+                <span className="logo-text">
+                  Algo<span>Visualizer</span>
+                </span>
+              </Link>
+              
+              <div className="mobile-header-buttons">
+                <Link 
+                  to="/settings" 
+                  className={`mobile-settings-btn ${
+                    isActive("/settings") ? "active" : ""
+                  }`}
+                >
+                  <Settings size={20} />
+                </Link>
+                
+                <button
+                  className="mobile-menu-button"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  style={{ 
+                    display: 'flex !important',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '2px solid red', // Temporary for debugging
+                    width: '44px',
+                    height: '44px',
+                    fontSize: '20px'
+                  }}
+                >
+                  {isMobileMenuOpen ? '✕' : '☰'}
+                </button>
+              </div>
+            </div>
+          )}
+          
+          {/* Desktop Logo */}
+          {!isMobile && (
+            <Link to="/" className="navbar-logo">
+              <img 
+                src="/logo.jpg" 
+                alt="AlgoVisualizer Logo" 
+                className="logo-img"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+              <span className="logo-text">
+                Algo<span>Visualizer</span>
+              </span>
+            </Link>
+          )}
 
           {/* Desktop Navigation */}
           <div className="navbar-menu">
@@ -168,19 +240,45 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="mobile-menu-button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Desktop Mobile Menu Button (hidden for now) */}
+          {!isMobile && (
+            <button
+              className="mobile-menu-button desktop-menu-btn"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              style={{ display: 'none' }}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          )}
         </div>
 
-        {/* Mobile Menu */}
+        {/* Enhanced Mobile Menu */}
         <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
-          {navigationItems.map((item, index) => (
-            <div key={index} className="mobile-menu-item">
+          {/* Mobile Menu Header */}
+          <div className="mobile-menu-header">
+            <div className="mobile-menu-header-content">
+              <h3 className="mobile-menu-title">
+                <Database size={18} />
+                Navigation
+              </h3>
+              <button
+                className="mobile-menu-close-btn"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <p className="mobile-menu-subtitle">Explore algorithms & data structures</p>
+          </div>
+          
+          {/* Mobile Menu Content */}
+          <div className="mobile-menu-content">
+            {navigationItems.map((item, index) => (
+              <div 
+                key={index} 
+                className="mobile-menu-item"
+                style={{ '--item-index': index }}
+              >
               {item.dropdown ? (
                 <div className="mobile-dropdown">
                   <button
@@ -232,6 +330,7 @@ const Navbar = () => {
               )}
             </div>
           ))}
+          </div>
         </div>
       </nav>
 
