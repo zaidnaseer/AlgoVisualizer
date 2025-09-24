@@ -39,11 +39,16 @@ import BacktrackingOverview from "./pages/BacktrackingOverview";
 import BacktrackingPage from "./pages/BacktrackingPage";
 import DPOverview from "./pages/DPOverview";
 import DPPage from "./pages/DPPage";
+
+import HashingOverview from "./pages/HashingOverview";
+import HashingPage from "./pages/HashingPage";
+
 import GreedyOverview from "./pages/GreedyOverview";
 import GreedyPage from "./pages/GreedyPage";
 // Tree Algorithms
 import TreeOverview from "./pages/TreeOverview";
 import TreePage from "./pages/TreePage";
+
 
 
 
@@ -115,6 +120,11 @@ const App = () => {
 <Route path="/dp-overview" element={<DPOverview />} />
 <Route path="/dp" element={<DPPage />} />
 
+
+              {/* Hashing */}
+<Route path="/hashing-overview" element={<HashingOverview />} />
+<Route path="/hashing" element={<HashingPage />} />
+
             {/* Greedy Algorithms */}
 <Route path="/greedy-overview" element={<GreedyOverview />} />
 <Route path="/greedy" element={<GreedyPage />} />
@@ -123,6 +133,7 @@ const App = () => {
           {/* Trees */}
 <Route path="/tree-overview" element={<TreeOverview />} />
 <Route path="/tree" element={<TreePage />} />
+
 
 
             {/* Other Pages */}

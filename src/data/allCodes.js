@@ -2560,6 +2560,258 @@ export const dpAlgorithms = {
 }`
   }
 };
+
+export const hashingAlgorithms = {
+  hashTable: {
+    java: `class HashTable {
+    private int[] table;
+    public HashTable(int size) { table = new int[size]; Arrays.fill(table, -1); }
+    public void insert(int key) { table[key % table.length] = key; }
+    public boolean search(int key) { return table[key % table.length] == key; }
+    public void delete(int key) { if(table[key % table.length]==key) table[key % table.length]=-1; }
+}`,
+    python: `class HashTable:
+    def __init__(self, size):
+        self.table = [-1]*size
+    def insert(self, key):
+        self.table[key % len(self.table)] = key
+    def search(self, key):
+        return self.table[key % len(self.table)] == key
+    def delete(self, key):
+        if self.table[key % len(self.table)] == key:
+            self.table[key % len(self.table)] = -1`,
+    cpp: `class HashTable {
+    vector<int> table;
+    public:
+    HashTable(int size) { table.assign(size, -1); }
+    void insert(int key) { table[key % table.size()] = key; }
+    bool search(int key) { return table[key % table.size()] == key; }
+    void remove(int key) { if(table[key % table.size()]==key) table[key % table.size()]=-1; }
+}`,
+    javascript: `class HashTable {
+    constructor(size){ this.table = Array(size).fill(-1); }
+    insert(key){ this.table[key % this.table.length] = key; }
+    search(key){ return this.table[key % this.table.length] === key; }
+    delete(key){ if(this.table[key % this.table.length]===key) this.table[key % this.table.length]=-1; }
+}`
+  },
+
+  chainingHash: {
+    java: `import java.util.LinkedList;
+class ChainingHashTable {
+    private LinkedList<Integer>[] table;
+    public ChainingHashTable(int size) {
+        table = new LinkedList[size];
+        for(int i=0;i<size;i++) table[i]=new LinkedList<>();
+    }
+    public void insert(int key){ table[key%table.length].add(key); }
+    public boolean search(int key){ return table[key%table.length].contains(key); }
+    public void delete(int key){ table[key%table.length].remove((Integer)key); }
+}`,
+    python: `class ChainingHashTable:
+    def __init__(self, size):
+        self.table = [[] for _ in range(size)]
+    def insert(self,key): self.table[key%len(self.table)].append(key)
+    def search(self,key): return key in self.table[key%len(self.table)]
+    def delete(self,key):
+        bucket = self.table[key%len(self.table)]
+        if key in bucket: bucket.remove(key)`,
+    cpp: `class ChainingHashTable {
+    vector<list<int>> table;
+    public:
+    ChainingHashTable(int size){ table.resize(size); }
+    void insert(int key){ table[key%table.size()].push_back(key); }
+    bool search(int key){
+        for(int k: table[key%table.size()]) if(k==key) return true;
+        return false;
+    }
+    void remove(int key){ table[key%table.size()].remove(key); }
+}`,
+    javascript: `class ChainingHashTable {
+    constructor(size){ this.table = Array.from({length:size}, ()=>[]); }
+    insert(key){ this.table[key%this.table.length].push(key); }
+    search(key){ return this.table[key%this.table.length].includes(key); }
+    delete(key){
+        const bucket = this.table[key%this.table.length];
+        const idx = bucket.indexOf(key);
+        if(idx>-1) bucket.splice(idx,1);
+    }
+}`
+  },
+
+  openAddressing: {
+    java: `class OpenAddressingHashTable {
+    private int[] table;
+    public OpenAddressingHashTable(int size){ table = new int[size]; Arrays.fill(table,-1); }
+    private int hash(int key, int i){ return (key+i)%table.length; }
+    public void insert(int key){
+        for(int i=0;i<table.length;i++){
+            int idx=hash(key,i);
+            if(table[idx]==-1){ table[idx]=key; return; }
+        }
+    }
+    public boolean search(int key){
+        for(int i=0;i<table.length;i++){
+            int idx=hash(key,i);
+            if(table[idx]==key) return true;
+            if(table[idx]==-1) return false;
+        }
+        return false;
+    }
+    public void delete(int key){
+        for(int i=0;i<table.length;i++){
+            int idx=hash(key,i);
+            if(table[idx]==key){ table[idx]=-1; return; }
+            if(table[idx]==-1) return;
+        }
+    }
+}`,
+    python: `class OpenAddressingHashTable:
+    def __init__(self,size): self.table=[-1]*size
+    def hash(self,key,i): return (key+i)%len(self.table)
+    def insert(self,key):
+        for i in range(len(self.table)):
+            idx=self.hash(key,i)
+            if self.table[idx]==-1: self.table[idx]=key; return
+    def search(self,key):
+        for i in range(len(self.table)):
+            idx=self.hash(key,i)
+            if self.table[idx]==key: return True
+            if self.table[idx]==-1: return False
+        return False
+    def delete(self,key):
+        for i in range(len(self.table)):
+            idx=self.hash(key,i)
+            if self.table[idx]==key: self.table[idx]=-1; return
+            if self.table[idx]==-1: return`,
+    cpp: `class OpenAddressingHashTable {
+    vector<int> table;
+    public:
+    OpenAddressingHashTable(int size){ table.assign(size,-1); }
+    int hashFunc(int key,int i){ return (key+i)%table.size(); }
+    void insert(int key){
+        for(int i=0;i<table.size();i++){
+            int idx=hashFunc(key,i);
+            if(table[idx]==-1){ table[idx]=key; return; }
+        }
+    }
+    bool search(int key){
+        for(int i=0;i<table.size();i++){
+            int idx=hashFunc(key,i);
+            if(table[idx]==key) return true;
+            if(table[idx]==-1) return false;
+        }
+        return false;
+    }
+    void remove(int key){
+        for(int i=0;i<table.size();i++){
+            int idx=hashFunc(key,i);
+            if(table[idx]==key){ table[idx]=-1; return; }
+            if(table[idx]==-1) return;
+        }
+    }
+}`,
+    javascript: `class OpenAddressingHashTable {
+    constructor(size){ this.table = Array(size).fill(-1); }
+    hash(key,i){ return (key+i)%this.table.length; }
+    insert(key){ for(let i=0;i<this.table.length;i++){ const idx=this.hash(key,i); if(this.table[idx]===-1){ this.table[idx]=key; return; } } }
+    search(key){ for(let i=0;i<this.table.length;i++){ const idx=this.hash(key,i); if(this.table[idx]===key) return true; if(this.table[idx]===-1) return false; } return false; }
+    delete(key){ for(let i=0;i<this.table.length;i++){ const idx=this.hash(key,i); if(this.table[idx]===key){ this.table[idx]=-1; return; } if(this.table[idx]===-1) return; } }
+}`
+  },
+
+  rollingHash: {
+    java: `class RollingHash {
+    public int computeHash(String s, int p, int m){
+        int hash=0;
+        for(char c:s.toCharArray())
+            hash=(hash*p + c)%m;
+        return hash;
+    }
+}`,
+    python: `def rolling_hash(s, p, m):
+    hash_val = 0
+    for c in s:
+        hash_val = (hash_val*p + ord(c)) % m
+    return hash_val`,
+    cpp: `int rollingHash(string s, int p, int m){
+    int hash_val=0;
+    for(char c:s)
+        hash_val=(hash_val*p + c)%m;
+    return hash_val;
+}`,
+    javascript: `function rollingHash(s,p,m){
+    let hash=0;
+    for(let c of s) hash=(hash*p + c.charCodeAt(0))%m;
+    return hash;
+}`
+  },
+
+  applications: {
+    twoSum: {
+      java: `class TwoSum {
+    public int[] twoSum(int[] nums, int target){
+        Map<Integer,Integer> map=new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            int complement=target-nums[i];
+            if(map.containsKey(complement)) return new int[]{map.get(complement),i};
+            map.put(nums[i],i);
+        }
+        return new int[]{};
+    }
+}`,
+      python: `def two_sum(nums,target):
+    mp={}
+    for i,num in enumerate(nums):
+        comp=target-num
+        if comp in mp: return [mp[comp],i]
+        mp[num]=i
+    return []`,
+      cpp: `vector<int> twoSum(vector<int>& nums,int target){
+    unordered_map<int,int> mp;
+    for(int i=0;i<nums.size();i++){
+        int comp=target-nums[i];
+        if(mp.count(comp)) return {mp[comp],i};
+        mp[nums[i]]=i;
+    }
+    return {};
+}`,
+      javascript: `function twoSum(nums,target){
+    const map=new Map();
+    for(let i=0;i<nums.length;i++){
+        const comp=target-nums[i];
+        if(map.has(comp)) return [map.get(comp),i];
+        map.set(nums[i],i);
+    }
+    return [];
+}`
+    },
+
+    countingFrequencies: {
+      java: `class FrequencyCounter {
+    public Map<Integer,Integer> countFreq(int[] arr){
+        Map<Integer,Integer> freq=new HashMap<>();
+        for(int x:arr) freq.put(x,freq.getOrDefault(x,0)+1);
+        return freq;
+    }
+}`,
+      python: `from collections import Counter
+def count_freq(arr): return dict(Counter(arr))`,
+      cpp: `unordered_map<int,int> countFreq(vector<int>& arr){
+    unordered_map<int,int> freq;
+    for(int x:arr) freq[x]++;
+    return freq;
+}`,
+      javascript: `function countFreq(arr){
+    const freq={};
+    for(const x of arr) freq[x]=(freq[x]||0)+1;
+    return freq;
+}`
+    }
+  }
+}
+
+
 // src/data/allCodes.js
 
 export const greedyAlgorithms = {
@@ -3135,6 +3387,5 @@ def levelOrder(root):
   }
 }
  
-
 
 
