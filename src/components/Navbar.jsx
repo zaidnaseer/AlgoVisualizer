@@ -15,6 +15,7 @@ import {
   BookOpen,
   Cpu,
   HelpCircle,
+ Zap 
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 
@@ -100,6 +101,15 @@ const Navbar = () => {
     { path: "/dp", label: "Algorithms" },
   ],
 },
+{
+  label: "Greedy Algorithms",
+  icon:Zap, // choose a suitable icon for Greedy algorithms
+  dropdown: [
+    { path: "/greedy-overview", label: "Overview" },
+    { path: "/greedy", label: "Algorithms" },
+  ],
+},
+
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },
