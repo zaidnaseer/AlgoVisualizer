@@ -15,6 +15,7 @@ import {
   BookOpen,
   Cpu,
   HelpCircle,
+  Hash
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 
@@ -100,6 +101,15 @@ const Navbar = () => {
     { path: "/dp", label: "Algorithms" },
   ],
 },
+{
+  label: "Hashing",
+  icon: Hash, // Choose a suitable icon for Hashing (e.g., from lucide-react or any icon library)
+  dropdown: [
+    { path: "/hashing-overview", label: "Overview" },
+    { path: "/hashing", label: "Algorithms" },
+  ],
+},
+
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },

@@ -39,6 +39,9 @@ import BacktrackingOverview from "./pages/BacktrackingOverview";
 import BacktrackingPage from "./pages/BacktrackingPage";
 import DPOverview from "./pages/DPOverview";
 import DPPage from "./pages/DPPage";
+import HashingOverview from "./pages/HashingOverview";
+import HashingPage from "./pages/HashingPage";
+
 
 
 const App = () => {
@@ -108,6 +111,11 @@ const App = () => {
             {/* Dynamic Programming */}
 <Route path="/dp-overview" element={<DPOverview />} />
 <Route path="/dp" element={<DPPage />} />
+
+              {/* Hashing */}
+<Route path="/hashing-overview" element={<HashingOverview />} />
+<Route path="/hashing" element={<HashingPage />} />
+
 
 
             {/* Other Pages */}
