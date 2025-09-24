@@ -11,11 +11,16 @@ import {
   Settings,
   Menu,
   X,
+  Code,
   ChevronDown,
   BookOpen,
   Cpu,
+  Hash,
   HelpCircle,
+  Zap
 } from "lucide-react";
+import { FaHashtag } from "react-icons/fa";
+
 import { useTheme } from "../ThemeContext";
 
 const Navbar = () => {
@@ -107,6 +112,9 @@ const Navbar = () => {
   dropdown: [
     { path: "/hashing-overview", label: "Overview" },
     { path: "/hashing", label: "Algorithms" },
+  ],
+},
+{
 
   label: "Greedy Algorithms",
   icon:Zap, // choose a suitable icon for Greedy algorithms
@@ -114,6 +122,14 @@ const Navbar = () => {
     { path: "/greedy-overview", label: "Overview" },
     { path: "/greedy", label: "Algorithms" },
 
+  ],
+},
+{
+  label: "Divide & Conquer",
+  icon: Code, // choose a suitable icon for Divide & Conquer (e.g., Code, GitMerge, or any relevant icon from your icon library)
+  dropdown: [
+    { path: "/dc-overview", label: "Overview" },
+    { path: "/dc", label: "Algorithms" },
   ],
 },
 
@@ -223,9 +239,16 @@ const Navbar = () => {
           )}
 
           {/* Desktop Navigation */}
-          <div className="navbar-menu">
+          <div className="navbar-menu" style={{ fontSize: '0.85rem',
+              display: 'flex',
+     gap: '0.5rem',
+    overflowX: 'auto', // enable horizontal scroll
+    whiteSpace: 'nowrap',
+    scrollbarWidth: 'none', // for Firefox
+    msOverflowStyle: 'none', // for IE & Edge
+          }}>
             {navigationItems.map((item, index) => (
-              <div key={index} className="navbar-item">
+              <div key={index} className="navbar-item" style={{ padding: '0.3rem 0.5rem' }}>
                 {item.dropdown ? (
                   <div className="dropdown">
                     <button
@@ -233,11 +256,12 @@ const Navbar = () => {
                         isDropdownOpen === index ? "active" : ""
                       }`}
                       onClick={() => handleDropdownToggle(index)}
+                       style={{ fontSize: '0.85rem', padding: '0.3rem 0.5rem' }}
                     >
-                      <item.icon size={18} className="drop-icon" />
+                      <item.icon size={16} className="drop-icon" style={{ marginRight: '0.25rem' }} />
                       <span>{item.label}</span>
                       <ChevronDown
-                        size={16}
+                        size={12}
                         className={`dropdown-arrow ${
                           isDropdownOpen === index ? "rotated" : ""
                         }`}
@@ -266,8 +290,10 @@ const Navbar = () => {
                     className={`navbar-link ${
                       isActive(item.path) ? "active" : ""
                     }`}
+                    style={{ fontSize: '0.85rem', padding: '0.3rem 0.5rem' }}
+
                   >
-                    <item.icon size={18} className="icon" />
+                    <item.icon size={16} className="icon" style={{ marginRight: '0.25rem' }} />
                     <span>{item.label}</span>
                   </Link>
                 )}
