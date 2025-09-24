@@ -13,6 +13,7 @@ import {
   X,
   ChevronDown,
   BookOpen,
+  Cpu,
   HelpCircle,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
@@ -91,6 +92,15 @@ const Navbar = () => {
       { path: "/backtracking", label: "Algorithms" },
     ],
   },
+  {
+  label: "Dynamic Programming",
+  icon: Cpu, // you can choose a suitable icon for DP
+  dropdown: [
+    { path: "/dp-overview", label: "Overview" },
+    { path: "/dp", label: "Algorithms" },
+  ],
+},
+
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },
     { path: "/faq", icon: HelpCircle, label: "FAQ" },
