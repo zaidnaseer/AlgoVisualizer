@@ -39,6 +39,8 @@ import BacktrackingOverview from "./pages/BacktrackingOverview";
 import BacktrackingPage from "./pages/BacktrackingPage";
 import DPOverview from "./pages/DPOverview";
 import DPPage from "./pages/DPPage";
+import GreedyOverview from "./pages/GreedyOverview";
+import GreedyPage from "./pages/GreedyPage";
 
 
 const App = () => {
@@ -108,6 +110,11 @@ const App = () => {
             {/* Dynamic Programming */}
 <Route path="/dp-overview" element={<DPOverview />} />
 <Route path="/dp" element={<DPPage />} />
+
+            {/* Greedy Algorithms */}
+<Route path="/greedy-overview" element={<GreedyOverview />} />
+<Route path="/greedy" element={<GreedyPage />} />
+
 
 
             {/* Other Pages */}
