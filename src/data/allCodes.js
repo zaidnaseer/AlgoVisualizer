@@ -2204,5 +2204,360 @@ bool exist(vector<vector<char>>& board, string word){
     return false;
 }`
 }
+};
+
+// src/data/allCodes.js
+export const dpAlgorithms = {
+  fibonacci: {
+    java: `public class Fibonacci {
+    public int fib(int n){
+        if(n<=1) return n;
+        int[] dp = new int[n+1];
+        dp[0]=0; dp[1]=1;
+        for(int i=2;i<=n;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[n];
+    }
+}`,
+    python: `def fib(n):
+    if n<=1: return n
+    dp = [0]*(n+1)
+    dp[1] = 1
+    for i in range(2,n+1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]`,
+    cpp: `int fib(int n){
+    if(n<=1) return n;
+    vector<int> dp(n+1,0);
+    dp[1]=1;
+    for(int i=2;i<=n;i++)
+        dp[i]=dp[i-1]+dp[i-2];
+    return dp[n];
+}`,
+    javascript: `function fib(n){
+    if(n<=1) return n;
+    const dp = Array(n+1).fill(0);
+    dp[1]=1;
+    for(let i=2;i<=n;i++)
+        dp[i]=dp[i-1]+dp[i-2];
+    return dp[n];
+}`
+  },
+
+  zeroOneKnapsack: {
+    java: `public class Knapsack {
+    public int knapsack(int[] wt, int[] val, int W){
+        int n=wt.length;
+        int[][] dp = new int[n+1][W+1];
+        for(int i=1;i<=n;i++){
+            for(int w=0;w<=W;w++){
+                if(wt[i-1]<=w)
+                    dp[i][w]=Math.max(val[i-1]+dp[i-1][w-wt[i-1]], dp[i-1][w]);
+                else
+                    dp[i][w]=dp[i-1][w];
+            }
+        }
+        return dp[n][W];
+    }
+}`,
+    python: `def knapsack(wt,val,W):
+    n=len(wt)
+    dp = [[0]*(W+1) for _ in range(n+1)]
+    for i in range(1,n+1):
+        for w in range(W+1):
+            if wt[i-1]<=w:
+                dp[i][w] = max(val[i-1]+dp[i-1][w-wt[i-1]], dp[i-1][w])
+            else:
+                dp[i][w]=dp[i-1][w]
+    return dp[n][W]`,
+    cpp: `int knapsack(vector<int>& wt, vector<int>& val, int W){
+    int n=wt.size();
+    vector<vector<int>> dp(n+1, vector<int>(W+1,0));
+    for(int i=1;i<=n;i++){
+        for(int w=0;w<=W;w++){
+            if(wt[i-1]<=w)
+                dp[i][w]=max(val[i-1]+dp[i-1][w-wt[i-1]], dp[i-1][w]);
+            else
+                dp[i][w]=dp[i-1][w];
+        }
+    }
+    return dp[n][W];
+}`,
+    javascript: `function knapsack(wt,val,W){
+    const n=wt.length;
+    const dp = Array.from({length:n+1}, ()=>Array(W+1).fill(0));
+    for(let i=1;i<=n;i++){
+        for(let w=0;w<=W;w++){
+            if(wt[i-1]<=w)
+                dp[i][w]=Math.max(val[i-1]+dp[i-1][w-wt[i-1]], dp[i-1][w]);
+            else
+                dp[i][w]=dp[i-1][w];
+        }
+    }
+    return dp[n][W];
+}`
+  },
+
+  coinChange: {
+    java: `public class CoinChange {
+    public int coinChange(int[] coins, int amount){
+        int[] dp = new int[amount+1];
+        Arrays.fill(dp, amount+1);
+        dp[0]=0;
+        for(int i=1;i<=amount;i++){
+            for(int coin: coins){
+                if(coin<=i) dp[i]=Math.min(dp[i], 1+dp[i-coin]);
+            }
+        }
+        return dp[amount]>amount?-1:dp[amount];
+    }
+}`,
+    python: `def coinChange(coins, amount):
+    dp = [amount+1]*(amount+1)
+    dp[0]=0
+    for i in range(1, amount+1):
+        for coin in coins:
+            if coin<=i:
+                dp[i]=min(dp[i],1+dp[i-coin])
+    return -1 if dp[amount]>amount else dp[amount]`,
+    cpp: `int coinChange(vector<int>& coins, int amount){
+    vector<int> dp(amount+1, amount+1);
+    dp[0]=0;
+    for(int i=1;i<=amount;i++){
+        for(int coin: coins){
+            if(coin<=i) dp[i]=min(dp[i],1+dp[i-coin]);
+        }
+    }
+    return dp[amount]>amount?-1:dp[amount];
+}`,
+    javascript: `function coinChange(coins, amount){
+    const dp = Array(amount+1).fill(amount+1);
+    dp[0]=0;
+    for(let i=1;i<=amount;i++){
+        for(let coin of coins){
+            if(coin<=i) dp[i]=Math.min(dp[i],1+dp[i-coin]);
+        }
+    }
+    return dp[amount]>amount?-1:dp[amount];
+}`
+  },
+
+  longestCommonSubsequence: {
+    java: `public class LCS {
+    public int lcs(String s1, String s2){
+        int m=s1.length(), n=s2.length();
+        int[][] dp=new int[m+1][n+1];
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(s1.charAt(i-1)==s2.charAt(j-1))
+                    dp[i][j]=dp[i-1][j-1]+1;
+                else
+                    dp[i][j]=Math.max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+        return dp[m][n];
+    }
+}`,
+    python: `def lcs(s1,s2):
+    m,n=len(s1),len(s2)
+    dp=[[0]*(n+1) for _ in range(m+1)]
+    for i in range(1,m+1):
+        for j in range(1,n+1):
+            if s1[i-1]==s2[j-1]:
+                dp[i][j]=dp[i-1][j-1]+1
+            else:
+                dp[i][j]=max(dp[i-1][j], dp[i][j-1])
+    return dp[m][n]`,
+    cpp: `int lcs(string s1, string s2){
+    int m=s1.size(), n=s2.size();
+    vector<vector<int>> dp(m+1, vector<int>(n+1,0));
+    for(int i=1;i<=m;i++){
+        for(int j=1;j<=n;j++){
+            if(s1[i-1]==s2[j-1])
+                dp[i][j]=dp[i-1][j-1]+1;
+            else
+                dp[i][j]=max(dp[i-1][j], dp[i][j-1]);
+        }
+    }
+    return dp[m][n];
+}`,
+    javascript: `function lcs(s1,s2){
+    const m=s1.length, n=s2.length;
+    const dp=Array.from({length:m+1}, ()=>Array(n+1).fill(0));
+    for(let i=1;i<=m;i++){
+        for(let j=1;j<=n;j++){
+            if(s1[i-1]===s2[j-1])
+                dp[i][j]=dp[i-1][j-1]+1;
+            else
+                dp[i][j]=Math.max(dp[i-1][j], dp[i][j-1]);
+        }
+    }
+    return dp[m][n];
+}`
+  },
+
+  matrixChainMultiplication: {
+    java: `public class MatrixChain {
+    public int matrixChainOrder(int[] p){
+        int n=p.length;
+        int[][] dp = new int[n][n];
+        for(int l=2;l<n;l++){
+            for(int i=1;i<n-l+1;i++){
+                int j=i+l-1;
+                dp[i][j]=Integer.MAX_VALUE;
+                for(int k=i;k<j;k++){
+                    dp[i][j]=Math.min(dp[i][j], dp[i][k]+dp[k+1][j]+p[i-1]*p[k]*p[j]);
+                }
+            }
+        }
+        return dp[1][n-1];
+    }
+}`,
+    python: `def matrixChainOrder(p):
+    n=len(p)
+    dp=[[0]*n for _ in range(n)]
+    for l in range(2,n):
+        for i in range(1,n-l+1):
+            j=i+l-1
+            dp[i][j]=float('inf')
+            for k in range(i,j):
+                dp[i][j]=min(dp[i][j], dp[i][k]+dp[k+1][j]+p[i-1]*p[k]*p[j])
+    return dp[1][n-1]`,
+    cpp: `int matrixChainOrder(vector<int>& p){
+    int n=p.size();
+    vector<vector<int>> dp(n, vector<int>(n,0));
+    for(int l=2;l<n;l++){
+        for(int i=1;i<n-l+1;i++){
+            int j=i+l-1;
+            dp[i][j]=INT_MAX;
+            for(int k=i;k<j;k++){
+                dp[i][j]=min(dp[i][j], dp[i][k]+dp[k+1][j]+p[i-1]*p[k]*p[j]);
+            }
+        }
+    }
+    return dp[1][n-1];
+}`,
+    javascript: `function matrixChainOrder(p){
+    const n=p.length;
+    const dp=Array.from({length:n}, ()=>Array(n).fill(0));
+    for(let l=2;l<n;l++){
+        for(let i=1;i<n-l+1;i++){
+            let j=i+l-1;
+            dp[i][j]=Infinity;
+            for(let k=i;k<j;k++){
+                dp[i][j]=Math.min(dp[i][j], dp[i][k]+dp[k+1][j]+p[i-1]*p[k]*p[j]);
+            }
+        }
+    }
+    return dp[1][n-1];
+}`
+  },
+
+  minimumPathSum: {
+    java: `public class MinPathSum {
+    public int minPathSum(int[][] grid){
+        int m=grid.length, n=grid[0].length;
+        int[][] dp=new int[m][n];
+        dp[0][0]=grid[0][0];
+        for(int i=1;i<m;i++) dp[i][0]=dp[i-1][0]+grid[i][0];
+        for(int j=1;j<n;j++) dp[0][j]=dp[0][j-1]+grid[0][j];
+        for(int i=1;i<m;i++)
+            for(int j=1;j<n;j++)
+                dp[i][j]=Math.min(dp[i-1][j], dp[i][j-1])+grid[i][j];
+        return dp[m-1][n-1];
+    }
+}`,
+    python: `def minPathSum(grid):
+    m,n=len(grid),len(grid[0])
+    dp=[[0]*n for _ in range(m)]
+    dp[0][0]=grid[0][0]
+    for i in range(1,m): dp[i][0]=dp[i-1][0]+grid[i][0]
+    for j in range(1,n): dp[0][j]=dp[0][j-1]+grid[0][j]
+    for i in range(1,m):
+        for j in range(1,n):
+            dp[i][j]=min(dp[i-1][j], dp[i][j-1])+grid[i][j]
+    return dp[m-1][n-1]`,
+    cpp: `int minPathSum(vector<vector<int>>& grid){
+    int m=grid.size(), n=grid[0].size();
+    vector<vector<int>> dp(m, vector<int>(n,0));
+    dp[0][0]=grid[0][0];
+    for(int i=1;i<m;i++) dp[i][0]=dp[i-1][0]+grid[i][0];
+    for(int j=1;j<n;j++) dp[0][j]=dp[0][j-1]+grid[0][j];
+    for(int i=1;i<m;i++)
+        for(int j=1;j<n;j++)
+            dp[i][j]=min(dp[i-1][j], dp[i][j-1])+grid[i][j];
+    return dp[m-1][n-1];
+}`,
+    javascript: `function minPathSum(grid){
+    const m=grid.length, n=grid[0].length;
+    const dp=Array.from({length:m}, ()=>Array(n).fill(0));
+    dp[0][0]=grid[0][0];
+    for(let i=1;i<m;i++) dp[i][0]=dp[i-1][0]+grid[i][0];
+    for(let j=1;j<n;j++) dp[0][j]=dp[0][j-1]+grid[0][j];
+    for(let i=1;i<m;i++)
+        for(let j=1;j<n;j++)
+            dp[i][j]=Math.min(dp[i-1][j], dp[i][j-1])+grid[i][j];
+    return dp[m-1][n-1];
+}`
+  },
+
+  subsetSum: {
+    java: `public class SubsetSum {
+    public boolean isSubsetSum(int[] arr, int sum){
+        int n=arr.length;
+        boolean[][] dp=new boolean[n+1][sum+1];
+        for(int i=0;i<=n;i++) dp[i][0]=true;
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=sum;j++){
+                if(arr[i-1]<=j)
+                    dp[i][j]=dp[i-1][j]||dp[i-1][j-arr[i-1]];
+                else
+                    dp[i][j]=dp[i-1][j];
+            }
+        }
+        return dp[n][sum];
+    }
+}`,
+    python: `def isSubsetSum(arr,sum_):
+    n=len(arr)
+    dp=[[False]*(sum_+1) for _ in range(n+1)]
+    for i in range(n+1): dp[i][0]=True
+    for i in range(1,n+1):
+        for j in range(1,sum_+1):
+            if arr[i-1]<=j:
+                dp[i][j]=dp[i-1][j] or dp[i-1][j-arr[i-1]]
+            else:
+                dp[i][j]=dp[i-1][j]
+    return dp[n][sum_]`,
+    cpp: `bool isSubsetSum(vector<int>& arr, int sum){
+    int n=arr.size();
+    vector<vector<bool>> dp(n+1, vector<bool>(sum+1,false));
+    for(int i=0;i<=n;i++) dp[i][0]=true;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=sum;j++){
+            if(arr[i-1]<=j)
+                dp[i][j]=dp[i-1][j]||dp[i-1][j-arr[i-1]];
+            else
+                dp[i][j]=dp[i-1][j];
+        }
+    }
+    return dp[n][sum];
+}`,
+    javascript: `function isSubsetSum(arr,sum){
+    const n=arr.length;
+    const dp=Array.from({length:n+1}, ()=>Array(sum+1).fill(false));
+    for(let i=0;i<=n;i++) dp[i][0]=true;
+    for(let i=1;i<=n;i++){
+        for(let j=1;j<=sum;j++){
+            if(arr[i-1]<=j)
+                dp[i][j]=dp[i-1][j]||dp[i-1][j-arr[i-1]];
+            else
+                dp[i][j]=dp[i-1][j];
+        }
+    }
+    return dp[n][sum];
+}`
+  }
 }
 

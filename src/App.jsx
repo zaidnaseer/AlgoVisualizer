@@ -37,6 +37,9 @@ import SortingDoc from "./pages/SortingDoc.jsx";
 import FAQ from "./pages/FAQ";
 import BacktrackingOverview from "./pages/BacktrackingOverview";
 import BacktrackingPage from "./pages/BacktrackingPage";
+import DPOverview from "./pages/DPOverview";
+import DPPage from "./pages/DPPage";
+
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
@@ -101,6 +104,11 @@ const App = () => {
               element={<BacktrackingOverview />}
             />
             <Route path="/backtracking" element={<BacktrackingPage />} />
+
+            {/* Dynamic Programming */}
+<Route path="/dp-overview" element={<DPOverview />} />
+<Route path="/dp" element={<DPPage />} />
+
 
             {/* Other Pages */}
             <Route path="/quiz" element={<Quiz />} />
