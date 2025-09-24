@@ -70,6 +70,24 @@
   --code-text: #f8f8f2;
 }
 
+/* Add this to your CSS module or stylesheet */
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem; /* space between boxes */
+}
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  border-radius: 1rem;
+  min-width: 200px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+}
+
+
 /* -----------------
    2. Base & Layout
 ----------------- */

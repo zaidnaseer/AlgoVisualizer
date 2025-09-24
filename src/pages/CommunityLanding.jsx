@@ -77,27 +77,35 @@ const CommunityLanding = () => {
 
         {/* Community Stats */}
         <motion.div 
-          variants={itemVariants}
-          className="stats-grid mb-12"
+            variants={itemVariants}
+            className="stats-grid mb-12"
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '2rem', // space between boxes
+                width: '100%',
+                }}
         >
-          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #4f46e5 10%, #7c3aed 100%)', color: 'white' }}>
+          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #4f46e5 10%, #7c3aed 100%)', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1.5rem', borderRadius: '1rem', minWidth: '200px', boxShadow: '0 4px 16px rgba(0,0,0,0.09)' }}>
             <Users size={32} style={{ marginBottom: '1rem', opacity: 0.9 }} />
             <div className="stat-value">100+</div>
             <div className="stat-label" style={{ color: 'rgba(255,255,255,0.9)' }}>Contributors</div>
           </div>
-          
-          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #16a34a 10%, #22c55e 100%)', color: 'white' }}>
+
+          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #16a34a 10%, #22c55e 100%)', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1.5rem', borderRadius: '1rem', minWidth: '200px', boxShadow: '0 4px 16px rgba(0,0,0,0.09)' }}>
             <Github size={32} style={{ marginBottom: '1rem', opacity: 0.9 }} />
             <div className="stat-value">500+</div>
             <div className="stat-label" style={{ color: 'rgba(255,255,255,0.9)' }}>Commits</div>
           </div>
-          
-          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #dc2626 10%, #f59e0b 100%)', color: 'white' }}>
+
+          <div className="stat-card" style={{ background: 'linear-gradient(135deg, #dc2626 10%, #f59e0b 100%)', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1.5rem', borderRadius: '1rem', minWidth: '200px', boxShadow: '0 4px 16px rgba(0,0,0,0.09)' }}>
             <Star size={32} style={{ marginBottom: '1rem', opacity: 0.9 }} />
             <div className="stat-value">50+</div>
             <div className="stat-label" style={{ color: 'rgba(255,255,255,0.9)' }}>Projects</div>
           </div>
         </motion.div>
+
 
         {/* Community Sections */}
         <motion.div
@@ -106,7 +114,7 @@ const CommunityLanding = () => {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: '2rem',
-            marginBottom: '3rem'
+            marginBottom: '3rem',
           }}
         >
           {/* Overview Card */}
