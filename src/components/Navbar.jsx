@@ -83,6 +83,14 @@ const Navbar = () => {
         { path: "/graph/comparison", label: "Graph Comparison" },
       ],
     },
+    {
+    label: "Backtracking",
+    icon: BookOpen, // you can choose a different icon if needed
+    dropdown: [
+      { path: "/backtracking-overview", label: "Overview" },
+      { path: "/backtracking", label: "Algorithms" },
+    ],
+  },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },
     { path: "/faq", icon: HelpCircle, label: "FAQ" },

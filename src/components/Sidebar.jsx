@@ -150,6 +150,7 @@ const Sidebar = () => {
         }
       ]
     },
+    
     {
       group: "Learning",
       items: [

@@ -1796,3 +1796,413 @@ bool isEmpty() {
   }
 };
 
+// src/data/allCodes.js
+export const backtrackingAlgorithms = {
+  nQueens: {
+    java: `public class NQueens {
+    public boolean solveNQueens(int n) {
+        int[] board = new int[n];
+        return placeQueens(board, 0, n);
+    }
+
+    private boolean placeQueens(int[] board, int row, int n) {
+        if (row == n) return true;
+        for (int col = 0; col < n; col++) {
+            if (isSafe(board, row, col)) {
+                board[row] = col;
+                if (placeQueens(board, row + 1, n)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isSafe(int[] board, int row, int col) {
+        for (int i = 0; i < row; i++) {
+            if (board[i] == col || Math.abs(board[i] - col) == row - i) return false;
+        }
+        return true;
+    }
+}`,
+    python: `def solve_n_queens(n):
+    board = [-1] * n
+    def place_queens(row):
+        if row == n:
+            return True
+        for col in range(n):
+            if is_safe(row, col):
+                board[row] = col
+                if place_queens(row+1):
+                    return True
+        return False
+
+    def is_safe(row, col):
+        for i in range(row):
+            if board[i] == col or abs(board[i]-col) == row-i:
+                return False
+        return True
+
+    return place_queens(0)`,
+    cpp: `bool isSafe(vector<int>& board, int row, int col) {
+    for(int i=0;i<row;i++){
+        if(board[i]==col || abs(board[i]-col)==row-i) return false;
+    }
+    return true;
+}
+
+bool solveNQueens(vector<int>& board, int row, int n){
+    if(row==n) return true;
+    for(int col=0; col<n; col++){
+        if(isSafe(board,row,col)){
+            board[row]=col;
+            if(solveNQueens(board,row+1,n)) return true;
+        }
+    }
+    return false;
+}`,
+    javascript: `function solveNQueens(n){
+    const board = Array(n).fill(-1);
+    function placeQueens(row){
+        if(row===n) return true;
+        for(let col=0;col<n;col++){
+            if(isSafe(row,col)){
+                board[row]=col;
+                if(placeQueens(row+1)) return true;
+            }
+        }
+        return false;
+    }
+    function isSafe(row,col){
+        for(let i=0;i<row;i++){
+            if(board[i]===col || Math.abs(board[i]-col)===row-i) return false;
+        }
+        return true;
+    }
+    return placeQueens(0);
+}`
+  },
+
+  sudoku: {
+    java: `public boolean solveSudoku(int[][] board){
+    for(int row=0; row<9; row++){
+        for(int col=0; col<9; col++){
+            if(board[row][col]==0){
+                for(int num=1; num<=9; num++){
+                    if(isSafe(board,row,col,num)){
+                        board[row][col]=num;
+                        if(solveSudoku(board)) return true;
+                        board[row][col]=0;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+private boolean isSafe(int[][] board,int row,int col,int num){
+    for(int i=0;i<9;i++){
+        if(board[row][i]==num || board[i][col]==num) return false;
+    }
+    int startRow=row-row%3, startCol=col-col%3;
+    for(int i=0;i<3;i++)
+        for(int j=0;j<3;j++)
+            if(board[startRow+i][startCol+j]==num) return false;
+    return true;
+}`,
+    python: `def solve_sudoku(board):
+    for i in range(9):
+        for j in range(9):
+            if board[i][j]==0:
+                for num in range(1,10):
+                    if is_safe(board,i,j,num):
+                        board[i][j]=num
+                        if solve_sudoku(board):
+                            return True
+                        board[i][j]=0
+                return False
+    return True
+
+def is_safe(board,row,col,num):
+    if num in board[row]: return False
+    if num in [board[i][col] for i in range(9)]: return False
+    startRow, startCol = 3*(row//3), 3*(col//3)
+    for i in range(3):
+        for j in range(3):
+            if board[startRow+i][startCol+j]==num:
+                return False
+    return True`,
+    cpp: `bool isSafe(int board[9][9], int row, int col, int num){
+    for(int i=0;i<9;i++){
+        if(board[row][i]==num || board[i][col]==num) return false;
+    }
+    int startRow=row-row%3, startCol=col-row%3;
+    for(int i=0;i<3;i++)
+        for(int j=0;j<3;j++)
+            if(board[startRow+i][startCol+j]==num) return false;
+    return true;
+}
+
+bool solveSudoku(int board[9][9]){
+    for(int row=0; row<9; row++){
+        for(int col=0; col<9; col++){
+            if(board[row][col]==0){
+                for(int num=1; num<=9; num++){
+                    if(isSafe(board,row,col,num)){
+                        board[row][col]=num;
+                        if(solveSudoku(board)) return true;
+                        board[row][col]=0;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    return true;
+}`,
+    javascript: `function solveSudoku(board){
+    for(let row=0; row<9; row++){
+        for(let col=0; col<9; col++){
+            if(board[row][col]===0){
+                for(let num=1; num<=9; num++){
+                    if(isSafe(board,row,col,num)){
+                        board[row][col]=num;
+                        if(solveSudoku(board)) return true;
+                        board[row][col]=0;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function isSafe(board,row,col,num){
+    for(let i=0;i<9;i++){
+        if(board[row][i]===num || board[i][col]===num) return false;
+    }
+    let startRow=row-row%3, startCol=col-row%3;
+    for(let i=0;i<3;i++)
+        for(let j=0;j<3;j++)
+            if(board[startRow+i][startCol+j]===num) return false;
+    return true;
+}`
+  },
+
+  ratInMaze: {
+    java: `public class RatInMaze {
+    public boolean solveMaze(int[][] maze, int n){
+        int[][] sol = new int[n][n];
+        return solveMazeUtil(maze, 0, 0, sol, n);
+    }
+
+    private boolean solveMazeUtil(int[][] maze, int x, int y, int[][] sol, int n){
+        if(x==n-1 && y==n-1 && maze[x][y]==1){
+            sol[x][y] = 1;
+            return true;
+        }
+        if(isSafe(maze, x, y, n)){
+            sol[x][y] = 1;
+            if(solveMazeUtil(maze, x+1, y, sol, n)) return true;
+            if(solveMazeUtil(maze, x, y+1, sol, n)) return true;
+            sol[x][y] = 0;
+        }
+        return false;
+    }
+
+    private boolean isSafe(int[][] maze, int x, int y, int n){
+        return (x>=0 && x<n && y>=0 && y<n && maze[x][y]==1);
+    }
+}`,
+    python: `def solve_maze(maze):
+    n = len(maze)
+    sol = [[0]*n for _ in range(n)]
+    def solve(x, y):
+        if x==n-1 and y==n-1 and maze[x][y]==1:
+            sol[x][y] = 1
+            return True
+        if is_safe(x, y):
+            sol[x][y] = 1
+            if solve(x+1, y) or solve(x, y+1):
+                return True
+            sol[x][y] = 0
+        return False
+    def is_safe(x, y):
+        return 0<=x<n and 0<=y<n and maze[x][y]==1
+    solve(0,0)
+    return sol`,
+    cpp: `bool isSafe(vector<vector<int>>& maze, int x, int y, int n){
+    return x>=0 && x<n && y>=0 && y<n && maze[x][y]==1;
+}
+
+bool solveMazeUtil(vector<vector<int>>& maze, int x, int y, vector<vector<int>>& sol, int n){
+    if(x==n-1 && y==n-1 && maze[x][y]==1){
+        sol[x][y]=1;
+        return true;
+    }
+    if(isSafe(maze,x,y,n)){
+        sol[x][y]=1;
+        if(solveMazeUtil(maze,x+1,y,sol,n)) return true;
+        if(solveMazeUtil(maze,x,y+1,sol,n)) return true;
+        sol[x][y]=0;
+    }
+    return false;
+}`,
+    javascript: `function solveMaze(maze){
+    const n = maze.length;
+    const sol = Array.from({length:n}, ()=>Array(n).fill(0));
+    function isSafe(x,y){
+        return x>=0 && x<n && y>=0 && y<n && maze[x][y]===1;
+    }
+    function solve(x,y){
+        if(x===n-1 && y===n-1 && maze[x][y]===1){
+            sol[x][y]=1;
+            return true;
+        }
+        if(isSafe(x,y)){
+            sol[x][y]=1;
+            if(solve(x+1,y) || solve(x,y+1)) return true;
+            sol[x][y]=0;
+        }
+        return false;
+    }
+    solve(0,0);
+    return sol;
+}`
+  },
+
+  combinationSum: {
+    java: `public class CombinationSum {
+    public void combinationSum(int[] nums, int target, List<List<Integer>> res){
+        backtrack(res, new ArrayList<>(), nums, target, 0);
+    }
+    private void backtrack(List<List<Integer>> res, List<Integer> temp, int[] nums, int remain, int start){
+        if(remain<0) return;
+        if(remain==0) res.add(new ArrayList<>(temp));
+        for(int i=start;i<nums.length;i++){
+            temp.add(nums[i]);
+            backtrack(res,temp,nums,remain-nums[i],i);
+            temp.remove(temp.size()-1);
+        }
+    }
+}`,
+    python: `def combination_sum(nums, target):
+    res=[]
+    def backtrack(temp, remain, start):
+        if remain<0: return
+        if remain==0: res.append(list(temp))
+        for i in range(start,len(nums)):
+            temp.append(nums[i])
+            backtrack(temp, remain-nums[i], i)
+            temp.pop()
+    backtrack([], target, 0)
+    return res`,
+    cpp: `void backtrack(vector<int>& nums, int remain, vector<int>& temp, vector<vector<int>>& res, int start){
+    if(remain<0) return;
+    if(remain==0) { res.push_back(temp); return; }
+    for(int i=start;i<nums.size();i++){
+        temp.push_back(nums[i]);
+        backtrack(nums, remain-nums[i], temp, res, i);
+        temp.pop_back();
+    }
+}
+
+vector<vector<int>> combinationSum(vector<int>& nums, int target){
+    vector<vector<int>> res;
+    vector<int> temp;
+    backtrack(nums,target,temp,res,0);
+    return res;
+}`,
+    javascript: `function combinationSum(nums,target){
+    const res=[];
+    function backtrack(temp, remain, start){
+        if(remain<0) return;
+        if(remain===0) res.push([...temp]);
+        for(let i=start;i<nums.length;i++){
+            temp.push(nums[i]);
+            backtrack(temp, remain-nums[i], i);
+            temp.pop();
+        }
+    }
+    backtrack([], target, 0);
+    return res;
+}`
+  },
+
+  wordSearch: {
+    java: `public class WordSearch {
+    public boolean exist(char[][] board, String word){
+        int m=board.length, n=board[0].length;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(backtrack(board, word, i, j, 0)) return true;
+            }
+        }
+        return false;
+    }
+    private boolean backtrack(char[][] board, String word, int i, int j, int index){
+        if(index==word.length()) return true;
+        if(i<0 || i>=board.length || j<0 || j>=board[0].length || board[i][j]!=word.charAt(index)) return false;
+        char temp=board[i][j];
+        board[i][j]='#';
+        boolean found = backtrack(board,word,i+1,j,index+1)
+                     || backtrack(board,word,i-1,j,index+1)
+                     || backtrack(board,word,i,j+1,index+1)
+                     || backtrack(board,word,i,j-1,index+1);
+        board[i][j]=temp;
+        return found;
+    }
+}`,
+    python: `def exist(board, word):
+    m,n=len(board),len(board[0])
+    def backtrack(i,j,index):
+        if index==len(word): return True
+        if i<0 or i>=m or j<0 or j>=n or board[i][j]!=word[index]: return False
+        temp=board[i][j]
+        board[i][j]='#'
+        found = backtrack(i+1,j,index+1) or backtrack(i-1,j,index+1) or backtrack(i,j+1,index+1) or backtrack(i,j-1,index+1)
+        board[i][j]=temp
+        return found
+    for i in range(m):
+        for j in range(n):
+            if backtrack(i,j,0): return True
+    return False`,
+    cpp: `bool backtrack(vector<vector<char>>& board, string& word, int i, int j, int index){
+    if(index==word.size()) return true;
+    if(i<0 || i>=board.size() || j<0 || j>=board[0].size() || board[i][j]!=word[index]) return false;
+    char temp = board[i][j];
+    board[i][j]='#';
+    bool found = backtrack(board, word, i+1, j, index+1)
+              || backtrack(board, word, i-1, j, index+1)
+              || backtrack(board, word, i, j+1, index+1)
+              || backtrack(board, word, i, j-1, index+1);
+    board[i][j]=temp;
+    return found;
+}
+
+bool exist(vector<vector<char>>& board, string word){
+    for(int i=0;i<board.size();i++)
+        for(int j=0;j<board[0].size();j++)
+            if(backtrack(board, word, i,j,0)) return true;
+    return false;
+}`,
+    javascript: `function exist(board, word){
+    const m=board.length,n=board[0].length;
+    function backtrack(i,j,index){
+        if(index===word.length) return true;
+        if(i<0 || i>=m || j<0 || j>=n || board[i][j]!==word[index]) return false;
+        const temp=board[i][j];
+        board[i][j]='#';
+        const found = backtrack(i+1,j,index+1) || backtrack(i-1,j,index+1) || backtrack(i,j+1,index+1) || backtrack(i,j-1,index+1);
+        board[i][j]=temp;
+        return found;
+    }
+    for(let i=0;i<m;i++)
+        for(let j=0;j<n;j++)
+            if(backtrack(i,j,0)) return true;
+    return false;
+}`
+}
+}
+
