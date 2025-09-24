@@ -11,10 +11,10 @@ import {
   Settings,
   Menu,
   X,
-  Code,
   ChevronDown,
   BookOpen,
   Cpu,
+  Code,
   Hash,
   HelpCircle,
   Zap
@@ -134,6 +134,7 @@ const Navbar = () => {
 },
 
 
+
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },
     { path: "/faq", icon: HelpCircle, label: "FAQ" },
@@ -239,16 +240,9 @@ const Navbar = () => {
           )}
 
           {/* Desktop Navigation */}
-          <div className="navbar-menu" style={{ fontSize: '0.85rem',
-              display: 'flex',
-     gap: '0.5rem',
-    overflowX: 'auto', // enable horizontal scroll
-    whiteSpace: 'nowrap',
-    scrollbarWidth: 'none', // for Firefox
-    msOverflowStyle: 'none', // for IE & Edge
-          }}>
+          <div className="navbar-menu">
             {navigationItems.map((item, index) => (
-              <div key={index} className="navbar-item" style={{ padding: '0.3rem 0.5rem' }}>
+              <div key={index} className="navbar-item">
                 {item.dropdown ? (
                   <div className="dropdown">
                     <button
@@ -256,12 +250,11 @@ const Navbar = () => {
                         isDropdownOpen === index ? "active" : ""
                       }`}
                       onClick={() => handleDropdownToggle(index)}
-                       style={{ fontSize: '0.85rem', padding: '0.3rem 0.5rem' }}
                     >
-                      <item.icon size={16} className="drop-icon" style={{ marginRight: '0.25rem' }} />
+                      <item.icon size={18} className="drop-icon" />
                       <span>{item.label}</span>
                       <ChevronDown
-                        size={12}
+                        size={16}
                         className={`dropdown-arrow ${
                           isDropdownOpen === index ? "rotated" : ""
                         }`}
@@ -290,10 +283,8 @@ const Navbar = () => {
                     className={`navbar-link ${
                       isActive(item.path) ? "active" : ""
                     }`}
-                    style={{ fontSize: '0.85rem', padding: '0.3rem 0.5rem' }}
-
                   >
-                    <item.icon size={16} className="icon" style={{ marginRight: '0.25rem' }} />
+                    <item.icon size={18} className="icon" />
                     <span>{item.label}</span>
                   </Link>
                 )}
