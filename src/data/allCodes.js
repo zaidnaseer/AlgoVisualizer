@@ -2560,6 +2560,7 @@ export const dpAlgorithms = {
 }`
   }
 };
+
 export const hashingAlgorithms = {
   hashTable: {
     java: `class HashTable {
@@ -2807,6 +2808,349 @@ def count_freq(arr): return dict(Counter(arr))`,
     return freq;
 }`
     }
+  }
+}
+
+
+// src/data/allCodes.js
+
+export const greedyAlgorithms = {
+  activitySelection: {
+    java: `import java.util.*;
+public class ActivitySelection {
+    public int maxActivities(int[] start, int[] end){
+        int n = start.length;
+        int[][] activities = new int[n][2];
+        for(int i=0;i<n;i++){
+            activities[i][0]=start[i];
+            activities[i][1]=end[i];
+        }
+        Arrays.sort(activities, Comparator.comparingInt(a->a[1]));
+        int count = 1, lastEnd = activities[0][1];
+        for(int i=1;i<n;i++){
+            if(activities[i][0]>=lastEnd){
+                count++;
+                lastEnd=activities[i][1];
+            }
+        }
+        return count;
+    }
+}`,
+    python: `def max_activities(start, end):
+    activities = sorted(zip(start, end), key=lambda x:x[1])
+    count = 1
+    last_end = activities[0][1]
+    for s, e in activities[1:]:
+        if s >= last_end:
+            count += 1
+            last_end = e
+    return count`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+int maxActivities(vector<int>& start, vector<int>& end){
+    int n=start.size();
+    vector<pair<int,int>> activities(n);
+    for(int i=0;i<n;i++) activities[i]={start[i], end[i]};
+    sort(activities.begin(), activities.end(), [](pair<int,int> a, pair<int,int> b){ return a.second<b.second; });
+    int count=1, lastEnd=activities[0].second;
+    for(int i=1;i<n;i++){
+        if(activities[i].first>=lastEnd){
+            count++;
+            lastEnd=activities[i].second;
+        }
+    }
+    return count;
+}`,
+    javascript: `function maxActivities(start, end){
+    let activities = start.map((s,i)=>[s,end[i]]);
+    activities.sort((a,b)=>a[1]-b[1]);
+    let count=1, lastEnd=activities[0][1];
+    for(let i=1;i<activities.length;i++){
+        if(activities[i][0]>=lastEnd){
+            count++;
+            lastEnd=activities[i][1];
+        }
+    }
+    return count;
+}`
+  },
+
+  fractionalKnapsack: {
+    java: `import java.util.*;
+public class FractionalKnapsack {
+    class Item {
+        int value, weight;
+        Item(int v,int w){value=v; weight=w;}
+    }
+    public double knapsack(Item[] items, int W){
+        Arrays.sort(items,(a,b)->Double.compare((double)b.value/a.weight, (double)a.value/b.weight));
+        double total=0;
+        for(Item item: items){
+            if(W>=item.weight){
+                W-=item.weight;
+                total+=item.value;
+            } else {
+                total+=item.value*((double)W/item.weight);
+                break;
+            }
+        }
+        return total;
+    }
+}`,
+    python: `def fractional_knapsack(values, weights, W):
+    items = sorted(zip(values, weights), key=lambda x: x[0]/x[1], reverse=True)
+    total = 0
+    for v, w in items:
+        if W>=w:
+            W-=w
+            total+=v
+        else:
+            total += v*(W/w)
+            break
+    return total`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+double fractionalKnapsack(vector<int>& val, vector<int>& wt, int W){
+    int n=val.size();
+    vector<pair<double,int>> items(n);
+    for(int i=0;i<n;i++) items[i]={(double)val[i]/wt[i], i};
+    sort(items.rbegin(), items.rend());
+    double total=0;
+    for(auto [ratio,i]:items){
+        if(W>=wt[i]){
+            W-=wt[i];
+            total+=val[i];
+        } else {
+            total += val[i]*((double)W/wt[i]);
+            break;
+        }
+    }
+    return total;
+}`,
+    javascript: `function fractionalKnapsack(values, weights, W){
+    let items = values.map((v,i)=>({v,w:weights[i], ratio:v/weights[i]}));
+    items.sort((a,b)=>b.ratio-a.ratio);
+    let total=0;
+    for(let item of items){
+        if(W>=item.w){
+            W-=item.w;
+            total+=item.v;
+        } else {
+            total += item.v*(W/item.w);
+            break;
+        }
+    }
+    return total;
+}`
+  },
+
+  huffmanEncoding: {
+    java: `import java.util.*;
+public class Huffman {
+    class Node implements Comparable<Node> {
+        char c; int freq; Node left,right;
+        Node(char c,int freq){this.c=c;this.freq=freq;}
+        Node(int freq, Node l, Node r){this.freq=freq; left=l; right=r;}
+        public int compareTo(Node o){ return this.freq - o.freq;}
+    }
+    public Node buildTree(Map<Character,Integer> freqMap){
+        PriorityQueue<Node> pq = new PriorityQueue<>();
+        for(char c: freqMap.keySet()) pq.add(new Node(c,freqMap.get(c)));
+        while(pq.size()>1){
+            Node a=pq.poll(), b=pq.poll();
+            pq.add(new Node(a.freq+b.freq,a,b));
+        }
+        return pq.poll();
+    }
+}`,
+    python: `import heapq
+class Node:
+    def __init__(self,freq,c=None,left=None,right=None):
+        self.freq=freq; self.c=c; self.left=left; self.right=right
+    def __lt__(self,other): return self.freq<other.freq
+def huffman(freq_map):
+    heap = [Node(freq,c) for c,freq in freq_map.items()]
+    heapq.heapify(heap)
+    while len(heap)>1:
+        a=heapq.heappop(heap)
+        b=heapq.heappop(heap)
+        heapq.heappush(heap, Node(a.freq+b.freq, left=a, right=b))
+    return heap[0]`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+struct Node{
+    char c; int freq; Node *left,*right;
+    Node(char ch,int f){c=ch; freq=f; left=nullptr; right=nullptr;}
+    Node(int f, Node* l, Node* r){freq=f; left=l; right=r;}
+};
+struct compare{ bool operator()(Node* a, Node* b){ return a->freq>b->freq; }};
+Node* buildHuffman(map<char,int>& freqMap){
+    priority_queue<Node*, vector<Node*>, compare> pq;
+    for(auto [c,f]:freqMap) pq.push(new Node(c,f));
+    while(pq.size()>1){
+        Node *a=pq.top(); pq.pop();
+        Node *b=pq.top(); pq.pop();
+        pq.push(new Node(a->freq+b->freq, a,b));
+    }
+    return pq.top();
+}`,
+    javascript: `class Node{
+    constructor(freq,c=null,left=null,right=null){
+        this.freq=freq; this.c=c; this.left=left; this.right=right;
+    }
+}
+function huffman(freqMap){
+    let pq = Object.entries(freqMap).map(([c,f])=>new Node(f,c));
+    pq.sort((a,b)=>a.freq-b.freq);
+    while(pq.length>1){
+        let a=pq.shift(), b=pq.shift();
+        pq.push(new Node(a.freq+b.freq,a,b));
+        pq.sort((a,b)=>a.freq-b.freq);
+    }
+    return pq[0];
+}`
+  },
+
+  jobScheduling: {
+    java: `import java.util.*;
+class Job {
+    int id, deadline, profit;
+    Job(int i,int d,int p){id=i; deadline=d; profit=p;}
+}
+public class JobScheduling {
+    public int maxProfit(Job[] jobs){
+        Arrays.sort(jobs,(a,b)->b.profit-a.profit);
+        int n = jobs.length;
+        boolean[] slot = new boolean[100];
+        int profit=0;
+        for(Job job: jobs){
+            for(int j=Math.min(99,job.deadline-1); j>=0; j--){
+                if(!slot[j]){
+                    slot[j]=true;
+                    profit+=job.profit;
+                    break;
+                }
+            }
+        }
+        return profit;
+    }
+}`,
+    python: `def job_scheduling(jobs):
+    jobs.sort(key=lambda x: x[2], reverse=True)
+    slot = [False]*100
+    profit=0
+    for id,d,p in jobs:
+        for j in range(min(99,d-1), -1, -1):
+            if not slot[j]:
+                slot[j]=True
+                profit+=p
+                break
+    return profit`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+struct Job{ int id, deadline, profit; };
+int jobScheduling(vector<Job>& jobs){
+    sort(jobs.rbegin(), jobs.rend(), [](Job a, Job b){ return a.profit<b.profit; });
+    vector<bool> slot(100,false);
+    int profit=0;
+    for(auto job: jobs){
+        for(int j=min(99,job.deadline-1); j>=0; j--){
+            if(!slot[j]){
+                slot[j]=true;
+                profit+=job.profit;
+                break;
+            }
+        }
+    }
+    return profit;
+}`,
+    javascript: `function jobScheduling(jobs){
+    jobs.sort((a,b)=>b[2]-a[2]);
+    let slot=Array(100).fill(false), profit=0;
+    for(let [id,d,p] of jobs){
+        for(let j=Math.min(99,d-1); j>=0; j--){
+            if(!slot[j]){
+                slot[j]=true;
+                profit+=p;
+                break;
+            }
+        }
+    }
+    return profit;
+}`
+  },
+
+  primKruskalMST: {
+    java: `import java.util.*;
+class Edge implements Comparable<Edge>{
+    int u,v,weight;
+    Edge(int u,int v,int w){this.u=u;this.v=v;this.weight=w;}
+    public int compareTo(Edge o){ return this.weight - o.weight;}
+}
+public class MST {
+    int find(int u, int[] parent){
+        if(parent[u]==u) return u;
+        return parent[u]=find(parent[u], parent);
+    }
+    public int kruskalMST(int n, List<Edge> edges){
+        Collections.sort(edges);
+        int[] parent = new int[n];
+        for(int i=0;i<n;i++) parent[i]=i;
+        int mstWeight=0;
+        for(Edge e: edges){
+            int pu=find(e.u,parent), pv=find(e.v,parent);
+            if(pu!=pv){
+                parent[pu]=pv;
+                mstWeight+=e.weight;
+            }
+        }
+        return mstWeight;
+    }
+}`,
+    python: `def kruskalMST(n, edges):
+    parent = list(range(n))
+    def find(u):
+        if parent[u]!=u: parent[u]=find(parent[u])
+        return parent[u]
+    edges.sort(key=lambda x:x[2])
+    mstWeight=0
+    for u,v,w in edges:
+        pu,pv=find(u),find(v)
+        if pu!=pv:
+            parent[pu]=pv
+            mstWeight+=w
+    return mstWeight`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+struct Edge{ int u,v,weight; };
+int find(int u, vector<int>& parent){ if(parent[u]==u) return u; return parent[u]=find(parent[u],parent);}
+int kruskalMST(int n, vector<Edge>& edges){
+    vector<int> parent(n); iota(parent.begin(), parent.end(),0);
+    sort(edges.begin(), edges.end(), [](Edge a, Edge b){ return a.weight<b.weight; });
+    int mstWeight=0;
+    for(auto e: edges){
+        int pu=find(e.u,parent), pv=find(e.v,parent);
+        if(pu!=pv){
+            parent[pu]=pv;
+            mstWeight+=e.weight;
+        }
+    }
+    return mstWeight;
+}`,
+    javascript: `function kruskalMST(n, edges){
+    let parent = Array.from({length:n}, (_,i)=>i);
+    function find(u){ if(parent[u]!==u) parent[u]=find(parent[u]); return parent[u]; }
+    edges.sort((a,b)=>a[2]-b[2]);
+    let mstWeight=0;
+    for(let [u,v,w] of edges){
+        let pu=find(u), pv=find(v);
+        if(pu!==pv){
+            parent[pu]=pv;
+            mstWeight+=w;
+        }
+    }
+    return mstWeight;
+}`
   }
 }
 

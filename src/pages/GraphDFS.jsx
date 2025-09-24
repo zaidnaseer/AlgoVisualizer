@@ -5,41 +5,94 @@ import "../styles/global-theme.css";
 
 const GraphDFS = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
+  const [customGraph, setCustomGraph] = useState(null);
+  const [inputText, setInputText] = useState("");
+
+  // Handler to parse input
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const handleLoadCustomGraph = () => {
+    try {
+      const parsed = JSON.parse(inputText);
+      if (!parsed.nodes || !parsed.edges) {
+        alert("Invalid graph format. Must contain 'nodes' and 'edges'.");
+        return;
+      }
+      setCustomGraph(parsed);
+    } catch (err) {
+      alert("Invalid JSON format.");
+    }
+  };
 
   return (
     <div className="theme-container">
       <h1 className="theme-title">Depth-First Search (DFS)</h1>
       <p style={{ textAlign: 'center', maxWidth: '700px', margin: '-2rem auto 2rem auto', color: 'var(--theme-text-secondary)' }}>
-        Visualize DFS traversal on a graph. Load the default example or create your own graph.
+        Visualize DFS traversal on a graph. You can edit the graph JSON below and click "Load Graph".
       </p>
-      <GraphVisualizer defaultAlgorithm="DFS" autoLoadExample={true} />
+
+      {/* Custom Input Section */}
+      <div style={{
+        background: 'var(--surface-bg)',
+        padding: '1rem',
+        borderRadius: '8px',
+        marginBottom: '1.5rem'
+      }}>
+        <textarea
+          value={inputText}
+          onChange={handleInputChange}
+          placeholder='Enter graph JSON: {"nodes":[...], "edges":[...]}'
+          style={{
+            width: '100%',
+            minHeight: '120px',
+            fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+            fontSize: '0.9rem',
+            padding: '0.5rem',
+            borderRadius: '6px',
+            border: '1px solid var(--border-primary)',
+            marginBottom: '0.5rem',
+            resize: 'vertical'
+          }}
+        />
+        <button
+          onClick={handleLoadCustomGraph}
+          style={{
+            padding: '0.5rem 1rem',
+            background: 'var(--accent-primary-bg)',
+            color: 'var(--text-on-accent)',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer'
+          }}
+        >
+          Load Graph
+        </button>
+      </div>
+
+      {/* Graph Visualizer */}
+      <GraphVisualizer 
+        defaultAlgorithm="DFS" 
+        autoLoadExample={!customGraph} 
+        customGraph={customGraph} 
+      />
 
       {/* Code Implementation Section */}
       <div className="theme-card" style={{ marginTop: '2rem' }}>
         <div className="theme-card-header">
           <h3>DFS - Code Implementation</h3>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <button
-              className={`btn ${selectedLanguage === 'java' ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setSelectedLanguage('java')}
-              style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
-            >
-              Java
-            </button>
-            <button
-              className={`btn ${selectedLanguage === 'python' ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setSelectedLanguage('python')}
-              style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
-            >
-              Python
-            </button>
-            <button
-              className={`btn ${selectedLanguage === 'cpp' ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setSelectedLanguage('cpp')}
-              style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
-            >
-              C++
-            </button>
+            {["java", "python", "cpp", "javascript"].map(lang => (
+              <button
+                key={lang}
+                className={`btn ${selectedLanguage === lang ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setSelectedLanguage(lang)}
+                style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+              >
+                {lang.charAt(0).toUpperCase() + lang.slice(1)}
+              </button>
+            ))}
           </div>
         </div>
         <div style={{
@@ -83,5 +136,3 @@ const GraphDFS = () => {
 };
 
 export default GraphDFS;
-
-
