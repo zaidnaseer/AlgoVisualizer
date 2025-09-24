@@ -15,7 +15,8 @@ import {
   BookOpen,
   Cpu,
   HelpCircle,
- Zap 
+ Zap ,
+ TreeDeciduous
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 
@@ -109,7 +110,15 @@ const Navbar = () => {
     { path: "/greedy", label: "Algorithms" },
   ],
 },
-
+{
+  label: "Trees",
+  icon: TreeDeciduous, // Make sure you import a suitable tree icon
+  dropdown: [
+    { path: "/tree-overview", label: "Overview" },
+    { path: "/tree", label: "Algorithms" },
+  ],
+}
+,
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },

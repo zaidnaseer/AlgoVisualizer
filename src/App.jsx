@@ -41,6 +41,10 @@ import DPOverview from "./pages/DPOverview";
 import DPPage from "./pages/DPPage";
 import GreedyOverview from "./pages/GreedyOverview";
 import GreedyPage from "./pages/GreedyPage";
+// Tree Algorithms
+import TreeOverview from "./pages/TreeOverview";
+import TreePage from "./pages/TreePage";
+
 
 
 const App = () => {
@@ -115,6 +119,10 @@ const App = () => {
 <Route path="/greedy-overview" element={<GreedyOverview />} />
 <Route path="/greedy" element={<GreedyPage />} />
 
+
+          {/* Trees */}
+<Route path="/tree-overview" element={<TreeOverview />} />
+<Route path="/tree" element={<TreePage />} />
 
 
             {/* Other Pages */}
