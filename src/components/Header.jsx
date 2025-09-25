@@ -49,8 +49,8 @@ const Header = () => {
         { path: '/graph', label: 'Graph', icon: FaProjectDiagram, group: 'learn' },
         { path: '/quiz', label: 'Quiz', icon: FaBrain, group: 'test' },
         { path: '/contributors', label: 'Contributors', icon: FaUsers, group: 'community' },
-        { path: '/documentation', label: 'Documentation', icon: FaBook, group: 'help' },
-        { path: '/faq', label: 'FAQ', icon: FaQuestionCircle, group: 'help' }
+        { path: '/documentation', label: 'Documentation', icon: FaBook, group: 'help' }
+       
     ];
 
     return (

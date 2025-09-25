@@ -18,7 +18,8 @@ import {
   Hash,
   HelpCircle,
   Zap,
-  TreeDeciduous // Added missing import
+  TreeDeciduous, // Added missing import
+
 } from "lucide-react";
 import { FaHashtag } from "react-icons/fa";
 
@@ -116,7 +117,8 @@ const Navbar = () => {
     },
     {
       label: "Greedy Algorithms",
-      icon: Zap, // Fixed spacing
+
+      icon: Zap,
       dropdown: [
         { path: "/greedy-overview", label: "Overview" },
         { path: "/greedy", label: "Algorithms" },
@@ -130,6 +132,8 @@ const Navbar = () => {
         { path: "/dc", label: "Algorithms" },
       ],
     },
+
+
     {
       label: "Trees",
       icon: TreeDeciduous, // Now properly imported
@@ -138,9 +142,8 @@ const Navbar = () => {
         { path: "/tree", label: "Algorithms" },
       ],
     },
+
     { path: "/quiz", icon: Trophy, label: "Quiz" },
-    { path: "/blog", icon: BookOpen, label: "Blog" },
-    { path: "/faq", icon: HelpCircle, label: "FAQ" },
     {
       label: "Community",
       icon: Users,
@@ -209,7 +212,9 @@ const Navbar = () => {
                 <button
                   className="mobile-menu-button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+
                   aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+
                 >
                   {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
