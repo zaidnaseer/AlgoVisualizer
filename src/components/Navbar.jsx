@@ -15,6 +15,8 @@ import {
   BookOpen,
   Cpu,
   HelpCircle,
+  Hash,
+  Zap,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 
@@ -101,15 +103,18 @@ const Navbar = () => {
   ],
 },
 {
-
   label: "Hashing",
-  icon: Hash, // Choose a suitable icon for Hashing (e.g., from lucide-react or any icon library)
+  icon: Hash,
+ 
   dropdown: [
     { path: "/hashing-overview", label: "Overview" },
     { path: "/hashing", label: "Algorithms" },
+    ],
+},
+{
 
   label: "Greedy Algorithms",
-  icon:Zap, // choose a suitable icon for Greedy algorithms
+  icon: Zap,
   dropdown: [
     { path: "/greedy-overview", label: "Overview" },
     { path: "/greedy", label: "Algorithms" },
@@ -119,8 +124,7 @@ const Navbar = () => {
 
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
-    { path: "/blog", icon: BookOpen, label: "Blog" },
-    { path: "/faq", icon: HelpCircle, label: "FAQ" },
+
     {
       label: "Community",
       icon: Users,
