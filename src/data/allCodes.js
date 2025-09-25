@@ -3152,7 +3152,242 @@ int kruskalMST(int n, vector<Edge>& edges){
     return mstWeight;
 }`
   }
+};
+// src/data/allCodes.js
+
+export const treeAlgorithms = {
+  binaryTreeTraversals: {
+    preorder: {
+      java: `public void preorder(TreeNode root){
+    if(root==null) return;
+    System.out.print(root.val + " ");
+    preorder(root.left);
+    preorder(root.right);
+}`,
+      python: `def preorder(root):
+    if not root: return
+    print(root.val, end=' ')
+    preorder(root.left)
+    preorder(root.right)`,
+      cpp: `void preorder(TreeNode* root){
+    if(!root) return;
+    cout << root->val << " ";
+    preorder(root->left);
+    preorder(root->right);
+}`,
+      javascript: `function preorder(root){
+    if(!root) return;
+    console.log(root.val);
+    preorder(root.left);
+    preorder(root.right);
+}`
+    },
+    inorder: {
+      java: `public void inorder(TreeNode root){
+    if(root==null) return;
+    inorder(root.left);
+    System.out.print(root.val + " ");
+    inorder(root.right);
+}`,
+      python: `def inorder(root):
+    if not root: return
+    inorder(root.left)
+    print(root.val, end=' ')
+    inorder(root.right)`,
+      cpp: `void inorder(TreeNode* root){
+    if(!root) return;
+    inorder(root->left);
+    cout << root->val << " ";
+    inorder(root->right);
+}`,
+      javascript: `function inorder(root){
+    if(!root) return;
+    inorder(root.left);
+    console.log(root.val);
+    inorder(root.right);
+}`
+    },
+    postorder: {
+      java: `public void postorder(TreeNode root){
+    if(root==null) return;
+    postorder(root.left);
+    postorder(root.right);
+    System.out.print(root.val + " ");
+}`,
+      python: `def postorder(root):
+    if not root: return
+    postorder(root.left)
+    postorder(root.right)
+    print(root.val, end=' ')`,
+      cpp: `void postorder(TreeNode* root){
+    if(!root) return;
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->val << " ";
+}`,
+      javascript: `function postorder(root){
+    if(!root) return;
+    postorder(root.left);
+    postorder(root.right);
+    console.log(root.val);
+}`
+    },
+    levelOrder: {
+      java: `public void levelOrder(TreeNode root){
+    if(root==null) return;
+    Queue<TreeNode> q = new LinkedList<>();
+    q.add(root);
+    while(!q.isEmpty()){
+        TreeNode node = q.poll();
+        System.out.print(node.val + " ");
+        if(node.left!=null) q.add(node.left);
+        if(node.right!=null) q.add(node.right);
+    }
+}`,
+      python: `from collections import deque
+def levelOrder(root):
+    if not root: return
+    q = deque([root])
+    while q:
+        node = q.popleft()
+        print(node.val, end=' ')
+        if node.left: q.append(node.left)
+        if node.right: q.append(node.right)`,
+      cpp: `void levelOrder(TreeNode* root){
+    if(!root) return;
+    queue<TreeNode*> q;
+    q.push(root);
+    while(!q.empty()){
+        TreeNode* node = q.front(); q.pop();
+        cout << node->val << " ";
+        if(node->left) q.push(node->left);
+        if(node->right) q.push(node->right);
+    }
+}`,
+      javascript: `function levelOrder(root){
+    if(!root) return;
+    const q = [root];
+    while(q.length){
+        const node = q.shift();
+        console.log(node.val);
+        if(node.left) q.push(node.left);
+        if(node.right) q.push(node.right);
+    }
+}`
+    }
+  },
+
+  bstOperations: {
+    insert: {
+      java: `public TreeNode insert(TreeNode root, int val){
+    if(root==null) return new TreeNode(val);
+    if(val<root.val) root.left=insert(root.left,val);
+    else root.right=insert(root.right,val);
+    return root;
+}`,
+      python: `def insert(root,val):
+    if not root: return TreeNode(val)
+    if val<root.val: root.left=insert(root.left,val)
+    else: root.right=insert(root.right,val)
+    return root`,
+      cpp: `TreeNode* insert(TreeNode* root,int val){
+    if(!root) return new TreeNode(val);
+    if(val<root->val) root->left=insert(root->left,val);
+    else root->right=insert(root->right,val);
+    return root;
+}`,
+      javascript: `function insert(root,val){
+    if(!root) return {val,left:null,right:null};
+    if(val<root.val) root.left=insert(root.left,val);
+    else root.right=insert(root.right,val);
+    return root;
+}`
+    },
+    search: {
+      java: `public boolean search(TreeNode root,int val){
+    if(root==null) return false;
+    if(root.val==val) return true;
+    if(val<root.val) return search(root.left,val);
+    else return search(root.right,val);
+}`,
+      python: `def search(root,val):
+    if not root: return False
+    if root.val==val: return True
+    if val<root.val: return search(root.left,val)
+    return search(root.right,val)`,
+      cpp: `bool search(TreeNode* root,int val){
+    if(!root) return false;
+    if(root->val==val) return true;
+    if(val<root->val) return search(root->left,val);
+    return search(root->right,val);
+}`,
+      javascript: `function search(root,val){
+    if(!root) return false;
+    if(root.val===val) return true;
+    if(val<root.val) return search(root.left,val);
+    return search(root.right,val);
+}`
+    },
+    deleteNode: {
+      java: `public TreeNode deleteNode(TreeNode root,int key){
+    if(root==null) return null;
+    if(key<root.val) root.left=deleteNode(root.left,key);
+    else if(key>root.val) root.right=deleteNode(root.right,key);
+    else{
+        if(root.left==null) return root.right;
+        else if(root.right==null) return root.left;
+        TreeNode minNode=root.right;
+        while(minNode.left!=null) minNode=minNode.left;
+        root.val=minNode.val;
+        root.right=deleteNode(root.right,minNode.val);
+    }
+    return root;
+}`,
+      python: `def deleteNode(root,key):
+    if not root: return None
+    if key<root.val: root.left=deleteNode(root.left,key)
+    elif key>root.val: root.right=deleteNode(root.right,key)
+    else:
+        if not root.left: return root.right
+        if not root.right: return root.left
+        temp=root.right
+        while temp.left: temp=temp.left
+        root.val=temp.val
+        root.right=deleteNode(root.right,temp.val)
+    return root`,
+      cpp: `TreeNode* deleteNode(TreeNode* root,int key){
+    if(!root) return nullptr;
+    if(key<root->val) root->left=deleteNode(root->left,key);
+    else if(key>root->val) root->right=deleteNode(root->right,key);
+    else{
+        if(!root->left) return root->right;
+        if(!root->right) return root->left;
+        TreeNode* temp=root->right;
+        while(temp->left) temp=temp->left;
+        root->val=temp->val;
+        root->right=deleteNode(root->right,temp->val);
+    }
+    return root;
+}`,
+      javascript: `function deleteNode(root,key){
+    if(!root) return null;
+    if(key<root.val) root.left=deleteNode(root.left,key);
+    else if(key>root.val) root.right=deleteNode(root.right,key);
+    else{
+        if(!root.left) return root.right;
+        if(!root.right) return root.left;
+        let temp=root.right;
+        while(temp.left) temp=temp.left;
+        root.val=temp.val;
+        root.right=deleteNode(root.right,temp.val);
+    }
+    return root;
+}`
+    }
+  }
 }
+
+
 ;
 export const divideConquerAlgorithms = {
   mergeSort: {
@@ -3363,6 +3598,7 @@ void quickSort(vector<int>& arr, int low, int high){
 }`
   }
 }
+
 
 
 
