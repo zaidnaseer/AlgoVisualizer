@@ -18,9 +18,7 @@ import {
   Hash,
   HelpCircle,
   Zap,
-  TreeDeciduous,
-  Hash, // Added missing Hash import
-
+  TreeDeciduous // Added missing import
 } from "lucide-react";
 import { FaHashtag } from "react-icons/fa";
 
@@ -93,7 +91,6 @@ const Navbar = () => {
       ],
     },
     {
-
       label: "Backtracking",
       icon: BookOpen,
       dropdown: [
@@ -111,7 +108,7 @@ const Navbar = () => {
     },
     {
       label: "Hashing",
-      icon: Hash, // Now properly imported
+      icon: Hash,
       dropdown: [
         { path: "/hashing-overview", label: "Overview" },
         { path: "/hashing", label: "Algorithms" },
@@ -119,67 +116,28 @@ const Navbar = () => {
     },
     {
       label: "Greedy Algorithms",
-      icon: Zap,
+      icon: Zap, // Fixed spacing
       dropdown: [
         { path: "/greedy-overview", label: "Overview" },
         { path: "/greedy", label: "Algorithms" },
       ],
     },
     {
+      label: "Divide & Conquer",
+      icon: Code,
+      dropdown: [
+        { path: "/dc-overview", label: "Overview" },
+        { path: "/dc", label: "Algorithms" },
+      ],
+    },
+    {
       label: "Trees",
-      icon: TreeDeciduous,
+      icon: TreeDeciduous, // Now properly imported
       dropdown: [
         { path: "/tree-overview", label: "Overview" },
         { path: "/tree", label: "Algorithms" },
       ],
     },
-
-    label: "Backtracking",
-    icon: BookOpen, // you can choose a different icon if needed
-    dropdown: [
-      { path: "/backtracking-overview", label: "Overview" },
-      { path: "/backtracking", label: "Algorithms" },
-    ],
-  },
-  {
-  label: "Dynamic Programming",
-  icon: Cpu, // you can choose a suitable icon for DP
-  dropdown: [
-    { path: "/dp-overview", label: "Overview" },
-    { path: "/dp", label: "Algorithms" },
-  ],
-},
-{
-
-  label: "Hashing",
-  icon: Hash, // Choose a suitable icon for Hashing (e.g., from lucide-react or any icon library)
-  dropdown: [
-    { path: "/hashing-overview", label: "Overview" },
-    { path: "/hashing", label: "Algorithms" },
-  ],
-},
-{
-
-  label: "Greedy Algorithms",
-  icon:Zap, // choose a suitable icon for Greedy algorithms
-  dropdown: [
-    { path: "/greedy-overview", label: "Overview" },
-    { path: "/greedy", label: "Algorithms" },
-
-  ],
-},
-{
-  label: "Divide & Conquer",
-  icon: Code, // choose a suitable icon for Divide & Conquer (e.g., Code, GitMerge, or any relevant icon from your icon library)
-  dropdown: [
-    { path: "/dc-overview", label: "Overview" },
-    { path: "/dc", label: "Algorithms" },
-  ],
-},
-
-
-
-
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },
     { path: "/faq", icon: HelpCircle, label: "FAQ" },
@@ -328,6 +286,17 @@ const Navbar = () => {
               </div>
             ))}
           </div>
+
+          {/* Desktop Mobile Menu Button (hidden for now) */}
+          {!isMobile && (
+            <button
+              className="mobile-menu-button desktop-menu-btn"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              style={{ display: 'none' }}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          )}
         </div>
 
         {/* Enhanced Mobile Menu */}
