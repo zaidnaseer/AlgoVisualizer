@@ -58,6 +58,17 @@ export async function bucketSort(arr, setColorArray, delay) {
   return await bucketSortWithStop(arr, noopSetArray, setColorArray, delay, makeStopRef(), noopUpdateStats);
 }
 
+// Searching algorithm wrappers
+import { linearSearchWithStop } from "./linearSearch.js";
+export async function linearSearchWrapper(arr, setColorArray, delay) {
+  return await linearSearchWithStop(arr, noopSetArray, setColorArray, delay, makeStopRef(), noopUpdateStats);
+}
+
+import { binarySearchWithStop } from "./binarySearch.js";
+export async function binarySearchWrapper(arr, setColorArray, delay) {
+  return await binarySearchWithStop(arr, noopSetArray, setColorArray, delay, makeStopRef(), noopUpdateStats);
+}
+
 // Searching algorithms (direct re-exports)
 import { linearSearch } from "./linearSearch.js";
 export { linearSearch };
