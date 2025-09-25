@@ -311,7 +311,7 @@ const Footer = () => {
                 <span className="legal-separator">|</span>
                 <Link to="/terms">Terms of Service</Link>
                 <span className="legal-separator">|</span>
-                <Link to="/cookies">Cookie Policy</Link>
+                <Link to="/cookies">Cookie Policy</Link> {/* fixed cookies page */}
               </div>
             </div>
           </div>
