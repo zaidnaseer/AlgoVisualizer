@@ -122,7 +122,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/algorithms">
+                <Link to="/data-structures">
                   <FaArrowRight className="link-icon" />
                   Algorithms
                 </Link>
