@@ -50,6 +50,10 @@ import TreeOverview from "./pages/TreeOverview";
 import TreePage from "./pages/TreePage";
 
 
+// Divide & Conquer
+import DCOverview from "./pages/DCOverview";
+import DCPage from "./pages/DCPage";
+
 
 
 const App = () => {
@@ -133,6 +137,11 @@ const App = () => {
           {/* Trees */}
 <Route path="/tree-overview" element={<TreeOverview />} />
 <Route path="/tree" element={<TreePage />} />
+
+
+  {/* Divide & Conquer */}
+  <Route path="/dc-overview" element={<DCOverview />} />
+  <Route path="/dc" element={<DCPage />} />
 
 
 
