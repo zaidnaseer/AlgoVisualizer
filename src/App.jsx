@@ -46,6 +46,10 @@ import HashingPage from "./pages/HashingPage";
 import GreedyOverview from "./pages/GreedyOverview";
 import GreedyPage from "./pages/GreedyPage";
 
+// Divide & Conquer
+import DCOverview from "./pages/DCOverview";
+import DCPage from "./pages/DCPage";
+
 
 
 const App = () => {
@@ -125,6 +129,11 @@ const App = () => {
 <Route path="/greedy-overview" element={<GreedyOverview />} />
 <Route path="/greedy" element={<GreedyPage />} />
 
+
+
+  {/* Divide & Conquer */}
+  <Route path="/dc-overview" element={<DCOverview />} />
+  <Route path="/dc" element={<DCPage />} />
 
 
 

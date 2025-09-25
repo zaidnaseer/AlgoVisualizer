@@ -14,8 +14,13 @@ import {
   ChevronDown,
   BookOpen,
   Cpu,
+  Code,
+  Hash,
   HelpCircle,
+  Zap
 } from "lucide-react";
+import { FaHashtag } from "react-icons/fa";
+
 import { useTheme } from "../ThemeContext";
 
 const Navbar = () => {
@@ -107,6 +112,9 @@ const Navbar = () => {
   dropdown: [
     { path: "/hashing-overview", label: "Overview" },
     { path: "/hashing", label: "Algorithms" },
+  ],
+},
+{
 
   label: "Greedy Algorithms",
   icon:Zap, // choose a suitable icon for Greedy algorithms
@@ -116,6 +124,15 @@ const Navbar = () => {
 
   ],
 },
+{
+  label: "Divide & Conquer",
+  icon: Code, // choose a suitable icon for Divide & Conquer (e.g., Code, GitMerge, or any relevant icon from your icon library)
+  dropdown: [
+    { path: "/dc-overview", label: "Overview" },
+    { path: "/dc", label: "Algorithms" },
+  ],
+},
+
 
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
