@@ -45,6 +45,10 @@ import HashingPage from "./pages/HashingPage";
 
 import GreedyOverview from "./pages/GreedyOverview";
 import GreedyPage from "./pages/GreedyPage";
+// Tree Algorithms
+import TreeOverview from "./pages/TreeOverview";
+import TreePage from "./pages/TreePage";
+
 
 // Divide & Conquer
 import DCOverview from "./pages/DCOverview";
@@ -129,6 +133,10 @@ const App = () => {
 <Route path="/greedy-overview" element={<GreedyOverview />} />
 <Route path="/greedy" element={<GreedyPage />} />
 
+
+          {/* Trees */}
+<Route path="/tree-overview" element={<TreeOverview />} />
+<Route path="/tree" element={<TreePage />} />
 
 
   {/* Divide & Conquer */}
