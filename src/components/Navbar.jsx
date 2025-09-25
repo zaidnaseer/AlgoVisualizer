@@ -15,10 +15,9 @@ import {
   BookOpen,
   Cpu,
   HelpCircle,
-
- Zap ,
- TreeDeciduous
-
+  Zap,
+  TreeDeciduous,
+  Hash, // Added missing Hash import
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 
@@ -89,47 +88,45 @@ const Navbar = () => {
       ],
     },
     {
-    label: "Backtracking",
-    icon: BookOpen, // you can choose a different icon if needed
-    dropdown: [
-      { path: "/backtracking-overview", label: "Overview" },
-      { path: "/backtracking", label: "Algorithms" },
-    ],
-  },
-  {
-  label: "Dynamic Programming",
-  icon: Cpu, // you can choose a suitable icon for DP
-  dropdown: [
-    { path: "/dp-overview", label: "Overview" },
-    { path: "/dp", label: "Algorithms" },
-  ],
-},
-{
-
-  label: "Hashing",
-  icon: Hash, // Choose a suitable icon for Hashing (e.g., from lucide-react or any icon library)
-  dropdown: [
-    { path: "/hashing-overview", label: "Overview" },
-    { path: "/hashing", label: "Algorithms" },
-
-  label: "Greedy Algorithms",
-  icon:Zap, // choose a suitable icon for Greedy algorithms
-  dropdown: [
-    { path: "/greedy-overview", label: "Overview" },
-    { path: "/greedy", label: "Algorithms" },
-
-  ],
-},
-{
-  label: "Trees",
-  icon: TreeDeciduous, // Make sure you import a suitable tree icon
-  dropdown: [
-    { path: "/tree-overview", label: "Overview" },
-    { path: "/tree", label: "Algorithms" },
-  ],
-}
-,
-
+      label: "Backtracking",
+      icon: BookOpen,
+      dropdown: [
+        { path: "/backtracking-overview", label: "Overview" },
+        { path: "/backtracking", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Dynamic Programming",
+      icon: Cpu,
+      dropdown: [
+        { path: "/dp-overview", label: "Overview" },
+        { path: "/dp", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Hashing",
+      icon: Hash, // Now properly imported
+      dropdown: [
+        { path: "/hashing-overview", label: "Overview" },
+        { path: "/hashing", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Greedy Algorithms",
+      icon: Zap,
+      dropdown: [
+        { path: "/greedy-overview", label: "Overview" },
+        { path: "/greedy", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Trees",
+      icon: TreeDeciduous,
+      dropdown: [
+        { path: "/tree-overview", label: "Overview" },
+        { path: "/tree", label: "Algorithms" },
+      ],
+    },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/blog", icon: BookOpen, label: "Blog" },
     { path: "/faq", icon: HelpCircle, label: "FAQ" },
@@ -201,17 +198,9 @@ const Navbar = () => {
                 <button
                   className="mobile-menu-button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  style={{ 
-                    display: 'flex !important',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '2px solid red', // Temporary for debugging
-                    width: '44px',
-                    height: '44px',
-                    fontSize: '20px'
-                  }}
+                  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                 >
-                  {isMobileMenuOpen ? '✕' : '☰'}
+                  {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
               </div>
             </div>
@@ -286,17 +275,6 @@ const Navbar = () => {
               </div>
             ))}
           </div>
-
-          {/* Desktop Mobile Menu Button (hidden for now) */}
-          {!isMobile && (
-            <button
-              className="mobile-menu-button desktop-menu-btn"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              style={{ display: 'none' }}
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          )}
         </div>
 
         {/* Enhanced Mobile Menu */}
@@ -311,6 +289,7 @@ const Navbar = () => {
               <button
                 className="mobile-menu-close-btn"
                 onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close navigation menu"
               >
                 <X size={20} />
               </button>
@@ -326,57 +305,57 @@ const Navbar = () => {
                 className="mobile-menu-item"
                 style={{ '--item-index': index }}
               >
-              {item.dropdown ? (
-                <div className="mobile-dropdown">
-                  <button
-                    className={`mobile-dropdown-toggle ${
-                      isDropdownOpen === index ? "active" : ""
+                {item.dropdown ? (
+                  <div className="mobile-dropdown">
+                    <button
+                      className={`mobile-dropdown-toggle ${
+                        isDropdownOpen === index ? "active" : ""
+                      }`}
+                      onClick={() => handleDropdownToggle(index)}
+                    >
+                      <item.icon size={18} />
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        size={16}
+                        className={`dropdown-arrow ${
+                          isDropdownOpen === index ? "rotated" : ""
+                        }`}
+                      />
+                    </button>
+                    {isDropdownOpen === index && (
+                      <div className="mobile-dropdown-menu">
+                        {item.dropdown.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={subItem.path}
+                            className={`mobile-dropdown-item ${
+                              isActive(subItem.path) ? "active" : ""
+                            }`}
+                            onClick={() => {
+                              setIsDropdownOpen(null);
+                              setIsMobileMenuOpen(false);
+                            }}
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={item.path}
+                    className={`mobile-menu-link ${
+                      isActive(item.path) ? "active" : ""
                     }`}
-                    onClick={() => handleDropdownToggle(index)}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <item.icon size={18} />
                     <span>{item.label}</span>
-                    <ChevronDown
-                      size={16}
-                      className={`dropdown-arrow ${
-                        isDropdownOpen === index ? "rotated" : ""
-                      }`}
-                    />
-                  </button>
-                  {isDropdownOpen === index && (
-                    <div className="mobile-dropdown-menu">
-                      {item.dropdown.map((subItem, subIndex) => (
-                        <Link
-                          key={subIndex}
-                          to={subItem.path}
-                          className={`mobile-dropdown-item ${
-                            isActive(subItem.path) ? "active" : ""
-                          }`}
-                          onClick={() => {
-                            setIsDropdownOpen(null);
-                            setIsMobileMenuOpen(false);
-                          }}
-                        >
-                          {subItem.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  to={item.path}
-                  className={`mobile-menu-link ${
-                    isActive(item.path) ? "active" : ""
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <item.icon size={18} />
-                  <span>{item.label}</span>
-                </Link>
-              )}
-            </div>
-          ))}
+                  </Link>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </nav>
