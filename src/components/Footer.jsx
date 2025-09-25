@@ -122,7 +122,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/algorithms">
+                <Link to="/data-structures">
                   <FaArrowRight className="link-icon" />
                   Algorithms
                 </Link>
@@ -183,11 +183,16 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contribute">
-                  <FaArrowRight className="link-icon" />
-                  Contribute
-                </Link>
-              </li>
+  <a 
+    href="https://github.com/RhythmPahwa14/AlgoVisualizer" 
+    target="_blank" 
+    rel="noopener noreferrer"
+  >
+    <FaArrowRight className="link-icon" />
+    Contribute
+  </a>
+</li>
+
             </ul>
           </div>
 
