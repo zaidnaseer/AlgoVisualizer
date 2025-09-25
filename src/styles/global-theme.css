@@ -1283,9 +1283,11 @@ body {
 }
 .table tbody td {
   padding: 12px;
-  color: #dff3ff;
+  color: white;
+  border-color: 1px solid rgba(255, 255, 255, 0.03);
   border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
+
 .algo {
   display: flex;
   align-items: center;
