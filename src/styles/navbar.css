@@ -116,7 +116,7 @@ body {
 .nav-links-desktop {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: var(--space-md, 16px);
     flex: 1;
     justify-content: center;
     padding: 0 var(--space-lg);
@@ -125,7 +125,7 @@ body {
 .nav-group {
     display: flex;
     align-items: center;
-    gap: var(--space-xs);
+    gap: var(--space-sm, 12px);
 }
 
 .nav-group-label {
@@ -148,7 +148,7 @@ body {
 .nav-link {
     display: flex;
     align-items: center;
-    gap: 1px;
+    gap: 8px;
     font-size: 0.875rem;
     font-weight: 500;
     padding: var(--space-sm) var(--space-md);
