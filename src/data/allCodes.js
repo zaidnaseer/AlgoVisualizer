@@ -3153,5 +3153,216 @@ int kruskalMST(int n, vector<Edge>& edges){
 }`
   }
 }
+;
+export const divideConquerAlgorithms = {
+  mergeSort: {
+    java: `public class MergeSort {
+    public void mergeSort(int[] arr, int l, int r){
+        if(l<r){
+            int m = l + (r-l)/2;
+            mergeSort(arr,l,m);
+            mergeSort(arr,m+1,r);
+            merge(arr,l,m,r);
+        }
+    }
+    private void merge(int[] arr, int l, int m, int r){
+        int n1=m-l+1, n2=r-m;
+        int[] L=new int[n1], R=new int[n2];
+        for(int i=0;i<n1;i++) L[i]=arr[l+i];
+        for(int j=0;j<n2;j++) R[j]=arr[m+1+j];
+        int i=0,j=0,k=l;
+        while(i<n1 && j<n2){
+            arr[k++] = (L[i]<=R[j]) ? L[i++] : R[j++];
+        }
+        while(i<n1) arr[k++]=L[i++];
+        while(j<n2) arr[k++]=R[j++];
+    }
+}`,
+    python: `def merge_sort(arr):
+    if len(arr)>1:
+        mid=len(arr)//2
+        L,R=arr[:mid],arr[mid:]
+        merge_sort(L)
+        merge_sort(R)
+        i=j=k=0
+        while i<len(L) and j<len(R):
+            if L[i]<=R[j]: arr[k]=L[i]; i+=1
+            else: arr[k]=R[j]; j+=1
+            k+=1
+        while i<len(L): arr[k]=L[i]; i+=1; k+=1
+        while j<len(R): arr[k]=R[j]; j+=1; k+=1`,
+    cpp: `void merge(vector<int>& arr, int l, int m, int r){
+    int n1=m-l+1, n2=r-m;
+    vector<int> L(arr.begin()+l, arr.begin()+l+n1);
+    vector<int> R(arr.begin()+m+1, arr.begin()+m+1+n2);
+    int i=0,j=0,k=l;
+    while(i<n1 && j<n2) arr[k++] = (L[i]<=R[j]) ? L[i++] : R[j++];
+    while(i<n1) arr[k++]=L[i++];
+    while(j<n2) arr[k++]=R[j++];
+}
+void mergeSort(vector<int>& arr, int l, int r){
+    if(l<r){
+        int m=l+(r-l)/2;
+        mergeSort(arr,l,m);
+        mergeSort(arr,m+1,r);
+        merge(arr,l,m,r);
+    }
+}`,
+    javascript: `function mergeSort(arr){
+    if(arr.length<=1) return arr;
+    const mid=Math.floor(arr.length/2);
+    const left=mergeSort(arr.slice(0,mid));
+    const right=mergeSort(arr.slice(mid));
+    const merged=[];
+    let i=0,j=0;
+    while(i<left.length && j<right.length){
+        merged.push(left[i]<=right[j]?left[i++]:right[j++]);
+    }
+    return merged.concat(left.slice(i)).concat(right.slice(j));
+}`
+  },
+
+  quickSort: {
+    java: `public class QuickSort {
+    public void quickSort(int[] arr, int low, int high){
+        if(low<high){
+            int pi=partition(arr,low,high);
+            quickSort(arr,low,pi-1);
+            quickSort(arr,pi+1,high);
+        }
+    }
+    private int partition(int[] arr,int low,int high){
+        int pivot=arr[high], i=low-1;
+        for(int j=low;j<high;j++){
+            if(arr[j]<=pivot){ i++; int temp=arr[i]; arr[i]=arr[j]; arr[j]=temp; }
+        }
+        int temp=arr[i+1]; arr[i+1]=arr[high]; arr[high]=temp;
+        return i+1;
+    }
+}`,
+    python: `def quick_sort(arr):
+    if len(arr)<=1: return arr
+    pivot=arr[-1]
+    left=[x for x in arr[:-1] if x<=pivot]
+    right=[x for x in arr[:-1] if x>pivot]
+    return quick_sort(left)+[pivot]+quick_sort(right)`,
+    cpp: `int partition(vector<int>& arr, int low, int high){
+    int pivot=arr[high], i=low-1;
+    for(int j=low;j<high;j++){
+        if(arr[j]<=pivot){ i++; swap(arr[i], arr[j]); }
+    }
+    swap(arr[i+1], arr[high]);
+    return i+1;
+}
+void quickSort(vector<int>& arr, int low, int high){
+    if(low<high){
+        int pi=partition(arr,low,high);
+        quickSort(arr,low,pi-1);
+        quickSort(arr,pi+1,high);
+    }
+}`,
+    javascript: `function quickSort(arr){
+    if(arr.length<=1) return arr;
+    const pivot=arr[arr.length-1];
+    const left=arr.slice(0,-1).filter(x=>x<=pivot);
+    const right=arr.slice(0,-1).filter(x=>x>pivot);
+    return [...quickSort(left),pivot,...quickSort(right)];
+}`
+  },
+
+  binarySearch: {
+    java: `public class BinarySearch {
+    public int binarySearch(int[] arr, int target){
+        int l=0, r=arr.length-1;
+        while(l<=r){
+            int m=l+(r-l)/2;
+            if(arr[m]==target) return m;
+            else if(arr[m]<target) l=m+1;
+            else r=m-1;
+        }
+        return -1;
+    }
+}`,
+    python: `def binary_search(arr,target):
+    l,r=0,len(arr)-1
+    while l<=r:
+        m=(l+r)//2
+        if arr[m]==target: return m
+        elif arr[m]<target: l=m+1
+        else: r=m-1
+    return -1`,
+    cpp: `int binarySearch(vector<int>& arr,int target){
+    int l=0,r=arr.size()-1;
+    while(l<=r){
+        int m=l+(r-l)/2;
+        if(arr[m]==target) return m;
+        else if(arr[m]<target) l=m+1;
+        else r=m-1;
+    }
+    return -1;
+}`,
+    javascript: `function binarySearch(arr,target){
+    let l=0,r=arr.length-1;
+    while(l<=r){
+        const m=Math.floor((l+r)/2);
+        if(arr[m]===target) return m;
+        else if(arr[m]<target) l=m+1;
+        else r=m-1;
+    }
+    return -1;
+}`
+  },
+
+  maximumSubarraySum: {
+    java: `public class MaxSubarray {
+    public int maxSubArray(int[] arr, int l, int r){
+        if(l==r) return arr[l];
+        int m=l+(r-l)/2;
+        int leftMax=maxSubArray(arr,l,m);
+        int rightMax=maxSubArray(arr,m+1,r);
+        int crossMax=0,leftSum=Integer.MIN_VALUE,rightSum=Integer.MIN_VALUE,sum=0;
+        for(int i=m;i>=l;i--){ sum+=arr[i]; leftSum=Math.max(leftSum,sum); }
+        sum=0;
+        for(int i=m+1;i<=r;i++){ sum+=arr[i]; rightSum=Math.max(rightSum,sum); }
+        crossMax=leftSum+rightSum;
+        return Math.max(Math.max(leftMax,rightMax),crossMax);
+    }
+}`,
+    python: `def max_subarray(arr,l,r):
+    if l==r: return arr[l]
+    m=(l+r)//2
+    left=max_subarray(arr,l,m)
+    right=max_subarray(arr,m+1,r)
+    left_sum=right_sum=sum=0
+    left_sum=float('-inf')
+    for i in range(m,l-1,-1): sum+=arr[i]; left_sum=max(left_sum,sum)
+    sum=0; right_sum=float('-inf')
+    for i in range(m+1,r+1): sum+=arr[i]; right_sum=max(right_sum,sum)
+    return max(left,right,left_sum+right_sum)`,
+    cpp: `int maxSubArray(vector<int>& arr,int l,int r){
+    if(l==r) return arr[l];
+    int m=l+(r-l)/2;
+    int left=maxSubArray(arr,l,m);
+    int right=maxSubArray(arr,m+1,r);
+    int leftSum=INT_MIN,rightSum=INT_MIN,sum=0;
+    for(int i=m;i>=l;i--){ sum+=arr[i]; leftSum=max(leftSum,sum); }
+    sum=0;
+    for(int i=m+1;i<=r;i++){ sum+=arr[i]; rightSum=max(rightSum,sum); }
+    return max({left,right,leftSum+rightSum});
+}`,
+    javascript: `function maxSubArray(arr,l,r){
+    if(l===r) return arr[l];
+    const m=Math.floor((l+r)/2);
+    const left=maxSubArray(arr,l,m);
+    const right=maxSubArray(arr,m+1,r);
+    let leftSum=-Infinity,rightSum=-Infinity,sum=0;
+    for(let i=m;i>=l;i--){ sum+=arr[i]; leftSum=Math.max(leftSum,sum); }
+    sum=0;
+    for(let i=m+1;i<=r;i++){ sum+=arr[i]; rightSum=Math.max(rightSum,sum); }
+    return Math.max(left,right,leftSum+rightSum);
+}`
+  }
+}
+
 
 
