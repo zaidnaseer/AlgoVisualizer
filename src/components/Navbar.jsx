@@ -132,8 +132,6 @@ const Navbar = () => {
         { path: "/dc", label: "Algorithms" },
       ],
     },
-
-
     {
       label: "Trees",
       icon: TreeDeciduous, // Now properly imported
@@ -142,7 +140,6 @@ const Navbar = () => {
         { path: "/tree", label: "Algorithms" },
       ],
     },
-
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     {
       label: "Community",
@@ -240,7 +237,7 @@ const Navbar = () => {
           )}
 
           {/* Desktop Navigation */}
-          <div className="navbar-menu">
+        <div className="navbar-menu">
             {navigationItems.map((item, index) => (
               <div key={index} className="navbar-item">
                 {item.dropdown ? (
