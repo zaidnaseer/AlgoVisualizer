@@ -1283,9 +1283,12 @@ body {
 }
 .table tbody td {
   padding: 12px;
-  color: white;
-  border-color: 1px solid rgba(255, 255, 255, 0.03);
+  color: #000000;
   border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+[data-theme="dark"] .table tbody td {
+  color:#ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .algo {
