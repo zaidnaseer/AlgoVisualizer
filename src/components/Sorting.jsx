@@ -420,7 +420,7 @@ const Sorting = () => {
           </div>
         </div>
 
-    
+
 
           {/* Compact stats */}
           <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">
