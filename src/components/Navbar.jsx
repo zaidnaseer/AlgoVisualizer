@@ -70,6 +70,8 @@ const Navbar = () => {
 
         { path: "/data-structures/queue", label: "Queue visualization" },
         { path: "/data-structures/stack", label: "Stack visualization" },
+        { path: "/binary-tree", label: "Binary Tree visualization" },
+
 
       ],
     },
