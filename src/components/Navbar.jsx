@@ -30,6 +30,7 @@ const Navbar = () => {
   const location = useLocation();
   const { theme } = useTheme();
   const navbarRef = useRef(null);
+  
 
   // Detect mobile screen
   useEffect(() => {
@@ -132,6 +133,16 @@ const Navbar = () => {
         { path: "/tree", label: "Algorithms" },
       ],
     },
+    {
+  label: "Branch & Bound",
+  icon: BookOpen,
+  dropdown: [
+    { path: "/branchbound-overview", label: "Overview" },
+    { path: "/branchbound", label: "Algorithms" },
+  ],
+},
+
+
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     {
       label: "Community",
