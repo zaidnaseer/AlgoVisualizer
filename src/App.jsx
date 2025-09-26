@@ -1,4 +1,5 @@
 import React from "react";
+import FeedbackWidget from "./components/FeedbackWidget"; 
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SettingsProvider } from "./contexts/SettingsContext";
@@ -172,6 +173,7 @@ const App = () => {
         </main>
 
         <Doubt />
+        <FeedbackWidget />
         <Footer />
         <Analytics />
       </div>
