@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import "../styles/global-theme.css"; 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // Mock contributors data - moved outside component to avoid useEffect dependency issues
 const mockContributors = [
@@ -328,11 +330,8 @@ const Contributors = () => {
     );
   }
 
-
-
   return (
-    // ✅ MODIFIED: The main container now uses our global theme class.
-    <div className="theme-container contributors-section">
+    <div className="theme-container contributors-section" data-aos="fade-up" data-aos-duration="1000">
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -340,14 +339,12 @@ const Contributors = () => {
         viewport={{ once: true }}
         className="contributors-header"
       >
-        {/* ✅ MODIFIED: The header now uses our global theme class. */}
         <h1 className="theme-title">Our Amazing Contributors</h1>
         <p className="contributors-subtitle" style={{ fontSize: '1.5rem', textAlign: 'center' }}>
   Building Together, Growing Together
 </p>
       </motion.div>
 
-      {/* ✅ MODIFIED: The grid now uses our new global class. */}
       <motion.div
         className="contributors-grid"
         variants={containerVariants}
@@ -355,13 +352,12 @@ const Contributors = () => {
         whileInView="visible"
         viewport={{ once: true }}
       >
-        {contributors.map((contributor) => {
+        {contributors.map((contributor, index) => {
           const badgeStyle = getCommitBadgeStyle(contributor.contributions);
           const avatarRingStyle = getAvatarRingStyle(contributor.contributions);
           const roleIcon = getRoleBadgeIcon(contributor.role);
           
           return (
-          // ✅ MODIFIED: The card now uses our new global class.
           <motion.div
             key={contributor.id}
             className="contributor-card enhanced-card"
@@ -371,11 +367,11 @@ const Contributors = () => {
               boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
               transition: { duration: 0.3 }
             }}
+            data-aos="fade-up" data-aos-delay={`${index * 100}`}
           >
             <div className="card-glow"></div>
             
             <div className="contributor-avatar">
-              {/* Enhanced avatar with animated ring */}
               <div className="avatar-container">
                 <div className="avatar-ring" style={avatarRingStyle}></div>
                 <img
@@ -385,13 +381,11 @@ const Contributors = () => {
                     e.target.src = `https://ui-avatars.com/api/?name=${contributor.name || contributor.login}&background=6366f1&color=ffffff&size=120`;
                   }}
                 />
-                {/* Role badge overlay */}
                 <div className="role-badge-overlay" title={contributor.role}>
                   <span>{roleIcon}</span>
                 </div>
               </div>
               
-              {/* Enhanced commit badge */}
               <div 
                 className="contribution-badge enhanced-badge"
                 style={{
@@ -409,7 +403,6 @@ const Contributors = () => {
               </div>
             </div>
             
-            {/* ✅ MODIFIED: All child elements now use our new global classes. */}
             <div className="contributor-info enhanced-info">
               <h3 className="contributor-name">{contributor.name || contributor.login}</h3>
               <p className="contributor-role">
@@ -418,7 +411,6 @@ const Contributors = () => {
               </p>
               <p className="contributor-bio">{contributor.bio}</p>
               
-              {/* Contribution stats section */}
               <div className="contribution-stats" style={{display:'flex' , justifyContent:'center' , alignItems:'center', margin:'1rem 0' , padding:"1rem 0" , gap:'1rem', borderRadius:"12px" , boxShadow:`0 4px 12px ${`var(--shadow-color)`}`}}>
                 <div className="stat-item" style={{flexDirection:'column'}}>
                   <span className="stat-icon">📊</span>
@@ -437,7 +429,6 @@ const Contributors = () => {
                 </div>
               </div>
               
-              {/* Enhanced action buttons */}
               <div className="contributor-actions" style={{ display:'flex' ,alignItems: 'center' , flexDirection:'column' }}>
                 <a
                   href={contributor.html_url}
@@ -454,7 +445,6 @@ const Contributors = () => {
                 <button 
                   className="btn btn-secondary enhanced-btn"
                   onClick={() => {
-                    // Could open a modal or navigate to a appreciation page
                     alert(`Thanks for appreciating ${contributor.name || contributor.login}! 🎉`);
                   }}
                   style={{textAlign:'center' , whiteSpace:'nowrap'}}
@@ -469,7 +459,6 @@ const Contributors = () => {
       )}
       </motion.div>
 
-      {/* ✅ REFACTORED: The CTA is now a standard theme-card */}
       <motion.div
         className="theme-card"
         style={{ textAlign: 'center' }}
@@ -477,6 +466,7 @@ const Contributors = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         viewport={{ once: true }}
+        data-aos="fade-up" data-aos-delay="800"
       >
         <h3 className="theme-card-header">Join Our Community</h3>
         <p style={{ color: "var(--theme-text-secondary)", maxWidth: '600px', margin: '0 auto 1.5rem auto' }}>
@@ -488,7 +478,7 @@ const Contributors = () => {
             href="https://github.com/RhythmPahwa14/AlgoVisualizer"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary" // ✅ MODIFIED
+            className="btn btn-primary"
           >
             Contribute on GitHub
           </a>
@@ -496,7 +486,7 @@ const Contributors = () => {
             href="https://github.com/RhythmPahwa14/AlgoVisualizer/issues"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-secondary" // ✅ MODIFIED
+            className="btn btn-secondary"
           >
             Report Issues
           </a>

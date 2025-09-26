@@ -1,15 +1,17 @@
 import React from "react";
 import "./about.css";
-{/*import "../ThemeContext.jsx";*/}
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 export default function About() {
   return (
     <div className="about">
-      <div className="about-header">
+      <div className="about-header" data-aos="fade-down" data-aos-duration="1000">
         <h2 className="about-title">About AlgoVisualizer</h2>
         <div className="about-divider"></div>
       </div>
 
-      <div className="about-section">
+      <div className="about-section" data-aos="fade-up" data-aos-duration="1000">
         <p className="about-text">
           AlgoVisualizer is an interactive web application designed to help
           students, developers, and algorithm enthusiasts understand how sorting
@@ -19,7 +21,7 @@ export default function About() {
         </p>
       </div>
 
-      <div className="about-section">
+      <div className="about-section" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
         <h2 className="about-subtitle">Why AlgoVisualizer?</h2>
         <p className="about-text">
           Understanding algorithms can be challenging, especially when dealing
@@ -29,18 +31,18 @@ export default function About() {
         </p>
         <h3 className="about-small-title">AlgoVisualizer bridges this gap by:</h3>
         <ul className="about-list">
-          <li>Providing real-time animations of how algorithms manipulate data.</li>
-          <li>
+          <li data-aos="fade-right" data-aos-duration="800" data-aos-delay="400">Providing real-time animations of how algorithms manipulate data.</li>
+          <li data-aos="fade-right" data-aos-duration="800" data-aos-delay="500">
             Allowing users to interact with different inputs and observe
             algorithmic behavior.
           </li>
-          <li>
+          <li data-aos="fade-right" data-aos-duration="800" data-aos-delay="600">
             Simplifying complex concepts through visual step-by-step execution.
           </li>
         </ul>
       </div>
 
-      <div className="about-section">
+      <div className="about-section" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
         <h2 className="about-subtitle">Our Mission</h2>
         <p className="about-text">
           Our goal is to make algorithm learning accessible, interactive, and
@@ -50,10 +52,10 @@ export default function About() {
         </p>
       </div>
 
-      <div className="about-feature-section">
+      <div className="about-feature-section" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
         <h2 className="about-subtitle">Features</h2>
         <div className="about-card-container">
-          <div className="about-card">
+          <div className="about-card" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
             <h3 className="about-card-title">Sorting Algorithms</h3>
             <ul className="about-list">
               <li>Bubble Sort – Elements "bubble up" to their positions.</li>
@@ -66,7 +68,7 @@ export default function About() {
             </ul>
           </div>
 
-          <div className="about-card">
+          <div className="about-card" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="600">
             <h3 className="about-card-title">Searching Algorithms</h3>
             <ul className="about-list">
               <li>Linear Search – Sequentially checks each element.</li>
@@ -83,7 +85,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="about-button-container">
+      <div className="about-button-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700">
         <a
           href="https://github.com/RhythmPahwa14/AlgoVisualizer"
           target="_blank"

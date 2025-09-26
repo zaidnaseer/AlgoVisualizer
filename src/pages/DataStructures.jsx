@@ -11,7 +11,9 @@ import {
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import { useNavigate } from "react-router-dom";
-import "../styles/Documentation.css"; // keep your linkedlist styles
+import "../styles/Documentation.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -348,6 +350,9 @@ function AlgorithmCard({ algorithm }) {
       onClick={handleCardClick}
       title={algorithm.description}
       style={{ cursor: algorithm.implemented ? "pointer" : "default" }}
+      data-aos="fade-up"
+      data-aos-duration="1000"
+      data-aos-once="true"
     >
       <div className="card-header">
         <div className="card-title-group">
@@ -439,11 +444,11 @@ function DataStructuresPage() {
   );
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Algorithm Documentation</h1>
 
       {/* Search and Filter Section */}
-      <div className="theme-card filters-section">
+      <div className="theme-card filters-section" data-aos="fade-up" data-aos-delay="200">
         <div className="search-bar">
           <Search size={20} className="search-icon" />
           <input
@@ -480,7 +485,7 @@ function DataStructuresPage() {
             <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
           ))
         ) : (
-          <div className="no-results-card theme-card">
+          <div className="no-results-card theme-card" data-aos="fade-up" data-aos-delay="400">
             <Search size={48} />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>
