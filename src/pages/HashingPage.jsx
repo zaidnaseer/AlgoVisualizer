@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import HashingVisualizer from "../components/HashingVisualizer";
 import { hashingAlgorithms } from "../data/allCodes";
 import "../styles/global-theme.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const HashingPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
@@ -19,7 +21,7 @@ const HashingPage = () => {
   };
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Hashing Visualizer</h1>
       <p style={{
         textAlign: 'center',
@@ -31,13 +33,15 @@ const HashingPage = () => {
       </p>
 
       {/* Visualizer Component */}
-      <HashingVisualizer
-        defaultAlgorithm={selectedAlgorithm}
-        tableSize={10}
-      />
+      <div data-aos="fade-up" data-aos-delay="200">
+        <HashingVisualizer
+          defaultAlgorithm={selectedAlgorithm}
+          tableSize={10}
+        />
+      </div>
 
       {/* Algorithm Selector */}
-      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', margin: '1rem 0', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', margin: '1rem 0', flexWrap: 'wrap' }} data-aos="fade-up" data-aos-delay="300">
         {Object.keys(hashingAlgorithms).map((algo) => (
           <button
             key={algo}
@@ -50,7 +54,7 @@ const HashingPage = () => {
       </div>
 
       {/* Code Implementation Section */}
-      <div className="theme-card" style={{ marginTop: '2rem' }}>
+      <div className="theme-card" style={{ marginTop: '2rem' }} data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>Hashing - Code Implementation</h3>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
