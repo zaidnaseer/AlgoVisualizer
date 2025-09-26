@@ -2,10 +2,12 @@
 import React from "react";
 import "../styles/global-theme.css";
 import BacktrackingPage from "./BacktrackingPage"; // Your visualizer component
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const BacktrackingOverview = () => {
   return (
-    <div className="theme -container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title" style={{ marginTop: "4rem" }}>
         Guide to <span className="highlight">Backtracking</span>
       </h1>
@@ -43,7 +45,7 @@ const BacktrackingOverview = () => {
         : Explore all possible options efficiently by pruning invalid paths early.
       </p>
 
-      <div className="theme-card" style={{ width: "1300px" }}>
+      <div className="theme-card" style={{ width: "1300px" }} data-aos="fade-up" data-aos-delay="200">
         <div className="theme-card-header">
           <h3>What is Backtracking?</h3>
         </div>
@@ -54,7 +56,7 @@ const BacktrackingOverview = () => {
         </p>
       </div>
 
-      <div className="theme-card" style={{ width: "1300px" }}>
+      <div className="theme-card" style={{ width: "1300px" }} data-aos="fade-up" data-aos-delay="300">
         <div className="theme-card-header">
           <h3>🌱 Key Takeaways</h3>
         </div>
@@ -66,7 +68,7 @@ const BacktrackingOverview = () => {
         </ul>
       </div>
 
-      <div className="theme-card" style={{ width: "1300px" }}>
+      <div className="theme-card" style={{ width: "1300px" }} data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>⚡ Complexity Analysis</h3>
         </div>

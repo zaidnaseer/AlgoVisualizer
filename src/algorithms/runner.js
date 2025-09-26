@@ -10,9 +10,8 @@ import {
   timSort,
   introSort,
   shellSort,
-  linearSearch,
-  binarySearch,
-  jumpSearch,
+  linearSearchWrapper,
+  binarySearchWrapper,
 } from "./index";
 
 const SORTING_ALGOS = new Set([
@@ -26,8 +25,15 @@ const SORTING_ALGOS = new Set([
   "Shell Sort",
 ]);
 
+const SEARCHING_ALGOS = new Set([
+  "Linear Search",
+  "Binary Search",
+]);
+
 export function getAlgorithmType(algorithmName) {
-  return SORTING_ALGOS.has(algorithmName) ? "sorting" : "searching";
+  if (SORTING_ALGOS.has(algorithmName)) return "sorting";
+  if (SEARCHING_ALGOS.has(algorithmName)) return "searching";
+  return "unknown";
 }
 
 function colorsToIndices(colors) {
@@ -106,32 +112,22 @@ async function runSorting(algorithmName, array) {
 
 async function runSearching(algorithmName, array, target) {
   const working = array.slice();
-  const steps = [];
-  let foundIndex = -1;
-  // We adapt searching functions that take (array, target, setColorArray, delay)
-  const setColorArray = (colors) => {
-    const indices = colorsToIndices(colors);
-    if (indices.length > 0) steps.push({ type: "probe", index: indices[0] });
-  };
   switch (algorithmName) {
     case "Linear Search":
-      foundIndex = await linearSearch(working, target, setColorArray, 0);
-      break;
+      return await adaptColorArrayAlgorithm(linearSearchWrapper, working, 0);
     case "Binary Search":
-      foundIndex = await binarySearch(working, target, setColorArray, 0);
-      break;
-    case "Jump Search":
-      foundIndex = await jumpSearch(working, target, setColorArray, 0);
-      break;
+      return await adaptColorArrayAlgorithm(binarySearchWrapper, working, 0);
     default: {
-      // Unknown searching: simple probe sequence driven by implementation absence
+      // For other searching algorithms, we'll create a simple step sequence
+      const steps = [];
       for (let i = 0; i < working.length; i++) {
         steps.push({ type: "probe", index: i });
-        if (working[i] === target) { foundIndex = i; break; }
+        // In a real implementation, we would check if working[i] === target
       }
+      steps.push({ type: "done", array: working.slice() });
+      return { steps, finalArray: working.slice() };
     }
   }
-  return { type: "searching", steps, finalArray: working.slice(), foundIndex };
 }
 
 export function runAlgorithm(algorithmName, array, target) {
@@ -153,7 +149,5 @@ export async function runAlgorithmAsync(algorithmName, array, target) {
     return { type, ...res };
   }
   const res = await runSearching(algorithmName, array, target);
-  return { ...res };
+  return { type, ...res };
 }
-
-
