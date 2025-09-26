@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import AlgorithmVisualizer from "./AlgorithmVisualizer";
 import CodeExplanation from "./CodeExplanation";
 import SimpleExportControls from "./SimpleExportControls";
 import "../styles/Sorting.css";
@@ -127,7 +128,7 @@ const Sorting = () => {
   const getAlgorithmName = () => algorithmNames[algorithm] || "Unknown Algorithm";
 
   const getAlgorithmInfo = () =>
-    ALGORITHM_INFO[algorithm] || {
+    ALGORITHM_INFO.sorting[algorithm] || {
       description: "Algorithm implementation coming soon!",
       timeComplexity: "N/A",
       spaceComplexity: "N/A",
@@ -419,45 +420,6 @@ const Sorting = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN */}
-        <div className="sorting-right" id="sort-visualization-container" data-aos="fade-left" data-aos-duration="1000">
-          <div className="theme-card">
-            <div className="theme-card-header no-border viz-header">
-              <h3>Visualization</h3>
-            </div>
-            <div className="viz-canvas" style={{ gap: computeGap() }}>
-              {array.map((num, idx) => {
-                const maxVal = Math.max(...array, 1);
-                const heightPx = Math.max(40, Math.round((num / maxVal) * 280));
-                const col = colorArray[idx] || COLOR.base;
-                return (
-                  <div
-                    key={`${num}-${idx}`}
-                    className="array-bar"
-                    style={{
-                      height: `${heightPx}px`,
-                      backgroundColor: col,
-                      color: "var(--surface-bg)",
-                      fontSize: computeBarFontSize(),
-                      width: `${Math.max(
-                        12,
-                        Math.min(40, 400 / Math.max(1, currentLen))
-                      )}px`,
-                      display: "flex",
-                      alignItems: "flex-end",
-                      justifyContent: "center",
-                      paddingBottom: "4px",
-                      transition:
-                        "height 180ms ease, background-color 180ms ease, transform 150ms ease",
-                      transform: `translateY(0)`,
-                    }}
-                  >
-                    {currentLen <= 25 && num}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
 
           {/* Compact stats */}
           <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">

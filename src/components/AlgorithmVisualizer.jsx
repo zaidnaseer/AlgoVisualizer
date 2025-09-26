@@ -1,6 +1,7 @@
 // src/components/AlgorithmVisualizer.jsx
 import React, { useState, useEffect } from "react";
 import algorithmsData from "../algorithms/algorithms.json";
+import "../styles/UnifiedVisualizer.css";
 
 // Import all your algorithm functions here
 import { runAlgorithmAsync, getAlgorithmType } from "../algorithms/runner";
@@ -128,49 +129,30 @@ export default function AlgorithmVisualizer({
   const algoType = resolveAlgoType(algorithmName);
 
   return (
-    <div
-      className="p-6 border rounded-2xl shadow-lg"
-      style={{ backgroundColor: "#0b1220", borderColor: "#1f2937" }}
-    >
+    <div className="unified-visualizer">
       {!hideTitle && (
         <h2 className="text-xl font-bold mb-2 text-center text-white">
           {algorithmName}
         </h2>
       )}
       {!visualOnly && (
-        <button
-          onClick={generateArray}
-          className="mb-4 px-3 py-2 bg-blue-500 text-white rounded"
-        >
-          Generate Array
-        </button>
-      )}
-      {!visualOnly && (
-        <div className="flex items-center justify-center gap-3 mb-3">
+        <div className="visualization-controls">
+          <button onClick={generateArray}>
+            Generate Array
+          </button>
           <button
             onClick={handleStart}
             disabled={isAnimating}
-            className={`px-3 py-2 text-white rounded ${
-              isAnimating ? "bg-green-400 cursor-not-allowed" : "bg-green-600"
-            }`}
           >
-            Start
+            {isAnimating ? "Running..." : "Start"}
           </button>
           <button
             onClick={() => setIsAnimating(false)}
             disabled={!isAnimating}
-            className={`px-3 py-2 text-white rounded ${
-              !isAnimating
-                ? "bg-yellow-400 cursor-not-allowed"
-                : "bg-yellow-600"
-            }`}
           >
             Stop
           </button>
-          <button
-            onClick={handleReset}
-            className="px-3 py-2 bg-gray-500 text-white rounded"
-          >
+          <button onClick={handleReset}>
             Reset
           </button>
           {algorithmsData.find((a) => a.name === algorithmName)?.type ===
@@ -180,16 +162,10 @@ export default function AlgorithmVisualizer({
               value={target ?? ""}
               onChange={(e) => setTarget(Number(e.target.value))}
               placeholder="Target"
-              className="px-2 py-1 border rounded"
-              style={{ width: 100 }}
             />
           )}
-        </div>
-      )}
-      {!visualOnly && (
-        <div className="flex items-center justify-center gap-4 mb-4 text-white">
-          <div className="flex items-center gap-2">
-            <span className="text-xs opacity-80">Speed</span>
+          <div className="speed-control">
+            <label>Speed: {animationSpeedMs}ms</label>
             <input
               type="range"
               min="60"
@@ -198,102 +174,62 @@ export default function AlgorithmVisualizer({
               value={animationSpeedMs}
               onChange={(e) => setAnimationSpeedMs(Number(e.target.value))}
             />
-            <span
-              className="text-xs opacity-60"
-              style={{ width: 40, textAlign: "right" }}
-            >
-              {animationSpeedMs}ms
-            </span>
           </div>
-          <label className="flex items-center gap-2">
+          <label>
             <input
               type="checkbox"
               checked={barMotion}
               onChange={(e) => setBarMotion(e.target.checked)}
-              style={{ width: 18, height: 18 }}
             />
-            <span className="text-xs opacity-80">Smooth bar animation</span>
+            Smooth animation
           </label>
         </div>
       )}
 
-      {algoType === "searching" && (
-        <p className="text-center mb-2 text-white">Target: {target}</p>
+      {algoType === "searching" && target && (
+        <p className="target-display">Target: {target}</p>
       )}
 
-      <div
-        className="px-2 py-4 overflow-x-auto"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-end",
-          gap: 12,
-          flexWrap: "nowrap",
-        }}
-      >
+      <div className="visualization-container">
         {array.map((val, idx) => {
-          let colorClass = "bg-blue-500"; // default visible blue
+          let colorClass = "bar-default";
           let isHighlighted = false;
           const step = steps[currentStep];
           if (!visualOnly && step) {
             if (step.type === "compare" && Array.isArray(step.indices)) {
               isHighlighted = step.indices.includes(idx);
-              if (isHighlighted) colorClass = "bg-amber-400"; // compare highlight
+              if (isHighlighted) colorClass = "bar-compare";
             } else if (step.type === "swap") {
               isHighlighted = step.indices && step.indices.includes(idx);
-              if (isHighlighted) colorClass = "bg-rose-500"; // swap pulse
+              if (isHighlighted) colorClass = "bar-swap";
             } else if (step.type === "move") {
               isHighlighted = step.indices && step.indices.includes(idx);
-              if (isHighlighted) colorClass = "bg-purple-500"; // move operation
+              if (isHighlighted) colorClass = "bar-move";
             } else if (step.type === "cycle") {
               isHighlighted = step.indices && step.indices.includes(idx);
-              if (isHighlighted) colorClass = "bg-indigo-500"; // cycle operation
+              if (isHighlighted) colorClass = "bar-cycle";
             } else if (step.type === "probe") {
               isHighlighted = step.index === idx;
-              if (isHighlighted) colorClass = "bg-amber-400";
+              if (isHighlighted) colorClass = "bar-probe";
             } else if (step.type === "done") {
-              colorClass = "bg-emerald-500"; // finished
+              colorClass = "bar-done";
             }
           }
 
           return (
             <div
               key={idx}
+              className={`visualization-bar ${colorClass}`}
               style={{
                 height: `${Math.max(val, 2) * 2.2}px`,
-                width: 26,
+                width: "26px",
                 transition: barMotion
-                  ? `height ${animationSpeedMs}ms cubic-bezier(.2,.8,.2,1), background-color 180ms ease, transform 180ms ease, box-shadow 220ms ease, filter 180ms ease, border-color 180ms ease`
-                  : "none",
-                boxShadow: isHighlighted
-                  ? "0 12px 26px rgba(245,158,11,0.65), 0 0 24px rgba(245,158,11,0.6)"
-                  : "0 10px 24px rgba(59,130,246,0.45)",
-                border: isHighlighted
-                  ? "2px solid rgba(245,158,11,0.85)"
-                  : "1px solid rgba(59,130,246,0.35)",
-                filter: isHighlighted
-                  ? "saturate(1.25) brightness(1.08)"
+                  ? `height ${animationSpeedMs}ms cubic-bezier(.2,.8,.2,1), background-color 180ms ease`
                   : "none",
                 transform: isHighlighted ? "scaleY(1.12)" : "scaleY(1)",
-                position: "relative",
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "center",
               }}
-              className={`rounded ${colorClass}`}
             >
-              <span
-                style={{
-                  position: "absolute",
-                  bottom: 4,
-                  fontSize: 10,
-                  color: "rgba(255,255,255,0.9)",
-                  textShadow: "0 1px 2px rgba(0,0,0,0.25)",
-                  userSelect: "none",
-                }}
-              >
-                {val}
-              </span>
+              <span className="bar-value">{val}</span>
             </div>
           );
         })}
