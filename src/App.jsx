@@ -60,6 +60,10 @@ import DCPage from "./pages/DCPage";
 import Queue from "./components/Queue/Queue";
 import Stack from "./components/Stack/Stack";
 
+import GameSearchOverview from "./pages/GameSearchOverview";
+import GameSearchPage from "./pages/GameSearchPage";
+
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
  
@@ -162,6 +166,10 @@ const App = () => {
   {/* Divide & Conquer */}
   <Route path="/dc-overview" element={<DCOverview />} />
   <Route path="/dc" element={<DCPage />} />
+
+{/* Game Search */}
+<Route path="/game-search-overview" element={<GameSearchOverview />} />
+<Route path="/game-search" element={<GameSearchPage />} />
 
 
 

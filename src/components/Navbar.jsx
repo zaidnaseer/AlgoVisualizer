@@ -16,6 +16,7 @@ import {
   Code,
   Hash,
   Zap,
+  Gamepad,
   TreeDeciduous,
   Menu,
 } from "lucide-react";
@@ -132,6 +133,16 @@ const Navbar = () => {
         { path: "/tree", label: "Algorithms" },
       ],
     },
+    {
+  label: "Game Search",
+  icon: Gamepad, // You can import an appropriate icon from lucide-react
+  dropdown: [
+    { path: "/game-search-overview", label: "Overview" },
+    { path: "/game-search", label: "Algorithms" },
+  ],
+},
+
+
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     {
       label: "Community",
