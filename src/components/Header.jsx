@@ -3,13 +3,15 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import '../styles/navbar.css';
 import { useTheme } from '../ThemeContext';
 import { FaGithub, FaMoon, FaSun, FaCode, FaSearch, FaDatabase, FaBrain, FaUsers, FaBook, FaProjectDiagram, FaQuestionCircle } from 'react-icons/fa';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { theme, toggleTheme } = useTheme();
     const location = useLocation();
 
-    // Handle scroll effect for navbar
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
@@ -19,12 +21,10 @@ const Header = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close mobile menu when route changes
     useEffect(() => {
         setIsMobileMenuOpen(false);
     }, [location]);
 
-    // Prevent body scroll when mobile menu is open
     useEffect(() => {
         if (isMobileMenuOpen) {
             document.body.style.overflow = 'hidden';
@@ -55,10 +55,10 @@ const Header = () => {
 
     return (
         <>
-            <header className={`av-header ${isScrolled ? 'scrolled' : ''}`}>
+            <header className={`av-header ${isScrolled ? 'scrolled' : ''}`} data-aos="fade-down" data-aos-duration="1000">
                 <div className="av-container">
                     {/* Logo Section */}
-                    <div className="logo">
+                    <div className="logo" data-aos="fade-right" data-aos-delay="200">
                         <Link to="/" className="logo-link">
                             <div className="logo-icon">
                                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -72,7 +72,7 @@ const Header = () => {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <nav className="nav-links-desktop" aria-label="Primary">
+                    <nav className="nav-links-desktop" aria-label="Primary" data-aos="fade-down" data-aos-delay="400">
                         <div className="nav-group main-nav">
                             {navItems.filter(item => item.group === 'main').map(item => (
                                 <NavLink 
@@ -120,7 +120,7 @@ const Header = () => {
                     </nav>
 
                     {/* Action Buttons */}
-                    <div className="nav-actions">
+                    <div className="nav-actions" data-aos="fade-left" data-aos-delay="200">
                         <a 
                             className="github-btn" 
                             href="https://github.com/RhythmPahwa14/AlgoVisualizer" 

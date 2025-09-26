@@ -3,6 +3,8 @@ import CodeExplanation from "./CodeExplanation";
 import SimpleExportControls from "./SimpleExportControls";
 import "../styles/Sorting.css";
 import { useMediaQuery } from "react-responsive";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import { ALGORITHM_PSEUDOCODE } from "../data/pseudocode";
 import { ALGORITHM_INFO } from "../data/algorithmInfo";
@@ -205,14 +207,14 @@ const Sorting = () => {
   const algoOptions = Object.keys(algorithms);
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Sorting Algorithms</h1>
 
       <div className="sorting-grid">
         {/* LEFT COLUMN */}
         <div className="sorting-left">
           {/* Controls */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="200">
             <div className="theme-card-header no-border">
               <h3>Controls</h3>
             </div>
@@ -289,7 +291,7 @@ const Sorting = () => {
           </div>
 
           {/* Visualization controls */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
             <div className="theme-card-header">
               <h3>Visualization Controls</h3>
             </div>
@@ -331,8 +333,8 @@ const Sorting = () => {
           <SimpleExportControls containerId="sort-visualization-container" />
 
           {/* Info */}
-          <div className="theme-card">
-            <div className="theme-card-header">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="400">
+            <div className="theme-card-header no-border">
               <h3>{getAlgorithmName()} Information</h3>
             </div>
             <div className="code-like">
@@ -344,13 +346,13 @@ const Sorting = () => {
 
           {/* Status message */}
           {message && (
-            <div className="theme-card">
+            <div className="theme-card" data-aos="fade-up" data-aos-delay="500">
               <div className="status-message">{message}</div>
             </div>
           )}
 
           {/* Stats */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="600">
             <div className="theme-card-header">
               <h3>Performance Statistics</h3>
             </div>
@@ -375,7 +377,7 @@ const Sorting = () => {
           </div>
 
           {/* Details */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="700">
             <div className="theme-card-header between">
               <h3>{getAlgorithmName()} - Algorithm Details</h3>
               <button
@@ -418,7 +420,7 @@ const Sorting = () => {
         </div>
 
         {/* RIGHT COLUMN */}
-        <div className="sorting-right" id="sort-visualization-container">
+        <div className="sorting-right" id="sort-visualization-container" data-aos="fade-left" data-aos-duration="1000">
           <div className="theme-card">
             <div className="theme-card-header no-border viz-header">
               <h3>Visualization</h3>
@@ -458,7 +460,7 @@ const Sorting = () => {
           </div>
 
           {/* Compact stats */}
-          <div className="theme-card compact-card">
+          <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">
             <div className="theme-card-header no-border">
               <h3>Performance Stats</h3>
             </div>

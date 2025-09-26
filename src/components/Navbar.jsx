@@ -18,12 +18,12 @@ import {
   Hash,
   HelpCircle,
   Zap,
-  TreeDeciduous, // Added missing import
-
+  TreeDeciduous,
 } from "lucide-react";
 import { FaHashtag } from "react-icons/fa";
-
 import { useTheme } from "../ThemeContext";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -34,12 +34,10 @@ const Navbar = () => {
 
   const navbarRef = useRef(null);
 
-  // Check if device is mobile
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      // Always keep menu closed by default
       if (window.innerWidth > 768) {
         setIsMobileMenuOpen(false);
       }
@@ -117,7 +115,6 @@ const Navbar = () => {
     },
     {
       label: "Greedy Algorithms",
-
       icon: Zap,
       dropdown: [
         { path: "/greedy-overview", label: "Overview" },
@@ -132,17 +129,14 @@ const Navbar = () => {
         { path: "/dc", label: "Algorithms" },
       ],
     },
-
-
     {
       label: "Trees",
-      icon: TreeDeciduous, // Now properly imported
+      icon: TreeDeciduous,
       dropdown: [
         { path: "/tree-overview", label: "Overview" },
         { path: "/tree", label: "Algorithms" },
       ],
     },
-
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     {
       label: "Community",
@@ -162,7 +156,6 @@ const Navbar = () => {
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -180,11 +173,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar" ref={navbarRef}>
+      <nav className="navbar" ref={navbarRef} data-aos="fade-down" data-aos-duration="1000">
         <div className="navbar-container">
           {/* Mobile Header Row */}
           {isMobile && (
-            <div className="navbar-header">
+            <div className="navbar-header" data-aos="fade-down" data-aos-duration="1000">
               <Link to="/" className="navbar-logo">
                 <img 
                   src="/logo.jpg" 
@@ -212,9 +205,7 @@ const Navbar = () => {
                 <button
                   className="mobile-menu-button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-
                   aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-
                 >
                   {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
@@ -242,7 +233,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="navbar-menu">
             {navigationItems.map((item, index) => (
-              <div key={index} className="navbar-item">
+              <div key={index} className="navbar-item" data-aos="fade-down" data-aos-delay={`${index * 50}`}>
                 {item.dropdown ? (
                   <div className="dropdown">
                     <button
@@ -305,7 +296,7 @@ const Navbar = () => {
         </div>
 
         {/* Enhanced Mobile Menu */}
-        <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+        <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`} data-aos="fade-right" data-aos-duration="400">
           {/* Mobile Menu Header */}
           <div className="mobile-menu-header">
             <div className="mobile-menu-header-content">
@@ -331,6 +322,7 @@ const Navbar = () => {
                 key={index} 
                 className="mobile-menu-item"
                 style={{ '--item-index': index }}
+                data-aos="fade-right" data-aos-delay={`${index * 50}`}
               >
                 {item.dropdown ? (
                   <div className="mobile-dropdown">
