@@ -420,6 +420,26 @@ const Sorting = () => {
           </div>
         </div>
 
+        {/* RIGHT COLUMN */}
+        <div className="sorting-right">
+          {/* Main visualization */}
+          <div 
+            id="sort-visualization-container"
+            className="theme-card visualization-card" 
+            data-aos="fade-up" 
+            data-aos-delay="100"
+          >
+            <div className="theme-card-header">
+              <h3>Visualization - {getAlgorithmName()}</h3>
+            </div>
+            <AlgorithmVisualizer
+              array={array}
+              colorArray={colorArray}
+              barGap={computeGap()}
+              fontSize={computeBarFontSize()}
+            />
+          </div>
+
 
           {/* Compact stats */}
           <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">

@@ -167,7 +167,6 @@ const Header = () => {
             <nav className={`nav-links-mobile ${isMobileMenuOpen ? 'active' : ''}`} aria-label="Mobile Navigation">
                 <div className="mobile-nav-content">
                     <div className="mobile-nav-header">
-
                         <div className="mobile-nav-actions">
                             <a 
                                 className="mobile-github-btn" 

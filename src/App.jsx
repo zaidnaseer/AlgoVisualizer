@@ -53,12 +53,13 @@ import TreePage from "./pages/TreePage";
 // Divide & Conquer
 import DCOverview from "./pages/DCOverview";
 import DCPage from "./pages/DCPage";
- 
 
 import Queue from "./components/Queue/Queue";
+import Stack from "./components/Stack/Stack";
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+ 
 
 
 const App = () => {
@@ -72,6 +73,7 @@ const App = () => {
     "/graph/bfs",
     "/graph/dfs",
     "/graph/dijkstra",
+    "/data-structures/stack",
   ];
 
   useEffect(() => {
@@ -117,6 +119,7 @@ const App = () => {
               element={<LinkedListPage />}
             />
             <Route path="/data-structures/queue" element={<Queue />} />
+            <Route path="/data-structures/stack" element={<Stack />} />
             <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
 
             {/* Graph */}
@@ -136,6 +139,7 @@ const App = () => {
             {/* Dynamic Programming */}
 <Route path="/dp-overview" element={<DPOverview />} />
 <Route path="/dp" element={<DPPage />} />
+
 
 
               {/* Hashing */}
