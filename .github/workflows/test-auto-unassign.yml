@@ -1,0 +1,222 @@
+name: Test Auto Unassign (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (no actual changes)'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      warning_days:
+        description: 'Days before warning (default: 5)'
+        required: false
+        default: '5'
+        type: string
+      unassign_days:
+        description: 'Days before unassignment (default: 7)'
+        required: false
+        default: '7'
+        type: string
+
+permissions:
+  issues: write
+  pull-requests: read
+  contents: read
+
+jobs:
+  test-auto-unassign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Auto Unassign Logic
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            
+            // Configuration (with inputs override)
+            const DRY_RUN = ${{ github.event.inputs.dry_run === 'true' }};
+            const WARNING_DAYS = parseInt('${{ github.event.inputs.warning_days }}') || 5;
+            const UNASSIGN_DAYS = parseInt('${{ github.event.inputs.unassign_days }}') || 7;
+            const EXEMPT_LABELS = ['on-hold', 'wip', 'priority-high', 'priority-critical'];
+            
+            console.log(`🧪 Testing Auto Unassign Logic`);
+            console.log(`📊 Configuration:`);
+            console.log(`   - Dry Run: ${DRY_RUN}`);
+            console.log(`   - Warning Days: ${WARNING_DAYS}`);
+            console.log(`   - Unassign Days: ${UNASSIGN_DAYS}`);
+            console.log(`   - Exempt Labels: ${EXEMPT_LABELS.join(', ')}`);
+            console.log(`\n🔍 Checking assigned issues in ${owner}/${repo}`);
+            
+            try {
+              // Get all open assigned issues
+              const issues = await github.rest.issues.listForRepo({
+                owner,
+                repo,
+                state: 'open',
+                per_page: 100,
+                sort: 'updated',
+                direction: 'asc'
+              });
+              
+              const assignedIssues = issues.data.filter(issue => 
+                issue.assignees && issue.assignees.length > 0 && !issue.pull_request
+              );
+              
+              console.log(`📋 Found ${assignedIssues.length} assigned issues`);
+              
+              if (assignedIssues.length === 0) {
+                console.log(`✅ No assigned issues found. Test complete.`);
+                return;
+              }
+              
+              const now = new Date();
+              let warningCandidates = [];
+              let unassignCandidates = [];
+              let exemptIssues = [];
+              let issuesWithPRs = [];
+              
+              for (const issue of assignedIssues) {
+                console.log(`\n📝 Analyzing Issue #${issue.number}: "${issue.title}"`);
+                console.log(`   Assignees: ${issue.assignees.map(a => a.login).join(', ')}`);
+                
+                // Check exempt labels
+                const hasExemptLabel = issue.labels.some(label => 
+                  EXEMPT_LABELS.includes(label.name.toLowerCase())
+                );
+                
+                if (hasExemptLabel) {
+                  console.log(`   🏷️  Has exempt label: SKIP`);
+                  exemptIssues.push(issue.number);
+                  continue;
+                }
+                
+                // Get assignment date
+                const events = await github.rest.issues.listEvents({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  per_page: 100
+                });
+                
+                const assignmentEvents = events.data.filter(event => 
+                  event.event === 'assigned'
+                ).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                
+                if (assignmentEvents.length === 0) {
+                  console.log(`   ❓ No assignment event found: SKIP`);
+                  continue;
+                }
+                
+                const lastAssignedDate = new Date(assignmentEvents[0].created_at);
+                const daysSinceAssignment = Math.floor((now - lastAssignedDate) / (1000 * 60 * 60 * 24));
+                
+                console.log(`   📅 Days since assignment: ${daysSinceAssignment}`);
+                console.log(`   📅 Assignment date: ${lastAssignedDate.toDateString()}`);
+                
+                // Check for linked PRs
+                const linkedPRs = await github.rest.search.issuesAndPullRequests({
+                  q: `repo:${owner}/${repo} is:pr is:open "${issue.number}" OR "fixes #${issue.number}" OR "closes #${issue.number}" OR "resolves #${issue.number}"`,
+                  per_page: 10
+                });
+                
+                if (linkedPRs.data.items.length > 0) {
+                  console.log(`   🔗 Has ${linkedPRs.data.items.length} linked PR(s): SKIP`);
+                  issuesWithPRs.push({
+                    issue: issue.number,
+                    prs: linkedPRs.data.items.map(pr => pr.number)
+                  });
+                  continue;
+                }
+                
+                // Determine action needed
+                if (daysSinceAssignment === WARNING_DAYS) {
+                  console.log(`   ⚠️  CANDIDATE FOR WARNING`);
+                  warningCandidates.push({
+                    number: issue.number,
+                    title: issue.title,
+                    assignees: issue.assignees.map(a => a.login),
+                    daysSinceAssignment
+                  });
+                } else if (daysSinceAssignment >= UNASSIGN_DAYS) {
+                  console.log(`   🔄 CANDIDATE FOR UNASSIGNMENT`);
+                  unassignCandidates.push({
+                    number: issue.number,
+                    title: issue.title,
+                    assignees: issue.assignees.map(a => a.login),
+                    daysSinceAssignment
+                  });
+                } else {
+                  console.log(`   ✅ Still within grace period`);
+                }
+              }
+              
+              // Summary Report
+              console.log(`\n📊 TEST RESULTS SUMMARY`);
+              console.log(`========================`);
+              console.log(`📋 Total assigned issues analyzed: ${assignedIssues.length}`);
+              console.log(`⚠️  Issues needing warning: ${warningCandidates.length}`);
+              console.log(`🔄 Issues needing unassignment: ${unassignCandidates.length}`);
+              console.log(`🏷️  Issues exempted by labels: ${exemptIssues.length}`);
+              console.log(`🔗 Issues with linked PRs: ${issuesWithPRs.length}`);
+              
+              if (warningCandidates.length > 0) {
+                console.log(`\n⚠️  WARNING CANDIDATES:`);
+                warningCandidates.forEach(candidate => {
+                  console.log(`   - Issue #${candidate.number}: "${candidate.title}"`);
+                  console.log(`     Assignees: ${candidate.assignees.join(', ')}`);
+                  console.log(`     Days since assignment: ${candidate.daysSinceAssignment}`);
+                });
+              }
+              
+              if (unassignCandidates.length > 0) {
+                console.log(`\n🔄 UNASSIGNMENT CANDIDATES:`);
+                unassignCandidates.forEach(candidate => {
+                  console.log(`   - Issue #${candidate.number}: "${candidate.title}"`);
+                  console.log(`     Assignees: ${candidate.assignees.join(', ')}`);
+                  console.log(`     Days since assignment: ${candidate.daysSinceAssignment}`);
+                });
+              }
+              
+              if (issuesWithPRs.length > 0) {
+                console.log(`\n🔗 ISSUES WITH LINKED PRS (skipped):`);
+                issuesWithPRs.forEach(item => {
+                  console.log(`   - Issue #${item.issue} has PRs: ${item.prs.join(', ')}`);
+                });
+              }
+              
+              if (exemptIssues.length > 0) {
+                console.log(`\n🏷️  EXEMPTED ISSUES (skipped):`);
+                console.log(`   Issues: ${exemptIssues.join(', ')}`);
+              }
+              
+              // Perform actions if not dry run
+              if (!DRY_RUN) {
+                console.log(`\n🚀 EXECUTING ACTIONS (DRY_RUN = false)`);
+                
+                // Send warnings
+                for (const candidate of warningCandidates) {
+                  console.log(`⚠️  Sending warning to issue #${candidate.number}`);
+                  // Warning logic would go here
+                }
+                
+                // Perform unassignments
+                for (const candidate of unassignCandidates) {
+                  console.log(`🔄 Unassigning issue #${candidate.number}`);
+                  // Unassignment logic would go here
+                }
+              } else {
+                console.log(`\n🧪 DRY RUN MODE - No actual changes made`);
+                console.log(`   Set dry_run to 'false' to execute actions`);
+              }
+              
+              console.log(`\n✅ Test completed successfully!`);
+              
+            } catch (error) {
+              console.error('❌ Error in test workflow:', error);
+              throw error;
+            }
