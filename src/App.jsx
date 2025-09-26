@@ -1,7 +1,6 @@
 
-import React from "react";
-import FeedbackWidget from "./components/FeedbackWidget"; 
 import React, { useEffect } from "react";
+import FeedbackWidget from "./components/FeedbackWidget"; 
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
