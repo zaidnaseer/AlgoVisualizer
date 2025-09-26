@@ -53,8 +53,16 @@ import TreePage from "./pages/TreePage";
 // Divide & Conquer
 import DCOverview from "./pages/DCOverview";
 import DCPage from "./pages/DCPage";
+ 
+import Stack from "./components/Stack/Stack";
+
+
+
+
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+ 
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
@@ -67,6 +75,7 @@ const App = () => {
     "/graph/bfs",
     "/graph/dfs",
     "/graph/dijkstra",
+    "/data-structures/stack",
   ];
 
   useEffect(() => {
@@ -111,6 +120,7 @@ const App = () => {
               path="/data-structures/linked-list"
               element={<LinkedListPage />}
             />
+            <Route path="/data-structures/stack" element={<Stack />} />
 
             <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
 
@@ -131,6 +141,7 @@ const App = () => {
             {/* Dynamic Programming */}
 <Route path="/dp-overview" element={<DPOverview />} />
 <Route path="/dp" element={<DPPage />} />
+
 
 
               {/* Hashing */}
