@@ -67,7 +67,10 @@ const Navbar = () => {
       dropdown: [
         { path: "/data-structures", label: "Overview" },
         { path: "/data-structures/linked-list", label: "Linked List" },
+
+        { path: "/data-structures/queue", label: "Queue visualization" },
         { path: "/data-structures/stack", label: "Stack visualization" },
+
       ],
     },
     {
