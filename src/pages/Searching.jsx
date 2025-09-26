@@ -5,6 +5,8 @@ import SimpleExportControls from "../components/SimpleExportControls";
 import "../styles/global-theme.css";
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // Pseudocode for searching algorithms
 const ALGORITHM_PSEUDOCODE = {
@@ -357,16 +359,14 @@ const Searching = () => {
     }
   };
 
-
-
   const getAlgorithmName = () => getAlgoLabel(algorithm);
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Searching Algorithms</h1>
 
       {/* Top control bar (select + target + actions) */}
-      <div className="theme-card">
+      <div className="theme-card" data-aos="fade-up" data-aos-delay="200">
         <div className="form-grid">
           <div className="form-group">
             <label className="form-label" htmlFor="algorithm-select">Algorithm</label>
@@ -440,7 +440,7 @@ const Searching = () => {
       </div>
 
       {/* Controls & Export cards */}
-      <div className="form-grid">
+      <div className="form-grid" data-aos="fade-up" data-aos-delay="300">
         <div className="theme-card">
           <div className="theme-card-header">
             <h3>Visualization Controls</h3>
@@ -478,7 +478,7 @@ const Searching = () => {
 
       {/* Step Navigation (Binary Search only) */}
       {algorithm === "binarySearch" && steps.length > 0 && (
-        <div className="theme-card" style={{ padding: '1rem', marginBottom: '1rem' }}>
+        <div className="theme-card" style={{ padding: '1rem', marginBottom: '1rem' }} data-aos="fade-up" data-aos-delay="400">
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button
@@ -504,7 +504,7 @@ const Searching = () => {
       )}
 
       {/* Visualization & Pseudocode */}
-      <div className="form-grid">
+      <div className="form-grid" data-aos="fade-up" data-aos-delay="500">
         <div className="visualization-area" id="search-visualization-container" style={{ gridColumn: 'span 2' }}>
           {/* Using the unified AlgorithmVisualizer component */}
           <AlgorithmVisualizer
@@ -610,7 +610,7 @@ const Searching = () => {
           )}
         </div>
 
-        <div className="theme-card">
+        <div className="theme-card" data-aos="fade-up" data-aos-delay="600">
           <div className="theme-card-header">
             <h3>{getAlgorithmName()} Pseudocode</h3>
           </div>
@@ -623,7 +623,7 @@ const Searching = () => {
       </div>
 
       {/* Algorithm Details */}
-      <div className="theme-card">
+      <div className="theme-card" data-aos="fade-up" data-aos-delay="700">
         <div className="theme-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <h3>{getAlgorithmName()} - Algorithm Details</h3>
           <button className="btn btn-secondary" onClick={() => setShowCodeExplanation(true)}>

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import DCVisualizer from "../components/DCVisualizer";
 import { divideConquerAlgorithms } from "../data/allCodes"; // make sure this exists
 import "../styles/global-theme.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const DCPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
@@ -28,7 +30,7 @@ const DCPage = () => {
   const algorithmKeys = Object.keys(divideConquerAlgorithms);
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Divide & Conquer Visualizer</h1>
       <p
         style={{
@@ -43,11 +45,13 @@ const DCPage = () => {
       </p>
 
       {/* Visualizer Component */}
-      <DCVisualizer
-        defaultAlgorithm={selectedAlgorithm}
-        problemSize={defaultSizes[selectedAlgorithm] || 8}
-        autoLoadExample={true}
-      />
+      <div data-aos="fade-up" data-aos-delay="200">
+        <DCVisualizer
+          defaultAlgorithm={selectedAlgorithm}
+          problemSize={defaultSizes[selectedAlgorithm] || 8}
+          autoLoadExample={true}
+        />
+      </div>
 
       {/* Algorithm Selector */}
       <div
@@ -58,6 +62,7 @@ const DCPage = () => {
           margin: "1rem 0",
           flexWrap: "wrap",
         }}
+        data-aos="fade-up" data-aos-delay="300"
       >
         {algorithmKeys.map((algo) => (
           <button
@@ -73,7 +78,7 @@ const DCPage = () => {
       </div>
 
       {/* Code Implementation Section */}
-      <div className="theme-card" style={{ marginTop: "2rem" }}>
+      <div className="theme-card" style={{ marginTop: "2rem" }} data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>Divide & Conquer - Code Implementation</h3>
           <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
@@ -125,6 +130,7 @@ const DCPage = () => {
             fontSize: "0.9rem",
             color: "var(--text-secondary)",
           }}
+          data-aos="fade-up" data-aos-delay="500"
         >
           <strong>Note:</strong> This is the actual implementation code for
           the <strong>{displayName[selectedAlgorithm]}</strong> algorithm in{" "}
@@ -137,4 +143,3 @@ const DCPage = () => {
 };
 
 export default DCPage;
-

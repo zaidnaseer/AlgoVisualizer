@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import DPVisualizer from "../components/DPVisualizer";
 import { dpAlgorithms } from "../data/allCodes"; // make sure dpAlgorithms exists in allCodes.js
 import "../styles/global-theme.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const DPPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
@@ -33,7 +35,7 @@ const DPPage = () => {
   };
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Dynamic Programming Visualizer</h1>
       <p style={{
         textAlign: 'center',
@@ -45,14 +47,16 @@ const DPPage = () => {
       </p>
 
       {/* Visualizer Component */}
-      <DPVisualizer
-        defaultAlgorithm={selectedAlgorithm}
-        problemSize={defaultSizes[selectedAlgorithm] || 10}
-        autoLoadExample={true}
-      />
+      <div data-aos="fade-up" data-aos-delay="200">
+        <DPVisualizer
+          defaultAlgorithm={selectedAlgorithm}
+          problemSize={defaultSizes[selectedAlgorithm] || 10}
+          autoLoadExample={true}
+        />
+      </div>
 
       {/* Algorithm Selector */}
-      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', margin: '1rem 0', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', margin: '1rem 0', flexWrap: 'wrap' }} data-aos="fade-up" data-aos-delay="300">
         {Object.keys(dpAlgorithms).map((algo) => (
           <button
             key={algo}
@@ -65,7 +69,7 @@ const DPPage = () => {
       </div>
 
       {/* Code Implementation Section */}
-      <div className="theme-card" style={{ marginTop: '2rem' }}>
+      <div className="theme-card" style={{ marginTop: '2rem' }} data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>Dynamic Programming - Code Implementation</h3>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>

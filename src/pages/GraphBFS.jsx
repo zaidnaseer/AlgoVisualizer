@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import GraphVisualizer from "../components/GraphVisualizer";
 import { graphAlgorithms } from "../data/allCodes";
 import "../styles/global-theme.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const GraphBFS = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
@@ -16,7 +18,6 @@ const GraphBFS = () => {
   const handleLoadCustomGraph = () => {
     try {
       const parsed = JSON.parse(inputText);
-      // Simple validation: must have nodes and edges
       if (!parsed.nodes || !parsed.edges) {
         alert("Invalid graph format. Must contain 'nodes' and 'edges'.");
         return;
@@ -28,7 +29,7 @@ const GraphBFS = () => {
   };
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Breadth-First Search (BFS)</h1>
       <p style={{ textAlign: 'center', maxWidth: '700px', margin: '-2rem auto 2rem auto', color: 'var(--theme-text-secondary)' }}>
         Visualize BFS traversal on a graph. You can edit the graph JSON below and click "Load Graph".
@@ -40,7 +41,7 @@ const GraphBFS = () => {
         padding: '1rem',
         borderRadius: '8px',
         marginBottom: '1.5rem'
-      }}>
+      }} data-aos="fade-up" data-aos-delay="200">
         <textarea
           value={inputText}
           onChange={handleInputChange}
@@ -73,14 +74,16 @@ const GraphBFS = () => {
       </div>
 
       {/* Graph Visualizer */}
-      <GraphVisualizer 
-        defaultAlgorithm="BFS" 
-        autoLoadExample={!customGraph} 
-        customGraph={customGraph} 
-      />
+      <div data-aos="fade-up" data-aos-delay="300">
+        <GraphVisualizer 
+          defaultAlgorithm="BFS" 
+          autoLoadExample={!customGraph} 
+          customGraph={customGraph} 
+        />
+      </div>
 
-      {/* Code Section */}
-      <div className="theme-card" style={{ marginTop: '2rem' }}>
+      {/* Code Implementation Section */}
+      <div className="theme-card" style={{ marginTop: '2rem' }} data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>BFS - Code Implementation</h3>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
