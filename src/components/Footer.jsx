@@ -18,6 +18,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/footer.css";
 import logo from "/public/logo.jpg"
 import { FaXTwitter } from "react-icons/fa6";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 const Footer = () => {
@@ -76,7 +78,7 @@ const Footer = () => {
   return (
     <>
       <footer className={`footer-container ${isVisible ? "visible" : ""}`}>
-        <div className="footer-wave">
+        <div className="footer-wave" data-aos="fade-up" data-aos-duration="1000">
           <svg
             data-name="Layer 1"
             xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +94,7 @@ const Footer = () => {
 
         <div className="footer-content">
           {/* Brand Section */}
-          <div className="footer-column brand-column">
+          <div className="footer-column brand-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
             <div className="brand-header">
               <div className="logo-wrapper">
                 <img src={logo} alt="AlgoVisualizer Logo" className="logo-image" />
@@ -112,7 +114,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="footer-column links-column">
+          <div className="footer-column links-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
             <h3 className="column-title">Navigate</h3>
             <ul className="footer-links">
               <li>
@@ -122,7 +124,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/algorithms">
+                <Link to="/data-structures">
                   <FaArrowRight className="link-icon" />
                   Algorithms
                 </Link>
@@ -149,7 +151,7 @@ const Footer = () => {
           </div>
 
           {/* Resources */}
-          <div className="footer-column resources-column">
+          <div className="footer-column resources-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
             <h3 className="column-title">Resources</h3>
             <ul className="footer-links">
               <li>
@@ -183,16 +185,21 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contribute">
-                  <FaArrowRight className="link-icon" />
-                  Contribute
-                </Link>
-              </li>
+  <a 
+    href="https://github.com/RhythmPahwa14/AlgoVisualizer" 
+    target="_blank" 
+    rel="noopener noreferrer"
+  >
+    <FaArrowRight className="link-icon" />
+    Contribute
+  </a>
+</li>
+
             </ul>
           </div>
 
           {/* Newsletter */}
-          <div className="footer-column newsletter-column">
+          <div className="footer-column newsletter-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
             <h3 className="column-title">Stay Updated</h3>
             <p className="newsletter-description">
               Get the latest algorithm visualizations and coding insights

@@ -2,10 +2,12 @@
 import React from "react";
 import "../styles/global-theme.css";
 import HashingPage from "./HashingPage"; // Your visualizer component
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const HashingOverview = () => {
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title" style={{ marginTop: "4rem" }}>
         Guide to <span className="highlight">Hashing</span>
       </h1>
@@ -42,7 +44,7 @@ const HashingOverview = () => {
         : Enable fast insertion, deletion, and search operations with minimal collisions.
       </p>
 
-      <div className="theme-card" style={{ width: "1300px" }}>
+      <div className="theme-card" style={{ width: "1300px" }} data-aos="fade-up" data-aos-delay="200">
         <div className="theme-card-header">
           <h3>What is Hashing?</h3>
         </div>
@@ -54,7 +56,7 @@ const HashingOverview = () => {
         </p>
       </div>
 
-      <div className="theme-card" style={{ width: "1300px" }}>
+      <div className="theme-card" style={{ width: "1300px" }} data-aos="fade-up" data-aos-delay="300">
         <div className="theme-card-header">
           <h3>🌱 Key Takeaways</h3>
         </div>
@@ -66,7 +68,7 @@ const HashingOverview = () => {
         </ul>
       </div>
 
-      <div className="theme-card" style={{ width: "1300px" }}>
+      <div className="theme-card" style={{ width: "1300px" }} data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>⚡ Complexity Analysis</h3>
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SettingsProvider } from "./contexts/SettingsContext";
@@ -53,11 +53,16 @@ import TreePage from "./pages/TreePage";
 // Divide & Conquer
 import DCOverview from "./pages/DCOverview";
 import DCPage from "./pages/DCPage";
+ 
 import Stack from "./components/Stack/Stack";
 
 
 
 
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+ 
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
@@ -72,6 +77,14 @@ const App = () => {
     "/graph/dijkstra",
     "/data-structures/stack",
   ];
+
+  useEffect(() => {
+    AOS.init({
+      // Global settings for AOS animations
+      duration: 1000,
+      once: true, // Animations will only happen once
+    });
+  }, []);
 
   return (
     <SettingsProvider>
