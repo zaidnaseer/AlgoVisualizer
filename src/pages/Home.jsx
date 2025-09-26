@@ -17,6 +17,8 @@ import {
   Share2,
 } from "lucide-react";
 import "../styles/home.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 /** ---------- Theme helpers ---------- */
 function useColorScheme() {
@@ -253,7 +255,7 @@ const Home = () => {
       <style>{gridStyles}</style>
 
       {/* ===== Hero ===== */}
-      <section style={{ ...container, padding: "4.25rem 1.5rem 2rem" }}>
+      <section style={{ ...container, padding: "4.25rem 1.5rem 2rem" }} data-aos="fade-up" data-aos-duration="1000">
         <div style={{ ...inner }}>
           <div className="hero-grid">
             {/* LEFT: Bubble Sort */}
@@ -268,6 +270,7 @@ const Home = () => {
                 gridTemplateRows: "auto 1fr auto",
                 gap: "0.85rem",
               }}
+              data-aos="zoom-in" data-aos-duration="1500"
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: isLight ? "#1f2937" : "#c7d2fe" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -354,7 +357,7 @@ const Home = () => {
             </div>
 
             {/* RIGHT: copy */}
-            <div style={{ padding: ".4rem 0", display: "grid", gridTemplateRows: "auto auto 1fr auto", alignItems: "start" }}>
+            <div style={{ padding: ".4rem 0", display: "grid", gridTemplateRows: "auto auto 1fr auto", alignItems: "start" }} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
               <div
                 className="hero-badge"
                 style={{
@@ -406,15 +409,16 @@ const Home = () => {
 
         {/* Feature Cards with detailed content */}
         {/* ADD THIS NEW SECTION */}
-        <div className="algo-learning-updates-container">
+        <div className="algo-learning-updates-container" data-aos="fade-up" data-aos-duration="1000">
        <section className="algorithm-buttons">
-        <h2 className='buttons-heading'>Resources</h2>
+        <h2 className='buttons-heading' data-aos="fade-up" data-aos-delay="100">Resources</h2>
 
         {features.map((feature,index)=>(
           <Link 
   key={index} 
   to={feature.path} 
   className={`clean-button-link feature-${index+1}`}
+  data-aos="fade-up" data-aos-delay={`${200 + index * 100}`}
 >
   <div className='button-icon'>
     <feature.icon size={35}/>
@@ -424,10 +428,10 @@ const Home = () => {
         ))}
        </section>
        
- <div className='vertical-steps-container'>
+ <div className='vertical-steps-container' data-aos="fade-up" data-aos-delay="300">
   <h2 className='steps-heading'>Learning paths</h2>
      {learningPaths.map((path,index)=>(
-      <div key={index} className={`step-button step-${index+1}`}>
+      <div key={index} className={`step-button step-${index+1}`} data-aos="fade-up" data-aos-delay={`${400 + index * 150}`}>
         <div className='step-content-wrapper'>
           <div className='step-text'>
             <span className='step-title'>{path.title}</span>
@@ -442,11 +446,11 @@ const Home = () => {
     
   </div>
         {/* Enhanced Activity Feed */}
-        <div className="activity-feed">
+        <div className="activity-feed" data-aos="fade-up" data-aos-delay="500">
           <h3 className="activity-title">Recent Updates</h3>
           <div className="activity-items">
             {recentUpdates.map((update, index) => (
-              <div key={index} className="activity-item">
+              <div key={index} className="activity-item" data-aos="fade-up" data-aos-delay={`${600 + index * 100}`}>
                 <div className={`activity-icon ${update.type}`}>
                   {update.type === 'new' && <Sparkles size={14} />}
                   {update.type === 'update' && <Code size={14} />}

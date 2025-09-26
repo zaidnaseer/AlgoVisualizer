@@ -682,29 +682,29 @@
   }
   
   .footer-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
     padding: 0 15px;
   }
   
   .brand-column {
-    grid-column: span 1;
+    grid-column: span 2;
     text-align: center;
     order: 1;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border-primary, rgba(240, 246, 252, 0.1));
   }
   
-  /* Hide specified sections on mobile */
+  /* Show sections on mobile with grid layout */
   .links-column,
   .resources-column,
   .newsletter-column {
-    display: none;
+    display: flex;
   }
   
-  /* Hide legal links section on mobile */
+  /* Show legal links section on mobile */
   .footer-legal-row {
-    display: none;
+    display: flex;
   }
   
   .logo-wrapper {
@@ -743,20 +743,25 @@
   }
   
   .brand-column,
+  .links-column,
+  .resources-column,
   .newsletter-column {
     grid-column: span 1;
   }
   
-  /* Keep specified sections hidden on mobile */
-  .links-column,
-  .resources-column,
-  .newsletter-column {
-    display: none;
+  .brand-column {
+    order: 1;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-primary, rgba(240, 246, 252, 0.1));
   }
   
-  /* Keep legal links section hidden on mobile */
-  .footer-legal-row {
-    display: none;
+  .links-column,
+  .resources-column {
+    order: 2;
+  }
+  
+  .newsletter-column {
+    order: 3;
   }
   
   .brand-header {
@@ -837,16 +842,25 @@
     gap: 25px;
   }
   
-  /* Keep specified sections hidden on mobile */
+  .brand-column,
   .links-column,
   .resources-column,
   .newsletter-column {
-    display: none;
+    grid-column: span 1;
   }
   
-  /* Keep legal links section hidden on mobile */
-  .footer-legal-row {
-    display: none;
+  .brand-column {
+    order: 1;
+    padding-bottom: 15px;
+  }
+  
+  .links-column,
+  .resources-column {
+    order: 2;
+  }
+  
+  .newsletter-column {
+    order: 3;
   }
   
   .brand-header {
@@ -867,6 +881,7 @@
   
   .tech-pills {
     gap: 6px;
+    margin-bottom: 15px;
   }
   
   .tech-pill {
@@ -892,6 +907,19 @@
   
   .footer-divider {
     margin-bottom: 12px;
+  }
+  
+  .column-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .footer-links li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-links a {
+    font-size: 14px;
   }
 }
 
@@ -930,16 +958,19 @@
     font-size: 11px;
   }
   
-  /* Keep specified sections hidden on mobile */
   .links-column,
   .resources-column,
   .newsletter-column {
-    display: none;
+    grid-column: span 1;
   }
   
-  /* Keep legal links section hidden on mobile */
-  .footer-legal-row {
-    display: none;
+  .links-column,
+  .resources-column {
+    order: 2;
+  }
+  
+  .newsletter-column {
+    order: 3;
   }
 }
 
@@ -1159,23 +1190,26 @@
   }
   
   .footer-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
   
   .brand-column {
+    grid-column: span 2;
     text-align: center;
+    padding-bottom: 15px;
   }
   
-  /* Keep specified sections hidden on mobile landscape */
+  /* Show sections on mobile landscape */
   .links-column,
   .resources-column,
   .newsletter-column {
-    display: none;
+    display: flex;
+    grid-column: span 1;
   }
   
-  /* Keep legal links section hidden on mobile landscape */
+  /* Show legal links section on mobile landscape */
   .footer-legal-row {
-    display: none;
+    display: flex;
   }
 }

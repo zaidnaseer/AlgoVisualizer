@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import AlgorithmVisualizer from "./AlgorithmVisualizer";
 import CodeExplanation from "./CodeExplanation";
 import SimpleExportControls from "./SimpleExportControls";
 import "../styles/Sorting.css";
 import { useMediaQuery } from "react-responsive";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import { ALGORITHM_PSEUDOCODE } from "../data/pseudocode";
 import { ALGORITHM_INFO } from "../data/algorithmInfo";
@@ -125,7 +128,7 @@ const Sorting = () => {
   const getAlgorithmName = () => algorithmNames[algorithm] || "Unknown Algorithm";
 
   const getAlgorithmInfo = () =>
-    ALGORITHM_INFO[algorithm] || {
+    ALGORITHM_INFO.sorting[algorithm] || {
       description: "Algorithm implementation coming soon!",
       timeComplexity: "N/A",
       spaceComplexity: "N/A",
@@ -205,14 +208,14 @@ const Sorting = () => {
   const algoOptions = Object.keys(algorithms);
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Sorting Algorithms</h1>
 
       <div className="sorting-grid">
         {/* LEFT COLUMN */}
         <div className="sorting-left">
           {/* Controls */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="200">
             <div className="theme-card-header no-border">
               <h3>Controls</h3>
             </div>
@@ -289,7 +292,7 @@ const Sorting = () => {
           </div>
 
           {/* Visualization controls */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
             <div className="theme-card-header">
               <h3>Visualization Controls</h3>
             </div>
@@ -331,8 +334,8 @@ const Sorting = () => {
           <SimpleExportControls containerId="sort-visualization-container" />
 
           {/* Info */}
-          <div className="theme-card">
-            <div className="theme-card-header">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="400">
+            <div className="theme-card-header no-border">
               <h3>{getAlgorithmName()} Information</h3>
             </div>
             <div className="code-like">
@@ -344,13 +347,13 @@ const Sorting = () => {
 
           {/* Status message */}
           {message && (
-            <div className="theme-card">
+            <div className="theme-card" data-aos="fade-up" data-aos-delay="500">
               <div className="status-message">{message}</div>
             </div>
           )}
 
           {/* Stats */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="600">
             <div className="theme-card-header">
               <h3>Performance Statistics</h3>
             </div>
@@ -375,7 +378,7 @@ const Sorting = () => {
           </div>
 
           {/* Details */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="700">
             <div className="theme-card-header between">
               <h3>{getAlgorithmName()} - Algorithm Details</h3>
               <button
@@ -418,47 +421,28 @@ const Sorting = () => {
         </div>
 
         {/* RIGHT COLUMN */}
-        <div className="sorting-right" id="sort-visualization-container">
-          <div className="theme-card">
-            <div className="theme-card-header no-border viz-header">
-              <h3>Visualization</h3>
+        <div className="sorting-right">
+          {/* Main visualization */}
+          <div 
+            id="sort-visualization-container"
+            className="theme-card visualization-card" 
+            data-aos="fade-up" 
+            data-aos-delay="100"
+          >
+            <div className="theme-card-header">
+              <h3>Visualization - {getAlgorithmName()}</h3>
             </div>
-            <div className="viz-canvas" style={{ gap: computeGap() }}>
-              {array.map((num, idx) => {
-                const maxVal = Math.max(...array, 1);
-                const heightPx = Math.max(40, Math.round((num / maxVal) * 280));
-                const col = colorArray[idx] || COLOR.base;
-                return (
-                  <div
-                    key={`${num}-${idx}`}
-                    className="array-bar"
-                    style={{
-                      height: `${heightPx}px`,
-                      backgroundColor: col,
-                      color: "var(--surface-bg)",
-                      fontSize: computeBarFontSize(),
-                      width: `${Math.max(
-                        12,
-                        Math.min(40, 400 / Math.max(1, currentLen))
-                      )}px`,
-                      display: "flex",
-                      alignItems: "flex-end",
-                      justifyContent: "center",
-                      paddingBottom: "4px",
-                      transition:
-                        "height 180ms ease, background-color 180ms ease, transform 150ms ease",
-                      transform: `translateY(0)`,
-                    }}
-                  >
-                    {currentLen <= 25 && num}
-                  </div>
-                );
-              })}
-            </div>
+            <AlgorithmVisualizer
+              array={array}
+              colorArray={colorArray}
+              barGap={computeGap()}
+              fontSize={computeBarFontSize()}
+            />
           </div>
 
+
           {/* Compact stats */}
-          <div className="theme-card compact-card">
+          <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">
             <div className="theme-card-header no-border">
               <h3>Performance Stats</h3>
             </div>

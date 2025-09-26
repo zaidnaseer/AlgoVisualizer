@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import GraphVisualizer from "../components/GraphVisualizer";
 import { graphAlgorithms } from "../data/allCodes";
 import "../styles/global-theme.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const GraphDFS = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
@@ -27,7 +29,7 @@ const GraphDFS = () => {
   };
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Depth-First Search (DFS)</h1>
       <p style={{ textAlign: 'center', maxWidth: '700px', margin: '-2rem auto 2rem auto', color: 'var(--theme-text-secondary)' }}>
         Visualize DFS traversal on a graph. You can edit the graph JSON below and click "Load Graph".
@@ -39,7 +41,7 @@ const GraphDFS = () => {
         padding: '1rem',
         borderRadius: '8px',
         marginBottom: '1.5rem'
-      }}>
+      }} data-aos="fade-up" data-aos-delay="200">
         <textarea
           value={inputText}
           onChange={handleInputChange}
@@ -72,14 +74,16 @@ const GraphDFS = () => {
       </div>
 
       {/* Graph Visualizer */}
-      <GraphVisualizer 
-        defaultAlgorithm="DFS" 
-        autoLoadExample={!customGraph} 
-        customGraph={customGraph} 
-      />
+      <div data-aos="fade-up" data-aos-delay="300">
+        <GraphVisualizer 
+          defaultAlgorithm="DFS" 
+          autoLoadExample={!customGraph} 
+          customGraph={customGraph} 
+        />
+      </div>
 
       {/* Code Implementation Section */}
-      <div className="theme-card" style={{ marginTop: '2rem' }}>
+      <div className="theme-card" style={{ marginTop: '2rem' }} data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>DFS - Code Implementation</h3>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
