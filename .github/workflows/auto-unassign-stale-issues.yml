@@ -1,49 +1,61 @@
-name: Auto Unassign Stale Issues
+name: Auto-unassign stale issues
 
 on:
   schedule:
-    # Run daily at 12:00 UTC
-    - cron: '0 12 * * *'
-  workflow_dispatch: # Allow manual trigger
+    # Run daily at 6:00 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # Allow manual triggering for testing
+    inputs:
+      days_threshold:
+        description: 'Days threshold for unassignment'
+        required: false
+        default: '7'
+        type: string
 
 permissions:
   issues: write
   pull-requests: read
+  contents: read
 
 jobs:
   unassign-stale-issues:
     runs-on: ubuntu-latest
     steps:
-      - name: Unassign stale issues
-        uses: actions/github-script@v6
+      - name: Check stale assigned issues
+        uses: actions/github-script@v7
         with:
           script: |
-            const DAYS_BEFORE_UNASSIGN = 7;
-            const now = new Date();
-            const cutoffDate = new Date(now - DAYS_BEFORE_UNASSIGN * 24 * 60 * 60 * 1000);
+            const daysThreshold = parseInt(process.env.DAYS_THRESHOLD || '${{ inputs.days_threshold || '7' }}');
+            const millisecondsThreshold = daysThreshold * 24 * 60 * 60 * 1000;
             
-            console.log(`Checking for issues assigned before ${cutoffDate.toISOString()}`);
+            console.log(`🔍 Checking for issues assigned more than ${daysThreshold} days ago without PRs...`);
             
             // Get all open issues with assignees
-            const issues = await github.paginate(github.rest.issues.listForRepo, {
+            const { data: issues } = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
+              assignee: '*',
               per_page: 100
             });
             
-            console.log(`Found ${issues.length} open issues`);
+            console.log(`📋 Found ${issues.length} assigned open issues to check`);
+            
+            let processedCount = 0;
+            let unassignedCount = 0;
             
             for (const issue of issues) {
-              // Skip if no assignees or if it's a pull request
-              if (!issue.assignees || issue.assignees.length === 0 || issue.pull_request) {
+              // Skip if it's a pull request (issues and PRs share the same API)
+              if (issue.pull_request) {
                 continue;
               }
               
-              console.log(`Checking issue #${issue.number}: ${issue.title}`);
+              processedCount++;
+              console.log(`\n📝 Processing issue #${issue.number}: "${issue.title}"`);
               
-              // Check when the issue was assigned (using events API)
-              const events = await github.paginate(github.rest.issues.listEvents, {
+              // Get assignment events to find when the issue was assigned
+              const { data: events } = await github.rest.issues.listEvents({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
@@ -51,69 +63,94 @@ jobs:
               });
               
               // Find the latest assignment event
-              const assignEvents = events.filter(event => event.event === 'assigned').reverse();
-              if (assignEvents.length === 0) {
-                console.log(`No assignment events found for issue #${issue.number}`);
+              const assignmentEvents = events
+                .filter(event => event.event === 'assigned')
+                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+              
+              if (assignmentEvents.length === 0) {
+                console.log(`⚠️  No assignment events found for issue #${issue.number}`);
                 continue;
               }
               
-              const lastAssignEvent = assignEvents[0];
-              const assignDate = new Date(lastAssignEvent.created_at);
+              const latestAssignment = assignmentEvents[0];
+              const assignedDate = new Date(latestAssignment.created_at);
+              const now = new Date();
+              const timeDiff = now - assignedDate;
               
-              console.log(`Issue #${issue.number} was last assigned on ${assignDate.toISOString()}`);
+              console.log(`📅 Issue #${issue.number} assigned ${Math.floor(timeDiff / (24 * 60 * 60 * 1000))} days ago to @${latestAssignment.assignee?.login || 'unknown'}`);
               
-              // Check if assignment is older than 7 days
-              if (assignDate > cutoffDate) {
-                console.log(`Issue #${issue.number} is not stale yet`);
+              // Check if issue was assigned more than threshold days ago
+              if (timeDiff < millisecondsThreshold) {
+                console.log(`✅ Issue #${issue.number} is within the ${daysThreshold}-day threshold`);
                 continue;
               }
               
-              // Check if there are any PRs that reference this issue
-              const prs = await github.paginate(github.rest.search.issuesAndPullRequests, {
-                q: `repo:${context.repo.owner}/${context.repo.repo} is:pr ${issue.number} in:body OR #${issue.number} in:body OR closes:${issue.number} OR fixes:${issue.number} OR resolves:${issue.number}`,
-                per_page: 100
-              });
+              // Search for PRs that reference this issue
+              const searchQueries = [
+                `is:pr repo:${context.repo.owner}/${context.repo.repo} ${issue.number}`,
+                `is:pr repo:${context.repo.owner}/${context.repo.repo} "fixes #${issue.number}"`,
+                `is:pr repo:${context.repo.owner}/${context.repo.repo} "closes #${issue.number}"`,
+                `is:pr repo:${context.repo.owner}/${context.repo.repo} "resolves #${issue.number}"`
+              ];
               
-              // Also search for PRs that might reference the issue in title or comments
-              const prsByTitle = await github.paginate(github.rest.search.issuesAndPullRequests, {
-                q: `repo:${context.repo.owner}/${context.repo.repo} is:pr "${issue.title}" in:title`,
-                per_page: 100
-              });
+              let hasPR = false;
               
-              const allRelatedPRs = [...prs.data, ...prsByTitle.data];
-              const uniquePRs = allRelatedPRs.filter((pr, index, self) => 
-                index === self.findIndex(p => p.id === pr.id)
-              );
+              for (const query of searchQueries) {
+                try {
+                  const { data: searchResults } = await github.rest.search.issuesAndPullRequests({
+                    q: query,
+                    per_page: 10
+                  });
+                  
+                  if (searchResults.total_count > 0) {
+                    hasPR = true;
+                    console.log(`🔗 Found ${searchResults.total_count} PR(s) referencing issue #${issue.number}`);
+                    break;
+                  }
+                } catch (error) {
+                  console.log(`⚠️  Search error for "${query}": ${error.message}`);
+                }
+              }
               
-              console.log(`Found ${uniquePRs.length} related PRs for issue #${issue.number}`);
-              
-              // Check if any PR was created after the assignment
-              const relevantPRs = uniquePRs.filter(pr => {
-                const prCreatedAt = new Date(pr.created_at);
-                return prCreatedAt >= assignDate;
-              });
-              
-              if (relevantPRs.length > 0) {
-                console.log(`Issue #${issue.number} has ${relevantPRs.length} related PR(s), skipping unassignment`);
+              if (hasPR) {
+                console.log(`✅ Issue #${issue.number} has associated PR(s), keeping assignment`);
                 continue;
               }
               
-              console.log(`Unassigning stale issue #${issue.number}`);
-              
-              // Unassign all assignees
-              const assigneeLogins = issue.assignees.map(assignee => assignee.login);
+              // No PR found and issue is stale - unassign
+              console.log(`🚨 Issue #${issue.number} has no associated PRs and is stale - proceeding with unassignment`);
               
               try {
+                // Get current assignees
+                const assignees = issue.assignees.map(assignee => assignee.login);
+                
+                // Unassign all assignees
                 await github.rest.issues.removeAssignees({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  assignees: assigneeLogins
+                  assignees: assignees
                 });
                 
-                // Add a comment explaining the unassignment
-                const commentBody = `🕐 **Auto-unassignment Notice**\n\nThis issue has been automatically unassigned because:\n- It was assigned more than 7 days ago (assigned on ${assignDate.toDateString()})\n- No pull request has been opened to address this issue\n\n**What's next?**\n- If you're still working on this issue, please comment below and reassign yourself\n- If you've opened a PR for this issue, please reference this issue number in your PR description\n- This issue remains open and available for new contributors\n\nThank you for your understanding! 🙏`;
-
+                // Add explanatory comment
+                const assigneesList = assignees.map(username => `@${username}`).join(', ');
+                const commentBody = [
+                  '🤖 **Auto-unassignment Notice**',
+                  '',
+                  `This issue has been automatically unassigned from ${assigneesList} because it was assigned more than ${daysThreshold} days ago (on ${assignedDate.toDateString()}) and no pull request has been opened to address it.`,
+                  '',
+                  '**What happens next?**',
+                  '- This issue is now available for anyone to pick up',
+                  '- If you were working on this and need more time, please comment on this issue and ask to be reassigned',
+                  '- If you have a draft PR or work in progress, please open a draft PR to maintain your assignment',
+                  '',
+                  '**For future reference:**',
+                  `- Please open a draft PR within ${daysThreshold} days of being assigned to an issue`,
+                  '- This helps keep the project moving and ensures issues don\'t get stuck',
+                  '',
+                  'Thank you for your understanding! 🙏'
+                ].join('\n');
+                
                 await github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
@@ -121,10 +158,52 @@ jobs:
                   body: commentBody
                 });
                 
-                console.log(`Successfully unassigned and commented on issue #${issue.number}`);
+                unassignedCount++;
+                console.log(`✅ Successfully unassigned and commented on issue #${issue.number}`);
+                
               } catch (error) {
-                console.error(`Failed to unassign issue #${issue.number}:`, error);
+                console.log(`❌ Failed to unassign issue #${issue.number}: ${error.message}`);
               }
+              
+              // Add a small delay to avoid rate limiting
+              await new Promise(resolve => setTimeout(resolve, 1000));
             }
             
-            console.log('Stale issue unassignment check completed');
+            console.log(`\n📊 Summary: Processed ${processedCount} issues, unassigned ${unassignedCount} stale issues`);
+            
+            // Create a summary comment if any issues were unassigned
+            if (unassignedCount > 0) {
+              const summaryBody = [
+                '## Daily Auto-unassignment Report',
+                '',
+                `📅 **Date**: ${new Date().toDateString()}`,
+                `🔢 **Issues Processed**: ${processedCount}`,
+                `🚨 **Issues Unassigned**: ${unassignedCount}`,
+                `⏰ **Threshold**: ${daysThreshold} days`,
+                '',
+                '### What was done?',
+                '- Checked all open assigned issues',
+                `- Unassigned issues that were assigned more than ${daysThreshold} days ago without associated PRs`,
+                '- Added explanatory comments to unassigned issues',
+                '',
+                '### Why does this happen?',
+                'This automation helps keep the project moving by:',
+                '- Preventing issues from getting stuck with inactive assignees',
+                '- Making issues available for other contributors',
+                '- Encouraging timely progress or communication',
+                '',
+                '*This is an automated report. The issues have been unassigned and are now available for anyone to work on.*'
+              ].join('\n');
+              
+              const summaryIssue = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `🤖 Auto-unassignment Summary - ${new Date().toDateString()}`,
+                body: summaryBody,
+                labels: ['automation', 'maintenance']
+              });
+              
+              console.log(`📋 Created summary issue #${summaryIssue.data.number}`);
+            }
+        env:
+          DAYS_THRESHOLD: ${{ inputs.days_threshold || '7' }}
