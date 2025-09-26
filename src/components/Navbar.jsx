@@ -231,7 +231,7 @@ const Navbar = () => {
           )}
 
           {/* Desktop Navigation */}
-          <div className="navbar-menu">
+        <div className="navbar-menu">
             {navigationItems.map((item, index) => (
               <div key={index} className="navbar-item" data-aos="fade-down" data-aos-delay={`${index * 50}`}>
                 {item.dropdown ? (
