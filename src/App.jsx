@@ -1,5 +1,8 @@
+
 import React from "react";
 import FeedbackWidget from "./components/FeedbackWidget"; 
+import React, { useEffect } from "react";
+
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SettingsProvider } from "./contexts/SettingsContext";
@@ -55,6 +58,12 @@ import TreePage from "./pages/TreePage";
 import DCOverview from "./pages/DCOverview";
 import DCPage from "./pages/DCPage";
 
+import Queue from "./components/Queue/Queue";
+import Stack from "./components/Stack/Stack";
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+ 
 
 
 const App = () => {
@@ -68,7 +77,16 @@ const App = () => {
     "/graph/bfs",
     "/graph/dfs",
     "/graph/dijkstra",
+    "/data-structures/stack",
   ];
+
+  useEffect(() => {
+    AOS.init({
+      // Global settings for AOS animations
+      duration: 1000,
+      once: true, // Animations will only happen once
+    });
+  }, []);
 
   return (
     <SettingsProvider>
@@ -104,7 +122,8 @@ const App = () => {
               path="/data-structures/linked-list"
               element={<LinkedListPage />}
             />
-
+            <Route path="/data-structures/queue" element={<Queue />} />
+            <Route path="/data-structures/stack" element={<Stack />} />
             <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
 
             {/* Graph */}
@@ -124,6 +143,7 @@ const App = () => {
             {/* Dynamic Programming */}
 <Route path="/dp-overview" element={<DPOverview />} />
 <Route path="/dp" element={<DPPage />} />
+
 
 
               {/* Hashing */}

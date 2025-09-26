@@ -4,6 +4,8 @@ import { FaStar, FaCode, FaUsers, FaGithub, FaSearch } from "react-icons/fa";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import "../styles/leaderboard.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const GITHUB_REPO = "RhythmPahwa14/AlgoVisualizer";
 const token = import.meta.env.VITE_GITHUB_TOKEN;
@@ -82,8 +84,6 @@ export default function ContributorsLeaderboard() {
         const PER_PAGE = 100;
         const MAX_PAGES = 10; // Search API caps at 1000
 
-        // We fetch ALL merged PRs, then compute points locally from labels.
-        // (We don't depend on a GSSoC label; if level labels are missing, points will be 0 but PRs still count.)
         const baseQ = `repo:${GITHUB_REPO}+is:pr+is:merged`;
 
         for (let page = 1; page <= MAX_PAGES; page++) {
@@ -107,7 +107,6 @@ export default function ContributorsLeaderboard() {
             const author = item?.user?.login;
             if (!author) return;
 
-            // compute points from any level-* labels present on the PR
             const levelLabels = (item.labels || [])
               .map((l) => canonicalLevel(l.name))
               .filter(Boolean);
@@ -124,15 +123,14 @@ export default function ContributorsLeaderboard() {
                 prs: 0,
               };
             }
-            contributorsMap[author].prs += 1;      // always count merged PR
-            contributorsMap[author].points += points; // points may be 0 if no level labels
+            contributorsMap[author].prs += 1;
+            contributorsMap[author].points += points;
           });
 
           if (items.length < PER_PAGE) break;
         }
 
         const arr = Object.values(contributorsMap);
-        // sort by points, then by PR count, then by username
         const sorted = arr.sort(
           (a, b) =>
             b.points - a.points ||
@@ -142,7 +140,6 @@ export default function ContributorsLeaderboard() {
         const ranked = sorted.map((c, i) => ({ ...c, rank: i + 1 }));
         setContributors(ranked);
 
-        // stats
         const totalPRs = ranked.reduce((s, c) => s + c.prs, 0);
         const totalPoints = ranked.reduce((s, c) => s + c.points, 0);
         setStats({
@@ -162,14 +159,12 @@ export default function ContributorsLeaderboard() {
     };
 
     fetchMergedPRsAndScore();
-  }, []); // run once
+  }, []);
 
-  // search filter
   const filtered = contributors.filter((c) =>
     c.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // pagination
   const PAGE_SIZE = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLast = currentPage * PAGE_SIZE;
@@ -193,11 +188,12 @@ export default function ContributorsLeaderboard() {
   const buttonDisabledStyle = { ...buttonStyle, opacity: 0.5, cursor: "not-allowed" };
 
   return (
-    <div style={{ background: isDark ? "#23272f" : "#f6f6f6", minHeight: "100vh", padding: "32px 8px" }}>
+    <div style={{ background: isDark ? "#23272f" : "#f6f6f6", minHeight: "100vh", padding: "32px 8px" }} data-aos="fade-up" data-aos-duration="1000">
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         {/* header */}
         <motion.div style={{ textAlign: "center", marginBottom: 48, padding: "0 8px" }}
-          initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+          data-aos="fade-down" data-aos-duration="1000">
           <h1 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12, color: "#6366f1" }}>
             GSSoC'25 Leaderboard
           </h1>
@@ -207,7 +203,7 @@ export default function ContributorsLeaderboard() {
         </motion.div>
 
         {/* search */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }} data-aos="fade-up" data-aos-delay="200">
           <div style={{ position: "relative", width: "100%", maxWidth: 320 }}>
             <input
               type="text"
@@ -226,7 +222,7 @@ export default function ContributorsLeaderboard() {
         </div>
 
         {/* stats */}
-        <div style={{ display: "flex", gap: 18, marginBottom: 16, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 18, marginBottom: 16, flexWrap: "wrap" }} data-aos="fade-up" data-aos-delay="300">
           <div style={{ flex: 1, minWidth: 220, padding: 24, borderRadius: 16, boxShadow: "0 2px 8px rgba(0,0,0,0.04)", border: `1px solid ${isDark ? "#444" : "#eee"}`, background: isDark ? "linear-gradient(135deg,#23272f,#1a1d23)" : "linear-gradient(135deg,#e0e7ff,#f3f4f6)" }}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <div style={{ padding: 12, borderRadius: 12, background: isDark ? "rgba(59,130,246,0.2)" : "#dbeafe", color: isDark ? "#60a5fa" : "#2563eb", marginRight: 16 }}>
@@ -274,7 +270,7 @@ export default function ContributorsLeaderboard() {
             marginBottom: 24, padding: "12px 16px",
             borderRadius: 8, border: `1px solid ${isDark ? "#9f1239" : "#fecaca"}`,
             background: isDark ? "#3f1d1d" : "#fee2e2", color: isDark ? "#fecaca" : "#7f1d1d",
-          }}>
+          }} data-aos="fade-up">
             {errorMsg}
           </div>
         )}
@@ -282,7 +278,7 @@ export default function ContributorsLeaderboard() {
         {loading ? (
           <SkeletonLoader isDark={isDark} />
         ) : (
-          <div style={{ borderRadius: 16, boxShadow: "0 2px 8px rgba(0,0,0,0.04)", border: `1px solid ${isDark ? "#444" : "#eee"}`, overflow: "hidden", margin: "0 8px" }}>
+          <div style={{ borderRadius: 16, boxShadow: "0 2px 8px rgba(0,0,0,0.04)", border: `1px solid ${isDark ? "#444" : "#eee"}`, overflow: "hidden", margin: "0 8px" }} data-aos="fade-up" data-aos-delay="400">
             <div className="head-titles">
               <div><h3>Rank</h3></div>
               <div><h3>Profile</h3></div>
@@ -307,6 +303,7 @@ export default function ContributorsLeaderboard() {
                       borderBottom: `1px solid ${isDark ? "#444" : "#eee"}`,
                       background: idx % 2 === 0 ? (isDark ? "#23272f" : "#fff") : (isDark ? "#1a1d23" : "#f6f6f6"),
                     }}
+                    data-aos="fade-up" data-aos-delay={`${400 + idx * 50}`}
                   >
                     {/* rank */}
                     <div style={{
@@ -379,7 +376,7 @@ export default function ContributorsLeaderboard() {
             </div>
 
             {/* CTA */}
-            <div style={{ padding: "16px 24px", textAlign: "center", borderTop: `1px solid ${isDark ? "#444" : "#eee"}`, background: isDark ? "#23272f" : "#f6f6f6" }}>
+            <div style={{ padding: "16px 24px", textAlign: "center", borderTop: `1px solid ${isDark ? "#444" : "#eee"}`, background: isDark ? "#23272f" : "#f6f6f6" }} data-aos="fade-up" data-aos-delay="800">
               <p style={{ fontSize: 14, color: isDark ? "#b3b3b3" : "#555", marginBottom: 12 }}>
                 Want to see your name here? Add level labels to your PRs for points!
               </p>

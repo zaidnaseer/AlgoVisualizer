@@ -9,21 +9,19 @@ import {
   Users,
   Trophy,
   Settings,
-  Menu,
   X,
   ChevronDown,
   BookOpen,
   Cpu,
   Code,
   Hash,
-  HelpCircle,
   Zap,
-  TreeDeciduous, // Added missing import
-
+  TreeDeciduous,
+  Menu,
 } from "lucide-react";
-import { FaHashtag } from "react-icons/fa";
-
 import { useTheme } from "../ThemeContext";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,24 +29,18 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
   const { theme } = useTheme();
-
   const navbarRef = useRef(null);
 
-  // Check if device is mobile
+  // Detect mobile screen
   useEffect(() => {
-    const checkMobile = () => {
+    const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      // Always keep menu closed by default
-      if (window.innerWidth > 768) {
-        setIsMobileMenuOpen(false);
-      }
+      if (!mobile) setIsMobileMenuOpen(false);
     };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const navigationItems = [
@@ -58,10 +50,7 @@ const Navbar = () => {
       icon: BarChart3,
       dropdown: [
         { path: "/sorting", label: "Overview" },
-        {
-          path: "/components/AlgorithmComparison",
-          label: "Algorithm Comparison",
-        },
+        { path: "/components/AlgorithmComparison", label: "Algorithm Comparison" },
       ],
     },
     {
@@ -78,6 +67,10 @@ const Navbar = () => {
       dropdown: [
         { path: "/data-structures", label: "Overview" },
         { path: "/data-structures/linked-list", label: "Linked List" },
+
+        { path: "/data-structures/queue", label: "Queue visualization" },
+        { path: "/data-structures/stack", label: "Stack visualization" },
+
       ],
     },
     {
@@ -117,7 +110,6 @@ const Navbar = () => {
     },
     {
       label: "Greedy Algorithms",
-
       icon: Zap,
       dropdown: [
         { path: "/greedy-overview", label: "Overview" },
@@ -132,17 +124,14 @@ const Navbar = () => {
         { path: "/dc", label: "Algorithms" },
       ],
     },
-
-
     {
       label: "Trees",
-      icon: TreeDeciduous, // Now properly imported
+      icon: TreeDeciduous,
       dropdown: [
         { path: "/tree-overview", label: "Overview" },
         { path: "/tree", label: "Algorithms" },
       ],
     },
-
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     {
       label: "Community",
@@ -162,76 +151,75 @@ const Navbar = () => {
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        navbarRef.current &&
-        !navbarRef.current.contains(event.target)
-      ) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
         setIsDropdownOpen(null);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <>
-      <nav className="navbar" ref={navbarRef}>
+      <nav
+        className={`navbar ${theme}`}
+        ref={navbarRef}
+        data-aos="fade-down"
+        data-aos-duration="1000"
+      >
         <div className="navbar-container">
           {/* Mobile Header Row */}
           {isMobile && (
-            <div className="navbar-header">
+            <div
+              className="navbar-header"
+              data-aos="fade-down"
+              data-aos-duration="1000"
+            >
               <Link to="/" className="navbar-logo">
-                <img 
-                  src="/logo.jpg" 
-                  alt="AlgoVisualizer Logo" 
+                <img
+                  src="/logo.jpg"
+                  alt="AlgoVisualizer Logo"
                   className="logo-img"
                   onError={(e) => {
-                    e.target.style.display = 'none';
+                    e.target.style.display = "none";
                   }}
                 />
                 <span className="logo-text">
                   Algo<span>Visualizer</span>
                 </span>
               </Link>
-              
+
               <div className="mobile-header-buttons">
-                <Link 
-                  to="/settings" 
+                <Link
+                  to="/settings"
                   className={`mobile-settings-btn ${
                     isActive("/settings") ? "active" : ""
                   }`}
                 >
                   <Settings size={20} />
                 </Link>
-                
+
                 <button
                   className="mobile-menu-button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-
                   aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-
                 >
                   {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
               </div>
             </div>
           )}
-          
+
           {/* Desktop Logo */}
           {!isMobile && (
             <Link to="/" className="navbar-logo">
-              <img 
-                src="/logo.jpg" 
-                alt="AlgoVisualizer Logo" 
+              <img
+                src="/logo.jpg"
+                alt="AlgoVisualizer Logo"
                 className="logo-img"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
+                onError={(e) => (e.target.style.display = "none")}
               />
               <span className="logo-text">
                 Algo<span>Visualizer</span>
@@ -240,11 +228,11 @@ const Navbar = () => {
           )}
 
           {/* Desktop Navigation */}
-          <div className="navbar-menu">
-            {navigationItems.map((item, index) => (
-              <div key={index} className="navbar-item">
-                {item.dropdown ? (
-                  <div className="dropdown">
+          {!isMobile && (
+            <div className="navbar-menu">
+              {navigationItems.map((item, index) =>
+                item.dropdown ? (
+                  <div key={index} className="navbar-item dropdown">
                     <button
                       className={`dropdown-toggle ${
                         isDropdownOpen === index ? "active" : ""
@@ -279,6 +267,7 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <Link
+                    key={index}
                     to={item.path}
                     className={`navbar-link ${
                       isActive(item.path) ? "active" : ""
@@ -287,53 +276,42 @@ const Navbar = () => {
                     <item.icon size={18} className="icon" />
                     <span>{item.label}</span>
                   </Link>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Desktop Mobile Menu Button (hidden for now) */}
-          {!isMobile && (
-            <button
-              className="mobile-menu-button desktop-menu-btn"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              style={{ display: 'none' }}
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+                )
+              )}
+            </div>
           )}
         </div>
 
-        {/* Enhanced Mobile Menu */}
-        <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
-          {/* Mobile Menu Header */}
-          <div className="mobile-menu-header">
-            <div className="mobile-menu-header-content">
-              <h3 className="mobile-menu-title">
-                <Database size={18} />
-                Navigation
-              </h3>
-              <button
-                className="mobile-menu-close-btn"
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-label="Close navigation menu"
-              >
-                <X size={20} />
-              </button>
+        {/* Mobile Menu */}
+        {isMobile && (
+          <div
+            className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}
+            data-aos="fade-right"
+            data-aos-duration="400"
+          >
+            <div className="mobile-menu-header">
+              <div className="mobile-menu-header-content">
+                <h3 className="mobile-menu-title">
+                  <Database size={18} />
+                  Navigation
+                </h3>
+                <button
+                  className="mobile-menu-close-btn"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-label="Close navigation menu"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <p className="mobile-menu-subtitle">
+                Explore algorithms & data structures
+              </p>
             </div>
-            <p className="mobile-menu-subtitle">Explore algorithms & data structures</p>
-          </div>
-          
-          {/* Mobile Menu Content */}
-          <div className="mobile-menu-content">
-            {navigationItems.map((item, index) => (
-              <div 
-                key={index} 
-                className="mobile-menu-item"
-                style={{ '--item-index': index }}
-              >
-                {item.dropdown ? (
-                  <div className="mobile-dropdown">
+
+            <div className="mobile-menu-content">
+              {navigationItems.map((item, index) =>
+                item.dropdown ? (
+                  <div key={index} className="mobile-dropdown">
                     <button
                       className={`mobile-dropdown-toggle ${
                         isDropdownOpen === index ? "active" : ""
@@ -371,6 +349,7 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <Link
+                    key={index}
                     to={item.path}
                     className={`mobile-menu-link ${
                       isActive(item.path) ? "active" : ""
@@ -380,20 +359,20 @@ const Navbar = () => {
                     <item.icon size={18} />
                     <span>{item.label}</span>
                   </Link>
-                )}
-              </div>
-            ))}
+                )
+              )}
+            </div>
           </div>
-        </div>
-      </nav>
+        )}
 
-      {/* Backdrop */}
-      {isMobileMenuOpen && (
-        <div
-          className="navbar-backdrop"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
+        {/* Backdrop */}
+        {isMobileMenuOpen && (
+          <div
+            className="navbar-backdrop"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+      </nav>
     </>
   );
 };

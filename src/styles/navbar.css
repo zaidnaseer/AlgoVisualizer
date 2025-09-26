@@ -409,6 +409,7 @@ body {
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--glass-border);
+    width: 100%;
 }
 
 .mobile-nav-header h2 {
@@ -477,12 +478,14 @@ body {
 
 .mobile-group-header {
     margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .mobile-group-header span {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--text-primary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -573,6 +576,43 @@ body {
     width: fit-content;
     max-width: 80vw;
   }
+  
+  .mobile-nav-content {
+    padding: 15px;
+  }
+  
+  .mobile-nav-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
+  
+  .mobile-nav-groups {
+    gap: 20px;
+  }
+  
+  .mobile-nav-group {
+    gap: 6px;
+  }
+  
+  .mobile-group-header {
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+  }
+  
+  .mobile-group-header span {
+    font-size: 0.8rem;
+  }
+  
+  .mobile-nav-link {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    gap: 10px;
+  }
+  
+  .mobile-nav-icon {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 /* Small Mobile (≤480px) */
@@ -588,6 +628,32 @@ body {
 
   .mobile-nav-content {
     padding: 16px;
+  }
+  
+  .mobile-nav-header {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .mobile-github-btn span {
+    display: none;
+  }
+  
+  .mobile-github-btn {
+    padding: 8px;
+  }
+  
+  .mobile-nav-groups {
+    gap: 15px;
+  }
+  
+  .mobile-group-header span {
+    font-size: 0.75rem;
+  }
+  
+  .mobile-nav-link {
+    padding: 8px 12px;
+    font-size: 0.8rem;
   }
 }
 
@@ -608,5 +674,11 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  .mobile-nav-link {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
