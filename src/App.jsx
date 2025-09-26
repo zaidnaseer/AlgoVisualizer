@@ -54,7 +54,7 @@ import TreePage from "./pages/TreePage";
 import DCOverview from "./pages/DCOverview";
 import DCPage from "./pages/DCPage";
 
-
+import Queue from "./components/Queue/Queue";
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
@@ -103,7 +103,7 @@ const App = () => {
               path="/data-structures/linked-list"
               element={<LinkedListPage />}
             />
-
+            <Route path="/data-structures/queue" element={<Queue />} />
             <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
 
             {/* Graph */}
