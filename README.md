@@ -589,6 +589,18 @@ We welcome contributions from the community! Here's how you can help:
 - ⚡ **Performance Optimizations**: Make the app faster
 - 🧪 **Add Algorithms**: Implement new visualization algorithms
 
+### ⏰ Issue Assignment Policy
+
+We use **automated issue management** to keep development active:
+
+- **📋 Assignment Duration**: Contributors have 7 days to work on assigned issues
+- **📬 Day 5 Warning**: Friendly reminder with progress check
+- **🔄 Day 7 Auto-unassign**: Automatic unassignment if no PR is linked
+- **🏷️ Exempt Labels**: Issues marked `wip`, `on-hold`, or `priority-high` are protected
+- **🔗 PR Protection**: Issues with linked PRs won't be auto-unassigned
+
+> **💡 Stay assigned**: Create a PR, comment with updates, or use appropriate labels!
+
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
 <h2 id="code-of-conduct">📜 Code of Conduct</h2>

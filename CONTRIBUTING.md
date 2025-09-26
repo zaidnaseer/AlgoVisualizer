@@ -73,6 +73,38 @@ git checkout -b feature/your-feature-name
 
 ---
 
+## ⏰ Issue Assignment Policy
+
+We have an automated system to keep issues active and available for contributors:
+
+### 📋 How It Works
+- **Day 1-4**: Work on your assigned issue (grace period)
+- **Day 5**: You'll receive a friendly reminder comment
+- **Day 7**: Automatic unassignment if no PR is linked
+
+### 🔗 Stay Assigned
+To keep an issue assigned to you:
+- **Create a PR** that references the issue (`Fixes #123`, `Closes #123`, etc.)
+- **Comment** with progress updates
+- **Add appropriate labels** (`wip`, `on-hold`, etc.)
+
+### 🏷️ Exempt Labels
+Issues with these labels won't be auto-unassigned:
+- `on-hold` - Issue is temporarily paused
+- `wip` - Work in progress
+- `priority-high` - High priority issues
+- `priority-critical` - Critical issues
+
+### ✨ Benefits
+- Keeps issues moving and available
+- Prevents stale assignments
+- Encourages regular communication
+- Helps new contributors find work
+
+> 💡 **Tip**: Comment regularly on your assigned issues to show progress and keep them active!
+
+---
+
 ## 🔀 Submitting Pull Requests
 
 1. 🔄 Update your fork:

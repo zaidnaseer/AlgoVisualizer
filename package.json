@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check-issues": "node scripts/check-assigned-issues.cjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
