@@ -1,10 +1,12 @@
 import React from "react";
 import GraphVisualizer from "../components/GraphVisualizer";
 import "../styles/global-theme.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Graph = () => {
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Graph Algorithms Visualization</h1>
       <p style={{ textAlign: 'center', maxWidth: '700px', margin: '-2rem auto 2rem auto', color: 'var(--theme-text-secondary)' }}>
         Create your own graph by adding nodes and edges, and visualize graph
@@ -12,7 +14,7 @@ const Graph = () => {
       </p>
 
       {/* Informative Description Section */}
-      <div className="theme-card">
+      <div className="theme-card" data-aos="fade-up" data-aos-delay="200">
         <div className="theme-card-header">
           {/* ❌ REMOVE: style={{ color: "#66ccff" }} */}
           <h3>What is a Graph?</h3>
@@ -45,7 +47,7 @@ const Graph = () => {
       </div>
       
       {/* Graph Subsections */}
-      <div className="theme-card">
+      <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
         <div className="theme-card-header">
           <h3>Graph Algorithms</h3>
         </div>
@@ -55,7 +57,7 @@ const Graph = () => {
           <a href="/graph/dijkstra" className="btn btn-secondary" style={{ textDecoration: 'none' }}>Dijkstra</a>
         </div>
       </div>
-      <div className="theme-card">
+      <div className="theme-card" data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>Dijkstra's Shortest Path Algorithm</h3>
         </div>
@@ -72,7 +74,9 @@ const Graph = () => {
         </div>
       </div>
 
-      <GraphVisualizer />
+      <div data-aos="fade-up" data-aos-delay="500">
+        <GraphVisualizer />
+      </div>
     </div>
   );
 };
