@@ -120,7 +120,7 @@ export default function ScrollToTop() {
 
           /* Light theme styles */
           .scroll-to-top-btn {
-            bottom: 140px; /* Positioned above FAQ chatbot to avoid overlap */
+            bottom: 95px; /* Positioned above FAQ chatbot to avoid overlap */
             right: 24px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
