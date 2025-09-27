@@ -137,21 +137,21 @@ const Navbar = () => {
       ],
     },
     {
-
-  label: "Game Search",
-  icon: Gamepad, // You can import an appropriate icon from lucide-react
-  dropdown: [
-    { path: "/game-search-overview", label: "Overview" },
-    { path: "/game-search", label: "Algorithms" },
-
-  label: "Branch & Bound",
-  icon: BookOpen,
-  dropdown: [
-    { path: "/branchbound-overview", label: "Overview" },
-    { path: "/branchbound", label: "Algorithms" },
-
-  ],
-},
+      label: "Game Search",
+      icon: Gamepad, // You can import an appropriate icon from lucide-react
+      dropdown: [
+        { path: "/game-search-overview", label: "Overview" },
+        { path: "/game-search", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Branch & Bound",
+      icon: BookOpen,
+      dropdown: [
+        { path: "/branchbound-overview", label: "Overview" },
+        { path: "/branchbound", label: "Algorithms" },
+      ],
+    },
 
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
