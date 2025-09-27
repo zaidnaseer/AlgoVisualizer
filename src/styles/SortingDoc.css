@@ -296,3 +296,37 @@ summary:focus {
   outline-offset: 2px;
   border-radius: 10px;
 }
+
+/* SortingDoc light tweaks (only when app is light) */
+html[data-theme="light"] .doc-page {
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --surface-2: #eef2f7;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --primary: #2563eb;
+  --primary-contrast: #ffffff;
+  --border: #e2e8f0;
+  --success-bg: #e7f7ef;
+  --success-text: #176c3a;
+  --code-bg: #f1f5f9;
+  --code-text: #1e293b;
+  --shadow: 0 8px 22px rgba(2, 6, 23, 0.08);
+}
+
+/* SortingDoc dark tweaks (only when app is dark) */
+html[data-theme="dark"] .doc-page {
+  --bg: #0b1220;
+  --surface: #0f172a;
+  --surface-2: #131c2f;
+  --text: #e5e7eb;
+  --text-muted: #94a3b8;
+  --primary: #8ab4ff;
+  --primary-contrast: #0b1220;
+  --border: #243049;
+  --success-bg: #0d2a1a;
+  --success-text: #77d39a;
+  --code-bg: #0b1020;
+  --code-text: #e5e7eb;
+  --shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+}

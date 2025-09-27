@@ -22,8 +22,7 @@ import {
   Menu,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { navbarNavigationItems } from "../utils/navigation";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,9 +39,31 @@ const Navbar = () => {
   const location = useLocation();
   const { theme } = useTheme();
   const navbarRef = useRef(null);
-
   const searchRef = useRef(null);
 
+  // Map string icon names to actual icon components
+  const getIconComponent = (iconName) => {
+    const iconMap = {
+      Home,
+      BarChart3,
+      Search,
+      Database,
+      GitBranch,
+      Users,
+      Trophy,
+      Settings,
+      Type,
+      BookOpen,
+      Cpu,
+      Code,
+      Hash,
+      Zap,
+      Gamepad,
+      TreeDeciduous,
+      Menu,
+    };
+    return iconMap[iconName] || null;
+  };
 
   // Detect mobile screen
   useEffect(() => {
@@ -55,6 +76,7 @@ const Navbar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
 
   const navigationItems = [
     { path: "/", icon: Home, label: "Home" },
@@ -183,6 +205,7 @@ const Navbar = () => {
     { path: "/settings", icon: Settings, label: "Settings" },
   ];
 
+
   const isActive = (path) => location.pathname === path;
 
   const handleDropdownToggle = (index) => {
@@ -199,7 +222,7 @@ const Navbar = () => {
     }
 
     const results = [];
-    navigationItems.forEach((item) => {
+    navbarNavigationItems.forEach((item) => {
       if (item.label.toLowerCase().includes(query.toLowerCase()) && item.path) {
         results.push({ path: item.path, label: item.label });
       }
@@ -257,6 +280,7 @@ const Navbar = () => {
 
   return (
 
+
     <>
       <nav
         className={`navbar ${theme}`}
@@ -281,11 +305,16 @@ const Navbar = () => {
       data-aos="fade-down"
       data-aos-duration="1000"
     >
+
+    <nav className={`navbar ${theme}`} ref={navbarRef}>
+
       <div className="navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo">
           <img src="/logo.jpg" alt="AlgoVisualizer Logo" className="logo-img" />
-          <span className="logo-text">Algo<span>Visualizer</span></span>
+          <span className="logo-text">
+            Algo<span>Visualizer</span>
+          </span>
         </Link>
 
 
@@ -392,18 +421,26 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="navbar-menu">
-          {navigationItems.map((item, index) =>
+          {navbarNavigationItems.map((item, index) =>
             item.dropdown ? (
               <div key={index} className="navbar-item dropdown">
                 <button
-                  className={`dropdown-toggle ${isDropdownOpen === index ? "active" : ""}`}
+                  className={`dropdown-toggle ${
+                    isDropdownOpen === index ? "active" : ""
+                  }`}
                   onClick={() => handleDropdownToggle(index)}
                 >
-                  <item.icon size={18} className="drop-icon" />
+                  {item.icon &&
+                    React.createElement(getIconComponent(item.icon), {
+                      size: 18,
+                      className: "drop-icon",
+                    })}
                   <span>{item.label}</span>
                   <ChevronDown
                     size={16}
-                    className={`dropdown-arrow ${isDropdownOpen === index ? "rotated" : ""}`}
+                    className={`dropdown-arrow ${
+                      isDropdownOpen === index ? "rotated" : ""
+                    }`}
                   />
                 </button>
                 {isDropdownOpen === index && (
@@ -412,7 +449,9 @@ const Navbar = () => {
                       <Link
                         key={subIndex}
                         to={subItem.path}
-                        className={`dropdown-item ${isActive(subItem.path) ? "active" : ""}`}
+                        className={`dropdown-item ${
+                          isActive(subItem.path) ? "active" : ""
+                        }`}
                         onClick={() => setIsDropdownOpen(null)}
                       >
                         {subItem.label}
@@ -479,9 +518,15 @@ const Navbar = () => {
               <Link
                 key={index}
                 to={item.path}
-                className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
+                className={`navbar-link ${
+                  isActive(item.path) ? "active" : ""
+                }`}
               >
-                <item.icon size={18} className="icon" />
+                {item.icon &&
+                  React.createElement(getIconComponent(item.icon), {
+                    size: 18,
+                    className: "icon",
+                  })}
                 <span>{item.label}</span>
               </Link>
             )
