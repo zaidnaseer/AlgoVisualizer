@@ -1897,12 +1897,24 @@ display: flex;
   font-size: 1.1em;
   font-weight: 700;
   margin-bottom: 5px;
+  transition: color 0.3s ease-in-out;
+
 }
 .step-description{
   font-size: 0.85em;
   color: #6c757d;
   line-height: 1.4;
   margin: 0;
+}
+
+/* Light mode */
+body.light-mode .step-title {
+  color: #333; /* darker for visibility */
+}
+
+/* Dark mode */
+body.dark-mode .step-title {
+  color: #f5f5f5; /* light text for dark background */
 }
 .step-button-tag{
   flex-shrink: 0;
@@ -1913,6 +1925,21 @@ display: flex;
   color: white;
   background: linear-gradient(135deg,#6366f1,#8b5cf6);
   box-shadow: 0px 4px 10px rgba(99,102,241,0.3);
+}
+
+
+body.dark-mode .step-description {
+  color: #ddd;
+}
+
+/* Duration tag */
+.step-duration-tag {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+body.dark-mode .step-duration-tag {
+  color: #d37c7c;
 }
 @media(max-width:1024px){
   .vertical-steps-container{
