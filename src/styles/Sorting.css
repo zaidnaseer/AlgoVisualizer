@@ -948,3 +948,23 @@ body {
   max-height: 180px;   /* adjust as you like */
   overflow-y: auto;    /* adds scrollbar if content overflows */
 }
+/* --- Fix dark box + dark text and ensure good contrast --- */
+.code-like {
+  background: #0c1118;         /* or var(--surface-bg) */
+  color: var(--text);          /* <<< readable text */
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.code-like strong { color: var(--text); }
+
+/* Light theme safety */
+:root[data-theme="light"] .code-like {
+  background: #f9fafb;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+/* Make the card header always readable */
+.theme-card-header h3 { color: var(--text); }
