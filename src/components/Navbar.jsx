@@ -10,6 +10,7 @@ import {
   Trophy,
   Settings,
   X,
+  Type,
   ChevronDown,
   BookOpen,
   Cpu,
@@ -160,6 +161,15 @@ const Navbar = () => {
         { path: "/branchbound", label: "Algorithms" },
       ],
     },
+
+     {
+    label: "Strings",
+    icon: Type, // choose any appropriate icon
+    dropdown: [
+      { path: "/string-overview", label: "Overview" },
+      { path: "/string", label: "Algorithms" },
+    ],
+  },
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/settings", icon: Settings, label: "Settings" },

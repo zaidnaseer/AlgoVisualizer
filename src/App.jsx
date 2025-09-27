@@ -63,6 +63,11 @@ import Stack from "./components/Stack/Stack";
 import GameSearchOverview from "./pages/GameSearchOverview";
 import GameSearchPage from "./pages/GameSearchPage";
 
+// Add these imports at the top with other page imports
+import StringOverview from "./pages/StringOverview";
+import StringPage from "./pages/StringPage";
+
+
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -181,6 +186,10 @@ const App = () => {
 <Route path="/branchbound" element={<BranchBoundPage />} />
 <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
 
+
+{/* String Algorithms */}
+<Route path="/string-overview" element={<StringOverview />} />
+<Route path="/string" element={<StringPage />} />
 
 
 
