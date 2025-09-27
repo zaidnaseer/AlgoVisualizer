@@ -11,6 +11,7 @@ import {
   Trophy,
   Settings,
   X,
+  Type,
   ChevronDown,
   BookOpen,
   Cpu,
@@ -162,12 +163,21 @@ const Navbar = () => {
       ],
     },
 
+
       {
     label: "Mathematics",
     icon: Calculator, // use a suitable icon from lucide-react
     dropdown: [
       { path: "/math-overview", label: "Overview" },
       { path: "/math", label: "Algorithms" },
+
+     {
+    label: "Strings",
+    icon: Type, // choose any appropriate icon
+    dropdown: [
+      { path: "/string-overview", label: "Overview" },
+      { path: "/string", label: "Algorithms" },
+
     ],
   },
 
