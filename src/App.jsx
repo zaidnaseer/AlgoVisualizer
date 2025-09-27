@@ -64,6 +64,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
  
+import BranchBoundOverview from "./pages/BranchBoundOverview";
+import BranchBoundPage from "./pages/BranchBoundPage";
+
 
 
 const App = () => {
@@ -164,7 +167,12 @@ const App = () => {
   <Route path="/dc-overview" element={<DCOverview />} />
   <Route path="/dc" element={<DCPage />} />
 
-  <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
+
+  {/* Branch & Bound */}
+<Route path="/branchbound-overview" element={<BranchBoundOverview />} />
+<Route path="/branchbound" element={<BranchBoundPage />} />
+<Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
+
 
 
 
