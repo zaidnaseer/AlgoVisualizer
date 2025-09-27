@@ -1,11 +1,10 @@
 // src/pages/DPPage.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import DPVisualizer from "../components/DPVisualizer";
 import { dpAlgorithms } from "../data/allCodes"; // make sure dpAlgorithms exists in allCodes.js
 import "../styles/global-theme.css";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect, useRef, useMemo } from "react";                
 
 // ✅ Core
 import Prism from "prismjs";
@@ -41,7 +40,6 @@ const handleCopy = async () => {
     console.error("Failed to copy", err);
   }
 };
-
 
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("fibonacci"); // default algorithm

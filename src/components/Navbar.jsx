@@ -24,6 +24,7 @@ import {
 import { useTheme } from "../ThemeContext";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { navbarNavigationItems } from "../utils/navigation";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -39,6 +40,29 @@ const Navbar = () => {
 
   const searchRef = useRef(null);
 
+  // Map string icon names to actual icon components
+  const getIconComponent = (iconName) => {
+    const iconMap = {
+      "Home": Home,
+      "BarChart3": BarChart3,
+      "Search": Search,
+      "Database": Database,
+      "GitBranch": GitBranch,
+      "Users": Users,
+      "Trophy": Trophy,
+      "Settings": Settings,
+      "Type": Type,
+      "BookOpen": BookOpen,
+      "Cpu": Cpu,
+      "Code": Code,
+      "Hash": Hash,
+      "Zap": Zap,
+      "Gamepad": Gamepad,
+      "TreeDeciduous": TreeDeciduous,
+      "Menu": Menu
+    };
+    return iconMap[iconName] || null;
+  };
 
   // Detect mobile screen
   useEffect(() => {
@@ -51,129 +75,6 @@ const Navbar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const navigationItems = [
-    { path: "/", icon: Home, label: "Home" },
-    {
-      label: "Sorting",
-      icon: BarChart3,
-      dropdown: [
-        { path: "/sorting", label: "Overview" },
-        { path: "/components/AlgorithmComparison", label: "Algorithm Comparison" },
-      ],
-    },
-    {
-      label: "Searching",
-      icon: Search,
-      dropdown: [
-        { path: "/searchingOverview", label: "Overview" },
-        { path: "/searching", label: "Searching Algorithm" },
-      ],
-    },
-    {
-      label: "Data Structures",
-      icon: Database,
-      dropdown: [
-        { path: "/data-structures", label: "Overview" },
-        { path: "/data-structures/linked-list", label: "Linked List" },
-        { path: "/data-structures/queue", label: "Queue visualization" },
-        { path: "/data-structures/stack", label: "Stack visualization" },
-
-        { path: "/binary-tree", label: "Binary Tree visualization" },
-
-
-
-      ],
-    },
-    {
-      label: "Graph",
-      icon: GitBranch,
-      dropdown: [
-        { path: "/graph", label: "Overview" },
-        { path: "/graph/bfs", label: "BFS" },
-        { path: "/graph/dfs", label: "DFS" },
-        { path: "/graph/dijkstra", label: "Dijkstra" },
-        { path: "/graph/comparison", label: "Graph Comparison" },
-      ],
-    },
-
-    {
-      label: "Backtracking",
-      icon: BookOpen,
-      dropdown: [
-        { path: "/backtracking-overview", label: "Overview" },
-        { path: "/backtracking", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Dynamic Programming",
-      icon: Cpu,
-      dropdown: [
-        { path: "/dp-overview", label: "Overview" },
-        { path: "/dp", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Hashing",
-      icon: Hash,
-      dropdown: [
-        { path: "/hashing-overview", label: "Overview" },
-        { path: "/hashing", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Greedy Algorithms",
-      icon: Zap,
-      dropdown: [
-        { path: "/greedy-overview", label: "Overview" },
-        { path: "/greedy", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Divide & Conquer",
-      icon: Code,
-      dropdown: [
-        { path: "/dc-overview", label: "Overview" },
-        { path: "/dc", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Trees",
-      icon: TreeDeciduous,
-      dropdown: [
-        { path: "/tree-overview", label: "Overview" },
-        { path: "/tree", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Game Search",
-      icon: Gamepad, // You can import an appropriate icon from lucide-react
-      dropdown: [
-        { path: "/game-search-overview", label: "Overview" },
-        { path: "/game-search", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Branch & Bound",
-      icon: BookOpen,
-      dropdown: [
-        { path: "/branchbound-overview", label: "Overview" },
-        { path: "/branchbound", label: "Algorithms" },
-      ],
-    },
-
-     {
-    label: "Strings",
-    icon: Type, // choose any appropriate icon
-    dropdown: [
-      { path: "/string-overview", label: "Overview" },
-      { path: "/string", label: "Algorithms" },
-    ],
-  },
-
-    { path: "/quiz", icon: Trophy, label: "Quiz" },
-    { path: "/settings", icon: Settings, label: "Settings" },
-  ];
 
   const isActive = (path) => location.pathname === path;
 
@@ -191,7 +92,7 @@ const Navbar = () => {
     }
 
     const results = [];
-    navigationItems.forEach((item) => {
+    navbarNavigationItems.forEach((item) => {
       if (item.label.toLowerCase().includes(query.toLowerCase()) && item.path) {
         results.push({ path: item.path, label: item.label });
       }
@@ -279,14 +180,14 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="navbar-menu">
-          {navigationItems.map((item, index) =>
+          {navbarNavigationItems.map((item, index) =>
             item.dropdown ? (
               <div key={index} className="navbar-item dropdown">
                 <button
                   className={`dropdown-toggle ${isDropdownOpen === index ? "active" : ""}`}
                   onClick={() => handleDropdownToggle(index)}
                 >
-                  <item.icon size={18} className="drop-icon" />
+                  {item.icon && React.createElement(getIconComponent(item.icon), { size: 18, className: "drop-icon" })}
                   <span>{item.label}</span>
                   <ChevronDown
                     size={16}
@@ -314,7 +215,7 @@ const Navbar = () => {
                 to={item.path}
                 className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
               >
-                <item.icon size={18} className="icon" />
+                {item.icon && React.createElement(getIconComponent(item.icon), { size: 18, className: "icon" })}
                 <span>{item.label}</span>
               </Link>
             )
