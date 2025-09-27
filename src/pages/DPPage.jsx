@@ -1,12 +1,46 @@
 // src/pages/DPPage.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import DPVisualizer from "../components/DPVisualizer";
 import { dpAlgorithms } from "../data/allCodes"; // make sure dpAlgorithms exists in allCodes.js
 import "../styles/global-theme.css";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+// ✅ Core
+import Prism from "prismjs";
+import "prismjs/themes/prism-tomorrow.css";
+
+// ✅ Language dependencies FIRST
+import "prismjs/components/prism-clike.min.js";
+import "prismjs/components/prism-c.min.js";
+
+// ✅ Then the languages you use
+import "prismjs/components/prism-javascript.min.js";
+import "prismjs/components/prism-java.min.js";
+import "prismjs/components/prism-cpp.min.js";
+import "prismjs/components/prism-python.min.js";
+
+// ✅ Plugins LAST
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import "prismjs/plugins/line-numbers/prism-line-numbers.js";
+
+import { FiCopy, FiCheck } from "react-icons/fi";
+
 const DPPage = () => {
+
+const [copied, setCopied] = useState(false);
+
+const handleCopy = async () => {
+  const code = algorithmData[selectedLanguage] || "";
+  try {
+    await navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200); // reset after 1.2s
+  } catch (err) {
+    console.error("Failed to copy", err);
+  }
+};
+
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("fibonacci"); // default algorithm
 
@@ -38,6 +72,17 @@ const DPPage = () => {
     subsetSum: "Subset Sum"
   };
 
+    const codeRef = useRef(null);
+    const prismLang = useMemo(() => {
+      const map = { javascript: "javascript", java: "java", cpp: "cpp", python: "python" };
+      return map[selectedLanguage] || "javascript";
+    }, [selectedLanguage]);
+
+    useEffect(() => {
+      if (codeRef.current) Prism.highlightElement(codeRef.current);
+    }, [algorithmData, selectedLanguage, selectedAlgorithm]);
+
+  
   return (
     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Dynamic Programming Visualizer</h1>
@@ -90,24 +135,46 @@ const DPPage = () => {
           </div>
         </div>
 
-        <div style={{
-          background: 'var(--surface-bg)',
-          borderRadius: '8px',
-          padding: '1.5rem',
-          overflow: 'auto',
-          maxHeight: '500px'
-        }}>
-          <pre style={{
-            margin: 0,
-            fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-            fontSize: '0.9rem',
-            lineHeight: '1.5',
-            color: 'var(--text-primary)',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word'
-          }}>
-            <code>
-              {algorithmData[selectedLanguage]}
+        <div
+          style={{
+            background: 'var(--surface-bg)',
+            borderRadius: '8px',
+            padding: '1rem 1.25rem',
+            overflow: 'auto',
+            maxHeight: '500px',
+            position: 'relative'
+          }}
+        >
+          <button
+            onClick={handleCopy}
+            title="Copy code"
+            style={{
+              position: "absolute",
+              top: "8px",
+              right: "12px",
+              background: "transparent",
+              border: "none",
+              color: "#ccc",
+              fontSize: "1.2rem",
+              cursor: "pointer",
+              zIndex: 10
+            }}
+          >
+            {copied ? <FiCheck /> : <FiCopy />}
+          </button>
+
+          <pre className="line-numbers" style={{ margin: 0 }}>
+            <code
+              ref={codeRef}
+              className={`language-${prismLang}`}
+              style={{
+                fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                fontSize: '0.9rem',
+                lineHeight: 1.5,
+                whiteSpace: 'pre'
+              }}
+            >
+              {algorithmData[selectedLanguage] || ""}
             </code>
           </pre>
         </div>
