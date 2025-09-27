@@ -917,11 +917,28 @@
     display: none;
   }
   
+
   /* Mobile Navigation Toggle Button */
   .mobile-nav-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
+
+  /* Fix legal links wrapping on mobile */
+  .legal-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .legal-links a {
+    padding: 8px 16px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .legal-separator {
+    display: none;
+
   }
 }
 
@@ -1024,6 +1041,16 @@
   .footer-divider {
     margin-bottom: 15px;
   }
+  
+  /* Improve legal links on small screens */
+  .legal-links {
+    gap: 6px;
+  }
+  
+  .legal-links a {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 }
 
 /* Additional Mobile Improvements */
@@ -1117,6 +1144,7 @@
     font-size: 14px;
   }
   
+
   /* Mobile Navigation Menu */
   .mobile-nav-menu {
     width: 95%;
@@ -1146,6 +1174,16 @@
   .mobile-nav-dropdown-item {
     padding: 0.675rem 1.25rem;
     font-size: 0.8rem;
+
+  /* Further improve legal links on very small screens */
+  .legal-links {
+    gap: 4px;
+  }
+  
+  .legal-links a {
+    font-size: 11px;
+    padding: 4px 8px;
+
   }
 }
 
