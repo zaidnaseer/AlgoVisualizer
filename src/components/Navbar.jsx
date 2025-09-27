@@ -16,6 +16,7 @@ import {
   Code,
   Hash,
   Zap,
+  Gamepad,
   TreeDeciduous,
   Menu,
 } from "lucide-react";
@@ -34,7 +35,9 @@ const Navbar = () => {
   const location = useLocation();
   const { theme } = useTheme();
   const navbarRef = useRef(null);
+
   const searchRef = useRef(null);
+
 
   // Detect mobile screen
   useEffect(() => {
@@ -74,6 +77,11 @@ const Navbar = () => {
         { path: "/data-structures/linked-list", label: "Linked List" },
         { path: "/data-structures/queue", label: "Queue visualization" },
         { path: "/data-structures/stack", label: "Stack visualization" },
+
+        { path: "/binary-tree", label: "Binary Tree visualization" },
+
+
+
       ],
     },
     {
@@ -87,6 +95,72 @@ const Navbar = () => {
         { path: "/graph/comparison", label: "Graph Comparison" },
       ],
     },
+
+    {
+      label: "Backtracking",
+      icon: BookOpen,
+      dropdown: [
+        { path: "/backtracking-overview", label: "Overview" },
+        { path: "/backtracking", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Dynamic Programming",
+      icon: Cpu,
+      dropdown: [
+        { path: "/dp-overview", label: "Overview" },
+        { path: "/dp", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Hashing",
+      icon: Hash,
+      dropdown: [
+        { path: "/hashing-overview", label: "Overview" },
+        { path: "/hashing", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Greedy Algorithms",
+      icon: Zap,
+      dropdown: [
+        { path: "/greedy-overview", label: "Overview" },
+        { path: "/greedy", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Divide & Conquer",
+      icon: Code,
+      dropdown: [
+        { path: "/dc-overview", label: "Overview" },
+        { path: "/dc", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Trees",
+      icon: TreeDeciduous,
+      dropdown: [
+        { path: "/tree-overview", label: "Overview" },
+        { path: "/tree", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Game Search",
+      icon: Gamepad, // You can import an appropriate icon from lucide-react
+      dropdown: [
+        { path: "/game-search-overview", label: "Overview" },
+        { path: "/game-search", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Branch & Bound",
+      icon: BookOpen,
+      dropdown: [
+        { path: "/branchbound-overview", label: "Overview" },
+        { path: "/branchbound", label: "Algorithms" },
+      ],
+    },
+
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/settings", icon: Settings, label: "Settings" },
   ];
