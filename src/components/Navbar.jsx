@@ -7,6 +7,7 @@ import {
   Database,
   GitBranch,
   Users,
+  Calculator,
   Trophy,
   Settings,
   X,
@@ -160,6 +161,15 @@ const Navbar = () => {
         { path: "/branchbound", label: "Algorithms" },
       ],
     },
+
+      {
+    label: "Mathematics",
+    icon: Calculator, // use a suitable icon from lucide-react
+    dropdown: [
+      { path: "/math-overview", label: "Overview" },
+      { path: "/math", label: "Algorithms" },
+    ],
+  },
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/settings", icon: Settings, label: "Settings" },

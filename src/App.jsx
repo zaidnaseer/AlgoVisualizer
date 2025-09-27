@@ -71,6 +71,10 @@ import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
 import BranchBoundOverview from "./pages/BranchBoundOverview";
 import BranchBoundPage from "./pages/BranchBoundPage";
 
+// Import Math pages at the top
+import MathOverview from "./pages/MathOverview";
+import MathPage from "./pages/MathPage";
+
 
 
 const App = () => {
@@ -182,7 +186,10 @@ const App = () => {
 <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
 
 
-
+{/* Mathematical Algorithms */}
+  <Route path="/math-overview" element={<MathOverview />} />
+  <Route path="/math" element={<MathPage />} />
+  
 
             {/* Other Pages */}
             <Route path="/quiz" element={<Quiz />} />
