@@ -54,7 +54,6 @@ import DCPage from "./pages/DCPage";
 import Queue from "./components/Queue/Queue";
 import Stack from "./components/Stack/Stack";
 import AOS from "aos";
-import "aos/dist/aos.css";
 
 
 // ✅ New Code Editor Page
