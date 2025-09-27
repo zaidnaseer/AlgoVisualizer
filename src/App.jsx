@@ -56,8 +56,26 @@ import Stack from "./components/Stack/Stack";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+
 // ✅ New Code Editor Page
 import CodeEditor from "./pages/CodeEditor";
+=======
+import GameSearchOverview from "./pages/GameSearchOverview";
+import GameSearchPage from "./pages/GameSearchPage";
+
+// Add these imports at the top with other page imports
+import StringOverview from "./pages/StringOverview";
+import StringPage from "./pages/StringPage";
+
+
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
+ 
+import BranchBoundOverview from "./pages/BranchBoundOverview";
+import BranchBoundPage from "./pages/BranchBoundPage";
+
 
 const App = () => {
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
@@ -145,9 +163,26 @@ const App = () => {
             <Route path="/greedy-overview" element={<GreedyOverview />} />
             <Route path="/greedy" element={<GreedyPage />} />
 
+
             {/* Trees */}
             <Route path="/tree-overview" element={<TreeOverview />} />
             <Route path="/tree" element={<TreePage />} />
+
+{/* Game Search */}
+<Route path="/game-search-overview" element={<GameSearchOverview />} />
+<Route path="/game-search" element={<GameSearchPage />} />
+
+
+  {/* Branch & Bound */}
+<Route path="/branchbound-overview" element={<BranchBoundOverview />} />
+<Route path="/branchbound" element={<BranchBoundPage />} />
+<Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
+
+
+{/* String Algorithms */}
+<Route path="/string-overview" element={<StringOverview />} />
+<Route path="/string" element={<StringPage />} />
+
 
             {/* Divide & Conquer */}
             <Route path="/dc-overview" element={<DCOverview />} />

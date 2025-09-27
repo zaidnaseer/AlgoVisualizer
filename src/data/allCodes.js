@@ -3597,8 +3597,635 @@ void quickSort(vector<int>& arr, int low, int high){
     return Math.max(left,right,leftSum+rightSum);
 }`
   }
+};
+
+
+
+export const branchBoundAlgorithms = {
+  knapsack01: {
+    java: `class Item {
+    int weight, value;
+    Item(int w, int v){ weight=w; value=v; }
+}
+int bound(int uVal, int uWt, int idx, Item[] items, int W){
+    if(uWt>=W) return 0;
+    int profitBound=uVal, totWt=uWt;
+    for(int i=idx;i<items.length;i++){
+        if(totWt+items[i].weight<=W){
+            totWt+=items[i].weight;
+            profitBound+=items[i].value;
+        } else {
+            profitBound+=(W-totWt)*items[i].value/items[i].weight;
+            break;
+        }
+    }
+    return profitBound;
+}`,
+    python: `class Item:
+    def __init__(self, w, v):
+        self.weight=w
+        self.value=v
+
+def bound(val, wt, idx, items, W):
+    if wt>=W: return 0
+    profit_bound=val
+    totWt=wt
+    for i in range(idx,len(items)):
+        if totWt+items[i].weight<=W:
+            totWt+=items[i].weight
+            profit_bound+=items[i].value
+        else:
+            profit_bound+=(W-totWt)*(items[i].value/items[i].weight)
+            break
+    return profit_bound`,
+    cpp: `struct Item{
+    int weight,value;
+};
+int bound(int uVal,int uWt,int idx,vector<Item>& items,int W){
+    if(uWt>=W) return 0;
+    int profitBound=uVal, totWt=uWt;
+    for(int i=idx;i<items.size();i++){
+        if(totWt+items[i].weight<=W){
+            totWt+=items[i].weight;
+            profitBound+=items[i].value;
+        } else {
+            profitBound+=(W-totWt)*items[i].value/items[i].weight;
+            break;
+        }
+    }
+    return profitBound;
+}`,
+    javascript: `class Item{
+  constructor(w,v){ this.weight=w; this.value=v; }
+}
+function bound(val,wt,idx,items,W){
+  if(wt>=W) return 0;
+  let profitBound=val, totWt=wt;
+  for(let i=idx;i<items.length;i++){
+    if(totWt+items[i].weight<=W){
+      totWt+=items[i].weight;
+      profitBound+=items[i].value;
+    } else {
+      profitBound+=(W-totWt)*(items[i].value/items[i].weight);
+      break;
+    }
+  }
+  return profitBound;
+}`
+  },
+
+  tsp: {
+    java: `int tspBound(int cost, int level, int[] reducedMatrix){
+    // cost = path cost till now, reducedMatrix = current reduced cost matrix
+    // Typically bound = cost + sum of two minimum edges from each unvisited node
+    return cost + level; // placeholder for actual bound calculation
+}`,
+    python: `def tsp_bound(cost, level, reduced_matrix):
+    # cost = path cost till now
+    # reduced_matrix = current reduced cost matrix
+    # bound = cost + heuristic estimate
+    return cost + level  # placeholder`,
+    cpp: `int tspBound(int cost, int level, vector<vector<int>>& reducedMatrix){
+    // cost = path cost till now
+    // reducedMatrix = current reduced cost matrix
+    return cost + level; // placeholder
+}`,
+    javascript: `function tspBound(cost, level, reducedMatrix){
+  // cost = path cost till now
+  // reducedMatrix = current reduced cost matrix
+  return cost + level; // placeholder
+}`
+  }
 }
 
+;
+
+export const gameSearch = {
+  minimax: {
+    java: `public class Minimax {
+    public int minimax(int[] board, boolean isMaximizing){
+        if(isGameOver(board)) return evaluate(board);
+        if(isMaximizing){
+            int best = Integer.MIN_VALUE;
+            for(int move : getAvailableMoves(board)){
+                board[move] = 1;
+                best = Math.max(best, minimax(board, false));
+                board[move] = 0;
+            }
+            return best;
+        } else {
+            int best = Integer.MAX_VALUE;
+            for(int move : getAvailableMoves(board)){
+                board[move] = -1;
+                best = Math.min(best, minimax(board, true));
+                board[move] = 0;
+            }
+            return best;
+        }
+    }
+}`,
+    python: `def minimax(board, is_maximizing):
+    if game_over(board): return evaluate(board)
+    if is_maximizing:
+        best = float('-inf')
+        for move in available_moves(board):
+            board[move] = 1
+            best = max(best, minimax(board, False))
+            board[move] = 0
+        return best
+    else:
+        best = float('inf')
+        for move in available_moves(board):
+            board[move] = -1
+            best = min(best, minimax(board, True))
+            board[move] = 0
+        return best`,
+    cpp: `int minimax(vector<int>& board, bool isMaximizing){
+    if(gameOver(board)) return evaluate(board);
+    if(isMaximizing){
+        int best = INT_MIN;
+        for(int move : getAvailableMoves(board)){
+            board[move] = 1;
+            best = max(best, minimax(board, false));
+            board[move] = 0;
+        }
+        return best;
+    } else {
+        int best = INT_MAX;
+        for(int move : getAvailableMoves(board)){
+            board[move] = -1;
+            best = min(best, minimax(board, true));
+            board[move] = 0;
+        }
+        return best;
+    }
+}`
+  },
+
+  alphaBetaPruning: {
+    java: `public class AlphaBeta {
+    public int alphaBeta(int[] board, int alpha, int beta, boolean isMaximizing){
+        if(isGameOver(board)) return evaluate(board);
+        if(isMaximizing){
+            int best = Integer.MIN_VALUE;
+            for(int move : getAvailableMoves(board)){
+                board[move] = 1;
+                best = Math.max(best, alphaBeta(board, alpha, beta, false));
+                board[move] = 0;
+                alpha = Math.max(alpha, best);
+                if(beta <= alpha) break;
+            }
+            return best;
+        } else {
+            int best = Integer.MAX_VALUE;
+            for(int move : getAvailableMoves(board)){
+                board[move] = -1;
+                best = Math.min(best, alphaBeta(board, alpha, beta, true));
+                board[move] = 0;
+                beta = Math.min(beta, best);
+                if(beta <= alpha) break;
+            }
+            return best;
+        }
+    }
+}`,
+    python: `def alpha_beta(board, alpha, beta, is_maximizing):
+    if game_over(board): return evaluate(board)
+    if is_maximizing:
+        best = float('-inf')
+        for move in available_moves(board):
+            board[move] = 1
+            best = max(best, alpha_beta(board, alpha, beta, False))
+            board[move] = 0
+            alpha = max(alpha, best)
+            if beta <= alpha: break
+        return best
+    else:
+        best = float('inf')
+        for move in available_moves(board):
+            board[move] = -1
+            best = min(best, alpha_beta(board, alpha, beta, True))
+            board[move] = 0
+            beta = min(beta, best)
+            if beta <= alpha: break
+        return best`,
+    cpp: `int alphaBeta(vector<int>& board, int alpha, int beta, bool isMaximizing){
+    if(gameOver(board)) return evaluate(board);
+    if(isMaximizing){
+        int best = INT_MIN;
+        for(int move : getAvailableMoves(board)){
+            board[move] = 1;
+            best = max(best, alphaBeta(board, alpha, beta, false));
+            board[move] = 0;
+            alpha = max(alpha, best);
+            if(beta <= alpha) break;
+        }
+        return best;
+    } else {
+        int best = INT_MAX;
+        for(int move : getAvailableMoves(board)){
+            board[move] = -1;
+            best = min(best, alphaBeta(board, alpha, beta, true));
+            board[move] = 0;
+            beta = min(beta, best);
+            if(beta <= alpha) break;
+        }
+        return best;
+    }
+}`
+  },
+
+  expectimax: {
+    java: `public class Expectimax {
+    public double expectimax(int[] board, boolean isMax){
+        if(isGameOver(board)) return evaluate(board);
+        if(isMax){
+            double best = Double.NEGATIVE_INFINITY;
+            for(int move : getAvailableMoves(board)){
+                board[move] = 1;
+                best = Math.max(best, expectimax(board, false));
+                board[move] = 0;
+            }
+            return best;
+        } else {
+            double total = 0;
+            int[] moves = getAvailableMoves(board);
+            for(int move : moves){
+                board[move] = -1;
+                total += expectimax(board, true);
+                board[move] = 0;
+            }
+            return moves.length > 0 ? total/moves.length : 0;
+        }
+    }
+}`,
+    python: `def expectimax(board, is_max):
+    if game_over(board): return evaluate(board)
+    if is_max:
+        best = float('-inf')
+        for move in available_moves(board):
+            board[move] = 1
+            best = max(best, expectimax(board, False))
+            board[move] = 0
+        return best
+    else:
+        total = 0
+        moves = available_moves(board)
+        for move in moves:
+            board[move] = -1
+            total += expectimax(board, True)
+            board[move] = 0
+        return total/len(moves) if moves else 0`,
+    cpp: `double expectimax(vector<int>& board, bool isMax){
+    if(gameOver(board)) return evaluate(board);
+    if(isMax){
+        double best = -DBL_MAX;
+        for(int move : getAvailableMoves(board)){
+            board[move] = 1;
+            best = max(best, expectimax(board, false));
+            board[move] = 0;
+        }
+        return best;
+    } else {
+        double total = 0;
+        vector<int> moves = getAvailableMoves(board);
+        for(int move : moves){
+            board[move] = -1;
+            total += expectimax(board, true);
+            board[move] = 0;
+        }
+        return moves.size() ? total/moves.size() : 0;
+    }
+}`
+  },
+
+  mcts: {
+    java: `public class MCTSNode {
+    int[] state;
+    int visits = 0;
+    double value = 0;
+    List<MCTSNode> children = new ArrayList<>();
+    
+    public void expand(){ for(int move : getAvailableMoves(state)) children.add(new MCTSNode(applyMove(state, move))); }
+    public MCTSNode bestChild(){ return Collections.max(children, Comparator.comparingDouble(c -> c.value/c.visits)); }
+}`,
+    python: `class MCTSNode:
+    def __init__(self, state):
+        self.state = state
+        self.visits = 0
+        self.value = 0
+        self.children = []
+
+    def expand(self):
+        for move in available_moves(self.state):
+            self.children.append(MCTSNode(apply_move(self.state, move)))
+
+    def best_child(self):
+        return max(self.children, key=lambda c: c.value/c.visits if c.visits else 0)`,
+    cpp: `struct MCTSNode{
+    vector<int> state;
+    int visits=0;
+    double value=0;
+    vector<MCTSNode*> children;
+    void expand(){ for(int move : getAvailableMoves(state)) children.push_back(new MCTSNode(applyMove(state, move))); }
+    MCTSNode* bestChild(){ return *max_element(children.begin(), children.end(), [](MCTSNode* a,MCTSNode* b){ return a->value/a->visits < b->value/b->visits; }); }
+};`
+  }
+};
+
+export const stringAlgorithms = {
+  kmp: {
+    java: `public class KMP {
+    public int[] computeLPSArray(String pattern){
+        int M = pattern.length();
+        int[] lps = new int[M];
+        int len = 0, i = 1;
+        while(i < M){
+            if(pattern.charAt(i) == pattern.charAt(len)){
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if(len != 0) len = lps[len - 1];
+                else { lps[i] = 0; i++; }
+            }
+        }
+        return lps;
+    }
+
+    public void KMPSearch(String text, String pattern){
+        int N = text.length();
+        int M = pattern.length();
+        int[] lps = computeLPSArray(pattern);
+        int i = 0, j = 0;
+        while(i < N){
+            if(pattern.charAt(j) == text.charAt(i)){
+                i++; j++;
+            }
+            if(j == M){
+                System.out.println("Found at index " + (i - j));
+                j = lps[j - 1];
+            } else if(i < N && pattern.charAt(j) != text.charAt(i)){
+                if(j != 0) j = lps[j - 1];
+                else i++;
+            }
+        }
+    }
+}`,
+
+    python: `def compute_lps(pattern):
+    M = len(pattern)
+    lps = [0]*M
+    length = 0
+    i = 1
+    while i < M:
+        if pattern[i] == pattern[length]:
+            length += 1
+            lps[i] = length
+            i += 1
+        else:
+            if length != 0:
+                length = lps[length-1]
+            else:
+                lps[i] = 0
+                i += 1
+    return lps
+
+def kmp_search(text, pattern):
+    N, M = len(text), len(pattern)
+    lps = compute_lps(pattern)
+    i = j = 0
+    while i < N:
+        if pattern[j] == text[i]:
+            i += 1
+            j += 1
+        if j == M:
+            print("Found at index", i-j)
+            j = lps[j-1]
+        elif i < N and pattern[j] != text[i]:
+            if j != 0:
+                j = lps[j-1]
+            else:
+                i += 1`,
+
+    cpp: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+vector<int> computeLPS(string pattern){
+    int M = pattern.length();
+    vector<int> lps(M, 0);
+    int len = 0, i = 1;
+    while(i < M){
+        if(pattern[i] == pattern[len]){
+            len++;
+            lps[i] = len;
+            i++;
+        } else {
+            if(len != 0) len = lps[len-1];
+            else { lps[i] = 0; i++; }
+        }
+    }
+    return lps;
+}
+
+void KMPSearch(string text, string pattern){
+    int N = text.length(), M = pattern.length();
+    vector<int> lps = computeLPS(pattern);
+    int i = 0, j = 0;
+    while(i < N){
+        if(pattern[j] == text[i]){
+            i++; j++;
+        }
+        if(j == M){
+            cout << "Found at index " << i-j << endl;
+            j = lps[j-1];
+        } else if(i < N && pattern[j] != text[i]){
+            if(j != 0) j = lps[j-1];
+            else i++;
+        }
+    }
+}`  
+  },
+
+  rabinKarp: {
+    java: `public class RabinKarp {
+    public final static int d = 256;
+    static void search(String pattern, String text, int q) {
+        int M = pattern.length();
+        int N = text.length();
+        int i, j;
+        int p = 0, t = 0, h = 1;
+        for(i = 0; i < M-1; i++)
+            h = (h * d) % q;
+        for(i = 0; i < M; i++) {
+            p = (d * p + pattern.charAt(i)) % q;
+            t = (d * t + text.charAt(i)) % q;
+        }
+        for(i = 0; i <= N-M; i++) {
+            if(p == t) {
+                for(j = 0; j < M; j++) {
+                    if(text.charAt(i+j) != pattern.charAt(j))
+                        break;
+                }
+                if(j == M)
+                    System.out.println("Pattern found at index " + i);
+            }
+            if(i < N-M) {
+                t = (d*(t - text.charAt(i)*h) + text.charAt(i+M)) % q;
+                if(t < 0) t += q;
+            }
+        }
+    }
+}`, 
+
+    python: `def rabin_karp(pattern, text, q=101):
+    d = 256
+    M, N = len(pattern), len(text)
+    p = t = 0
+    h = 1
+    for i in range(M-1):
+        h = (h * d) % q
+    for i in range(M):
+        p = (d*p + ord(pattern[i])) % q
+        t = (d*t + ord(text[i])) % q
+    for i in range(N-M+1):
+        if p == t:
+            if text[i:i+M] == pattern:
+                print("Pattern found at index", i)
+        if i < N-M:
+            t = (d*(t-ord(text[i])*h) + ord(text[i+M])) % q
+            if t < 0:
+                t += q`,
+
+    cpp: `#include <iostream>
+using namespace std;
+
+#define d 256
+
+void search(string pattern, string text, int q) {
+    int M = pattern.length();
+    int N = text.length();
+    int i, j;
+    int p = 0, t = 0, h = 1;
+    for(i = 0; i < M-1; i++)
+        h = (h*d) % q;
+    for(i = 0; i < M; i++) {
+        p = (d*p + pattern[i]) % q;
+        t = (d*t + text[i]) % q;
+    }
+    for(i = 0; i <= N-M; i++) {
+        if(p == t) {
+            for(j = 0; j < M; j++) {
+                if(text[i+j] != pattern[j]) break;
+            }
+            if(j == M) cout << "Pattern found at index " << i << endl;
+        }
+        if(i < N-M) {
+            t = (d*(t - text[i]*h) + text[i+M]) % q;
+            if(t < 0) t += q;
+        }
+    }
+}`  
+  },
+
+  zAlgorithm: {
+    java: `import java.util.*;
+
+public class ZAlgorithm {
+    public static int[] computeZ(String s) {
+        int n = s.length();
+        int[] Z = new int[n];
+        int L = 0, R = 0;
+        for(int i=1; i<n; i++) {
+            if(i <= R)
+                Z[i] = Math.min(R-i+1, Z[i-L]);
+            while(i+Z[i] < n && s.charAt(Z[i]) == s.charAt(i+Z[i]))
+                Z[i]++;
+            if(i+Z[i]-1 > R) {
+                L = i;
+                R = i+Z[i]-1;
+            }
+        }
+        return Z;
+    }
+}`, 
+
+    python: `def compute_z(s):
+    n = len(s)
+    Z = [0]*n
+    L = R = 0
+    for i in range(1, n):
+        if i <= R:
+            Z[i] = min(R-i+1, Z[i-L])
+        while i+Z[i] < n and s[Z[i]] == s[i+Z[i]]:
+            Z[i] += 1
+        if i+Z[i]-1 > R:
+            L, R = i, i+Z[i]-1
+    return Z`,
+
+    cpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> computeZ(string s) {
+    int n = s.length();
+    vector<int> Z(n);
+    int L=0, R=0;
+    for(int i=1; i<n; i++) {
+        if(i <= R)
+            Z[i] = min(R-i+1, Z[i-L]);
+        while(i+Z[i] < n && s[Z[i]] == s[i+Z[i]])
+            Z[i]++;
+        if(i+Z[i]-1 > R) {
+            L = i;
+            R = i+Z[i]-1;
+        }
+    }
+    return Z;
+}`  
+  },
+
+  suffixArray: {
+    java: `import java.util.*;
+
+public class SuffixArray {
+    public static int[] buildSuffixArray(String s) {
+        int n = s.length();
+        String[] suffixes = new String[n];
+        for(int i=0; i<n; i++)
+            suffixes[i] = s.substring(i);
+        Arrays.sort(suffixes);
+        int[] sa = new int[n];
+        for(int i=0; i<n; i++)
+            sa[i] = n - suffixes[i].length();
+        return sa;
+    }
+}`, 
+
+    python: `def build_suffix_array(s):
+    suffixes = [(s[i:], i) for i in range(len(s))]
+    suffixes.sort()
+    return [idx for _, idx in suffixes]`,
+
+    cpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> buildSuffixArray(string s) {
+    int n = s.size();
+    vector<pair<string,int>> suffixes;
+    for(int i=0; i<n; i++)
+        suffixes.push_back({s.substr(i), i});
+    sort(suffixes.begin(), suffixes.end());
+    vector<int> sa;
+    for(auto &p : suffixes) sa.push_back(p.second);
+    return sa;
+}`  
+  }
+};
 
 
 
