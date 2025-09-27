@@ -66,7 +66,11 @@ import GameSearchPage from "./pages/GameSearchPage";
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
  
+import BranchBoundOverview from "./pages/BranchBoundOverview";
+import BranchBoundPage from "./pages/BranchBoundPage";
+
 
 
 const App = () => {
@@ -170,6 +174,13 @@ const App = () => {
 {/* Game Search */}
 <Route path="/game-search-overview" element={<GameSearchOverview />} />
 <Route path="/game-search" element={<GameSearchPage />} />
+
+
+  {/* Branch & Bound */}
+<Route path="/branchbound-overview" element={<BranchBoundOverview />} />
+<Route path="/branchbound" element={<BranchBoundPage />} />
+<Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
+
 
 
 
