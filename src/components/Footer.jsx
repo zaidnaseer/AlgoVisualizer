@@ -105,6 +105,9 @@ const Footer = () => {
                   src={logo}
                   alt="AlgoVisualizer Logo"
                   className="logo-image"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
                 />
                 <span className="logo-text">AlgoVisualizer</span>
               </div>
@@ -154,31 +157,52 @@ const Footer = () => {
             <h3 className="column-title">Navigate</h3>
             <ul className="footer-links">
               <li>
+
                 <Link to="/" className="footer-link">
+
+                <Link to="/" className="link-icon">
+
                   <FaRocket className="link-icon" />
                   Home
                 </Link>
               </li>
               <li>
+
                 <Link to="/sorting" className="footer-link">
+
+                <Link to="/data-structures" className="link-icon">
+
                   <FaCode className="link-icon" />
                   Algorithms
                 </Link>
               </li>
               <li>
+
                 <Link to="/data-structures" className="footer-link">
                   <FaDatabase className="link-icon" />
+
+                <Link to="/data-structures" className="link-icon">
+                  <FaGraduationCap className="link-icon" />
+
                   Data Structures
                 </Link>
               </li>
               <li>
+
                 <Link to="/about" className="footer-link">
+
+                <Link to="/about" className="link-icon">
+
                   <FaGraduationCap className="link-icon" />
                   About Us
                 </Link>
               </li>
               <li>
+
                 <Link to="/contact" className="footer-link">
+
+                <Link to="/contact" className="link-icon">
+
                   <FaEnvelope className="link-icon" />
                   Contact
                 </Link>
@@ -191,32 +215,56 @@ const Footer = () => {
             <h3 className="column-title">Resources</h3>
             <ul className="footer-links">
               <li>
+
                 <Link to="/documentation" className="footer-link">
                   <FaBook className="link-icon" />
+
+                <Link to="/documentation" className="link-icon">
+                  <FaGraduationCap className="link-icon" />
+
                   Documentation
                 </Link>
               </li>
               <li>
+
                 <Link to="/faq" className="footer-link">
                   <FaQuestionCircle className="link-icon" />
+
+                <Link to="/faq" className="link-icon">
+                  <FaGraduationCap className="link-icon" />
+
                   FAQ
                 </Link>
               </li>
               <li>
+
                 <Link to="/data-structures" className="footer-link">
+
+                <Link to="/data-structures" className="link-icon">
+
                   <FaGraduationCap className="link-icon" />
                   Tutorials
                 </Link>
               </li>
               <li>
+
                 <Link to="/blog" className="footer-link">
                   <FaBlog className="link-icon" />
+
+                <Link to="/blog" className="link-icon">
+                  <FaGraduationCap className="link-icon" />
+
                   Blog
                 </Link>
               </li>
               <li>
+
                 <Link to="/community" className="footer-link">
                   <FaUsers className="link-icon" />
+
+                <Link to="/community" className="link-icon">
+                  <FaGraduationCap className="link-icon" />
+
                   Community
                 </Link>
               </li>
@@ -225,9 +273,15 @@ const Footer = () => {
                   href="https://github.com/RhythmPahwa14/AlgoVisualizer"
                   target="_blank"
                   rel="noopener noreferrer"
+
                   className="footer-link"
                 >
                   <FaGithub className="link-icon" />
+
+                  className="link-icon"
+                >
+                  <FaCode className="link-icon" />
+
                   Contribute
                 </a>
               </li>
