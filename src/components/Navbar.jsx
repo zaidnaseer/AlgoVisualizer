@@ -20,15 +20,16 @@ import {
   Menu,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
+import { useMobileMenu } from "../contexts/MobileMenuContext";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
   const { theme } = useTheme();
+  const { isNavbarMenuOpen, openNavbarMenu, closeNavbarMenu } = useMobileMenu();
   const navbarRef = useRef(null);
 
   // Detect mobile screen
@@ -36,12 +37,12 @@ const Navbar = () => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      if (!mobile) setIsMobileMenuOpen(false);
+      if (!mobile) closeNavbarMenu();
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [closeNavbarMenu]);
 
   const navigationItems = [
     { path: "/", icon: Home, label: "Home" },
@@ -203,10 +204,10 @@ const Navbar = () => {
 
                 <button
                   className="mobile-menu-button"
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                  onClick={isNavbarMenuOpen ? closeNavbarMenu : openNavbarMenu}
+                  aria-label={isNavbarMenuOpen ? "Close menu" : "Open menu"}
                 >
-                  {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                  {isNavbarMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
               </div>
             </div>
@@ -285,7 +286,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobile && (
           <div
-            className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}
+            className={`mobile-menu ${isNavbarMenuOpen ? "open" : ""}`}
             data-aos="fade-right"
             data-aos-duration="400"
           >
@@ -297,7 +298,7 @@ const Navbar = () => {
                 </h3>
                 <button
                   className="mobile-menu-close-btn"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={closeNavbarMenu}
                   aria-label="Close navigation menu"
                 >
                   <X size={20} />
@@ -338,7 +339,7 @@ const Navbar = () => {
                             }`}
                             onClick={() => {
                               setIsDropdownOpen(null);
-                              setIsMobileMenuOpen(false);
+                              closeNavbarMenu();
                             }}
                           >
                             {subItem.label}
@@ -354,7 +355,7 @@ const Navbar = () => {
                     className={`mobile-menu-link ${
                       isActive(item.path) ? "active" : ""
                     }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={closeNavbarMenu}
                   >
                     <item.icon size={18} />
                     <span>{item.label}</span>
@@ -366,10 +367,10 @@ const Navbar = () => {
         )}
 
         {/* Backdrop */}
-        {isMobileMenuOpen && (
+        {isNavbarMenuOpen && (
           <div
             className="navbar-backdrop"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={closeNavbarMenu}
           />
         )}
       </nav>
