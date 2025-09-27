@@ -62,6 +62,7 @@ import Stack from "./components/Stack/Stack";
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
  
 
 
@@ -162,6 +163,8 @@ const App = () => {
   {/* Divide & Conquer */}
   <Route path="/dc-overview" element={<DCOverview />} />
   <Route path="/dc" element={<DCPage />} />
+
+  <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
 
 
 
