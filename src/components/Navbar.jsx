@@ -27,6 +27,8 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
   const location = useLocation();
   const { theme } = useTheme();
   const navbarRef = useRef(null);
@@ -67,10 +69,8 @@ const Navbar = () => {
       dropdown: [
         { path: "/data-structures", label: "Overview" },
         { path: "/data-structures/linked-list", label: "Linked List" },
-
         { path: "/data-structures/queue", label: "Queue visualization" },
         { path: "/data-structures/stack", label: "Stack visualization" },
-
       ],
     },
     {
@@ -142,6 +142,7 @@ const Navbar = () => {
         { path: "/ContributorLeaderboard", label: "Leaderboard" },
       ],
     },
+    { path: "/editor", icon: Code, label: "Code Editor" }, // ✅ New Feature
     { path: "/settings", icon: Settings, label: "Settings" },
   ];
 
@@ -155,11 +156,36 @@ const Navbar = () => {
     const handleClickOutside = (event) => {
       if (navbarRef.current && !navbarRef.current.contains(event.target)) {
         setIsDropdownOpen(null);
+        setFilteredResults([]);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // 🔎 Live Search
+  useEffect(() => {
+    if (!searchTerm.trim()) {
+      setFilteredResults([]);
+      return;
+    }
+
+    const results = [];
+    navigationItems.forEach((item) => {
+      if (item.dropdown) {
+        item.dropdown.forEach((subItem) => {
+          if (subItem.label.toLowerCase().includes(searchTerm.toLowerCase())) {
+            results.push(subItem);
+          }
+        });
+      } else {
+        if (item.label.toLowerCase().includes(searchTerm.toLowerCase())) {
+          results.push(item);
+        }
+      }
+    });
+    setFilteredResults(results);
+  }, [searchTerm]);
 
   return (
     <>
@@ -170,22 +196,11 @@ const Navbar = () => {
         data-aos-duration="1000"
       >
         <div className="navbar-container">
-          {/* Mobile Header Row */}
+          {/* Mobile Header */}
           {isMobile && (
-            <div
-              className="navbar-header"
-              data-aos="fade-down"
-              data-aos-duration="1000"
-            >
+            <div className="navbar-header" data-aos="fade-down" data-aos-duration="1000">
               <Link to="/" className="navbar-logo">
-                <img
-                  src="/logo.jpg"
-                  alt="AlgoVisualizer Logo"
-                  className="logo-img"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                  }}
-                />
+                <img src="/logo.jpg" alt="AlgoVisualizer Logo" className="logo-img" />
                 <span className="logo-text">
                   Algo<span>Visualizer</span>
                 </span>
@@ -194,13 +209,10 @@ const Navbar = () => {
               <div className="mobile-header-buttons">
                 <Link
                   to="/settings"
-                  className={`mobile-settings-btn ${
-                    isActive("/settings") ? "active" : ""
-                  }`}
+                  className={`mobile-settings-btn ${isActive("/settings") ? "active" : ""}`}
                 >
                   <Settings size={20} />
                 </Link>
-
                 <button
                   className="mobile-menu-button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -215,163 +227,99 @@ const Navbar = () => {
           {/* Desktop Logo */}
           {!isMobile && (
             <Link to="/" className="navbar-logo">
-              <img
-                src="/logo.jpg"
-                alt="AlgoVisualizer Logo"
-                className="logo-img"
-                onError={(e) => (e.target.style.display = "none")}
-              />
+              <img src="/logo.jpg" alt="AlgoVisualizer Logo" className="logo-img" />
               <span className="logo-text">
                 Algo<span>Visualizer</span>
               </span>
             </Link>
           )}
 
-          {/* Desktop Navigation */}
+          {/* Desktop Search Bar + Navigation */}
           {!isMobile && (
-            <div className="navbar-menu">
-              {navigationItems.map((item, index) =>
-                item.dropdown ? (
-                  <div key={index} className="navbar-item dropdown">
-                    <button
-                      className={`dropdown-toggle ${
-                        isDropdownOpen === index ? "active" : ""
-                      }`}
-                      onClick={() => handleDropdownToggle(index)}
-                    >
-                      <item.icon size={18} className="drop-icon" />
-                      <span>{item.label}</span>
-                      <ChevronDown
-                        size={16}
-                        className={`dropdown-arrow ${
-                          isDropdownOpen === index ? "rotated" : ""
-                        }`}
-                      />
-                    </button>
-                    {isDropdownOpen === index && (
-                      <div className="dropdown-menu">
-                        {item.dropdown.map((subItem, subIndex) => (
-                          <Link
-                            key={subIndex}
-                            to={subItem.path}
-                            className={`dropdown-item ${
-                              isActive(subItem.path) ? "active" : ""
-                            }`}
-                            onClick={() => setIsDropdownOpen(null)}
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    key={index}
-                    to={item.path}
-                    className={`navbar-link ${
-                      isActive(item.path) ? "active" : ""
-                    }`}
+            <div className="navbar-right flex items-center gap-6">
+              {/* 🔎 Search Bar */}
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="search-input px-3 py-1 rounded-md border"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                {searchTerm && (
+                  <button
+                    className="absolute right-2 top-1 text-gray-500"
+                    onClick={() => setSearchTerm("")}
                   >
-                    <item.icon size={18} className="icon" />
-                    <span>{item.label}</span>
-                  </Link>
-                )
-              )}
+                    <X size={16} />
+                  </button>
+                )}
+
+                {/* Autocomplete Dropdown */}
+                {filteredResults.length > 0 && (
+                  <div className="absolute mt-1 bg-white shadow-md rounded-md w-56 z-50">
+                    {filteredResults.map((result, idx) => (
+                      <Link
+                        key={idx}
+                        to={result.path}
+                        className="block px-3 py-2 hover:bg-gray-100"
+                        onClick={() => setSearchTerm("")}
+                      >
+                        {result.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 🔗 Normal Navigation */}
+              <div className="navbar-menu flex gap-4">
+                {navigationItems.map((item, index) =>
+                  item.dropdown ? (
+                    <div key={index} className="navbar-item dropdown">
+                      <button
+                        className={`dropdown-toggle ${isDropdownOpen === index ? "active" : ""}`}
+                        onClick={() => handleDropdownToggle(index)}
+                      >
+                        <item.icon size={18} className="drop-icon" />
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          size={16}
+                          className={`dropdown-arrow ${isDropdownOpen === index ? "rotated" : ""}`}
+                        />
+                      </button>
+                      {isDropdownOpen === index && (
+                        <div className="dropdown-menu">
+                          {item.dropdown.map((subItem, subIndex) => (
+                            <Link
+                              key={subIndex}
+                              to={subItem.path}
+                              className={`dropdown-item ${
+                                isActive(subItem.path) ? "active" : ""
+                              }`}
+                              onClick={() => setIsDropdownOpen(null)}
+                            >
+                              {subItem.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      key={index}
+                      to={item.path}
+                      className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
+                    >
+                      <item.icon size={18} className="icon" />
+                      <span>{item.label}</span>
+                    </Link>
+                  )
+                )}
+              </div>
             </div>
           )}
         </div>
-
-        {/* Mobile Menu */}
-        {isMobile && (
-          <div
-            className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}
-            data-aos="fade-right"
-            data-aos-duration="400"
-          >
-            <div className="mobile-menu-header">
-              <div className="mobile-menu-header-content">
-                <h3 className="mobile-menu-title">
-                  <Database size={18} />
-                  Navigation
-                </h3>
-                <button
-                  className="mobile-menu-close-btn"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  aria-label="Close navigation menu"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <p className="mobile-menu-subtitle">
-                Explore algorithms & data structures
-              </p>
-            </div>
-
-            <div className="mobile-menu-content">
-              {navigationItems.map((item, index) =>
-                item.dropdown ? (
-                  <div key={index} className="mobile-dropdown">
-                    <button
-                      className={`mobile-dropdown-toggle ${
-                        isDropdownOpen === index ? "active" : ""
-                      }`}
-                      onClick={() => handleDropdownToggle(index)}
-                    >
-                      <item.icon size={18} />
-                      <span>{item.label}</span>
-                      <ChevronDown
-                        size={16}
-                        className={`dropdown-arrow ${
-                          isDropdownOpen === index ? "rotated" : ""
-                        }`}
-                      />
-                    </button>
-                    {isDropdownOpen === index && (
-                      <div className="mobile-dropdown-menu">
-                        {item.dropdown.map((subItem, subIndex) => (
-                          <Link
-                            key={subIndex}
-                            to={subItem.path}
-                            className={`mobile-dropdown-item ${
-                              isActive(subItem.path) ? "active" : ""
-                            }`}
-                            onClick={() => {
-                              setIsDropdownOpen(null);
-                              setIsMobileMenuOpen(false);
-                            }}
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    key={index}
-                    to={item.path}
-                    className={`mobile-menu-link ${
-                      isActive(item.path) ? "active" : ""
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <item.icon size={18} />
-                    <span>{item.label}</span>
-                  </Link>
-                )
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Backdrop */}
-        {isMobileMenuOpen && (
-          <div
-            className="navbar-backdrop"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        )}
       </nav>
     </>
   );
