@@ -183,12 +183,14 @@
 .section-content {
   max-height: 0;
   overflow: hidden;
+  padding: 0;
   transition: max-height 0.3s ease;
   background: var(--bg-primary);
 }
 
 .section-content.active {
-  max-height: 1000px;
+  max-height: 3000px;
+  padding: 10px 0;
 }
 
 .section-content > * {
