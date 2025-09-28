@@ -58,6 +58,7 @@ import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
 import AlgorithmComparison from "./components/AlgorithmComparison";
 import GraphComparison from "./components/GraphComparison";
 import Contributors from "./components/Contributors";
+import Contribute from "./components/Contribute";
 
 // Static / Info Pages
 import About from "./components/about";
@@ -155,6 +156,7 @@ const App = () => {
               <Route path="/blog" element={<Blog />} />
               <Route path="/community" element={<CommunityLanding />} />
               <Route path="/contributors" element={<Contributors />} />
+              <Route path="/contribute" element={<Contribute />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/terms" element={<TermsOfService />} />

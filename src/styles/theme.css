@@ -142,6 +142,13 @@
     --disabled-bg: var(--text-muted);
     --array-bar-color: var(--accent-primary);
     
+    /* Contribute.css compatibility */
+    --card-border: var(--border-primary);
+    --hover-bg: var(--button-secondary-bg);
+    --primary-color: var(--accent-primary);
+    --subtext-color: var(--text-secondary);
+    --btn-text: var(--button-primary-text);
+    
     /* Components.css compatibility */
     --bg-gradient: var(--primary-bg);
     --header-bg: var(--secondary-bg);
