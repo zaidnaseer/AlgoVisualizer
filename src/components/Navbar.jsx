@@ -205,7 +205,8 @@ const Navbar = () => {
 
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/settings", icon: Settings, label: "Settings" },
-  ];
+  ],
+      },
 
 
   const isActive = (path) => location.pathname === path;
@@ -371,4 +372,5 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar; 
+
