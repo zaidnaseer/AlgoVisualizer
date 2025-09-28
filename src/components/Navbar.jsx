@@ -27,7 +27,6 @@ import { navbarNavigationItems } from "../utils/navigation";
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -64,22 +63,18 @@ const Navbar = () => {
   // Detect mobile screen
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-      if (!mobile) setIsMobileMenuOpen(false);
+      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
     };
-    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const isActive = (path) => location.pathname === path;
 
-  const handleDropdownToggle = (index) => {
+  const handleDropdownToggle = (index) =>
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
-  };
 
-  // Handle live search
+  // Live search
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (!query.trim()) {
@@ -101,6 +96,11 @@ const Navbar = () => {
         });
       }
     });
+
+    // Add Notes Page to search results
+    if ("notes".includes(query.toLowerCase())) {
+      results.push({ path: "/notes", label: "Notes" });
+    }
 
     setSearchResults(results);
     setIsSearchOpen(results.length > 0);
@@ -155,17 +155,18 @@ const Navbar = () => {
           <Search size={18} className="search-icon" />
           {isSearchOpen && (
             <div className="search-results">
-              {searchResults.map((item, index) => (
-                <Link
-                  key={index}
-                  to={item.path}
-                  className="search-result-item"
-                  onClick={() => setIsSearchOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              {searchResults.length === 0 && (
+              {searchResults.length > 0 ? (
+                searchResults.map((item, index) => (
+                  <Link
+                    key={index}
+                    to={item.path}
+                    className="search-result-item"
+                    onClick={() => setIsSearchOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))
+              ) : (
                 <div className="search-no-results">No results found</div>
               )}
             </div>
@@ -217,9 +218,7 @@ const Navbar = () => {
               <Link
                 key={index}
                 to={item.path}
-                className={`navbar-link ${
-                  isActive(item.path) ? "active" : ""
-                }`}
+                className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
               >
                 {item.icon &&
                   React.createElement(getIconComponent(item.icon), {
@@ -230,6 +229,15 @@ const Navbar = () => {
               </Link>
             )
           )}
+
+          {/* Add Notes link manually if not in navigation items */}
+          <Link
+            to="/notes"
+            className={`navbar-link ${isActive("/notes") ? "active" : ""}`}
+          >
+            <BookOpen size={18} className="icon" />
+            <span>Notes</span>
+          </Link>
         </div>
       </div>
     </nav>
