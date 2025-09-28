@@ -1,6 +1,48 @@
 /* Contributors.css with enhanced glassmorphism theme and interactive features */
 
 /* ------------------------
+   Back Button
+------------------------ */
+.back-button {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--btn-text);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+}
+
+.back-button svg {
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover svg {
+  transform: translateX(-2px);
+}
+
+/* ------------------------
    Section and Header
 ------------------------ */
 .contributors-section {
@@ -54,6 +96,7 @@
 .contributors-header {
   text-align: center;
   margin-bottom: 4rem;
+  margin-top: 2rem; /* Added margin to account for back button */
 }
 
 .contributors-header h2,
@@ -572,8 +615,19 @@
 }
 
 @media (max-width: 768px) {
+  .back-button {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
   .contributors-section .container {
     padding: 0 1rem;
+  }
+  
+  .contributors-header {
+    margin-top: 4rem; /* More space for back button on mobile */
   }
   
   .contributors-header h1,
@@ -638,6 +692,15 @@
 }
 
 @media (max-width: 480px) {
+  .back-button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  
+  .back-button span {
+    display: none;
+  }
+  
   .contributors-header h1,
   .contributors-header h2 {
     font-size: 2rem;
@@ -663,8 +726,6 @@
     flex-direction: column;
     gap: 0.75rem;
   }
-  
-  
 }
 
 /* Loading State */
