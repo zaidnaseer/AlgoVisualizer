@@ -3,9 +3,11 @@ import "../styles/terms.css"; // Import the CSS file
 
 const TermsOfService = () => {
   const [activeSection, setActiveSection] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const toggleSection = (index) => {
     setActiveSection(activeSection === index ? null : index);
+    setIsMobile(window.innerWidth <= 768); // Example breakpoint for mobile
   };
 
   const sections = [
