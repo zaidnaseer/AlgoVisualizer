@@ -29,7 +29,6 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
-
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -42,11 +41,8 @@ const Navbar = () => {
   // Detect mobile
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-      if (!mobile) setIsMobileMenuOpen(false);
+      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
     };
-    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -170,11 +166,9 @@ const Navbar = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  const handleDropdownToggle = (index) => {
+  const handleDropdownToggle = (index) =>
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
-  };
 
-  // Search handler
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (!query.trim()) {
@@ -196,6 +190,11 @@ const Navbar = () => {
         });
       }
     });
+
+    // Add Notes Page to search results
+    if ("notes".includes(query.toLowerCase())) {
+      results.push({ path: "/notes", label: "Notes" });
+    }
 
     setSearchResults(results);
     setIsSearchOpen(results.length > 0);
@@ -324,11 +323,56 @@ const Navbar = () => {
                 >
                   <item.icon size={18} className="icon" />
                   <span>{item.label}</span>
-                </Link>
-              )
-            )}
-          </div>
-        )}
+                  <ChevronDown
+                    size={16}
+                    className={`dropdown-arrow ${
+                      isDropdownOpen === index ? "rotated" : ""
+                    }`}
+                  />
+                </button>
+                {isDropdownOpen === index && (
+                  <div className="dropdown-menu">
+                    {item.dropdown.map((subItem, subIndex) => (
+                      <Link
+                        key={subIndex}
+                        to={subItem.path}
+                        className={`dropdown-item ${
+                          isActive(subItem.path) ? "active" : ""
+                        }`}
+                        onClick={() => setIsDropdownOpen(null)}
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={index}
+                to={item.path}
+                className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
+              >
+                {item.icon &&
+                  React.createElement(getIconComponent(item.icon), {
+                    size: 18,
+                    className: "icon",
+                  })}
+                <span>{item.label}</span>
+              </Link>
+            )
+          )}
+
+          {/* Add Notes link manually if not in navigation items */}
+          <Link
+            to="/notes"
+            className={`navbar-link ${isActive("/notes") ? "active" : ""}`}
+          >
+            <BookOpen size={18} className="icon" />
+            <span>Notes</span>
+          </Link>
+        </div>
+
       </div>
     </nav>
   );
