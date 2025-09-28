@@ -78,23 +78,28 @@ import StringPage from "./pages/StringPage";
 
 
 
+
+import GameSearchOverview from "./pages/GameSearchOverview";
+import GameSearchPage from "./pages/GameSearchPage";
+
+// Add these imports at the top with other page imports
+import StringOverview from "./pages/StringOverview";
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
  
 import BranchBoundOverview from "./pages/BranchBoundOverview";
 import BranchBoundPage from "./pages/BranchBoundPage";
+import MathOverview from "./pages/MathOverview";
+import MathPage from "./pages/MathPage";
+
 import LearnLanding from "./pages/LearnLanding";
 
-// ...
-
-
-// Styles
 import "./styles/components.css";
-
-// Animation library
 import AOS from "aos";
 import "aos/dist/aos.css";
+
 
 
 const App = () => {
@@ -183,6 +188,38 @@ const App = () => {
             <Route path="/dc-overview" element={<DCOverview />} />
             <Route path="/dc" element={<DCPage />} />
 
+
+
+  {/* Divide & Conquer */}
+  <Route path="/dc-overview" element={<DCOverview />} />
+  <Route path="/dc" element={<DCPage />} />
+
+{/* Game Search */}
+<Route path="/game-search-overview" element={<GameSearchOverview />} />
+<Route path="/game-search" element={<GameSearchPage />} />
+
+
+  {/* Branch & Bound */}
+<Route path="/branchbound-overview" element={<BranchBoundOverview />} />
+<Route path="/branchbound" element={<BranchBoundPage />} />
+<Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
+
+
+
+{/* Mathematical Algorithms */}
+  <Route path="/math-overview" element={<MathOverview />} />
+  <Route path="/math" element={<MathPage />} />
+  
+
+{/* String Algorithms */}
+<Route path="/string-overview" element={<StringOverview />} />
+<Route path="/string" element={<StringPage />} />
+
+
+
+
+            {/* Other Pages */}
+
             {/* Game Search */}
             <Route path="/game-search-overview" element={<GameSearchOverview />} />
             <Route path="/game-search" element={<GameSearchPage />} />
@@ -203,7 +240,7 @@ const App = () => {
             {/* Binary Tree */}
             <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
 
-            {/* Other Pages */}
+
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/community" element={<CommunityLanding />} />

@@ -1,6 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
+
+  Home,
+  BarChart3,
+  Search,
+  Database,
+  GitBranch,
+  Users,
+  Calculator,
+  Trophy,
+  Settings,
+  X,
+  Type,
+  ChevronDown,
+  BookOpen,
+  Cpu,
+  Code,
+  Hash,
+  Zap,
+  Gamepad,
+  TreeDeciduous,
+  Menu,
   Home, BarChart3, Search, Database, GitBranch, Users, Trophy, Settings,
   X, Type, ChevronDown, BookOpen, Cpu, Code, Hash, Zap, Gamepad, TreeDeciduous, Menu
 } from "lucide-react";
@@ -143,7 +164,18 @@ const Navbar = () => {
         { path: "/branchbound", label: "Algorithms" },
       ],
     },
+
+    {
+      label: "Mathematics",
+      icon: Calculator,
+      dropdown: [
+        { path: "/math-overview", label: "Overview" },
+        { path: "/math", label: "Algorithms" },
+      ],
+    },
+
     { path: "/editor", icon: Code, label: "Code Editor" },
+
     {
       label: "Strings",
       icon: Type,
@@ -154,7 +186,9 @@ const Navbar = () => {
     },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/settings", icon: Settings, label: "Settings" },
-  ];
+
+  ]; // <-- This closing bracket for navigationItems array was the issue
+
 
 
   const isActive = (path) => location.pathname === path;
