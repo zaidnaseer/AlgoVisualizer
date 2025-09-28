@@ -218,16 +218,11 @@ const Footer = () => {
                   Community
                 </Link>
               </li>
-              <li className="link-icon">
-                <a
-                  href="https://github.com/RhythmPahwa14/AlgoVisualizer"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-icon"
-                >
+              <li>
+                <Link to="/contribute" className="link-icon">
                   <FaCode className="link-icon" />
                   Contribute
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
