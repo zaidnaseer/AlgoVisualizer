@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
+
 import { SettingsProvider } from "./contexts/SettingsContext";
 
 import Navbar from "./components/Navbar";
@@ -15,6 +16,7 @@ import FeedbackWidget from "./components/FeedbackWidget";
 // Pages
 import Home from "./pages/Home";
 import Sorting from "./pages/Sorting";
+import SortingDoc from "./pages/SortingDoc";
 import Searching from "./pages/Searching";
 import SearchingOverview from "./pages/SearchingOverview";
 import DataStructures from "./pages/DataStructures";
@@ -26,7 +28,7 @@ import Quiz from "./pages/Quiz";
 import Settings from "./pages/Settings";
 import Blog from "./pages/Blog";
 import CommunityLanding from "./pages/CommunityLanding";
-import NotesPage from "./pages/NotesPage"; // New Notes Page
+import NotesPage from "./pages/NotesPage";
 
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
@@ -55,6 +57,7 @@ import Stack from "./components/Stack/Stack";
 import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
 import AlgorithmComparison from "./components/AlgorithmComparison";
 import GraphComparison from "./components/GraphComparison";
+import Contributors from "./components/Contributors";
 
 // Static / Info Pages
 import About from "./components/about";
@@ -63,10 +66,9 @@ import PrivacyPolicy from "./components/Privacy";
 import TermsOfService from "./components/terms";
 import CookiePolicy from "./components/cookie-policy";
 import FAQ from "./pages/FAQ";
-import SortingDoc from "./pages/SortingDoc";
-import Contributors from "./components/Contributors";
 import ContributorLeaderboard from "./pages/ContributorLeaderboard";
 import AlgorithmDocumentation from "./pages/Documentation";
+import CodeEditor from "./pages/CodeEditor";
 
 // Styles
 import "./styles/components.css";
@@ -79,7 +81,6 @@ const App = () => {
   const location = useLocation();
   const selectedAlgorithm = "bubbleSort"; // Default algorithm
 
-  // Pages where ComplexityBox is shown
   const showComplexityBoxOn = [
     "/sorting",
     "/searching",
@@ -104,7 +105,6 @@ const App = () => {
 
         <main className="main-content page-content">
           <Routes>
-            {/* Home */}
             <Route path="/" element={<Home />} />
 
             {/* Notes Page */}
@@ -113,10 +113,7 @@ const App = () => {
             {/* Sorting */}
             <Route path="/sorting" element={<Sorting />} />
             <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
-            <Route
-              path="/sorting/comparison"
-              element={<AlgorithmComparison />}
-            />
+            <Route path="/sorting/comparison" element={<AlgorithmComparison />} />
 
             {/* Searching */}
             <Route path="/searching" element={<Searching />} />
@@ -130,12 +127,12 @@ const App = () => {
             <Route path="/data-structures/queue" element={<Queue />} />
             <Route path="/data-structures/stack" element={<Stack />} />
 
-            {/* Graph */}
+            {/* Graphs */}
             <Route path="/graph" element={<Graph />} />
             <Route path="/graph/bfs" element={<GraphBFS />} />
             <Route path="/graph/dfs" element={<GraphDFS />} />
             <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
-            <Route path="/graph/comparison" element={<GraphComparison />} />
+            <Route path="/graph/comparison" element={<AlgorithmComparison />} />
 
             {/* Backtracking */}
             <Route path="/backtracking-overview" element={<BacktrackingOverview />} />
@@ -168,11 +165,13 @@ const App = () => {
             {/* Branch & Bound */}
             <Route path="/branchbound-overview" element={<BranchBoundOverview />} />
             <Route path="/branchbound" element={<BranchBoundPage />} />
-            <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
 
             {/* String Algorithms */}
             <Route path="/string-overview" element={<StringOverview />} />
             <Route path="/string" element={<StringPage />} />
+
+            {/* Binary Tree */}
+            <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
 
             {/* Other Pages */}
             <Route path="/quiz" element={<Quiz />} />
@@ -187,6 +186,9 @@ const App = () => {
             <Route path="/documentation" element={<AlgorithmDocumentation />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contributor-leaderboard" element={<ContributorLeaderboard />} />
+
+            {/* Code Editor */}
+            <Route path="/editor" element={<CodeEditor />} />
           </Routes>
 
           {/* Show ComplexityBox only on selected pages */}
