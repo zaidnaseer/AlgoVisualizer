@@ -481,6 +481,8 @@
   font-size: 12px;
   opacity: 0.7;
   transition: all 0.3s ease;
+  min-width: 16px;
+  text-align: center;
 }
 
 .footer-links a:hover .link-icon {
@@ -518,6 +520,7 @@
   color: var(--text-muted, rgba(230, 237, 243, 0.6));
   font-size: 16px;
   transition: color 0.3s ease;
+  z-index: 1;
 }
 
 .newsletter-input {
@@ -530,6 +533,7 @@
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .newsletter-input:focus + .input-icon,
@@ -694,6 +698,7 @@
   border: 1px solid var(--border-primary, rgba(240, 246, 252, 0.1));
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .social-link::before {
@@ -862,6 +867,10 @@
   .footer-links a {
     justify-content: center;
   }
+  
+  .link-icon {
+    margin-right: 8px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -918,11 +927,16 @@
   }
   
 
-  /* Mobile Navigation Toggle Button */
+
+
   .mobile-nav-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
+
+  .link-icon {
+    margin-right: 8px;
+
 
   /* Fix legal links wrapping on mobile */
   .legal-links {
@@ -1042,6 +1056,11 @@
     margin-bottom: 15px;
   }
   
+
+  .link-icon {
+    margin-right: 6px;
+    font-size: 11px;
+
   /* Improve legal links on small screens */
   .legal-links {
     gap: 6px;
@@ -1050,6 +1069,7 @@
   .legal-links a {
     font-size: 12px;
     padding: 6px 10px;
+
   }
 }
 
@@ -1145,6 +1165,7 @@
   }
   
 
+
   /* Mobile Navigation Menu */
   .mobile-nav-menu {
     width: 95%;
@@ -1174,6 +1195,11 @@
   .mobile-nav-dropdown-item {
     padding: 0.675rem 1.25rem;
     font-size: 0.8rem;
+
+  .link-icon {
+    margin-right: 6px;
+    font-size: 10px;
+
 
   /* Further improve legal links on very small screens */
   .legal-links {
@@ -1237,11 +1263,17 @@
     order: 3;
   }
   
+
   /* Mobile Navigation Menu */
   .mobile-nav-menu {
     width: 95%;
     right: 7px;
     bottom: 70px;
+
+  .link-icon {
+    margin-right: 5px;
+    font-size: 9px;
+
   }
 }
 
@@ -1354,6 +1386,7 @@
   .link-icon {
     font-size: 14px;
     overflow: visible;
+    margin-right: 10px;
   }
   
   .newsletter-description {
@@ -1482,5 +1515,10 @@
   /* Show legal links section on mobile landscape */
   .footer-legal-row {
     display: flex;
+  }
+  
+  .link-icon {
+    margin-right: 6px;
+    font-size: 11px;
   }
 }

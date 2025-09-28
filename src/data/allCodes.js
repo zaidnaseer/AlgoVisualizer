@@ -3932,4 +3932,416 @@ export const gameSearch = {
 };`
   }
 };
+export const mathAlgorithms = {
+  gcdEuclidean: {
+    java: `public class GCD {
+    public static int gcd(int a, int b){
+        if(b == 0) return a;
+        return gcd(b, a % b);
+    }
+}`,
+    python: `def gcd(a, b):
+    if b == 0:
+        return a
+    return gcd(b, a % b)`,
+    cpp: `int gcd(int a, int b){
+    if(b == 0) return a;
+    return gcd(b, a % b);
+}`
+  },
+
+  sieveOfEratosthenes: {
+    java: `import java.util.*;
+public class Sieve {
+    public static boolean[] sieve(int n){
+        boolean prime[] = new boolean[n+1];
+        Arrays.fill(prime, true);
+        prime[0] = prime[1] = false;
+        for(int p=2; p*p <= n; p++){
+            if(prime[p]){
+                for(int i=p*p; i<=n; i+=p) prime[i] = false;
+            }
+        }
+        return prime;
+    }
+}`,
+    python: `def sieve(n):
+    prime = [True]*(n+1)
+    prime[0] = prime[1] = False
+    for p in range(2, int(n**0.5)+1):
+        if prime[p]:
+            for i in range(p*p, n+1, p):
+                prime[i] = False
+    return prime`,
+    cpp: `vector<bool> sieve(int n){
+    vector<bool> prime(n+1, true);
+    prime[0] = prime[1] = false;
+    for(int p=2; p*p <= n; p++){
+        if(prime[p]){
+            for(int i=p*p; i<=n; i+=p) prime[i] = false;
+        }
+    }
+    return prime;
+}`
+  },
+
+  modularExponentiation: {
+    java: `public class ModExp {
+    public static long modExp(long a, long b, long mod){
+        long result = 1;
+        a = a % mod;
+        while(b > 0){
+            if((b & 1) == 1) result = (result * a) % mod;
+            a = (a * a) % mod;
+            b >>= 1;
+        }
+        return result;
+    }
+}`,
+    python: `def mod_exp(a, b, mod):
+    result = 1
+    a = a % mod
+    while b > 0:
+        if b & 1:
+            result = (result * a) % mod
+        a = (a * a) % mod
+        b >>= 1
+    return result`,
+    cpp: `long long modExp(long long a, long long b, long long mod){
+    long long result = 1;
+    a %= mod;
+    while(b > 0){
+        if(b & 1) result = (result * a) % mod;
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    return result;
+}`
+  },
+
+  fft: {
+    java: `// FFT implementation in Java (simplified placeholder)
+public class FFT {
+    // Implementation depends on complex numbers library
+}`,
+    python: `import numpy as np
+def fft(arr):
+    return np.fft.fft(arr)`,
+    cpp: `#include <complex>
+#include <vector>
+using namespace std;
+typedef complex<double> cd;
+
+void fft(vector<cd> &a){
+    int n = a.size();
+    if(n <= 1) return;
+    vector<cd> a0(n/2), a1(n/2);
+    for(int i=0;i<n/2;i++){
+        a0[i] = a[i*2];
+        a1[i] = a[i*2+1];
+    }
+    fft(a0); fft(a1);
+    for(int i=0;i<n/2;i++){
+        cd t = polar(1.0, -2 * M_PI * i / n) * a1[i];
+        a[i] = a0[i] + t;
+        a[i+n/2] = a0[i] - t;
+    }
+}`
+  }
+};
+
+export const stringAlgorithms = {
+  kmp: {
+    java: `public class KMP {
+    public int[] computeLPSArray(String pattern){
+        int M = pattern.length();
+        int[] lps = new int[M];
+        int len = 0, i = 1;
+        while(i < M){
+            if(pattern.charAt(i) == pattern.charAt(len)){
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if(len != 0) len = lps[len - 1];
+                else { lps[i] = 0; i++; }
+            }
+        }
+        return lps;
+    }
+
+    public void KMPSearch(String text, String pattern){
+        int N = text.length();
+        int M = pattern.length();
+        int[] lps = computeLPSArray(pattern);
+        int i = 0, j = 0;
+        while(i < N){
+            if(pattern.charAt(j) == text.charAt(i)){
+                i++; j++;
+            }
+            if(j == M){
+                System.out.println("Found at index " + (i - j));
+                j = lps[j - 1];
+            } else if(i < N && pattern.charAt(j) != text.charAt(i)){
+                if(j != 0) j = lps[j - 1];
+                else i++;
+            }
+        }
+    }
+}`,
+
+    python: `def compute_lps(pattern):
+    M = len(pattern)
+    lps = [0]*M
+    length = 0
+    i = 1
+    while i < M:
+        if pattern[i] == pattern[length]:
+            length += 1
+            lps[i] = length
+            i += 1
+        else:
+            if length != 0:
+                length = lps[length-1]
+            else:
+                lps[i] = 0
+                i += 1
+    return lps
+
+def kmp_search(text, pattern):
+    N, M = len(text), len(pattern)
+    lps = compute_lps(pattern)
+    i = j = 0
+    while i < N:
+        if pattern[j] == text[i]:
+            i += 1
+            j += 1
+        if j == M:
+            print("Found at index", i-j)
+            j = lps[j-1]
+        elif i < N and pattern[j] != text[i]:
+            if j != 0:
+                j = lps[j-1]
+            else:
+                i += 1`,
+
+    cpp: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+vector<int> computeLPS(string pattern){
+    int M = pattern.length();
+    vector<int> lps(M, 0);
+    int len = 0, i = 1;
+    while(i < M){
+        if(pattern[i] == pattern[len]){
+            len++;
+            lps[i] = len;
+            i++;
+        } else {
+            if(len != 0) len = lps[len-1];
+            else { lps[i] = 0; i++; }
+        }
+    }
+    return lps;
+}
+
+void KMPSearch(string text, string pattern){
+    int N = text.length(), M = pattern.length();
+    vector<int> lps = computeLPS(pattern);
+    int i = 0, j = 0;
+    while(i < N){
+        if(pattern[j] == text[i]){
+            i++; j++;
+        }
+        if(j == M){
+            cout << "Found at index " << i-j << endl;
+            j = lps[j-1];
+        } else if(i < N && pattern[j] != text[i]){
+            if(j != 0) j = lps[j-1];
+            else i++;
+        }
+    }
+}`  
+  },
+
+  rabinKarp: {
+    java: `public class RabinKarp {
+    public final static int d = 256;
+    static void search(String pattern, String text, int q) {
+        int M = pattern.length();
+        int N = text.length();
+        int i, j;
+        int p = 0, t = 0, h = 1;
+        for(i = 0; i < M-1; i++)
+            h = (h * d) % q;
+        for(i = 0; i < M; i++) {
+            p = (d * p + pattern.charAt(i)) % q;
+            t = (d * t + text.charAt(i)) % q;
+        }
+        for(i = 0; i <= N-M; i++) {
+            if(p == t) {
+                for(j = 0; j < M; j++) {
+                    if(text.charAt(i+j) != pattern.charAt(j))
+                        break;
+                }
+                if(j == M)
+                    System.out.println("Pattern found at index " + i);
+            }
+            if(i < N-M) {
+                t = (d*(t - text.charAt(i)*h) + text.charAt(i+M)) % q;
+                if(t < 0) t += q;
+            }
+        }
+    }
+}`, 
+
+    python: `def rabin_karp(pattern, text, q=101):
+    d = 256
+    M, N = len(pattern), len(text)
+    p = t = 0
+    h = 1
+    for i in range(M-1):
+        h = (h * d) % q
+    for i in range(M):
+        p = (d*p + ord(pattern[i])) % q
+        t = (d*t + ord(text[i])) % q
+    for i in range(N-M+1):
+        if p == t:
+            if text[i:i+M] == pattern:
+                print("Pattern found at index", i)
+        if i < N-M:
+            t = (d*(t-ord(text[i])*h) + ord(text[i+M])) % q
+            if t < 0:
+                t += q`,
+
+    cpp: `#include <iostream>
+using namespace std;
+
+#define d 256
+
+void search(string pattern, string text, int q) {
+    int M = pattern.length();
+    int N = text.length();
+    int i, j;
+    int p = 0, t = 0, h = 1;
+    for(i = 0; i < M-1; i++)
+        h = (h*d) % q;
+    for(i = 0; i < M; i++) {
+        p = (d*p + pattern[i]) % q;
+        t = (d*t + text[i]) % q;
+    }
+    for(i = 0; i <= N-M; i++) {
+        if(p == t) {
+            for(j = 0; j < M; j++) {
+                if(text[i+j] != pattern[j]) break;
+            }
+            if(j == M) cout << "Pattern found at index " << i << endl;
+        }
+        if(i < N-M) {
+            t = (d*(t - text[i]*h) + text[i+M]) % q;
+            if(t < 0) t += q;
+        }
+    }
+}`  
+  },
+
+  zAlgorithm: {
+    java: `import java.util.*;
+
+public class ZAlgorithm {
+    public static int[] computeZ(String s) {
+        int n = s.length();
+        int[] Z = new int[n];
+        int L = 0, R = 0;
+        for(int i=1; i<n; i++) {
+            if(i <= R)
+                Z[i] = Math.min(R-i+1, Z[i-L]);
+            while(i+Z[i] < n && s.charAt(Z[i]) == s.charAt(i+Z[i]))
+                Z[i]++;
+            if(i+Z[i]-1 > R) {
+                L = i;
+                R = i+Z[i]-1;
+            }
+        }
+        return Z;
+    }
+}`, 
+
+    python: `def compute_z(s):
+    n = len(s)
+    Z = [0]*n
+    L = R = 0
+    for i in range(1, n):
+        if i <= R:
+            Z[i] = min(R-i+1, Z[i-L])
+        while i+Z[i] < n and s[Z[i]] == s[i+Z[i]]:
+            Z[i] += 1
+        if i+Z[i]-1 > R:
+            L, R = i, i+Z[i]-1
+    return Z`,
+
+    cpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> computeZ(string s) {
+    int n = s.length();
+    vector<int> Z(n);
+    int L=0, R=0;
+    for(int i=1; i<n; i++) {
+        if(i <= R)
+            Z[i] = min(R-i+1, Z[i-L]);
+        while(i+Z[i] < n && s[Z[i]] == s[i+Z[i]])
+            Z[i]++;
+        if(i+Z[i]-1 > R) {
+            L = i;
+            R = i+Z[i]-1;
+        }
+    }
+    return Z;
+}`  
+  },
+
+  suffixArray: {
+    java: `import java.util.*;
+
+public class SuffixArray {
+    public static int[] buildSuffixArray(String s) {
+        int n = s.length();
+        String[] suffixes = new String[n];
+        for(int i=0; i<n; i++)
+            suffixes[i] = s.substring(i);
+        Arrays.sort(suffixes);
+        int[] sa = new int[n];
+        for(int i=0; i<n; i++)
+            sa[i] = n - suffixes[i].length();
+        return sa;
+    }
+}`, 
+
+    python: `def build_suffix_array(s):
+    suffixes = [(s[i:], i) for i in range(len(s))]
+    suffixes.sort()
+    return [idx for _, idx in suffixes]`,
+
+    cpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> buildSuffixArray(string s) {
+    int n = s.size();
+    vector<pair<string,int>> suffixes;
+    for(int i=0; i<n; i++)
+        suffixes.push_back({s.substr(i), i});
+    sort(suffixes.begin(), suffixes.end());
+    vector<int> sa;
+    for(auto &p : suffixes) sa.push_back(p.second);
+    return sa;
+}`  
+  }
+};
+
 
