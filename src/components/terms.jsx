@@ -279,7 +279,7 @@ const TermsOfService = () => {
                   activeSection === index ? "active" : ""
                 }`}
               >
-                {section.content}
+                {activeSection === index && section.content}
               </div>
             </section>
           ))}
