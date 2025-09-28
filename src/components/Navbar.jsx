@@ -10,15 +10,9 @@ import {
   Trophy,
   Settings,
   X,
-  Type,
   ChevronDown,
   BookOpen,
-  Cpu,
   Code,
-  Hash,
-  Zap,
-  Gamepad,
-  TreeDeciduous,
   Menu,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
@@ -38,18 +32,31 @@ const Navbar = () => {
   const navbarRef = useRef(null);
   const searchRef = useRef(null);
 
-  // Detect mobile
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
       if (window.innerWidth > 768) setIsMobileMenuOpen(false);
     };
-    
-    // Set initial state
     handleResize();
-    
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setIsDropdownOpen(null);
+      }
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const navigationItems = [
@@ -77,9 +84,9 @@ const Navbar = () => {
       dropdown: [
         { path: "/data-structures", label: "Overview" },
         { path: "/data-structures/linked-list", label: "Linked List" },
-        { path: "/data-structures/queue", label: "Queue visualization" },
-        { path: "/data-structures/stack", label: "Stack visualization" },
-        { path: "/binary-tree", label: "Binary Tree visualization" },
+        { path: "/data-structures/queue", label: "Queue" },
+        { path: "/data-structures/stack", label: "Stack" },
+        { path: "/binary-tree", label: "Binary Tree" },
       ],
     },
     {
@@ -94,79 +101,14 @@ const Navbar = () => {
       ],
     },
     {
-      label: "Backtracking",
+      label: "Java Notes",
       icon: BookOpen,
       dropdown: [
-        { path: "/backtracking-overview", label: "Overview" },
-        { path: "/backtracking", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Dynamic Programming",
-      icon: Cpu,
-      dropdown: [
-        { path: "/dp-overview", label: "Overview" },
-        { path: "/dp", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Hashing",
-      icon: Hash,
-      dropdown: [
-        { path: "/hashing-overview", label: "Overview" },
-        { path: "/hashing", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Greedy Algorithms",
-      icon: Zap,
-      dropdown: [
-        { path: "/greedy-overview", label: "Overview" },
-        { path: "/greedy", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Divide & Conquer",
-      icon: Code,
-      dropdown: [
-        { path: "/dc-overview", label: "Overview" },
-        { path: "/dc", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Trees",
-      icon: TreeDeciduous,
-      dropdown: [
-        { path: "/tree-overview", label: "Overview" },
-        { path: "/tree", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Game Search",
-      icon: Gamepad,
-      dropdown: [
-        { path: "/game-search-overview", label: "Overview" },
-        { path: "/game-search", label: "Algorithms" },
-      ],
-    },
-    {
-      label: "Branch & Bound",
-      icon: BookOpen,
-      dropdown: [
-        { path: "/branchbound-overview", label: "Overview" },
-        { path: "/branchbound", label: "Algorithms" },
+        { path: "/notes/java/fundamentals", label: "Fundamentals" },
+        { path: "/notes/java/variables-and-data-types", label: "Variables & Data Types" },
       ],
     },
     { path: "/editor", icon: Code, label: "Code Editor" },
-    {
-      label: "Strings",
-      icon: Type,
-      dropdown: [
-        { path: "/string-overview", label: "Overview" },
-        { path: "/string", label: "Algorithms" },
-      ],
-    },
-    { path: "/notes", icon: BookOpen, label: "Notes" },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     {
       label: "Community",
@@ -181,11 +123,9 @@ const Navbar = () => {
   ];
 
   const isActive = (path) => location.pathname === path;
-
   const handleDropdownToggle = (index) =>
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
 
-  // Search handler
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (!query.trim()) {
@@ -193,7 +133,6 @@ const Navbar = () => {
       setIsSearchOpen(false);
       return;
     }
-
     const results = [];
     navigationItems.forEach((item) => {
       if (item.label.toLowerCase().includes(query.toLowerCase()) && item.path) {
@@ -207,42 +146,19 @@ const Navbar = () => {
         });
       }
     });
-
     setSearchResults(results);
     setIsSearchOpen(results.length > 0);
   };
 
-  // Click outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-        setIsDropdownOpen(null);
-      }
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setIsSearchOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   return (
-    <nav
-      className={`navbar ${theme}`}
-      ref={navbarRef}
-      data-aos="fade-down"
-      data-aos-duration="1000"
-    >
+    <nav className={`navbar ${theme}`} ref={navbarRef} data-aos="fade-down">
       <div className="navbar-container">
-        {/* Logo */}
         <Link to="/" className="navbar-logo">
           <img src="/logo.jpg" alt="AlgoVisualizer Logo" className="logo-img" />
-          <span className="logo-text">
-            Algo<span>Visualizer</span>
-          </span>
+          <span className="logo-text">Algo<span>Visualizer</span></span>
         </Link>
 
-        {/* Search Bar */}
+        {/* Search */}
         <div className="navbar-search" ref={searchRef}>
           <input
             type="text"
@@ -263,7 +179,6 @@ const Navbar = () => {
               <X size={16} />
             </button>
           )}
-          <Search size={18} className="search-icon" />
           {isSearchOpen && (
             <div className="search-results">
               {searchResults.length > 0 ? (
@@ -284,7 +199,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Button */}
         {isMobile && (
           <button
             className="mobile-menu-button"
@@ -295,7 +210,7 @@ const Navbar = () => {
           </button>
         )}
 
-        {/* Desktop Navigation */}
+        {/* Desktop Menu */}
         {!isMobile && (
           <div className="navbar-menu">
             {navigationItems.map((item, index) =>
@@ -307,10 +222,7 @@ const Navbar = () => {
                   >
                     <item.icon size={18} className="drop-icon" />
                     <span>{item.label}</span>
-                    <ChevronDown
-                      size={16}
-                      className={`dropdown-arrow ${isDropdownOpen === index ? "rotated" : ""}`}
-                    />
+                    <ChevronDown size={16} className={`dropdown-arrow ${isDropdownOpen === index ? "rotated" : ""}`} />
                   </button>
                   {isDropdownOpen === index && (
                     <div className="dropdown-menu">
@@ -353,10 +265,7 @@ const Navbar = () => {
                   >
                     <item.icon size={18} className="icon" />
                     <span>{item.label}</span>
-                    <ChevronDown
-                      size={16}
-                      className={`dropdown-arrow ${isDropdownOpen === index ? "rotated" : ""}`}
-                    />
+                    <ChevronDown size={16} className={`dropdown-arrow ${isDropdownOpen === index ? "rotated" : ""}`} />
                   </button>
                   {isDropdownOpen === index && (
                     <div className="mobile-dropdown-menu">

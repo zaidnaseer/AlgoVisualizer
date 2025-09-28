@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 
 import { SettingsProvider } from "./contexts/SettingsContext";
@@ -28,7 +28,10 @@ import Quiz from "./pages/Quiz";
 import Settings from "./pages/Settings";
 import Blog from "./pages/Blog";
 import CommunityLanding from "./pages/CommunityLanding";
-import NotesPage from "./pages/NotesPage";
+
+// Java Notes
+import Fundamentals from "./pages/Notes/Java/Fundamentals";
+import VariablesAndDataTypes from "./pages/Notes/Java/VariablesAndDataTypes";
 
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
@@ -81,11 +84,11 @@ const App = () => {
 
   const showComplexityBoxOn = [
     "/sorting",
-    "/searching", 
+    "/searching",
     "/data-structures",
     "/graph",
     "/graph/bfs",
-    "/graph/dfs", 
+    "/graph/dfs",
     "/graph/dijkstra",
     "/data-structures/stack",
   ];
@@ -105,7 +108,7 @@ const App = () => {
           <main className="main-content page-content">
             <Routes>
               <Route path="/" element={<Home />} />
-              
+
               {/* Sorting */}
               <Route path="/sorting" element={<Sorting />} />
               <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
@@ -150,7 +153,7 @@ const App = () => {
               <Route path="/branchbound" element={<BranchBoundPage />} />
               <Route path="/string-overview" element={<StringOverview />} />
               <Route path="/string" element={<StringPage />} />
-              
+
               {/* Other Pages */}
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/blog" element={<Blog />} />
@@ -166,7 +169,11 @@ const App = () => {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/contributor-leaderboard" element={<ContributorLeaderboard />} />
               <Route path="/editor" element={<CodeEditor />} />
-              <Route path="/notes" element={<NotesPage />} />
+
+              {/* Java Notes */}
+              <Route path="/notes/java" element={<Navigate to="/notes/java/fundamentals" replace />} />
+              <Route path="/notes/java/fundamentals" element={<Fundamentals />} />
+              <Route path="/notes/java/variables-and-data-types" element={<VariablesAndDataTypes />} />
             </Routes>
 
             {/* Show ComplexityBox only on selected pages */}
