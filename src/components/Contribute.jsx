@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import "../styles/global-theme.css";
+import "../styles/theme.css";
 import "../styles/Contribute.css";
 
 const Contribute = () => {
