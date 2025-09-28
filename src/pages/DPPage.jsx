@@ -1,56 +1,61 @@
 // src/pages/DPPage.jsx
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import DPVisualizer from "../components/DPVisualizer";
-import { dpAlgorithms } from "../data/allCodes"; // make sure dpAlgorithms exists in allCodes.js
+import { dpAlgorithms } from "../data/allCodes"; // Ensure dpAlgorithms exists
 import "../styles/global-theme.css";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
-// ✅ Core
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
 
-// ✅ Language dependencies FIRST
+// Language dependencies
 import "prismjs/components/prism-clike.min.js";
 import "prismjs/components/prism-c.min.js";
-
-// ✅ Then the languages you use
 import "prismjs/components/prism-javascript.min.js";
 import "prismjs/components/prism-java.min.js";
 import "prismjs/components/prism-cpp.min.js";
 import "prismjs/components/prism-python.min.js";
 
-// ✅ Plugins LAST
+// Plugins
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 
 import { FiCopy, FiCheck } from "react-icons/fi";
 
 const DPPage = () => {
-
-const [copied, setCopied] = useState(false);
-
-const handleCopy = async () => {
-  const code = algorithmData[selectedLanguage] || "";
-  try {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1200); // reset after 1.2s
-  } catch (err) {
-    console.error("Failed to copy", err);
-  }
-};
-
+  const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("fibonacci"); // default algorithm
 
   const algorithmData = (dpAlgorithms && dpAlgorithms[selectedAlgorithm]) || {};
+  const codeRef = useRef(null);
+
+  const prismLang = useMemo(() => {
+    const map = { javascript: "javascript", java: "java", cpp: "cpp", python: "python" };
+    return map[selectedLanguage] || "javascript";
+  }, [selectedLanguage]);
 
   useEffect(() => {
     AOS.init({ duration: 600, once: true });
   }, []);
 
-  // Default problem sizes for visualizer
+  useEffect(() => {
+    if (codeRef.current) Prism.highlightElement(codeRef.current);
+  }, [algorithmData, selectedLanguage, selectedAlgorithm]);
+
+  const handleCopy = async () => {
+    const code = algorithmData[selectedLanguage] || "";
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1200);
+    } catch (err) {
+      console.error("Failed to copy", err);
+    }
+  };
+
   const defaultSizes = {
     fibonacci: 10,
     knapsack: 5,
@@ -61,7 +66,6 @@ const handleCopy = async () => {
     subsetSum: 10
   };
 
-  // Friendly names for buttons
   const displayName = {
     fibonacci: "Fibonacci Sequence",
     knapsack: "0/1 Knapsack",
@@ -72,30 +76,13 @@ const handleCopy = async () => {
     subsetSum: "Subset Sum"
   };
 
-    const codeRef = useRef(null);
-    const prismLang = useMemo(() => {
-      const map = { javascript: "javascript", java: "java", cpp: "cpp", python: "python" };
-      return map[selectedLanguage] || "javascript";
-    }, [selectedLanguage]);
-
-    useEffect(() => {
-      if (codeRef.current) Prism.highlightElement(codeRef.current);
-    }, [algorithmData, selectedLanguage, selectedAlgorithm]);
-
-  
   return (
     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Dynamic Programming Visualizer</h1>
-      <p style={{
-        textAlign: 'center',
-        maxWidth: '700px',
-        margin: '-2rem auto 2rem auto',
-        color: 'var(--theme-text-secondary)'
-      }}>
+      <p className="theme-description">
         Explore how dynamic programming algorithms work step-by-step. Visualize top-down and bottom-up approaches, and try your own examples.
       </p>
 
-      {/* Visualizer Component */}
       <div data-aos="fade-up" data-aos-delay="200">
         <DPVisualizer
           defaultAlgorithm={selectedAlgorithm}
@@ -104,12 +91,11 @@ const handleCopy = async () => {
         />
       </div>
 
-      {/* Algorithm Selector */}
-      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', margin: '1rem 0', flexWrap: 'wrap' }} data-aos="fade-up" data-aos-delay="300">
+      <div className="algorithm-buttons" data-aos="fade-up" data-aos-delay="300">
         {Object.keys(dpAlgorithms).map((algo) => (
           <button
             key={algo}
-            className={`btn ${selectedAlgorithm === algo ? 'btn-primary' : 'btn-secondary'}`}
+            className={`btn ${selectedAlgorithm === algo ? "btn-primary" : "btn-secondary"}`}
             onClick={() => setSelectedAlgorithm(algo)}
           >
             {displayName[algo] || algo}
@@ -117,17 +103,15 @@ const handleCopy = async () => {
         ))}
       </div>
 
-      {/* Code Implementation Section */}
-      <div className="theme-card" style={{ marginTop: '2rem' }} data-aos="fade-up" data-aos-delay="400">
+      <div className="theme-card" data-aos="fade-up" data-aos-delay="400">
         <div className="theme-card-header">
           <h3>Dynamic Programming - Code Implementation</h3>
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <div className="language-buttons">
             {["java", "python", "cpp", "javascript"].map((lang) => (
               <button
                 key={lang}
-                className={`btn ${selectedLanguage === lang ? 'btn-primary' : 'btn-secondary'}`}
+                className={`btn ${selectedLanguage === lang ? "btn-primary" : "btn-secondary"}`}
                 onClick={() => setSelectedLanguage(lang)}
-                style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
               >
                 {lang.charAt(0).toUpperCase() + lang.slice(1)}
               </button>
@@ -135,59 +119,20 @@ const handleCopy = async () => {
           </div>
         </div>
 
-        <div
-          style={{
-            background: 'var(--surface-bg)',
-            borderRadius: '8px',
-            padding: '1rem 1.25rem',
-            overflow: 'auto',
-            maxHeight: '500px',
-            position: 'relative'
-          }}
-        >
-          <button
-            onClick={handleCopy}
-            title="Copy code"
-            style={{
-              position: "absolute",
-              top: "8px",
-              right: "12px",
-              background: "transparent",
-              border: "none",
-              color: "#ccc",
-              fontSize: "1.2rem",
-              cursor: "pointer",
-              zIndex: 10
-            }}
-          >
+        <div className="code-container">
+          <button onClick={handleCopy} title="Copy code" className="copy-btn">
             {copied ? <FiCheck /> : <FiCopy />}
           </button>
 
-          <pre className="line-numbers" style={{ margin: 0 }}>
-            <code
-              ref={codeRef}
-              className={`language-${prismLang}`}
-              style={{
-                fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-                fontSize: '0.9rem',
-                lineHeight: 1.5,
-                whiteSpace: 'pre'
-              }}
-            >
+          <pre className="line-numbers">
+            <code ref={codeRef} className={`language-${prismLang}`}>
               {algorithmData[selectedLanguage] || ""}
             </code>
           </pre>
         </div>
 
-        <div style={{
-          marginTop: '1rem',
-          padding: '0.75rem',
-          background: 'var(--accent-warning-bg)',
-          borderRadius: '6px',
-          fontSize: '0.9rem',
-          color: 'var(--text-secondary)'
-        }}>
-          <strong>Note:</strong> This is the actual implementation code for the <strong>{displayName[selectedAlgorithm]}</strong> algorithm in <strong>{selectedLanguage.toUpperCase()}</strong>. You can copy and use this code in your projects.
+        <div className="note-box">
+          <strong>Note:</strong> This is the actual implementation code for the <strong>{displayName[selectedAlgorithm]}</strong> algorithm in <strong>{selectedLanguage.toUpperCase()}</strong>.
         </div>
       </div>
     </div>

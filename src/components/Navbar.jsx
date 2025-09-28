@@ -22,12 +22,14 @@ import {
   Menu,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
-import { navbarNavigationItems } from "../utils/navigation";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -37,31 +39,7 @@ const Navbar = () => {
   const navbarRef = useRef(null);
   const searchRef = useRef(null);
 
-  // Map string icon names to actual icon components
-  const getIconComponent = (iconName) => {
-    const iconMap = {
-      Home,
-      BarChart3,
-      Search,
-      Database,
-      GitBranch,
-      Users,
-      Trophy,
-      Settings,
-      Type,
-      BookOpen,
-      Cpu,
-      Code,
-      Hash,
-      Zap,
-      Gamepad,
-      TreeDeciduous,
-      Menu,
-    };
-    return iconMap[iconName] || null;
-  };
-
-  // Detect mobile screen
+  // Detect mobile
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
@@ -73,13 +51,130 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const navigationItems = [
+    { path: "/", icon: Home, label: "Home" },
+    {
+      label: "Sorting",
+      icon: BarChart3,
+      dropdown: [
+        { path: "/sorting", label: "Overview" },
+        { path: "/components/AlgorithmComparison", label: "Algorithm Comparison" },
+      ],
+    },
+    {
+      label: "Searching",
+      icon: Search,
+      dropdown: [
+        { path: "/searchingOverview", label: "Overview" },
+        { path: "/searching", label: "Searching Algorithm" },
+      ],
+    },
+    {
+      label: "Data Structures",
+      icon: Database,
+      dropdown: [
+        { path: "/data-structures", label: "Overview" },
+        { path: "/data-structures/linked-list", label: "Linked List" },
+        { path: "/data-structures/queue", label: "Queue visualization" },
+        { path: "/data-structures/stack", label: "Stack visualization" },
+        { path: "/binary-tree", label: "Binary Tree visualization" },
+      ],
+    },
+    {
+      label: "Graph",
+      icon: GitBranch,
+      dropdown: [
+        { path: "/graph", label: "Overview" },
+        { path: "/graph/bfs", label: "BFS" },
+        { path: "/graph/dfs", label: "DFS" },
+        { path: "/graph/dijkstra", label: "Dijkstra" },
+        { path: "/graph/comparison", label: "Graph Comparison" },
+      ],
+    },
+    {
+      label: "Backtracking",
+      icon: BookOpen,
+      dropdown: [
+        { path: "/backtracking-overview", label: "Overview" },
+        { path: "/backtracking", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Dynamic Programming",
+      icon: Cpu,
+      dropdown: [
+        { path: "/dp-overview", label: "Overview" },
+        { path: "/dp", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Hashing",
+      icon: Hash,
+      dropdown: [
+        { path: "/hashing-overview", label: "Overview" },
+        { path: "/hashing", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Greedy Algorithms",
+      icon: Zap,
+      dropdown: [
+        { path: "/greedy-overview", label: "Overview" },
+        { path: "/greedy", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Divide & Conquer",
+      icon: Code,
+      dropdown: [
+        { path: "/dc-overview", label: "Overview" },
+        { path: "/dc", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Trees",
+      icon: TreeDeciduous,
+      dropdown: [
+        { path: "/tree-overview", label: "Overview" },
+        { path: "/tree", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Game Search",
+      icon: Gamepad,
+      dropdown: [
+        { path: "/game-search-overview", label: "Overview" },
+        { path: "/game-search", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Branch & Bound",
+      icon: BookOpen,
+      dropdown: [
+        { path: "/branchbound-overview", label: "Overview" },
+        { path: "/branchbound", label: "Algorithms" },
+      ],
+    },
+    { path: "/editor", icon: Code, label: "Code Editor" },
+    {
+      label: "Strings",
+      icon: Type,
+      dropdown: [
+        { path: "/string-overview", label: "Overview" },
+        { path: "/string", label: "Algorithms" },
+      ],
+    },
+    { path: "/quiz", icon: Trophy, label: "Quiz" },
+    { path: "/settings", icon: Settings, label: "Settings" },
+  ];
+
   const isActive = (path) => location.pathname === path;
 
   const handleDropdownToggle = (index) => {
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
   };
 
-  // Handle live search
+  // Search handler
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (!query.trim()) {
@@ -89,7 +184,7 @@ const Navbar = () => {
     }
 
     const results = [];
-    navbarNavigationItems.forEach((item) => {
+    navigationItems.forEach((item) => {
       if (item.label.toLowerCase().includes(query.toLowerCase()) && item.path) {
         results.push({ path: item.path, label: item.label });
       }
@@ -106,7 +201,7 @@ const Navbar = () => {
     setIsSearchOpen(results.length > 0);
   };
 
-  // Close dropdowns & search on click outside
+  // Click outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navbarRef.current && !navbarRef.current.contains(event.target)) {
@@ -121,7 +216,12 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`navbar ${theme}`} ref={navbarRef}>
+    <nav
+      className={`navbar ${theme}`}
+      ref={navbarRef}
+      data-aos="fade-down"
+      data-aos-duration="1000"
+    >
       <div className="navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo">
@@ -155,82 +255,80 @@ const Navbar = () => {
           <Search size={18} className="search-icon" />
           {isSearchOpen && (
             <div className="search-results">
-              {searchResults.map((item, index) => (
-                <Link
-                  key={index}
-                  to={item.path}
-                  className="search-result-item"
-                  onClick={() => setIsSearchOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              {searchResults.length === 0 && (
+              {searchResults.length > 0 ? (
+                searchResults.map((item, index) => (
+                  <Link
+                    key={index}
+                    to={item.path}
+                    className="search-result-item"
+                    onClick={() => setIsSearchOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))
+              ) : (
                 <div className="search-no-results">No results found</div>
               )}
             </div>
           )}
         </div>
 
+        {/* Mobile Menu Button */}
+        {isMobile && (
+          <button
+            className="mobile-menu-button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        )}
+
         {/* Desktop Navigation */}
-        <div className="navbar-menu">
-          {navbarNavigationItems.map((item, index) =>
-            item.dropdown ? (
-              <div key={index} className="navbar-item dropdown">
-                <button
-                  className={`dropdown-toggle ${
-                    isDropdownOpen === index ? "active" : ""
-                  }`}
-                  onClick={() => handleDropdownToggle(index)}
+        {!isMobile && (
+          <div className="navbar-menu">
+            {navigationItems.map((item, index) =>
+              item.dropdown ? (
+                <div key={index} className="navbar-item dropdown">
+                  <button
+                    className={`dropdown-toggle ${isDropdownOpen === index ? "active" : ""}`}
+                    onClick={() => handleDropdownToggle(index)}
+                  >
+                    <item.icon size={18} className="drop-icon" />
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      size={16}
+                      className={`dropdown-arrow ${isDropdownOpen === index ? "rotated" : ""}`}
+                    />
+                  </button>
+                  {isDropdownOpen === index && (
+                    <div className="dropdown-menu">
+                      {item.dropdown.map((subItem, subIndex) => (
+                        <Link
+                          key={subIndex}
+                          to={subItem.path}
+                          className={`dropdown-item ${isActive(subItem.path) ? "active" : ""}`}
+                          onClick={() => setIsDropdownOpen(null)}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={index}
+                  to={item.path}
+                  className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
                 >
-                  {item.icon &&
-                    React.createElement(getIconComponent(item.icon), {
-                      size: 18,
-                      className: "drop-icon",
-                    })}
+                  <item.icon size={18} className="icon" />
                   <span>{item.label}</span>
-                  <ChevronDown
-                    size={16}
-                    className={`dropdown-arrow ${
-                      isDropdownOpen === index ? "rotated" : ""
-                    }`}
-                  />
-                </button>
-                {isDropdownOpen === index && (
-                  <div className="dropdown-menu">
-                    {item.dropdown.map((subItem, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={subItem.path}
-                        className={`dropdown-item ${
-                          isActive(subItem.path) ? "active" : ""
-                        }`}
-                        onClick={() => setIsDropdownOpen(null)}
-                      >
-                        {subItem.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <Link
-                key={index}
-                to={item.path}
-                className={`navbar-link ${
-                  isActive(item.path) ? "active" : ""
-                }`}
-              >
-                {item.icon &&
-                  React.createElement(getIconComponent(item.icon), {
-                    size: 18,
-                    className: "icon",
-                  })}
-                <span>{item.label}</span>
-              </Link>
-            )
-          )}
-        </div>
+                </Link>
+              )
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );
