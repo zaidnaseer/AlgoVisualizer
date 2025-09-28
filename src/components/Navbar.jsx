@@ -74,7 +74,6 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   const navigationItems = [
     { path: "/", icon: Home, label: "Home" },
     {
@@ -101,11 +100,7 @@ const Navbar = () => {
         { path: "/data-structures/linked-list", label: "Linked List" },
         { path: "/data-structures/queue", label: "Queue visualization" },
         { path: "/data-structures/stack", label: "Stack visualization" },
-
         { path: "/binary-tree", label: "Binary Tree visualization" },
-
-
-
       ],
     },
     {
@@ -119,7 +114,6 @@ const Navbar = () => {
         { path: "/graph/comparison", label: "Graph Comparison" },
       ],
     },
-
     {
       label: "Backtracking",
       icon: BookOpen,
@@ -170,7 +164,7 @@ const Navbar = () => {
     },
     {
       label: "Game Search",
-      icon: Gamepad, // You can import an appropriate icon from lucide-react
+      icon: Gamepad,
       dropdown: [
         { path: "/game-search-overview", label: "Overview" },
         { path: "/game-search", label: "Algorithms" },
@@ -184,30 +178,25 @@ const Navbar = () => {
         { path: "/branchbound", label: "Algorithms" },
       ],
     },
-
-
-      {
-    label: "Mathematics",
-    icon: Calculator, // use a suitable icon from lucide-react
-    dropdown: [
-      { path: "/math-overview", label: "Overview" },
-      { path: "/math", label: "Algorithms" },
-
-     {
-    label: "Strings",
-    icon: Type, // choose any appropriate icon
-    dropdown: [
-      { path: "/string-overview", label: "Overview" },
-      { path: "/string", label: "Algorithms" },
-
-    ],
-  },
-
+    {
+      label: "Mathematics",
+      icon: Calculator,
+      dropdown: [
+        { path: "/math-overview", label: "Overview" },
+        { path: "/math", label: "Algorithms" },
+      ],
+    },
+    {
+      label: "Strings",
+      icon: Type,
+      dropdown: [
+        { path: "/string-overview", label: "Overview" },
+        { path: "/string", label: "Algorithms" },
+      ],
+    },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     { path: "/settings", icon: Settings, label: "Settings" },
-  ],
-      },
-
+  ]; // <-- This closing bracket for navigationItems array was the issue
 
   const isActive = (path) => location.pathname === path;
 
@@ -372,5 +361,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
-
+export default Navbar;
