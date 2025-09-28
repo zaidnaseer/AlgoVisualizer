@@ -69,6 +69,25 @@ import FAQ from "./pages/FAQ";
 import ContributorLeaderboard from "./pages/ContributorLeaderboard";
 import AlgorithmDocumentation from "./pages/Documentation";
 import CodeEditor from "./pages/CodeEditor";
+import GameSearchOverview from "./pages/GameSearchOverview";
+import GameSearchPage from "./pages/GameSearchPage";
+
+// Add these imports at the top with other page imports
+import StringOverview from "./pages/StringOverview";
+import StringPage from "./pages/StringPage";
+
+
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
+ 
+import BranchBoundOverview from "./pages/BranchBoundOverview";
+import BranchBoundPage from "./pages/BranchBoundPage";
+import LearnLanding from "./pages/LearnLanding";
+
+// ...
+
 
 // Styles
 import "./styles/components.css";
@@ -76,6 +95,7 @@ import "./styles/components.css";
 // Animation library
 import AOS from "aos";
 import "aos/dist/aos.css";
+
 
 const App = () => {
   const location = useLocation();
@@ -158,17 +178,27 @@ const App = () => {
             <Route path="/dc-overview" element={<DCOverview />} />
             <Route path="/dc" element={<DCPage />} />
 
+
+            {/* Divide & Conquer */}
+            <Route path="/dc-overview" element={<DCOverview />} />
+            <Route path="/dc" element={<DCPage />} />
+
             {/* Game Search */}
             <Route path="/game-search-overview" element={<GameSearchOverview />} />
             <Route path="/game-search" element={<GameSearchPage />} />
 
-            {/* Branch & Bound */}
+
+              {/* Branch & Bound */}
             <Route path="/branchbound-overview" element={<BranchBoundOverview />} />
             <Route path="/branchbound" element={<BranchBoundPage />} />
+            <Route path="/data-structures/binary-tree" element={<BinaryTreeVisualizer />} />
+
 
             {/* String Algorithms */}
             <Route path="/string-overview" element={<StringOverview />} />
             <Route path="/string" element={<StringPage />} />
+            <Route path="/learn" element={<LearnLanding />} />
+
 
             {/* Binary Tree */}
             <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />

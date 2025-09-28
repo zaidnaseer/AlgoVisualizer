@@ -1,31 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  Home,
-  BarChart3,
-  Search,
-  Database,
-  GitBranch,
-  Users,
-  Trophy,
-  Settings,
-  X,
-  Type,
-  ChevronDown,
-  BookOpen,
-  Cpu,
-  Code,
-  Hash,
-  Zap,
-  Gamepad,
-  TreeDeciduous,
-  Menu,
+  Home, BarChart3, Search, Database, GitBranch, Users, Trophy, Settings,
+  X, Type, ChevronDown, BookOpen, Cpu, Code, Hash, Zap, Gamepad, TreeDeciduous, Menu
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Navbar = () => {
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -37,6 +21,14 @@ const Navbar = () => {
   const { theme } = useTheme();
   const navbarRef = useRef(null);
   const searchRef = useRef(null);
+
+  const getIconComponent = (iconName) => {
+    const icons = {
+      Home, BarChart3, Search, Database, GitBranch, Users, Trophy, Settings,
+      Type, BookOpen, Cpu, Code, Hash, Zap, Gamepad, TreeDeciduous, Menu
+    };
+    return icons[iconName] || null;
+  };
 
   // Detect mobile
   useEffect(() => {
@@ -164,18 +156,43 @@ const Navbar = () => {
     { path: "/settings", icon: Settings, label: "Settings" },
   ];
 
+
   const isActive = (path) => location.pathname === path;
+
+
+  // Flatten all nav items for search
+  const haystack = React.useMemo(() => {
+    return navbarNavigationItems
+      .filter(i => i.path)
+      .map(i => ({ path: i.path, label: i.label }));
+  }, []);
+
+  const handleSearch = (q) => {
+    setSearchQuery(q);
+    if (!q.trim()) {
 
   const handleDropdownToggle = (index) =>
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
 
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (!query.trim()) {
+
       setSearchResults([]);
       setIsSearchOpen(false);
       return;
     }
+
+    const res = haystack.filter(i =>
+      i.label.toLowerCase().includes(q.toLowerCase())
+    );
+    setSearchResults(res);
+    setIsSearchOpen(res.length > 0);
+  };
+
+  // click outside to close search
+
 
     const results = [];
     navigationItems.forEach((item) => {
@@ -201,12 +218,10 @@ const Navbar = () => {
   };
 
   // Click outside
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-        setIsDropdownOpen(null);
-      }
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
         setIsSearchOpen(false);
       }
     };
@@ -222,38 +237,42 @@ const Navbar = () => {
       data-aos-duration="1000"
     >
       <div className="navbar-container">
-        {/* Logo */}
         <Link to="/" className="navbar-logo">
           <img src="/logo.jpg" alt="AlgoVisualizer Logo" className="logo-img" />
-          <span className="logo-text">
-            Algo<span>Visualizer</span>
-          </span>
+          <span className="logo-text">Algo<span>Visualizer</span></span>
         </Link>
 
-        {/* Search Bar */}
         <div className="navbar-search" ref={searchRef}>
           <input
             type="text"
-            placeholder="Search algorithms..."
+            placeholder="Search…"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
             className="search-input"
           />
           {searchQuery && (
-            <button
-              className="clear-btn"
-              onClick={() => {
-                setSearchQuery("");
-                setSearchResults([]);
-                setIsSearchOpen(false);
-              }}
-            >
+            <button className="clear-btn" onClick={() => {
+              setSearchQuery(""); setSearchResults([]); setIsSearchOpen(false);
+            }}>
               <X size={16} />
             </button>
           )}
           <Search size={18} className="search-icon" />
           {isSearchOpen && (
             <div className="search-results">
+
+              {searchResults.map((item, idx) => (
+                <Link
+                  key={idx}
+                  to={item.path}
+                  className="search-result-item"
+                  onClick={() => setIsSearchOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              {searchResults.length === 0 && <div className="search-no-results">No results</div>}
+
               {searchResults.length > 0 ? (
                 searchResults.map((item, index) => (
                   <Link
@@ -268,8 +287,24 @@ const Navbar = () => {
               ) : (
                 <div className="search-no-results">No results found</div>
               )}
+
             </div>
           )}
+        </div>
+
+        <div className="navbar-menu">
+          {navbarNavigationItems.map((item, i) => (
+            <Link
+              key={i}
+              to={item.path}
+              className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
+            >
+              {item.icon && React.createElement(getIconComponent(item.icon), {
+                size: 18, className: "icon"
+              })}
+              <span>{item.label}</span>
+            </Link>
+          ))}
         </div>
 
         {/* Mobile Menu Button */}
