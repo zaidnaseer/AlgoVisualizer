@@ -26,12 +26,13 @@ import {
   X, Type, ChevronDown, BookOpen, Cpu, Code, Hash, Zap, Gamepad, TreeDeciduous, Menu
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
+import { useMobileMenu } from "../contexts/MobileMenuContext";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Navbar = () => {
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -40,6 +41,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const { theme } = useTheme();
+  const { isNavbarMenuOpen, openNavbarMenu, closeNavbarMenu } = useMobileMenu();
   const navbarRef = useRef(null);
   const searchRef = useRef(null);
 
@@ -54,11 +56,17 @@ const Navbar = () => {
   // Detect mobile
   useEffect(() => {
     const handleResize = () => {
+
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (!mobile) closeNavbarMenu();
+
       if (window.innerWidth > 768) setIsMobileMenuOpen(false);
+
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [closeNavbarMenu]);
 
   const navigationItems = [
     { path: "/", icon: Home, label: "Home" },
@@ -304,6 +312,84 @@ const Navbar = () => {
                 >
                   {item.label}
                 </Link>
+
+
+                <button
+                  className="mobile-menu-button"
+                  onClick={isNavbarMenuOpen ? closeNavbarMenu : openNavbarMenu}
+                  aria-label={isNavbarMenuOpen ? "Close menu" : "Open menu"}
+                >
+                  {isNavbarMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Desktop Logo */}
+          {!isMobile && (
+            <Link to="/" className="navbar-logo">
+              <img
+                src="/logo.jpg"
+                alt="AlgoVisualizer Logo"
+                className="logo-img"
+                onError={(e) => (e.target.style.display = "none")}
+              />
+              <span className="logo-text">
+                Algo<span>Visualizer</span>
+              </span>
+            </Link>
+          )}
+
+          {/* Desktop Navigation */}
+          {!isMobile && (
+            <div className="navbar-menu">
+              {navigationItems.map((item, index) =>
+                item.dropdown ? (
+                  <div key={index} className="navbar-item dropdown">
+                    <button
+                      className={`dropdown-toggle ${
+                        isDropdownOpen === index ? "active" : ""
+                      }`}
+                      onClick={() => handleDropdownToggle(index)}
+                    >
+                      <item.icon size={18} className="drop-icon" />
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        size={16}
+                        className={`dropdown-arrow ${
+                          isDropdownOpen === index ? "rotated" : ""
+                        }`}
+                      />
+                    </button>
+                    {isDropdownOpen === index && (
+                      <div className="dropdown-menu">
+                        {item.dropdown.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={subItem.path}
+                            className={`dropdown-item ${
+                              isActive(subItem.path) ? "active" : ""
+                            }`}
+                            onClick={() => setIsDropdownOpen(null)}
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    key={index}
+                    to={item.path}
+                    className={`navbar-link ${
+                      isActive(item.path) ? "active" : ""
+                    }`}
+                  >
+                    <item.icon size={18} className="icon" />
+                    <span>{item.label}</span>
+                  </Link>
+
               ))}
               {searchResults.length === 0 && <div className="search-no-results">No results</div>}
 
@@ -320,11 +406,41 @@ const Navbar = () => {
                 ))
               ) : (
                 <div className="search-no-results">No results found</div>
+
               )}
 
             </div>
           )}
         </div>
+
+
+        {/* Mobile Menu */}
+        {isMobile && (
+          <div
+            className={`mobile-menu ${isNavbarMenuOpen ? "open" : ""}`}
+            data-aos="fade-right"
+            data-aos-duration="400"
+          >
+            <div className="mobile-menu-header">
+              <div className="mobile-menu-header-content">
+                <h3 className="mobile-menu-title">
+                  <Database size={18} />
+                  Navigation
+                </h3>
+                <button
+                  className="mobile-menu-close-btn"
+                  onClick={closeNavbarMenu}
+                  aria-label="Close navigation menu"
+
+        {/* Desktop Navigation */}
+        <div className="navbar-menu">
+          {navigationItems.map((item, index) =>
+            item.dropdown ? (
+              <div key={index} className="navbar-item dropdown">
+                <button
+                  className={`dropdown-toggle ${isDropdownOpen === index ? "active" : ""}`}
+                  onClick={() => handleDropdownToggle(index)}
+
 
         <div className="navbar-menu">
           {navbarNavigationItems.map((item, i) => (
@@ -389,6 +505,7 @@ const Navbar = () => {
                   key={index}
                   to={item.path}
                   className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
+
                 >
                   <item.icon size={18} className="icon" />
                   <span>{item.label}</span>
@@ -399,6 +516,80 @@ const Navbar = () => {
                     }`}
                   />
                 </button>
+
+              </div>
+              <p className="mobile-menu-subtitle">
+                Explore algorithms & data structures
+              </p>
+            </div>
+
+            <div className="mobile-menu-content">
+              {navigationItems.map((item, index) =>
+                item.dropdown ? (
+                  <div key={index} className="mobile-dropdown">
+                    <button
+                      className={`mobile-dropdown-toggle ${
+                        isDropdownOpen === index ? "active" : ""
+                      }`}
+                      onClick={() => handleDropdownToggle(index)}
+                    >
+                      <item.icon size={18} />
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        size={16}
+                        className={`dropdown-arrow ${
+                          isDropdownOpen === index ? "rotated" : ""
+                        }`}
+                      />
+                    </button>
+                    {isDropdownOpen === index && (
+                      <div className="mobile-dropdown-menu">
+                        {item.dropdown.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={subItem.path}
+                            className={`mobile-dropdown-item ${
+                              isActive(subItem.path) ? "active" : ""
+                            }`}
+                            onClick={() => {
+                              setIsDropdownOpen(null);
+                              closeNavbarMenu();
+                            }}
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    key={index}
+                    to={item.path}
+                    className={`mobile-menu-link ${
+                      isActive(item.path) ? "active" : ""
+                    }`}
+                    onClick={closeNavbarMenu}
+                  >
+                    <item.icon size={18} />
+                    <span>{item.label}</span>
+                  </Link>
+                )
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Backdrop */}
+        {isNavbarMenuOpen && (
+          <div
+            className="navbar-backdrop"
+            onClick={closeNavbarMenu}
+          />
+        )}
+      </nav>
+    </>
+
                 {isDropdownOpen === index && (
                   <div className="dropdown-menu">
                     {item.dropdown.map((subItem, subIndex) => (
@@ -444,6 +635,7 @@ const Navbar = () => {
 
       </div>
     </nav>
+
   );
 };
 

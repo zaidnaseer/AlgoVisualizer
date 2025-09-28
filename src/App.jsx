@@ -1,9 +1,10 @@
-// src/App.jsx
+
 import React, { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 
 import { SettingsProvider } from "./contexts/SettingsContext";
+import { MobileMenuProvider } from "./contexts/MobileMenuContext";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -123,6 +124,60 @@ const App = () => {
 
   return (
     <SettingsProvider>
+      <MobileMenuProvider>
+        <div className="app-container">
+          <ScrollToTop />
+          <ThemeToggle />
+          <Navbar />
+
+          <main className="main-content page-content">
+            <Routes>
+              {/* Home */}
+              <Route path="/" element={<Home />} />
+
+              {/* Sorting */}
+              <Route path="/sorting" element={<Sorting />} />
+              <Route
+                path="/components/AlgorithmComparison"
+                element={<AlgorithmComparison />}
+              />
+
+              {/* Searching */}
+              <Route path="/searching" element={<Searching />} />
+              <Route path="/searching/:id" element={<Searching />} />
+              <Route
+                path="/searching/comparison"
+                element={<AlgorithmComparison />}
+              />
+              <Route path="/searchingOverview" element={<SearchingOverview />} />
+
+              {/* Data Structures */}
+              <Route path="/data-structures" element={<DataStructures />} />
+              <Route
+                path="/data-structures/linked-list"
+                element={<LinkedListPage />}
+              />
+              <Route path="/data-structures/queue" element={<Queue />} />
+              <Route path="/data-structures/stack" element={<Stack />} />
+              <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
+
+              {/* Graph */}
+              <Route path="/graph" element={<Graph />} />
+              <Route path="/graph/bfs" element={<GraphBFS />} />
+              <Route path="/graph/dfs" element={<GraphDFS />} />
+              <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
+              <Route path="/graph/comparison" element={<GraphComparison />} />
+
+              {/* Backtracking */}
+              <Route
+                path="/backtracking-overview"
+                element={<BacktrackingOverview />}
+              />
+              <Route path="/backtracking" element={<BacktrackingPage />} />
+
+              {/* Dynamic Programming */}
+<Route path="/dp-overview" element={<DPOverview />} />
+<Route path="/dp" element={<DPPage />} />
       <div className="app-container">
         <ScrollToTop />
         <ThemeToggle />
@@ -271,6 +326,7 @@ const App = () => {
         <Footer />
         <Analytics />
       </div>
+    </MobileMenuProvider>
     </SettingsProvider>
   );
 };
