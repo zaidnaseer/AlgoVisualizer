@@ -1,5 +1,6 @@
 // cspell:words sandeepvashishtha Vashishtha rhythmpahwa Pahwa noopener noreferrer
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import "../styles/global-theme.css"; 
 import AOS from 'aos';
@@ -165,6 +166,12 @@ const Contributors = () => {
   const [contributors, setContributors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lastCommitSha, setLastCommitSha] = useState(null);
+  const navigate = useNavigate();
+
+  // Function to handle back navigation
+  const handleBackClick = () => {
+    navigate('/community');
+  };
 
   // Function to get the latest commit SHA
   const getLatestCommitSha = async () => {
@@ -332,6 +339,23 @@ const Contributors = () => {
 
   return (
     <div className="theme-container contributors-section" data-aos="fade-up" data-aos-duration="1000">
+      {/* Back Button */}
+      <motion.button
+        onClick={handleBackClick}
+        className="back-button"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m12 19-7-7 7-7"/>
+          <path d="M19 12H5"/>
+        </svg>
+        <span>Back to Community</span>
+      </motion.button>
+
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -341,8 +365,8 @@ const Contributors = () => {
       >
         <h1 className="theme-title">Our Amazing Contributors</h1>
         <p className="contributors-subtitle" style={{ fontSize: '1.5rem', textAlign: 'center' }}>
-  Building Together, Growing Together
-</p>
+          Building Together, Growing Together
+        </p>
       </motion.div>
 
       <motion.div
