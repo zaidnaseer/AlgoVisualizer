@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
+
   Home,
   BarChart3,
   Search,
@@ -21,16 +22,18 @@ import {
   Gamepad,
   TreeDeciduous,
   Menu,
+  Home, BarChart3, Search, Database, GitBranch, Users, Trophy, Settings,
+  X, Type, ChevronDown, BookOpen, Cpu, Code, Hash, Zap, Gamepad, TreeDeciduous, Menu
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Navbar = () => {
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
-
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -40,14 +43,19 @@ const Navbar = () => {
   const navbarRef = useRef(null);
   const searchRef = useRef(null);
 
+  const getIconComponent = (iconName) => {
+    const icons = {
+      Home, BarChart3, Search, Database, GitBranch, Users, Trophy, Settings,
+      Type, BookOpen, Cpu, Code, Hash, Zap, Gamepad, TreeDeciduous, Menu
+    };
+    return icons[iconName] || null;
+  };
+
   // Detect mobile
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-      if (!mobile) setIsMobileMenuOpen(false);
+      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
     };
-    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -182,20 +190,43 @@ const Navbar = () => {
   ]; // <-- This closing bracket for navigationItems array was the issue
 
 
+
   const isActive = (path) => location.pathname === path;
 
-  const handleDropdownToggle = (index) => {
-    setIsDropdownOpen(isDropdownOpen === index ? null : index);
-  };
 
-  // Search handler
+  // Flatten all nav items for search
+  const haystack = React.useMemo(() => {
+    return navbarNavigationItems
+      .filter(i => i.path)
+      .map(i => ({ path: i.path, label: i.label }));
+  }, []);
+
+  const handleSearch = (q) => {
+    setSearchQuery(q);
+    if (!q.trim()) {
+
+  const handleDropdownToggle = (index) =>
+    setIsDropdownOpen(isDropdownOpen === index ? null : index);
+
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (!query.trim()) {
+
       setSearchResults([]);
       setIsSearchOpen(false);
       return;
     }
+
+    const res = haystack.filter(i =>
+      i.label.toLowerCase().includes(q.toLowerCase())
+    );
+    setSearchResults(res);
+    setIsSearchOpen(res.length > 0);
+  };
+
+  // click outside to close search
+
 
     const results = [];
     navigationItems.forEach((item) => {
@@ -211,17 +242,20 @@ const Navbar = () => {
       }
     });
 
+    // Add Notes Page to search results
+    if ("notes".includes(query.toLowerCase())) {
+      results.push({ path: "/notes", label: "Notes" });
+    }
+
     setSearchResults(results);
     setIsSearchOpen(results.length > 0);
   };
 
   // Click outside
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-        setIsDropdownOpen(null);
-      }
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
         setIsSearchOpen(false);
       }
     };
@@ -237,38 +271,42 @@ const Navbar = () => {
       data-aos-duration="1000"
     >
       <div className="navbar-container">
-        {/* Logo */}
         <Link to="/" className="navbar-logo">
           <img src="/logo.jpg" alt="AlgoVisualizer Logo" className="logo-img" />
-          <span className="logo-text">
-            Algo<span>Visualizer</span>
-          </span>
+          <span className="logo-text">Algo<span>Visualizer</span></span>
         </Link>
 
-        {/* Search Bar */}
         <div className="navbar-search" ref={searchRef}>
           <input
             type="text"
-            placeholder="Search algorithms..."
+            placeholder="Search…"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
             className="search-input"
           />
           {searchQuery && (
-            <button
-              className="clear-btn"
-              onClick={() => {
-                setSearchQuery("");
-                setSearchResults([]);
-                setIsSearchOpen(false);
-              }}
-            >
+            <button className="clear-btn" onClick={() => {
+              setSearchQuery(""); setSearchResults([]); setIsSearchOpen(false);
+            }}>
               <X size={16} />
             </button>
           )}
           <Search size={18} className="search-icon" />
           {isSearchOpen && (
             <div className="search-results">
+
+              {searchResults.map((item, idx) => (
+                <Link
+                  key={idx}
+                  to={item.path}
+                  className="search-result-item"
+                  onClick={() => setIsSearchOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              {searchResults.length === 0 && <div className="search-no-results">No results</div>}
+
               {searchResults.length > 0 ? (
                 searchResults.map((item, index) => (
                   <Link
@@ -283,8 +321,24 @@ const Navbar = () => {
               ) : (
                 <div className="search-no-results">No results found</div>
               )}
+
             </div>
           )}
+        </div>
+
+        <div className="navbar-menu">
+          {navbarNavigationItems.map((item, i) => (
+            <Link
+              key={i}
+              to={item.path}
+              className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
+            >
+              {item.icon && React.createElement(getIconComponent(item.icon), {
+                size: 18, className: "icon"
+              })}
+              <span>{item.label}</span>
+            </Link>
+          ))}
         </div>
 
         {/* Mobile Menu Button */}
@@ -338,11 +392,56 @@ const Navbar = () => {
                 >
                   <item.icon size={18} className="icon" />
                   <span>{item.label}</span>
-                </Link>
-              )
-            )}
-          </div>
-        )}
+                  <ChevronDown
+                    size={16}
+                    className={`dropdown-arrow ${
+                      isDropdownOpen === index ? "rotated" : ""
+                    }`}
+                  />
+                </button>
+                {isDropdownOpen === index && (
+                  <div className="dropdown-menu">
+                    {item.dropdown.map((subItem, subIndex) => (
+                      <Link
+                        key={subIndex}
+                        to={subItem.path}
+                        className={`dropdown-item ${
+                          isActive(subItem.path) ? "active" : ""
+                        }`}
+                        onClick={() => setIsDropdownOpen(null)}
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={index}
+                to={item.path}
+                className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
+              >
+                {item.icon &&
+                  React.createElement(getIconComponent(item.icon), {
+                    size: 18,
+                    className: "icon",
+                  })}
+                <span>{item.label}</span>
+              </Link>
+            )
+          )}
+
+          {/* Add Notes link manually if not in navigation items */}
+          <Link
+            to="/notes"
+            className={`navbar-link ${isActive("/notes") ? "active" : ""}`}
+          >
+            <BookOpen size={18} className="icon" />
+            <span>Notes</span>
+          </Link>
+        </div>
+
       </div>
     </nav>
   );
