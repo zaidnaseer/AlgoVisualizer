@@ -1,5 +1,5 @@
 // src/components/AlgorithmVisualizer.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import algorithmsData from "../algorithms/algorithms.json";
 import "../styles/UnifiedVisualizer.css";
 
@@ -11,6 +11,10 @@ export default function AlgorithmVisualizer({
   initialArray,
   visualOnly = false,
   hideTitle = false,
+  array: externalArray,
+  colorArray,
+  barGap,
+  fontSize,
 }) {
   const [array, setArray] = useState([]);
   const [steps, setSteps] = useState([]);
@@ -22,9 +26,11 @@ export default function AlgorithmVisualizer({
 
   // Determine algorithm type using centralized runner
   const resolveAlgoType = (name) => getAlgorithmType(name);
-
+  const controlled = useMemo(() => Array.isArray(externalArray), [externalArray]);
+ 
   // Generate new array
   const generateArray = () => {
+    if (controlled) return;
     const newArr = Array.from(
       { length: 15 },
       () => Math.floor(Math.random() * 50) + 5
@@ -44,6 +50,7 @@ export default function AlgorithmVisualizer({
 
   // Apply initialArray from props when provided/changed
   useEffect(() => {
+    if (controlled) return;
     if (Array.isArray(initialArray) && initialArray.length > 0) {
       setArray([...initialArray]);
       setSteps([]);
@@ -59,10 +66,11 @@ export default function AlgorithmVisualizer({
         setTarget(null);
       }
     }
-  }, [initialArray, algorithmName]);
+  }, [initialArray, algorithmName, controlled]);
 
   // If no initialArray provided, generate a default once on mount
   useEffect(() => {
+    if (controlled) return;
     if (!initialArray || initialArray.length === 0) {
       generateArray();
     }
@@ -71,16 +79,16 @@ export default function AlgorithmVisualizer({
 
   // Run the algorithm and generate steps
   useEffect(() => {
-    if (visualOnly) {
+    if (visualOnly || coontrolled) {
       setSteps([]);
       setCurrentStep(0);
       return;
     }
     // Do not auto-run; wait for Start
-  }, [visualOnly]);
+  }, [visualOnly, controlled]);
 
   const handleStart = () => {
-    if (visualOnly) return; // nothing to animate in visual-only
+    if (visualOnly|| controlled) return; // nothing to animate in visual-only
     (async () => {
       const result = await runAlgorithmAsync(algorithmName, array, target);
       setSteps(result.steps || []);
@@ -94,15 +102,16 @@ export default function AlgorithmVisualizer({
     setCurrentStep(0);
     setIsAnimating(false);
     // Reset array to original state
-    if (Array.isArray(initialArray) && initialArray.length > 0) {
+    if (!controlled && Array.isArray(initialArray) && initialArray.length > 0) {
       setArray([...initialArray]);
     } else {
-      generateArray();
+      if (!controlled) generateArray();
     }
   };
 
   // Animate steps
   useEffect(() => {
+    if (controlled) return;
     if (!isAnimating || steps.length === 0) return;
     const interval = setInterval(() => {
       setCurrentStep((prev) => {
@@ -124,18 +133,19 @@ export default function AlgorithmVisualizer({
       });
     }, Math.max(50, animationSpeedMs));
     return () => clearInterval(interval);
-  }, [isAnimating, steps, animationSpeedMs]);
+  }, [isAnimating, steps, animationSpeedMs, controlled]);
 
   const algoType = resolveAlgoType(algorithmName);
+  const displayArray = controlled ? externalArray ?? [] : array;
 
   return (
     <div className="unified-visualizer">
       {!hideTitle && (
         <h2 className="text-xl font-bold mb-2 text-center text-white">
-          {algorithmName}
+          {algorithmName ?? "Visualizer"}
         </h2>
       )}
-      {!visualOnly && (
+      {!visualOnly && !controlled && (
         <div className="visualization-controls">
           <button onClick={generateArray}>
             Generate Array
@@ -189,13 +199,15 @@ export default function AlgorithmVisualizer({
       {algoType === "searching" && target && (
         <p className="target-display">Target: {target}</p>
       )}
-
-      <div className="visualization-container">
-        {array.map((val, idx) => {
+      <div
+        className="visualization-container"
+        style={{ gap: barGap ? barGap : undefined }}
+      >
+        {displayArray.map((val, idx) => {
           let colorClass = "bar-default";
           let isHighlighted = false;
           const step = steps[currentStep];
-          if (!visualOnly && step) {
+          if (!visualOnly && !controlled && step) {
             if (step.type === "compare" && Array.isArray(step.indices)) {
               isHighlighted = step.indices.includes(idx);
               if (isHighlighted) colorClass = "bar-compare";
@@ -223,13 +235,14 @@ export default function AlgorithmVisualizer({
               style={{
                 height: `${Math.max(val, 2) * 2.2}px`,
                 width: "26px",
+                backgroundColor: Array.isArray(colorArray) ? colorArray[idx] : undefined,
                 transition: barMotion
                   ? `height ${animationSpeedMs}ms cubic-bezier(.2,.8,.2,1), background-color 180ms ease`
                   : "none",
                 transform: isHighlighted ? "scaleY(1.12)" : "scaleY(1)",
               }}
             >
-              <span className="bar-value">{val}</span>
+               <span className="bar-value" style={{ fontSize: fontSize ?? undefined }}>{val}</span>
             </div>
           );
         })}
