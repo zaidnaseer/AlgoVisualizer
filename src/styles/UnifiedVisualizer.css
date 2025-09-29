@@ -70,6 +70,9 @@
   font-size: 10px;
   font-weight: bold;
 }
+.array-bar {
+  background-color: initial !important; /* lets their own color rules win */
+}
 
 .bar-default {
   background-color: #007bff;
