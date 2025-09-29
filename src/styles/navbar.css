@@ -387,3 +387,27 @@
   border-color: rgba(15,23,42,.08);
 }
 .navbar.light .feature-desc { color: #3a4253; }
+/* Make navbar always visible at the top */
+.navbar {
+  position: sticky;  /* or fixed */
+  top: 0;
+  z-index: 1200;     /* higher than mega-menu & search results */
+}
+/* === NAVBAR FIX === */
+.navbar {
+  position: fixed;     /* lock it to the viewport */
+  top: 0;              /* stick to the top */
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2000;       /* above everything (mega-menu, search, etc.) */
+  background: var(--navbar-bg, rgba(17,18,22,0.92)); /* dark bg fallback */
+  backdrop-filter: blur(8px); /* keep your nice glass effect */
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* push page content down so navbar doesn’t overlap */
+body {
+  margin: 0;
+  padding-top: 72px; /* adjust to your navbar’s actual height */
+}
