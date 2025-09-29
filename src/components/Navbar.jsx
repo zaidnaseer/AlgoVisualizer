@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import { navbarNavigationItems } from "../utils/navigation";
+import UserDropdown from "./UserDropdown"; // 👈 Import UserDropdown
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -73,11 +74,7 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-  useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
-  }, []);
-
+  // Handle click outside for dropdowns & search
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navbarRef.current && !navbarRef.current.contains(event.target)) {
@@ -91,85 +88,10 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const navigationItems = [
-    { path: "/", icon: Home, label: "Home" },
-    {
-      label: "Sorting",
-      icon: BarChart3,
-      dropdown: [
-        { path: "/sorting", label: "Overview" },
-        { path: "/sorting/comparison", label: "Algorithm Comparison" },
-      ],
-    },
-    {
-      label: "Searching",
-      icon: Search,
-      dropdown: [
-        { path: "/searchingOverview", label: "Overview" },
-        { path: "/searching", label: "Searching Algorithm" },
-        { path: "/searching/comparison", label: "Algorithm Comparison" },
-      ],
-    },
-    {
-      label: "Data Structures",
-      icon: Database,
-      dropdown: [
-        { path: "/data-structures", label: "Overview" },
-        { path: "/data-structures/linked-list", label: "Linked List" },
-        { path: "/data-structures/queue", label: "Queue" },
-        { path: "/data-structures/stack", label: "Stack" },
-        { path: "/binary-tree", label: "Binary Tree" },
-      ],
-    },
-    {
-      label: "Graph",
-      icon: GitBranch,
-      dropdown: [
-        { path: "/graph", label: "Overview" },
-        { path: "/graph/bfs", label: "BFS" },
-        { path: "/graph/dfs", label: "DFS" },
-        { path: "/graph/dijkstra", label: "Dijkstra" },
-        { path: "/graph/comparison", label: "Graph Comparison" },
-      ],
-    },
-    {
-      label: "Java Notes",
-      icon: BookOpen,
-      dropdown: [
-        { path: "/notes/java/fundamentals", label: "Fundamentals" },
-        { path: "/notes/java/variables-and-data-types", label: "Variables & Data Types" },
-      ],
-    },
-    {
-      label: "Python Notes",
-      icon: BookOpen,
-      dropdown: [
-        { path: "/notes/python/fundamentals", label: "Fundamentals" },
-        { path: "/notes/python/variables-and-data-types", label: "Variables & Data Types" },
-      ],
-    },
-    { path: "/editor", icon: Code, label: "Code Editor" },
-    { path: "/quiz", icon: Trophy, label: "Quiz" },
-    {
-      label: "Community",
-      icon: Users,
-      dropdown: [
-        { path: "/community", label: "Overview" },
-        { path: "/contributors", label: "Contributors" },
-        { path: "/contributor-leaderboard", label: "Leaderboard" },
-      ],
-    },
-    { path: "/settings", icon: Settings, label: "Settings" },
-  ];
-
-
   const isActive = (path) => location.pathname === path;
-
-  const handleDropdownToggle = (index) => {
+  const handleDropdownToggle = (index) =>
     setIsDropdownOpen(isDropdownOpen === index ? null : index);
-  };
 
-  // Handle live search
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (!query.trim()) {
@@ -195,20 +117,6 @@ const Navbar = () => {
     setSearchResults(results);
     setIsSearchOpen(results.length > 0);
   };
-
-  // Close dropdowns & search on click outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-        setIsDropdownOpen(null);
-      }
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setIsSearchOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   return (
     <nav className={`navbar ${theme}`} ref={navbarRef}>
@@ -263,64 +171,147 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="navbar-menu">
-          {navbarNavigationItems.map((item, index) =>
-            item.dropdown ? (
-              <div key={index} className="navbar-item dropdown">
-                <button
-                  className={`dropdown-toggle ${
-                    isDropdownOpen === index ? "active" : ""
-                  }`}
-                  onClick={() => handleDropdownToggle(index)}
+        {!isMobile && (
+          <div className="navbar-menu">
+            {navbarNavigationItems.map((item, index) =>
+              item.dropdown ? (
+                <div key={index} className="navbar-item dropdown">
+                  <button
+                    className={`dropdown-toggle ${
+                      isDropdownOpen === index ? "active" : ""
+                    }`}
+                    onClick={() => handleDropdownToggle(index)}
+                  >
+                    {item.icon &&
+                      React.createElement(getIconComponent(item.icon), {
+                        size: 18,
+                        className: "drop-icon",
+                      })}
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      size={16}
+                      className={`dropdown-arrow ${
+                        isDropdownOpen === index ? "rotated" : ""
+                      }`}
+                    />
+                  </button>
+                  {isDropdownOpen === index && (
+                    <div className="dropdown-menu">
+                      {item.dropdown.map((subItem, subIndex) => (
+                        <Link
+                          key={subIndex}
+                          to={subItem.path}
+                          className={`dropdown-item ${
+                            isActive(subItem.path) ? "active" : ""
+                          }`}
+                          onClick={() => setIsDropdownOpen(null)}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={index}
+                  to={item.path}
+                  className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
                 >
                   {item.icon &&
                     React.createElement(getIconComponent(item.icon), {
                       size: 18,
-                      className: "drop-icon",
+                      className: "icon",
                     })}
                   <span>{item.label}</span>
-                  <ChevronDown
-                    size={16}
-                    className={`dropdown-arrow ${
-                      isDropdownOpen === index ? "rotated" : ""
+                </Link>
+              )
+            )}
+
+            {/* User Dropdown */}
+            <UserDropdown /> {/* 👈 Added here for desktop */}
+          </div>
+        )}
+
+        {/* Mobile Menu Button */}
+        {isMobile && (
+          <button
+            className="mobile-menu-button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        )}
+
+        {/* Mobile Navigation */}
+        {isMobile && isMobileMenuOpen && (
+          <div className="mobile-menu">
+            {navbarNavigationItems.map((item, index) =>
+              item.dropdown ? (
+                <div key={index} className="mobile-dropdown">
+                  <button
+                    className={`mobile-dropdown-toggle ${
+                      isDropdownOpen === index ? "active" : ""
                     }`}
-                  />
-                </button>
-                {isDropdownOpen === index && (
-                  <div className="dropdown-menu">
-                    {item.dropdown.map((subItem, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={subItem.path}
-                        className={`dropdown-item ${
-                          isActive(subItem.path) ? "active" : ""
-                        }`}
-                        onClick={() => setIsDropdownOpen(null)}
-                      >
-                        {subItem.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <Link
-                key={index}
-                to={item.path}
-                className={`navbar-link ${
-                  isActive(item.path) ? "active" : ""
-                }`}
-              >
-                {item.icon &&
-                  React.createElement(getIconComponent(item.icon), {
-                    size: 18,
-                    className: "icon",
-                  })}
-                <span>{item.label}</span>
-              </Link>
-            )
-          )}
-        </div>
+                    onClick={() => handleDropdownToggle(index)}
+                  >
+                    {item.icon &&
+                      React.createElement(getIconComponent(item.icon), {
+                        size: 18,
+                        className: "icon",
+                      })}
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      size={16}
+                      className={`dropdown-arrow ${
+                        isDropdownOpen === index ? "rotated" : ""
+                      }`}
+                    />
+                  </button>
+                  {isDropdownOpen === index && (
+                    <div className="mobile-dropdown-menu">
+                      {item.dropdown.map((subItem, subIndex) => (
+                        <Link
+                          key={subIndex}
+                          to={subItem.path}
+                          className={`mobile-dropdown-item ${
+                            isActive(subItem.path) ? "active" : ""
+                          }`}
+                          onClick={() => {
+                            setIsDropdownOpen(null);
+                            setIsMobileMenuOpen(false);
+                          }}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={index}
+                  to={item.path}
+                  className={`mobile-menu-link ${isActive(item.path) ? "active" : ""}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.icon &&
+                    React.createElement(getIconComponent(item.icon), {
+                      size: 18,
+                      className: "icon",
+                    })}
+                  <span>{item.label}</span>
+                </Link>
+              )
+            )}
+
+            {/* User Dropdown for mobile */}
+            <div className="mobile-user-dropdown mt-4">
+              <UserDropdown />
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
