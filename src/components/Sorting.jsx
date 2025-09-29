@@ -433,10 +433,12 @@ const Sorting = () => {
               <h3>Visualization - {getAlgorithmName()}</h3>
             </div>
             <AlgorithmVisualizer
+             algorithmName={algorithmNames[algorithm]}
               array={array}
               colorArray={colorArray}
               barGap={computeGap()}
               fontSize={computeBarFontSize()}
+              visualOnly={true}
             />
           </div>
 
