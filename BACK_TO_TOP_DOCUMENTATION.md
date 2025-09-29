@@ -111,6 +111,7 @@ The updated `ScrollToTop.jsx` is already integrated into your app. No additional
 
 ### Advanced Usage (Optional)
 To use the enhanced version with additional features:
+
 ```jsx
 import EnhancedScrollToTop from './components/EnhancedScrollToTop';
 
