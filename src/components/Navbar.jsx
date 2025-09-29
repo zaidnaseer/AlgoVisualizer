@@ -73,6 +73,96 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setIsDropdownOpen(null);
+      }
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const navigationItems = [
+    { path: "/", icon: Home, label: "Home" },
+    {
+      label: "Sorting",
+      icon: BarChart3,
+      dropdown: [
+        { path: "/sorting", label: "Overview" },
+        { path: "/sorting/comparison", label: "Algorithm Comparison" },
+      ],
+    },
+    {
+      label: "Searching",
+      icon: Search,
+      dropdown: [
+        { path: "/searchingOverview", label: "Overview" },
+        { path: "/searching", label: "Searching Algorithm" },
+        { path: "/searching/comparison", label: "Algorithm Comparison" },
+      ],
+    },
+    {
+      label: "Data Structures",
+      icon: Database,
+      dropdown: [
+        { path: "/data-structures", label: "Overview" },
+        { path: "/data-structures/linked-list", label: "Linked List" },
+        { path: "/data-structures/queue", label: "Queue" },
+        { path: "/data-structures/stack", label: "Stack" },
+        { path: "/binary-tree", label: "Binary Tree" },
+      ],
+    },
+    {
+      label: "Graph",
+      icon: GitBranch,
+      dropdown: [
+        { path: "/graph", label: "Overview" },
+        { path: "/graph/bfs", label: "BFS" },
+        { path: "/graph/dfs", label: "DFS" },
+        { path: "/graph/dijkstra", label: "Dijkstra" },
+        { path: "/graph/comparison", label: "Graph Comparison" },
+      ],
+    },
+    {
+      label: "Java Notes",
+      icon: BookOpen,
+      dropdown: [
+        { path: "/notes/java/fundamentals", label: "Fundamentals" },
+        { path: "/notes/java/variables-and-data-types", label: "Variables & Data Types" },
+      ],
+    },
+    {
+      label: "Python Notes",
+      icon: BookOpen,
+      dropdown: [
+        { path: "/notes/python/fundamentals", label: "Fundamentals" },
+        { path: "/notes/python/variables-and-data-types", label: "Variables & Data Types" },
+      ],
+    },
+    { path: "/editor", icon: Code, label: "Code Editor" },
+    { path: "/quiz", icon: Trophy, label: "Quiz" },
+    {
+      label: "Community",
+      icon: Users,
+      dropdown: [
+        { path: "/community", label: "Overview" },
+        { path: "/contributors", label: "Contributors" },
+        { path: "/contributor-leaderboard", label: "Leaderboard" },
+      ],
+    },
+    { path: "/settings", icon: Settings, label: "Settings" },
+  ];
+
+
   const isActive = (path) => location.pathname === path;
 
   const handleDropdownToggle = (index) => {
