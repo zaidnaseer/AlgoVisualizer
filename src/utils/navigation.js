@@ -11,7 +11,7 @@ export const navbarNavigationItems = [
   { path: "/", label: "Home", icon: "Home" },
   { path: "/learn", label: "Learn", icon: "BookOpen" }, // ← simple link now
   { path: "/quiz", label: "Quiz", icon: "Trophy" },
-  { path: "/ContributorLeaderboard", label: "Contributors", icon: "Users" },
+  { path: "/contributor-leaderboard", label: "Contributors", icon: "Users" },
   { path: "/data-structures", label: "Documentation", icon: "BookOpen" },
   { path: "/settings", label: "Settings", icon: "Settings" },
 ];
