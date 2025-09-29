@@ -222,6 +222,16 @@ const ComplexityBox = ({ algorithm }) => {
     document.documentElement.getAttribute("data-theme") === "dark"
   );
 
+  // react to theme changes after mount
+  useEffect(() => {
+    const el = document.documentElement;
+    const update = () => setIsDarkMode(el.getAttribute("data-theme") === "dark");
+    const observer = new MutationObserver(update);
+    observer.observe(el, { attributes: true, attributeFilter: ["data-theme"] });
+    update();
+    return () => observer.disconnect();
+  }, []);
+
   // keep dropdown in sync when parent prop changes
   useEffect(() => {
     if (algorithm && KEY_MAP[algorithm]) setAlgo(KEY_MAP[algorithm]);
@@ -252,11 +262,18 @@ const ComplexityBox = ({ algorithm }) => {
         </select>
       </div>
       <div className="chart-wrapper">
-        <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData} barSize={60}>
-            <XAxis dataKey="name" stroke={isDarkMode ? "#9ca3af" : "#6b7280"} />
-            <YAxis stroke={isDarkMode ? "#9ca3af" : "#6b7280"} />
-            <Tooltip content={<CustomTooltip />} />
+            <XAxis
+              dataKey="name"
+              stroke={isDarkMode ? "#94a3b8" : "#6b7280"}
+              tick={{ fill: isDarkMode ? "#cbd5e1" : "#6b7280" }}
+            />
+            <YAxis
+              stroke={isDarkMode ? "#94a3b8" : "#6b7280"}
+              tick={{ fill: isDarkMode ? "#cbd5e1" : "#6b7280" }}
+            />
+            <Tooltip content={<CustomTooltip />} cursor={false} />
             <Bar dataKey="value" radius={[10, 10, 0, 0]}>
               {chartData.map((entry, index) => (
                 <Cell

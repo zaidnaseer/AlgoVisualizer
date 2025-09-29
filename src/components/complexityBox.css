@@ -152,3 +152,34 @@
 .complexity-container.force-dark .recharts-bar-rectangle path:hover {
   filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.4));
 }
+/* default (light theme) */
+.complexity-container {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  color: #111827;
+}
+
+/* force dark mode */
+.complexity-container.force-dark {
+  background: #111827;     /* dark background */
+  border-color: #374151;   /* subtle dark border */
+  color: #e5e7eb;          /* readable text */
+}
+
+.complexity-container.force-dark .complexity-title,
+.complexity-container.force-dark .complexity-subtitle {
+  color: #e5e7eb;
+}
+
+.complexity-container.force-dark select {
+  background: #1f2937;
+  color: #f9fafb;
+  border: 1px solid #374151;
+}
+:root[data-theme="dark"] .complexity-container {
+  background: #111827;
+  border-color: #374151;
+  color: #e5e7eb;
+}

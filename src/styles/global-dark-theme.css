@@ -20,13 +20,7 @@ body,
     transition: background 0.25s ease, color 0.25s ease;
 }
 
-/* Force all container backgrounds to be transparent */
-div,
-section,
-main,
-article {
-    background-color: transparent !important;
-}
+
 
 /* Global text styling */
 p, h1, h2, h3, h4, h5, h6, span, a {
