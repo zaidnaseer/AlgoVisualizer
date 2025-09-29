@@ -78,7 +78,7 @@ export default function Queue() {
           <span className="legend-box rear" /> Rear
         </div>
       </div>
-
+          
       {/* --- Documentation / Info Panel --- */}
       <section className="ds-info">
         <h2>About Queue</h2>
@@ -87,7 +87,7 @@ export default function Queue() {
           <em>First In, First Out (FIFO)</em> principle. Elements are inserted at
           the <strong>rear</strong> and removed from the <strong>front</strong>.
         </p>
-
+          
         <h3>Key Operations</h3>
         <ul>
           <li>
@@ -153,7 +153,7 @@ export default function Queue() {
             <strong>Priority Queue</strong> – elements dequeued by priority.
           </li>
         </ul>
-
+          
         <h3>Pseudo-code</h3>
         <pre className="ds-code">
 {`init queue Q = []

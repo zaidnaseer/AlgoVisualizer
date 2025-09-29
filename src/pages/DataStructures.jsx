@@ -355,6 +355,7 @@ function AlgorithmCard({ algorithm }) {
       data-aos-duration="1000"
       data-aos-once="true"
     >
+    
       <div className="card-header">
         <div className="card-title-group">
           <span className="card-icon">{algorithm.categoryIcon}</span>
@@ -447,7 +448,7 @@ function DataStructuresPage() {
   return (
     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Algorithm Documentation</h1>
-
+      
       {/* Search and Filter Section */}
       <div className="theme-card filters-section" data-aos="fade-up" data-aos-delay="200">
         <div className="search-bar">
