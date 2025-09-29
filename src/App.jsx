@@ -81,7 +81,7 @@ import CodeEditor from "./pages/CodeEditor";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./styles/components.css";
-
+import LearnLanding from "./pages/LearnLanding";
 const App = () => {
   const location = useLocation();
   const selectedAlgorithm = "bubbleSort";
@@ -157,6 +157,7 @@ const App = () => {
               <Route path="/branchbound" element={<BranchBoundPage />} />
               <Route path="/string-overview" element={<StringOverview />} />
               <Route path="/string" element={<StringPage />} />
+              
 
               {/* Other Pages */}
               <Route path="/quiz" element={<Quiz />} />
@@ -179,10 +180,15 @@ const App = () => {
               <Route path="/notes/java/fundamentals" element={<Fundamentals />} />
               <Route path="/notes/java/variables-and-data-types" element={<VariablesAndDataTypes />} />
 
+
               {/* Python Notes */}
               <Route path="/notes/python" element={<Navigate to="/notes/python/fundamentals" replace />} />
               <Route path="/notes/python/fundamentals" element={<PythonFundamentals />} />
               <Route path="/notes/python/variables-and-data-types" element={<PythonVariablesAndDataTypes />} />
+
+              <Route path="/learn" element={<LearnLanding />} />
+              <Route path="/settings" element={<Settings />} />
+
             </Routes>
 
             {/* Show ComplexityBox only on selected pages */}
