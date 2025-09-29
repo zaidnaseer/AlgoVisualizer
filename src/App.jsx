@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useEffect } from "react";
 import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
@@ -32,6 +33,10 @@ import CommunityLanding from "./pages/CommunityLanding";
 // Java Notes
 import Fundamentals from "./pages/Notes/Java/Fundamentals";
 import VariablesAndDataTypes from "./pages/Notes/Java/VariablesAndDataTypes";
+
+// ✅ Python Notes
+import PythonFundamentals from "./pages/Notes/Python/Fundamentals";
+import PythonVariablesAndDataTypes from "./pages/Notes/Python/VariablesAndDataTypes";
 
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
@@ -174,6 +179,11 @@ const App = () => {
               <Route path="/notes/java" element={<Navigate to="/notes/java/fundamentals" replace />} />
               <Route path="/notes/java/fundamentals" element={<Fundamentals />} />
               <Route path="/notes/java/variables-and-data-types" element={<VariablesAndDataTypes />} />
+
+              {/* ✅ Python Notes */}
+              <Route path="/notes/python" element={<Navigate to="/notes/python/fundamentals" replace />} />
+              <Route path="/notes/python/fundamentals" element={<PythonFundamentals />} />
+              <Route path="/notes/python/variables-and-data-types" element={<PythonVariablesAndDataTypes />} />
             </Routes>
 
             {/* Show ComplexityBox only on selected pages */}

@@ -108,6 +108,14 @@ const Navbar = () => {
         { path: "/notes/java/variables-and-data-types", label: "Variables & Data Types" },
       ],
     },
+    {
+  label: "Python Notes",
+  icon: BookOpen,
+  dropdown: [
+    { path: "/notes/python/variables-and-data-types", label: "Variables & Data Types" },
+    { path: "/notes/python/fundamentals", label: "Fundamentals" },
+  ],
+},
     { path: "/editor", icon: Code, label: "Code Editor" },
     { path: "/quiz", icon: Trophy, label: "Quiz" },
     {
