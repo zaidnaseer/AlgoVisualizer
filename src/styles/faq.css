@@ -101,12 +101,12 @@
 
 .faq-question:hover {
   background: var(--background-hover, #f8fafc);
-  color: #004aad;
+  color: #0c0913;
 }
 
 .faq-question.active {
   background: var(--background-active, #f0f4fa);
-  color: #004aad;
+  color: #c8d2df;
 }
 
 .faq-question-text {
@@ -118,7 +118,7 @@
 .faq-chevron {
   display: flex;
   align-items: center;
-  color: #004aad;
+  color: #b3bcc8;
   transition: transform 0.2s ease;
 }
 
@@ -154,7 +154,7 @@
 
 /* Links in answers */
 .faq-answer-content a {
-  color: #004aad;
+  color: #0c0913;
   text-decoration: none;
   font-weight: 500;
 }
