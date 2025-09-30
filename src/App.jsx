@@ -22,6 +22,7 @@ import SearchingOverview from "./pages/SearchingOverview";
 import DataStructures from "./pages/DataStructures";
 import Graph from "./pages/Graph";
 import GraphBFS from "./pages/GraphBFS";
+import GraphCycleDetection from "./pages/GraphCycleDetection";
 import GraphDFS from "./pages/GraphDFS";
 import GraphDijkstra from "./pages/GraphDijkstra";
 import Quiz from "./pages/Quiz";
@@ -137,6 +138,7 @@ const App = () => {
               <Route path="/graph/dfs" element={<GraphDFS />} />
               <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
               <Route path="/graph/comparison" element={<GraphComparison />} />
+              <Route path="Graph/cycleDetection" element={<GraphCycleDetection/>}/>
 
               {/* Algorithm Pages */}
               <Route path="/backtracking-overview" element={<BacktrackingOverview />} />
