@@ -144,7 +144,7 @@ const App = () => {
               />
               <Route path="/data-structures/queue" element={<Queue />} />
               <Route path="/data-structures/stack" element={<Stack />} />
-              <Route path="/binary-tree" element={<BinaryTreeVisualizer />} />
+              <Route path="/data-structures/binary-tree" element={<BinaryTreeVisualizer />} />
 
               {/* Graph */}
               <Route path="/graph" element={<Graph />} />

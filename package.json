@@ -32,6 +32,7 @@
     "recharts": "^3.1.2",
     "recordrtc": "^5.6.2",
     "tailwindcss": "^4.1.13",
+    "vis-network": "^10.0.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

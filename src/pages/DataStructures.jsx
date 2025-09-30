@@ -312,6 +312,7 @@ const getComplexityColor = (complexity) => {
 
 function AlgorithmCard({ algorithm }) {
   const navigate = useNavigate();
+  const toKebab = s => s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
 
   const handleCardClick = () => {
     if (algorithm.implemented) {
@@ -340,7 +341,7 @@ function AlgorithmCard({ algorithm }) {
         }
        
       } else if (algorithm.category === "dataStructures") {
-        navigate(`/data-structures/${algorithm.id}`);
+        navigate(`/data-structures/${toKebab(algorithm.id)}`);
       }
     }
   };
