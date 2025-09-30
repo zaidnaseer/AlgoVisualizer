@@ -472,4 +472,48 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
               ))}
             </select>
           </div>
-          <div className="control-group">
+                   <div className="control-group">
+            <label className="control-label">End Node:</label>
+            <select
+              value={dijkstraEnd ?? ""}
+              onChange={(e) =>
+                setDijkstraEnd(
+                  e.target.value === "" ? null : parseInt(e.target.value, 10)
+                )
+              }
+              disabled={isVisualizing}
+              className="form-select"
+              aria-label="Select end node"
+            >
+              <option value="">Select</option>
+              {nodes.map((_, i) => (
+                <option key={i} value={i}>
+                  {i}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Right side for canvas */}
+        <canvas
+          ref={canvasRef}
+          width={canvasWidth}
+          height={canvasHeight}
+          className="graph-canvas"
+          onClick={handleCanvasClick}
+        />
+
+        {/* Result box */}
+        {result && (
+          <div className="result-box">
+            <p><strong>Path:</strong> {result.path}</p>
+            <p><strong>Total Weight:</strong> {result.weight}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default GraphVisualizer;
