@@ -293,7 +293,28 @@ const algorithmDatabase = {
       },
     ],
   },
+  trees: {
+    title: "Trees",
+    icon: "🔍",
+    color: "#4ade80",
+    algorithms: [
+{
+name: "Postorder Traversal",
+id: "postorder-traversal",
+description: "Tree traversal method that visits the left subtree, then the right subtree, and finally the root node (Left → Right → Root).",
+timeComplexity: {
+best: "O(n)",
+average: "O(n)",
+worst: "O(n)"
+},
+spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
+implemented: true
+},
+
+    ],
+  },
 };
+
 
 const getComplexityColor = (complexity) => {
   const colors = {
@@ -406,13 +427,43 @@ function AlgorithmDocumentation() {
     }
   }, [selectedCategory, graphSubcategory]);
 
-  const categories = useMemo(() => [
-    { key: "all", label: "All", icon: BookOpen, count: getAllAlgorithms().length },
-    { key: "sorting", label: "Sorting", icon: Users, count: algorithmDatabase.sorting.algorithms.length },
-    { key: "searching", label: "Searching", icon: Search, count: algorithmDatabase.searching.algorithms.length },
-    { key: "dataStructures", label: "Data Structures", icon: Database, count: algorithmDatabase.dataStructures.algorithms.length },
-    { key: "graph", label: "Graph", icon: GitBranch, count: algorithmDatabase.graph.algorithms.length },
-  ], [getAllAlgorithms]);
+
+  const categories = useMemo(
+    () => [
+      {
+        key: "all",
+        label: "All",
+        icon: BookOpen,
+        count: getAllAlgorithms().length,
+      },
+      {
+        key: "sorting",
+        label: "Sorting",
+        icon: Users,
+        count: algorithmDatabase.sorting.algorithms.length,
+      },
+      {
+        key: "searching",
+        label: "Searching",
+        icon: Search,
+        count: algorithmDatabase.searching.algorithms.length,
+      },
+      {
+        key: "dataStructures",
+        label: "Data Structures",
+        icon: Database,
+        count: algorithmDatabase.dataStructures.algorithms.length,
+      },
+      {
+        key: "graph",
+        label: "Graph",
+        icon: GitBranch,
+        count: algorithmDatabase.graph.algorithms.length,
+      },
+       
+    ],
+    [getAllAlgorithms]
+  );
 
 
   return (
