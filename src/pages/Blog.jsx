@@ -199,13 +199,6 @@ const Blog = () => {
           <div className="blog-cards-grid">
             {filteredPosts.map((post) => (
               <article key={post.id} className="blog-card">
-                {/* Post image if available */}
-                {post.image && (
-                  <div className="blog-card-image">
-                    <img src={post.image} alt={post.title} />
-                  </div>
-                )}
-                
                 <div className="blog-card-header">
                   <div className="blog-card-category">
                     <Code size={16} />
