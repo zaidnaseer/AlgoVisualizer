@@ -1263,3 +1263,10 @@ body {
     width: 95%;
   }
 }
+
+.cycle-visualize{
+  @media (max-width:630px) {
+    flex-direction: column;
+  }
+}
+
