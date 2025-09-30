@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Calendar,
@@ -12,102 +12,24 @@ import {
   Zap,
   Target,
   Search,
+  ExternalLink,
+  Image as ImageIcon,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import "../styles/blog.css";
+// Import the blog posts data
+import blogPostsData from "../data/blogPosts.json";
 
 const Blog = () => {
   const { theme } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
+  const [blogPosts, setBlogPosts] = useState([]);
 
-  // Sample blog articles
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Understanding Big O Notation: A Comprehensive Guide",
-      excerpt:
-        "Dive deep into algorithmic complexity analysis and learn how to evaluate the efficiency of your algorithms with practical examples.",
-      content:
-        "Big O notation is a mathematical concept that describes the performance characteristics of algorithms...",
-      author: "Algorithm Expert",
-      date: "2024-01-15",
-      readTime: "8 min read",
-      category: "Theory",
-      tags: ["Big O", "Algorithms", "Complexity"],
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Visualizing Sorting Algorithms: From Bubble to Quick Sort",
-      excerpt:
-        "Explore the fascinating world of sorting algorithms through interactive visualizations and understand their trade-offs.",
-      content:
-        "Sorting algorithms are fundamental to computer science. In this article, we'll explore various sorting techniques...",
-      author: "Sorting Specialist",
-      date: "2024-01-12",
-      readTime: "12 min read",
-      category: "Sorting",
-      tags: ["Sorting", "Visualization", "Algorithms"],
-      featured: false,
-    },
-    {
-      id: 3,
-      title: "Graph Algorithms in Real-World Applications",
-      excerpt:
-        "Discover how graph algorithms power modern applications like social networks, GPS navigation, and recommendation systems.",
-      content:
-        "Graph algorithms are everywhere in our digital world. From finding the shortest path in GPS navigation...",
-      author: "Graph Guru",
-      date: "2024-01-10",
-      readTime: "10 min read",
-      category: "Graphs",
-      tags: ["Graphs", "Applications", "Real-world"],
-      featured: true,
-    },
-    {
-      id: 4,
-      title: "Data Structures Mastery: Trees, Heaps, and Hash Tables",
-      excerpt:
-        "Master the essential data structures that form the backbone of efficient algorithms and software systems.",
-      content:
-        "Data structures are the building blocks of efficient algorithms. In this comprehensive guide...",
-      author: "Data Structure Pro",
-      date: "2024-01-08",
-      readTime: "15 min read",
-      category: "Data Structures",
-      tags: ["Trees", "Heaps", "Hash Tables"],
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "Search Algorithms: Beyond Linear and Binary Search",
-      excerpt:
-        "Explore advanced search techniques including interpolation search, exponential search, and more.",
-      content:
-        "While linear and binary search are fundamental, there are many specialized search algorithms...",
-      author: "Search Expert",
-      date: "2024-01-05",
-      readTime: "7 min read",
-      category: "Search",
-      tags: ["Search", "Binary Search", "Advanced"],
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Algorithm Optimization Techniques and Best Practices",
-      excerpt:
-        "Learn practical techniques to optimize your algorithms for better performance and efficiency.",
-      content:
-        "Algorithm optimization is crucial for building scalable applications. Here are key techniques...",
-      author: "Performance Expert",
-      date: "2024-01-03",
-      readTime: "11 min read",
-      category: "Optimization",
-      tags: ["Optimization", "Performance", "Best Practices"],
-      featured: false,
-    },
-  ];
+  // Load blog posts from JSON file
+  useEffect(() => {
+    setBlogPosts(blogPostsData);
+  }, []);
 
   const categories = [
     "All",
@@ -125,7 +47,7 @@ const Blog = () => {
       selectedCategory === "All" || post.category === selectedCategory;
     const matchesSearch =
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.tags.some((tag) =>
         tag.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -190,7 +112,7 @@ const Blog = () => {
                   </span>
                 </div>
                 <h3 className="post-title">{post.title}</h3>
-                <p className="post-excerpt">{post.excerpt}</p>
+                <p className="post-excerpt">{post.description}</p>
                 <div className="post-footer">
                   <div className="post-info">
                     <span className="post-author">
@@ -202,10 +124,23 @@ const Blog = () => {
                       {post.readTime}
                     </span>
                   </div>
-                  <button className="btn btn-primary read-more-btn">
-                    Read More
-                    <ArrowRight size={16} />
-                  </button>
+                  {/* Link button if available */}
+                  {post.link ? (
+                    <a 
+                      href={post.link} 
+                      className="btn btn-primary read-more-btn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Read More
+                      <ExternalLink size={16} />
+                    </a>
+                  ) : (
+                    <button className="btn btn-primary read-more-btn">
+                      Read More
+                      <ArrowRight size={16} />
+                    </button>
+                  )}
                 </div>
               </article>
             ))}
@@ -264,6 +199,13 @@ const Blog = () => {
           <div className="blog-cards-grid">
             {filteredPosts.map((post) => (
               <article key={post.id} className="blog-card">
+                {/* Post image if available */}
+                {post.image && (
+                  <div className="blog-card-image">
+                    <img src={post.image} alt={post.title} />
+                  </div>
+                )}
+                
                 <div className="blog-card-header">
                   <div className="blog-card-category">
                     <Code size={16} />
@@ -277,7 +219,7 @@ const Blog = () => {
 
                 <div className="blog-card-content">
                   <h3 className="blog-card-title">{post.title}</h3>
-                  <p className="blog-card-excerpt">{post.excerpt}</p>
+                  <p className="blog-card-excerpt">{post.description}</p>
 
                   <div className="blog-card-tags">
                     {post.tags.map((tag) => (
@@ -300,10 +242,24 @@ const Blog = () => {
                       {post.readTime}
                     </span>
                   </div>
-                  <button className="blog-card-btn">
-                    Read More
-                    <ArrowRight size={16} />
-                  </button>
+                  
+                  {/* Link button if available */}
+                  {post.link ? (
+                    <a 
+                      href={post.link} 
+                      className="blog-card-btn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Read More
+                      <ExternalLink size={16} />
+                    </a>
+                  ) : (
+                    <button className="blog-card-btn">
+                      Read More
+                      <ArrowRight size={16} />
+                    </button>
+                  )}
                 </div>
               </article>
             ))}

@@ -161,3 +161,24 @@ a:hover {
         padding-left: 1rem;
     }
 }
+/* Dark Mode */
+[data-theme="dark"] .cookie-policy-container {
+  background-color: #121212;
+  color: #eaeaea;
+}
+
+[data-theme="dark"] .cookie-policy-container h1,
+[data-theme="dark"] .cookie-policy-container h2 {
+  color: #ffffff;
+}
+
+/* Light Mode */
+[data-theme="light"] .cookie-policy-container {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+[data-theme="light"] .cookie-policy-container h1,
+[data-theme="light"] .cookie-policy-container h2 {
+  color: #000000;
+}

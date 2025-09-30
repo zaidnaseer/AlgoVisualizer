@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import '../styles/navbar.css';
+import '../styles/header.css';
 import { useTheme } from '../ThemeContext';
 import { FaGithub, FaMoon, FaSun, FaCode, FaSearch, FaDatabase, FaBrain, FaUsers, FaBook, FaProjectDiagram, FaQuestionCircle } from 'react-icons/fa';
+import { headerNavigationItems } from '../utils/navigation';
+
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { theme, toggleTheme } = useTheme();
     const location = useLocation();
 
-    // Handle scroll effect for navbar
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
@@ -19,12 +20,10 @@ const Header = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close mobile menu when route changes
     useEffect(() => {
         setIsMobileMenuOpen(false);
     }, [location]);
 
-    // Prevent body scroll when mobile menu is open
     useEffect(() => {
         if (isMobileMenuOpen) {
             document.body.style.overflow = 'hidden';
@@ -41,17 +40,20 @@ const Header = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
-    const navItems = [
-        { path: '/', label: 'Home', icon: null, group: 'main' },
-        { path: '/sorting', label: 'Sorting', icon: FaCode, group: 'learn' },
-        { path: '/searching', label: 'Searching', icon: FaSearch, group: 'learn' },
-        { path: '/data-structures', label: 'Data Structures', icon: FaDatabase, group: 'learn' },
-        { path: '/graph', label: 'Graph', icon: FaProjectDiagram, group: 'learn' },
-        { path: '/quiz', label: 'Quiz', icon: FaBrain, group: 'test' },
-        { path: '/contributors', label: 'Contributors', icon: FaUsers, group: 'community' },
-        { path: '/documentation', label: 'Documentation', icon: FaBook, group: 'help' },
-        { path: '/faq', label: 'FAQ', icon: FaQuestionCircle, group: 'help' }
-    ];
+    // Map string icon names to actual icon components
+    const getIconComponent = (iconName) => {
+        const iconMap = {
+            'FaCode': FaCode,
+            'FaSearch': FaSearch,
+            'FaDatabase': FaDatabase,
+            'FaProjectDiagram': FaProjectDiagram,
+            'FaBrain': FaBrain,
+            'FaUsers': FaUsers,
+            'FaBook': FaBook,
+            'FaQuestionCircle': FaQuestionCircle
+        };
+        return iconMap[iconName] || null;
+    };
 
     return (
         <>
@@ -74,14 +76,14 @@ const Header = () => {
                     {/* Desktop Navigation */}
                     <nav className="nav-links-desktop" aria-label="Primary">
                         <div className="nav-group main-nav">
-                            {navItems.filter(item => item.group === 'main').map(item => (
+                            {headerNavigationItems.filter(item => item.group === 'main').map(item => (
                                 <NavLink 
                                     key={item.path}
                                     to={item.path} 
                                     end={item.path === '/'}
                                     className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                                 >
-                                    {item.icon && <item.icon className="nav-icon" />}
+                                    {item.icon && React.createElement(getIconComponent(item.icon), { className: "nav-icon" })}
                                     <span>{item.label}</span>
                                 </NavLink>
                             ))}
@@ -91,13 +93,13 @@ const Header = () => {
                         
                         <div className="nav-group learn-nav">
                             <span className="nav-group-label">Learn</span>
-                            {navItems.filter(item => item.group === 'learn').map(item => (
+                            {headerNavigationItems.filter(item => item.group === 'learn').map(item => (
                                 <NavLink 
                                     key={item.path}
                                     to={item.path}
                                     className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                                 >
-                                    {item.icon && <item.icon className="nav-icon" />}
+                                    {item.icon && React.createElement(getIconComponent(item.icon), { className: "nav-icon" })}
                                     <span>{item.label}</span>
                                 </NavLink>
                             ))}
@@ -106,13 +108,13 @@ const Header = () => {
                         <div className="nav-separator"></div>
                         
                         <div className="nav-group other-nav">
-                            {navItems.filter(item => ['test', 'community', 'help'].includes(item.group)).map(item => (
+                            {headerNavigationItems.filter(item => ['test', 'community', 'help'].includes(item.group)).map(item => (
                                 <NavLink 
                                     key={item.path}
                                     to={item.path}
                                     className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                                 >
-                                    {item.icon && <item.icon className="nav-icon" />}
+                                    {item.icon && React.createElement(getIconComponent(item.icon), { className: "nav-icon" })}
                                     <span>{item.label}</span>
                                 </NavLink>
                             ))}
@@ -167,7 +169,6 @@ const Header = () => {
             <nav className={`nav-links-mobile ${isMobileMenuOpen ? 'active' : ''}`} aria-label="Mobile Navigation">
                 <div className="mobile-nav-content">
                     <div className="mobile-nav-header">
-
                         <div className="mobile-nav-actions">
                             <a 
                                 className="mobile-github-btn" 
@@ -195,7 +196,7 @@ const Header = () => {
                             <div className="mobile-group-header">
                                 <span>Main</span>
                             </div>
-                            {navItems.filter(item => item.group === 'main').map((item, index) => (
+                            {headerNavigationItems.filter(item => item.group === 'main').map((item, index) => (
                                 <NavLink 
                                     key={item.path}
                                     to={item.path}
@@ -204,7 +205,7 @@ const Header = () => {
                                     onClick={toggleMobileMenu}
                                     style={{ animationDelay: `${index * 0.1}s` }}
                                 >
-                                    {item.icon && <item.icon className="mobile-nav-icon" />}
+                                    {item.icon && React.createElement(getIconComponent(item.icon), { className: "mobile-nav-icon" })}
                                     <span>{item.label}</span>
                                 </NavLink>
                             ))}
@@ -214,7 +215,7 @@ const Header = () => {
                             <div className="mobile-group-header">
                                 <span>Learn Algorithms</span>
                             </div>
-                            {navItems.filter(item => item.group === 'learn').map((item, index) => (
+                            {headerNavigationItems.filter(item => item.group === 'learn').map((item, index) => (
                                 <NavLink 
                                     key={item.path}
                                     to={item.path}
@@ -222,7 +223,7 @@ const Header = () => {
                                     onClick={toggleMobileMenu}
                                     style={{ animationDelay: `${(index + 1) * 0.1}s` }}
                                 >
-                                    {item.icon && <item.icon className="mobile-nav-icon" />}
+                                    {item.icon && React.createElement(getIconComponent(item.icon), { className: "mobile-nav-icon" })}
                                     <span>{item.label}</span>
                                 </NavLink>
                             ))}
@@ -232,7 +233,7 @@ const Header = () => {
                             <div className="mobile-group-header">
                                 <span>More</span>
                             </div>
-                            {navItems.filter(item => ['test', 'community', 'help'].includes(item.group)).map((item, index) => (
+                            {headerNavigationItems.filter(item => ['test', 'community', 'help'].includes(item.group)).map((item, index) => (
                                 <NavLink 
                                     key={item.path}
                                     to={item.path}
@@ -240,7 +241,7 @@ const Header = () => {
                                     onClick={toggleMobileMenu}
                                     style={{ animationDelay: `${(index + 4) * 0.1}s` }}
                                 >
-                                    {item.icon && <item.icon className="mobile-nav-icon" />}
+                                    {item.icon && React.createElement(getIconComponent(item.icon), { className: "mobile-nav-icon" })}
                                     <span>{item.label}</span>
                                 </NavLink>
                             ))}

@@ -355,7 +355,7 @@ function AlgorithmCard({ algorithm }) {
 }
 
 // ============================================================================
-// 3. MAIN COMPONENT DEFINITION
+// 3. MAIN COMPONENT
 // ============================================================================
 
 function AlgorithmDocumentation() {
@@ -374,35 +374,42 @@ function AlgorithmDocumentation() {
     };
   }, []);
 
-  // Get all algorithms in a flat array for filtering
   const getAllAlgorithms = useCallback(() => {
-    let allAlgos = [];
-    Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
-      category.algorithms.forEach((algo) => {
-        allAlgos.push({
+  const seen = new Map();
+
+  Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
+    category.algorithms.forEach((algo) => {
+      if (!seen.has(algo.id)) {
+        seen.set(algo.id, {
           ...algo,
           category: categoryKey,
           categoryTitle: category.title,
           categoryIcon: category.icon,
           categoryColor: category.color,
         });
-      });
+      }
     });
-    return allAlgos;
-  }, []);
+  });
+
+  return Array.from(seen.values());
+}, []);
+
 
   useEffect(() => {
     let allAlgorithms = getAllAlgorithms();
+
     if (selectedCategory !== "all") {
       allAlgorithms = allAlgorithms.filter(
         (algo) => algo.category === selectedCategory
       );
     }
+
     if (selectedCategory === "graph" && graphSubcategory !== "all") {
       allAlgorithms = allAlgorithms.filter(
         (algo) => algo.subType === graphSubcategory
       );
     }
+
     if (searchTerm) {
       allAlgorithms = allAlgorithms.filter(
         (algo) =>
@@ -410,15 +417,16 @@ function AlgorithmDocumentation() {
           algo.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
+
     setFilteredAlgorithms(allAlgorithms);
   }, [searchTerm, selectedCategory, graphSubcategory, getAllAlgorithms]);
 
-  // Reset sub-filter when leaving Graph category
   useEffect(() => {
     if (selectedCategory !== 'graph' && graphSubcategory !== 'all') {
       setGraphSubcategory('all');
     }
   }, [selectedCategory, graphSubcategory]);
+
 
   const categories = useMemo(
     () => [
@@ -457,11 +465,14 @@ function AlgorithmDocumentation() {
     [getAllAlgorithms]
   );
 
+
   return (
     <div className="theme-container">
       <h1 className="theme-title">Algorithm Documentation</h1>
-      
+
+      {/* Filters Section */}
       <div className="theme-card filters-section">
+        {/* Search */}
         <div className="search-bar">
           <Search size={20} className="search-icon" />
           <input
@@ -472,25 +483,29 @@ function AlgorithmDocumentation() {
             className="form-control"
           />
         </div>
-        <div className="category-filters">
+
+        {/* Category Tabs */}
+        <div className="category-filters overflow-x-auto whitespace-nowrap">
           {categories.map(category => {
             const IconComponent = category.icon;
             const isActive = selectedCategory === category.key;
             return (
               <button
                 key={category.key}
-                className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'}`}
+                className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'} mx-1`}
                 onClick={() => setSelectedCategory(category.key)}
               >
-                <IconComponent size={16} />
+                <IconComponent size={16} className="mr-1" />
                 {category.label}
-                <span className="count-badge">{category.count}</span>
+                <span className="count-badge ml-1">{category.count}</span>
               </button>
             );
           })}
         </div>
+
+        {/* Graph Sub-Tabs */}
         {selectedCategory === 'graph' && (
-          <div className="category-filters" style={{ marginTop: '0.75rem' }}>
+          <div className="category-filters mt-2 overflow-x-auto whitespace-nowrap">
             {[
               { key: 'all', label: 'All', count: graphCounts.all },
               { key: 'bfs', label: 'BFS', count: graphCounts.bfs },
@@ -499,13 +514,13 @@ function AlgorithmDocumentation() {
             ].map(sub => (
               <button
                 key={sub.key}
-                className={`btn ${graphSubcategory === sub.key ? 'btn-primary' : 'btn-secondary'}`}
+                className={`btn ${graphSubcategory === sub.key ? 'btn-primary' : 'btn-secondary'} mx-1`}
                 onClick={() => setGraphSubcategory(sub.key)}
                 title={`Show ${sub.label} algorithms`}
               >
-                <GitBranch size={16} />
+                <GitBranch size={16} className="mr-1" />
                 {sub.label}
-                <span className="count-badge">{sub.count}</span>
+                <span className="count-badge ml-1">{sub.count}</span>
               </button>
             ))}
           </div>
@@ -513,17 +528,14 @@ function AlgorithmDocumentation() {
       </div>
 
       {/* Results Grid */}
-      <div className="results-grid">
+      <div className="results-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
         {filteredAlgorithms.length > 0 ? (
           filteredAlgorithms.map(algorithm => (
-            <AlgorithmCard
-              key={algorithm.id}
-              algorithm={algorithm}
-            />
+            <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
           ))
         ) : (
-          <div className="no-results-card theme-card">
-            <Search size={48} />
+          <div className="no-results-card theme-card text-center p-4">
+            <Search size={48} className="mx-auto" />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>
           </div>
@@ -532,5 +544,6 @@ function AlgorithmDocumentation() {
     </div>
   );
 }
+
 
 export default AlgorithmDocumentation;

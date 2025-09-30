@@ -1336,7 +1336,7 @@ font-weight: 1000;
 .feature-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--dashboard-text-primary);
+  color: var(--btn-text);
   margin-bottom: 0.5rem;
 }
 
@@ -1791,15 +1791,17 @@ display: flex;
   outline-offset: 2px;
 }
 :root{
-  --btn-bg: #ffffff;
-  --btn-text:#000000;
+--btn-text: #ffffff;
+  --btn-bg: linear-gradient(135deg, #8dc2f0, #00f2fe);
+  --btn-border: transparent;
 }
 @media(prefers-color-scheme: dark){
- :root{
-  --btn-bg:#1f1f1f;
-  --btn-text:#ffffff;
-  --btn-border:#ffffff;
- }
+:root {
+    /* Dark mode colors */
+    --btn-text: #ffffff;
+    --btn-bg: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+    --btn-border: transparent;
+  }
 }
 .algorithm-buttons{
  display: flex;
@@ -1811,22 +1813,25 @@ display: flex;
  flex-wrap: wrap;
  
 }
-.clean-button-link{
-  display: flex;
-  justify-content: center;
+
+.clean-button-link {
+display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  width: 140px;
-  height: 120px;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #e9ecef;
-  box-shadow: 0px 8px 16px rgba(0, 0,0,0.7);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--btn-text);
-  text-decoration: none;
+  justify-content: center;
+  width: 220px; /* equal width */
+  height: 140px; /* equal height like Learning paths */
+  padding: 20px;
+  border-radius: 20px; /* smooth round corners */
+  border: 1px solid var(--btn-border);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  font-weight: 600;
+  text-align: center;
 }
 .button-icon{
   display: flex;
@@ -1834,9 +1839,8 @@ display: flex;
   justify-content: center;
 }
 .clean-button-link:hover{
-  transform: translateY(-5px);
-  box-shadow: 0px 12px 24px rgba(0,0,0,0.6);
-  border-color: #dee2e6;
+ transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 .vertical-steps-container{
   display: flex;
@@ -1897,12 +1901,24 @@ display: flex;
   font-size: 1.1em;
   font-weight: 700;
   margin-bottom: 5px;
+  transition: color 0.3s ease-in-out;
+
 }
 .step-description{
   font-size: 0.85em;
   color: #6c757d;
   line-height: 1.4;
   margin: 0;
+}
+
+/* Light mode */
+body.light-mode .step-title {
+  color: #333; /* darker for visibility */
+}
+
+/* Dark mode */
+body.dark-mode .step-title {
+  color: #f5f5f5; /* light text for dark background */
 }
 .step-button-tag{
   flex-shrink: 0;
@@ -1913,6 +1929,21 @@ display: flex;
   color: white;
   background: linear-gradient(135deg,#6366f1,#8b5cf6);
   box-shadow: 0px 4px 10px rgba(99,102,241,0.3);
+}
+
+
+body.dark-mode .step-description {
+  color: #ddd;
+}
+
+/* Duration tag */
+.step-duration-tag {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+body.dark-mode .step-duration-tag {
+  color: #d37c7c;
 }
 @media(max-width:1024px){
   .vertical-steps-container{
@@ -1988,4 +2019,37 @@ display: flex;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.clean-button-link {
+ display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 180px; 
+  border: 1px solid var(--btn-border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  text-align: center;
+  flex-direction: column;
+  background: linear-gradient(90deg, #8492a7, #5f7db4); /* gradient */
+
+}
+
+
+
+.clean-button-link:hover {
+   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.feature-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827; /* dark text */
 }

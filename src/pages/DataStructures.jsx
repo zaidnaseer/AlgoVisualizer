@@ -11,7 +11,9 @@ import {
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import { useNavigate } from "react-router-dom";
-import "../styles/Documentation.css"; // keep your linkedlist styles
+import "../styles/Documentation.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // ============================================================================
 // 1. STATIC DATA & HELPERS
@@ -214,21 +216,6 @@ const algorithmDatabase = {
       },
 
       {
-        name: "Cycle Sort",
-        id: "cycleSort",
-         description:
-          "In-place algorithm that minimizes writes by rotating elements directly to their correct positions. It’s efficient when write operations (e.g., on EEPROM/flash memory) are costly.",
-        timeComplexity: {
-          best: "O(n²)", average: "O(n²)", worst: "O(n²)"
-        },
-        spaceComplexity: "O(1) (only a few variables)",
-          stability: "Unstable",
-        inPlace: true,
-        adaptivity: "Not Adaptive",
-        implemented: true,
-
-      },
-      {
         name: "Ternary Search",
         id: "ternarySearch",
         description:
@@ -274,7 +261,7 @@ const algorithmDatabase = {
           search: "O(n)",
         },
         spaceComplexity: "O(n)",
-        implemented: false,
+        implemented: true,
       },
       {
         name: "Queue",
@@ -287,7 +274,7 @@ const algorithmDatabase = {
           search: "O(n)",
         },
         spaceComplexity: "O(n)",
-        implemented: false,
+        implemented: true,
       },
       {
         name: "Binary Tree",
@@ -301,7 +288,7 @@ const algorithmDatabase = {
           traversal: "O(n)",
         },
         spaceComplexity: "O(n)",
-        implemented: false,
+        implemented: true,
       },
     ],
   },
@@ -351,14 +338,7 @@ function AlgorithmCard({ algorithm }) {
         if (algorithm.id === "exponentialSearch") {
         navigate("/searching/exponentialSearch");
         }
-        
-
-        if (algorithm.id === "cycleSort") {
-        navigate("/searching/cycleSort");
-        }
-
-        
-
+       
       } else if (algorithm.category === "dataStructures") {
         navigate(`/data-structures/${algorithm.id}`);
       }
@@ -371,7 +351,11 @@ function AlgorithmCard({ algorithm }) {
       onClick={handleCardClick}
       title={algorithm.description}
       style={{ cursor: algorithm.implemented ? "pointer" : "default" }}
+      data-aos="fade-up"
+      data-aos-duration="1000"
+      data-aos-once="true"
     >
+    
       <div className="card-header">
         <div className="card-title-group">
           <span className="card-icon">{algorithm.categoryIcon}</span>
@@ -462,11 +446,11 @@ function DataStructuresPage() {
   );
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Algorithm Documentation</h1>
-
+      
       {/* Search and Filter Section */}
-      <div className="theme-card filters-section">
+      <div className="theme-card filters-section" data-aos="fade-up" data-aos-delay="200">
         <div className="search-bar">
           <Search size={20} className="search-icon" />
           <input
@@ -503,7 +487,7 @@ function DataStructuresPage() {
             <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
           ))
         ) : (
-          <div className="no-results-card theme-card">
+          <div className="no-results-card theme-card" data-aos="fade-up" data-aos-delay="400">
             <Search size={48} />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>

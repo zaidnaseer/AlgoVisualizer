@@ -7,7 +7,6 @@
 /* Import component styles */
 @import './navbar.css';
 @import './navbar-top.css';
-@import './footer.css';
 @import './pages.css';
 @import './Quiz.css';
 
@@ -33,7 +32,7 @@ html, body, #root, .app-container {
     color: var(--text-primary);
     min-height: 100vh;
     height: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-family, 'Poppins', sans-serif);
     line-height: 1.6;
     transition: var(--transition-normal);
 }
@@ -54,14 +53,6 @@ body {
     flex: 1;
     padding: 0;
     background: transparent;
-}
-
-/* =========================
-   Header
-========================= */
-.av-header {
-    background-color: var(--header-bg);
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* =========================
@@ -169,10 +160,6 @@ button:disabled {
 }
 
 @media (max-width: 768px) {
-    .av-header {
-        padding: 10px;
-    }
-
     .nav-links {
         flex-direction: column;
         align-items: flex-start;
@@ -186,10 +173,6 @@ button:disabled {
 }
 
 @media (max-width: 480px) {
-    .av-header {
-        padding: 8px;
-    }
-
     .nav-links {
         width: 100%;
         padding: 10px 0;
@@ -211,4 +194,3 @@ button:disabled {
         height: 20px;
     }
 }
-

@@ -20,7 +20,7 @@ const dataMap = {
     ],
     Space: [{ name: "Memory", value: 1, complexity: "O(1)" }],
   },
-  InsertionSort: {
+  insertionSort: {
     Time: [
       { name: "Best", value: 1, complexity: "O(n)" },
       { name: "Average", value: 2, complexity: "O(n²)" },
@@ -188,29 +188,59 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 // ===================== COMPONENT =====================
-const ComplexityBox = () => {
-  const [algo, setAlgo] = useState("BubbleSort");
+// ⬇️ replace: `const ComplexityBox = () => {`
+const ComplexityBox = ({ algorithm }) => {
+  // map external names ➜ your dataMap keys
+  const KEY_MAP = {
+    bubbleSort: "BubbleSort",
+    selectionSort: "SelectionSort",
+    insertionSort: "insertionSort",   // note: your dataMap has this lower-case i
+    mergeSort: "MergeSort",
+    quickSort: "QuickSort",
+    heapSort: "HeapSort",
+    countingSort: "CountingSort",
+    radixSort: "RadixSort",
+    linearSearch: "LinearSearch",
+    binarySearch: "BinarySearch",
+    bfs: "BFS",
+    dfs: "DFS",
+    dijkstra: "Dijkstra",
+    bellmanFord: "BellmanFord",
+    floydWarshall: "FloydWarshall",
+    morrisTraversal: "MorrisTraversal",
+    dutchNationalFlag: "DutchNationalFlag",
+    kahnAlgorithm: "KahnAlgorithm",
+    tarjanAlgorithm: "TarjanAlgorithm",
+    towerOfHanoi: "TowerOfHanoi",
+    kadaneAlgorithm: "KadaneAlgorithm",
+  };
+
+  const initialKey = KEY_MAP[algorithm] ?? "BubbleSort";
+  const [algo, setAlgo] = useState(initialKey);
   const [metric, setMetric] = useState("Time");
   const [isDarkMode, setIsDarkMode] = useState(
     document.documentElement.getAttribute("data-theme") === "dark"
   );
 
+  // react to theme changes after mount
   useEffect(() => {
-    // Listen for changes to data-theme attribute
-    const observer = new MutationObserver(() => {
-      setIsDarkMode(
-        document.documentElement.getAttribute("data-theme") === "dark"
-      );
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
+    const el = document.documentElement;
+    const update = () => setIsDarkMode(el.getAttribute("data-theme") === "dark");
+    const observer = new MutationObserver(update);
+    observer.observe(el, { attributes: true, attributeFilter: ["data-theme"] });
+    update();
     return () => observer.disconnect();
   }, []);
 
-  const chartData = dataMap[algo][metric];
+  // keep dropdown in sync when parent prop changes
+  useEffect(() => {
+    if (algorithm && KEY_MAP[algorithm]) setAlgo(KEY_MAP[algorithm]);
+  }, [algorithm]);
+
+  // SAFE lookup (prevents crash)
+  const chartData = dataMap[algo]?.[metric] ?? [];
   const colors = isDarkMode ? COLORS_DARK : COLORS_LIGHT;
+
 
   return (
     <div className={`complexity-container${isDarkMode ? " force-dark" : ""}`}>
@@ -232,11 +262,18 @@ const ComplexityBox = () => {
         </select>
       </div>
       <div className="chart-wrapper">
-        <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData} barSize={60}>
-            <XAxis dataKey="name" stroke={isDarkMode ? "#9ca3af" : "#6b7280"} />
-            <YAxis stroke={isDarkMode ? "#9ca3af" : "#6b7280"} />
-            <Tooltip content={<CustomTooltip />} />
+            <XAxis
+              dataKey="name"
+              stroke={isDarkMode ? "#94a3b8" : "#6b7280"}
+              tick={{ fill: isDarkMode ? "#cbd5e1" : "#6b7280" }}
+            />
+            <YAxis
+              stroke={isDarkMode ? "#94a3b8" : "#6b7280"}
+              tick={{ fill: isDarkMode ? "#cbd5e1" : "#6b7280" }}
+            />
+            <Tooltip content={<CustomTooltip />} cursor={false} />
             <Bar dataKey="value" radius={[10, 10, 0, 0]}>
               {chartData.map((entry, index) => (
                 <Cell
@@ -247,6 +284,11 @@ const ComplexityBox = () => {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+        {chartData.length === 0 && (
+          <div style={{ padding: 12, textAlign: "center" }}>
+            No data for “{algo}”.
+          </div>
+        )}
       </div>
     </div>
   );

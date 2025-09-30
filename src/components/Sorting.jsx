@@ -1,8 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import AlgorithmVisualizer from "./AlgorithmVisualizer";
 import CodeExplanation from "./CodeExplanation";
 import SimpleExportControls from "./SimpleExportControls";
 import "../styles/Sorting.css";
 import { useMediaQuery } from "react-responsive";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import { ALGORITHM_PSEUDOCODE } from "../data/pseudocode";
 import { ALGORITHM_INFO } from "../data/algorithmInfo";
@@ -18,8 +21,6 @@ import { heapSortWithStop } from "../algorithms/heapSort";
 import { timSortWithStop } from "../algorithms/timSort";
 import { introSortWithStop } from "../algorithms/introSort";
 import { shellSortWithStop } from "../algorithms/shellSort";
-
-import { COLOR } from "../utils/sortingHelpers";
 import { cycleSortWithStop } from "../algorithms/cycleSort";
 
 const algorithmNames = {
@@ -54,7 +55,6 @@ const algorithms = {
 
 const Sorting = () => {
   const [array, setArray] = useState([]);
-  const [colorArray, setColorArray] = useState([]);
   const [arraySize, setArraySize] = useState(20);
   const [delay, setDelay] = useState(100);
   const [algorithm, setAlgorithm] = useState("bubbleSort");
@@ -71,23 +71,33 @@ const Sorting = () => {
 
   const skipNextGenerateRef = useRef(false);
   const stopSortingRef = useRef(false);
+  const statsRef = useRef(statistics);
 
-  const updateStats = (partial) =>
-    setStatistics((prev) => ({ ...prev, ...partial }));
+  // Keep statsRef in sync with statistics state
+  useEffect(() => {
+    statsRef.current = statistics;
+  }, [statistics]);
 
-  const generateArray = () => {
+  const updateStats = useCallback((partial) => {
+    setStatistics(prev => {
+      const newStats = { ...prev, ...partial };
+      statsRef.current = newStats;
+      return newStats;
+    });
+  }, []);
+
+  const generateArray = useCallback(() => {
     const newArray = Array.from(
       { length: arraySize },
       () => Math.floor(Math.random() * 200) + 10
     );
     setArray(newArray);
-    setColorArray(new Array(arraySize).fill(COLOR.base));
     setStatistics({ comparisons: 0, swaps: 0, time: 0 });
     setMessage("");
     setInputError("");
-  };
+  }, [arraySize]);
 
-  const handleCustomArray = () => {
+  const handleCustomArray = useCallback(() => {
     try {
       const customArray = customArrayInput
         .split(",")
@@ -106,7 +116,6 @@ const Sorting = () => {
       skipNextGenerateRef.current = true;
       setArray(customArray);
       setArraySize(customArray.length);
-      setColorArray(new Array(customArray.length).fill(COLOR.base));
       setStatistics({ comparisons: 0, swaps: 0, time: 0 });
       setMessage("");
       setInputError("");
@@ -114,26 +123,26 @@ const Sorting = () => {
     } catch {
       setInputError("Invalid input format");
     }
-  };
+  }, [customArrayInput]);
 
-  const handleStop = () => {
+  const handleStop = useCallback(() => {
     stopSortingRef.current = true;
     setIsSorting(false);
     setMessage("Sorting stopped");
-  };
+  }, []);
 
-  const getAlgorithmName = () => algorithmNames[algorithm] || "Unknown Algorithm";
+  const getAlgorithmName = useCallback(() => algorithmNames[algorithm] || "Unknown Algorithm", [algorithm]);
 
-  const getAlgorithmInfo = () =>
-    ALGORITHM_INFO[algorithm] || {
+  const getAlgorithmInfo = useCallback(() => 
+    ALGORITHM_INFO.sorting[algorithm] || {
       description: "Algorithm implementation coming soon!",
       timeComplexity: "N/A",
       spaceComplexity: "N/A",
       bestCase: "N/A",
       stable: "N/A",
-    };
+    }, [algorithm]);
 
-  const handleSort = async () => {
+  const handleSort = useCallback(async () => {
     if (isSorting) return;
 
     setIsSorting(true);
@@ -151,13 +160,18 @@ const Sorting = () => {
     }
 
     try {
+      // Create a wrapper to handle stats updates
+      const statsUpdater = (partial) => {
+        updateStats(partial);
+      };
+      
       await fn(
         array,
         setArray,
-        setColorArray,
+        () => {}, // colorArray is handled by AlgorithmVisualizer
         delay,
         stopSortingRef,
-        (s) => updateStats(s)
+        statsUpdater
       );
       if (!stopSortingRef.current) {
         const endTime = Date.now();
@@ -174,7 +188,7 @@ const Sorting = () => {
     } finally {
       setIsSorting(false);
     }
-  };
+  }, [isSorting, algorithm, array, delay, updateStats]);
 
   useEffect(() => {
     if (skipNextGenerateRef.current) {
@@ -189,30 +203,34 @@ const Sorting = () => {
 
   const currentLen = array.length || arraySize;
 
-  const computeGap = () => {
+  const computeGap = useCallback(() => {
     if (currentLen > 40) return isTabletOrBelow ? "1px" : "2px";
     if (currentLen > 25) return "3px";
     return "6px";
-  };
+  }, [currentLen, isTabletOrBelow]);
 
-  const computeBarFontSize = () => {
+  const computeBarFontSize = useCallback(() => {
     if (currentLen > 40) return "8px";
     if (currentLen > 30) return "9px";
     if (currentLen > 20) return "10px";
     return "11px";
-  };
+  }, [currentLen]);
 
-  const algoOptions = Object.keys(algorithms);
+  const algoOptions = useMemo(() => Object.keys(algorithms), []);
+
+  // Memoize the algorithm info to prevent unnecessary re-renders
+  const algorithmInfo = useMemo(() => getAlgorithmInfo(), [getAlgorithmInfo]);
+  const algorithmName = useMemo(() => getAlgorithmName(), [getAlgorithmName]);
 
   return (
-    <div className="theme-container">
+    <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Sorting Algorithms</h1>
 
       <div className="sorting-grid">
         {/* LEFT COLUMN */}
         <div className="sorting-left">
           {/* Controls */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="200">
             <div className="theme-card-header no-border">
               <h3>Controls</h3>
             </div>
@@ -228,6 +246,7 @@ const Sorting = () => {
                   onChange={(e) => setAlgorithm(e.target.value)}
                   disabled={isSorting}
                   className="form-select"
+                  aria-label="Select sorting algorithm"
                 >
                   {algoOptions.map((algo) => (
                     <option key={algo} value={algo}>
@@ -249,12 +268,14 @@ const Sorting = () => {
                   onChange={(e) => setCustomArrayInput(e.target.value)}
                   disabled={isSorting}
                   className="form-control"
+                  aria-label="Enter custom array values separated by commas"
                 />
                 <div className="row-actions">
                   <button
                     className="btn btn-primary"
                     onClick={handleSort}
                     disabled={isSorting}
+                    aria-label={isSorting ? "Sorting in progress" : "Start sorting"}
                   >
                     {isSorting ? "Sorting..." : "Start Sort"}
                   </button>
@@ -262,6 +283,7 @@ const Sorting = () => {
                     className="btn btn-secondary"
                     onClick={handleStop}
                     disabled={!isSorting}
+                    aria-label="Stop sorting"
                   >
                     Stop
                   </button>
@@ -269,6 +291,7 @@ const Sorting = () => {
                     className="btn btn-secondary"
                     onClick={generateArray}
                     disabled={isSorting}
+                    aria-label="Generate new random array"
                   >
                     Generate Array
                   </button>
@@ -277,6 +300,7 @@ const Sorting = () => {
                       className="btn btn-secondary"
                       onClick={handleCustomArray}
                       disabled={isSorting}
+                      aria-label="Apply custom array"
                     >
                       Apply Custom Array
                     </button>
@@ -285,11 +309,11 @@ const Sorting = () => {
               </div>
             </div>
 
-            {inputError && <div className="inline-error">{inputError}</div>}
+            {inputError && <div className="inline-error" role="alert">{inputError}</div>}
           </div>
 
           {/* Visualization controls */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
             <div className="theme-card-header">
               <h3>Visualization Controls</h3>
             </div>
@@ -307,6 +331,7 @@ const Sorting = () => {
                   onChange={(e) => setArraySize(parseInt(e.target.value, 10))}
                   disabled={isSorting}
                   className="form-range"
+                  aria-label="Adjust array size"
                 />
               </div>
               <div className="form-group">
@@ -322,6 +347,7 @@ const Sorting = () => {
                   onChange={(e) => setDelay(parseInt(e.target.value, 10))}
                   disabled={isSorting}
                   className="form-range"
+                  aria-label="Adjust animation speed"
                 />
               </div>
             </div>
@@ -331,26 +357,26 @@ const Sorting = () => {
           <SimpleExportControls containerId="sort-visualization-container" />
 
           {/* Info */}
-          <div className="theme-card">
-            <div className="theme-card-header">
-              <h3>{getAlgorithmName()} Information</h3>
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="400">
+            <div className="theme-card-header no-border">
+              <h3>{algorithmName} Information</h3>
             </div>
             <div className="code-like">
               <div>
-                <strong>Description:</strong> {getAlgorithmInfo()?.description}
+                <strong>Description:</strong> {algorithmInfo.description}
               </div>
             </div>
           </div>
 
           {/* Status message */}
           {message && (
-            <div className="theme-card">
-              <div className="status-message">{message}</div>
+            <div className="theme-card" data-aos="fade-up" data-aos-delay="500">
+              <div className="status-message" role="status">{message}</div>
             </div>
           )}
 
           {/* Stats */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="600">
             <div className="theme-card-header">
               <h3>Performance Statistics</h3>
             </div>
@@ -375,41 +401,42 @@ const Sorting = () => {
           </div>
 
           {/* Details */}
-          <div className="theme-card">
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="700">
             <div className="theme-card-header between">
-              <h3>{getAlgorithmName()} - Algorithm Details</h3>
+              <h3>{algorithmName} - Algorithm Details</h3>
               <button
                 className="code-explanation-btn btn btn-secondary"
                 onClick={() => setShowCodeExplanation(true)}
+                aria-label="View code explanation"
               >
                 View Code Explanation
               </button>
             </div>
             <div>
-              <p className="muted">{getAlgorithmInfo()?.description}</p>
+              <p className="muted">{algorithmInfo.description}</p>
               <div className="complexity-grid">
                 <div className="complexity-item">
                   <span className="complexity-label">Time Complexity:</span>
                   <span className="complexity-value">
-                    {getAlgorithmInfo()?.timeComplexity}
+                    {algorithmInfo.timeComplexity}
                   </span>
                 </div>
                 <div className="complexity-item">
                   <span className="complexity-label">Space Complexity:</span>
                   <span className="complexity-value">
-                    {getAlgorithmInfo()?.spaceComplexity}
+                    {algorithmInfo.spaceComplexity}
                   </span>
                 </div>
                 <div className="complexity-item">
                   <span className="complexity-label">Best Case:</span>
                   <span className="complexity-value">
-                    {getAlgorithmInfo()?.bestCase}
+                    {algorithmInfo.bestCase}
                   </span>
                 </div>
                 <div className="complexity-item">
                   <span className="complexity-label">Stable:</span>
                   <span className="complexity-value">
-                    {getAlgorithmInfo()?.stable}
+                    {algorithmInfo.stable}
                   </span>
                 </div>
               </div>
@@ -418,47 +445,28 @@ const Sorting = () => {
         </div>
 
         {/* RIGHT COLUMN */}
-        <div className="sorting-right" id="sort-visualization-container">
-          <div className="theme-card">
-            <div className="theme-card-header no-border viz-header">
-              <h3>Visualization</h3>
+        <div className="sorting-right">
+          {/* Main visualization */}
+          <div 
+            id="sort-visualization-container"
+            className="theme-card visualization-card" 
+            data-aos="fade-up" 
+            data-aos-delay="100"
+          >
+            <div className="theme-card-header">
+              <h3>Visualization - {algorithmName}</h3>
             </div>
-            <div className="viz-canvas" style={{ gap: computeGap() }}>
-              {array.map((num, idx) => {
-                const maxVal = Math.max(...array, 1);
-                const heightPx = Math.max(40, Math.round((num / maxVal) * 280));
-                const col = colorArray[idx] || COLOR.base;
-                return (
-                  <div
-                    key={`${num}-${idx}`}
-                    className="array-bar"
-                    style={{
-                      height: `${heightPx}px`,
-                      backgroundColor: col,
-                      color: "var(--surface-bg)",
-                      fontSize: computeBarFontSize(),
-                      width: `${Math.max(
-                        12,
-                        Math.min(40, 400 / Math.max(1, currentLen))
-                      )}px`,
-                      display: "flex",
-                      alignItems: "flex-end",
-                      justifyContent: "center",
-                      paddingBottom: "4px",
-                      transition:
-                        "height 180ms ease, background-color 180ms ease, transform 150ms ease",
-                      transform: `translateY(0)`,
-                    }}
-                  >
-                    {currentLen <= 25 && num}
-                  </div>
-                );
-              })}
-            </div>
+            <AlgorithmVisualizer
+              algorithmName={algorithmName}
+              initialArray={array}
+              visualOnly={true}
+              barGap={computeGap()}
+              fontSize={computeBarFontSize()}
+            />
           </div>
 
           {/* Compact stats */}
-          <div className="theme-card compact-card">
+          <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">
             <div className="theme-card-header no-border">
               <h3>Performance Stats</h3>
             </div>

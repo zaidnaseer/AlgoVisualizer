@@ -15,10 +15,11 @@ import {
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../styles/footer.css";
-import logo from "/public/logo.jpg"
+import "../styles/footer-improved.css";
+import logo from "/public/logo.jpg";
 import { FaXTwitter } from "react-icons/fa6";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -76,7 +77,7 @@ const Footer = () => {
   return (
     <>
       <footer className={`footer-container ${isVisible ? "visible" : ""}`}>
-        <div className="footer-wave">
+        <div className="footer-wave" data-aos="fade-up" data-aos-duration="1000">
           <svg
             data-name="Layer 1"
             xmlns="http://www.w3.org/2000/svg"
@@ -92,10 +93,17 @@ const Footer = () => {
 
         <div className="footer-content">
           {/* Brand Section */}
-          <div className="footer-column brand-column">
+          <div className="footer-column brand-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
             <div className="brand-header">
               <div className="logo-wrapper">
-                <img src={logo} alt="AlgoVisualizer Logo" className="logo-image" />
+                <img
+                  src={logo}
+                  alt="AlgoVisualizer Logo"
+                  className="logo-image"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
+                />
                 <span className="logo-text">AlgoVisualizer</span>
               </div>
               <p className="brand-tagline">
@@ -104,44 +112,72 @@ const Footer = () => {
             </div>
 
             <div className="tech-pills">
-              <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" className="tech-pill">React</a>
-              <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" className="tech-pill">JavaScript</a>
-              <a href="https://d3js.org/" target="_blank" rel="noopener noreferrer" className="tech-pill">D3.js</a>
-              <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" className="tech-pill">Node.js</a>
+              <a
+                href="https://react.dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tech-pill"
+              >
+                React
+              </a>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tech-pill"
+              >
+                JavaScript
+              </a>
+              <a
+                href="https://d3js.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tech-pill"
+              >
+                D3.js
+              </a>
+              <a
+                href="https://nodejs.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tech-pill"
+              >
+                Node.js
+              </a>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="footer-column links-column">
+          <div className="footer-column links-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
             <h3 className="column-title">Navigate</h3>
             <ul className="footer-links">
               <li>
-                <Link to="/">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/" className="footer-link">
+                  <FaRocket className="link-icon" />
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/algorithms">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/data-structures" className="footer-link">
+                  <FaCode className="link-icon" />
                   Algorithms
                 </Link>
               </li>
               <li>
-                <Link to="/data-structures">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/data-structures" className="footer-link">
+                  <FaGraduationCap className="link-icon" />
                   Data Structures
                 </Link>
               </li>
               <li>
-                <Link to="/about">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/about" className="footer-link">
+                  <FaGraduationCap className="link-icon" />
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/contact">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/contact" className="footer-link">
+                  <FaEnvelope className="link-icon" />
                   Contact
                 </Link>
               </li>
@@ -149,42 +185,42 @@ const Footer = () => {
           </div>
 
           {/* Resources */}
-          <div className="footer-column resources-column">
+          <div className="footer-column resources-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
             <h3 className="column-title">Resources</h3>
             <ul className="footer-links">
               <li>
-                <Link to="/documentation">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/documentation" className="footer-link">
+                  <FaGraduationCap className="link-icon" />
                   Documentation
                 </Link>
               </li>
-                <li>
-                <Link to="/faq">
-                  <FaArrowRight className="link-icon" />
+              <li>
+                <Link to="/faq" className="footer-link">
+                  <FaGraduationCap className="link-icon" />
                   FAQ
                 </Link>
-               </li>
+              </li>
               <li>
-                <Link to="/data-structures">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/data-structures" className="footer-link">
+                  <FaGraduationCap className="link-icon" />
                   Tutorials
                 </Link>
               </li>
               <li>
-                <Link to="/blog">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/blog" className="footer-link">
+                  <FaGraduationCap className="link-icon" />
                   Blog
                 </Link>
               </li>
               <li>
-                <Link to="/community">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/community" className="footer-link">
+                  <FaGraduationCap className="link-icon" />
                   Community
                 </Link>
               </li>
               <li>
-                <Link to="/contribute">
-                  <FaArrowRight className="link-icon" />
+                <Link to="/contribute" className="footer-link">
+                  <FaCode className="link-icon" />
                   Contribute
                 </Link>
               </li>
@@ -192,7 +228,7 @@ const Footer = () => {
           </div>
 
           {/* Newsletter */}
-          <div className="footer-column newsletter-column">
+          <div className="footer-column newsletter-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
             <h3 className="column-title">Stay Updated</h3>
             <p className="newsletter-description">
               Get the latest algorithm visualizations and coding insights
@@ -255,13 +291,31 @@ const Footer = () => {
               >
                 <FaLinkedin />
               </a>
-              <a href="#" className="social-link" title="Twitter">
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                title="Twitter"
+              >
                 <FaXTwitter />
               </a>
-              <a href="#" className="social-link" title="Discord">
+              <a
+                href="https://discord.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                title="Discord"
+              >
                 <FaDiscord />
               </a>
-              <a href="#" className="social-link" title="YouTube">
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                title="YouTube"
+              >
                 <FaYoutube />
               </a>
             </div>
@@ -274,7 +328,8 @@ const Footer = () => {
             <div className="footer-main-row">
               <div className="copyright">
                 <p>
-                  &copy; {new Date().getFullYear()} AlgoVisualizer. All rights reserved.
+                  &copy; {new Date().getFullYear()} AlgoVisualizer. All rights
+                  reserved.
                 </p>
               </div>
               <div className="footer-separator">•</div>
@@ -299,7 +354,7 @@ const Footer = () => {
                 </p>
               </div>
             </div>
-            
+
             <div className="footer-legal-row">
               <div className="legal-links">
                 <Link to="/privacy">Privacy Policy</Link>

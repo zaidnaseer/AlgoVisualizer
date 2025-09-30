@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { FaPlay, FaClock, FaInfinity } from "react-icons/fa6";
 
@@ -40,6 +39,10 @@ const QuizStart = ({
               key={topic.id}
               className={`topic-card ${selectedTopic === topic.id ? "selected" : ""}`}
               onClick={() => setSelectedTopic(topic.id)}
+              onKeyDown={(e) => e.key === 'Enter' && setSelectedTopic(topic.id)}
+              tabIndex={0}
+              role="button"
+              aria-pressed={selectedTopic === topic.id}
             >
               <h3>{topic.name}</h3>
               <p>{topic.description}</p>
@@ -48,6 +51,10 @@ const QuizStart = ({
           <div
             className={`topic-card ${selectedTopic === "all" ? "selected" : ""}`}
             onClick={() => setSelectedTopic("all")}
+            onKeyDown={(e) => e.key === 'Enter' && setSelectedTopic("all")}
+            tabIndex={0}
+            role="button"
+            aria-pressed={selectedTopic === "all"}
           >
             <h3>All Topics</h3>
             <p>Questions from every category.</p>
@@ -82,6 +89,7 @@ const QuizStart = ({
               name="quizMode"
               checked={!timedMode}
               onChange={() => setTimedMode(false)}
+              aria-label="Practice mode - no time limit"
             />
             <div className="mode-content">
               <FaInfinity className="mode-icon big" />
@@ -97,6 +105,7 @@ const QuizStart = ({
               name="quizMode"
               checked={timedMode}
               onChange={() => setTimedMode(true)}
+              aria-label="Timed mode - 1 minute per question"
             />
             <div className="mode-content">
               <FaClock className="mode-icon big" />
@@ -115,11 +124,11 @@ const QuizStart = ({
           className="quiz-btn ready"
           onClick={handleStartQuiz}
           disabled={!selectedTopic || !selectedDifficulty}
+          aria-label="Start quiz"
         >
           <FaPlay /> Start Quiz
         </button>
-
-        {error && <p className="error-msg">{error}</p>}
+        {error && <p className="error-msg" role="alert">{error}</p>}
 
         {selectedTopic && selectedDifficulty && (
           <p className="quiz-info">
