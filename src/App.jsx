@@ -81,6 +81,7 @@ import CodeEditor from "./pages/CodeEditor";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./styles/components.css";
+import "./styles/footer-improved.css";
 import LearnLanding from "./pages/LearnLanding";
 const App = () => {
   const location = useLocation();
