@@ -21,6 +21,85 @@ import { FaXTwitter } from "react-icons/fa6";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+// Sub-component for rendering footer links
+const FooterLink = ({ to, icon: Icon, children }) => (
+  <li>
+    <Link to={to} className="footer-link">
+      <Icon className="link-icon" />
+      {children}
+    </Link>
+  </li>
+);
+
+// Sub-component for rendering social links
+const SocialLink = ({ href, icon: Icon, title }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="social-link"
+    title={title}
+  >
+    <Icon />
+  </a>
+);
+
+// Sub-component for rendering tech pills
+const TechPill = ({ href, children }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="tech-pill"
+  >
+    {children}
+  </a>
+);
+
+// Sub-component for newsletter form
+const NewsletterForm = ({ email, setEmail, isLoading, handleSubmit, isSubscribed }) => {
+  if (isSubscribed) {
+    return (
+      <div className="subscription-success">
+        <div className="success-checkmark">
+          <div className="check-icon"></div>
+        </div>
+        <h4>You're subscribed!</h4>
+        <p>Look out for our updates in your inbox.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="newsletter-form">
+      <div className="input-container">
+        <FaEnvelope className="input-icon" />
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="newsletter-input"
+          disabled={isLoading}
+        />
+      </div>
+      <button
+        type="submit"
+        className={`newsletter-btn ${isLoading ? "loading" : ""}`}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <div className="btn-spinner"></div>
+        ) : (
+          <>
+            Subscribe <FaArrowRight className="btn-icon" />
+          </>
+        )}
+      </button>
+    </form>
+  );
+};
+
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -32,40 +111,20 @@ const Footer = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Form validation and submission handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!email) {
-      toast.error("Please enter your email address");
-      setIsLoading(false);
-      return;
-    }
-
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      toast.error("Please enter a valid email address");
+    // Email validation
+    if (!validateEmail(email)) {
       setIsLoading(false);
       return;
     }
 
     try {
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (Math.random() > 0.1) {
-            resolve();
-          } else {
-            reject(new Error("Subscription service temporarily unavailable"));
-          }
-        }, 1500);
-      });
-
-      setIsSubscribed(true);
-      toast.success("🎉 Successfully subscribed to our newsletter!");
-      setEmail("");
-
-      setTimeout(() => {
-        toast.info("📧 Welcome email sent! Check your inbox.");
-      }, 1000);
+      await simulateSubscription();
+      handleSuccessfulSubscription();
     } catch (error) {
       toast.error("❌ " + error.message);
     } finally {
@@ -73,6 +132,81 @@ const Footer = () => {
       setTimeout(() => setIsSubscribed(false), 8000);
     }
   };
+
+  // Email validation helper
+  const validateEmail = (email) => {
+    if (!email) {
+      toast.error("Please enter your email address");
+      return false;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      toast.error("Please enter a valid email address");
+      return false;
+    }
+
+    return true;
+  };
+
+  // Simulate subscription API call
+  const simulateSubscription = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.1) {
+          resolve();
+        } else {
+          reject(new Error("Subscription service temporarily unavailable"));
+        }
+      }, 1500);
+    });
+  };
+
+  // Handle successful subscription
+  const handleSuccessfulSubscription = () => {
+    setIsSubscribed(true);
+    toast.success("🎉 Successfully subscribed to our newsletter!");
+    setEmail("");
+
+    setTimeout(() => {
+      toast.info("📧 Welcome email sent! Check your inbox.");
+    }, 1000);
+  };
+
+  // Navigation links data
+  const navigationLinks = [
+    { to: "/", icon: FaRocket, label: "Home" },
+    { to: "/data-structures", icon: FaCode, label: "Algorithms" },
+    { to: "/data-structures", icon: FaGraduationCap, label: "Data Structures" },
+    { to: "/about", icon: FaGraduationCap, label: "About Us" },
+    { to: "/contact", icon: FaEnvelope, label: "Contact" },
+  ];
+
+  // Resource links data
+  const resourceLinks = [
+    { to: "/documentation", icon: FaGraduationCap, label: "Documentation" },
+    { to: "/faq", icon: FaGraduationCap, label: "FAQ" },
+    { to: "/data-structures", icon: FaGraduationCap, label: "Tutorials" },
+    { to: "/blog", icon: FaGraduationCap, label: "Blog" },
+    { to: "/community", icon: FaGraduationCap, label: "Community" },
+    { to: "/contribute", icon: FaCode, label: "Contribute" },
+  ];
+
+  // Social media links data
+  const socialLinks = [
+    { href: "https://github.com/RhythmPahwa14/AlgoVisualizer", icon: FaGithub, title: "GitHub" },
+    { href: "https://linkedin.com/in/sandeepvashishtha", icon: FaLinkedin, title: "LinkedIn" },
+    { href: "https://twitter.com", icon: FaXTwitter, title: "Twitter" },
+    { href: "https://discord.com", icon: FaDiscord, title: "Discord" },
+    { href: "https://youtube.com", icon: FaYoutube, title: "YouTube" },
+  ];
+
+  // Technology pills data
+  const techPills = [
+    { href: "https://react.dev/", label: "React" },
+    { href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript", label: "JavaScript" },
+    { href: "https://d3js.org/", label: "D3.js" },
+    { href: "https://nodejs.org/", label: "Node.js" },
+  ];
 
   return (
     <>
@@ -112,38 +246,11 @@ const Footer = () => {
             </div>
 
             <div className="tech-pills">
-              <a
-                href="https://react.dev/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="tech-pill"
-              >
-                React
-              </a>
-              <a
-                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="tech-pill"
-              >
-                JavaScript
-              </a>
-              <a
-                href="https://d3js.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="tech-pill"
-              >
-                D3.js
-              </a>
-              <a
-                href="https://nodejs.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="tech-pill"
-              >
-                Node.js
-              </a>
+              {techPills.map((pill, index) => (
+                <TechPill key={index} href={pill.href}>
+                  {pill.label}
+                </TechPill>
+              ))}
             </div>
           </div>
 
@@ -151,36 +258,11 @@ const Footer = () => {
           <div className="footer-column links-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
             <h3 className="column-title">Navigate</h3>
             <ul className="footer-links">
-              <li>
-                <Link to="/" className="footer-link">
-                  <FaRocket className="link-icon" />
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/data-structures" className="footer-link">
-                  <FaCode className="link-icon" />
-                  Algorithms
-                </Link>
-              </li>
-              <li>
-                <Link to="/data-structures" className="footer-link">
-                  <FaGraduationCap className="link-icon" />
-                  Data Structures
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="footer-link">
-                  <FaGraduationCap className="link-icon" />
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="footer-link">
-                  <FaEnvelope className="link-icon" />
-                  Contact
-                </Link>
-              </li>
+              {navigationLinks.map((link, index) => (
+                <FooterLink key={index} to={link.to} icon={link.icon}>
+                  {link.label}
+                </FooterLink>
+              ))}
             </ul>
           </div>
 
@@ -188,42 +270,11 @@ const Footer = () => {
           <div className="footer-column resources-column" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
             <h3 className="column-title">Resources</h3>
             <ul className="footer-links">
-              <li>
-                <Link to="/documentation" className="footer-link">
-                  <FaGraduationCap className="link-icon" />
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="footer-link">
-                  <FaGraduationCap className="link-icon" />
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link to="/data-structures" className="footer-link">
-                  <FaGraduationCap className="link-icon" />
-                  Tutorials
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="footer-link">
-                  <FaGraduationCap className="link-icon" />
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link to="/community" className="footer-link">
-                  <FaGraduationCap className="link-icon" />
-                  Community
-                </Link>
-              </li>
-              <li>
-                <Link to="/contribute" className="footer-link">
-                  <FaCode className="link-icon" />
-                  Contribute
-                </Link>
-              </li>
+              {resourceLinks.map((link, index) => (
+                <FooterLink key={index} to={link.to} icon={link.icon}>
+                  {link.label}
+                </FooterLink>
+              ))}
             </ul>
           </div>
 
@@ -235,89 +286,23 @@ const Footer = () => {
               delivered to your inbox.
             </p>
 
-            {!isSubscribed ? (
-              <form onSubmit={handleSubmit} className="newsletter-form">
-                <div className="input-container">
-                  <FaEnvelope className="input-icon" />
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="newsletter-input"
-                    disabled={isLoading}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className={`newsletter-btn ${isLoading ? "loading" : ""}`}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <div className="btn-spinner"></div>
-                  ) : (
-                    <>
-                      Subscribe <FaArrowRight className="btn-icon" />
-                    </>
-                  )}
-                </button>
-              </form>
-            ) : (
-              <div className="subscription-success">
-                <div className="success-checkmark">
-                  <div className="check-icon"></div>
-                </div>
-                <h4>You're subscribed!</h4>
-                <p>Look out for our updates in your inbox.</p>
-              </div>
-            )}
+            <NewsletterForm
+              email={email}
+              setEmail={setEmail}
+              isLoading={isLoading}
+              handleSubmit={handleSubmit}
+              isSubscribed={isSubscribed}
+            />
 
             <div className="social-links">
-              <a
-                href="https://github.com/RhythmPahwa14/AlgoVisualizer"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                title="GitHub"
-              >
-                <FaGithub />
-              </a>
-              <a
-                href="https://linkedin.com/in/sandeepvashishtha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                title="LinkedIn"
-              >
-                <FaLinkedin />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                title="Twitter"
-              >
-                <FaXTwitter />
-              </a>
-              <a
-                href="https://discord.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                title="Discord"
-              >
-                <FaDiscord />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                title="YouTube"
-              >
-                <FaYoutube />
-              </a>
+              {socialLinks.map((link, index) => (
+                <SocialLink
+                  key={index}
+                  href={link.href}
+                  icon={link.icon}
+                  title={link.title}
+                />
+              ))}
             </div>
           </div>
         </div>
