@@ -450,7 +450,6 @@ const Searching = () => {
                   const maxBarWidth = isTabletOrBelow ? 20 : 28;
                   const baseWidth = Math.floor((isTabletOrBelow ? 360 : 600) / Math.max(data.length, 1));
                   const barWidth = Math.max(isTabletOrBelow ? 10 : 12, Math.min(maxBarWidth, baseWidth));
-                  const showNumbers = data.length <= 25;
                   const stepColors = steps.length > 0 ? getStepColorArray() : [];
                   const heightPx = Math.max(40, Math.round((num / maxVal) * 200));
                   return (
@@ -477,7 +476,7 @@ const Searching = () => {
                       }}
                       title={`Value: ${num}, Index: ${idx}`}
                     >
-                      {showNumbers && (
+                      {(
                         <div style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)", fontWeight: "bold", fontSize: "inherit", minHeight: "14px", display: "flex", alignItems: "center" }}>
                           {num}
                         </div>
