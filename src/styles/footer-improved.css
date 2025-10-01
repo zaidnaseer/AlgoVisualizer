@@ -81,6 +81,7 @@
 
 .logo-wrapper {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 15px;
   overflow: visible;
@@ -130,6 +131,7 @@
 
 .tech-pills {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 25px;
