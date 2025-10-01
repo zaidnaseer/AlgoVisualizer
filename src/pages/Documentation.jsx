@@ -286,142 +286,32 @@ const algorithmDatabase = {
     icon: "🌳",
     color: "#4ade80",
     algorithms: [
-      {
-        name: "Postorder Traversal",
-        id: "postorder-traversal",
-        description:
-          "Tree traversal method that visits the left subtree, then the right subtree, and finally the root node (Left → Right → Root).",
-        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
-        spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
-        implemented: true,
-      },
-    ],
-  },
-  backtracking: {
-    title: "Backtracking Algorithms",
-    icon: "🧩",
-    color: "#f9a825",
-    algorithms: [
-      {
-        name: "N-Queens",
-        id: "nQueens",
-        description:
-          "Place N queens on an N×N chessboard so that no two queens attack each other. Explores all possible placements using backtracking.",
-        timeComplexity: { best: "O(N!)", average: "O(N!)", worst: "O(N!)" },
-        spaceComplexity: "O(N^2)",
-        implemented: false,
-        subType: "nQueens",
-      },
-      {
-        name: "Sudoku Solver",
-        id: "sudoku",
-        description:
-          "Solve a 9×9 Sudoku puzzle by filling empty cells following Sudoku rules using backtracking.",
-        timeComplexity: { best: "O(1)", average: "O(9^(N*N))", worst: "O(9^(N*N))" },
-        spaceComplexity: "O(N^2)",
-        implemented: false,
-        subType: "sudoku",
-      },
-      {
-        name: "Rat in a Maze",
-        id: "ratInMaze",
-        description:
-          "Find a path for a rat from start to finish in a maze represented as a grid. Backtracking tries all possible paths.",
-        timeComplexity: { best: "O(2^(N*M))", average: "O(2^(N*M))", worst: "O(2^(N*M))" },
-        spaceComplexity: "O(N*M)",
-        implemented: false,
-        subType: "ratInMaze",
-      },
-      {
-        name: "Combination Sum",
-        id: "combinationSum",
-        description:
-          "Find all unique combinations of numbers that sum up to a target value. Uses backtracking to explore all possibilities.",
-        timeComplexity: { best: "O(2^N)", average: "O(2^N)", worst: "O(2^N)" },
-        spaceComplexity: "O(N)",
-        implemented: false,
-        subType: "combinationSum",
-      },
-      {
-        name: "Word Search",
-        id: "wordSearch",
-        description:
-          "Find a given word in a 2D grid of letters by moving horizontally or vertically. Backtracking explores all paths.",
-        timeComplexity: { best: "O(M*N*4^L)", average: "O(M*N*4^L)", worst: "O(M*N*4^L)" },
-        spaceComplexity: "O(L)",
-        implemented: false,
-        subType: "wordSearch",
-      },
-    ],
-  },
-  dynamicProgramming: {
-    title: "Dynamic Programming",
-    icon: "📊",
-    color: "#f97316",
-    algorithms: [
-      {
-        name: "Fibonacci Sequence",
-        id: "fibonacci",
-        description: "Computes Fibonacci numbers efficiently using dynamic programming (memoization or tabulation).",
-        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
-        spaceComplexity: "O(n) or O(1) optimized",
-        implemented: true,
-        subType: "fibonacci",
-      },
-      {
-        name: "0/1 Knapsack",
-        id: "zeroOneKnapsack",
-        description: "Solves the classic 0/1 Knapsack problem using DP to maximize value within a weight limit.",
-        timeComplexity: { best: "O(n*W)", average: "O(n*W)", worst: "O(n*W)" },
-        spaceComplexity: "O(n*W)",
-        implemented: true,
-        subType: "zeroOneKnapsack",
-      },
-      {
-        name: "Coin Change",
-        id: "coinChange",
-        description: "Finds the minimum number of coins needed to make a given amount using DP.",
-        timeComplexity: { best: "O(n*amount)", average: "O(n*amount)", worst: "O(n*amount)" },
-        spaceComplexity: "O(amount)",
-        implemented: true,
-        subType: "coinChange",
-      },
-      {
-        name: "Longest Common Subsequence (LCS)",
-        id: "longestCommonSubsequence",
-        description: "Finds the length of the longest subsequence present in two sequences using DP.",
-        timeComplexity: { best: "O(m*n)", average: "O(m*n)", worst: "O(m*n)" },
-        spaceComplexity: "O(m*n)",
-        implemented: true,
-        subType: "lcs",
-      },
-      {
-        name: "Matrix Chain Multiplication",
-        id: "matrixChainMultiplication",
-        description: "Finds the most efficient way to multiply a sequence of matrices using DP.",
-        timeComplexity: { best: "O(n^3)", average: "O(n^3)", worst: "O(n^3)" },
-        spaceComplexity: "O(n^2)",
-        implemented: true,
-        subType: "matrixChainMultiplication",
-      },
-      {
-        name: "Minimum Path Sum",
-        id: "minimumPathSum",
-        description: "Finds the minimum sum path from top-left to bottom-right in a grid using DP.",
-        timeComplexity: { best: "O(m*n)", average: "O(m*n)", worst: "O(m*n)" },
-        spaceComplexity: "O(m*n) or O(n) optimized",
-        implemented: true,
-        subType: "minimumPathSum",
-      },
-      {
-        name: "Subset Sum",
-        id: "subsetSum",
-        description: "Determines if there is a subset with a given sum using DP.",
-        timeComplexity: { best: "O(n*sum)", average: "O(n*sum)", worst: "O(n*sum)" },
-        spaceComplexity: "O(n*sum)",
-        implemented: true,
-        subType: "subsetSum",
-      },
+{
+name: "Postorder Traversal",
+id: "postorder-traversal",
+description: "Tree traversal method that visits the left subtree, then the right subtree, and finally the root node (Left → Right → Root).",
+timeComplexity: {
+best: "O(n)",
+average: "O(n)",
+worst: "O(n)"
+},
+spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
+implemented: true
+},
+{
+name: "Inorder Traversal",
+id: "inorder-traversal",
+description: "Tree traversal method that visits the left subtree, then the root node, and finally the right subtree (Left → Root → Right).",
+timeComplexity: {
+best: "O(n)",
+average: "O(n)",
+worst: "O(n)"
+},
+spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
+implemented: true
+},
+
+
     ],
   },
 };

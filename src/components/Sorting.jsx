@@ -23,37 +23,60 @@ import { introSortWithStop } from "../algorithms/introSort";
 import { shellSortWithStop } from "../algorithms/shellSort";
 import { cycleSortWithStop } from "../algorithms/cycleSort";
 
-const algorithmNames = {
-  bubbleSort: "Bubble Sort",
-  selectionSort: "Selection Sort",
-  mergeSort: "Merge Sort",
-  insertionSort: "Insertion Sort",
-  quickSort: "Quick Sort",
-  radixSort: "Radix Sort",
-  bucketSort: "Bucket Sort",
-  heapSort: "Heap Sort",
-  timSort: "Tim Sort",
-  introSort: "Intro Sort",
-  shellSort: "Shell Sort",
-  cycleSort: "Cycle Sort",
-};
-
-const algorithms = {
-  bubbleSort: bubbleSortWithStop,
-  selectionSort: selectionSortWithStop,
-  insertionSort: insertionSortWithStop,
-  mergeSort: mergeSortWithStop,
-  quickSort: quickSortWithStop,
-  radixSort: radixSortWithStop,
-  bucketSort: bucketSortWithStop,
-  heapSort: heapSortWithStop,
-  timSort: timSortWithStop,
-  introSort: introSortWithStop,
-  shellSort: shellSortWithStop,
-  cycleSort: cycleSortWithStop,
+// Algorithm mappings for better organization
+const ALGORITHM_MAPPINGS = {
+  bubbleSort: { 
+    name: "Bubble Sort", 
+    function: bubbleSortWithStop 
+  },
+  selectionSort: { 
+    name: "Selection Sort", 
+    function: selectionSortWithStop 
+  },
+  insertionSort: { 
+    name: "Insertion Sort", 
+    function: insertionSortWithStop 
+  },
+  mergeSort: { 
+    name: "Merge Sort", 
+    function: mergeSortWithStop 
+  },
+  quickSort: { 
+    name: "Quick Sort", 
+    function: quickSortWithStop 
+  },
+  radixSort: { 
+    name: "Radix Sort", 
+    function: radixSortWithStop 
+  },
+  bucketSort: { 
+    name: "Bucket Sort", 
+    function: bucketSortWithStop 
+  },
+  heapSort: { 
+    name: "Heap Sort", 
+    function: heapSortWithStop 
+  },
+  timSort: { 
+    name: "Tim Sort", 
+    function: timSortWithStop 
+  },
+  introSort: { 
+    name: "Intro Sort", 
+    function: introSortWithStop 
+  },
+  shellSort: { 
+    name: "Shell Sort", 
+    function: shellSortWithStop 
+  },
+  cycleSort: { 
+    name: "Cycle Sort", 
+    function: cycleSortWithStop 
+  },
 };
 
 const Sorting = () => {
+  // State management
   const [array, setArray] = useState([]);
   const [arraySize, setArraySize] = useState(20);
   const [delay, setDelay] = useState(100);
@@ -69,6 +92,7 @@ const Sorting = () => {
     time: 0,
   });
 
+  // Refs for state management
   const skipNextGenerateRef = useRef(false);
   const stopSortingRef = useRef(false);
   const statsRef = useRef(statistics);
@@ -78,6 +102,7 @@ const Sorting = () => {
     statsRef.current = statistics;
   }, [statistics]);
 
+  // Statistics update handler
   const updateStats = useCallback((partial) => {
     setStatistics(prev => {
       const newStats = { ...prev, ...partial };
@@ -86,6 +111,7 @@ const Sorting = () => {
     });
   }, []);
 
+  // Array generation functions
   const generateArray = useCallback(() => {
     const newArray = Array.from(
       { length: arraySize },
@@ -125,13 +151,16 @@ const Sorting = () => {
     }
   }, [customArrayInput]);
 
+  // Sorting control functions
   const handleStop = useCallback(() => {
     stopSortingRef.current = true;
     setIsSorting(false);
     setMessage("Sorting stopped");
   }, []);
 
-  const getAlgorithmName = useCallback(() => algorithmNames[algorithm] || "Unknown Algorithm", [algorithm]);
+  // Algorithm information helpers
+  const getAlgorithmName = useCallback(() => 
+    ALGORITHM_MAPPINGS[algorithm]?.name || "Unknown Algorithm", [algorithm]);
 
   const getAlgorithmInfo = useCallback(() => 
     ALGORITHM_INFO.sorting[algorithm] || {
@@ -142,19 +171,20 @@ const Sorting = () => {
       stable: "N/A",
     }, [algorithm]);
 
+  // Main sorting function
   const handleSort = useCallback(async () => {
     if (isSorting) return;
 
     setIsSorting(true);
     stopSortingRef.current = false;
-    setMessage(`Sorting using ${algorithmNames[algorithm]}...`);
+    setMessage(`Sorting using ${ALGORITHM_MAPPINGS[algorithm]?.name}...`);
     setStatistics({ comparisons: 0, swaps: 0, time: 0 });
 
     const startTime = Date.now();
-    const fn = algorithms[algorithm];
+    const algorithmFunction = ALGORITHM_MAPPINGS[algorithm]?.function;
 
-    if (!fn) {
-      setMessage(`${algorithmNames[algorithm]} implementation coming soon!`);
+    if (!algorithmFunction) {
+      setMessage(`${ALGORITHM_MAPPINGS[algorithm]?.name} implementation coming soon!`);
       setIsSorting(false);
       return;
     }
@@ -165,7 +195,7 @@ const Sorting = () => {
         updateStats(partial);
       };
       
-      await fn(
+      await algorithmFunction(
         array,
         setArray,
         () => {}, // colorArray is handled by AlgorithmVisualizer
@@ -176,7 +206,7 @@ const Sorting = () => {
       if (!stopSortingRef.current) {
         const endTime = Date.now();
         updateStats({ time: endTime - startTime });
-        setMessage(`Sorting completed using ${algorithmNames[algorithm]}!`);
+        setMessage(`Sorting completed using ${ALGORITHM_MAPPINGS[algorithm]?.name}!`);
       }
     } catch (e) {
       if (e && e.message === "Stopped") {
@@ -190,6 +220,7 @@ const Sorting = () => {
     }
   }, [isSorting, algorithm, array, delay, updateStats]);
 
+  // Array generation effect
   useEffect(() => {
     if (skipNextGenerateRef.current) {
       skipNextGenerateRef.current = false;
@@ -199,6 +230,7 @@ const Sorting = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arraySize]);
 
+  // Responsive design helpers
   const isTabletOrBelow = useMediaQuery({ query: "(max-width: 1024px)" });
 
   const currentLen = array.length || arraySize;
@@ -216,9 +248,8 @@ const Sorting = () => {
     return "11px";
   }, [currentLen]);
 
-  const algoOptions = useMemo(() => Object.keys(algorithms), []);
-
-  // Memoize the algorithm info to prevent unnecessary re-renders
+  // Memoized values for performance
+  const algoOptions = useMemo(() => Object.keys(ALGORITHM_MAPPINGS), []);
   const algorithmInfo = useMemo(() => getAlgorithmInfo(), [getAlgorithmInfo]);
   const algorithmName = useMemo(() => getAlgorithmName(), [getAlgorithmName]);
 
@@ -227,9 +258,9 @@ const Sorting = () => {
       <h1 className="theme-title">Sorting Algorithms</h1>
 
       <div className="sorting-grid">
-        {/* LEFT COLUMN */}
+        {/* LEFT COLUMN - Controls and Information */}
         <div className="sorting-left">
-          {/* Controls */}
+          {/* Algorithm Controls */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="200">
             <div className="theme-card-header no-border">
               <h3>Controls</h3>
@@ -250,7 +281,7 @@ const Sorting = () => {
                 >
                   {algoOptions.map((algo) => (
                     <option key={algo} value={algo}>
-                      {algorithmNames[algo]}
+                      {ALGORITHM_MAPPINGS[algo]?.name}
                     </option>
                   ))}
                 </select>
@@ -312,7 +343,7 @@ const Sorting = () => {
             {inputError && <div className="inline-error" role="alert">{inputError}</div>}
           </div>
 
-          {/* Visualization controls */}
+          {/* Visualization Controls */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
             <div className="theme-card-header">
               <h3>Visualization Controls</h3>
@@ -353,10 +384,10 @@ const Sorting = () => {
             </div>
           </div>
 
-          {/* Export */}
+          {/* Export Controls */}
           <SimpleExportControls containerId="sort-visualization-container" />
 
-          {/* Info */}
+          {/* Algorithm Information */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="400">
             <div className="theme-card-header no-border">
               <h3>{algorithmName} Information</h3>
@@ -368,14 +399,14 @@ const Sorting = () => {
             </div>
           </div>
 
-          {/* Status message */}
+          {/* Status Message */}
           {message && (
             <div className="theme-card" data-aos="fade-up" data-aos-delay="500">
               <div className="status-message" role="status">{message}</div>
             </div>
           )}
 
-          {/* Stats */}
+          {/* Performance Statistics */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="600">
             <div className="theme-card-header">
               <h3>Performance Statistics</h3>
@@ -400,7 +431,7 @@ const Sorting = () => {
             </div>
           </div>
 
-          {/* Details */}
+          {/* Algorithm Details */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="700">
             <div className="theme-card-header between">
               <h3>{algorithmName} - Algorithm Details</h3>
@@ -444,9 +475,9 @@ const Sorting = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN */}
+        {/* RIGHT COLUMN - Visualization */}
         <div className="sorting-right">
-          {/* Main visualization */}
+          {/* Main Visualization */}
           <div 
             id="sort-visualization-container"
             className="theme-card visualization-card" 
@@ -465,7 +496,7 @@ const Sorting = () => {
             />
           </div>
 
-          {/* Compact stats */}
+          {/* Compact Statistics */}
           <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">
             <div className="theme-card-header no-border">
               <h3>Performance Stats</h3>
