@@ -216,6 +216,7 @@ const Sorting = () => {
   }, []);
 
   // Algorithm information helpers
+
   const getAlgorithmName = useCallback(() => 
     algorithmHelpers.getName(state.algorithm), [state.algorithm]);
 
@@ -247,8 +248,9 @@ const Sorting = () => {
       const statsUpdater = (partial) => {
         updateStats(partial);
       };
-      
+
       await algorithmFunction(
+
         state.array,
         (newArray) => setState(prev => ({ ...prev, array: newArray })),
         () => {}, // colorArray is handled by AlgorithmVisualizer
@@ -424,46 +426,6 @@ const Sorting = () => {
             {state.inputError && <div className="inline-error" role="alert">{state.inputError}</div>}
           </div>
 
-          {/* Visualization Controls */}
-          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
-            <div className="theme-card-header">
-              <h3>Visualization Controls</h3>
-            </div>
-            <div className="form-grid tight-grid">
-              <div className="form-group">
-                <label className="form-label" htmlFor="arraySizeRange">
-                  Array Size: {state.arraySize}
-                </label>
-                <input
-                  id="arraySizeRange"
-                  type="range"
-                  min="10"
-                  max="60"
-                  value={state.arraySize}
-                  onChange={(e) => updateArraySize(e.target.value)}
-                  disabled={state.isSorting}
-                  className="form-range"
-                  aria-label="Adjust array size"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label" htmlFor="speedRange">
-                  Speed: {state.delay}ms
-                </label>
-                <input
-                  id="speedRange"
-                  type="range"
-                  min="20"
-                  max="1000"
-                  value={state.delay}
-                  onChange={(e) => updateDelay(e.target.value)}
-                  disabled={state.isSorting}
-                  className="form-range"
-                  aria-label="Adjust animation speed"
-                />
-              </div>
-            </div>
-          </div>
 
           {/* Export Controls */}
           <SimpleExportControls containerId="sort-visualization-container" />
@@ -558,23 +520,45 @@ const Sorting = () => {
 
         {/* RIGHT COLUMN - Visualization */}
         <div className="sorting-right">
-          {/* Main Visualization */}
-          <div 
-            id="sort-visualization-container"
-            className="theme-card visualization-card" 
-            data-aos="fade-up" 
-            data-aos-delay="100"
-          >
+          {/* Visualization Controls */}
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
             <div className="theme-card-header">
-              <h3>Visualization - {algorithmName}</h3>
+              <h3>Visualization Controls</h3>
             </div>
-            <AlgorithmVisualizer
-              algorithmName={algorithmName}
-              initialArray={state.array}
-              visualOnly={true}
-              barGap={computeGap()}
-              fontSize={computeBarFontSize()}
-            />
+            <div className="form-grid tight-grid">
+              <div className="form-group">
+                <label className="form-label" htmlFor="arraySizeRange">
+                  Array Size: {state.arraySize}
+                </label>
+                <input
+                  id="arraySizeRange"
+                  type="range"
+                  min="10"
+                  max="60"
+                  value={state.arraySize}
+                  onChange={(e) => updateArraySize(e.target.value)}
+                  disabled={state.isSorting}
+                  className="form-range"
+                  aria-label="Adjust array size"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="speedRange">
+                  Speed: {state.delay}ms
+                </label>
+                <input
+                  id="speedRange"
+                  type="range"
+                  min="20"
+                  max="1000"
+                  value={state.delay}
+                  onChange={(e) => updateDelay(e.target.value)}
+                  disabled={state.isSorting}
+                  className="form-range"
+                  aria-label="Adjust animation speed"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Compact Statistics */}
@@ -603,6 +587,27 @@ const Sorting = () => {
           </div> */}
         </div>
       </div>
+
+      {/* Main Visualization */}
+
+      <div
+        id="sort-visualization-container"
+        className="theme-card visualization-card"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div className="theme-card-header">
+          <h3>Visualization - {algorithmName}</h3>
+        </div>
+        <AlgorithmVisualizer
+          algorithmName={algorithmName}
+          initialArray={array}
+          visualOnly={true}
+          barGap={computeGap()}
+          fontSize={computeBarFontSize()}
+        />
+      </div>
+
 
       <CodeExplanation
         algorithm={state.algorithm}
