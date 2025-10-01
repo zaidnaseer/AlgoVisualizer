@@ -223,7 +223,7 @@ const Footer = () => {
       "FaDiscord": FaDiscord,
       "FaYoutube": FaYoutube,
     };
-    return iconMap[iconName] || null;
+    return iconMap[iconName] || FaGraduationCap;
   };
 
   return (
