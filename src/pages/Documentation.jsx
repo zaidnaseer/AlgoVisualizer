@@ -784,10 +784,6 @@ function AlgorithmDocumentation() {
       { key: "graph", label: "Graph", icon: GitBranch, count: algorithmDatabase.graph?.algorithms.length || 0 },
       { key: "backtracking", label: "Backtracking", icon: Code, count: algorithmDatabase.backtracking?.algorithms.length || 0 },
       { key: "dynamicProgramming", label: "Dynamic Programming", icon: BookOpen, count: algorithmDatabase.dynamicProgramming?.algorithms.length || 0 },
-
-    ];
-  }, [getAllAlgorithms]);
-
       { key: "greedy", label: "Greedy", icon: Star, count: algorithmDatabase.greedy?.algorithms.length || 0 },
       { key: "divideAndConquer", label: "Divide & Conquer", icon: Star, count: algorithmDatabase.divideAndConquer?.algorithms.length || 0 },
       { key: "hashing", label: "Hashing", icon: Star, count: algorithmDatabase.hashing?.algorithms.length || 0 },
