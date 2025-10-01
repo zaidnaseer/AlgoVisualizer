@@ -1345,3 +1345,40 @@ body {
   font-weight: bold;
   font-family: monospace;
 }
+
+/* Hash Chanining */
+.board {
+  display: table;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  width: max-content;
+  background-color: var(--background-color);
+}
+
+.board-row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  text-align: center;
+  min-width: 40px;
+  vertical-align: middle;
+  font-family: monospace;
+  background-color: var(--cell-background);
+  color: var(--text-color);
+}
+
+.cell.header {
+  background-color: transparent;
+  font-weight: normal;
+  padding: 0 8px;
+  border: none;
+  text-align: left;
+  white-space: nowrap;
+  color: var(--header-text-color);
+}
+
+/*  */
