@@ -113,6 +113,8 @@
   flex: 1;
   margin-right: 1rem;
   font-weight: 500;
+color: #1f3a57;
+ transition: color 0.3s ease;
 }
 
 .faq-chevron {
