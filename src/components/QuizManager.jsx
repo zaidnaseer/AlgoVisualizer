@@ -6,9 +6,143 @@ import ResultPage from './ResultPage';
 import quizQuestions from '../data/quizQuestions.json';
 import "../styles/global-theme.css";
 
+// Topic definitions
+const TOPICS = [
+  {
+    id: 'sorting',
+    name: 'Sorting',
+    description: 'Test your knowledge of sorting algorithms like Bubble Sort, Quick Sort, Merge Sort, and more.'
+  },
+  {
+    id: 'searching',
+    name: 'Searching',
+    description: 'Learn about search algorithms including Binary Search, Linear Search, and their implementations.'
+  },
+  {
+    id: 'data-structures',
+    name: 'Data Structures',
+    description: 'Explore fundamental data structures like Arrays, Linked Lists, Stacks, and Queues.'
+  }
+];
+
+// Quiz step constants
+const QUIZ_STEPS = {
+  START: 'start',
+  QUIZ: 'quiz',
+  RESULTS: 'results'
+};
+
+// Sub-component for pause overlay
+const PauseOverlay = ({ onResume }) => (
+  <div className="quiz-overlay quiz-overlay-pause" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+    <div className="overlay-content">
+      <h2 id="pause-title">Quiz Paused</h2>
+      <button 
+        className="quiz-btn"
+        onClick={onResume}
+        aria-label="Resume quiz"
+      >
+        Resume
+      </button>
+    </div>
+  </div>
+);
+
+// Sub-component for exit confirmation overlay
+const ExitConfirmationOverlay = ({ onConfirm, onCancel }) => (
+  <div className="quiz-overlay quiz-overlay-confirm" role="dialog" aria-modal="true" aria-labelledby="exit-title">
+    <div className="overlay-content">
+      <h2 id="exit-title">Are you sure you want to exit the quiz?</h2>
+      <div className="overlay-buttons">
+        <button 
+          className="quiz-btn"
+          onClick={onConfirm}
+          aria-label="Confirm exit"
+        >
+          Yes, Exit
+        </button>
+        <button 
+          className="quiz-btn secondary"
+          onClick={onCancel}
+          aria-label="Cancel exit"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
+// Helper functions for quiz logic
+const QuizHelpers = {
+  // Create topic mapping for better filtering
+  getTopicMapping: () => ({
+    'sorting': 'Sorting',
+    'searching': 'Searching', 
+    'data-structures': 'Data Structures',
+    'all': 'all'
+  }),
+
+  // Filter and shuffle questions
+  filterAndShuffleQuestions: (questions, topic, difficulty) => {
+    const topicMapping = QuizHelpers.getTopicMapping();
+    const mappedTopic = topicMapping[topic] || topic;
+    
+    // Filter questions based on topic and difficulty
+    let filteredQuestions = questions.filter(q => {
+      const topicMatch = mappedTopic === 'all' || q.topic === mappedTopic;
+      const difficultyMatch = difficulty === 'all' || q.difficulty.toLowerCase() === difficulty.toLowerCase();
+      return topicMatch && difficultyMatch;
+    });
+
+    // Shuffle questions and limit to 10
+    return filteredQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
+  },
+
+  // Calculate quiz results
+  calculateResults: (questions, userAnswers, startTime, endTime) => {
+    let correct = 0;
+    let total = questions.length;
+    
+    const questionResults = questions.map(question => {
+      const userAnswer = userAnswers[question.id];
+      const isCorrect = userAnswer === question.correctAnswer;
+      if (isCorrect) correct++;
+      
+      return {
+        question,
+        userAnswer,
+        isCorrect,
+        userAnswerText: userAnswer !== undefined ? question.options[userAnswer] : 'Not answered',
+        correctAnswerText: question.options[question.correctAnswer]
+      };
+    });
+
+    const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const timeTaken = startTime && endTime 
+      ? Math.round((endTime - startTime) / 1000) 
+      : 0;
+
+    return {
+      correct,
+      total,
+      percentage,
+      timeTaken,
+      questionResults
+    };
+  },
+
+  // Format time in MM:SS format
+  formatTime: (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+};
+
 const QuizManager = () => {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState('start'); // 'start', 'quiz', 'results'
+  const [currentStep, setCurrentStep] = useState(QUIZ_STEPS.START);
   const [selectedTopic, setSelectedTopic] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState('');
   const [questions, setQuestions] = useState([]);
@@ -21,58 +155,22 @@ const QuizManager = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
 
-  // Available topics
-  const topics = [
-    {
-      id: 'sorting',
-      name: 'Sorting',
-      description: 'Test your knowledge of sorting algorithms like Bubble Sort, Quick Sort, Merge Sort, and more.'
-    },
-    {
-      id: 'searching',
-      name: 'Searching',
-      description: 'Learn about search algorithms including Binary Search, Linear Search, and their implementations.'
-    },
-    {
-      id: 'data-structures',
-      name: 'Data Structures',
-      description: 'Explore fundamental data structures like Arrays, Linked Lists, Stacks, and Queues.'
-    }
-  ];
-
   // Timer effect
   useEffect(() => {
     let timer;
-    if (timedMode && timeRemaining > 0 && currentStep === 'quiz' && !isPaused) {
+    if (timedMode && timeRemaining > 0 && currentStep === QUIZ_STEPS.QUIZ && !isPaused) {
       timer = setTimeout(() => {
         setTimeRemaining(time => time - 1);
       }, 1000);
-    } else if (timedMode && timeRemaining === 0 && currentStep === 'quiz') {
+    } else if (timedMode && timeRemaining === 0 && currentStep === QUIZ_STEPS.QUIZ) {
       handleSubmitQuiz();
     }
     return () => clearTimeout(timer);
   }, [timeRemaining, timedMode, currentStep, isPaused]);
 
   const startQuiz = (topic, difficulty, timed = false) => {
-    // Create topic mapping for better filtering
-    const topicMapping = {
-      'sorting': 'Sorting',
-      'searching': 'Searching', 
-      'data-structures': 'Data Structures',
-      'all': 'all'
-    };
-    
-    const mappedTopic = topicMapping[topic] || topic;
-    
-    // Filter questions based on topic and difficulty
-    let filteredQuestions = quizQuestions.filter(q => {
-      const topicMatch = mappedTopic === 'all' || q.topic === mappedTopic;
-      const difficultyMatch = difficulty === 'all' || q.difficulty.toLowerCase() === difficulty.toLowerCase();
-      return topicMatch && difficultyMatch;
-    });
-
-    // Shuffle questions and limit to 10
-    filteredQuestions = filteredQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
+    // Filter and shuffle questions
+    let filteredQuestions = QuizHelpers.filterAndShuffleQuestions(quizQuestions, topic, difficulty);
 
     if (filteredQuestions.length === 0) {
       alert('No questions available for the selected criteria. Please try different options.');
@@ -91,7 +189,7 @@ const QuizManager = () => {
       setTimeRemaining(filteredQuestions.length * 60); // 1 minute per question
     }
     
-    setCurrentStep('quiz');
+    setCurrentStep(QUIZ_STEPS.QUIZ);
   };
 
   const handleAnswerSelect = (questionId, answerIndex) => {
@@ -115,43 +213,11 @@ const QuizManager = () => {
 
   const handleSubmitQuiz = () => {
     setQuizEndTime(new Date());
-    setCurrentStep('results');
-  };
-
-  const calculateResults = () => {
-    let correct = 0;
-    let total = questions.length;
-    
-    const questionResults = questions.map(question => {
-      const userAnswer = userAnswers[question.id];
-      const isCorrect = userAnswer === question.correctAnswer;
-      if (isCorrect) correct++;
-      
-      return {
-        question,
-        userAnswer,
-        isCorrect,
-        userAnswerText: userAnswer !== undefined ? question.options[userAnswer] : 'Not answered',
-        correctAnswerText: question.options[question.correctAnswer]
-      };
-    });
-
-    const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-    const timeTaken = quizStartTime && quizEndTime 
-      ? Math.round((quizEndTime - quizStartTime) / 1000) 
-      : 0;
-
-    return {
-      correct,
-      total,
-      percentage,
-      timeTaken,
-      questionResults
-    };
+    setCurrentStep(QUIZ_STEPS.RESULTS);
   };
 
   const restartQuiz = () => {
-    setCurrentStep('start');
+    setCurrentStep(QUIZ_STEPS.START);
     setSelectedTopic('');
     setSelectedDifficulty('');
     setQuestions([]);
@@ -169,12 +235,6 @@ const QuizManager = () => {
     navigate('/');
   };
 
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
   const handlePause = () => setIsPaused(true);
   const handleResume = () => setIsPaused(false);
   const handleExit = () => setShowExitConfirm(true);
@@ -184,7 +244,8 @@ const QuizManager = () => {
   };
   const cancelExit = () => setShowExitConfirm(false);
 
-  if (currentStep === 'start') {
+  // Render start screen
+  if (currentStep === QUIZ_STEPS.START) {
     return (
       <div className="theme-container">
         <div className="quiz-header">
@@ -192,7 +253,7 @@ const QuizManager = () => {
           <p>Test your knowledge of algorithms and data structures</p>
         </div>
         <QuizStart
-          topics={topics}
+          topics={TOPICS}
           selectedTopic={selectedTopic}
           setSelectedTopic={setSelectedTopic}
           selectedDifficulty={selectedDifficulty}
@@ -203,7 +264,8 @@ const QuizManager = () => {
     );
   }
 
-  if (currentStep === 'quiz') {
+  // Render quiz screen
+  if (currentStep === QUIZ_STEPS.QUIZ) {
     const currentQuestion = questions[currentQuestionIndex];
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
@@ -227,45 +289,18 @@ const QuizManager = () => {
             Exit
           </button>
         </div>
+        
         {/* Pause Overlay */}
-        {isPaused && (
-          <div className="quiz-overlay quiz-overlay-pause" role="dialog" aria-modal="true" aria-labelledby="pause-title">
-            <div className="overlay-content">
-              <h2 id="pause-title">Quiz Paused</h2>
-              <button 
-                className="quiz-btn"
-                onClick={handleResume}
-                aria-label="Resume quiz"
-              >
-                Resume
-              </button>
-            </div>
-          </div>
-        )}
+        {isPaused && <PauseOverlay onResume={handleResume} />}
+        
         {/* Exit Confirmation */}
         {showExitConfirm && (
-          <div className="quiz-overlay quiz-overlay-confirm" role="dialog" aria-modal="true" aria-labelledby="exit-title">
-            <div className="overlay-content">
-              <h2 id="exit-title">Are you sure you want to exit the quiz?</h2>
-              <div className="overlay-buttons">
-                <button 
-                  className="quiz-btn"
-                  onClick={confirmExit}
-                  aria-label="Confirm exit"
-                >
-                  Yes, Exit
-                </button>
-                <button 
-                  className="quiz-btn secondary"
-                  onClick={cancelExit}
-                  aria-label="Cancel exit"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
+          <ExitConfirmationOverlay 
+            onConfirm={confirmExit} 
+            onCancel={cancelExit} 
+          />
         )}
+        
         <QuestionCard
           question={currentQuestion}
           questionNumber={currentQuestionIndex + 1}
@@ -281,15 +316,20 @@ const QuizManager = () => {
           isLastQuestion={currentQuestionIndex === questions.length - 1}
           timeRemaining={timeRemaining}
           timedMode={timedMode}
-          formatTime={formatTime}
+          formatTime={QuizHelpers.formatTime}
         />
       </div>
     );
   }
 
-
-  if (currentStep === 'results') {
-    const results = calculateResults();
+  // Render results screen
+  if (currentStep === QUIZ_STEPS.RESULTS) {
+    const results = QuizHelpers.calculateResults(
+      questions, 
+      userAnswers, 
+      quizStartTime, 
+      quizEndTime
+    );
     
     return (
       <div className="theme-container">
@@ -300,7 +340,7 @@ const QuizManager = () => {
           timedMode={timedMode}
           onRestart={restartQuiz}
           onGoHome={goHome}
-          formatTime={formatTime}
+          formatTime={QuizHelpers.formatTime}
         />
       </div>
     );
