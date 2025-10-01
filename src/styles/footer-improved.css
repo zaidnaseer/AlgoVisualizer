@@ -237,7 +237,28 @@
   background: linear-gradient(90deg, var(--accent-primary, #58a6ff), var(--accent-hover, #79c0ff));
   border-radius: 3px;
 }
+.para-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;              /* spacing between items */
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-top: 20px;
+  white-space: nowrap;   /* prevents line breaks */
+}
 
+.para-text a {
+  color: #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.para-text a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
 /* Footer Links */
 .footer-links {
   list-style: none;
