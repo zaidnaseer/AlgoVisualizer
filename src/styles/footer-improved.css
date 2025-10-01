@@ -211,7 +211,6 @@
   margin-bottom: 20px;
   position: relative;
   padding-bottom: 10px;
-  text-align: left;
 }
 
 .column-title::after {
@@ -226,6 +225,7 @@
 }
 .para-text {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 6px;              /* spacing between items */
@@ -309,12 +309,16 @@
 }
 
 /* Newsletter Section */
+.newsletter-column {
+align-items: center;
+}
+
 .newsletter-description {
   color: var(--text-secondary, rgba(230, 237, 243, 0.8));
+  text-align: center;
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 20px;
-  text-align: left;
   overflow: visible;
 }
 
@@ -371,6 +375,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
   gap: 8px;
   padding: 14px 20px;
   background: var(--button-primary-bg, #58a6ff);
