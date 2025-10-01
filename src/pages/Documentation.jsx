@@ -310,6 +310,19 @@ worst: "O(n)"
 spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
 implemented: true
 },
+{
+name: "Inorder Traversal",
+id: "inorder-traversal",
+description: "Tree traversal method that visits the left subtree, then the root node, and finally the right subtree (Left → Root → Right).",
+timeComplexity: {
+best: "O(n)",
+average: "O(n)",
+worst: "O(n)"
+},
+spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
+implemented: true
+},
+
 
     ],
   },
