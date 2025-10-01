@@ -6,6 +6,7 @@ import {
   Users,
   Star,
   GitBranch,
+  Code,
 } from "lucide-react";
 import "../styles/global-theme.css";
 
@@ -29,7 +30,7 @@ const algorithmDatabase = {
         stability: "Stable",
         inPlace: true,
         adaptivity: "Adaptive",
-        implemented: true, 
+        implemented: true,
       },
       {
         name: "Selection Sort",
@@ -41,7 +42,7 @@ const algorithmDatabase = {
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
-        implemented: true, 
+        implemented: true,
       },
       {
         name: "Insertion Sort",
@@ -53,7 +54,7 @@ const algorithmDatabase = {
         stability: "Stable",
         inPlace: true,
         adaptivity: "Adaptive",
-        implemented: true, 
+        implemented: true,
       },
       {
         name: "Merge Sort",
@@ -69,7 +70,7 @@ const algorithmDatabase = {
         stability: "Stable",
         inPlace: false,
         adaptivity: "Not Adaptive",
-        implemented: true, 
+        implemented: true,
       },
       {
         name: "Quick Sort",
@@ -85,41 +86,44 @@ const algorithmDatabase = {
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
-        implemented: true, 
+        implemented: true,
       },
       {
         name: "Tim Sort",
         id: "timSort",
-        description: "Hybrid stable sorting algorithm combining Insertion Sort and Merge Sort. Detects natural runs, sorts them, and merges efficiently. Default in Python and Java.",
+        description:
+          "Hybrid stable sorting algorithm combining Insertion Sort and Merge Sort. Detects natural runs, sorts them, and merges efficiently. Default in Python and Java.",
         timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
         spaceComplexity: "O(n)",
         stability: "Stable",
         inPlace: false,
         adaptivity: "Adaptive (leverages existing runs)",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Intro Sort",
         id: "introSort",
-        description: "Hybrid sorting algorithm that begins with Quick Sort, switches to Heap Sort if recursion depth is too deep, and uses Insertion Sort for small partitions.",
+        description:
+          "Hybrid sorting algorithm that begins with Quick Sort, switches to Heap Sort if recursion depth is too deep, and uses Insertion Sort for small partitions.",
         timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
         spaceComplexity: "O(log n)",
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Partially Adaptive",
-        implemented: true
-      },     
+        implemented: true,
+      },
       {
         name: "Shell Sort",
         id: "shellSort",
-        description: "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. It improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing the total number of moves.",
+        description:
+          "In-place comparison-based sorting algorithm that generalizes insertion sort by allowing exchanges of elements that are far apart. Improves on insertion sort by breaking the original list into smaller sublists using a gap sequence, reducing total moves.",
         timeComplexity: { best: "O(n log n)", average: "O(n(log n)^2)", worst: "O(n(log n)^2)" },
         spaceComplexity: "O(1)",
         stability: "Unstable",
         inPlace: true,
         adaptivity: "Not Adaptive",
-        implemented: true
-      }, 
+        implemented: true,
+      },
     ],
   },
   searching: {
@@ -135,63 +139,47 @@ const algorithmDatabase = {
         timeComplexity: { best: "O(1)", average: "O(n)", worst: "O(n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "None (works on unsorted data)",
-        implemented: true, 
+        implemented: true,
       },
       {
         name: "Binary Search",
         id: "binarySearch",
         description:
           "Searches sorted array by repeatedly dividing search interval in half. Updated to note efficiency.",
-        timeComplexity: {
-          best: "O(1)",
-          average: "O(log n)",
-          worst: "O(log n)",
-        },
+        timeComplexity: { best: "O(1)", average: "O(log n)", worst: "O(log n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true, 
+        implemented: true,
       },
       {
         name: "Jump Search",
         id: "jumpSearch",
         description:
           "Searches sorted array by jumping ahead by fixed steps and then performing linear search within the block.",
-        timeComplexity: {
-          best: "O(1)",
-          average: "O(√n)",
-          worst: "O(√n)"
-        },
+        timeComplexity: { best: "O(1)", average: "O(√n)", worst: "O(√n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Exponential Search",
         id: "exponentialSearch",
         description:
           "Searches sorted array by finding a range where the element may exist using exponential jumps, then performing binary search within that range.",
-        timeComplexity: {
-          best: "O(1)",
-          average: "O(log n)",
-          worst: "O(log n)"
-        },
+        timeComplexity: { best: "O(1)", average: "O(log n)", worst: "O(log n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true
+        implemented: true,
       },
       {
         name: "Ternary Search",
         id: "ternarySearch",
         description:
           "Searches sorted array by dividing it into three parts and determining which part contains the target element.",
-        timeComplexity: {
-          best: "O(1)",
-          average: "O(log₃ n)",
-          worst: "O(log₃ n)"
-        },
+        timeComplexity: { best: "O(1)", average: "O(log₃ n)", worst: "O(log₃ n)" },
         spaceComplexity: "O(1)",
         dataRequirement: "Sorted array",
-        implemented: true
+        implemented: true,
       },
     ],
   },
@@ -212,7 +200,7 @@ const algorithmDatabase = {
           access: "O(n)",
         },
         spaceComplexity: "O(n)",
-        implemented: false, 
+        implemented: false,
       },
       {
         name: "Stack",
@@ -225,7 +213,7 @@ const algorithmDatabase = {
           search: "O(n)",
         },
         spaceComplexity: "O(n)",
-        implemented: false, 
+        implemented: false,
       },
       {
         name: "Queue",
@@ -238,7 +226,7 @@ const algorithmDatabase = {
           search: "O(n)",
         },
         spaceComplexity: "O(n)",
-        implemented: false, 
+        implemented: false,
       },
       {
         name: "Binary Tree",
@@ -252,7 +240,7 @@ const algorithmDatabase = {
           traversal: "O(n)",
         },
         spaceComplexity: "O(n)",
-        implemented: false, 
+        implemented: false,
       },
     ],
   },
@@ -295,26 +283,148 @@ const algorithmDatabase = {
   },
   trees: {
     title: "Trees",
-    icon: "🔍",
+    icon: "🌳",
     color: "#4ade80",
     algorithms: [
-{
-name: "Postorder Traversal",
-id: "postorder-traversal",
-description: "Tree traversal method that visits the left subtree, then the right subtree, and finally the root node (Left → Right → Root).",
-timeComplexity: {
-best: "O(n)",
-average: "O(n)",
-worst: "O(n)"
-},
-spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
-implemented: true
-},
-
+      {
+        name: "Postorder Traversal",
+        id: "postorder-traversal",
+        description:
+          "Tree traversal method that visits the left subtree, then the right subtree, and finally the root node (Left → Right → Root).",
+        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+        spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
+        implemented: true,
+      },
+    ],
+  },
+  backtracking: {
+    title: "Backtracking Algorithms",
+    icon: "🧩",
+    color: "#f9a825",
+    algorithms: [
+      {
+        name: "N-Queens",
+        id: "nQueens",
+        description:
+          "Place N queens on an N×N chessboard so that no two queens attack each other. Explores all possible placements using backtracking.",
+        timeComplexity: { best: "O(N!)", average: "O(N!)", worst: "O(N!)" },
+        spaceComplexity: "O(N^2)",
+        implemented: false,
+        subType: "nQueens",
+      },
+      {
+        name: "Sudoku Solver",
+        id: "sudoku",
+        description:
+          "Solve a 9×9 Sudoku puzzle by filling empty cells following Sudoku rules using backtracking.",
+        timeComplexity: { best: "O(1)", average: "O(9^(N*N))", worst: "O(9^(N*N))" },
+        spaceComplexity: "O(N^2)",
+        implemented: false,
+        subType: "sudoku",
+      },
+      {
+        name: "Rat in a Maze",
+        id: "ratInMaze",
+        description:
+          "Find a path for a rat from start to finish in a maze represented as a grid. Backtracking tries all possible paths.",
+        timeComplexity: { best: "O(2^(N*M))", average: "O(2^(N*M))", worst: "O(2^(N*M))" },
+        spaceComplexity: "O(N*M)",
+        implemented: false,
+        subType: "ratInMaze",
+      },
+      {
+        name: "Combination Sum",
+        id: "combinationSum",
+        description:
+          "Find all unique combinations of numbers that sum up to a target value. Uses backtracking to explore all possibilities.",
+        timeComplexity: { best: "O(2^N)", average: "O(2^N)", worst: "O(2^N)" },
+        spaceComplexity: "O(N)",
+        implemented: false,
+        subType: "combinationSum",
+      },
+      {
+        name: "Word Search",
+        id: "wordSearch",
+        description:
+          "Find a given word in a 2D grid of letters by moving horizontally or vertically. Backtracking explores all paths.",
+        timeComplexity: { best: "O(M*N*4^L)", average: "O(M*N*4^L)", worst: "O(M*N*4^L)" },
+        spaceComplexity: "O(L)",
+        implemented: false,
+        subType: "wordSearch",
+      },
+    ],
+  },
+  dynamicProgramming: {
+    title: "Dynamic Programming",
+    icon: "📊",
+    color: "#f97316",
+    algorithms: [
+      {
+        name: "Fibonacci Sequence",
+        id: "fibonacci",
+        description: "Computes Fibonacci numbers efficiently using dynamic programming (memoization or tabulation).",
+        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+        spaceComplexity: "O(n) or O(1) optimized",
+        implemented: true,
+        subType: "fibonacci",
+      },
+      {
+        name: "0/1 Knapsack",
+        id: "zeroOneKnapsack",
+        description: "Solves the classic 0/1 Knapsack problem using DP to maximize value within a weight limit.",
+        timeComplexity: { best: "O(n*W)", average: "O(n*W)", worst: "O(n*W)" },
+        spaceComplexity: "O(n*W)",
+        implemented: true,
+        subType: "zeroOneKnapsack",
+      },
+      {
+        name: "Coin Change",
+        id: "coinChange",
+        description: "Finds the minimum number of coins needed to make a given amount using DP.",
+        timeComplexity: { best: "O(n*amount)", average: "O(n*amount)", worst: "O(n*amount)" },
+        spaceComplexity: "O(amount)",
+        implemented: true,
+        subType: "coinChange",
+      },
+      {
+        name: "Longest Common Subsequence (LCS)",
+        id: "longestCommonSubsequence",
+        description: "Finds the length of the longest subsequence present in two sequences using DP.",
+        timeComplexity: { best: "O(m*n)", average: "O(m*n)", worst: "O(m*n)" },
+        spaceComplexity: "O(m*n)",
+        implemented: true,
+        subType: "lcs",
+      },
+      {
+        name: "Matrix Chain Multiplication",
+        id: "matrixChainMultiplication",
+        description: "Finds the most efficient way to multiply a sequence of matrices using DP.",
+        timeComplexity: { best: "O(n^3)", average: "O(n^3)", worst: "O(n^3)" },
+        spaceComplexity: "O(n^2)",
+        implemented: true,
+        subType: "matrixChainMultiplication",
+      },
+      {
+        name: "Minimum Path Sum",
+        id: "minimumPathSum",
+        description: "Finds the minimum sum path from top-left to bottom-right in a grid using DP.",
+        timeComplexity: { best: "O(m*n)", average: "O(m*n)", worst: "O(m*n)" },
+        spaceComplexity: "O(m*n) or O(n) optimized",
+        implemented: true,
+        subType: "minimumPathSum",
+      },
+      {
+        name: "Subset Sum",
+        id: "subsetSum",
+        description: "Determines if there is a subset with a given sum using DP.",
+        timeComplexity: { best: "O(n*sum)", average: "O(n*sum)", worst: "O(n*sum)" },
+        spaceComplexity: "O(n*sum)",
+        implemented: true,
+        subType: "subsetSum",
+      },
     ],
   },
 };
-
 
 const getComplexityColor = (complexity) => {
   const colors = {
@@ -347,9 +457,7 @@ function AlgorithmCard({ algorithm }) {
         )}
       </div>
       <p className="card-description">{algorithm.description}</p>
-      <div className="card-category-badge">
-        {algorithm.categoryTitle}
-      </div>
+      <div className="card-category-badge">{algorithm.categoryTitle}</div>
     </div>
   );
 }
@@ -363,138 +471,108 @@ function AlgorithmDocumentation() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
   const [graphSubcategory, setGraphSubcategory] = useState("all");
+  const [backtrackingSubcategory, setBacktrackingSubcategory] = useState("all");
+  const [dpSubcategory, setDpSubcategory] = useState("all");
+
+  const getAllAlgorithms = useCallback(() => {
+    const seen = new Map();
+    Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
+      category.algorithms.forEach((algo) => {
+        if (!seen.has(algo.id)) {
+          seen.set(algo.id, {
+            ...algo,
+            category: categoryKey,
+            categoryTitle: category.title,
+            categoryIcon: category.icon,
+            categoryColor: category.color,
+          });
+        }
+      });
+    });
+    return Array.from(seen.values());
+  }, []);
+
+  const categories = useMemo(() => {
+    const allAlgorithms = getAllAlgorithms();
+    return [
+      { key: "all", label: "All", icon: BookOpen, count: allAlgorithms.length },
+      { key: "sorting", label: "Sorting", icon: Users, count: algorithmDatabase.sorting?.algorithms.length || 0 },
+      { key: "searching", label: "Searching", icon: Search, count: algorithmDatabase.searching?.algorithms.length || 0 },
+      { key: "dataStructures", label: "Data Structures", icon: Database, count: algorithmDatabase.dataStructures?.algorithms.length || 0 },
+      { key: "graph", label: "Graph", icon: GitBranch, count: algorithmDatabase.graph?.algorithms.length || 0 },
+      { key: "backtracking", label: "Backtracking", icon: Code, count: algorithmDatabase.backtracking?.algorithms.length || 0 },
+      { key: "dynamicProgramming", label: "Dynamic Programming", icon: BookOpen, count: algorithmDatabase.dynamicProgramming?.algorithms.length || 0 },
+    ];
+  }, [getAllAlgorithms]);
 
   const graphCounts = useMemo(() => {
-    const list = algorithmDatabase.graph.algorithms;
+    const list = algorithmDatabase.graph?.algorithms || [];
     return {
       all: list.length,
-      bfs: list.filter(a => a.subType === 'bfs').length,
-      dfs: list.filter(a => a.subType === 'dfs').length,
-      dijkstra: list.filter(a => a.subType === 'dijkstra').length,
+      bfs: list.filter((a) => a.subType === "bfs").length,
+      dfs: list.filter((a) => a.subType === "dfs").length,
+      dijkstra: list.filter((a) => a.subType === "dijkstra").length,
     };
   }, []);
 
-  const getAllAlgorithms = useCallback(() => {
-  const seen = new Map();
+  const backtrackingCounts = useMemo(() => {
+    const list = algorithmDatabase.backtracking?.algorithms || [];
+    return {
+      all: list.length,
+      nQueens: list.filter((a) => a.subType === "nQueens").length,
+      sudoku: list.filter((a) => a.subType === "sudoku").length,
+      ratInMaze: list.filter((a) => a.subType === "ratInMaze").length,
+      combinationSum: list.filter((a) => a.subType === "combinationSum").length,
+      wordSearch: list.filter((a) => a.subType === "wordSearch").length,
+    };
+  }, []);
 
-  Object.entries(algorithmDatabase).forEach(([categoryKey, category]) => {
-    category.algorithms.forEach((algo) => {
-      if (!seen.has(algo.id)) {
-        seen.set(algo.id, {
-          ...algo,
-          category: categoryKey,
-          categoryTitle: category.title,
-          categoryIcon: category.icon,
-          categoryColor: category.color,
-        });
-      }
-    });
-  });
-
-  return Array.from(seen.values());
-}, []);
-
+  const dpCounts = useMemo(() => {
+    const list = algorithmDatabase.dynamicProgramming?.algorithms || [];
+    return {
+      all: list.length,
+      fibonacci: list.filter((a) => a.subType === "fibonacci").length,
+      zeroOneKnapsack: list.filter((a) => a.subType === "zeroOneKnapsack").length,
+      coinChange: list.filter((a) => a.subType === "coinChange").length,
+      lcs: list.filter((a) => a.subType === "lcs").length,
+      matrixChainMultiplication: list.filter((a) => a.subType === "matrixChainMultiplication").length,
+      minimumPathSum: list.filter((a) => a.subType === "minimumPathSum").length,
+      subsetSum: list.filter((a) => a.subType === "subsetSum").length,
+    };
+  }, []);
 
   useEffect(() => {
     let allAlgorithms = getAllAlgorithms();
-
-    if (selectedCategory !== "all") {
-      allAlgorithms = allAlgorithms.filter(
-        (algo) => algo.category === selectedCategory
-      );
-    }
-
-    if (selectedCategory === "graph" && graphSubcategory !== "all") {
-      allAlgorithms = allAlgorithms.filter(
-        (algo) => algo.subType === graphSubcategory
-      );
-    }
-
-    if (searchTerm) {
-      allAlgorithms = allAlgorithms.filter(
-        (algo) =>
-          algo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          algo.description.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
+    if (selectedCategory !== "all") allAlgorithms = allAlgorithms.filter((algo) => algo.category === selectedCategory);
+    if (selectedCategory === "graph" && graphSubcategory !== "all") allAlgorithms = allAlgorithms.filter((algo) => algo.subType === graphSubcategory);
+    if (selectedCategory === "backtracking" && backtrackingSubcategory !== "all") allAlgorithms = allAlgorithms.filter((algo) => algo.subType === backtrackingSubcategory);
+    if (selectedCategory === "dynamicProgramming" && dpSubcategory !== "all") allAlgorithms = allAlgorithms.filter((algo) => algo.subType === dpSubcategory);
+    if (searchTerm) allAlgorithms = allAlgorithms.filter((algo) => algo.name.toLowerCase().includes(searchTerm.toLowerCase()) || algo.description.toLowerCase().includes(searchTerm.toLowerCase()));
     setFilteredAlgorithms(allAlgorithms);
-  }, [searchTerm, selectedCategory, graphSubcategory, getAllAlgorithms]);
+  }, [searchTerm, selectedCategory, graphSubcategory, backtrackingSubcategory, dpSubcategory, getAllAlgorithms]);
 
   useEffect(() => {
-    if (selectedCategory !== 'graph' && graphSubcategory !== 'all') {
-      setGraphSubcategory('all');
-    }
-  }, [selectedCategory, graphSubcategory]);
-
-
-  const categories = useMemo(
-    () => [
-      {
-        key: "all",
-        label: "All",
-        icon: BookOpen,
-        count: getAllAlgorithms().length,
-      },
-      {
-        key: "sorting",
-        label: "Sorting",
-        icon: Users,
-        count: algorithmDatabase.sorting.algorithms.length,
-      },
-      {
-        key: "searching",
-        label: "Searching",
-        icon: Search,
-        count: algorithmDatabase.searching.algorithms.length,
-      },
-      {
-        key: "dataStructures",
-        label: "Data Structures",
-        icon: Database,
-        count: algorithmDatabase.dataStructures.algorithms.length,
-      },
-      {
-        key: "graph",
-        label: "Graph",
-        icon: GitBranch,
-        count: algorithmDatabase.graph.algorithms.length,
-      },
-       
-    ],
-    [getAllAlgorithms]
-  );
-
+    if (selectedCategory !== "graph") setGraphSubcategory("all");
+    if (selectedCategory !== "backtracking") setBacktrackingSubcategory("all");
+    if (selectedCategory !== "dynamicProgramming") setDpSubcategory("all");
+  }, [selectedCategory]);
 
   return (
     <div className="theme-container">
       <h1 className="theme-title">Algorithm Documentation</h1>
 
-      {/* Filters Section */}
       <div className="theme-card filters-section">
-        {/* Search */}
         <div className="search-bar">
           <Search size={20} className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search algorithms..."
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-            className="form-control"
-          />
+          <input type="text" placeholder="Search algorithms..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="form-control" />
         </div>
 
-        {/* Category Tabs */}
-        <div className="category-filters overflow-x-auto whitespace-nowrap">
-          {categories.map(category => {
+        <div className="category-filters overflow-x-auto whitespace-nowrap mt-2">
+          {categories.map((category) => {
             const IconComponent = category.icon;
             const isActive = selectedCategory === category.key;
             return (
-              <button
-                key={category.key}
-                className={`btn ${isActive ? 'btn-primary' : 'btn-secondary'} mx-1`}
-                onClick={() => setSelectedCategory(category.key)}
-              >
+              <button key={category.key} className={`btn ${isActive ? "btn-primary" : "btn-secondary"} mx-1`} onClick={() => setSelectedCategory(category.key)}>
                 <IconComponent size={16} className="mr-1" />
                 {category.label}
                 <span className="count-badge ml-1">{category.count}</span>
@@ -503,22 +581,56 @@ function AlgorithmDocumentation() {
           })}
         </div>
 
-        {/* Graph Sub-Tabs */}
-        {selectedCategory === 'graph' && (
+        {selectedCategory === "graph" && (
           <div className="category-filters mt-2 overflow-x-auto whitespace-nowrap">
             {[
-              { key: 'all', label: 'All', count: graphCounts.all },
-              { key: 'bfs', label: 'BFS', count: graphCounts.bfs },
-              { key: 'dfs', label: 'DFS', count: graphCounts.dfs },
-              { key: 'dijkstra', label: 'Dijkstra', count: graphCounts.dijkstra },
-            ].map(sub => (
-              <button
-                key={sub.key}
-                className={`btn ${graphSubcategory === sub.key ? 'btn-primary' : 'btn-secondary'} mx-1`}
-                onClick={() => setGraphSubcategory(sub.key)}
-                title={`Show ${sub.label} algorithms`}
-              >
+              { key: "all", label: "All", count: graphCounts.all },
+              { key: "bfs", label: "BFS", count: graphCounts.bfs },
+              { key: "dfs", label: "DFS", count: graphCounts.dfs },
+              { key: "dijkstra", label: "Dijkstra", count: graphCounts.dijkstra },
+            ].map((sub) => (
+              <button key={sub.key} className={`btn ${graphSubcategory === sub.key ? "btn-primary" : "btn-secondary"} mx-1`} onClick={() => setGraphSubcategory(sub.key)} title={`Show ${sub.label} algorithms`}>
                 <GitBranch size={16} className="mr-1" />
+                {sub.label}
+                <span className="count-badge ml-1">{sub.count}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {selectedCategory === "backtracking" && (
+          <div className="category-filters mt-2 overflow-x-auto whitespace-nowrap">
+            {[
+              { key: "all", label: "All", count: backtrackingCounts.all },
+              { key: "nQueens", label: "N-Queens", count: backtrackingCounts.nQueens },
+              { key: "sudoku", label: "Sudoku", count: backtrackingCounts.sudoku },
+              { key: "ratInMaze", label: "Rat in a Maze", count: backtrackingCounts.ratInMaze },
+              { key: "combinationSum", label: "Combination Sum", count: backtrackingCounts.combinationSum },
+              { key: "wordSearch", label: "Word Search", count: backtrackingCounts.wordSearch },
+            ].map((sub) => (
+              <button key={sub.key} className={`btn ${backtrackingSubcategory === sub.key ? "btn-primary" : "btn-secondary"} mx-1`} onClick={() => setBacktrackingSubcategory(sub.key)} title={`Show ${sub.label} algorithms`}>
+                <Code size={16} className="mr-1" />
+                {sub.label}
+                <span className="count-badge ml-1">{sub.count}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {selectedCategory === "dynamicProgramming" && (
+          <div className="category-filters mt-2 overflow-x-auto whitespace-nowrap">
+            {[
+              { key: "all", label: "All", count: dpCounts.all },
+              { key: "fibonacci", label: "Fibonacci", count: dpCounts.fibonacci },
+              { key: "zeroOneKnapsack", label: "0/1 Knapsack", count: dpCounts.zeroOneKnapsack },
+              { key: "coinChange", label: "Coin Change", count: dpCounts.coinChange },
+              { key: "lcs", label: "LCS", count: dpCounts.lcs },
+              { key: "matrixChainMultiplication", label: "Matrix Chain", count: dpCounts.matrixChainMultiplication },
+              { key: "minimumPathSum", label: "Min Path Sum", count: dpCounts.minimumPathSum },
+              { key: "subsetSum", label: "Subset Sum", count: dpCounts.subsetSum },
+            ].map((sub) => (
+              <button key={sub.key} className={`btn ${dpSubcategory === sub.key ? "btn-primary" : "btn-secondary"} mx-1`} onClick={() => setDpSubcategory(sub.key)} title={`Show ${sub.label} algorithms`}>
+                <BookOpen size={16} className="mr-1" />
                 {sub.label}
                 <span className="count-badge ml-1">{sub.count}</span>
               </button>
@@ -527,12 +639,9 @@ function AlgorithmDocumentation() {
         )}
       </div>
 
-      {/* Results Grid */}
       <div className="results-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
         {filteredAlgorithms.length > 0 ? (
-          filteredAlgorithms.map(algorithm => (
-            <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
-          ))
+          filteredAlgorithms.map((algorithm) => <AlgorithmCard key={algorithm.id} algorithm={algorithm} />)
         ) : (
           <div className="no-results-card theme-card text-center p-4">
             <Search size={48} className="mx-auto" />
@@ -544,6 +653,5 @@ function AlgorithmDocumentation() {
     </div>
   );
 }
-
 
 export default AlgorithmDocumentation;
