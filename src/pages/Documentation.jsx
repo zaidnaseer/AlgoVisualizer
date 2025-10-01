@@ -424,7 +424,259 @@ const algorithmDatabase = {
       },
     ],
   },
+  greedy: {
+    title: "Greedy Algorithms",
+    icon: "💰",
+    color: "#f97316",
+    algorithms: [
+      {
+        name: "Activity Selection",
+        id: "activitySelection",
+        description:
+          "Selects the maximum number of non-overlapping activities from a set based on finish times.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(n)",
+        implemented: false,
+      },
+      {
+        name: "Fractional Knapsack",
+        id: "fractionalKnapsack",
+        description:
+          "Selects items to maximize value with fractional weights allowed. Greedy choice based on value/weight ratio.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(1)",
+        implemented: false,
+      },
+      {
+        name: "Huffman Encoding",
+        id: "huffmanEncoding",
+        description:
+          "Constructs an optimal prefix code tree for data compression using a greedy approach.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(n)",
+        implemented: false,
+      },
+      {
+        name: "Job Scheduling",
+        id: "jobScheduling",
+        description:
+          "Schedules jobs to maximize profit using greedy strategy based on deadlines and profits.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(n)",
+        implemented: false,
+      },
+    ],
+  },
+  divideAndConquer: {
+    title: "Divide & Conquer",
+    icon: "🪓",
+    color: "#a78bfa",
+    algorithms: [
+      {
+        name: "Merge Sort",
+        id: "mergeSortDC",
+        description:
+          "Divides array into halves, sorts recursively, and merges them.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(n)",
+        implemented: true,
+      },
+      {
+        name: "Quick Sort",
+        id: "quickSortDC",
+        description:
+          "Partitions array around a pivot and recursively sorts subarrays.",
+        timeComplexity: { best: "O(n log n)", average: "O(n log n)", worst: "O(n²)" },
+        spaceComplexity: "O(log n)",
+        implemented: true,
+      },
+      {
+        name: "Binary Search",
+        id: "binarySearchDC",
+        description:
+          "Searches sorted array by repeatedly halving search space.",
+        timeComplexity: { best: "O(1)", average: "O(log n)", worst: "O(log n)" },
+        spaceComplexity: "O(1)",
+        implemented: true,
+      },
+      {
+        name: "Maximum Subarray Sum",
+        id: "maximumSubarraySumDC",
+        description:
+          "Finds the contiguous subarray with maximum sum using divide & conquer.",
+        timeComplexity: { best: "O(n)", average: "O(n log n)", worst: "O(n log n)" },
+        spaceComplexity: "O(log n)",
+        implemented: true,
+      },
+    ],
+  },
+  hashing: {
+    title: "Hashing",
+    icon: "🔑",
+    color: "#ff6b6b",
+    algorithms: [
+      {
+        name: "Hash Table",
+        id: "hashTable",
+        description: "Implements key-value storage using hashing techniques.",
+        timeComplexity: { best: "O(1)", average: "O(1)", worst: "O(n)" },
+        spaceComplexity: "O(n)",
+        implemented: true,
+      },
+      {
+        name: "Chaining Hash",
+        id: "chainingHash",
+        description: "Collision resolution using linked lists in hash table.",
+        timeComplexity: { best: "O(1)", average: "O(1)", worst: "O(n)" },
+        spaceComplexity: "O(n)",
+        implemented: true,
+      },
+      {
+        name: "Open Addressing",
+        id: "openAddressing",
+        description: "Collision resolution by probing alternative positions.",
+        timeComplexity: { best: "O(1)", average: "O(1)", worst: "O(n)" },
+        spaceComplexity: "O(n)",
+        implemented: true,
+      },
+      {
+        name: "Rolling Hash",
+        id: "rollingHash",
+        description: "Efficient substring hashing technique for string matching.",
+        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+        spaceComplexity: "O(1)",
+        implemented: true,
+      },
+    ],
+  },
+  trees: {
+    title: "Trees",
+    icon: "🌳",
+    color: "#4ade80",
+    algorithms: [
+      {
+        name: "Preorder Traversal",
+        id: "preorderTraversal",
+        description: "Visits root, left subtree, then right subtree (Root → Left → Right).",
+        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+        spaceComplexity: "O(h)",
+        implemented: true,
+      },
+      {
+        name: "Inorder Traversal",
+        id: "inorderTraversal",
+        description: "Visits left subtree, root, then right subtree (Left → Root → Right).",
+        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+        spaceComplexity: "O(h)",
+        implemented: true,
+      },
+      {
+        name: "Postorder Traversal",
+        id: "postorderTraversal",
+        description: "Visits left subtree, right subtree, then root (Left → Right → Root).",
+        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+        spaceComplexity: "O(h)",
+        implemented: true,
+      },
+      {
+        name: "Level Order Traversal",
+        id: "levelOrderTraversal",
+        description: "Visits nodes level by level using BFS.",
+        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+        spaceComplexity: "O(n)",
+        implemented: true,
+      },
+      {
+        name: "BST Insert",
+        id: "bstInsert",
+        description: "Inserts a node into a binary search tree maintaining BST property.",
+        timeComplexity: { best: "O(log n)", average: "O(log n)", worst: "O(n)" },
+        spaceComplexity: "O(h)",
+        implemented: true,
+      },
+      {
+        name: "BST Search",
+        id: "bstSearch",
+        description: "Searches for a value in a binary search tree.",
+        timeComplexity: { best: "O(log n)", average: "O(log n)", worst: "O(n)" },
+        spaceComplexity: "O(h)",
+        implemented: true,
+      },
+      {
+        name: "BST Delete",
+        id: "bstDelete",
+        description: "Deletes a node from a binary search tree while maintaining BST property.",
+        timeComplexity: { best: "O(log n)", average: "O(log n)", worst: "O(n)" },
+        spaceComplexity: "O(h)",
+        implemented: true,
+      },
+    ],
+  },
+  gameSearch: {
+    title: "Game Search",
+    icon: "🎮",
+    color: "#f9a825",
+    algorithms: [
+      {
+        name: "Minimax",
+        id: "minimax",
+        description: "Decision-making algorithm for 2-player games to minimize the possible loss.",
+        timeComplexity: { best: "O(b^d)", average: "O(b^d)", worst: "O(b^d)" },
+        spaceComplexity: "O(d)",
+        implemented: false,
+      },
+      {
+        name: "Alpha-Beta Pruning",
+        id: "alphaBetaPruning",
+        description: "Optimization of minimax that prunes branches that cannot affect the final decision.",
+        timeComplexity: { best: "O(b^(d/2))", average: "O(b^d)", worst: "O(b^d)" },
+        spaceComplexity: "O(d)",
+        implemented: false,
+      },
+      {
+        name: "Expectimax",
+        id: "expectimax",
+        description: "Variation of minimax for games involving chance elements.",
+        timeComplexity: { best: "O(b^d)", average: "O(b^d)", worst: "O(b^d)" },
+        spaceComplexity: "O(d)",
+        implemented: false,
+      },
+      {
+        name: "Monte Carlo Tree Search",
+        id: "monteCarloTreeSearch",
+        description: "Uses random simulations to make decisions in large state-space games.",
+        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
+        spaceComplexity: "O(n)",
+        implemented: false,
+      },
+    ],
+  },
+  branchAndBound: {
+    title: "Branch & Bound",
+    icon: "📦",
+    color: "#34d399",
+    algorithms: [
+      {
+        name: "0/1 Knapsack",
+        id: "knapsack01",
+        description: "Solves 0/1 Knapsack problem using branch and bound to prune unfeasible solutions.",
+        timeComplexity: { best: "O(n)", average: "O(2^n)", worst: "O(2^n)" },
+        spaceComplexity: "O(n)",
+        implemented: false,
+      },
+      {
+        name: "Traveling Salesman (TSP)",
+        id: "tsp",
+        description: "Finds shortest Hamiltonian cycle using branch and bound pruning.",
+        timeComplexity: { best: "O(n!)", average: "O(n!)", worst: "O(n!)" },
+        spaceComplexity: "O(n^2)",
+        implemented: false,
+      },
+    ],
+  },
 };
+
+
 
 const getComplexityColor = (complexity) => {
   const colors = {
@@ -502,8 +754,15 @@ function AlgorithmDocumentation() {
       { key: "graph", label: "Graph", icon: GitBranch, count: algorithmDatabase.graph?.algorithms.length || 0 },
       { key: "backtracking", label: "Backtracking", icon: Code, count: algorithmDatabase.backtracking?.algorithms.length || 0 },
       { key: "dynamicProgramming", label: "Dynamic Programming", icon: BookOpen, count: algorithmDatabase.dynamicProgramming?.algorithms.length || 0 },
+      { key: "greedy", label: "Greedy", icon: Star, count: algorithmDatabase.greedy?.algorithms.length || 0 },
+      { key: "divideAndConquer", label: "Divide & Conquer", icon: Star, count: algorithmDatabase.divideAndConquer?.algorithms.length || 0 },
+      { key: "hashing", label: "Hashing", icon: Star, count: algorithmDatabase.hashing?.algorithms.length || 0 },
+      { key: "trees", label: "Tree", icon: Star, count: algorithmDatabase.trees?.algorithms.length || 0 },
+      { key: "gameSearch", label: "Game Search", icon: Star, count: algorithmDatabase.gameSearch?.algorithms.length || 0 },
+      { key: "branchAndBound", label: "Branch & Bound", icon: Star, count: algorithmDatabase.branchAndBound?.algorithms.length || 0 },
     ];
   }, [getAllAlgorithms]);
+
 
   const graphCounts = useMemo(() => {
     const list = algorithmDatabase.graph?.algorithms || [];

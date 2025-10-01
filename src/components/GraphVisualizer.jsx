@@ -1,73 +1,181 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import "../styles/global-theme.css";
 
-const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, canvasWidth = 800, canvasHeight = 500 }) => {
-  class SimplePriorityQueue {
-    constructor() {
-      this.elements = [];
-    }
-    enqueue(element, priority) {
-      this.elements.push({ element, priority });
-      this.elements.sort((a, b) => a.priority - b.priority);
-    }
-    dequeue() {
-      return this.elements.shift().element;
-    }
-    isEmpty() {
-      return this.elements.length === 0;
-    }
+// Priority Queue implementation for graph algorithms
+class SimplePriorityQueue {
+  constructor() {
+    this.elements = [];
   }
   
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
-  const [isAddingNode, setIsAddingNode] = useState(false);
-  const [isAddingEdge, setIsAddingEdge] = useState(false);
-  const [edgeStartNode, setEdgeStartNode] = useState(null);
-  const canvasRef = useRef(null);
-  const [dijkstraStart, setDijkstraStart] = useState(null);
-  const [dijkstraEnd, setDijkstraEnd] = useState(null);
-  const [algorithm, setAlgorithm] = useState(defaultAlgorithm || "Dijkstra");
-  const [isVisualizing, setIsVisualizing] = useState(false);
-  const [visualState, setVisualState] = useState({
-    visited: new Set(),
-    path: [],
-  });
-  const [message, setMessage] = useState(
-    "Build your graph or select an algorithm."
-  );
-  const [result, setResult] = useState(null);
+  enqueue(element, priority) {
+    this.elements.push({ element, priority });
+    this.elements.sort((a, b) => a.priority - b.priority);
+  }
+  
+  dequeue() {
+    return this.elements.shift().element;
+  }
+  
+  isEmpty() {
+    return this.elements.length === 0;
+  }
+}
 
-  // Memoize the getNeighbors function to prevent unnecessary re-renders
-  const getNeighbors = useCallback((nodeIndex) => {
-    const neighbors = [];
-    edges.forEach((edge) => {
-      if (edge.start === nodeIndex) neighbors.push({ node: edge.end, weight: edge.weight });
-      else if (edge.end === nodeIndex) neighbors.push({ node: edge.start, weight: edge.weight });
-    });
-    return neighbors;
-  }, [edges]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    drawGraph(ctx);
-  }, [nodes, edges, visualState, dijkstraStart, dijkstraEnd]);
-
-  useEffect(() => {
-    if (defaultAlgorithm) {
-      setAlgorithm(defaultAlgorithm);
+// Algorithm implementations
+const GraphAlgorithms = {
+  // Dijkstra's algorithm implementation
+  dijkstra: ({ nodes, edges, startNode, endNode, setVisualState, setMessage, animateVisualization }) => {
+    if (startNode === null || endNode === null) {
+      alert("Please select a start and end node first.");
+      return;
     }
-  }, [defaultAlgorithm]);
 
-  useEffect(() => {
-    if (autoLoadExample) {
-      loadDefaultExample();
+    setVisualState({ visited: new Set(), path: [] }); // Reset previous visualization
+    setMessage(`Running Dijkstra's from ${startNode} to ${endNode}...`);
+
+    const numNodes = nodes.length;
+    const distances = Array(numNodes).fill(Infinity);
+    const prev = Array(numNodes).fill(null);
+    const pq = new SimplePriorityQueue();
+    const visualizationSteps = [];
+
+    distances[startNode] = 0;
+    pq.enqueue(startNode, 0);
+
+    while (!pq.isEmpty()) {
+      const u = pq.dequeue();
+      visualizationSteps.push({ type: "visit", node: u });
+      if (u === endNode) break;
+
+      edges.forEach((edge) => {
+        let v = -1;
+        if (edge.start === u) v = edge.end;
+        if (edge.end === u) v = edge.start;
+        if (v !== -1) {
+          const newDist = distances[u] + edge.weight;
+          if (newDist < distances[v]) {
+            distances[v] = newDist;
+            prev[v] = u;
+            pq.enqueue(v, newDist);
+          }
+        }
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoLoadExample]);
 
-  const drawGraph = useCallback((ctx) => {
+    const path = [];
+    let current = endNode;
+    while (current !== null) {
+      const p = prev[current];
+      if (p !== null) path.unshift({ start: p, end: current });
+      current = p;
+    }
+    visualizationSteps.push({ type: "path", path });
+    return { visualizationSteps, distances, path };
+  },
+
+  // BFS algorithm implementation
+  bfs: ({ nodes, edges, startNode, endNode, setVisualState, setMessage, getNeighbors, animateVisualization }) => {
+    if (startNode === null) {
+      alert("Please select a start node first.");
+      return;
+    }
+
+    setVisualState({ visited: new Set(), path: [] });
+    setMessage(endNode !== null ? `Running BFS from ${startNode} to ${endNode}...` : `Running BFS traversal from ${startNode}...`);
+
+    const queue = [startNode];
+    const visited = new Set([startNode]);
+    const prev = Array(nodes.length).fill(null);
+    const steps = [];
+
+    while (queue.length > 0) {
+      const u = queue.shift();
+      steps.push({ type: "visit", node: u });
+      if (endNode !== null && u === endNode) break;
+      const neighbors = getNeighbors(u);
+      neighbors.forEach(({ node: v }) => {
+        if (!visited.has(v)) {
+          visited.add(v);
+          prev[v] = u;
+          queue.push(v);
+        }
+      });
+    }
+
+    let path = [];
+    if (endNode !== null) {
+      const pathEdges = [];
+      let current = endNode;
+      while (current !== null && current !== startNode) {
+        const p = prev[current];
+        if (p === null) break;
+        pathEdges.unshift({ start: p, end: current });
+        current = p;
+      }
+      path = pathEdges;
+      steps.push({ type: "path", path });
+    }
+    
+    return { steps, path };
+  },
+
+  // DFS algorithm implementation
+  dfs: ({ nodes, edges, startNode, endNode, setVisualState, setMessage, getNeighbors, animateVisualization }) => {
+    if (startNode === null) {
+      alert("Please select a start node first.");
+      return;
+    }
+
+    setVisualState({ visited: new Set(), path: [] });
+    setMessage(endNode !== null ? `Running DFS from ${startNode} to ${endNode}...` : `Running DFS traversal from ${startNode}...`);
+
+    const steps = [];
+    const visited = new Set();
+    const prev = Array(nodes.length).fill(null);
+
+    let found = false;
+    const dfsHelper = (u) => {
+      if (found) return;
+      visited.add(u);
+      steps.push({ type: "visit", node: u });
+      if (endNode !== null && u === endNode) {
+        found = true;
+        return;
+      }
+      const neighbors = getNeighbors(u);
+      for (const { node: v } of neighbors) {
+        if (!visited.has(v)) {
+          prev[v] = u;
+          dfsHelper(v);
+          if (found) return;
+        }
+      }
+    };
+
+    dfsHelper(startNode);
+
+    let path = [];
+    if (endNode !== null && visited.has(endNode)) {
+      const pathEdges = [];
+      let current = endNode;
+      while (current !== null && current !== startNode) {
+        const p = prev[current];
+        if (p === null) break;
+        pathEdges.unshift({ start: p, end: current });
+        current = p;
+      }
+      path = pathEdges;
+      steps.push({ type: "path", path });
+    }
+    
+    return { steps, path };
+  }
+};
+
+// Visualization helper functions
+const VisualizationHelpers = {
+  // Draw the graph on canvas
+  drawGraph: (ctx, { nodes, edges, visualState, dijkstraStart, dijkstraEnd }) => {
     if (!ctx) return;
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
@@ -122,7 +230,111 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
       ctx.textBaseline = "middle";
       ctx.fillText(index, node.x, node.y);
     });
+  },
+
+  // Animate the visualization steps
+  animateVisualization: ({ steps, distances, path, dijkstraStart, dijkstraEnd, setVisualState, setIsVisualizing, setMessage, setResult }) => {
+    let stepIndex = 0;
+    const interval = setInterval(() => {
+      if (stepIndex >= steps.length) {
+        clearInterval(interval);
+        setIsVisualizing(false);
+        setMessage("Visualization complete!");
+        const totalWeight = distances[dijkstraEnd];
+        if (totalWeight === Infinity) {
+          setResult({ path: "No path found", weight: "N/A" });
+        } else {
+          const nodePath = [dijkstraStart];
+          path.forEach((edge) => nodePath.push(edge.end));
+          setResult({ path: nodePath.join(" → "), weight: totalWeight });
+        }
+
+        return;
+      }
+      const step = steps[stepIndex];
+      if (step.type === "visit") {
+        setVisualState((prev) => ({
+          ...prev,
+          visited: new Set(prev.visited).add(step.node),
+        }));
+      } else if (step.type === "path") {
+        setVisualState((prev) => ({ ...prev, path: step.path }));
+      }
+      stepIndex++;
+    }, 300); // Animation speed
+  }
+};
+
+// Default example graph data
+const DEFAULT_EXAMPLE = {
+  nodes: [
+    { x: 150, y: 120 },
+    { x: 350, y: 80 },
+    { x: 550, y: 120 },
+    { x: 200, y: 320 },
+    { x: 400, y: 300 },
+    { x: 600, y: 320 }
+  ],
+  edges: [
+    { start: 0, end: 1, weight: 2 },
+    { start: 1, end: 2, weight: 3 },
+    { start: 0, end: 3, weight: 1 },
+    { start: 3, end: 4, weight: 4 },
+    { start: 4, end: 5, weight: 2 },
+    { start: 1, end: 4, weight: 2 },
+    { start: 2, end: 5, weight: 1 }
+  ]
+};
+
+const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, canvasWidth = 800, canvasHeight = 500 }) => {
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
+  const [isAddingNode, setIsAddingNode] = useState(false);
+  const [isAddingEdge, setIsAddingEdge] = useState(false);
+  const [edgeStartNode, setEdgeStartNode] = useState(null);
+  const canvasRef = useRef(null);
+  const [dijkstraStart, setDijkstraStart] = useState(null);
+  const [dijkstraEnd, setDijkstraEnd] = useState(null);
+  const [algorithm, setAlgorithm] = useState(defaultAlgorithm || "Dijkstra");
+  const [isVisualizing, setIsVisualizing] = useState(false);
+  const [visualState, setVisualState] = useState({
+    visited: new Set(),
+    path: [],
+  });
+  const [message, setMessage] = useState(
+    "Build your graph or select an algorithm."
+  );
+  const [result, setResult] = useState(null);
+
+  // Memoize the getNeighbors function to prevent unnecessary re-renders
+  const getNeighbors = useCallback((nodeIndex) => {
+    const neighbors = [];
+    edges.forEach((edge) => {
+      if (edge.start === nodeIndex) neighbors.push({ node: edge.end, weight: edge.weight });
+      else if (edge.end === nodeIndex) neighbors.push({ node: edge.start, weight: edge.weight });
+    });
+    return neighbors;
+  }, [edges]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    VisualizationHelpers.drawGraph(ctx, { nodes, edges, visualState, dijkstraStart, dijkstraEnd });
   }, [nodes, edges, visualState, dijkstraStart, dijkstraEnd]);
+
+  useEffect(() => {
+    if (defaultAlgorithm) {
+      setAlgorithm(defaultAlgorithm);
+    }
+  }, [defaultAlgorithm]);
+
+  useEffect(() => {
+    if (autoLoadExample) {
+      loadDefaultExample();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoLoadExample]);
 
   const handleCanvasClick = useCallback((event) => {
     const canvas = canvasRef.current;
@@ -168,85 +380,117 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
   }, [isAddingNode, isAddingEdge, edgeStartNode, nodes, edges]);
 
   const runDijkstra = useCallback(() => {
-    if (dijkstraStart === null || dijkstraEnd === null) {
-      alert("Please select a start and end node first.");
-      return;
-    }
-
-    setIsVisualizing(true);
-    setVisualState({ visited: new Set(), path: [] }); // Reset previous visualization
-    setMessage(`Running Dijkstra's from ${dijkstraStart} to ${dijkstraEnd}...`);
-
-    const numNodes = nodes.length;
-    const distances = Array(numNodes).fill(Infinity);
-    const prev = Array(numNodes).fill(null);
-    const pq = new SimplePriorityQueue();
-    const visualizationSteps = [];
-
-    distances[dijkstraStart] = 0;
-    pq.enqueue(dijkstraStart, 0);
-
-    while (!pq.isEmpty()) {
-      const u = pq.dequeue();
-      visualizationSteps.push({ type: "visit", node: u });
-      if (u === dijkstraEnd) break;
-
-      edges.forEach((edge) => {
-        let v = -1;
-        if (edge.start === u) v = edge.end;
-        if (edge.end === u) v = edge.start;
-        if (v !== -1) {
-          const newDist = distances[u] + edge.weight;
-          if (newDist < distances[v]) {
-            distances[v] = newDist;
-            prev[v] = u;
-            pq.enqueue(v, newDist);
-          }
-        }
-      });
-    }
-
-    const path = [];
-    let current = dijkstraEnd;
-    while (current !== null) {
-      const p = prev[current];
-      if (p !== null) path.unshift({ start: p, end: current });
-      current = p;
-    }
-    visualizationSteps.push({ type: "path", path });
-    animateVisualization(visualizationSteps, distances, path);
+    const { visualizationSteps, distances, path } = GraphAlgorithms.dijkstra({
+      nodes,
+      edges,
+      startNode: dijkstraStart,
+      endNode: dijkstraEnd,
+      setVisualState,
+      setMessage,
+      animateVisualization: (steps, distances, path) => 
+        VisualizationHelpers.animateVisualization({
+          steps,
+          distances,
+          path,
+          dijkstraStart,
+          dijkstraEnd,
+          setVisualState,
+          setIsVisualizing,
+          setMessage,
+          setResult
+        })
+    });
+    
+    VisualizationHelpers.animateVisualization({
+      steps: visualizationSteps,
+      distances,
+      path,
+      dijkstraStart,
+      dijkstraEnd,
+      setVisualState,
+      setIsVisualizing,
+      setMessage,
+      setResult
+    });
   }, [dijkstraStart, dijkstraEnd, nodes, edges]);
 
-  const animateVisualization = useCallback((steps, distances, path) => {
-    let stepIndex = 0;
-    const interval = setInterval(() => {
-      if (stepIndex >= steps.length) {
-        clearInterval(interval);
-        setIsVisualizing(false);
-        setMessage("Visualization complete!");
-        const totalWeight = distances[dijkstraEnd];
-        if (totalWeight === Infinity) {
-          setResult({ path: "No path found", weight: "N/A" });
-        } else {
-          const nodePath = [dijkstraStart];
-          path.forEach((edge) => nodePath.push(edge.end));
-          setResult({ path: nodePath.join(" → "), weight: totalWeight });
-        }
+  const runBFS = useCallback(() => {
+    const { steps, path } = GraphAlgorithms.bfs({
+      nodes,
+      edges,
+      startNode: dijkstraStart,
+      endNode: dijkstraEnd,
+      setVisualState,
+      setMessage,
+      getNeighbors,
+      animateVisualization: (steps, distances, path) => 
+        VisualizationHelpers.animateVisualization({
+          steps,
+          distances,
+          path,
+          dijkstraStart,
+          dijkstraEnd,
+          setVisualState,
+          setIsVisualizing,
+          setMessage,
+          setResult
+        })
+    });
+    
+    VisualizationHelpers.animateVisualization({
+      steps,
+      distances: [],
+      path,
+      dijkstraStart,
+      dijkstraEnd,
+      setVisualState,
+      setIsVisualizing,
+      setMessage,
+      setResult
+    });
+  }, [dijkstraStart, dijkstraEnd, nodes, getNeighbors]);
 
-        return;
-      }
-      const step = steps[stepIndex];
-      if (step.type === "visit") {
-        setVisualState((prev) => ({
-          ...prev,
-          visited: new Set(prev.visited).add(step.node),
-        }));
-      } else if (step.type === "path") {
-        setVisualState((prev) => ({ ...prev, path: step.path }));
-      }
-      stepIndex++;
-    }, 300); // Animation speed
-  }, [dijkstraStart, dijkstraEnd]);
+  const runDFS = useCallback(() => {
+    const { steps, path } = GraphAlgorithms.dfs({
+      nodes,
+      edges,
+      startNode: dijkstraStart,
+      endNode: dijkstraEnd,
+      setVisualState,
+      setMessage,
+      getNeighbors,
+      animateVisualization: (steps, distances, path) => 
+        VisualizationHelpers.animateVisualization({
+          steps,
+          distances,
+          path,
+          dijkstraStart,
+          dijkstraEnd,
+          setVisualState,
+          setIsVisualizing,
+          setMessage,
+          setResult
+        })
+    });
+    
+    VisualizationHelpers.animateVisualization({
+      steps,
+      distances: [],
+      path,
+      dijkstraStart,
+      dijkstraEnd,
+      setVisualState,
+      setIsVisualizing,
+      setMessage,
+      setResult
+    });
+  }, [dijkstraStart, dijkstraEnd, nodes, getNeighbors]);
+
+  const runSelectedAlgorithm = useCallback(() => {
+    if (algorithm === "Dijkstra") return runDijkstra();
+    if (algorithm === "BFS") return runBFS();
+    if (algorithm === "DFS") return runDFS();
+  }, [algorithm, runDijkstra, runBFS, runDFS]);
 
   const handleClear = useCallback(() => {
     setNodes([]);
@@ -259,135 +503,14 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
   }, []);
 
   const loadDefaultExample = useCallback(() => {
-    const exampleNodes = [
-      { x: 150, y: 120 },
-      { x: 350, y: 80 },
-      { x: 550, y: 120 },
-      { x: 200, y: 320 },
-      { x: 400, y: 300 },
-      { x: 600, y: 320 }
-    ];
-    const exampleEdges = [
-      { start: 0, end: 1, weight: 2 },
-      { start: 1, end: 2, weight: 3 },
-      { start: 0, end: 3, weight: 1 },
-      { start: 3, end: 4, weight: 4 },
-      { start: 4, end: 5, weight: 2 },
-      { start: 1, end: 4, weight: 2 },
-      { start: 2, end: 5, weight: 1 }
-    ];
-    setNodes(exampleNodes);
-    setEdges(exampleEdges);
+    setNodes(DEFAULT_EXAMPLE.nodes);
+    setEdges(DEFAULT_EXAMPLE.edges);
     setDijkstraStart(0);
     setDijkstraEnd(5);
     setVisualState({ visited: new Set(), path: [] });
     setResult(null);
     setMessage("Loaded default example graph. Choose an algorithm and run.");
   }, []);
-
-  const runBFS = useCallback(() => {
-    if (dijkstraStart === null) {
-      alert("Please select a start node first.");
-      return;
-    }
-    const start = dijkstraStart;
-    const target = dijkstraEnd; // optional target, if provided we show path
-    setIsVisualizing(true);
-    setVisualState({ visited: new Set(), path: [] });
-    setMessage(target !== null ? `Running BFS from ${start} to ${target}...` : `Running BFS traversal from ${start}...`);
-
-    const queue = [start];
-    const visited = new Set([start]);
-    const prev = Array(nodes.length).fill(null);
-    const steps = [];
-
-    while (queue.length > 0) {
-      const u = queue.shift();
-      steps.push({ type: "visit", node: u });
-      if (target !== null && u === target) break;
-      const neighbors = getNeighbors(u);
-      neighbors.forEach(({ node: v }) => {
-        if (!visited.has(v)) {
-          visited.add(v);
-          prev[v] = u;
-          queue.push(v);
-        }
-      });
-    }
-
-    let path = [];
-    if (target !== null) {
-      const pathEdges = [];
-      let current = target;
-      while (current !== null && current !== start) {
-        const p = prev[current];
-        if (p === null) break;
-        pathEdges.unshift({ start: p, end: current });
-        current = p;
-      }
-      path = pathEdges;
-      steps.push({ type: "path", path });
-    }
-    animateVisualization(steps, [], path);
-  }, [dijkstraStart, dijkstraEnd, nodes, getNeighbors]);
-
-  const runDFS = useCallback(() => {
-    if (dijkstraStart === null) {
-      alert("Please select a start node first.");
-      return;
-    }
-    const start = dijkstraStart;
-    const target = dijkstraEnd; // optional
-    setIsVisualizing(true);
-    setVisualState({ visited: new Set(), path: [] });
-    setMessage(target !== null ? `Running DFS from ${start} to ${target}...` : `Running DFS traversal from ${start}...`);
-
-    const steps = [];
-    const visited = new Set();
-    const prev = Array(nodes.length).fill(null);
-
-    let found = false;
-    const dfs = (u) => {
-      if (found) return;
-      visited.add(u);
-      steps.push({ type: "visit", node: u });
-      if (target !== null && u === target) {
-        found = true;
-        return;
-      }
-      const neighbors = getNeighbors(u);
-      for (const { node: v } of neighbors) {
-        if (!visited.has(v)) {
-          prev[v] = u;
-          dfs(v);
-          if (found) return;
-        }
-      }
-    };
-
-    dfs(start);
-
-    let path = [];
-    if (target !== null && visited.has(target)) {
-      const pathEdges = [];
-      let current = target;
-      while (current !== null && current !== start) {
-        const p = prev[current];
-        if (p === null) break;
-        pathEdges.unshift({ start: p, end: current });
-        current = p;
-      }
-      path = pathEdges;
-      steps.push({ type: "path", path });
-    }
-    animateVisualization(steps, [], path);
-  }, [dijkstraStart, dijkstraEnd, nodes, getNeighbors]);
-
-  const runSelectedAlgorithm = useCallback(() => {
-    if (algorithm === "Dijkstra") return runDijkstra();
-    if (algorithm === "BFS") return runBFS();
-    if (algorithm === "DFS") return runDFS();
-  }, [algorithm, runDijkstra, runBFS, runDFS]);
 
   // Memoize the algorithm options to prevent unnecessary re-renders
   const algorithmOptions = useMemo(() => [
@@ -472,7 +595,7 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
               ))}
             </select>
           </div>
-                   <div className="control-group">
+          <div className="control-group">
             <label className="control-label">End Node:</label>
             <select
               value={dijkstraEnd ?? ""}
@@ -493,6 +616,16 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
               ))}
             </select>
           </div>
+          <div className="control-group">
+            <button
+              className="btn btn-primary"
+              onClick={runSelectedAlgorithm}
+              disabled={isVisualizing || nodes.length === 0}
+              aria-label="Run selected algorithm"
+            >
+              Run Algorithm
+            </button>
+          </div>
         </div>
 
         {/* Right side for canvas */}
@@ -503,6 +636,11 @@ const GraphVisualizer = ({ defaultAlgorithm = null, autoLoadExample = false, can
           className="graph-canvas"
           onClick={handleCanvasClick}
         />
+
+        {/* Status message */}
+        <div className="status-message">
+          <p>{message}</p>
+        </div>
 
         {/* Result box */}
         {result && (
