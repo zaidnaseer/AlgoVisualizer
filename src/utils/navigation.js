@@ -1,5 +1,7 @@
 // Unified navigation structure
+// Organized by sections for better maintainability
 
+// Header navigation items (used in Header component)
 export const headerNavigationItems = [
   { path: '/', label: 'Home', icon: 'FaCode', group: 'main' },
   { path: '/documentation', label: 'Documentation', icon: 'FaBook', group: 'help' },
@@ -7,6 +9,7 @@ export const headerNavigationItems = [
   { path: '/quiz', label: 'Quiz', icon: 'FaBrain', group: 'test' },
 ];
 
+// Main navbar navigation items (used in Navbar component)
 export const navbarNavigationItems = [
   { path: "/", label: "Home", icon: "Home" },
   { path: "/learn", label: "Learn", icon: "BookOpen" }, // ← simple link now
@@ -16,8 +19,9 @@ export const navbarNavigationItems = [
   { path: "/settings", label: "Settings", icon: "Settings" },
 ];
 
-// Optional: structured data for the Learn page
+// Learn page sections organized by topic areas
 export const learnSections = [
+  // Data Structures section
   {
     heading: "Data Structures",
     items: [
@@ -28,6 +32,8 @@ export const learnSections = [
       { path: "/data-structures/binary-tree", label: "Binary Tree visualization" },
     ],
   },
+  
+  // Sorting algorithms section
   {
     heading: "Sorting",
     items: [
@@ -35,6 +41,8 @@ export const learnSections = [
       { path: "/components/AlgorithmComparison", label: "Algorithm Comparison" },
     ],
   },
+  
+  // Searching algorithms section
   {
     heading: "Searching",
     items: [
@@ -42,6 +50,8 @@ export const learnSections = [
       { path: "/searching", label: "Searching Algorithm" },
     ],
   },
+  
+  // Graph algorithms section
   {
     heading: "Graphs",
     items: [
@@ -53,6 +63,8 @@ export const learnSections = [
       { path: "/graph/cycleDetection", label: "Cycle Detection" },
     ],
   },
+  
+  // Algorithmic paradigms section
   {
     heading: "Paradigms",
     items: [
@@ -66,6 +78,8 @@ export const learnSections = [
       { path: "/dc", label: "Divide & Conquer" },
     ],
   },
+  
+  // Additional topics section
   {
     heading: "Other Topics",
     items: [

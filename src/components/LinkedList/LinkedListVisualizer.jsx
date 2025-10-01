@@ -646,8 +646,8 @@ const LinkedListVisualizer = () => {
       <div className="theme-card" style={{ marginTop: '2rem' }}>
         <div className="theme-card-header">
           <h3>Linked List Operations - Code Implementation</h3>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <button
                 className={`btn ${selectedLanguage === 'java' ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setSelectedLanguage('java')}
@@ -699,8 +699,6 @@ const LinkedListVisualizer = () => {
           background: 'var(--surface-bg)',
           borderRadius: '8px',
           padding: '1.5rem',
-          overflow: 'auto',
-          maxHeight: '500px'
         }}>
           <pre style={{
             margin: 0,
