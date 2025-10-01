@@ -111,6 +111,30 @@ const performanceTracker = {
   }
 };
 
+// Sorting control utilities
+const sortingControls = {
+  stop: (stopRef) => {
+    stopRef.current = true;
+  },
+  
+  reset: (stopRef) => {
+    stopRef.current = false;
+  }
+};
+
+// Algorithm information helpers
+const algorithmHelpers = {
+  getName: (algorithm) => ALGORITHM_MAPPINGS[algorithm]?.name || "Unknown Algorithm",
+  
+  getInfo: (algorithm) => ALGORITHM_INFO.sorting[algorithm] || {
+    description: "Algorithm implementation coming soon!",
+    timeComplexity: "N/A",
+    spaceComplexity: "N/A",
+    bestCase: "N/A",
+    stable: "N/A",
+  }
+};
+
 const Sorting = () => {
   // Consolidated state management
   const [state, setState] = useState({
@@ -187,29 +211,23 @@ const Sorting = () => {
 
   // Sorting control functions
   const handleStop = useCallback(() => {
-    stopSortingRef.current = true;
+    sortingControls.stop(stopSortingRef);
     setState(prev => ({ ...prev, isSorting: false, message: "Sorting stopped" }));
   }, []);
 
   // Algorithm information helpers
   const getAlgorithmName = useCallback(() => 
-    ALGORITHM_MAPPINGS[state.algorithm]?.name || "Unknown Algorithm", [state.algorithm]);
+    algorithmHelpers.getName(state.algorithm), [state.algorithm]);
 
   const getAlgorithmInfo = useCallback(() => 
-    ALGORITHM_INFO.sorting[state.algorithm] || {
-      description: "Algorithm implementation coming soon!",
-      timeComplexity: "N/A",
-      spaceComplexity: "N/A",
-      bestCase: "N/A",
-      stable: "N/A",
-    }, [state.algorithm]);
+    algorithmHelpers.getInfo(state.algorithm), [state.algorithm]);
 
   // Main sorting function
   const handleSort = useCallback(async () => {
     if (state.isSorting) return;
 
-    setState(prev => ({ ...prev, isSorting: true, message: `Sorting using ${ALGORITHM_MAPPINGS[state.algorithm]?.name}...` }));
-    stopSortingRef.current = false;
+    setState(prev => ({ ...prev, isSorting: true, message: `Sorting using ${algorithmHelpers.getName(state.algorithm)}...` }));
+    sortingControls.reset(stopSortingRef);
     setStatistics(performanceTracker.init());
 
     const startTime = Date.now();
@@ -218,7 +236,7 @@ const Sorting = () => {
     if (!algorithmFunction) {
       setState(prev => ({ 
         ...prev, 
-        message: `${ALGORITHM_MAPPINGS[state.algorithm]?.name} implementation coming soon!`,
+        message: `${algorithmHelpers.getName(state.algorithm)} implementation coming soon!`,
         isSorting: false
       }));
       return;
@@ -243,7 +261,7 @@ const Sorting = () => {
         updateStats({ time: endTime - startTime });
         setState(prev => ({ 
           ...prev, 
-          message: `Sorting completed using ${ALGORITHM_MAPPINGS[state.algorithm]?.name}!` 
+          message: `Sorting completed using ${algorithmHelpers.getName(state.algorithm)}!` 
         }));
       }
     } catch (e) {
