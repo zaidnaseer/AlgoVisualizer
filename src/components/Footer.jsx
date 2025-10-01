@@ -176,7 +176,7 @@ const Footer = () => {
   const navigationLinks = [
     { to: "/", icon: FaRocket, label: "Home" },
     { to: "/data-structures", icon: FaCode, label: "Algorithms" },
-    { to: "/data-structures", icon: FaGraduationCap, label: "Data Structures" },
+    { to: "/data-structures-docs", icon: FaGraduationCap, label: "Data Structures" },
     { to: "/about", icon: FaGraduationCap, label: "About Us" },
     { to: "/contact", icon: FaEnvelope, label: "Contact" },
   ];
