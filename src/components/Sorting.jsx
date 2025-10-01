@@ -25,53 +25,53 @@ import { cycleSortWithStop } from "../algorithms/cycleSort";
 
 // Algorithm mappings for better organization
 const ALGORITHM_MAPPINGS = {
-  bubbleSort: { 
-    name: "Bubble Sort", 
-    function: bubbleSortWithStop 
+  bubbleSort: {
+    name: "Bubble Sort",
+    function: bubbleSortWithStop
   },
-  selectionSort: { 
-    name: "Selection Sort", 
-    function: selectionSortWithStop 
+  selectionSort: {
+    name: "Selection Sort",
+    function: selectionSortWithStop
   },
-  insertionSort: { 
-    name: "Insertion Sort", 
-    function: insertionSortWithStop 
+  insertionSort: {
+    name: "Insertion Sort",
+    function: insertionSortWithStop
   },
-  mergeSort: { 
-    name: "Merge Sort", 
-    function: mergeSortWithStop 
+  mergeSort: {
+    name: "Merge Sort",
+    function: mergeSortWithStop
   },
-  quickSort: { 
-    name: "Quick Sort", 
-    function: quickSortWithStop 
+  quickSort: {
+    name: "Quick Sort",
+    function: quickSortWithStop
   },
-  radixSort: { 
-    name: "Radix Sort", 
-    function: radixSortWithStop 
+  radixSort: {
+    name: "Radix Sort",
+    function: radixSortWithStop
   },
-  bucketSort: { 
-    name: "Bucket Sort", 
-    function: bucketSortWithStop 
+  bucketSort: {
+    name: "Bucket Sort",
+    function: bucketSortWithStop
   },
-  heapSort: { 
-    name: "Heap Sort", 
-    function: heapSortWithStop 
+  heapSort: {
+    name: "Heap Sort",
+    function: heapSortWithStop
   },
-  timSort: { 
-    name: "Tim Sort", 
-    function: timSortWithStop 
+  timSort: {
+    name: "Tim Sort",
+    function: timSortWithStop
   },
-  introSort: { 
-    name: "Intro Sort", 
-    function: introSortWithStop 
+  introSort: {
+    name: "Intro Sort",
+    function: introSortWithStop
   },
-  shellSort: { 
-    name: "Shell Sort", 
-    function: shellSortWithStop 
+  shellSort: {
+    name: "Shell Sort",
+    function: shellSortWithStop
   },
-  cycleSort: { 
-    name: "Cycle Sort", 
-    function: cycleSortWithStop 
+  cycleSort: {
+    name: "Cycle Sort",
+    function: cycleSortWithStop
   },
 };
 
@@ -159,10 +159,10 @@ const Sorting = () => {
   }, []);
 
   // Algorithm information helpers
-  const getAlgorithmName = useCallback(() => 
+  const getAlgorithmName = useCallback(() =>
     ALGORITHM_MAPPINGS[algorithm]?.name || "Unknown Algorithm", [algorithm]);
 
-  const getAlgorithmInfo = useCallback(() => 
+  const getAlgorithmInfo = useCallback(() =>
     ALGORITHM_INFO.sorting[algorithm] || {
       description: "Algorithm implementation coming soon!",
       timeComplexity: "N/A",
@@ -194,11 +194,11 @@ const Sorting = () => {
       const statsUpdater = (partial) => {
         updateStats(partial);
       };
-      
+
       await algorithmFunction(
         array,
         setArray,
-        () => {}, // colorArray is handled by AlgorithmVisualizer
+        () => { }, // colorArray is handled by AlgorithmVisualizer
         delay,
         stopSortingRef,
         statsUpdater
@@ -343,46 +343,8 @@ const Sorting = () => {
             {inputError && <div className="inline-error" role="alert">{inputError}</div>}
           </div>
 
-          {/* Visualization Controls */}
-          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
-            <div className="theme-card-header">
-              <h3>Visualization Controls</h3>
-            </div>
-            <div className="form-grid tight-grid">
-              <div className="form-group">
-                <label className="form-label" htmlFor="arraySizeRange">
-                  Array Size: {arraySize}
-                </label>
-                <input
-                  id="arraySizeRange"
-                  type="range"
-                  min="10"
-                  max="60"
-                  value={arraySize}
-                  onChange={(e) => setArraySize(parseInt(e.target.value, 10))}
-                  disabled={isSorting}
-                  className="form-range"
-                  aria-label="Adjust array size"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label" htmlFor="speedRange">
-                  Speed: {delay}ms
-                </label>
-                <input
-                  id="speedRange"
-                  type="range"
-                  min="20"
-                  max="1000"
-                  value={delay}
-                  onChange={(e) => setDelay(parseInt(e.target.value, 10))}
-                  disabled={isSorting}
-                  className="form-range"
-                  aria-label="Adjust animation speed"
-                />
-              </div>
-            </div>
-          </div>
+
+
 
           {/* Export Controls */}
           <SimpleExportControls containerId="sort-visualization-container" />
@@ -477,23 +439,45 @@ const Sorting = () => {
 
         {/* RIGHT COLUMN - Visualization */}
         <div className="sorting-right">
-          {/* Main Visualization */}
-          <div 
-            id="sort-visualization-container"
-            className="theme-card visualization-card" 
-            data-aos="fade-up" 
-            data-aos-delay="100"
-          >
+          {/* Visualization Controls */}
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
             <div className="theme-card-header">
-              <h3>Visualization - {algorithmName}</h3>
+              <h3>Visualization Controls</h3>
             </div>
-            <AlgorithmVisualizer
-              algorithmName={algorithmName}
-              initialArray={array}
-              visualOnly={true}
-              barGap={computeGap()}
-              fontSize={computeBarFontSize()}
-            />
+            <div className="form-grid tight-grid">
+              <div className="form-group">
+                <label className="form-label" htmlFor="arraySizeRange">
+                  Array Size: {arraySize}
+                </label>
+                <input
+                  id="arraySizeRange"
+                  type="range"
+                  min="10"
+                  max="60"
+                  value={arraySize}
+                  onChange={(e) => setArraySize(parseInt(e.target.value, 10))}
+                  disabled={isSorting}
+                  className="form-range"
+                  aria-label="Adjust array size"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="speedRange">
+                  Speed: {delay}ms
+                </label>
+                <input
+                  id="speedRange"
+                  type="range"
+                  min="20"
+                  max="1000"
+                  value={delay}
+                  onChange={(e) => setDelay(parseInt(e.target.value, 10))}
+                  disabled={isSorting}
+                  className="form-range"
+                  aria-label="Adjust animation speed"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Compact Statistics */}
@@ -522,6 +506,27 @@ const Sorting = () => {
           </div>
         </div>
       </div>
+
+      {/* Main Visualization */}
+
+      <div
+        id="sort-visualization-container"
+        className="theme-card visualization-card"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div className="theme-card-header">
+          <h3>Visualization - {algorithmName}</h3>
+        </div>
+        <AlgorithmVisualizer
+          algorithmName={algorithmName}
+          initialArray={array}
+          visualOnly={true}
+          barGap={computeGap()}
+          fontSize={computeBarFontSize()}
+        />
+      </div>
+
 
       <CodeExplanation
         algorithm={algorithm}
