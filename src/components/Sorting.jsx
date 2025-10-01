@@ -407,7 +407,7 @@ const Sorting = () => {
           )}
 
           {/* Performance Statistics */}
-          <div className="theme-card" data-aos="fade-up" data-aos-delay="600">
+          {/* <div className="theme-card" data-aos="fade-up" data-aos-delay="600">
             <div className="theme-card-header">
               <h3>Performance Statistics</h3>
             </div>
@@ -429,7 +429,7 @@ const Sorting = () => {
                 <div className="stat-value">{array.length}</div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Algorithm Details */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="700">
