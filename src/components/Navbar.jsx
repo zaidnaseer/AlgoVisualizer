@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import Fuse from "fuse.js";
 import {
   Home,
   BarChart3,
@@ -176,6 +177,7 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState("All");
 
   const location = useLocation();
   const { theme } = useTheme();
@@ -215,28 +217,35 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
   const handleDropdownToggle = (index) => setIsDropdownOpen(index === isDropdownOpen ? null : index);
 
-  // Search functionality
+
+  // Fuse.js setup
+  const fuse = new Fuse(
+    navbarNavigationItems.flatMap((item) =>
+      item.dropdown ? item.dropdown : item
+    ),
+    {
+      keys: ["label", "path", "keywords"],
+      threshold: 0.3, // fuzziness level
+    }
+  );
+
+  // Handle search
+
   const handleSearch = (query) => {
     setSearchQuery(query);
+
     if (!query.trim()) {
       setSearchResults([]);
       setIsSearchOpen(false);
       return;
     }
 
-    const results = [];
-    navbarNavigationItems.forEach((item) => {
-      if (item.label.toLowerCase().includes(query.toLowerCase()) && item.path) {
-        results.push({ path: item.path, label: item.label });
-      }
-      if (item.dropdown) {
-        item.dropdown.forEach((subItem) => {
-          if (subItem.label.toLowerCase().includes(query.toLowerCase())) {
-            results.push({ path: subItem.path, label: subItem.label });
-          }
-        });
-      }
-    });
+    const results = fuse
+      .search(query)
+      .map((result) => result.item)
+      .filter(
+        (item) => categoryFilter === "All" || item.category === categoryFilter
+      );
 
     setSearchResults(results);
     setIsSearchOpen(results.length > 0);
@@ -333,7 +342,7 @@ const Navbar = () => {
         <div className="navbar-search" ref={searchRef}>
           <input
             type="text"
-            placeholder="Search algorithms..."
+            placeholder="Search algorithms or notes..."
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
             className="search-input"
@@ -351,6 +360,20 @@ const Navbar = () => {
             </button>
           )}
           <Search size={18} className="search-icon" />
+
+          {/* Category Filter */}
+          <select
+            className="category-filter"
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <option value="All">All</option>
+            <option value="Java">Java</option>
+            <option value="Python">Python</option>
+            <option value="Sorting">Sorting</option>
+            <option value="Graph">Graph</option>
+          </select>
+
           {isSearchOpen && (
             <div className="search-results">
               {searchResults.map((item, index) => (
