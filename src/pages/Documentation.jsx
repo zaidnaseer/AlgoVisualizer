@@ -281,24 +281,6 @@ const algorithmDatabase = {
       },
     ],
   },
-  trees: {
-    title: "Trees",
-    icon: "🌳",
-
-    color: "#4ade80",
-    algorithms: [
-
-      {
-        name: "Postorder Traversal",
-        id: "postorder-traversal",
-        description:
-          "Tree traversal method that visits the left subtree, then the right subtree, and finally the root node (Left → Right → Root).",
-        timeComplexity: { best: "O(n)", average: "O(n)", worst: "O(n)" },
-        spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
-        implemented: true,
-      },
-    ],
-  },
   backtracking: {
     title: "Backtracking Algorithms",
     icon: "🧩",
@@ -675,34 +657,6 @@ const algorithmDatabase = {
         spaceComplexity: "O(n^2)",
         implemented: false,
       },
-
-{
-name: "Postorder Traversal",
-id: "postorder-traversal",
-description: "Tree traversal method that visits the left subtree, then the right subtree, and finally the root node (Left → Right → Root).",
-timeComplexity: {
-best: "O(n)",
-average: "O(n)",
-worst: "O(n)"
-},
-spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
-implemented: true
-},
-{
-name: "Inorder Traversal",
-id: "inorder-traversal",
-description: "Tree traversal method that visits the left subtree, then the root node, and finally the right subtree (Left → Root → Right).",
-timeComplexity: {
-best: "O(n)",
-average: "O(n)",
-worst: "O(n)"
-},
-spaceComplexity: "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
-implemented: true
-},
-
-
-
     ],
   },
 };
