@@ -462,6 +462,10 @@ body {
 }
 
 .algorithm-card .card-description {
+  margin: 0; 
+  padding: 0;
+  width: 100%;
+  text-align: justify;
   color: var(--theme-text-secondary);
   line-height: 1.6;
   font-size: 0.9rem;
