@@ -37,7 +37,6 @@
     "tailwindcss": "^4.1.13",
     "uuid": "^13.0.0",
     "vis-network": "^10.0.2",
-
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

@@ -1470,6 +1470,23 @@ body {
   white-space: nowrap;
   color: var(--header-text-color);
 }
+.cell.is-focus {
+  outline: 2px solid #f59e0b;  /* amber for splits */
+  outline-offset: -2px;
+  background-color: #fbbf24 !important;
+  color: #111;
+  font-weight: bold;
+}
+.result-box {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(16, 185, 129, 0.1); /* teal tint */
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #d1fae5;
+}
+
 
 /* Highlight the current DP cell being updated */
 .cell.is-focus {
