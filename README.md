@@ -692,3 +692,4 @@ This project is licensed under the MIT License - see the [`License`](https://git
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
 > Ready to show off your coding achievements? Get started with **AlgoVisualizer** today! 🚀
+<!-- Thank you -->
