@@ -33,6 +33,7 @@ import CommunityLanding from "./pages/CommunityLanding";
 // Java Notes
 import Fundamentals from "./pages/Notes/Java/Fundamentals";
 import VariablesAndDataTypes from "./pages/Notes/Java/VariablesAndDataTypes";
+import JavaBasics from "./pages/Notes/Java/JavaBasics";
 
 // Python Notes
 import PythonFundamentals from "./pages/Notes/Python/Fundamentals";
@@ -221,6 +222,7 @@ const App = () => {
                 path="/notes/java/variables-and-data-types"
                 element={<VariablesAndDataTypes />}
               />
+              <Route path="/notes/java/basics" element={<JavaBasics />} />
 
               {/* Python */}
               <Route
