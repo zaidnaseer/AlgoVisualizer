@@ -37,6 +37,7 @@ import VariablesAndDataTypes from "./pages/Notes/Java/VariablesAndDataTypes";
 // Python Notes
 import PythonFundamentals from "./pages/Notes/Python/Fundamentals";
 import PythonVariablesAndDataTypes from "./pages/Notes/Python/VariablesAndDataTypes";
+import PythonBasics from "./pages/Notes/Python/PythonBasics";
 
 // C++ Notes
 import CppFundamentals from "./pages/Notes/Cpp/Fundamentals";
@@ -88,6 +89,8 @@ import "aos/dist/aos.css";
 import "./styles/components.css";
 import "./styles/footer-improved.css";
 import LearnLanding from "./pages/LearnLanding";
+import DSDocumentation from "./pages/DSDocumentation";
+
 
 const App = () => {
   const location = useLocation();
@@ -166,6 +169,9 @@ const App = () => {
               <Route path="/branchbound" element={<BranchBoundPage />} />
               <Route path="/string-overview" element={<StringOverview />} />
               <Route path="/string" element={<StringPage />} />
+              {/* Data Structures Documentation */}
+<Route path="/data-structures-docs" element={<DSDocumentation />} />
+
 
               {/* Other Pages */}
               <Route path="/quiz" element={<Quiz />} />
@@ -190,6 +196,7 @@ const App = () => {
               <Route path="/notes/java/variables-and-data-types" element={<VariablesAndDataTypes />} />
 
               {/* Python */}
+
               <Route path="/notes/python" element={<Navigate to="/notes/python/fundamentals" replace />} />
               <Route path="/notes/python/fundamentals" element={<PythonFundamentals />} />
               <Route path="/notes/python/variables-and-data-types" element={<PythonVariablesAndDataTypes />} />
@@ -198,6 +205,20 @@ const App = () => {
               <Route path="/notes/cpp" element={<Navigate to="/notes/cpp/fundamentals" replace />} />
               <Route path="/notes/cpp/fundamentals" element={<CppFundamentals />} />
               <Route path="/notes/cpp/variables-and-data-types" element={<CppVariablesAndDataTypes />} />
+
+              <Route
+                path="/notes/python"
+                element={<Navigate to="/notes/python/fundamentals" replace />}
+              />
+              <Route
+                path="/notes/python/fundamentals"
+                element={<PythonFundamentals />}
+              />
+              <Route
+                path="/notes/python/variables-and-data-types"
+                element={<PythonVariablesAndDataTypes />}
+              />
+              <Route path="/notes/python/basics" element={<PythonBasics />} />
 
               {/* Learning & Settings */}
               <Route path="/learn" element={<LearnLanding />} />

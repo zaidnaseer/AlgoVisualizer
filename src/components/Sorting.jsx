@@ -23,139 +23,223 @@ import { introSortWithStop } from "../algorithms/introSort";
 import { shellSortWithStop } from "../algorithms/shellSort";
 import { cycleSortWithStop } from "../algorithms/cycleSort";
 
-const algorithmNames = {
-  bubbleSort: "Bubble Sort",
-  selectionSort: "Selection Sort",
-  mergeSort: "Merge Sort",
-  insertionSort: "Insertion Sort",
-  quickSort: "Quick Sort",
-  radixSort: "Radix Sort",
-  bucketSort: "Bucket Sort",
-  heapSort: "Heap Sort",
-  timSort: "Tim Sort",
-  introSort: "Intro Sort",
-  shellSort: "Shell Sort",
-  cycleSort: "Cycle Sort",
+// Enhanced algorithm mappings with improved organization
+const ALGORITHM_MAPPINGS = {
+  bubbleSort: { 
+    name: "Bubble Sort", 
+    function: bubbleSortWithStop,
+    category: "comparison"
+  },
+  selectionSort: { 
+    name: "Selection Sort", 
+    function: selectionSortWithStop,
+    category: "comparison"
+  },
+  insertionSort: { 
+    name: "Insertion Sort", 
+    function: insertionSortWithStop,
+    category: "comparison"
+  },
+  mergeSort: { 
+    name: "Merge Sort", 
+    function: mergeSortWithStop,
+    category: "divide-conquer"
+  },
+  quickSort: { 
+    name: "Quick Sort", 
+    function: quickSortWithStop,
+    category: "divide-conquer"
+  },
+  radixSort: { 
+    name: "Radix Sort", 
+    function: radixSortWithStop,
+    category: "distribution"
+  },
+  bucketSort: { 
+    name: "Bucket Sort", 
+    function: bucketSortWithStop,
+    category: "distribution"
+  },
+  heapSort: { 
+    name: "Heap Sort", 
+    function: heapSortWithStop,
+    category: "selection"
+  },
+  timSort: { 
+    name: "Tim Sort", 
+    function: timSortWithStop,
+    category: "hybrid"
+  },
+  introSort: { 
+    name: "Intro Sort", 
+    function: introSortWithStop,
+    category: "hybrid"
+  },
+  shellSort: { 
+    name: "Shell Sort", 
+    function: shellSortWithStop,
+    category: "comparison"
+  },
+  cycleSort: { 
+    name: "Cycle Sort", 
+    function: cycleSortWithStop,
+    category: "selection"
+  },
 };
 
-const algorithms = {
-  bubbleSort: bubbleSortWithStop,
-  selectionSort: selectionSortWithStop,
-  insertionSort: insertionSortWithStop,
-  mergeSort: mergeSortWithStop,
-  quickSort: quickSortWithStop,
-  radixSort: radixSortWithStop,
-  bucketSort: bucketSortWithStop,
-  heapSort: heapSortWithStop,
-  timSort: timSortWithStop,
-  introSort: introSortWithStop,
-  shellSort: shellSortWithStop,
-  cycleSort: cycleSortWithStop,
+// Utility functions for better code organization
+const arrayUtils = {
+  generateRandomArray: (size) => Array.from(
+    { length: size },
+    () => Math.floor(Math.random() * 200) + 10
+  ),
+  
+  parseCustomArray: (input) => {
+    return input
+      .split(",")
+      .map((num) => parseInt(num.trim(), 10))
+      .filter((num) => !Number.isNaN(num));
+  }
+};
+
+// Performance tracking utilities
+const performanceTracker = {
+  init: () => ({ comparisons: 0, swaps: 0, time: 0 }),
+  
+  update: (currentStats, updates) => {
+    return { ...currentStats, ...updates };
+  }
+};
+
+// Sorting control utilities
+const sortingControls = {
+  stop: (stopRef) => {
+    stopRef.current = true;
+  },
+  
+  reset: (stopRef) => {
+    stopRef.current = false;
+  }
+};
+
+// Algorithm information helpers
+const algorithmHelpers = {
+  getName: (algorithm) => ALGORITHM_MAPPINGS[algorithm]?.name || "Unknown Algorithm",
+  
+  getInfo: (algorithm) => ALGORITHM_INFO.sorting[algorithm] || {
+    description: "Algorithm implementation coming soon!",
+    timeComplexity: "N/A",
+    spaceComplexity: "N/A",
+    bestCase: "N/A",
+    stable: "N/A",
+  }
 };
 
 const Sorting = () => {
-  const [array, setArray] = useState([]);
-  const [arraySize, setArraySize] = useState(20);
-  const [delay, setDelay] = useState(100);
-  const [algorithm, setAlgorithm] = useState("bubbleSort");
-  const [isSorting, setIsSorting] = useState(false);
-  const [customArrayInput, setCustomArrayInput] = useState("");
-  const [inputError, setInputError] = useState("");
-  const [message, setMessage] = useState("");
-  const [showCodeExplanation, setShowCodeExplanation] = useState(false);
-  const [statistics, setStatistics] = useState({
-    comparisons: 0,
-    swaps: 0,
-    time: 0,
+  // Consolidated state management
+  const [state, setState] = useState({
+    array: [],
+    arraySize: 20,
+    delay: 100,
+    algorithm: "bubbleSort",
+    isSorting: false,
+    customArrayInput: "",
+    inputError: "",
+    message: "",
+    showCodeExplanation: false,
+    statistics: performanceTracker.init()
   });
 
+  // Refs for state management
   const skipNextGenerateRef = useRef(false);
   const stopSortingRef = useRef(false);
-  const statsRef = useRef(statistics);
+  const statsRef = useRef(state.statistics);
 
   // Keep statsRef in sync with statistics state
   useEffect(() => {
-    statsRef.current = statistics;
-  }, [statistics]);
+    statsRef.current = state.statistics;
+  }, [state.statistics]);
 
+  // Statistics update handler
   const updateStats = useCallback((partial) => {
-    setStatistics(prev => {
-      const newStats = { ...prev, ...partial };
+    setState(prev => {
+      const newStats = performanceTracker.update(prev.statistics, partial);
       statsRef.current = newStats;
-      return newStats;
+      return { ...prev, statistics: newStats };
     });
   }, []);
 
+  // Array generation functions
   const generateArray = useCallback(() => {
-    const newArray = Array.from(
-      { length: arraySize },
-      () => Math.floor(Math.random() * 200) + 10
-    );
-    setArray(newArray);
-    setStatistics({ comparisons: 0, swaps: 0, time: 0 });
-    setMessage("");
-    setInputError("");
-  }, [arraySize]);
+    const newArray = arrayUtils.generateRandomArray(state.arraySize);
+    setState(prev => ({
+      ...prev,
+      array: newArray,
+      statistics: performanceTracker.init(),
+      message: "",
+      inputError: ""
+    }));
+  }, [state.arraySize]);
 
   const handleCustomArray = useCallback(() => {
     try {
-      const customArray = customArrayInput
-        .split(",")
-        .map((num) => parseInt(num.trim(), 10))
-        .filter((num) => !Number.isNaN(num));
+      const customArray = arrayUtils.parseCustomArray(state.customArrayInput);
 
       if (customArray.length === 0) {
-        setInputError("Please enter valid numbers separated by commas");
+        setState(prev => ({ ...prev, inputError: "Please enter valid numbers separated by commas" }));
         return;
       }
       if (customArray.length > 60) {
-        setInputError("Array size cannot exceed 60 elements");
+        setState(prev => ({ ...prev, inputError: "Array size cannot exceed 60 elements" }));
         return;
       }
 
       skipNextGenerateRef.current = true;
-      setArray(customArray);
-      setArraySize(customArray.length);
-      setStatistics({ comparisons: 0, swaps: 0, time: 0 });
-      setMessage("");
-      setInputError("");
-      setCustomArrayInput("");
+      setState(prev => ({
+        ...prev,
+        array: customArray,
+        arraySize: customArray.length,
+        statistics: performanceTracker.init(),
+        message: "",
+        inputError: "",
+        customArrayInput: ""
+      }));
     } catch {
-      setInputError("Invalid input format");
+      setState(prev => ({ ...prev, inputError: "Invalid input format" }));
     }
-  }, [customArrayInput]);
+  }, [state.customArrayInput]);
 
+  // Sorting control functions
   const handleStop = useCallback(() => {
-    stopSortingRef.current = true;
-    setIsSorting(false);
-    setMessage("Sorting stopped");
+    sortingControls.stop(stopSortingRef);
+    setState(prev => ({ ...prev, isSorting: false, message: "Sorting stopped" }));
   }, []);
 
-  const getAlgorithmName = useCallback(() => algorithmNames[algorithm] || "Unknown Algorithm", [algorithm]);
+  // Algorithm information helpers
+
+  const getAlgorithmName = useCallback(() => 
+    algorithmHelpers.getName(state.algorithm), [state.algorithm]);
 
   const getAlgorithmInfo = useCallback(() => 
-    ALGORITHM_INFO.sorting[algorithm] || {
-      description: "Algorithm implementation coming soon!",
-      timeComplexity: "N/A",
-      spaceComplexity: "N/A",
-      bestCase: "N/A",
-      stable: "N/A",
-    }, [algorithm]);
+    algorithmHelpers.getInfo(state.algorithm), [state.algorithm]);
 
+  // Main sorting function
   const handleSort = useCallback(async () => {
-    if (isSorting) return;
+    if (state.isSorting) return;
 
-    setIsSorting(true);
-    stopSortingRef.current = false;
-    setMessage(`Sorting using ${algorithmNames[algorithm]}...`);
-    setStatistics({ comparisons: 0, swaps: 0, time: 0 });
+    setState(prev => ({ ...prev, isSorting: true, message: `Sorting using ${algorithmHelpers.getName(state.algorithm)}...` }));
+    sortingControls.reset(stopSortingRef);
+    setStatistics(performanceTracker.init());
 
     const startTime = Date.now();
-    const fn = algorithms[algorithm];
+    const algorithmFunction = ALGORITHM_MAPPINGS[state.algorithm]?.function;
 
-    if (!fn) {
-      setMessage(`${algorithmNames[algorithm]} implementation coming soon!`);
-      setIsSorting(false);
+    if (!algorithmFunction) {
+      setState(prev => ({ 
+        ...prev, 
+        message: `${algorithmHelpers.getName(state.algorithm)} implementation coming soon!`,
+        isSorting: false
+      }));
       return;
     }
 
@@ -164,32 +248,37 @@ const Sorting = () => {
       const statsUpdater = (partial) => {
         updateStats(partial);
       };
-      
-      await fn(
-        array,
-        setArray,
+
+      await algorithmFunction(
+
+        state.array,
+        (newArray) => setState(prev => ({ ...prev, array: newArray })),
         () => {}, // colorArray is handled by AlgorithmVisualizer
-        delay,
+        state.delay,
         stopSortingRef,
         statsUpdater
       );
       if (!stopSortingRef.current) {
         const endTime = Date.now();
         updateStats({ time: endTime - startTime });
-        setMessage(`Sorting completed using ${algorithmNames[algorithm]}!`);
+        setState(prev => ({ 
+          ...prev, 
+          message: `Sorting completed using ${algorithmHelpers.getName(state.algorithm)}!` 
+        }));
       }
     } catch (e) {
       if (e && e.message === "Stopped") {
-        setMessage("Sorting stopped.");
+        setState(prev => ({ ...prev, message: "Sorting stopped." }));
       } else {
         console.error(e);
-        setMessage("An error occurred while sorting.");
+        setState(prev => ({ ...prev, message: "An error occurred while sorting." }));
       }
     } finally {
-      setIsSorting(false);
+      setState(prev => ({ ...prev, isSorting: false }));
     }
-  }, [isSorting, algorithm, array, delay, updateStats]);
+  }, [state.isSorting, state.algorithm, state.array, state.delay, updateStats]);
 
+  // Array generation effect
   useEffect(() => {
     if (skipNextGenerateRef.current) {
       skipNextGenerateRef.current = false;
@@ -197,11 +286,12 @@ const Sorting = () => {
     }
     generateArray();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [arraySize]);
+  }, [state.arraySize]);
 
+  // Responsive design helpers
   const isTabletOrBelow = useMediaQuery({ query: "(max-width: 1024px)" });
 
-  const currentLen = array.length || arraySize;
+  const currentLen = state.array.length || state.arraySize;
 
   const computeGap = useCallback(() => {
     if (currentLen > 40) return isTabletOrBelow ? "1px" : "2px";
@@ -216,20 +306,44 @@ const Sorting = () => {
     return "11px";
   }, [currentLen]);
 
-  const algoOptions = useMemo(() => Object.keys(algorithms), []);
-
-  // Memoize the algorithm info to prevent unnecessary re-renders
+  // Memoized values for performance
+  const algoOptions = useMemo(() => Object.keys(ALGORITHM_MAPPINGS), []);
   const algorithmInfo = useMemo(() => getAlgorithmInfo(), [getAlgorithmInfo]);
   const algorithmName = useMemo(() => getAlgorithmName(), [getAlgorithmName]);
+
+  // Handler functions for state updates
+  const updateState = useCallback((key, value) => {
+    setState(prev => ({ ...prev, [key]: value }));
+  }, []);
+
+  const updateCustomArrayInput = useCallback((value) => {
+    updateState('customArrayInput', value);
+  }, [updateState]);
+
+  const updateAlgorithm = useCallback((value) => {
+    updateState('algorithm', value);
+  }, [updateState]);
+
+  const updateArraySize = useCallback((value) => {
+    updateState('arraySize', parseInt(value, 10));
+  }, [updateState]);
+
+  const updateDelay = useCallback((value) => {
+    updateState('delay', parseInt(value, 10));
+  }, [updateState]);
+
+  const toggleCodeExplanation = useCallback(() => {
+    updateState('showCodeExplanation', !state.showCodeExplanation);
+  }, [state.showCodeExplanation, updateState]);
 
   return (
     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Sorting Algorithms</h1>
 
       <div className="sorting-grid">
-        {/* LEFT COLUMN */}
+        {/* LEFT COLUMN - Controls and Information */}
         <div className="sorting-left">
-          {/* Controls */}
+          {/* Algorithm Controls */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="200">
             <div className="theme-card-header no-border">
               <h3>Controls</h3>
@@ -242,15 +356,15 @@ const Sorting = () => {
                 </label>
                 <select
                   id="algorithm-select"
-                  value={algorithm}
-                  onChange={(e) => setAlgorithm(e.target.value)}
-                  disabled={isSorting}
+                  value={state.algorithm}
+                  onChange={(e) => updateAlgorithm(e.target.value)}
+                  disabled={state.isSorting}
                   className="form-select"
                   aria-label="Select sorting algorithm"
                 >
                   {algoOptions.map((algo) => (
                     <option key={algo} value={algo}>
-                      {algorithmNames[algo]}
+                      {ALGORITHM_MAPPINGS[algo]?.name}
                     </option>
                   ))}
                 </select>
@@ -264,9 +378,9 @@ const Sorting = () => {
                   id="custom-array"
                   type="text"
                   placeholder="e.g., 8, 2, 5"
-                  value={customArrayInput}
-                  onChange={(e) => setCustomArrayInput(e.target.value)}
-                  disabled={isSorting}
+                  value={state.customArrayInput}
+                  onChange={(e) => updateCustomArrayInput(e.target.value)}
+                  disabled={state.isSorting}
                   className="form-control"
                   aria-label="Enter custom array values separated by commas"
                 />
@@ -274,15 +388,15 @@ const Sorting = () => {
                   <button
                     className="btn btn-primary"
                     onClick={handleSort}
-                    disabled={isSorting}
-                    aria-label={isSorting ? "Sorting in progress" : "Start sorting"}
+                    disabled={state.isSorting}
+                    aria-label={state.isSorting ? "Sorting in progress" : "Start sorting"}
                   >
-                    {isSorting ? "Sorting..." : "Start Sort"}
+                    {state.isSorting ? "Sorting..." : "Start Sort"}
                   </button>
                   <button
                     className="btn btn-secondary"
                     onClick={handleStop}
-                    disabled={!isSorting}
+                    disabled={!state.isSorting}
                     aria-label="Stop sorting"
                   >
                     Stop
@@ -290,16 +404,16 @@ const Sorting = () => {
                   <button
                     className="btn btn-secondary"
                     onClick={generateArray}
-                    disabled={isSorting}
+                    disabled={state.isSorting}
                     aria-label="Generate new random array"
                   >
                     Generate Array
                   </button>
-                  {customArrayInput && (
+                  {state.customArrayInput && (
                     <button
                       className="btn btn-secondary"
                       onClick={handleCustomArray}
-                      disabled={isSorting}
+                      disabled={state.isSorting}
                       aria-label="Apply custom array"
                     >
                       Apply Custom Array
@@ -309,54 +423,14 @@ const Sorting = () => {
               </div>
             </div>
 
-            {inputError && <div className="inline-error" role="alert">{inputError}</div>}
+            {state.inputError && <div className="inline-error" role="alert">{state.inputError}</div>}
           </div>
 
-          {/* Visualization controls */}
-          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
-            <div className="theme-card-header">
-              <h3>Visualization Controls</h3>
-            </div>
-            <div className="form-grid tight-grid">
-              <div className="form-group">
-                <label className="form-label" htmlFor="arraySizeRange">
-                  Array Size: {arraySize}
-                </label>
-                <input
-                  id="arraySizeRange"
-                  type="range"
-                  min="10"
-                  max="60"
-                  value={arraySize}
-                  onChange={(e) => setArraySize(parseInt(e.target.value, 10))}
-                  disabled={isSorting}
-                  className="form-range"
-                  aria-label="Adjust array size"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label" htmlFor="speedRange">
-                  Speed: {delay}ms
-                </label>
-                <input
-                  id="speedRange"
-                  type="range"
-                  min="20"
-                  max="1000"
-                  value={delay}
-                  onChange={(e) => setDelay(parseInt(e.target.value, 10))}
-                  disabled={isSorting}
-                  className="form-range"
-                  aria-label="Adjust animation speed"
-                />
-              </div>
-            </div>
-          </div>
 
-          {/* Export */}
+          {/* Export Controls */}
           <SimpleExportControls containerId="sort-visualization-container" />
 
-          {/* Info */}
+          {/* Algorithm Information */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="400">
             <div className="theme-card-header no-border">
               <h3>{algorithmName} Information</h3>
@@ -368,14 +442,14 @@ const Sorting = () => {
             </div>
           </div>
 
-          {/* Status message */}
-          {message && (
+          {/* Status Message */}
+          {state.message && (
             <div className="theme-card" data-aos="fade-up" data-aos-delay="500">
-              <div className="status-message" role="status">{message}</div>
+              <div className="status-message" role="status">{state.message}</div>
             </div>
           )}
 
-          {/* Stats */}
+          {/* Performance Statistics */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="600">
             <div className="theme-card-header">
               <h3>Performance Statistics</h3>
@@ -383,30 +457,30 @@ const Sorting = () => {
             <div className="stats-grid">
               <div className="stat-card">
                 <div className="stat-label">Comparisons</div>
-                <div className="stat-value">{statistics.comparisons}</div>
+                <div className="stat-value">{state.statistics.comparisons}</div>
               </div>
               <div className="stat-card">
                 <div className="stat-label">Swaps/Moves</div>
-                <div className="stat-value">{statistics.swaps}</div>
+                <div className="stat-value">{state.statistics.swaps}</div>
               </div>
               <div className="stat-card">
                 <div className="stat-label">Elapsed Time</div>
-                <div className="stat-value">{statistics.time} ms</div>
+                <div className="stat-value">{state.statistics.time} ms</div>
               </div>
               <div className="stat-card">
                 <div className="stat-label">Array Size</div>
-                <div className="stat-value">{array.length}</div>
+                <div className="stat-value">{state.array.length}</div>
               </div>
             </div>
           </div>
 
-          {/* Details */}
+          {/* Algorithm Details */}
           <div className="theme-card" data-aos="fade-up" data-aos-delay="700">
             <div className="theme-card-header between">
               <h3>{algorithmName} - Algorithm Details</h3>
               <button
                 className="code-explanation-btn btn btn-secondary"
-                onClick={() => setShowCodeExplanation(true)}
+                onClick={toggleCodeExplanation}
                 aria-label="View code explanation"
               >
                 View Code Explanation
@@ -444,59 +518,100 @@ const Sorting = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN */}
+        {/* RIGHT COLUMN - Visualization */}
         <div className="sorting-right">
-          {/* Main visualization */}
-          <div 
-            id="sort-visualization-container"
-            className="theme-card visualization-card" 
-            data-aos="fade-up" 
-            data-aos-delay="100"
-          >
+          {/* Visualization Controls */}
+          <div className="theme-card" data-aos="fade-up" data-aos-delay="300">
             <div className="theme-card-header">
-              <h3>Visualization - {algorithmName}</h3>
+              <h3>Visualization Controls</h3>
             </div>
-            <AlgorithmVisualizer
-              algorithmName={algorithmName}
-              initialArray={array}
-              visualOnly={true}
-              barGap={computeGap()}
-              fontSize={computeBarFontSize()}
-            />
+            <div className="form-grid tight-grid">
+              <div className="form-group">
+                <label className="form-label" htmlFor="arraySizeRange">
+                  Array Size: {state.arraySize}
+                </label>
+                <input
+                  id="arraySizeRange"
+                  type="range"
+                  min="10"
+                  max="60"
+                  value={state.arraySize}
+                  onChange={(e) => updateArraySize(e.target.value)}
+                  disabled={state.isSorting}
+                  className="form-range"
+                  aria-label="Adjust array size"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="speedRange">
+                  Speed: {state.delay}ms
+                </label>
+                <input
+                  id="speedRange"
+                  type="range"
+                  min="20"
+                  max="1000"
+                  value={state.delay}
+                  onChange={(e) => updateDelay(e.target.value)}
+                  disabled={state.isSorting}
+                  className="form-range"
+                  aria-label="Adjust animation speed"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Compact stats */}
-          <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">
+          {/* Compact Statistics */}
+          {/* <div className="theme-card compact-card" data-aos="fade-up" data-aos-delay="800">
             <div className="theme-card-header no-border">
               <h3>Performance Stats</h3>
             </div>
             <div className="stats-grid compact">
               <div className="stat-card">
                 <div className="stat-label">Comparisons</div>
-                <div className="stat-value">{statistics.comparisons}</div>
+                <div className="stat-value">{state.statistics.comparisons}</div>
               </div>
               <div className="stat-card">
                 <div className="stat-label">Swaps/Moves</div>
-                <div className="stat-value">{statistics.swaps}</div>
+                <div className="stat-value">{state.statistics.swaps}</div>
               </div>
               <div className="stat-card">
                 <div className="stat-label">Elapsed</div>
-                <div className="stat-value">{statistics.time} ms</div>
+                <div className="stat-value">{state.statistics.time} ms</div>
               </div>
               <div className="stat-card">
                 <div className="stat-label">Array Size</div>
-                <div className="stat-value">{array.length}</div>
+                <div className="stat-value">{state.array.length}</div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
+      {/* Main Visualization */}
+
+      <div
+        id="sort-visualization-container"
+        className="theme-card visualization-card"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div className="theme-card-header">
+          <h3>Visualization - {algorithmName}</h3>
+        </div>
+        <AlgorithmVisualizer
+          algorithmName={algorithmName}
+          initialArray={state.array}
+          visualOnly={true}
+          barGap={computeGap()}
+          fontSize={computeBarFontSize()}
+        />
+      </div>
       <CodeExplanation
-        algorithm={algorithm}
-        pseudocode={ALGORITHM_PSEUDOCODE[algorithm]}
-        isVisible={showCodeExplanation}
-        onClose={() => setShowCodeExplanation(false)}
+        algorithm={state.algorithm}
+        pseudocode={ALGORITHM_PSEUDOCODE[state.algorithm]}
+        isVisible={state.showCodeExplanation}
+        onClose={() => updateState('showCodeExplanation', false)}
       />
     </div>
   );
