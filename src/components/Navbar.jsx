@@ -408,8 +408,59 @@ const Navbar = () => {
               />
             ))}
 
+
+            {/* ✅ Notes Dropdown */}
+            <div className="navbar-item dropdown">
+              <button
+                className="dropdown-toggle"
+                onClick={() => handleDropdownToggle("notes")}
+              >
+                <BookOpen size={18} className="drop-icon" />
+                <span>Notes</span>
+                <ChevronDown
+                  size={16}
+                  className={`dropdown-arrow ${
+                    isDropdownOpen === "notes" ? "rotated" : ""
+                  }`}
+                />
+              </button>
+              {isDropdownOpen === "notes" && (
+                <div className="dropdown-menu">
+                  <Link
+                    to="/notes/java"
+                    className={`dropdown-item ${
+                      isActive("/notes/java") ? "active" : ""
+                    }`}
+                    onClick={() => setIsDropdownOpen(null)}
+                  >
+                    Java
+                  </Link>
+                  <Link
+                    to="/notes/python"
+                    className={`dropdown-item ${
+                      isActive("/notes/python") ? "active" : ""
+                    }`}
+                    onClick={() => setIsDropdownOpen(null)}
+                  >
+                    Python
+                  </Link>
+
+                  <Link
+                    to="/notes/cpp"
+                    className={`dropdown-item ${
+                      isActive("/notes/cpp") ? "active" : ""
+                    }`}
+                    onClick={() => setIsDropdownOpen(null)}
+                  >
+                    CPP
+                  </Link>
+                </div>
+              )}
+            </div>
+
             {/* Notes Dropdown */}
             {renderNotesDropdown()}
+
 
             {/* User Dropdown */}
             <UserDropdown />
