@@ -50,7 +50,7 @@
   font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
   background: linear-gradient(90deg, var(--accent-2) 30%, var(--accent) 100%);
   background-clip: text;
-  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
   text-shadow: 0 4px 24px rgba(99,102,241,0.18), 0 1px 0 #fff;
   transition: color .2s;
   text-align: center;
