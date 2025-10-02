@@ -24,15 +24,15 @@ const TOPICS = [
     description: 'Explore fundamental data structures like Arrays, Linked Lists, Stacks, and Queues.'
   },
   {
-    id: 'branch-and-bound',
-    name: 'Branch & Bound',
-    description: 'Learn optimization techniques including Knapsack 01 and Traveling Salesman Problem (TSP).'
+    id: "paradigms",
+    name: "Paradigms",
+    description: "Dive into problem-solving approaches including  Backtracking Algorithms, Dynamic Programming, Greedy Algorithms, and Divide & Conquer."
   },
   {
-    id: 'game-search',
-    name: 'Game Search Algorithms',
-    description: 'Explore game theory algorithms like Minimax, Alpha-Beta Pruning, Expectimax, and Monte Carlo Tree Search.'
-  }
+    id: "otherTopics",
+    name: "Other Topics",
+    description:  "Explore specialized areas including Hashing Algorithms, Tree Algorithms, Game Search Algorithms, and Branch & Bound."
+  }
 ];
 
 // Quiz step constants
@@ -90,40 +90,19 @@ const QuizHelpers = {
     'sorting': 'Sorting',
     'searching': 'Searching', 
     'data-structures': 'Data Structures',
-    'branch-and-bound': 'Branch & Bound',
-    'game-search': 'Game Search Algorithms',
+    'paradigms': 'Paradigms',
+    'otherTopics': 'Other Topics',
     'all': 'all'
   }),
 
-  // Get normalized topic name
-  getNormalizedTopicName: (topic) => {
-    const mapping = {
-      'sorting': 'Sorting',
-      'searching': 'Searching',
-      'data-structures': 'Data Structures',
-      'branch-and-bound': 'Branch & Bound',
-      'game-search': 'Game Search Algorithms'
-    };
-    return mapping[topic.toLowerCase()] || topic;
-  },
-
-    // Filter and shuffle questions
+  // Filter and shuffle questions
   filterAndShuffleQuestions: (questions, topic, difficulty) => {
     const topicMapping = QuizHelpers.getTopicMapping();
     const mappedTopic = topicMapping[topic] || topic;
     
-    // Normalize question topics for better matching
-    const normalizedQuestionsTopic = questions.map(q => ({
-      ...q,
-      topic: QuizHelpers.getNormalizedTopicName(q.topic)
-    }));
-
     // Filter questions based on topic and difficulty
-    let filteredQuestions = normalizedQuestionsTopic.filter(q => {
-      const normalizedTopic = QuizHelpers.getNormalizedTopicName(topic);
-      // If 'all' is selected for topic, include all topics
-      const topicMatch = topic === 'all' || q.topic === normalizedTopic;
-      // If 'all' is selected for difficulty, include all difficulties
+    let filteredQuestions = questions.filter(q => {
+      const topicMatch = mappedTopic === 'all' || q.topic === mappedTopic;
       const difficultyMatch = difficulty === 'all' || q.difficulty.toLowerCase() === difficulty.toLowerCase();
       return topicMatch && difficultyMatch;
     });
@@ -247,12 +226,10 @@ const QuizManager = () => {
   const handleSubmitQuiz = () => {
     setQuizEndTime(new Date());
     setCurrentStep(QUIZ_STEPS.RESULTS);
-    window.scrollTo(0, 0); // Scroll to top after quiz completion
   };
 
   const restartQuiz = () => {
     setCurrentStep(QUIZ_STEPS.START);
-    window.scrollTo(0, 0); // Scroll to top when restarting
     setSelectedTopic('');
     setSelectedDifficulty('');
     setQuestions([]);
@@ -276,7 +253,6 @@ const QuizManager = () => {
   const confirmExit = () => {
     setShowExitConfirm(false);
     restartQuiz();
-    window.scrollTo(0, 0); // Scroll to top when exiting
   };
   const cancelExit = () => setShowExitConfirm(false);
 

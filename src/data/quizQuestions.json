@@ -1,1266 +1,1807 @@
 [
-  {
-    "id": 1,
-    "topic": "Sorting",
-    "algorithm": "Bubble Sort",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Bubble Sort?",
-    "options": [
-      "Bubble Sort compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Bubble Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 2,
-    "topic": "Sorting",
-    "algorithm": "Bubble Sort",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Bubble Sort?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Bubble Sort can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 3,
-    "topic": "Sorting",
-    "algorithm": "Bubble Sort",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Bubble Sort?",
-    "options": [
-      "O(n\u00b2)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Typically, Bubble Sort has an average case of O(n\u00b2)."
-  },
-  {
-    "id": 4,
-    "topic": "Sorting",
-    "algorithm": "Bubble Sort",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Bubble Sort?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Bubble Sort usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 5,
-    "topic": "Sorting",
-    "algorithm": "Bubble Sort",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Bubble Sort?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Bubble Sort requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 6,
-    "topic": "Sorting",
-    "algorithm": "Bubble Sort",
-    "difficulty": "Hard",
-    "question": "What makes Bubble Sort less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Bubble Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 7,
-    "topic": "Sorting",
-    "algorithm": "Selection Sort",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Selection Sort?",
-    "options": [
-      "Selection Sort compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Selection Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 8,
-    "topic": "Sorting",
-    "algorithm": "Selection Sort",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Selection Sort?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Selection Sort can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 9,
-    "topic": "Sorting",
-    "algorithm": "Selection Sort",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Selection Sort?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "Typically, Selection Sort has an average case of O(n log n)."
-  },
-  {
-    "id": 10,
-    "topic": "Sorting",
-    "algorithm": "Selection Sort",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Selection Sort?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Selection Sort usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 11,
-    "topic": "Sorting",
-    "algorithm": "Selection Sort",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Selection Sort?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Selection Sort requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 12,
-    "topic": "Sorting",
-    "algorithm": "Selection Sort",
-    "difficulty": "Hard",
-    "question": "What makes Selection Sort less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Selection Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 13,
-    "topic": "Sorting",
-    "algorithm": "Insertion Sort",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Insertion Sort?",
-    "options": [
-      "Insertion Sort compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Insertion Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 14,
-    "topic": "Sorting",
-    "algorithm": "Insertion Sort",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Insertion Sort?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Insertion Sort can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 15,
-    "topic": "Sorting",
-    "algorithm": "Insertion Sort",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Insertion Sort?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Typically, Insertion Sort has an average case of O(n\u00b2)."
-  },
-  {
-    "id": 16,
-    "topic": "Sorting",
-    "algorithm": "Insertion Sort",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Insertion Sort?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Insertion Sort usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 17,
-    "topic": "Sorting",
-    "algorithm": "Insertion Sort",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Insertion Sort?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Insertion Sort requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 18,
-    "topic": "Sorting",
-    "algorithm": "Insertion Sort",
-    "difficulty": "Hard",
-    "question": "What makes Insertion Sort less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Insertion Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 19,
-    "topic": "Sorting",
-    "algorithm": "Merge Sort",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Merge Sort?",
-    "options": [
-      "Merge Sort compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Merge Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 20,
-    "topic": "Sorting",
-    "algorithm": "Merge Sort",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Merge Sort?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Merge Sort can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 21,
-    "topic": "Sorting",
-    "algorithm": "Merge Sort",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Merge Sort?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "Typically, Merge Sort has an average case of O(n log n)."
-  },
-  {
-    "id": 22,
-    "topic": "Sorting",
-    "algorithm": "Merge Sort",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Merge Sort?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Merge Sort usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 23,
-    "topic": "Sorting",
-    "algorithm": "Merge Sort",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Merge Sort?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 2,
-    "explanation": "Merge Sort requires O(n) extra space in the worst case."
-  },
-  {
-    "id": 24,
-    "topic": "Sorting",
-    "algorithm": "Merge Sort",
-    "difficulty": "Hard",
-    "question": "What makes Merge Sort less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Merge Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 25,
-    "topic": "Sorting",
-    "algorithm": "Quick Sort",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Quick Sort?",
-    "options": [
-      "Quick Sort compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Quick Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 26,
-    "topic": "Sorting",
-    "algorithm": "Quick Sort",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Quick Sort?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Quick Sort can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 27,
-    "topic": "Sorting",
-    "algorithm": "Quick Sort",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Quick Sort?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "Typically, Quick Sort has an average case of O(n log n)."
-  },
-  {
-    "id": 28,
-    "topic": "Sorting",
-    "algorithm": "Quick Sort",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Quick Sort?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Quick Sort usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 29,
-    "topic": "Sorting",
-    "algorithm": "Quick Sort",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Quick Sort?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Quick Sort requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 30,
-    "topic": "Sorting",
-    "algorithm": "Quick Sort",
-    "difficulty": "Hard",
-    "question": "What makes Quick Sort less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Quick Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 31,
-    "topic": "Sorting",
-    "algorithm": "Tim Sort",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Tim Sort?",
-    "options": [
-      "Tim Sort compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Tim Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 32,
-    "topic": "Sorting",
-    "algorithm": "Tim Sort",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Tim Sort?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Tim Sort can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 33,
-    "topic": "Sorting",
-    "algorithm": "Tim Sort",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Tim Sort?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "Typically, Tim Sort has an average case of O(n log n)."
-  },
-  {
-    "id": 34,
-    "topic": "Sorting",
-    "algorithm": "Tim Sort",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Tim Sort?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Tim Sort usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 35,
-    "topic": "Sorting",
-    "algorithm": "Tim Sort",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Tim Sort?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Tim Sort requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 36,
-    "topic": "Sorting",
-    "algorithm": "Tim Sort",
-    "difficulty": "Hard",
-    "question": "What makes Tim Sort less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Tim Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 37,
-    "topic": "Sorting",
-    "algorithm": "Intro Sort",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Intro Sort?",
-    "options": [
-      "Intro Sort compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Intro Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 38,
-    "topic": "Sorting",
-    "algorithm": "Intro Sort",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Intro Sort?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Intro Sort can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 39,
-    "topic": "Sorting",
-    "algorithm": "Intro Sort",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Intro Sort?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "Typically, Intro Sort has an average case of O(n log n)."
-  },
-  {
-    "id": 40,
-    "topic": "Sorting",
-    "algorithm": "Intro Sort",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Intro Sort?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Intro Sort usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 41,
-    "topic": "Sorting",
-    "algorithm": "Intro Sort",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Intro Sort?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Intro Sort requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 42,
-    "topic": "Sorting",
-    "algorithm": "Intro Sort",
-    "difficulty": "Hard",
-    "question": "What makes Intro Sort less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Intro Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 43,
-    "topic": "Sorting",
-    "algorithm": "Shell Sort",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Shell Sort?",
-    "options": [
-      "Shell Sort compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Shell Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 44,
-    "topic": "Sorting",
-    "algorithm": "Shell Sort",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Shell Sort?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Shell Sort can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 45,
-    "topic": "Sorting",
-    "algorithm": "Shell Sort",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Shell Sort?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "Typically, Shell Sort has an average case of O(n log n)."
-  },
-  {
-    "id": 46,
-    "topic": "Sorting",
-    "algorithm": "Shell Sort",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Shell Sort?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Shell Sort usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 47,
-    "topic": "Sorting",
-    "algorithm": "Shell Sort",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Shell Sort?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Shell Sort requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 48,
-    "topic": "Sorting",
-    "algorithm": "Shell Sort",
-    "difficulty": "Hard",
-    "question": "What makes Shell Sort less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Shell Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 49,
-    "topic": "Searching",
-    "algorithm": "Linear Search",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Linear Search?",
-    "options": [
-      "Linear Search compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Linear Search is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 50,
-    "topic": "Searching",
-    "algorithm": "Linear Search",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Linear Search?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "In the best case, Linear Search can often achieve O(1), especially when target is the first element in array."
-  },
-  {
-    "id": 51,
-    "topic": "Searching",
-    "algorithm": "Linear Search",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Linear Search?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Typically, Linear Search has an average case of O(n)."
-  },
-  {
-    "id": 52,
-    "topic": "Searching",
-    "algorithm": "Linear Search",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Linear Search?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Linear Search usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 53,
-    "topic": "Searching",
-    "algorithm": "Linear Search",
-    "difficulty": "Hard",
-    "question": "What is the worst case time complexity of Linear Search?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 2,
-    "explanation": "Linear Search takes O(n) time to search through the entire array in the worst case."
-  },
-  {
-    "id": 54,
-    "topic": "Searching",
-    "algorithm": "Linear Search",
-    "difficulty": "Hard",
-    "question": "What makes Linear Search less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Linear Search is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 55,
-    "topic": "Searching",
-    "algorithm": "Binary Search",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Binary Search?",
-    "options": [
-      "Binary Search compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Binary Search is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 56,
-    "topic": "Searching",
-    "algorithm": "Binary Search",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Binary Search?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Binary Search can often achieve O(1), especially when data is already partially structured."
-  },
-  {
-    "id": 57,
-    "topic": "Searching",
-    "algorithm": "Binary Search",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Binary Search?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Typically, Binary Search has an average case of O(log n)."
-  },
-  {
-    "id": 58,
-    "topic": "Searching",
-    "algorithm": "Binary Search",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Binary Search?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Binary Search usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 59,
-    "topic": "Searching",
-    "algorithm": "Binary Search",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Binary Search?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "Binary Search requires O(log n) time complexity in the worst case."
-  },
-  {
-    "id": 60,
-    "topic": "Searching",
-    "algorithm": "Binary Search",
-    "difficulty": "Hard",
-    "question": "What makes Binary Search less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Binary Search is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 61,
-    "topic": "Data Structures",
-    "algorithm": "Linked List",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Linked List?",
-    "options": [
-      "Linked List compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Linked List is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 62,
-    "topic": "Data Structures",
-    "algorithm": "Linked List",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Linked List?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Linked List can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 63,
-    "topic": "Data Structures",
-    "algorithm": "Linked List",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Linked List?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 2,
-    "explanation": "Typically, Linked List has an average case of O(n\u00b2)."
-  },
-  {
-    "id": 64,
-    "topic": "Data Structures",
-    "algorithm": "Linked List",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Linked List?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Linked List usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 65,
-    "topic": "Data Structures",
-    "algorithm": "Linked List",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Linked List?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Linked List requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 66,
-    "topic": "Data Structures",
-    "algorithm": "Linked List",
-    "difficulty": "Hard",
-    "question": "What makes Linked List less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Linked List is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 67,
-    "topic": "Data Structures",
-    "algorithm": "Stack",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Stack?",
-    "options": [
-      "Stack compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Stack is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 68,
-    "topic": "Data Structures",
-    "algorithm": "Stack",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Stack?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Stack can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 69,
-    "topic": "Data Structures",
-    "algorithm": "Stack",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Stack?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 2,
-    "explanation": "Typically, Stack has an average case of O(n\u00b2)."
-  },
-  {
-    "id": 70,
-    "topic": "Data Structures",
-    "algorithm": "Stack",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Stack?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Stack usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 71,
-    "topic": "Data Structures",
-    "algorithm": "Stack",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Stack?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Stack requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 72,
-    "topic": "Data Structures",
-    "algorithm": "Stack",
-    "difficulty": "Hard",
-    "question": "What makes Stack less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Stack is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 73,
-    "topic": "Data Structures",
-    "algorithm": "Queue",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Queue?",
-    "options": [
-      "Queue compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Queue is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 74,
-    "topic": "Data Structures",
-    "algorithm": "Queue",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Queue?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Queue can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 75,
-    "topic": "Data Structures",
-    "algorithm": "Queue",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Queue?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 2,
-    "explanation": "Typically, Queue has an average case of O(n\u00b2)."
-  },
-  {
-    "id": 76,
-    "topic": "Data Structures",
-    "algorithm": "Queue",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Queue?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Queue usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 77,
-    "topic": "Data Structures",
-    "algorithm": "Queue",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Queue?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Queue requires O(1) extra space in the worst case."
-  },
-  {
-    "id": 78,
-    "topic": "Data Structures",
-    "algorithm": "Queue",
-    "difficulty": "Hard",
-    "question": "What makes Queue less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Queue is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 79,
-    "topic": "Data Structures",
-    "algorithm": "Binary Tree",
-    "difficulty": "Easy",
-    "question": "What is the basic idea of Binary Tree?",
-    "options": [
-      "Binary Tree compares and processes elements step by step",
-      "It uses dynamic programming",
-      "It uses hashing",
-      "It uses recursion with memoization"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Binary Tree is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
-  },
-  {
-    "id": 80,
-    "topic": "Data Structures",
-    "algorithm": "Binary Tree",
-    "difficulty": "Easy",
-    "question": "What is the best case time complexity of Binary Tree?",
-    "options": [
-      "O(1)",
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 1,
-    "explanation": "In the best case, Binary Tree can often achieve O(n), especially when data is already partially structured."
-  },
-  {
-    "id": 81,
-    "topic": "Data Structures",
-    "algorithm": "Binary Tree",
-    "difficulty": "Medium",
-    "question": "What is the average case time complexity of Binary Tree?",
-    "options": [
-      "O(n)",
-      "O(n log n)",
-      "O(n\u00b2)",
-      "O(log n)"
-    ],
-    "correctAnswer": 2,
-    "explanation": "Typically, Binary Tree has an average case of O(n\u00b2)."
-  },
-  {
-    "id": 82,
-    "topic": "Data Structures",
-    "algorithm": "Binary Tree",
-    "difficulty": "Medium",
-    "question": "Which data structure is commonly associated with Binary Tree?",
-    "options": [
-      "Array",
-      "Stack",
-      "Queue",
-      "Tree"
-    ],
-    "correctAnswer": 0,
-    "explanation": "Binary Tree usually works directly on arrays in basic implementations."
-  },
-  {
-    "id": 83,
-    "topic": "Data Structures",
-    "algorithm": "Binary Tree",
-    "difficulty": "Hard",
-    "question": "What is the worst case space complexity of Binary Tree?",
-    "options": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n\u00b2)"
-    ],
-    "correctAnswer": 2,
-    "explanation": "Binary Tree requires O(n) extra space in the worst case."
-  },
-  {
-    "id": 84,
-    "topic": "Data Structures",
-    "algorithm": "Binary Tree",
-    "difficulty": "Hard",
-    "question": "What makes Binary Tree less efficient compared to advanced algorithms?",
-    "options": [
-      "Higher time complexity",
-      "More space usage",
-      "Not adaptive",
-      "All of the above"
-    ],
-    "correctAnswer": 3,
-    "explanation": "Binary Tree is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
-  },
-  {
-    "id": 109,
+    {
+        "id": 1,
+        "topic": "Sorting",
+        "algorithm": "Bubble Sort",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Bubble Sort?",
+        "options": [
+            "Bubble Sort compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Bubble Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 2,
+        "topic": "Sorting",
+        "algorithm": "Bubble Sort",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Bubble Sort?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Bubble Sort can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 3,
+        "topic": "Sorting",
+        "algorithm": "Bubble Sort",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Bubble Sort?",
+        "options": [
+            "O(n^2)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Typically, Bubble Sort has an average case of O(n^2)."
+    },
+    {
+        "id": 4,
+        "topic": "Sorting",
+        "algorithm": "Bubble Sort",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Bubble Sort?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Bubble Sort usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 5,
+        "topic": "Sorting",
+        "algorithm": "Bubble Sort",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Bubble Sort?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Bubble Sort requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 6,
+        "topic": "Sorting",
+        "algorithm": "Bubble Sort",
+        "difficulty": "Hard",
+        "question": "What makes Bubble Sort less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Bubble Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 7,
+        "topic": "Sorting",
+        "algorithm": "Selection Sort",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Selection Sort?",
+        "options": [
+            "Selection Sort compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Selection Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 8,
+        "topic": "Sorting",
+        "algorithm": "Selection Sort",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Selection Sort?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Selection Sort can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 9,
+        "topic": "Sorting",
+        "algorithm": "Selection Sort",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Selection Sort?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Typically, Selection Sort has an average case of O(n log n)."
+    },
+    {
+        "id": 10,
+        "topic": "Sorting",
+        "algorithm": "Selection Sort",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Selection Sort?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Selection Sort usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 11,
+        "topic": "Sorting",
+        "algorithm": "Selection Sort",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Selection Sort?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Selection Sort requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 12,
+        "topic": "Sorting",
+        "algorithm": "Selection Sort",
+        "difficulty": "Hard",
+        "question": "What makes Selection Sort less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Selection Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 13,
+        "topic": "Sorting",
+        "algorithm": "Insertion Sort",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Insertion Sort?",
+        "options": [
+            "Insertion Sort compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Insertion Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 14,
+        "topic": "Sorting",
+        "algorithm": "Insertion Sort",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Insertion Sort?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Insertion Sort can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 15,
+        "topic": "Sorting",
+        "algorithm": "Insertion Sort",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Insertion Sort?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(n^2)"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Typically, Insertion Sort has an average case of O(n^2)."
+    },
+    {
+        "id": 16,
+        "topic": "Sorting",
+        "algorithm": "Insertion Sort",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Insertion Sort?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Insertion Sort usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 17,
+        "topic": "Sorting",
+        "algorithm": "Insertion Sort",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Insertion Sort?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Insertion Sort requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 18,
+        "topic": "Sorting",
+        "algorithm": "Insertion Sort",
+        "difficulty": "Hard",
+        "question": "What makes Insertion Sort less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Insertion Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 19,
+        "topic": "Sorting",
+        "algorithm": "Merge Sort",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Merge Sort?",
+        "options": [
+            "Merge Sort compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Merge Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 20,
+        "topic": "Sorting",
+        "algorithm": "Merge Sort",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Merge Sort?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Merge Sort can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 21,
+        "topic": "Sorting",
+        "algorithm": "Merge Sort",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Merge Sort?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Typically, Merge Sort has an average case of O(n log n)."
+    },
+    {
+        "id": 22,
+        "topic": "Sorting",
+        "algorithm": "Merge Sort",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Merge Sort?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Merge Sort usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 23,
+        "topic": "Sorting",
+        "algorithm": "Merge Sort",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Merge Sort?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Merge Sort requires O(n) extra space in the worst case."
+    },
+    {
+        "id": 24,
+        "topic": "Sorting",
+        "algorithm": "Merge Sort",
+        "difficulty": "Hard",
+        "question": "What makes Merge Sort less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Merge Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 25,
+        "topic": "Sorting",
+        "algorithm": "Quick Sort",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Quick Sort?",
+        "options": [
+            "Quick Sort compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Quick Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 26,
+        "topic": "Sorting",
+        "algorithm": "Quick Sort",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Quick Sort?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Quick Sort can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 27,
+        "topic": "Sorting",
+        "algorithm": "Quick Sort",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Quick Sort?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Typically, Quick Sort has an average case of O(n log n)."
+    },
+    {
+        "id": 28,
+        "topic": "Sorting",
+        "algorithm": "Quick Sort",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Quick Sort?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Quick Sort usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 29,
+        "topic": "Sorting",
+        "algorithm": "Quick Sort",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Quick Sort?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Quick Sort requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 30,
+        "topic": "Sorting",
+        "algorithm": "Quick Sort",
+        "difficulty": "Hard",
+        "question": "What makes Quick Sort less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Quick Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 31,
+        "topic": "Sorting",
+        "algorithm": "Tim Sort",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Tim Sort?",
+        "options": [
+            "Tim Sort compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Tim Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 32,
+        "topic": "Sorting",
+        "algorithm": "Tim Sort",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Tim Sort?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Tim Sort can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 33,
+        "topic": "Sorting",
+        "algorithm": "Tim Sort",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Tim Sort?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Typically, Tim Sort has an average case of O(n log n)."
+    },
+    {
+        "id": 34,
+        "topic": "Sorting",
+        "algorithm": "Tim Sort",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Tim Sort?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Tim Sort usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 35,
+        "topic": "Sorting",
+        "algorithm": "Tim Sort",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Tim Sort?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Tim Sort requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 36,
+        "topic": "Sorting",
+        "algorithm": "Tim Sort",
+        "difficulty": "Hard",
+        "question": "What makes Tim Sort less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Tim Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 37,
+        "topic": "Sorting",
+        "algorithm": "Intro Sort",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Intro Sort?",
+        "options": [
+            "Intro Sort compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Intro Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 38,
+        "topic": "Sorting",
+        "algorithm": "Intro Sort",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Intro Sort?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Intro Sort can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 39,
+        "topic": "Sorting",
+        "algorithm": "Intro Sort",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Intro Sort?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Typically, Intro Sort has an average case of O(n log n)."
+    },
+    {
+        "id": 40,
+        "topic": "Sorting",
+        "algorithm": "Intro Sort",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Intro Sort?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Intro Sort usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 41,
+        "topic": "Sorting",
+        "algorithm": "Intro Sort",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Intro Sort?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Intro Sort requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 42,
+        "topic": "Sorting",
+        "algorithm": "Intro Sort",
+        "difficulty": "Hard",
+        "question": "What makes Intro Sort less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Intro Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 43,
+        "topic": "Sorting",
+        "algorithm": "Shell Sort",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Shell Sort?",
+        "options": [
+            "Shell Sort compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Shell Sort is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 44,
+        "topic": "Sorting",
+        "algorithm": "Shell Sort",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Shell Sort?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Shell Sort can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 45,
+        "topic": "Sorting",
+        "algorithm": "Shell Sort",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Shell Sort?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Typically, Shell Sort has an average case of O(n log n)."
+    },
+    {
+        "id": 46,
+        "topic": "Sorting",
+        "algorithm": "Shell Sort",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Shell Sort?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Shell Sort usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 47,
+        "topic": "Sorting",
+        "algorithm": "Shell Sort",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Shell Sort?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Shell Sort requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 48,
+        "topic": "Sorting",
+        "algorithm": "Shell Sort",
+        "difficulty": "Hard",
+        "question": "What makes Shell Sort less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Shell Sort is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 49,
+        "topic": "Searching",
+        "algorithm": "Linear Search",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Linear Search?",
+        "options": [
+            "Linear Search compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Linear Search is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 50,
+        "topic": "Searching",
+        "algorithm": "Linear Search",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Linear Search?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "In the best case, Linear Search can often achieve O(1), especially when target is the first element in array."
+    },
+    {
+        "id": 51,
+        "topic": "Searching",
+        "algorithm": "Linear Search",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Linear Search?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Typically, Linear Search has an average case of O(n)."
+    },
+    {
+        "id": 52,
+        "topic": "Searching",
+        "algorithm": "Linear Search",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Linear Search?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Linear Search usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 53,
+        "topic": "Searching",
+        "algorithm": "Linear Search",
+        "difficulty": "Hard",
+        "question": "What is the worst case time complexity of Linear Search?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Linear Search takes O(n) time to search through the entire array in the worst case."
+    },
+    {
+        "id": 54,
+        "topic": "Searching",
+        "algorithm": "Linear Search",
+        "difficulty": "Hard",
+        "question": "What makes Linear Search less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Linear Search is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 55,
+        "topic": "Searching",
+        "algorithm": "Binary Search",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Binary Search?",
+        "options": [
+            "Binary Search compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Binary Search is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 56,
+        "topic": "Searching",
+        "algorithm": "Binary Search",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Binary Search?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Binary Search can often achieve O(1), especially when data is already partially structured."
+    },
+    {
+        "id": 57,
+        "topic": "Searching",
+        "algorithm": "Binary Search",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Binary Search?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Typically, Binary Search has an average case of O(log n)."
+    },
+    {
+        "id": 58,
+        "topic": "Searching",
+        "algorithm": "Binary Search",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Binary Search?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Binary Search usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 59,
+        "topic": "Searching",
+        "algorithm": "Binary Search",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Binary Search?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Binary Search requires O(log n) time complexity in the worst case."
+    },
+    {
+        "id": 60,
+        "topic": "Searching",
+        "algorithm": "Binary Search",
+        "difficulty": "Hard",
+        "question": "What makes Binary Search less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Binary Search is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 61,
+        "topic": "Data Structures",
+        "algorithm": "Linked List",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Linked List?",
+        "options": [
+            "Linked List compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Linked List is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 62,
+        "topic": "Data Structures",
+        "algorithm": "Linked List",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Linked List?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Linked List can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 63,
+        "topic": "Data Structures",
+        "algorithm": "Linked List",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Linked List?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Typically, Linked List has an average case of O(n\u00b2)."
+    },
+    {
+        "id": 64,
+        "topic": "Data Structures",
+        "algorithm": "Linked List",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Linked List?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Linked List usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 65,
+        "topic": "Data Structures",
+        "algorithm": "Linked List",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Linked List?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Linked List requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 66,
+        "topic": "Data Structures",
+        "algorithm": "Linked List",
+        "difficulty": "Hard",
+        "question": "What makes Linked List less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Linked List is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 67,
+        "topic": "Data Structures",
+        "algorithm": "Stack",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Stack?",
+        "options": [
+            "Stack compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Stack is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 68,
+        "topic": "Data Structures",
+        "algorithm": "Stack",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Stack?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Stack can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 69,
+        "topic": "Data Structures",
+        "algorithm": "Stack",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Stack?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Typically, Stack has an average case of O(n\u00b2)."
+    },
+    {
+        "id": 70,
+        "topic": "Data Structures",
+        "algorithm": "Stack",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Stack?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Stack usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 71,
+        "topic": "Data Structures",
+        "algorithm": "Stack",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Stack?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Stack requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 72,
+        "topic": "Data Structures",
+        "algorithm": "Stack",
+        "difficulty": "Hard",
+        "question": "What makes Stack less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Stack is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 73,
+        "topic": "Data Structures",
+        "algorithm": "Queue",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Queue?",
+        "options": [
+            "Queue compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Queue is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 74,
+        "topic": "Data Structures",
+        "algorithm": "Queue",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Queue?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Queue can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 75,
+        "topic": "Data Structures",
+        "algorithm": "Queue",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Queue?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Typically, Queue has an average case of O(n\u00b2)."
+    },
+    {
+        "id": 76,
+        "topic": "Data Structures",
+        "algorithm": "Queue",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Queue?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Queue usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 77,
+        "topic": "Data Structures",
+        "algorithm": "Queue",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Queue?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Queue requires O(1) extra space in the worst case."
+    },
+    {
+        "id": 78,
+        "topic": "Data Structures",
+        "algorithm": "Queue",
+        "difficulty": "Hard",
+        "question": "What makes Queue less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Queue is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 79,
+        "topic": "Data Structures",
+        "algorithm": "Binary Tree",
+        "difficulty": "Easy",
+        "question": "What is the basic idea of Binary Tree?",
+        "options": [
+            "Binary Tree compares and processes elements step by step",
+            "It uses dynamic programming",
+            "It uses hashing",
+            "It uses recursion with memoization"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Binary Tree is based on a fundamental step-by-step process, not advanced techniques like DP or hashing."
+    },
+    {
+        "id": 80,
+        "topic": "Data Structures",
+        "algorithm": "Binary Tree",
+        "difficulty": "Easy",
+        "question": "What is the best case time complexity of Binary Tree?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "In the best case, Binary Tree can often achieve O(n), especially when data is already partially structured."
+    },
+    {
+        "id": 81,
+        "topic": "Data Structures",
+        "algorithm": "Binary Tree",
+        "difficulty": "Medium",
+        "question": "What is the average case time complexity of Binary Tree?",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n\u00b2)",
+            "O(log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Typically, Binary Tree has an average case of O(n\u00b2)."
+    },
+    {
+        "id": 82,
+        "topic": "Data Structures",
+        "algorithm": "Binary Tree",
+        "difficulty": "Medium",
+        "question": "Which data structure is commonly associated with Binary Tree?",
+        "options": [
+            "Array",
+            "Stack",
+            "Queue",
+            "Tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Binary Tree usually works directly on arrays in basic implementations."
+    },
+    {
+        "id": 83,
+        "topic": "Data Structures",
+        "algorithm": "Binary Tree",
+        "difficulty": "Hard",
+        "question": "What is the worst case space complexity of Binary Tree?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Binary Tree requires O(n) extra space in the worst case."
+    },
+    {
+        "id": 84,
+        "topic": "Data Structures",
+        "algorithm": "Binary Tree",
+        "difficulty": "Hard",
+        "question": "What makes Binary Tree less efficient compared to advanced algorithms?",
+        "options": [
+            "Higher time complexity",
+            "More space usage",
+            "Not adaptive",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Binary Tree is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
+    },
+    {
+        "id": 85,
+        "topic": "Other Topics",
+        "algorithm": "Hashing",
+        "difficulty": "Easy",
+        "question": "What is the main purpose of hashing?",
+        "options": [
+            "Store data sequentially",
+            "Map data to fixed-size values for fast access",
+            "Sort data efficiently",
+            "Compress data to smaller size"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Hashing maps arbitrary-sized data to fixed-size values (hash codes) to allow fast insertion, deletion, and lookup."
+    },
+    {
+        "id": 86,
+        "topic": "Other Topics",
+        "algorithm": "Hashing",
+        "difficulty": "Easy",
+        "question": "Which data structure commonly uses hashing for fast access?",
+        "options": [
+            "Array",
+            "Linked List",
+            "Hash Table",
+            "Stack"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Hash tables use hashing to map keys to indices, allowing O(1) average-time lookup."
+    },
+    {
+        "id": 87,
+        "topic": "Other Topics",
+        "algorithm": "Hashing",
+        "difficulty": "Medium",
+        "question": "Which of the following is a collision resolution technique in hashing?",
+        "options": [
+            "Binary Search",
+            "Chaining",
+            "Heapify",
+            "Merge Sort"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Chaining is used to store multiple elements at the same index in case of a collision."
+    },
+    {
+        "id": 88,
+        "topic": "Other Topics",
+        "algorithm": "Hashing",
+        "difficulty": "Medium",
+        "question": "What is a hash function?",
+        "options": [
+            "A function that sorts elements",
+            "A function that maps keys to integer indices",
+            "A function that compares two arrays",
+            "A function that computes factorial"
+        ],
+        "correctAnswer": 1,
+        "explanation": "A hash function converts a key into an integer index for storage in a hash table."
+    },
+    {
+        "id": 89,
+        "topic": "Other Topics",
+        "algorithm": "Hashing",
+        "difficulty": "Hard",
+        "question": "Why is the choice of a good hash function important?",
+        "options": [
+            "To ensure fewer collisions and uniform distribution",
+            "To make the table smaller",
+            "To sort the keys automatically",
+            "To compress data efficiently"
+        ],
+        "correctAnswer": 0,
+        "explanation": "A good hash function reduces collisions and distributes keys uniformly, ensuring O(1) performance."
+    },
+    {
+        "id": 90,
+        "topic": "Other Topics",
+        "algorithm": "Hashing",
+        "difficulty": "Hard",
+        "question": "What can happen if all keys hash to the same index?",
+        "options": [
+            "The hash table becomes empty",
+            "The hash table degenerates into a linked list",
+            "The hash table sorts automatically",
+            "Nothing significant"
+        ],
+        "correctAnswer": 1,
+        "explanation": "If all keys collide to the same index, chaining will make a long list, degrading performance to O(n)."
+    },
+    {
+        "id": 91,
+        "topic": "Other Topics",
+        "algorithm": "Hash Table",
+        "difficulty": "Easy",
+        "question": "What is stored at each index of a hash table?",
+        "options": [
+            "Elements or key-value pairs",
+            "Only keys",
+            "Only indices",
+            "Sorted arrays"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Each index of a hash table stores elements, usually as key-value pairs."
+    },
+    {
+        "id": 92,
+        "topic": "Other Topics",
+        "algorithm": "Hash Table",
+        "difficulty": "Easy",
+        "question": "Hash tables provide which average time complexity for search operations?",
+        "options": [
+            "O(n)",
+            "O(log n)",
+            "O(1)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Search in hash tables is O(1) on average due to direct mapping by hash codes."
+    },
+    {
+        "id": 93,
+        "topic": "Other Topics",
+        "algorithm": "Hash Table",
+        "difficulty": "Medium",
+        "question": "Which of the following affects hash table performance?",
+        "options": [
+            "Load factor",
+            "Hash function quality",
+            "Collision resolution technique",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Load factor, hash function, and collision resolution all impact hash table efficiency."
+    },
+    {
+        "id": 94,
+        "topic": "Other Topics",
+        "algorithm": "Hash Table",
+        "difficulty": "Medium",
+        "question": "What happens when the load factor exceeds a threshold in a hash table?",
+        "options": [
+            "The table resizes",
+            "Elements are deleted",
+            "The hash function changes",
+            "Nothing"
+        ],
+        "correctAnswer": 0,
+        "explanation": "When the load factor is high, the table is resized to reduce collisions and maintain O(1) performance."
+    },
+    {
+        "id": 95,
+        "topic": "Other Topics",
+        "algorithm": "Hash Table",
+        "difficulty": "Hard",
+        "question": "Worst-case time complexity of search in a hash table using chaining is?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "In the worst case, all keys hash to the same index, forming a list of size n, giving O(n) search time."
+    },
+    {
+        "id": 96,
+        "topic": "Other Topics",
+        "algorithm": "Hash Table",
+        "difficulty": "Hard",
+        "question": "Which of the following is NOT a valid collision resolution technique?",
+        "options": [
+            "Chaining",
+            "Linear probing",
+            "Heap sort",
+            "Double hashing"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Heap sort is unrelated to collision resolution in hash tables."
+    },
+    {
+        "id": 97,
+        "topic": "Other Topics",
+        "algorithm": "chainingHash",
+        "difficulty": "Easy",
+        "question": "In chaining, where are colliding elements stored?",
+        "options": [
+            "In a separate hash table",
+            "In a linked list at the same index",
+            "In a stack",
+            "In an array sorted by key"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Chaining stores multiple colliding elements in a linked list at the same table index."
+    },
+    {
+        "id": 98,
+        "topic": "Other Topics",
+        "algorithm": "chainingHash",
+        "difficulty": "Easy",
+        "question": "Which data structure is commonly used in chaining?",
+        "options": [
+            "Queue",
+            "Linked List",
+            "Binary Tree",
+            "Heap"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Linked lists are used at each index to store multiple colliding elements."
+    },
+    {
+        "id": 99,
+        "topic": "Other Topics",
+        "algorithm": "chainingHash",
+        "difficulty": "Medium",
+        "question": "What is the average search complexity in chaining with a low load factor?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "With a low load factor, most indices have very few elements, giving O(1) average search time."
+    },
+    {
+        "id": 100,
+        "topic": "Other Topics",
+        "algorithm": "chainingHash",
+        "difficulty": "Medium",
+        "question": "If a hash table uses chaining and all keys hash to the same index, what is the worst-case search time?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n^2)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "All keys in one linked list give O(n) search in the worst case."
+    },
+    {
+        "id": 101,
+        "topic": "Other Topics",
+        "algorithm": "chainingHash",
+        "difficulty": "Hard",
+        "question": "Which of the following improves search efficiency in chaining?",
+        "options": [
+            "Using balanced BSTs instead of linked lists",
+            "Increasing table size",
+            "Reducing load factor",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "All options help: BSTs improve lookup, larger table reduces collisions, lower load factor reduces chain length."
+    },
+    {
+        "id": 102,
+        "topic": "Other Topics",
+        "algorithm": "chainingHash",
+        "difficulty": "Hard",
+        "question": "Which is a disadvantage of chaining?",
+        "options": [
+            "Wastes memory due to pointers",
+            "Cannot handle collisions",
+            "Always slower than open addressing",
+            "Does not allow deletion"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Chaining requires extra memory for pointers in linked lists, which is a trade-off for simpler collision handling."
+    },
+    {
+        "id": 103,
+        "topic": "Other Topics",
+        "algorithm": "Open Addressing",
+        "difficulty": "Easy",
+        "question": "In open addressing, where is a colliding element stored?",
+        "options": [
+            "In a linked list",
+            "In another empty table slot",
+            "At the same index",
+            "In a separate array"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Open addressing finds another empty slot in the table to store the colliding element."
+    },
+    {
+        "id": 104,
+        "topic": "Other Topics",
+        "algorithm": "Open Addressing",
+        "difficulty": "Easy",
+        "question": "Which is NOT an open addressing method?",
+        "options": [
+            "Linear probing",
+            "Quadratic probing",
+            "Double hashing",
+            "Chaining"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Chaining is a separate collision handling technique, not open addressing."
+    },
+    {
+        "id": 105,
+        "topic": "Other Topics",
+        "algorithm": "Open Addressing",
+        "difficulty": "Medium",
+        "question": "What is primary clustering in open addressing?",
+        "options": [
+            "When multiple elements hash to the same index",
+            "When clusters of occupied slots form, slowing insert/search",
+            "When the hash table resizes",
+            "When hash function fails"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Primary clustering occurs when clusters of consecutive occupied slots form, increasing probe length."
+    },
+    {
+        "id": 106,
+        "topic": "Other Topics",
+        "algorithm": "Open Addressing",
+        "difficulty": "Medium",
+        "question": "What is the average search complexity of open addressing with low load factor?",
+        "options": [
+            "O(n)",
+            "O(log n)",
+            "O(1)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "With a low load factor, most searches find their element quickly, giving O(1) average complexity."
+    },
+    {
+        "id": 107,
+        "topic": "Other Topics",
+        "algorithm": "Open Addressing",
+        "difficulty": "Hard",
+        "question": "What is the worst-case search time in open addressing?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "If all elements form a cluster or table is nearly full, worst-case search can take O(n)."
+    },
+    {
+        "id": 108,
+        "topic": "Other Topics",
+        "algorithm": "Open Addressing",
+        "difficulty": "Hard",
+        "question": "Which of these helps reduce clustering in open addressing?",
+        "options": [
+            "Linear probing",
+            "Quadratic probing or double hashing",
+            "Always resizing table",
+            "Using linked lists"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Quadratic probing and double hashing reduce clustering by spreading keys more uniformly."
+    },
+    {
+        "id": 109,
+        "topic": "Other Topics",
+        "algorithm": "Rolling Hash",
+        "difficulty": "Easy",
+        "question": "Rolling hash is used primarily in which type of algorithms?",
+        "options": [
+            "Sorting algorithms",
+            "Substring search algorithms",
+            "Graph traversal algorithms",
+            "Dynamic programming"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Rolling hash allows fast substring search, used in algorithms like Rabin-Karp."
+    },
+    {
+        "id": 110,
+        "topic": "Other Topics",
+        "algorithm": "Rolling Hash",
+        "difficulty": "Easy",
+        "question": "What is the advantage of rolling hash over normal hash in string matching?",
+        "options": [
+            "Faster hash recomputation when sliding window",
+            "No collisions",
+            "Uses less memory",
+            "Automatically sorts substrings"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Rolling hash lets you compute the next hash by updating the previous one, avoiding full recomputation."
+    },
+    {
+        "id": 111,
+        "topic": "Other Topics",
+        "algorithm": "Rolling Hash",
+        "difficulty": "Medium",
+        "question": "Which problem is solved efficiently using rolling hash?",
+        "options": [
+            "Merge Sort",
+            "Rabin-Karp string search",
+            "DFS on trees",
+            "Binary search"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Rabin-Karp uses rolling hash for fast substring matching."
+    },
+    {
+        "id": 112,
+        "topic": "Other Topics",
+        "algorithm": "Rolling Hash",
+        "difficulty": "Medium",
+        "question": "What is the time complexity of substring search using Rabin-Karp with rolling hash?",
+        "options": [
+            "O(N × M)",
+            "O(N + M)",
+            "O(N log M)",
+            "O(1)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "With rolling hash, Rabin-Karp runs in O(N + M) average time for pattern matching."
+    },
+    {
+        "id": 113,
+        "topic": "Other Topics",
+        "algorithm": "Rolling Hash",
+        "difficulty": "Hard",
+        "question": "Which property of rolling hash is critical for efficient substring matching?",
+        "options": [
+            "Incremental hash computation",
+            "No collisions",
+            "Sorting substrings",
+            "Dynamic memory allocation"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Incremental update of hash values enables efficient sliding window substring search."
+    },
+    {
+        "id": 114,
+        "topic": "Other Topics",
+        "algorithm": "Rolling Hash",
+        "difficulty": "Hard",
+        "question": "Which problem arises if the rolling hash is not designed carefully?",
+        "options": [
+            "Increased memory usage",
+            "Hash collisions causing false positives",
+            "Slower sorting",
+            "Unable to store keys"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Poor hash design can cause collisions, resulting in false matches during substring search."
+    },
+    {
+        "id": 115,
+        "topic": "Other Topics",
+        "algorithm": "Hash - Applications",
+        "difficulty": "Easy",
+        "question": "Which of the following is a common use of hashing?",
+        "options": [
+            "Sorting arrays",
+            "Finding duplicates",
+            "DFS traversal",
+            "Dynamic programming"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Hashing is often used to find duplicates efficiently using sets or hash maps."
+    },
+    {
+        "id": 116,
+        "topic": "Other Topics",
+        "algorithm": "Hash - Applications",
+        "difficulty": "Easy",
+        "question": "Which data structure is typically implemented using hashing?",
+        "options": [
+            "Queue",
+            "Stack",
+            "Map or Dictionary",
+            "Binary Tree"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Maps or dictionaries use hashing to map keys to values with O(1) access."
+    },
+    {
+        "id": 117,
+        "topic": "Other Topics",
+        "algorithm": "Hash - Applications",
+        "difficulty": "Medium",
+        "question": "Hashing is often used in which common algorithmic problem?",
+        "options": [
+            "Two-sum problem",
+            "Merge sort",
+            "Binary search",
+            "DFS traversal"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Hashing allows checking complements efficiently, solving the two-sum problem in O(n) time."
+    },
+    {
+        "id": 118,
+        "topic": "Other Topics",
+        "algorithm": "Hash - Applications",
+        "difficulty": "Medium",
+        "question": "Which application benefits from counting frequencies using hashing?",
+        "options": [
+            "Finding duplicates",
+            "Word frequency in documents",
+            "Histogram generation",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Hashing can efficiently count frequencies for all these applications."
+    },
+    {
+        "id": 119,
+        "topic": "Other Topics",
+        "algorithm": "Hash - Applications",
+        "difficulty": "Hard",
+        "question": "Which problem requires careful hash function design to avoid collisions?",
+        "options": [
+            "Counting frequencies",
+            "Two-sum problem",
+            "Substring matching",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "All listed problems can be impacted by hash collisions, requiring good hash functions."
+    },
+    {
+        "id": 120,
+        "topic": "Other Topics",
+        "algorithm": "Hash - Applications",
+        "difficulty": "Hard",
+        "question": "Which of these algorithms heavily rely on hashing?",
+        "options": [
+            "Rabin-Karp string search",
+            "Frequency counter in data streams",
+            "Hash-based caches and memoization",
+            "All of the above"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Hashing is crucial in substring search, frequency counting, and cache/memoization implementations."
+    }
+    , 
+    {
+    "id": 121,
     "topic": "Branch & Bound",
     "algorithm": "Knapsack 01",
     "difficulty": "Easy",
@@ -1275,7 +1816,7 @@
     "explanation": "The 0/1 Knapsack problem involves making binary (yes/no) decisions for each item to maximize total value while respecting weight constraints."
   },
   {
-    "id": 110,
+    "id": 122,
     "topic": "Branch & Bound",
     "algorithm": "Knapsack 01",
     "difficulty": "Easy",
@@ -1290,7 +1831,7 @@
     "explanation": "Bounding functions estimate the maximum possible value achievable in a branch, helping prune unpromising paths."
   },
   {
-    "id": 111,
+    "id": 123,
     "topic": "Branch & Bound",
     "algorithm": "Knapsack 01",
     "difficulty": "Medium",
@@ -1305,7 +1846,7 @@
     "explanation": "Branch & Bound improves efficiency by eliminating branches that cannot produce better solutions than the current best."
   },
   {
-    "id": 112,
+    "id": 124,
     "topic": "Branch & Bound",
     "algorithm": "Knapsack 01",
     "difficulty": "Medium",
@@ -1320,7 +1861,7 @@
     "explanation": "The fractional knapsack solution provides an optimistic estimate of the best possible value achievable in a branch."
   },
   {
-    "id": 113,
+    "id": 125,
     "topic": "Branch & Bound",
     "algorithm": "Knapsack 01",
     "difficulty": "Hard",
@@ -1335,7 +1876,7 @@
     "explanation": "In the worst case, Branch & Bound might still need to explore all possible combinations, leading to O(2\u207f)."
   },
   {
-    "id": 114,
+    "id": 126,
     "topic": "Branch & Bound",
     "algorithm": "Knapsack 01",
     "difficulty": "Hard",
@@ -1350,7 +1891,7 @@
     "explanation": "Sorting items by value/weight ratio can help find good solutions early, enabling more effective pruning."
   },
   {
-    "id": 115,
+    "id": 127,
     "topic": "Branch & Bound",
     "algorithm": "Traveling Salesman",
     "difficulty": "Easy",
@@ -1365,7 +1906,7 @@
     "explanation": "TSP aims to find the minimum cost tour that visits each city exactly once and returns to the starting city."
   },
   {
-    "id": 116,
+    "id": 128,
     "topic": "Branch & Bound",
     "algorithm": "Traveling Salesman",
     "difficulty": "Easy",
@@ -1380,7 +1921,7 @@
     "explanation": "A lower bound estimates the minimum possible cost to complete a partial tour, used for pruning unpromising branches."
   },
   {
-    "id": 117,
+    "id": 129,
     "topic": "Branch & Bound",
     "algorithm": "Traveling Salesman",
     "difficulty": "Medium",
@@ -1395,7 +1936,7 @@
     "explanation": "The reduced cost matrix helps calculate tighter lower bounds, making branch pruning more effective."
   },
   {
-    "id": 118,
+    "id": 130,
     "topic": "Branch & Bound",
     "algorithm": "Traveling Salesman",
     "difficulty": "Medium",
@@ -1410,7 +1951,7 @@
     "explanation": "The algorithm maintains a valid path and ensures no cycles are formed until the final edge of the tour."
   },
   {
-    "id": 119,
+    "id": 131,
     "topic": "Branch & Bound",
     "algorithm": "Traveling Salesman",
     "difficulty": "Hard",
@@ -1425,7 +1966,7 @@
     "explanation": "Choosing cities connected by minimum cost edges first often leads to better solutions earlier."
   },
   {
-    "id": 120,
+    "id": 132,
     "topic": "Branch & Bound",
     "algorithm": "Traveling Salesman",
     "difficulty": "Hard",
@@ -1440,7 +1981,7 @@
     "explanation": "TSP combines the challenges of maintaining valid tours while optimizing the total cost, making effective pruning crucial."
   },
   {
-    "id": 121,
+    "id": 133,
     "topic": "Game Search Algorithms",
     "algorithm": "Minimax",
     "difficulty": "Easy",
@@ -1455,7 +1996,7 @@
     "explanation": "Minimax alternates between maximizing the current player's position and minimizing the opponent's opportunities."
   },
   {
-    "id": 122,
+    "id": 134,
     "topic": "Game Search Algorithms",
     "algorithm": "Minimax",
     "difficulty": "Easy",
@@ -1470,7 +2011,7 @@
     "explanation": "Minimax works best for games like chess or tic-tac-toe where two players compete and all information is visible."
   },
   {
-    "id": 123,
+    "id": 135,
     "topic": "Game Search Algorithms",
     "algorithm": "Minimax",
     "difficulty": "Medium",
@@ -1485,7 +2026,7 @@
     "explanation": "When the search can't reach terminal positions, Minimax uses heuristic evaluation functions to estimate position value."
   },
   {
-    "id": 124,
+    "id": 136,
     "topic": "Game Search Algorithms",
     "algorithm": "Minimax",
     "difficulty": "Medium",
@@ -1500,7 +2041,7 @@
     "explanation": "A good evaluation function must provide reliable estimates of position strength to make effective decisions."
   },
   {
-    "id": 125,
+    "id": 137,
     "topic": "Game Search Algorithms",
     "algorithm": "Minimax",
     "difficulty": "Hard",
@@ -1515,7 +2056,7 @@
     "explanation": "Minimax must explore all possible moves to a given depth, leading to exponential time complexity."
   },
   {
-    "id": 126,
+    "id": 138,
     "topic": "Game Search Algorithms",
     "algorithm": "Minimax",
     "difficulty": "Hard",
@@ -1530,7 +2071,7 @@
     "explanation": "Transposition tables store previously evaluated positions to avoid redundant calculations."
   },
   {
-    "id": 127,
+    "id": 139,
     "topic": "Game Search Algorithms",
     "algorithm": "Alpha-Beta",
     "difficulty": "Easy",
@@ -1545,7 +2086,7 @@
     "explanation": "Alpha-Beta pruning improves Minimax efficiency by skipping evaluation of irrelevant branches."
   },
   {
-    "id": 128,
+    "id": 140,
     "topic": "Game Search Algorithms",
     "algorithm": "Alpha-Beta",
     "difficulty": "Easy",
@@ -1560,7 +2101,7 @@
     "explanation": "Alpha represents the best value for the maximizing player, Beta for the minimizing player."
   },
   {
-    "id": 129,
+    "id": 141,
     "topic": "Game Search Algorithms",
     "algorithm": "Alpha-Beta",
     "difficulty": "Medium",
@@ -1575,7 +2116,7 @@
     "explanation": "Examining better moves first increases the likelihood of pruning subsequent branches."
   },
   {
-    "id": 130,
+    "id": 142,
     "topic": "Game Search Algorithms",
     "algorithm": "Alpha-Beta",
     "difficulty": "Medium",
@@ -1590,7 +2131,7 @@
     "explanation": "Null window searches are used to efficiently determine if a position is above or below a specific value."
   },
   {
-    "id": 131,
+    "id": 143,
     "topic": "Game Search Algorithms",
     "algorithm": "Alpha-Beta",
     "difficulty": "Hard",
@@ -1605,7 +2146,7 @@
     "explanation": "With perfect move ordering, Alpha-Beta can reduce the effective branching factor by roughly its square root."
   },
   {
-    "id": 132,
+    "id": 144,
     "topic": "Game Search Algorithms",
     "algorithm": "Alpha-Beta",
     "difficulty": "Hard",
@@ -1620,7 +2161,7 @@
     "explanation": "Results from shallower searches can guide move ordering in deeper searches, improving pruning efficiency."
   },
   {
-    "id": 133,
+    "id": 145,
     "topic": "Game Search Algorithms",
     "algorithm": "Expectimax",
     "difficulty": "Easy",
@@ -1635,7 +2176,7 @@
     "explanation": "Expectimax handles games where some outcomes are determined by chance or probability."
   },
   {
-    "id": 134,
+    "id": 146,
     "topic": "Game Search Algorithms",
     "algorithm": "Expectimax",
     "difficulty": "Easy",
@@ -1650,7 +2191,7 @@
     "explanation": "Expectimax accounts for chance events by calculating expected values rather than assuming optimal opponent play."
   },
   {
-    "id": 135,
+    "id": 147,
     "topic": "Game Search Algorithms",
     "algorithm": "Expectimax",
     "difficulty": "Medium",
@@ -1665,7 +2206,7 @@
     "explanation": "Chance nodes compute the expected value by weighing each possible outcome by its probability."
   },
   {
-    "id": 136,
+    "id": 148,
     "topic": "Game Search Algorithms",
     "algorithm": "Expectimax",
     "difficulty": "Medium",
@@ -1680,7 +2221,7 @@
     "explanation": "Each level of depth multiplies the computation by both the branching factor and number of chance outcomes."
   },
   {
-    "id": 137,
+    "id": 149,
     "topic": "Game Search Algorithms",
     "algorithm": "Expectimax",
     "difficulty": "Hard",
@@ -1695,7 +2236,7 @@
     "explanation": "Chance nodes must evaluate all possibilities to compute the correct expected value, preventing full pruning."
   },
   {
-    "id": 138,
+    "id": 150,
     "topic": "Game Search Algorithms",
     "algorithm": "Expectimax",
     "difficulty": "Hard",
@@ -1710,7 +2251,7 @@
     "explanation": "Practical implementations often ignore outcomes with very low probability or minimal impact on the expected value."
   },
   {
-    "id": 139,
+    "id": 151,
     "topic": "Game Search Algorithms",
     "algorithm": "Monte Carlo Tree",
     "difficulty": "Easy",
@@ -1725,7 +2266,7 @@
     "explanation": "MCTS uses random playouts to estimate position value through statistical sampling."
   },
   {
-    "id": 140,
+    "id": 152,
     "topic": "Game Search Algorithms",
     "algorithm": "Monte Carlo Tree",
     "difficulty": "Easy",
@@ -1740,7 +2281,7 @@
     "explanation": "These four steps form the core MCTS algorithm cycle, balancing exploration and exploitation."
   },
   {
-    "id": 141,
+    "id": 153,
     "topic": "Game Search Algorithms",
     "algorithm": "Monte Carlo Tree",
     "difficulty": "Medium",
@@ -1755,7 +2296,7 @@
     "explanation": "Upper Confidence bounds for Trees (UCT) helps balance between exploring new nodes and exploiting known good moves."
   },
   {
-    "id": 142,
+    "id": 154,
     "topic": "Game Search Algorithms",
     "algorithm": "Monte Carlo Tree",
     "difficulty": "Medium",
@@ -1770,7 +2311,7 @@
     "explanation": "MCTS manages large branching factors by focusing resources on promising branches identified through sampling."
   },
   {
-    "id": 143,
+    "id": 155,
     "topic": "Game Search Algorithms",
     "algorithm": "Monte Carlo Tree",
     "difficulty": "Hard",
@@ -1785,7 +2326,7 @@
     "explanation": "Good playouts must balance quick execution with reasonable approximation of actual game play."
   },
   {
-    "id": 144,
+    "id": 156,
     "topic": "Game Search Algorithms",
     "algorithm": "Monte Carlo Tree",
     "difficulty": "Hard",
