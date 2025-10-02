@@ -263,6 +263,16 @@ const Navbar = () => {
                   >
                     Python
                   </Link>
+
+                  <Link
+                    to="/notes/cpp"
+                    className={`dropdown-item ${
+                      isActive("/notes/cpp") ? "active" : ""
+                    }`}
+                    onClick={() => setIsDropdownOpen(null)}
+                  >
+                    CPP
+                  </Link>
                 </div>
               )}
             </div>
