@@ -180,6 +180,13 @@ const QuizManager = () => {
     return () => clearTimeout(timer);
   }, [timeRemaining, timedMode, currentStep, isPaused]);
 
+  // 🔹 Scroll fix
+useEffect(() => {
+  if (currentStep === QUIZ_STEPS.QUIZ) {
+    window.scrollTo(0, 0);
+  }
+}, [currentStep]);
+
   const startQuiz = (topic, difficulty, timed = false) => {
     // Filter and shuffle questions
     let filteredQuestions = QuizHelpers.filterAndShuffleQuestions(quizQuestions, topic, difficulty);
