@@ -32,6 +32,25 @@
   --theme-status-danger: #ef4444;
 }
 
+/* ---------- UI helper variables (used by home section polish) ---------- */
+:root {
+  --ui-space-sm: 8px;
+  --ui-space-md: 16px;
+  --ui-space-lg: 24px;
+  --ui-space-xl: 32px;
+
+  --ui-muted: #6b7280; /* for secondary text */
+  --ui-accent-1: #4f6ef6; /* primary accent */
+  --ui-accent-2: #8bc7ff; /* soft secondary */
+  --ui-card-border: rgba(15,23,42,.06);
+
+  --ui-shadow-soft: 0 8px 24px rgba(16,24,40,0.06);
+  --ui-shadow-stacked: 0 10px 30px rgba(16,24,40,0.08);
+  --ui-radius-sm: 8px;
+  --ui-radius-md: 14px;
+  --ui-radius-pill: 9999px;
+}
+
 [data-theme="dark"] {
   /* Dark Theme */
   --theme-bg: #0d1117;
@@ -462,6 +481,10 @@ body {
 }
 
 .algorithm-card .card-description {
+  margin: 0; 
+  padding: 0;
+  width: 100%;
+  text-align: justify;
   color: var(--theme-text-secondary);
   line-height: 1.6;
   font-size: 0.9rem;
@@ -1380,5 +1403,34 @@ body {
   white-space: nowrap;
   color: var(--header-text-color);
 }
+
+/* Highlight the current DP cell being updated */
+.cell.is-focus {
+  outline: 2px solid #60a5fa;   /* blue ring */
+  outline-offset: -2px;         /* keep ring inside the cell */
+  background-color: #3b82f6 !important; /* blue fill to stand out */
+  color: #fff;                  /* white text on blue */
+  font-weight: bold;
+  z-index: 1;                   /* ensure it appears above neighbors */
+}
+
+.cell.is-focus {
+  outline: 2px solid #f59e0b;  /* amber for splits */
+  outline-offset: -2px;
+  background-color: #fbbf24 !important;
+  color: #111;
+  font-weight: bold;
+}
+.result-box {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(16, 185, 129, 0.1); /* teal tint */
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #d1fae5;
+}
+
+
 
 /*  */
