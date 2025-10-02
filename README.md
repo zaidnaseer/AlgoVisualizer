@@ -302,6 +302,20 @@ The code implementations are ideal for:
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
+<h2 id="visualization-logic-explained"> Visualization Logic Explained</h2>
+
+### The heart of this project is **AlgorithmVisualizer.jsx.** Here’s how it works:
+
+- State Management: Handles the array of numbers to be sorted and updates the UI as the algorithm progresses.
+
+- Dynamic Bar Width: Bar size is now calculated dynamically based on screen size and the number of elements — so the visualizer is fully responsive.
+
+- Sorting Algorithms: The algorithms (Bubble Sort, Merge Sort, Quick Sort, etc.) are imported from the  **src/algorithms/** folder. Each runs step-by-step with animated transitions.
+
+- Styling: The visualization container and bars are styled in **UnifiedVisualizer.css** for a clean, responsive layout.
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+
 <h2 id="quick-start"> Quick Start</h2>
 
 ### Prerequisites
@@ -314,6 +328,8 @@ The code implementations are ideal for:
 1. **Clone the repository:**
 
     ```bash
+   git clone https://github.com/<your-username>/AlgoVisualizer.git 
+   Example:
    git clone https://github.com/RhythmPahwa14/AlgoVisualizer.git
    cd AlgoVisualizer
    ```
@@ -559,7 +575,7 @@ We love contributions from the community! Whether it's a bug report, a new featu
 
 ***How to Contribute***
 
-1.  **Fork the repository** and create a new branch for your changes.
+1.  **Fork and clone the repository** and create a new branch for your changes.
 2.  **Make your changes** and ensure everything is working as expected.
 3.  **Submit a pull request** with a clear description of your changes.
 
