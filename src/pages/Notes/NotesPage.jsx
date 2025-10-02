@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const NotesPage = () => {
   const topics = [
     { name: "Fundamentals", path: "/notes/java/fundamentals" },
+    {name: "Fundamentals", path: "/notes/c++/fundamentals"},
     // You can add more topics later
   ];
 

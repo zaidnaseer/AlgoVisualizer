@@ -11,8 +11,7 @@
   padding: 60px 0 20px;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing */
-  min-height: 400px;
+  transition: opacity 0.8s ease, transform 0.8s ease;
   z-index: 1;
   will-change: opacity, transform; /* Performance optimization for animations */
   width: 100%; /* Ensure full width */
@@ -106,6 +105,7 @@
 
 .logo-wrapper {
   display: flex;
+  justify-content: center;
   align-items: center;
   justify-content: flex-start; /* Left-align logo elements */
   margin-bottom: 15px;
@@ -183,6 +183,7 @@
 
 .tech-pills {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 25px;
@@ -193,7 +194,7 @@
 
 .tech-pill {
   background: var(--surface-bg, rgba(255, 255, 255, 0.05));
-  color: var(--accent-primary, #58a6ff);
+  color: var(--user-accent-primary);
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
@@ -312,7 +313,7 @@
   left: 0;
   width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-primary, #58a6ff), var(--accent-hover, #79c0ff));
+  background: linear-gradient(90deg, var(--user-accent-primary), var(--user-accent-secondary));
   border-radius: 3px;
   transition: width 0.3s ease, background 0.3s ease;
 }
@@ -324,6 +325,7 @@
 
 .para-text {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 6px;              /* spacing between items */
@@ -420,7 +422,7 @@
 }
 
 .footer-links a:hover {
-  color: var(--accent-primary, #58a6ff);
+  color: var(--user-accent-primary);
   transform: translateX(5px);
   padding-left: 8px; /* Slight indent on hover */
 }
@@ -445,12 +447,16 @@
 }
 
 /* Newsletter Section */
+.newsletter-column {
+align-items: center;
+}
+
 .newsletter-description {
   color: var(--text-secondary, rgba(230, 237, 243, 0.8));
+  text-align: center;
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 20px;
-  text-align: left;
   overflow: visible;
   transition: color 0.3s ease;
   width: 100%; /* Full width for alignment */

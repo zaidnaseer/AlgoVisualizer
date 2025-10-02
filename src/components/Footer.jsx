@@ -173,21 +173,44 @@ const Footer = () => {
     }, 1000);
   };
 
-  // Icon mapping helper
-  const getIconComponent = (iconName) => {
-    const iconMap = {
-      "FaRocket": FaRocket,
-      "FaCode": FaCode,
-      "FaGraduationCap": FaGraduationCap,
-      "FaEnvelope": FaEnvelope,
-      "FaGithub": FaGithub,
-      "FaLinkedin": FaLinkedin,
-      "FaXTwitter": FaXTwitter,
-      "FaDiscord": FaDiscord,
-      "FaYoutube": FaYoutube,
-    };
-    return iconMap[iconName] || null;
-  };
+
+  // Navigation links data
+  const navigationLinks = [
+    { to: "/", icon: "FaRocket", label: "Home" },
+    { to: "/data-structures", icon: "FaCode", label: "Algorithms" },
+    { to: "/data-structures-docs", icon: "FaGraduationCap", label: "Data Structures" },
+    { to: "/about", icon: "FaGraduationCap", label: "About Us" },
+    { to: "/contact", icon: "FaEnvelope", label: "Contact" },
+  ];
+
+  // Resource links data
+  const resourceLinks = [
+    { to: "/documentation", icon: "FaGraduationCap", label: "Documentation" },
+    { to: "/faq", icon: "FaGraduationCap", label: "FAQ" },
+    { to: "/data-structures", icon: "FaGraduationCap", label: "Tutorials" },
+    { to: "/blog", icon: "FaGraduationCap", label: "Blog" },
+    { to: "/community", icon: "FaGraduationCap", label: "Community" },
+    { to: "/contribute", icon: "FaCode", label: "Contribute" },
+  ];
+
+  // Social media links data
+  const socialLinks = [
+    { href: "https://github.com/RhythmPahwa14/AlgoVisualizer", icon: "FaGithub", title: "GitHub" },
+    { href: "https://linkedin.com/in/sandeepvashishtha", icon: "FaLinkedin", title: "LinkedIn" },
+    { href: "https://twitter.com", icon: "FaXTwitter", title: "Twitter" },
+    { href: "https://discord.com", icon: "FaDiscord", title: "Discord" },
+    { href: "https://youtube.com", icon: "FaYoutube", title: "YouTube" },
+  ];
+
+  // Technology pills data
+  const techPills = [
+    { href: "https://react.dev/", label: "React" },
+    { href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript", label: "JavaScript" },
+    { href: "https://d3js.org/", label: "D3.js" },
+    { href: "https://nodejs.org/", label: "Node.js" },
+  ];
+
+  
 
   return (
     <>
@@ -257,14 +280,15 @@ const Footer = () => {
                 <FooterLink 
                   key={index} 
                   to={link.to} 
-                  icon={getIconComponent(link.icon)}
+                  icon={link.icon}
                 >
+              
                   {link.label}
                 </FooterLink>
               ))}
             </ul>
           </div>
-
+             
           {/* Resources */}
           <div
             className="footer-column resources-column"
@@ -278,7 +302,7 @@ const Footer = () => {
                 <FooterLink 
                   key={index} 
                   to={link.to} 
-                  icon={getIconComponent(link.icon)}
+                  icon={link.icon}
                 >
                   {link.label}
                 </FooterLink>
@@ -312,7 +336,7 @@ const Footer = () => {
                 <SocialLink
                   key={index}
                   href={link.href}
-                  icon={getIconComponent(link.icon)}
+                  icon={link.icon}
                   title={link.title}
                 />
               ))}

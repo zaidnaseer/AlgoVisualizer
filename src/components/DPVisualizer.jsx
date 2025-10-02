@@ -8,6 +8,8 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisualizing, setIsVisualizing] = useState(false);
   const [message, setMessage] = useState("Select an algorithm and run.");
+  const [finalResult, setFinalResult] = useState(null);
+
 
   const copySteps = (arr) => arr.map((row) => (Array.isArray(row) ? [...row] : row));
 
@@ -57,44 +59,112 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
   // 3️⃣ Longest Common Subsequence (LCS) 
   const lcs = (str1 = "ABCBDAB", str2 = "BDCAB") => {
     const stepsArr = [];
-    const m = str1.length,
-      n = str2.length;
+    const m = str1.length, n = str2.length;
     const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
 
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         if (str1[i - 1] === str2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
         else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-        stepsArr.push({ board: copySteps(dp), message: `dp[${i}][${j}] = ${dp[i][j]}` });
+
+        stepsArr.push({
+          board: copySteps(dp),
+          message: `dp[${i}][${j}] = ${dp[i][j]}`,
+          focus: [i, j],           // highlight this cell in the UI
+        });
       }
     }
     stepsArr.push({ board: copySteps(dp), message: `LCS length = ${dp[m][n]}` });
     return stepsArr;
   };
 
-  // 4️⃣ 0-1 Knapsack 
-  const knapsack = (values = [60, 100, 120], weights = [10, 20, 30], W = 50) => {
+
+
+// 4️⃣ 0-1 Knapsack 
+  const knapsack = (values = [60, 100, 120], weights = [10, 20, 30], W = 15) => {
+
     const stepsArr = [];
     const n = values.length;
+
+    // dp[i][w] = best value using first i items and capacity w
     const dp = Array.from({ length: n + 1 }, () => Array(W + 1).fill(0));
+    // choice[i][w] = whether we took item i at capacity w
+    const choice = Array.from({ length: n + 1 }, () => Array(W + 1).fill(false));
 
     for (let i = 1; i <= n; i++) {
-      for (let w = 1; w <= W; w++) {
-        if (weights[i - 1] <= w)
-          dp[i][w] = Math.max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]]);
-        else dp[i][w] = dp[i - 1][w];
-        stepsArr.push({ board: copySteps(dp), message: `dp[${i}][${w}] = ${dp[i][w]}` });
+      const wt = weights[i - 1];
+      const val = values[i - 1];
+
+      for (let w = 0; w <= W; w++) {
+        let take = -Infinity, skip = dp[i - 1][w];
+
+        if (wt <= w) {
+          take = val + dp[i - 1][w - wt];
+        }
+
+        if (take > skip) {
+          dp[i][w] = take;
+          choice[i][w] = true;
+          stepsArr.push({
+            board: dp.map(row => [...row]),
+            message: `dp[${i}][${w}] = ${dp[i][w]} (include item ${i}: val=${val}, wt=${wt}; from dp[${i-1}][${w-wt}] + ${val} vs dp[${i-1}][${w}])`,
+            focus: [i, w],
+            meta: { decision: "include", item: i, wt, val, take, skip }
+          });
+        } else {
+          dp[i][w] = skip;
+          choice[i][w] = false;
+          stepsArr.push({
+            board: dp.map(row => [...row]),
+            message: `dp[${i}][${w}] = ${dp[i][w]} (exclude item ${i}: keep dp[${i-1}][${w}] = ${skip})`,
+            focus: [i, w],
+            meta: { decision: "exclude", item: i, wt, val, take, skip }
+          });
+        }
       }
     }
-    stepsArr.push({ board: copySteps(dp), message: `Max value = ${dp[n][W]}` });
+
+    // Backtrack chosen items
+    const chosen = [];
+    let w = W;
+    for (let i = n; i >= 1; i--) {
+      if (choice[i][w]) {
+        chosen.push(i - 1);        // store 0-based index of the item
+        w -= weights[i - 1];
+      }
+    }
+    chosen.reverse();
+
+    const resultMsg =
+      `Max value = ${dp[n][W]} | chosen items (1-based): [${chosen.map(x => x + 1).join(", ")}] ` +
+      `| weights: [${chosen.map(x => weights[x]).join(", ")}] | values: [${chosen.map(x => values[x]).join(", ")}]`;
+
+    stepsArr.push({
+      board: dp.map(row => [...row]),
+      message: resultMsg,
+      focus: [n, W],
+      meta: { chosen, W, values, weights }
+    });
+
     return stepsArr;
   };
+
 
   // 5️⃣ Matrix Chain Multiplication 
   const matrixChain = (dims = [10, 30, 5, 60]) => {
     const stepsArr = [];
     const n = dims.length - 1;
     const dp = Array.from({ length: n }, () => Array(n).fill(0));
+    const split = Array.from({ length: n }, () => Array(n).fill(-1));
+
+
+
+  const buildParenthesization = (split, i, j) => {
+    if (i === j) return `A${i+1}`;
+    const k = split[i][j];
+    return `(${buildParenthesization(split, i, k)} x ${buildParenthesization(split, k+1, j)})`;
+  };
+
 
     for (let l = 2; l <= n; l++) {
       for (let i = 0; i <= n - l; i++) {
@@ -104,12 +174,19 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
           const cost = dp[i][k] + dp[k + 1][j] + dims[i] * dims[k + 1] * dims[j + 1];
           if (cost < dp[i][j]) {
             dp[i][j] = cost;
-            stepsArr.push({ board: copySteps(dp), message: `dp[${i}][${j}] updated to ${dp[i][j]} (split at ${k})` });
+            split[i][j] = k;
+            stepsArr.push({
+              board: copySteps(dp),
+              message: `dp[${i}][${j}] = ${dp[i][j]} (split at k=${k})`,
+              focus: [i, j],
+              split: copySteps(split)
+            });
           }
         }
       }
     }
-    stepsArr.push({ board: copySteps(dp), message: `Minimum multiplication cost = ${dp[0][n - 1]}` });
+    const parenthesization = buildParenthesization(split, 0, n - 1);
+    stepsArr.push({ board: copySteps(dp), message: `Minimum multiplication cost = ${dp[0][n - 1]}. Optimal order: ${parenthesization}`,split: copySteps(split) });
     return stepsArr;
   };
 
@@ -139,15 +216,24 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
     setSteps(generatedSteps);
     setCurrentStep(0);
     setIsVisualizing(true);
+    setFinalResult(null);
   };
 
   useEffect(() => {
     if (isVisualizing && steps.length > 0) {
       if (currentStep >= steps.length) {
-        setIsVisualizing(false);
-        setMessage("Visualization complete!");
-        return;
-      }
+
+          setCurrentStep(steps.length - 1);
+
+          setIsVisualizing(false);
+          setMessage("Visualization complete!");
+          // Persist result for Knapsack
+          if (algorithm === "Knapsack") {
+            const lastMsg = steps[steps.length - 1]?.message;
+            setFinalResult(lastMsg || null);
+          }
+          return;
+        }
       const timer = setTimeout(() => setCurrentStep((prev) => prev + 1), 400);
       return () => clearTimeout(timer);
     }
@@ -161,6 +247,7 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
     setCurrentStep(0);
     setIsVisualizing(false);
     setMessage("Select an algorithm and run.");
+    setFinalResult(null);
   };
 
   // ================= Render =================
@@ -187,20 +274,33 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
       );
     }
 
-    // 2D grid visualization (Knapsack, LCS, Matrix Chain)
+    const focusCell = steps[currentStep]?.focus; // [i, j] or [i, w] if present
+
     return (
-      <div className="board">
+      <div className="board scrollable">
         {stepBoard.map((row, i) => (
           <div key={i} className="board-row">
-            {row.map((cell, j) => (
-              <div key={j} className={`cell ${cell !== 0 && cell !== Infinity ? "active" : ""}`}>
-                {cell !== 0 && cell !== Infinity ? cell : ""}
-              </div>
-            ))}
+
+            {row.map((cell, j) => {
+              const isFocus = focusCell && focusCell[0] === i && focusCell[1] === j;
+              const isActive = cell !== Infinity && cell > 0; // color only positive values
+              return (
+                <div
+                  key={j}
+                  className={`cell ${isActive ? "active" : ""} ${isFocus ? "is-focus" : ""}`}
+
+                  title={`dp[${i}][${j}] = ${cell === Infinity ? "∞" : cell}`}
+                >
+                  {cell === Infinity ? "∞" : cell}
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>
+
     );
+
   };
 
   return (
@@ -222,6 +322,22 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
       </div>
 
       {renderBoard()}
+      {algorithm === "Knapsack" && finalResult && (
+        <div className="result-box">
+          <strong>Result:</strong> {finalResult}
+        </div>
+      )}
+
+      {finalResult && algorithm === "MatrixChain" && (
+        <div className="result-box">
+          <strong>Optimal Parenthesization:</strong>{" "}
+          {finalResult.split("Optimal order: ")[1]}
+          <br />
+          <strong>Minimum Cost:</strong>{" "}
+          {finalResult.split("Optimal order: ")[0].replace("Minimum multiplication cost = ", "")}
+        </div>
+      )}
+
 
       <p className="message-bar">{steps[currentStep]?.message || message}</p>
     </div>
