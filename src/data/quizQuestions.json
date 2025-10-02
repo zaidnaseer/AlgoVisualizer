@@ -1799,4 +1799,545 @@
         "correctAnswer": 3,
         "explanation": "Hashing is crucial in substring search, frequency counting, and cache/memoization implementations."
     }
+    , 
+    {
+    "id": 121,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
+    "difficulty": "Easy",
+    "question": "What is the basic concept of the 0/1 Knapsack problem?",
+    "options": [
+      "Selecting items with binary choice (take or leave) to maximize value within weight limit",
+      "Sorting items by weight",
+      "Finding the shortest path in a graph",
+      "Minimizing the number of items"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The 0/1 Knapsack problem involves making binary (yes/no) decisions for each item to maximize total value while respecting weight constraints."
+  },
+  {
+    "id": 122,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
+    "difficulty": "Easy",
+    "question": "What is the role of bounding in the Knapsack problem?",
+    "options": [
+      "To estimate the best possible value achievable in a subtree",
+      "To sort items by weight",
+      "To count the number of items",
+      "To calculate the minimum weight"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bounding functions estimate the maximum possible value achievable in a branch, helping prune unpromising paths."
+  },
+  {
+    "id": 123,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
+    "difficulty": "Medium",
+    "question": "How does Branch & Bound improve upon brute force for the Knapsack problem?",
+    "options": [
+      "By pruning branches that cannot lead to better solutions",
+      "By sorting items first",
+      "By using dynamic programming",
+      "By using greedy selection"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Branch & Bound improves efficiency by eliminating branches that cannot produce better solutions than the current best."
+  },
+  {
+    "id": 124,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
+    "difficulty": "Medium",
+    "question": "What is the most effective bounding function for the Knapsack problem?",
+    "options": [
+      "Fractional knapsack value",
+      "Total weight",
+      "Item count",
+      "Random estimation"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The fractional knapsack solution provides an optimistic estimate of the best possible value achievable in a branch."
+  },
+  {
+    "id": 125,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
+    "difficulty": "Hard",
+    "question": "What is the worst-case time complexity of Branch & Bound for Knapsack?",
+    "options": [
+      "O(2\u207f)",
+      "O(n log n)",
+      "O(n)",
+      "O(n\u00b2)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In the worst case, Branch & Bound might still need to explore all possible combinations, leading to O(2\u207f)."
+  },
+  {
+    "id": 126,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
+    "difficulty": "Hard",
+    "question": "How does the ordering of items affect Knapsack Branch & Bound efficiency?",
+    "options": [
+      "Sorting by value/weight ratio can improve pruning effectiveness",
+      "Order doesn't matter",
+      "Random ordering is best",
+      "Sorting by weight only is optimal"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sorting items by value/weight ratio can help find good solutions early, enabling more effective pruning."
+  },
+  {
+    "id": 127,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
+    "difficulty": "Easy",
+    "question": "What is the basic idea of TSP Branch & Bound?",
+    "options": [
+      "Finding the shortest tour visiting all cities exactly once",
+      "Finding the longest path",
+      "Finding all possible paths",
+      "Finding multiple tours"
+    ],
+    "correctAnswer": 0,
+    "explanation": "TSP aims to find the minimum cost tour that visits each city exactly once and returns to the starting city."
+  },
+  {
+    "id": 128,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
+    "difficulty": "Easy",
+    "question": "What is a lower bound in TSP Branch & Bound?",
+    "options": [
+      "Minimum possible cost of completing a partial tour",
+      "Maximum possible tour length",
+      "Number of cities",
+      "Average distance between cities"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A lower bound estimates the minimum possible cost to complete a partial tour, used for pruning unpromising branches."
+  },
+  {
+    "id": 129,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
+    "difficulty": "Medium",
+    "question": "What is the role of the reduced cost matrix in TSP?",
+    "options": [
+      "To provide better lower bounds for partial solutions",
+      "To increase the tour length",
+      "To count cities",
+      "To maximize distance"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The reduced cost matrix helps calculate tighter lower bounds, making branch pruning more effective."
+  },
+  {
+    "id": 130,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
+    "difficulty": "Medium",
+    "question": "How are subtours eliminated in TSP Branch & Bound?",
+    "options": [
+      "By maintaining a path and checking for cycles",
+      "By increasing distances",
+      "By removing cities",
+      "By adding random edges"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The algorithm maintains a valid path and ensures no cycles are formed until the final edge of the tour."
+  },
+  {
+    "id": 131,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
+    "difficulty": "Hard",
+    "question": "What is the most effective branching strategy for TSP?",
+    "options": [
+      "Selecting cities based on minimum cost edges",
+      "Random selection",
+      "Maximum cost edges",
+      "Middle edges"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Choosing cities connected by minimum cost edges first often leads to better solutions earlier."
+  },
+  {
+    "id": 132,
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
+    "difficulty": "Hard",
+    "question": "What makes TSP particularly challenging for Branch & Bound?",
+    "options": [
+      "The combination of tour constraints and optimization",
+      "The number of cities",
+      "The distance calculation",
+      "The path finding"
+    ],
+    "correctAnswer": 0,
+    "explanation": "TSP combines the challenges of maintaining valid tours while optimizing the total cost, making effective pruning crucial."
+  },
+  {
+    "id": 133,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
+    "difficulty": "Easy",
+    "question": "What is the fundamental principle of the Minimax algorithm?",
+    "options": [
+      "Alternating between maximizing and minimizing player moves",
+      "Always choosing random moves",
+      "Always selecting the first available move",
+      "Ignoring opponent moves"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Minimax alternates between maximizing the current player's position and minimizing the opponent's opportunities."
+  },
+  {
+    "id": 134,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
+    "difficulty": "Easy",
+    "question": "What type of games is Minimax best suited for?",
+    "options": [
+      "Two-player, zero-sum games with perfect information",
+      "Single-player games",
+      "Games of chance",
+      "Multiplayer games"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Minimax works best for games like chess or tic-tac-toe where two players compete and all information is visible."
+  },
+  {
+    "id": 135,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
+    "difficulty": "Medium",
+    "question": "How does Minimax handle game tree depth limitations?",
+    "options": [
+      "Using evaluation functions at cutoff depth",
+      "Ignoring deeper nodes",
+      "Random selection",
+      "Continuing indefinitely"
+    ],
+    "correctAnswer": 0,
+    "explanation": "When the search can't reach terminal positions, Minimax uses heuristic evaluation functions to estimate position value."
+  },
+  {
+    "id": 136,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
+    "difficulty": "Medium",
+    "question": "What determines the effectiveness of a Minimax evaluation function?",
+    "options": [
+      "Its ability to accurately estimate position strength",
+      "The speed of calculation",
+      "The number of moves considered",
+      "The game tree depth"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A good evaluation function must provide reliable estimates of position strength to make effective decisions."
+  },
+  {
+    "id": 137,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
+    "difficulty": "Hard",
+    "question": "What is the time complexity of Minimax without pruning?",
+    "options": [
+      "O(b\u1d48) where b is branching factor and d is depth",
+      "O(n)",
+      "O(log n)",
+      "O(n\u00b2)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Minimax must explore all possible moves to a given depth, leading to exponential time complexity."
+  },
+  {
+    "id": 138,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
+    "difficulty": "Hard",
+    "question": "How does Minimax handle transpositions in the game tree?",
+    "options": [
+      "Using a transposition table to cache results",
+      "Recalculating every position",
+      "Ignoring repeated positions",
+      "Random selection"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Transposition tables store previously evaluated positions to avoid redundant calculations."
+  },
+  {
+    "id": 139,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
+    "difficulty": "Easy",
+    "question": "What is the main purpose of Alpha-Beta pruning?",
+    "options": [
+      "To reduce the number of nodes evaluated by Minimax",
+      "To increase search depth",
+      "To evaluate more nodes",
+      "To randomize search"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Alpha-Beta pruning improves Minimax efficiency by skipping evaluation of irrelevant branches."
+  },
+  {
+    "id": 140,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
+    "difficulty": "Easy",
+    "question": "What do Alpha and Beta values represent?",
+    "options": [
+      "Best already explored alternatives for both players",
+      "Random values",
+      "Node depths",
+      "Number of moves"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Alpha represents the best value for the maximizing player, Beta for the minimizing player."
+  },
+  {
+    "id": 141,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
+    "difficulty": "Medium",
+    "question": "How does move ordering affect Alpha-Beta efficiency?",
+    "options": [
+      "Good move ordering increases pruning opportunities",
+      "Move order doesn't matter",
+      "Random ordering is best",
+      "Worst moves should be first"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Examining better moves first increases the likelihood of pruning subsequent branches."
+  },
+  {
+    "id": 142,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
+    "difficulty": "Medium",
+    "question": "What is a null window search in Alpha-Beta?",
+    "options": [
+      "A search with Alpha and Beta values very close together",
+      "A search with no pruning",
+      "A random search",
+      "A complete tree search"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Null window searches are used to efficiently determine if a position is above or below a specific value."
+  },
+  {
+    "id": 143,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
+    "difficulty": "Hard",
+    "question": "What is the best-case time complexity of Alpha-Beta?",
+    "options": [
+      "O(b\u1d48/\u00b2) where b is branching factor and d is depth",
+      "O(b\u1d48)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "With perfect move ordering, Alpha-Beta can reduce the effective branching factor by roughly its square root."
+  },
+  {
+    "id": 144,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
+    "difficulty": "Hard",
+    "question": "How can iterative deepening improve Alpha-Beta pruning?",
+    "options": [
+      "By providing move ordering information for deeper searches",
+      "By reducing search depth",
+      "By increasing branching factor",
+      "By randomizing search"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Results from shallower searches can guide move ordering in deeper searches, improving pruning efficiency."
+  },
+  {
+    "id": 145,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
+    "difficulty": "Easy",
+    "question": "What type of games is Expectimax designed for?",
+    "options": [
+      "Games with chance elements or uncertainty",
+      "Perfect information games",
+      "Two-player games only",
+      "Single-player games"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Expectimax handles games where some outcomes are determined by chance or probability."
+  },
+  {
+    "id": 146,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
+    "difficulty": "Easy",
+    "question": "How does Expectimax differ from Minimax?",
+    "options": [
+      "It uses probability-weighted averages instead of minimizing",
+      "It searches deeper",
+      "It uses no heuristics",
+      "It's always faster"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Expectimax accounts for chance events by calculating expected values rather than assuming optimal opponent play."
+  },
+  {
+    "id": 147,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
+    "difficulty": "Medium",
+    "question": "How are chance nodes handled in Expectimax?",
+    "options": [
+      "By computing weighted averages of all possible outcomes",
+      "By choosing the highest value",
+      "By choosing the lowest value",
+      "By random selection"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Chance nodes compute the expected value by weighing each possible outcome by its probability."
+  },
+  {
+    "id": 148,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
+    "difficulty": "Medium",
+    "question": "What is the impact of depth on Expectimax computational cost?",
+    "options": [
+      "It grows exponentially with both branching factor and chance outcomes",
+      "It's constant",
+      "It grows linearly",
+      "It decreases with depth"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Each level of depth multiplies the computation by both the branching factor and number of chance outcomes."
+  },
+  {
+    "id": 149,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
+    "difficulty": "Hard",
+    "question": "Why can't alpha-beta pruning be fully applied to Expectimax?",
+    "options": [
+      "Because chance nodes must consider all outcomes",
+      "Because it's not needed",
+      "Because it makes it slower",
+      "Because it's too complex"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Chance nodes must evaluate all possibilities to compute the correct expected value, preventing full pruning."
+  },
+  {
+    "id": 150,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
+    "difficulty": "Hard",
+    "question": "How can Expectimax be optimized for practical use?",
+    "options": [
+      "By pruning extremely unlikely or low-impact outcomes",
+      "By ignoring probabilities",
+      "By reducing depth",
+      "By increasing branching"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Practical implementations often ignore outcomes with very low probability or minimal impact on the expected value."
+  },
+  {
+    "id": 151,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
+    "difficulty": "Easy",
+    "question": "What is the basic idea of Monte Carlo Tree Search (MCTS)?",
+    "options": [
+      "Using random simulations to evaluate positions",
+      "Calculating exact values",
+      "Following fixed strategies",
+      "Ignoring tree structure"
+    ],
+    "correctAnswer": 0,
+    "explanation": "MCTS uses random playouts to estimate position value through statistical sampling."
+  },
+  {
+    "id": 152,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
+    "difficulty": "Easy",
+    "question": "What are the four main steps of MCTS?",
+    "options": [
+      "Selection, Expansion, Simulation, Backpropagation",
+      "Search, Evaluate, Update, Repeat",
+      "Choose, Play, Win, Lose",
+      "Start, Middle, End, Reset"
+    ],
+    "correctAnswer": 0,
+    "explanation": "These four steps form the core MCTS algorithm cycle, balancing exploration and exploitation."
+  },
+  {
+    "id": 153,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
+    "difficulty": "Medium",
+    "question": "What is the role of UCT in MCTS?",
+    "options": [
+      "Balancing exploration and exploitation",
+      "Speeding up simulations",
+      "Reducing memory usage",
+      "Simplifying the tree"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Upper Confidence bounds for Trees (UCT) helps balance between exploring new nodes and exploiting known good moves."
+  },
+  {
+    "id": 154,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
+    "difficulty": "Medium",
+    "question": "How does MCTS handle large branching factors?",
+    "options": [
+      "By gradually building the tree through sampling",
+      "By exploring all branches",
+      "By ignoring some moves",
+      "By random selection"
+    ],
+    "correctAnswer": 0,
+    "explanation": "MCTS manages large branching factors by focusing resources on promising branches identified through sampling."
+  },
+  {
+    "id": 155,
+    "topic": "GOther Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
+    "difficulty": "Hard",
+    "question": "What determines the quality of MCTS playouts?",
+    "options": [
+      "The balance between speed and simulation accuracy",
+      "The number of nodes",
+      "The tree depth",
+      "The branching factor"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Good playouts must balance quick execution with reasonable approximation of actual game play."
+  },
+  {
+    "id": 156,
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
+    "difficulty": "Hard",
+    "question": "How can MCTS be parallelized effectively?",
+    "options": [
+      "By running multiple independent trees or parallel playouts",
+      "It cannot be parallelized",
+      "By splitting the game board",
+      "By reducing search depth"
+    ],
+    "correctAnswer": 0,
+    "explanation": "MCTS can be parallelized through root parallelization, tree parallelization, or leaf parallelization."
+  }
 ]
