@@ -98,6 +98,16 @@
 - **Responsive Design**: Seamless experience across desktop, tablet, and mobile devices
 - **Smooth Animations**: Powered by Framer Motion for engaging user experience
 
+### 📝 **User Input System**
+
+- **📊 Custom Data Visualization**: Upload your own arrays, graphs, and data structures
+- **🎯 Multiple Input Methods**: Text input, file upload (JSON/CSV/TXT), and sample data
+- **✅ Smart Validation**: Real-time data validation with helpful error messages
+- **📋 Format Support**: JSON, CSV, comma-separated values, and structured data
+- **🔧 Auto-Processing**: Automatic sorting for search algorithms, ID generation for graphs
+- **📚 Sample Library**: Built-in examples for all algorithm types (arrays, graphs, trees)
+- **📄 File Export**: Download sample data or save your custom datasets
+
 ### 🧠 **Algorithm Visualizations**
 
 - **Step-by-Step Visualization**: Watch algorithms execute in real-time with clear visual feedback
@@ -353,25 +363,53 @@ npm run preview
 
 ### 📊 **Sorting Algorithms**
 
-1. Select your preferred sorting algorithm
-2. Generate or input custom array data
+1. **Load Your Data**: Use the enhanced input panel to:
+   - Enter numbers directly: `64, 34, 25, 12, 22, 11, 90`
+   - Upload a JSON file: `[64, 34, 25, 12, 22, 11, 90]`
+   - Try sample data with different characteristics
+2. Select your preferred sorting algorithm
 3. Adjust visualization speed
 4. Click "Start Sorting" to begin
 5. Use export controls to capture or record the process
 
 ### 🔍 **Searching Algorithms**
 
-1. Choose a searching algorithm
-2. Set up your data array
+1. **Input Your Array**: Load custom data (auto-sorted for searching):
+   - Direct input: `5, 12, 19, 23, 45, 67, 89`
+   - File upload: CSV or JSON format
+   - Sample sorted arrays available
+2. Choose a searching algorithm
 3. Specify the target value to search
 4. Watch the step-by-step search process
 5. Export visualizations for educational use
 
-### �️ **Data Structures**
+### 🕸️ **Graph Algorithms**
+
+1. **Create Your Graph**: Use the input panel to define:
+   ```json
+   {
+     "nodes": [{"id": 0, "label": "A"}, {"id": 1, "label": "B"}],
+     "edges": [{"id": "0-1", "from": 0, "to": 1, "weight": 5}]
+   }
+   ```
+2. Load sample graphs (simple, complex, weighted, cycle detection)
+3. Select algorithm (BFS, DFS, Dijkstra)
+4. Watch the traversal or pathfinding in action
+
+### 🌳 **Data Structures**
 
 - Explore interactive data structure operations
+- Load custom tree/linked list data
 - Visualize insertions, deletions, and traversals
 - Understand structural relationships and properties
+
+### 📝 **Custom Data Input Features**
+
+- **Multiple Formats**: JSON, CSV, TXT file support
+- **Real-time Validation**: Instant feedback on data format
+- **Sample Data Library**: Examples for every algorithm type
+- **Auto-correction**: Missing IDs and labels auto-generated
+- **Error Guidance**: Clear instructions for fixing data issues
 
 ### 🎓 **Quiz Section**
 
