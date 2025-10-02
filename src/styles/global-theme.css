@@ -1380,5 +1380,14 @@ body {
   white-space: nowrap;
   color: var(--header-text-color);
 }
+/* Highlight the current DP cell being updated */
+.cell.is-focus {
+  outline: 2px solid #60a5fa;   /* blue ring */
+  outline-offset: -2px;         /* keep ring inside the cell */
+  background-color: #3b82f6 !important; /* blue fill to stand out */
+  color: #fff;                  /* white text on blue */
+  font-weight: bold;
+  z-index: 1;                   /* ensure it appears above neighbors */
+}
 
 /*  */

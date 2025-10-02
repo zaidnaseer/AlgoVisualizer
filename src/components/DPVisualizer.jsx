@@ -57,20 +57,25 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
   // 3️⃣ Longest Common Subsequence (LCS) 
   const lcs = (str1 = "ABCBDAB", str2 = "BDCAB") => {
     const stepsArr = [];
-    const m = str1.length,
-      n = str2.length;
+    const m = str1.length, n = str2.length;
     const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
 
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         if (str1[i - 1] === str2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
         else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-        stepsArr.push({ board: copySteps(dp), message: `dp[${i}][${j}] = ${dp[i][j]}` });
+
+        stepsArr.push({
+          board: copySteps(dp),
+          message: `dp[${i}][${j}] = ${dp[i][j]}`,
+          focus: [i, j],           // highlight this cell in the UI
+        });
       }
     }
     stepsArr.push({ board: copySteps(dp), message: `LCS length = ${dp[m][n]}` });
     return stepsArr;
   };
+
 
   // 4️⃣ 0-1 Knapsack 
   const knapsack = (values = [60, 100, 120], weights = [10, 20, 30], W = 50) => {
@@ -187,19 +192,30 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
       );
     }
 
+    const focusCell = steps[currentStep]?.focus; // [i, j] or undefined
+
+
     // 2D grid visualization (Knapsack, LCS, Matrix Chain)
     return (
       <div className="board">
         {stepBoard.map((row, i) => (
           <div key={i} className="board-row">
-            {row.map((cell, j) => (
-              <div key={j} className={`cell ${cell !== 0 && cell !== Infinity ? "active" : ""}`}>
-                {cell !== 0 && cell !== Infinity ? cell : ""}
-              </div>
-            ))}
+            {row.map((cell, j) => {
+              const isFocus = focusCell && focusCell[0] === i && focusCell[1] === j;
+              return (
+                <div
+                  key={j}
+                  className={`cell ${cell > 0 ? "active" : ""} ${isFocus ? "is-focus" : ""}`}
+                  title={`dp[${i}][${j}] = ${cell === Infinity ? "∞" : cell}`}
+                >
+                  {cell === Infinity ? "∞" : cell}
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>
+
     );
   };
 
