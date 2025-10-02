@@ -274,11 +274,7 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
       );
     }
 
-    const focusCell = steps[currentStep]?.focus; // [i, j] or undefined
-
-
-    // 2D grid visualization (Knapsack, LCS, Matrix Chain)
-    const focusCell = steps[currentStep]?.focus; // [i, w] if present
+    const focusCell = steps[currentStep]?.focus; // [i, j] or [i, w] if present
 
     return (
       <div className="board scrollable">
