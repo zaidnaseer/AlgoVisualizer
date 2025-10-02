@@ -362,6 +362,7 @@ body {
 .dropdown-toggle:hover,
 .dropdown-toggle.active {
   color: var(--primary-color);
+  transform: translateY(-1px);
 }
 
 .dropdown-arrow {
@@ -437,10 +438,8 @@ body {
 }
 
 .mobile-menu-button:hover {
-  background: var(--primary-color-alpha);
   color: var(--primary-color);
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(37, 117, 252, 0.25);
+  transform: translateY(-1px);
 }
 
 .mobile-menu-button:active {
@@ -460,12 +459,30 @@ body {
   text-decoration: none;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-settings-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--hover-bg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.mobile-settings-btn:hover::before {
+  opacity: 1;
 }
 
 .mobile-settings-btn:hover {
-  background: var(--primary-color);
-  color: white;
-  transform: scale(1.05);
+  color: var(--primary-color);
+  transform: translateY(-1px);
 }
 
 .mobile-settings-btn.active {
@@ -549,22 +566,39 @@ body {
     gap: 0.75rem;
   }
   
-  .mobile-menu-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    background: var(--hover-bg);
-    color: var(--text-color);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-family: inherit;
-  }
-  
-  .mobile-menu-button:hover {
+.mobile-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--hover-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-menu-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--hover-bg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.mobile-menu-button:hover::before {
+  opacity: 1;
+}  .mobile-menu-button:hover {
     background: var(--primary-color-alpha);
     color: var(--primary-color);
     transform: scale(1.05);
@@ -743,7 +777,6 @@ body {
   .mobile-dropdown-toggle:hover {
     background: var(--hover-bg);
     color: var(--primary-color);
-    padding-left: 2rem;
   }
   
   .mobile-menu-link.active {
@@ -769,9 +802,8 @@ body {
   }
   
   .mobile-dropdown-item:hover {
-    background: var(--primary-color-alpha);
+    background: var(--hover-bg);
     color: var(--primary-color);
-    padding-left: 2rem;
   }
   
   /* Settings button emphasis */
