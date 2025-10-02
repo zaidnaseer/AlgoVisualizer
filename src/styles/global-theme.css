@@ -32,6 +32,25 @@
   --theme-status-danger: #ef4444;
 }
 
+/* ---------- UI helper variables (used by home section polish) ---------- */
+:root {
+  --ui-space-sm: 8px;
+  --ui-space-md: 16px;
+  --ui-space-lg: 24px;
+  --ui-space-xl: 32px;
+
+  --ui-muted: #6b7280; /* for secondary text */
+  --ui-accent-1: #4f6ef6; /* primary accent */
+  --ui-accent-2: #8bc7ff; /* soft secondary */
+  --ui-card-border: rgba(15,23,42,.06);
+
+  --ui-shadow-soft: 0 8px 24px rgba(16,24,40,0.06);
+  --ui-shadow-stacked: 0 10px 30px rgba(16,24,40,0.08);
+  --ui-radius-sm: 8px;
+  --ui-radius-md: 14px;
+  --ui-radius-pill: 9999px;
+}
+
 [data-theme="dark"] {
   /* Dark Theme */
   --theme-bg: #0d1117;
