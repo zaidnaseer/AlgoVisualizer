@@ -1802,8 +1802,8 @@
     , 
     {
     "id": 121,
-    "topic": "Branch & Bound",
-    "algorithm": "Knapsack 01",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
     "difficulty": "Easy",
     "question": "What is the basic concept of the 0/1 Knapsack problem?",
     "options": [
@@ -1817,8 +1817,8 @@
   },
   {
     "id": 122,
-    "topic": "Branch & Bound",
-    "algorithm": "Knapsack 01",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
     "difficulty": "Easy",
     "question": "What is the role of bounding in the Knapsack problem?",
     "options": [
@@ -1832,8 +1832,8 @@
   },
   {
     "id": 123,
-    "topic": "Branch & Bound",
-    "algorithm": "Knapsack 01",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
     "difficulty": "Medium",
     "question": "How does Branch & Bound improve upon brute force for the Knapsack problem?",
     "options": [
@@ -1847,8 +1847,8 @@
   },
   {
     "id": 124,
-    "topic": "Branch & Bound",
-    "algorithm": "Knapsack 01",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
     "difficulty": "Medium",
     "question": "What is the most effective bounding function for the Knapsack problem?",
     "options": [
@@ -1862,8 +1862,8 @@
   },
   {
     "id": 125,
-    "topic": "Branch & Bound",
-    "algorithm": "Knapsack 01",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
     "difficulty": "Hard",
     "question": "What is the worst-case time complexity of Branch & Bound for Knapsack?",
     "options": [
@@ -1877,8 +1877,8 @@
   },
   {
     "id": 126,
-    "topic": "Branch & Bound",
-    "algorithm": "Knapsack 01",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Knapsack 01",
     "difficulty": "Hard",
     "question": "How does the ordering of items affect Knapsack Branch & Bound efficiency?",
     "options": [
@@ -1892,8 +1892,8 @@
   },
   {
     "id": 127,
-    "topic": "Branch & Bound",
-    "algorithm": "Traveling Salesman",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
     "difficulty": "Easy",
     "question": "What is the basic idea of TSP Branch & Bound?",
     "options": [
@@ -1907,8 +1907,8 @@
   },
   {
     "id": 128,
-    "topic": "Branch & Bound",
-    "algorithm": "Traveling Salesman",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
     "difficulty": "Easy",
     "question": "What is a lower bound in TSP Branch & Bound?",
     "options": [
@@ -1922,8 +1922,8 @@
   },
   {
     "id": 129,
-    "topic": "Branch & Bound",
-    "algorithm": "Traveling Salesman",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
     "difficulty": "Medium",
     "question": "What is the role of the reduced cost matrix in TSP?",
     "options": [
@@ -1937,8 +1937,8 @@
   },
   {
     "id": 130,
-    "topic": "Branch & Bound",
-    "algorithm": "Traveling Salesman",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
     "difficulty": "Medium",
     "question": "How are subtours eliminated in TSP Branch & Bound?",
     "options": [
@@ -1952,8 +1952,8 @@
   },
   {
     "id": 131,
-    "topic": "Branch & Bound",
-    "algorithm": "Traveling Salesman",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
     "difficulty": "Hard",
     "question": "What is the most effective branching strategy for TSP?",
     "options": [
@@ -1967,8 +1967,8 @@
   },
   {
     "id": 132,
-    "topic": "Branch & Bound",
-    "algorithm": "Traveling Salesman",
+    "topic": "Other Topics",
+    "algorithm": "Branch & Bound: Traveling Salesman",
     "difficulty": "Hard",
     "question": "What makes TSP particularly challenging for Branch & Bound?",
     "options": [
@@ -1982,8 +1982,8 @@
   },
   {
     "id": 133,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Minimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
     "difficulty": "Easy",
     "question": "What is the fundamental principle of the Minimax algorithm?",
     "options": [
@@ -1997,8 +1997,8 @@
   },
   {
     "id": 134,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Minimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
     "difficulty": "Easy",
     "question": "What type of games is Minimax best suited for?",
     "options": [
@@ -2012,8 +2012,8 @@
   },
   {
     "id": 135,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Minimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
     "difficulty": "Medium",
     "question": "How does Minimax handle game tree depth limitations?",
     "options": [
@@ -2027,8 +2027,8 @@
   },
   {
     "id": 136,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Minimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
     "difficulty": "Medium",
     "question": "What determines the effectiveness of a Minimax evaluation function?",
     "options": [
@@ -2042,8 +2042,8 @@
   },
   {
     "id": 137,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Minimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
     "difficulty": "Hard",
     "question": "What is the time complexity of Minimax without pruning?",
     "options": [
@@ -2057,8 +2057,8 @@
   },
   {
     "id": 138,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Minimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Minimax",
     "difficulty": "Hard",
     "question": "How does Minimax handle transpositions in the game tree?",
     "options": [
@@ -2072,8 +2072,8 @@
   },
   {
     "id": 139,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Alpha-Beta",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
     "difficulty": "Easy",
     "question": "What is the main purpose of Alpha-Beta pruning?",
     "options": [
@@ -2087,8 +2087,8 @@
   },
   {
     "id": 140,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Alpha-Beta",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
     "difficulty": "Easy",
     "question": "What do Alpha and Beta values represent?",
     "options": [
@@ -2102,8 +2102,8 @@
   },
   {
     "id": 141,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Alpha-Beta",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
     "difficulty": "Medium",
     "question": "How does move ordering affect Alpha-Beta efficiency?",
     "options": [
@@ -2117,8 +2117,8 @@
   },
   {
     "id": 142,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Alpha-Beta",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
     "difficulty": "Medium",
     "question": "What is a null window search in Alpha-Beta?",
     "options": [
@@ -2132,8 +2132,8 @@
   },
   {
     "id": 143,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Alpha-Beta",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
     "difficulty": "Hard",
     "question": "What is the best-case time complexity of Alpha-Beta?",
     "options": [
@@ -2147,8 +2147,8 @@
   },
   {
     "id": 144,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Alpha-Beta",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Alpha-Beta Pruning",
     "difficulty": "Hard",
     "question": "How can iterative deepening improve Alpha-Beta pruning?",
     "options": [
@@ -2162,8 +2162,8 @@
   },
   {
     "id": 145,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Expectimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
     "difficulty": "Easy",
     "question": "What type of games is Expectimax designed for?",
     "options": [
@@ -2177,8 +2177,8 @@
   },
   {
     "id": 146,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Expectimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
     "difficulty": "Easy",
     "question": "How does Expectimax differ from Minimax?",
     "options": [
@@ -2192,8 +2192,8 @@
   },
   {
     "id": 147,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Expectimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
     "difficulty": "Medium",
     "question": "How are chance nodes handled in Expectimax?",
     "options": [
@@ -2207,8 +2207,8 @@
   },
   {
     "id": 148,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Expectimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
     "difficulty": "Medium",
     "question": "What is the impact of depth on Expectimax computational cost?",
     "options": [
@@ -2222,8 +2222,8 @@
   },
   {
     "id": 149,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Expectimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
     "difficulty": "Hard",
     "question": "Why can't alpha-beta pruning be fully applied to Expectimax?",
     "options": [
@@ -2237,8 +2237,8 @@
   },
   {
     "id": 150,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Expectimax",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Expectimax",
     "difficulty": "Hard",
     "question": "How can Expectimax be optimized for practical use?",
     "options": [
@@ -2252,8 +2252,8 @@
   },
   {
     "id": 151,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Monte Carlo Tree",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
     "difficulty": "Easy",
     "question": "What is the basic idea of Monte Carlo Tree Search (MCTS)?",
     "options": [
@@ -2267,8 +2267,8 @@
   },
   {
     "id": 152,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Monte Carlo Tree",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
     "difficulty": "Easy",
     "question": "What are the four main steps of MCTS?",
     "options": [
@@ -2282,8 +2282,8 @@
   },
   {
     "id": 153,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Monte Carlo Tree",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
     "difficulty": "Medium",
     "question": "What is the role of UCT in MCTS?",
     "options": [
@@ -2297,8 +2297,8 @@
   },
   {
     "id": 154,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Monte Carlo Tree",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
     "difficulty": "Medium",
     "question": "How does MCTS handle large branching factors?",
     "options": [
@@ -2312,8 +2312,8 @@
   },
   {
     "id": 155,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Monte Carlo Tree",
+    "topic": "GOther Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
     "difficulty": "Hard",
     "question": "What determines the quality of MCTS playouts?",
     "options": [
@@ -2327,8 +2327,8 @@
   },
   {
     "id": 156,
-    "topic": "Game Search Algorithms",
-    "algorithm": "Monte Carlo Tree",
+    "topic": "Other Topics",
+    "algorithm": "Game Search: Monte Carlo Tree Search",
     "difficulty": "Hard",
     "question": "How can MCTS be parallelized effectively?",
     "options": [
