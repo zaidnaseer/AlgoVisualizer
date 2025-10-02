@@ -188,10 +188,11 @@
   /* background: black; */
   /* color:white; */
   /* min-height: 250px; */
-  transform: scaleX(1.2);
+  /* transform: scaleX(1.2); */
   overflow-y: auto;
   border: 1px black solid;
   z-index: 200;
+  scrollbar-width: none;
   
 
 }
