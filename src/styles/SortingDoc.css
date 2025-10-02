@@ -182,11 +182,11 @@
   min-height: 200px;
   transition: all 0.3s ease;
   /* overflow-y: auto;  */
-  min-height: 250px;
+  min-height: 230px;
 }
 .stat-card:hover{
-  background: black;
-  color:white;
+  /* background: black; */
+  /* color:white; */
   /* min-height: 250px; */
   transform: scaleX(1.2);
   overflow-y: auto;
