@@ -37,6 +37,7 @@ import VariablesAndDataTypes from "./pages/Notes/Java/VariablesAndDataTypes";
 // Python Notes
 import PythonFundamentals from "./pages/Notes/Python/Fundamentals";
 import PythonVariablesAndDataTypes from "./pages/Notes/Python/VariablesAndDataTypes";
+import PythonBasics from "./pages/Notes/Python/PythonBasics";
 
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
@@ -235,6 +236,7 @@ const App = () => {
                 path="/notes/python/variables-and-data-types"
                 element={<PythonVariablesAndDataTypes />}
               />
+              <Route path="/notes/python/basics" element={<PythonBasics />} />
 
               {/* Learning & Settings */}
               <Route path="/learn" element={<LearnLanding />} />
