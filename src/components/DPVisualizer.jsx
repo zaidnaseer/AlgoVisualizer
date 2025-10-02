@@ -8,6 +8,8 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisualizing, setIsVisualizing] = useState(false);
   const [message, setMessage] = useState("Select an algorithm and run.");
+  const [finalResult, setFinalResult] = useState(null);
+
 
   const copySteps = (arr) => arr.map((row) => (Array.isArray(row) ? [...row] : row));
 
@@ -100,6 +102,16 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
     const stepsArr = [];
     const n = dims.length - 1;
     const dp = Array.from({ length: n }, () => Array(n).fill(0));
+    const split = Array.from({ length: n }, () => Array(n).fill(-1));
+
+
+
+  const buildParenthesization = (split, i, j) => {
+    if (i === j) return `A${i+1}`;
+    const k = split[i][j];
+    return `(${buildParenthesization(split, i, k)} x ${buildParenthesization(split, k+1, j)})`;
+  };
+
 
     for (let l = 2; l <= n; l++) {
       for (let i = 0; i <= n - l; i++) {
@@ -109,12 +121,19 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
           const cost = dp[i][k] + dp[k + 1][j] + dims[i] * dims[k + 1] * dims[j + 1];
           if (cost < dp[i][j]) {
             dp[i][j] = cost;
-            stepsArr.push({ board: copySteps(dp), message: `dp[${i}][${j}] updated to ${dp[i][j]} (split at ${k})` });
+            split[i][j] = k;
+            stepsArr.push({
+              board: copySteps(dp),
+              message: `dp[${i}][${j}] = ${dp[i][j]} (split at k=${k})`,
+              focus: [i, j],
+              split: copySteps(split)
+            });
           }
         }
       }
     }
-    stepsArr.push({ board: copySteps(dp), message: `Minimum multiplication cost = ${dp[0][n - 1]}` });
+    const parenthesization = buildParenthesization(split, 0, n - 1);
+    stepsArr.push({ board: copySteps(dp), message: `Minimum multiplication cost = ${dp[0][n - 1]}. Optimal order: ${parenthesization}`,split: copySteps(split) });
     return stepsArr;
   };
 
@@ -144,6 +163,7 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
     setSteps(generatedSteps);
     setCurrentStep(0);
     setIsVisualizing(true);
+    setFinalResult(null);
   };
 
   useEffect(() => {
@@ -151,6 +171,11 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
       if (currentStep >= steps.length) {
         setIsVisualizing(false);
         setMessage("Visualization complete!");
+       // capture the final step result
+        if (algorithm === "MatrixChain") {
+          const lastMsg = steps[steps.length - 1]?.message;
+          setFinalResult(lastMsg);
+        }
         return;
       }
       const timer = setTimeout(() => setCurrentStep((prev) => prev + 1), 400);
@@ -200,6 +225,7 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
       <div className="board">
         {stepBoard.map((row, i) => (
           <div key={i} className="board-row">
+
             {row.map((cell, j) => {
               const isFocus = focusCell && focusCell[0] === i && focusCell[1] === j;
               return (
@@ -212,6 +238,21 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
                 </div>
               );
             })}
+
+              {row.map((cell, j) => {
+                const isFocus = steps[currentStep]?.focus &&
+                                steps[currentStep].focus[0] === i &&
+                                steps[currentStep].focus[1] === j;
+                return (
+                  <div
+                    key={j}
+                    className={`cell ${cell !== Infinity && cell !== 0 ? "active" : ""} ${isFocus ? "is-focus" : ""}`}
+                  >
+                    {cell === Infinity ? "∞" : cell}
+                  </div>
+                );
+              })}
+
           </div>
         ))}
       </div>
@@ -238,6 +279,17 @@ const DPVisualizer = ({ defaultAlgorithm = "Fibonacci", size = 10 }) => {
       </div>
 
       {renderBoard()}
+
+      {finalResult && algorithm === "MatrixChain" && (
+        <div className="result-box">
+          <strong>Optimal Parenthesization:</strong>{" "}
+          {finalResult.split("Optimal order: ")[1]}
+          <br />
+          <strong>Minimum Cost:</strong>{" "}
+          {finalResult.split("Optimal order: ")[0].replace("Minimum multiplication cost = ", "")}
+        </div>
+      )}
+
 
       <p className="message-bar">{steps[currentStep]?.message || message}</p>
     </div>
