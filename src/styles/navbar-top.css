@@ -2,7 +2,7 @@
 
 /* CSS Variables for theming (add if not defined elsewhere) */
 :root {
-  --primary-color: #2575fc;
+  --primary-color: var(--user-accent-primary);
   --primary-color-alpha: rgba(37, 117, 252, 0.1);
   --text-color: #1a1a1a;
   --card-bg: rgba(255, 255, 255, 0.95);
