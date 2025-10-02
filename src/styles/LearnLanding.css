@@ -160,6 +160,7 @@
   transform: translateY(-8px) scale(1.025);
   box-shadow: 0 16px 48px 0 rgba(59,130,246,0.25), 0 2px 8px rgba(0,0,0,0.10);
   border-color: white;
+  /* transition: cubic-bezier(0.075, 0.82, 0.165, 1); */
   cursor: pointer;
 }
 .learn-card::before {
