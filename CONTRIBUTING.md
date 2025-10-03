@@ -32,24 +32,30 @@ Let’s build a vibrant, respectful, and collaborative community!
 
 ### 1. Fork & Clone the Repository
 **🔗 Fork** the repo and **💻 clone locally:**
+```bash
 git clone https://github.com/<your-username>/AlgoVisualizer.git
 cd AlgoVisualizer
+```
 
 ### 2. Setup Environment
 **⚙️ Install dependencies:**
+```bash
 npm install
+```
 **▶️ Start the development server:**
+```bash
 npm run dev
-### 3.Create a new branch:
+```
+### 3. Create a new branch:
 ```bash
 git checkout -b feat/my-feature
 ```
-### 4.Make your changes and commit:
+### 4. Make your changes and commit:
 ```bash
 git add .
 git commit -m "feat: describe your change"
 ```
-### 5.Push your branch:
+### 5. Push your branch:
 ```bash
 git push origin feat/my-feature
 ```
@@ -75,25 +81,34 @@ Include:
 - ✏️ Use clear, descriptive variable names
 - 💬 Comment thoughtfully where helpful
 - 🔄 Fetch latest changes before new work:
-git fetch upstream
-git checkout master
-git merge upstream/master
+    ```bash
+    git fetch upstream
+    git checkout master
+    git merge upstream/master
+    ```
 - 🌿 Create a new branch for each feature/bugfix:
-git checkout -b feature/your-feature-name
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
 - 📰 Write meaningful commit messages like:
-- Add: new feature description
-- Fix: bug description
-- Docs: update documentation
+
+    - `Add: new feature description`
+    - `Fix: bug description`
+    - `Docs: update documentation`
 
 ---
 
 ## 🔀 Submitting Pull Requests
 
 1. 🔄 Update your fork:
-git fetch upstream
-git merge upstream/master
+    ```bash
+    git fetch upstream
+    git merge upstream/master
+    ```
 2. ⬆️ Push your feature branch:
-git push origin feature/your-feature-name
+    ```bash
+    git push origin feature/your-feature-name
+    ```
 3. Compare & Pull Request on GitHub.
 4. Fill in a clear description.
 5. Wait for review and make requested changes.
