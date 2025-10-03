@@ -116,18 +116,18 @@
 .logo-text {
   font-size: 24px;
   font-weight: 700;
-  background: linear-gradient(90deg, var(--text-primary, #1f2937), var(--accent-primary, #3b82f6));
+  background: linear-gradient(90deg, var(--text-primary, #1f2937), var(--user-accent-primary));
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(--primary-color, #3b82f6); /* fallback if gradient doesn't render */
+  color: var(--user-accent-primary); /* fallback if gradient doesn't render */
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.5px;
   transition: background 0.3s ease; /* Animate gradient shift */
 }
 
-.logo-wrapper:hover .logo-text {
-  background: linear-gradient(90deg, var(--accent-primary, #3b82f6), var(--primary-purple, #8b5cf6));
-}
+/* .logo-wrapper:hover .logo-text {
+  background: linear-gradient(90deg, var(--user-accent-primary), var(--primary-purple, #8b5cf6));
+} */
 
 .logo-image {
   width: 50px;
@@ -168,7 +168,7 @@
 
 .tech-pill {
   background: var(--surface-bg, #ffffff);
-  color: var(--accent-primary, #3b82f6);
+  color: var(--user-accent-primary);
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
@@ -198,18 +198,18 @@
 .tech-pill:hover {
   background: var(--accent-light, rgba(59, 130, 246, 0.1));
   transform: translateY(-2px) scale(1.05);
-  border-color: var(--accent-primary, #3b82f6);
+  border-color: var(--user-accent-primary);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
   color: var(--primary-color, #3b82f6);
 }
 
 .tech-pill:focus {
-  outline: 2px solid var(--accent-primary, #3b82f6);
+  outline: 2px solid var(--user-accent-primary);
   outline-offset: 2px; /* Accessibility focus */
 }
 
 .footer-credits a {
-  color: var(--accent-color, #58a6ff);
+  color: var(--user-accent-primary);
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -224,7 +224,7 @@
   left: 0;
   width: 0;
   height: 2px; /* Thicker underline */
-  background: linear-gradient(90deg, var(--accent-color, #58a6ff), var(--primary-purple, #8b5cf6));
+  background: linear-gradient(90deg, var(--user-accent-primary), var(--user-accent-secondary));
   transition: width 0.3s ease;
   border-radius: 1px;
 }
@@ -234,7 +234,7 @@
 }
 
 .footer-credits a:hover {
-  color: var(--primary-purple, #8b5cf6);
+  color: var(--user-accent-secondary);
   text-decoration: underline;
   transform: translateY(-1px); /* Lift on hover */
 }
@@ -273,7 +273,7 @@
 }
 
 .column-title:hover {
-  color: var(--accent-primary, #3b82f6); /* Color shift on hover */
+  color: var(--user-accent-primary); /* Color shift on hover */
 }
 
 .column-title::after {
@@ -283,14 +283,14 @@
   left: 0;
   width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-primary, #3b82f6), var(--accent-hover, #2563eb));
+  background: linear-gradient(90deg, var(--user-accent-primary), var(--user-accent-secondary));
   border-radius: 3px;
   transition: width 0.3s ease, background 0.3s ease;
 }
 
 .column-title:hover::after {
   width: 60px; /* Extend underline on hover */
-  background: linear-gradient(90deg, var(--primary-purple, #8b5cf6), var(--accent-primary, #3b82f6));
+  background: linear-gradient(90deg, var(--user-accent-secondary), var(--user-accent-primary));
 }
 
 /* Footer Links */
@@ -329,7 +329,7 @@
   left: 0;
   width: 0;
   height: 2px; /* Thicker underline */
-  background: linear-gradient(90deg, var(--accent-primary, #3b82f6), var(--primary-purple, #8b5cf6));
+  background: linear-gradient(90deg, var(--user-accent-primary), var(--user-accent-secondary));
   transition: width 0.4s ease;
   border-radius: 1px;
 }
@@ -339,7 +339,7 @@
 }
 
 .footer-links a:hover {
-  color: var(--accent-primary, #3b82f6);
+  color: var(--user-accent-primary);
   transform: translateX(5px);
   padding-left: 8px; /* Slight indent on hover */
 }
@@ -358,7 +358,7 @@
 }
 
 .footer-links a:focus {
-  outline: 2px solid var(--accent-primary, #3b82f6);
+  outline: 2px solid var(--user-accent-primary);
   outline-offset: 2px; /* Accessibility focus */
 }
 
@@ -410,13 +410,13 @@
 
 .newsletter-input:focus + .input-icon,
 .newsletter-input:valid + .input-icon {
-  color: var(--accent-primary, #3b82f6);
+  color: var(--user-accent-primary);
   transform: translateY(-50%) scale(1.1); /* Icon bounce on focus */
 }
 
 .newsletter-input:focus {
   outline: none;
-  border-color: var(--accent-primary, #3b82f6);
+  border-color: var(--user-accent-primary);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   transform: scale(1.02); /* Subtle expand on focus */
 }
@@ -431,7 +431,7 @@
   justify-content: center;
   gap: 8px;
   padding: 14px 20px;
-  background: linear-gradient(135deg, var(--button-primary-bg, #3b82f6), var(--button-primary-hover, #2563eb)); /* Gradient for appeal */
+  background: linear-gradient(135deg, var(--user-accent-primary), var(--user-accent-secondary)); /* Gradient for appeal */
   color: var(--button-primary-text, #ffffff);
   border: none;
   border-radius: 8px;
@@ -461,7 +461,7 @@
 }
 
 .newsletter-btn:hover:not(.loading) {
-  background: linear-gradient(135deg, var(--button-primary-hover, #2563eb), var(--primary-purple, #8b5cf6));
+  background: linear-gradient(135deg, var(--user-accent-primary), var(--user-accent-secondary));
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4); /* Enhanced shadow on hover */
 }
@@ -593,19 +593,18 @@
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: 0.5s;
 }
 
-.social-link:hover::before {
+/* .social-link:hover::before {
   left: 100%;
-}
+} */
 
 .social-link:hover {
-  background: var(--accent-primary);
+  background: var(--user-accent-primary);
   color: var(--button-primary-text);
   transform: translateY(-3px);
   box-shadow: 0 5px 15px var(--shadow-md);
@@ -681,7 +680,7 @@
 }
 
 .legal-links a {
-  color: var(--text-secondary);
+  color: var(--user-accent-primary);
   text-decoration: none;
   font-size: 13px;
   font-weight: 500;
@@ -698,7 +697,7 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--accent-primary);
+  background: var(--user-accent-primary);
   transition: width 0.3s ease;
 }
 
@@ -707,7 +706,7 @@
 }
 
 .legal-links a:hover {
-  color: var(--accent-primary);
+  color: var(--user-accent-primary);
   background: var(--surface-bg);
   transform: translateY(-1px);
 }
