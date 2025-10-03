@@ -280,6 +280,25 @@ const Navbar = () => {
           >
             Python
           </Link>
+
+           <Link
+            to="/notes/cpp"
+            className="mobile-dropdown-item"
+            onClick={() => {
+              handleDropdownToggle(null);
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            C++
+          </Link>
+
+          <Link
+            to="/notes/javascript"
+            className={`dropdown-item ${isActive("/notes/javascript") ? "active" : ""}`}
+            onClick={() => handleDropdownToggle(null)}
+          >
+            Javascript
+          </Link>
         </div>
       )}
     </div>
@@ -320,6 +339,28 @@ const Navbar = () => {
             }}
           >
             Python
+          </Link>
+
+           <Link
+            to="/notes/python"
+            className="mobile-dropdown-item"
+            onClick={() => {
+              handleDropdownToggle(null);
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            C++
+          </Link>
+
+           <Link
+            to="/notes/python"
+            className="mobile-dropdown-item"
+            onClick={() => {
+              handleDropdownToggle(null);
+              setIsMobileMenuOpen(false);
+            }}
+          >
+           javascript
           </Link>
         </div>
       )}
@@ -452,7 +493,17 @@ const Navbar = () => {
                     }`}
                     onClick={() => setIsDropdownOpen(null)}
                   >
-                    CPP
+                    C++
+                  </Link>
+
+                  <Link
+                    to="/notes/javascript"
+                    className={`dropdown-item ${
+                      isActive("/notes/javascript") ? "active" : ""
+                    }`}
+                    onClick={() => setIsDropdownOpen(null)}
+                  >
+                    JavaScript
                   </Link>
                 </div>
               )}
