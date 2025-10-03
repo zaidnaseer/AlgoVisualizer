@@ -119,7 +119,7 @@
 
 .logo-icon {
   font-size: 28px;
-  color: var(--primary-color, #58a6ff);
+  color: var(--user-accent-primary);
   margin-right: 12px;
   filter: drop-shadow(0 0 8px rgba(88, 166, 255, 0.3)); /* Enhanced glow for dark theme */
   transition: filter 0.3s ease, transform 0.3s ease;
@@ -137,7 +137,7 @@
   background: linear-gradient(90deg, var(--text-primary, #e6edf3), var(--accent-color, #58a6ff));
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(--primary-color, #58a6ff); /* fallback if gradient doesn't render */
+  color: var(--user-accent-primary); /* fallback if gradient doesn't render */
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.5px;
   transition: background 0.3s ease; /* Animate gradient shift */
@@ -145,9 +145,9 @@
   white-space: nowrap; /* Prevent text wrap */
 }
 
-.logo-wrapper:hover .logo-text {
-  background: linear-gradient(90deg, var(--accent-color, #58a6ff), var(--primary-purple, #9c27b0));
-}
+/* .logo-wrapper:hover .logo-text {
+  background: linear-gradient(90deg, var(--user-accent-primary), var(--user-accent-secondary));
+} */
 
 .logo-image {
   width: 50px;
@@ -225,18 +225,18 @@
 .tech-pill:hover {
   background: var(--accent-light, rgba(88, 166, 255, 0.15));
   transform: translateY(-2px) scale(1.05);
-  border-color: var(--accent-primary, #58a6ff);
+  border-color: var(--user-accent-secondary);
   box-shadow: 0 4px 12px rgba(88, 166, 255, 0.2);
-  color: var(--accent-primary, #58a6ff);
+  color: var(--user-accent-secondary);
 }
 
 .tech-pill:focus {
-  outline: 2px solid var(--accent-primary, #58a6ff);
+  outline: 2px solid var(--user-accent-primary);
   outline-offset: 2px; /* Accessibility focus */
 }
 
 .footer-credits a {
-  color: var(--accent-color, #4fc3f7);
+  color: var(--user-accent-primary);
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -252,7 +252,7 @@
   left: 0;
   width: 0;
   height: 2px; /* Thicker underline */
-  background: linear-gradient(90deg, var(--accent-color, #4fc3f7), var(--primary-purple, #9c27b0));
+  background: linear-gradient(90deg, var(--user-accent-primary), var(--user-accent-secondary));
   transition: width 0.3s ease;
   border-radius: 1px;
 }
@@ -262,7 +262,7 @@
 }
 
 .footer-credits a:hover {
-  color: var(--primary-purple, #9c27b0);
+  color: var(--user-accent-primary);
   text-decoration: underline;
   transform: translateY(-1px); /* Lift on hover */
 }
@@ -303,7 +303,7 @@
 }
 
 .column-title:hover {
-  color: var(--accent-primary, #58a6ff); /* Color shift on hover */
+  color: var(--user-accent-primary); /* Color shift on hover */
 }
 
 .column-title::after {
@@ -320,7 +320,7 @@
 
 .column-title:hover::after {
   width: 60px; /* Extend underline on hover */
-  background: linear-gradient(90deg, var(--primary-purple, #9c27b0), var(--accent-primary, #58a6ff));
+  background: linear-gradient(90deg, var(--user-accent-secondary), var(--user-accent-primary));
 }
 
 .para-text {
@@ -338,11 +338,11 @@
 }
 
 .para-text:hover {
-  color: var(--accent-primary, #58a6ff); /* Highlight entire text on hover */
+  color: var(--user-accent-primary); /* Highlight entire text on hover */
 }
 
 .para-text a {
-  color: var(--accent-color, #3b82f6);
+  color: var(--user-accent-primary);
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -358,7 +358,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--accent-color, #3b82f6);
+  background: var(--user-accent-primary);
   transition: width 0.3s ease;
 }
 
@@ -412,7 +412,7 @@
   left: 0;
   width: 0;
   height: 2px; /* Thicker underline */
-  background: linear-gradient(90deg, var(--accent-primary, #58a6ff), var(--primary-purple, #9c27b0));
+  background: linear-gradient(90deg, var(--user-accent-primary), var(--user-accent-secondary));
   transition: width 0.4s ease;
   border-radius: 1px;
 }
@@ -422,7 +422,7 @@
 }
 
 .footer-links a:hover {
-  color: var(--user-accent-primary);
+  color: var(--user-accent-secondary);
   transform: translateX(5px);
   padding-left: 8px; /* Slight indent on hover */
 }
@@ -511,6 +511,7 @@ align-items: center;
 
 .newsletter-input:focus {
   outline: none;
-  border-color: var(--accent-primary, #58a6ff);
+  border-color: var(--user-accent-primary);
   box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15); /* Dark theme glow */
 }
+ 
