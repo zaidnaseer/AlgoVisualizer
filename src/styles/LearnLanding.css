@@ -128,7 +128,7 @@
 @media (max-width: 680px) { .learn-grid { grid-template-columns: 1fr; } }
 
 .learn-card {
-  background: linear-gradient(135deg, #ffffff 0%, #9db6ec 60%, #6ca7ed 100%);
+  background: linear-gradient(140deg, #6ca7ed 0%, white 60%, #6ca7ed 100%);
   border: 1.5px solid var(--border);
   border-radius: 18px;
   padding: 15px;
@@ -159,7 +159,8 @@
 .learn-card:hover, .learn-card:focus-within {
   transform: translateY(-8px) scale(1.025);
   box-shadow: 0 16px 48px 0 rgba(59,130,246,0.25), 0 2px 8px rgba(0,0,0,0.10);
-  border-color: var(--accent-2);
+  border-color: white;
+  /* transition: cubic-bezier(0.075, 0.82, 0.165, 1); */
   cursor: pointer;
 }
 .learn-card::before {
@@ -214,10 +215,11 @@
   z-index: 1;
 }
 .learn-card li a:hover, .learn-card li a:focus {
-  color: #000000;
+  color: white;
   transform: translateX(2px) scale(1.06);
   box-shadow: 0 4px 16px rgba(99,102,241,0.18);
   text-shadow: 0 1px 6px rgba(7, 7, 7, 0.18);
+  background-color: black;
 }
 .learn-card li a::after {
   content: "";
