@@ -231,9 +231,9 @@ const Contributors = () => {
 
               // Determine bio without nested ternaries (readability)
               let bio = profileData.bio;
-              if (contributor.login === 'rhythmpahwa14') {
+              if (contributor.login === 'sandeepvashishtha') {
                 bio = 'Passionate about building scalable algorithm visualization applications and educational tools.';
-              } else if (contributor.login === 'sandeepvashishtha') {
+              } else if (contributor.login === 'rhythmpahwa14') {
                 bio = 'Experienced developer contributing to algorithm visualization and educational technology projects.';
               }
 
@@ -462,59 +462,14 @@ const Contributors = () => {
                   style={{ margin: '1rem auto' }}
                 >
                   <svg viewBox="0 0 24 24" width="18" height="18">
-                    <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.085 1.839 1.237 1.839 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.419-1.305.762-1.605-2.665-.304-5.466-1.334-5.466-5.931 0-1.312.469-2.382 1.236-3.222-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.003.404 2.293-1.552 3.301-1.23 3.301-1.23.653 1.653.241 2.873.118 3.176.768.84 1.236 1.91 1.236 3.222 0 4.608-2.801 5.625-5.475 5.922.43.372.823 1.102.823 2.222v3.293c0 .319.193.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                   </svg>
-                  View Profile
+                  <span>View GitHub Profile</span>
                 </a>
-                <button 
-                  className="btn btn-secondary enhanced-btn"
-                  onClick={() => {
-                    alert(`Thanks for appreciating ${contributor.name || contributor.login}! 🎉`);
-                  }}
-                  style={{textAlign:'center' , whiteSpace:'nowrap'}}
-                >
-                  <span>💝 Send Appreciation</span>
-                   
-                </button>
               </div>
             </div>
           </motion.div>
-        )}
-      )}
-      </motion.div>
-
-      <motion.div
-        className="theme-card"
-        style={{ textAlign: 'center' }}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        viewport={{ once: true }}
-        data-aos="fade-up" data-aos-delay="800"
-      >
-        <h3 className="theme-card-header">Join Our Community</h3>
-        <p style={{ color: "var(--theme-text-secondary)", maxWidth: '600px', margin: '0 auto 1.5rem auto' }}>
-          Want to contribute to AlgoVisualizer? We welcome developers of all skill levels! 
-          Help us improve algorithm education and build amazing visualizations together.
-        </p>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-          <a
-            href="https://github.com/RhythmPahwa14/AlgoVisualizer"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-          >
-            Contribute on GitHub
-          </a>
-          <a
-            href="https://github.com/RhythmPahwa14/AlgoVisualizer/issues"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-secondary"
-          >
-            Report Issues
-          </a>
-        </div>
+        )})}
       </motion.div>
     </div>
   );
