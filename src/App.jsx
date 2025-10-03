@@ -30,6 +30,22 @@ import Settings from "./pages/Settings";
 import Blog from "./pages/Blog";
 import CommunityLanding from "./pages/CommunityLanding";
 
+
+// Java Notes
+import Fundamentals from "./pages/Notes/Java/Fundamentals";
+import VariablesAndDataTypes from "./pages/Notes/Java/VariablesAndDataTypes";
+import JavaBasics from "./pages/Notes/Java/JavaBasics";
+
+// Python Notes
+import PythonFundamentals from "./pages/Notes/Python/Fundamentals";
+import PythonVariablesAndDataTypes from "./pages/Notes/Python/VariablesAndDataTypes";
+import PythonBasics from "./pages/Notes/Python/PythonBasics";
+
+// C++ Notes
+import CppFundamentals from "./pages/Notes/Cpp/Fundamentals";
+import CppVariablesAndDataTypes from "./pages/Notes/Cpp/VariablesAndDataTypes";
+
+
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
 import DPPage from "./pages/DPPage";
@@ -209,6 +225,35 @@ const App = () => {
               <Route path="/terms" element={<TermsOfService />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/cookies" element={<CookiePolicy />} />
+
+              <Route path="/documentation" element={<AlgorithmDocumentation />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/contributor-leaderboard" element={<ContributorLeaderboard />} />
+              <Route path="/editor" element={<CodeEditor />} />
+
+              {/* Notes Routes */}
+              {/* Java */}
+              <Route path="/notes/java" element={<Navigate to="/notes/java/fundamentals" replace />} />
+              <Route path="/notes/java/fundamentals" element={<Fundamentals />} />
+              <Route
+                path="/notes/java/variables-and-data-types"
+                element={<VariablesAndDataTypes />}
+              />
+              <Route path="/notes/java/basics" element={<JavaBasics />} />
+
+
+              {/* Python */}
+
+              <Route path="/notes/python" element={<Navigate to="/notes/python/fundamentals" replace />} />
+              <Route path="/notes/python/fundamentals" element={<PythonFundamentals />} />
+              <Route path="/notes/python/variables-and-data-types" element={<PythonVariablesAndDataTypes />} />
+
+              {/* C++ */}
+              <Route path="/notes/cpp" element={<Navigate to="/notes/cpp/fundamentals" replace />} />
+              <Route path="/notes/cpp/fundamentals" element={<CppFundamentals />} />
+              <Route path="/notes/cpp/variables-and-data-types" element={<CppVariablesAndDataTypes />} />
+
+
               <Route
                 path="/documentation"
                 element={<AlgorithmDocumentation />}
