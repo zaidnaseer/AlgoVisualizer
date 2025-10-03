@@ -86,6 +86,9 @@ import NotesPage from "./pages/Notes/NotesPage";
 // import ContributorBoard from "./pages/ContributorBoard";
 import ContributorBoard from "./pages/ContributorBoard";
 
+import JavaOOPS from "./pages/JavaOOPS.jsx";
+
+
 const App = () => {
   const location = useLocation();
   const selectedAlgorithm = "bubbleSort";
@@ -219,6 +222,8 @@ const App = () => {
                 element={<ContributorLeaderboard />}
               />
               <Route path="/editor" element={<CodeEditor />} />
+
+              <Route path="/java-oops" element={<JavaOOPS />} />
 
               {/* Dynamic Notes Routes */}
               <Route path="/notes/:language/:topic" element={<NotesPage />} />
