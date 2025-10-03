@@ -210,21 +210,7 @@ const Footer = () => {
     { href: "https://nodejs.org/", label: "Node.js" },
   ];
 
-  // Icon mapping helper
-  const getIconComponent = (iconName) => {
-    const iconMap = {
-      "FaRocket": FaRocket,
-      "FaCode": FaCode,
-      "FaGraduationCap": FaGraduationCap,
-      "FaEnvelope": FaEnvelope,
-      "FaGithub": FaGithub,
-      "FaLinkedin": FaLinkedin,
-      "FaXTwitter": FaXTwitter,
-      "FaDiscord": FaDiscord,
-      "FaYoutube": FaYoutube,
-    };
-    return iconMap[iconName] || FaGraduationCap;
-  };
+  
 
   return (
     <>
@@ -294,14 +280,15 @@ const Footer = () => {
                 <FooterLink 
                   key={index} 
                   to={link.to} 
-                  icon={getIconComponent(link.icon)}
+                  icon={link.icon}
                 >
+              
                   {link.label}
                 </FooterLink>
               ))}
             </ul>
           </div>
-
+             
           {/* Resources */}
           <div
             className="footer-column resources-column"
@@ -315,7 +302,7 @@ const Footer = () => {
                 <FooterLink 
                   key={index} 
                   to={link.to} 
-                  icon={getIconComponent(link.icon)}
+                  icon={link.icon}
                 >
                   {link.label}
                 </FooterLink>
@@ -349,7 +336,7 @@ const Footer = () => {
                 <SocialLink
                   key={index}
                   href={link.href}
-                  icon={getIconComponent(link.icon)}
+                  icon={link.icon}
                   title={link.title}
                 />
               ))}
