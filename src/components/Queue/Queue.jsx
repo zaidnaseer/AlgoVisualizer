@@ -1,3 +1,4 @@
+// src/pages/Queue.jsx
 import { useState, useEffect } from "react";
 import "./Queue.css";
 
@@ -5,6 +6,7 @@ export default function Queue() {
   const [items, setItems] = useState([]);
   const [input, setInput] = useState("");
   const [peekIndex, setPeekIndex] = useState(null);
+  const [showCode, setShowCode] = useState(null); // track which snippet is open
 
   // --- Operations ---
   const enqueue = () => {
@@ -78,7 +80,7 @@ export default function Queue() {
           <span className="legend-box rear" /> Rear
         </div>
       </div>
-          
+
       {/* --- Documentation / Info Panel --- */}
       <section className="ds-info">
         <h2>About Queue</h2>
@@ -87,7 +89,7 @@ export default function Queue() {
           <em>First In, First Out (FIFO)</em> principle. Elements are inserted at
           the <strong>rear</strong> and removed from the <strong>front</strong>.
         </p>
-          
+
         <h3>Key Operations</h3>
         <ul>
           <li>
@@ -153,7 +155,7 @@ export default function Queue() {
             <strong>Priority Queue</strong> – elements dequeued by priority.
           </li>
         </ul>
-          
+
         <h3>Pseudo-code</h3>
         <pre className="ds-code">
 {`init queue Q = []
@@ -170,6 +172,51 @@ isEmpty(): return length(Q) == 0`}
           <li>Customer service systems</li>
           <li>Breadth-First Search (BFS) in graphs</li>
         </ul>
+
+        {/* --- Code Snippets Section --- */}
+        <h3>Code Snippets</h3>
+        <div className="code-snippets">
+          {[
+            {
+              op: "Enqueue",
+              code: `function enqueue(queue, x) {
+  queue.push(x);
+}`,
+            },
+            {
+              op: "Dequeue",
+              code: `function dequeue(queue) {
+  if (queue.length === 0) return null;
+  return queue.shift();
+}`,
+            },
+            {
+              op: "Peek",
+              code: `function peek(queue) {
+  if (queue.length === 0) return null;
+  return queue[0];
+}`,
+            },
+            {
+              op: "Reset",
+              code: `function reset(queue) {
+  return [];
+}`,
+            },
+          ].map(({ op, code }) => (
+            <div key={op} className="code-block">
+              <button
+                className="toggle-btn"
+                onClick={() =>
+                  setShowCode(showCode === op ? null : op)
+                }
+              >
+                {op} {showCode === op ? "▲" : "▼"}
+              </button>
+              {showCode === op && <pre className="ds-code">{code}</pre>}
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );
