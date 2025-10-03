@@ -102,7 +102,12 @@ import NotesPage from "./pages/Notes/NotesPage";
 // import ContributorBoard from "./pages/ContributorBoard";
 import ContributorBoard from "./pages/ContributorBoard";
 
+
+
+import ContributorProfileModal from "./pages/ContributorProfileModal";
+
 import JavaOOPS from "./pages/JavaOOPS.jsx";
+
 
 
 const App = () => {
@@ -281,6 +286,8 @@ const App = () => {
 
               <Route path="/contributor-board" element={<ContributorBoard />} />
               <Route path="/contributor-leaderboard" element={<ContributorBoard />} />
+
+              <Route path="/contributor/:id" element={<ContributorProfileModal />} />
 
 
               {/* Learning & Settings */}
