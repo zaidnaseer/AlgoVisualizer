@@ -81,6 +81,7 @@ import DSDocumentation from "./pages/DSDocumentation";
 // Dynamic Notes Page
 import NotesPage from "./pages/Notes/NotesPage";
 
+// import ContributorBoard from "./pages/ContributorBoard";
 import ContributorBoard from "./pages/ContributorBoard";
 
 const App = () => {
@@ -188,6 +189,8 @@ const App = () => {
               />
 
               <Route path="/contributor-board" element={<ContributorBoard />} />
+              <Route path="/contributor-leaderboard" element={<ContributorBoard />} />
+
 
               {/* Learning & Settings */}
               <Route path="/learn" element={<LearnLanding />} />
