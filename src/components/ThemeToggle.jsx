@@ -26,10 +26,10 @@ const ThemeToggle = () => {
      */
     const getContainerStyles = () => ({
         position: 'fixed',
-        top: '10px',
-        right: '25px',
-        height: '55px',
-        width: '55px',
+        top: '15px',
+        right: '4px',
+        height: '40px',
+        width: '40px',
         borderRadius: '50%',
         backgroundColor: theme === 'dark' ? '#1f2937' : '#f59e0b',
         display: 'flex',
