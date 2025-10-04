@@ -26,8 +26,8 @@ const ThemeToggle = () => {
      */
     const getContainerStyles = () => ({
         position: 'fixed',
-        left: '25px',
-        bottom: '25px',
+        top: '10px',
+        right: '25px',
         height: '55px',
         width: '55px',
         borderRadius: '50%',
@@ -39,8 +39,9 @@ const ThemeToggle = () => {
         transition: 'all 0.3s ease',
         border: `2px solid ${theme === 'dark' ? '#374151' : '#fbbf24'}`,
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-        zIndex: 1000
+        zIndex: 9999
     });
+
 
     /**
      * Get icon styles based on current theme
