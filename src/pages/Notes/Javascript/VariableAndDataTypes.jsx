@@ -23,7 +23,7 @@ const VariableAndDataTypes = () => {
         <h2 style={{ color: "var(--text-title, #0f172a)", marginBottom: "0.5rem", fontWeight: 700 }}>4. Data Types</h2>
         <ul style={{ paddingLeft: "1.5rem", lineHeight: "1.6", color: "var(--text-muted, #374151)" }}>
           <li><strong>Primitive Types:</strong> Number,String,Undefined,Boolean,Null,BigInt,Symbol</li>
-          <li><strong>Non-Primitive Types:</strong> Object,Array,</li>
+          <li><strong>Non-Primitive Types:</strong> Object,Array</li>
         </ul>
       </section>
 
