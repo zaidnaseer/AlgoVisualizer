@@ -19,6 +19,7 @@ import {
 import "../styles/home.css";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ProblemOfTheDay from '../components/ProblemOfTheDay';
 
 /** ---------- Theme helpers ---------- */
 function useColorScheme() {
@@ -103,6 +104,8 @@ const inner = { width: "min(1200px, 100%)", padding: "1.5rem" };
 const Home = () => {
   const isLight = useColorScheme();
   const T = getTheme(isLight);
+
+  const [showProblemModal, setShowProblemModal] = useState(false);
 
   /** ===== Bubble Sort — continuous ===== */
   const BAR_COUNT = 12;
@@ -399,6 +402,9 @@ const Home = () => {
               <div style={{ marginTop: "1.4rem", display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
                 <Link to="/sorting" className="btn-primary-new"><Play size={16} />Start Learning</Link>
                 <Link to="/quiz" className="btn-secondary-new"><Trophy size={16} />Take a Quiz</Link>
+                <button onClick={() => setShowProblemModal(true)} className="btn-secondary-new" style={{ background: T.badgeBg, border: T.badgeBorder, color: T.textSecondary }}>
+                  <Sparkles size={16} />Problem of the Day
+                </button>
               </div>
             </div>
           </div>
@@ -467,6 +473,133 @@ const Home = () => {
           </div>
         </div>
         </div>
+
+        {/* Problem of the Day Modal */}
+        {showProblemModal && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: isLight ? "rgba(241, 245, 249, 0.95)" : "rgba(15, 23, 42, 0.95)",
+              backdropFilter: "blur(8px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 1000,
+              padding: "2rem",
+              animation: "modalFadeIn 0.3s ease-out",
+            }}
+            onClick={() => setShowProblemModal(false)}
+          >
+            <div
+              style={{
+                background: T.cardBg,
+                borderRadius: 20,
+                border: T.cardBorder,
+                boxShadow: isLight
+                  ? "0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)"
+                  : "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)",
+                maxWidth: "900px",
+                width: "100%",
+                maxHeight: "85vh",
+                overflow: "hidden",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                animation: "modalSlideIn 0.3s ease-out",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header with close button */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "1.5rem 2rem 0.5rem",
+                  borderBottom: `1px solid ${isLight ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)"}`,
+                  marginBottom: "1rem",
+                }}
+              >
+                <h2
+                  style={{
+                    fontSize: "1.5rem",
+                    fontWeight: "700",
+                    color: T.textPrimary,
+                    margin: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <Sparkles size={24} style={{ color: isLight ? "#6366f1" : "#a78bfa" }} />
+                  Problem of the Day
+                </h2>
+                <button
+                  onClick={() => setShowProblemModal(false)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    fontSize: "28px",
+                    cursor: "pointer",
+                    color: T.textSecondary,
+                    padding: "0.25rem",
+                    borderRadius: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "40px",
+                    height: "40px",
+                    transition: "all 0.2s ease",
+                    opacity: 0.7,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.opacity = "1";
+                    e.target.style.backgroundColor = isLight ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.opacity = "0.7";
+                    e.target.style.backgroundColor = "transparent";
+                  }}
+                  aria-label="Close modal"
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* Content */}
+              <div
+                style={{
+                  padding: "0 2rem 2rem",
+                  overflow: "auto",
+                  flex: 1,
+                }}
+              >
+                <ProblemOfTheDay />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <style>{`
+          @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes modalSlideIn {
+            from {
+              opacity: 0;
+              transform: scale(0.95) translateY(-10px);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1) translateY(0);
+            }
+          }
+        `}</style>
       </div>
   );
 };
