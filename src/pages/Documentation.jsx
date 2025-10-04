@@ -560,7 +560,7 @@ const algorithmDatabase = {
       "description": "Tree traversal method that visits the root node first, then the left subtree, and finally the right subtree (Root → Left → Right).",
       "timeComplexity": { "best": "O(n)", "average": "O(n)", "worst": "O(n)" },
       "spaceComplexity": "O(h) (where h is the height of the tree, O(n) in worst case for a skewed tree)",
-      "implemented": true
+      "implemented": false,
     },    
   ],
 },
