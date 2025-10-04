@@ -45,6 +45,10 @@ import PythonBasics from "./pages/Notes/Python/PythonBasics";
 import CppFundamentals from "./pages/Notes/Cpp/Fundamentals";
 import CppVariablesAndDataTypes from "./pages/Notes/Cpp/VariablesAndDataTypes";
 
+//javascript Notes
+import JavaScriptFundamentals from "./pages/Notes/Javascript/Fundamentals.jsx"
+import JavaScriptVariablesAndDataTypes from "./pages/Notes/Javascript/VariableAndDataTypes.jsx"
+
 
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
@@ -260,6 +264,11 @@ const App = () => {
               <Route path="/notes/cpp" element={<Navigate to="/notes/cpp/fundamentals" replace />} />
               <Route path="/notes/cpp/fundamentals" element={<CppFundamentals />} />
               <Route path="/notes/cpp/variables-and-data-types" element={<CppVariablesAndDataTypes />} />
+
+              {/* Javascript*/}
+              <Route path="/notes/javascript" element={<Navigate to="/notes/javascript/fundamentals" replace/>}/>
+              <Route path="/notes/javascript/fundamentals" element={<JavaScriptFundamentals/>} />
+              <Route path="/notes/javascript/variables-and-data-types" element={<JavaScriptVariablesAndDataTypes/>} />
 
 
               <Route

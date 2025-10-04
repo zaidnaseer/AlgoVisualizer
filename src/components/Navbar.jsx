@@ -209,6 +209,22 @@ const Navbar = () => {
                 >
                   Python
                 </Link>
+
+                <Link
+                  to="/notes/Cpp"
+                  className={`dropdown-item ${isActive("/notes/Cpp") ? "active" : ""}`}
+                  onClick={() => setDesktopNotesOpen(false)}
+                >
+                  C++
+                </Link>
+
+                <Link
+                  to="/notes/Javascript"
+                  className={`dropdown-item ${isActive("/notes/Cpp") ? "active" : ""}`}
+                  onClick={() => setDesktopNotesOpen(false)}
+                >
+                  JavaScript
+                </Link>
               </div>
             )}
           </div>
@@ -283,6 +299,28 @@ const Navbar = () => {
               }}
             >
               Python
+            </Link>
+
+             <Link
+              to="/notes/Cpp"
+              className="mobile-menu-link"
+              onClick={() => {
+                setMobileNotesOpen(false);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              C++
+            </Link>
+
+             <Link
+              to="/notes/Javascript"
+              className="mobile-menu-link"
+              onClick={() => {
+                setMobileNotesOpen(false);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+             JavaScript
             </Link>
           </div>
         </div>
