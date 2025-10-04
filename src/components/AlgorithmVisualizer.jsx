@@ -362,8 +362,3 @@ useLayoutEffect(() => {
     </div>
   );
 }
-{error && (
-  <div style={{ color: "red", margin: "10px 0" }}>
-    {error}
-  </div>
-)}
