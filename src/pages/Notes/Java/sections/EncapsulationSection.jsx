@@ -4,7 +4,7 @@ const EncapsulationSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-lock"></i> 18. Encapsulation
+        <i className="fas fa-lock"></i> 16. Encapsulation
       </h2>
       <p>
         Encapsulation hides the internal state of an object and exposes behavior via methods.
