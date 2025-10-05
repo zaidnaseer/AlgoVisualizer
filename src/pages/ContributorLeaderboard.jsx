@@ -7,7 +7,7 @@ import "../styles/leaderboard.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const GITHUB_REPO = "RhythmPahwa14/AlgoVisualizer";
+const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO || "RhythmPahwa14/AlgoVisualizer";
 const token = import.meta.env.VITE_GITHUB_TOKEN;
 
 // Points for levels

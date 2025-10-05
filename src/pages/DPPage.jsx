@@ -1,7 +1,7 @@
 // src/pages/DPPage.jsx
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import DPVisualizer from "../components/DPVisualizer";
-import { dpAlgorithms } from "../data/allCodes"; // Ensure dpAlgorithms exists
+import { dpAlgorithms } from "../data/allCodes";
 import "../styles/global-theme.css";
 
 import AOS from "aos";
@@ -23,11 +23,15 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 
 import { FiCopy, FiCheck } from "react-icons/fi";
+import SubscribeButton from "../components/SubscribeButton";
+import { useNotifications } from "../contexts/NotificationsContext";
 
 const DPPage = () => {
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("fibonacci"); // default algorithm
+
+  const { addNotification } = useNotifications();
 
   const algorithmData = (dpAlgorithms && dpAlgorithms[selectedAlgorithm]) || {};
   const codeRef = useRef(null);
@@ -50,6 +54,7 @@ const DPPage = () => {
     try {
       await navigator.clipboard.writeText(code);
       setCopied(true);
+      addNotification(`Copied ${displayName[selectedAlgorithm]} (${selectedLanguage}) code`, selectedAlgorithm);
       setTimeout(() => setCopied(false), 1200);
     } catch (err) {
       console.error("Failed to copy", err);
@@ -63,7 +68,7 @@ const DPPage = () => {
     lcs: 5,
     matrixChain: 4,
     minPathSum: 5,
-    subsetSum: 10
+    subsetSum: 10,
   };
 
   const displayName = {
@@ -73,7 +78,7 @@ const DPPage = () => {
     lcs: "Longest Common Subsequence",
     matrixChain: "Matrix Chain Multiplication",
     minPathSum: "Minimum Path Sum",
-    subsetSum: "Subset Sum"
+    subsetSum: "Subset Sum",
   };
 
   return (
@@ -82,6 +87,9 @@ const DPPage = () => {
       <p className="theme-description">
         Explore how dynamic programming algorithms work step-by-step. Visualize top-down and bottom-up approaches, and try your own examples.
       </p>
+
+      {/* 🔔 Subscribe button for notifications */}
+      <SubscribeButton algorithmId={selectedAlgorithm} />
 
       <div data-aos="fade-up" data-aos-delay="200">
         <DPVisualizer
@@ -132,7 +140,9 @@ const DPPage = () => {
         </div>
 
         <div className="note-box">
-          <strong>Note:</strong> This is the actual implementation code for the <strong>{displayName[selectedAlgorithm]}</strong> algorithm in <strong>{selectedLanguage.toUpperCase()}</strong>.
+          <strong>Note:</strong> This is the actual implementation code for the{" "}
+          <strong>{displayName[selectedAlgorithm]}</strong> algorithm in{" "}
+          <strong>{selectedLanguage.toUpperCase()}</strong>.
         </div>
       </div>
     </div>

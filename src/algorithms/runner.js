@@ -14,6 +14,24 @@ import {
   binarySearchWrapper,
 } from "./index";
 
+function validateArrayInput(array) {
+  if (!Array.isArray(array)) {
+    throw new Error("Input must be an array.");
+  }
+  if (array.length === 0) {
+    throw new Error("Input array is empty. Please provide an array of numbers.");
+  }
+  if (!array.every(item => !isNaN(Number(item)))) {
+    throw new Error("Array contains non-numeric values.");
+  }
+}
+
+function validateSearchTarget(target) {
+  if (target === undefined || target === null || target === "") {
+    throw new Error("Please enter a search target for search algorithms.");
+  }
+}
+
 const SORTING_ALGOS = new Set([
   "Bubble Sort",
   "Insertion Sort",
@@ -143,6 +161,10 @@ export function runAlgorithm(algorithmName, array, target) {
 }
 
 export async function runAlgorithmAsync(algorithmName, array, target) {
+  validateArrayInput(inputArray);
+  if (algorithmType.includes("search")) {
+    validateSearchTarget(target);
+  }
   const type = getAlgorithmType(algorithmName);
   if (type === "sorting") {
     const res = await runSorting(algorithmName, array);

@@ -3,6 +3,47 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { 
+  ArrowLeft, 
+  Star, 
+  GitFork, 
+  Bug, 
+  Users, 
+  Target, 
+  Rocket, 
+  Palette, 
+  Code2,
+  Atom,
+  Brackets,
+  Globe,
+  Paintbrush2,
+  Zap,
+  BarChart3,
+  Search,
+  Network,
+  TreePine,
+  GitBranch,
+  Github,
+  Monitor,
+  Hexagon,
+  Bug as BugIcon,
+  Sparkles,
+  BookOpen,
+  Cpu,
+  TestTube2,
+  GitFork as ForkIcon,
+  Download,
+  Package,
+  Play,
+  Code,
+  Upload,
+  FolderGit2,
+  Eye,
+  Heart,
+  MousePointer2,
+  Layers3,
+  Wrench
+} from 'lucide-react';
 import "../styles/theme.css";
 import "../styles/Contribute.css";
 
@@ -47,66 +88,90 @@ const Contribute = () => {
     {
       category: "Frontend",
       technologies: [
-        { name: "React", icon: "⚛️", description: "UI Library for building interactive components" },
-        { name: "JavaScript", icon: "🟨", description: "Core programming language" },
-        { name: "HTML5", icon: "🔗", description: "Markup language for structure" },
-        { name: "CSS3", icon: "🎨", description: "Styling and animations" },
-        { name: "Framer Motion", icon: "🎭", description: "Animation library for React" }
+        { name: "React", icon: <div className="tech-logo">⚛️</div>, description: "UI Library for building interactive components" },
+        { name: "JavaScript", icon: <div className="tech-logo" style={{backgroundColor: '#F7DF1E', color: '#000', borderRadius: '4px', padding: '4px'}}>JS</div>, description: "Core programming language" },
+        { name: "HTML5", icon: <div className="tech-logo" style={{color: '#E34F26'}}>🌐</div>, description: "Markup language for structure" },
+        { name: "CSS3", icon: <div className="tech-logo" style={{color: '#1572B6'}}>🎨</div>, description: "Styling and animations" },
+        { name: "Framer Motion", icon: <div className="tech-logo" style={{color: '#BB6BD9'}}>🎭</div>, description: "Animation library for React" }
       ]
     },
     {
       category: "Algorithms & Data Structures",
       technologies: [
-        { name: "Sorting Algorithms", icon: "📊", description: "Bubble, Quick, Merge, Heap Sort visualizations" },
-        { name: "Search Algorithms", icon: "🔍", description: "Binary search, Linear search implementations" },
-        { name: "Graph Algorithms", icon: "🕸️", description: "BFS, DFS, Dijkstra, A* pathfinding" },
-        { name: "Tree Structures", icon: "🌳", description: "Binary trees, BST, AVL tree visualizations" }
+        { name: "Sorting Algorithms", icon: <BarChart3 size={24} style={{color: '#FF6B6B'}} />, description: "Bubble, Quick, Merge, Heap Sort visualizations" },
+        { name: "Search Algorithms", icon: <Search size={24} style={{color: '#4ECDC4'}} />, description: "Binary search, Linear search implementations" },
+        { name: "Graph Algorithms", icon: <Network size={24} style={{color: '#45B7D1'}} />, description: "BFS, DFS, Dijkstra, A* pathfinding" },
+        { name: "Tree Structures", icon: <TreePine size={24} style={{color: '#96CEB4'}} />, description: "Binary trees, BST, AVL tree visualizations" }
       ]
     },
     {
       category: "Development Tools",
       technologies: [
-        { name: "Git", icon: "📝", description: "Version control system" },
-        { name: "GitHub", icon: "🐙", description: "Code hosting and collaboration" },
-        { name: "VS Code", icon: "💻", description: "Recommended IDE" },
-        { name: "Node.js", icon: "🟢", description: "JavaScript runtime environment" }
+        { name: "Git", icon: <div className="tech-logo" style={{color: '#F05032'}}>🔧</div>, description: "Version control system" },
+        { name: "GitHub", icon: <Github size={24} style={{color: '#181717'}} />, description: "Code hosting and collaboration" },
+        { name: "VS Code", icon: <div className="tech-logo" style={{color: '#007ACC'}}>💻</div>, description: "Recommended IDE" },
+        { name: "Node.js", icon: <div className="tech-logo" style={{color: '#339933'}}>⬢</div>, description: "JavaScript runtime environment" }
       ]
-    }
+    },
+    {
+      category: "Frameworks and Libraries", 
+      technologies: [
+        { name: "Spring Boot", icon: <div className="tech-logo" style={{color: '#6DB33F'}}>🍃</div>, description: "Java framework for backend development" },
+        { name: "React", icon: <div className="tech-logo" style={{color: '#61DAFB'}}>⚛️</div>, description: "Frontend JavaScript library" },
+        { name: "Node.js", icon: <div className="tech-logo" style={{color: '#339933'}}>⬢</div>, description: "JavaScript runtime environment" }
+      ]
+    },
+    {
+      category: "Databases",
+      technologies: [
+        { name: "MySQL", icon: <div className="tech-logo" style={{color: '#4479A1'}}>🐬</div>, description: "Relational database management system" },
+        { name: "MongoDB", icon: <div className="tech-logo" style={{color: '#47A248'}}>🍃</div>, description: "NoSQL document database" }
+      ]
+    },
+    // {
+    //   category: "Cloud and DevOps",
+    //   technologies: [
+    //     { name: "Azure", icon: <div className="tech-logo" style={{color: '#0078D4'}}>☁️</div>, description: "Microsoft cloud platform" },
+    //     { name: "Docker", icon: <div className="tech-logo" style={{color: '#2496ED'}}>🐳</div>, description: "Containerization platform" },
+    //     { name: "Kubernetes", icon: <div className="tech-logo" style={{color: '#326CE5'}}>⚓</div>, description: "Container orchestration" },
+    //     { name: "GitHub Actions", icon: <div className="tech-logo" style={{color: '#2088FF'}}>⚡</div>, description: "CI/CD automation" }
+    //   ]
+    // }
   ];
 
   const contributionTypes = [
     {
-      title: "🐛 Bug Fixes",
+      title: <><BugIcon size={20} className="inline mr-2" />Bug Fixes</>,
       description: "Help us identify and fix bugs in visualizations, UI components, or algorithm implementations.",
       difficulty: "Beginner",
       examples: ["Fix animation glitches", "Resolve responsive design issues", "Correct algorithm logic errors"]
     },
     {
-      title: "✨ New Features",
+      title: <><Sparkles size={20} className="inline mr-2" />New Features</>,
       description: "Add new algorithm visualizations, improve existing ones, or enhance user experience.",
       difficulty: "Intermediate",
       examples: ["New sorting algorithms", "Enhanced controls", "Mobile optimizations", "Dark mode improvements"]
     },
     {
-      title: "📚 Documentation",
+      title: <><BookOpen size={20} className="inline mr-2" />Documentation</>,
       description: "Improve code comments, README files, or create tutorials for new contributors.",
       difficulty: "Beginner",
       examples: ["API documentation", "Setup guides", "Algorithm explanations", "Contributing guidelines"]
     },
     {
-      title: "🎨 UI/UX Design",
+      title: <><Layers3 size={20} className="inline mr-2" />UI/UX Design</>,
       description: "Enhance the visual design, improve user interface, or create better user experiences.",
       difficulty: "Intermediate",
       examples: ["Design improvements", "Better animations", "Accessibility features", "Theme enhancements"]
     },
     {
-      title: "⚡ Performance",
+      title: <><Cpu size={20} className="inline mr-2" />Performance</>,
       description: "Optimize algorithm performance, reduce bundle size, or improve rendering speed.",
       difficulty: "Advanced",
       examples: ["Code optimization", "Memory management", "Rendering performance", "Bundle analysis"]
     },
     {
-      title: "🧪 Testing",
+      title: <><TestTube2 size={20} className="inline mr-2" />Testing</>,
       description: "Write unit tests, integration tests, or help with quality assurance.",
       difficulty: "Intermediate",
       examples: ["Unit tests", "Component testing", "E2E tests", "Cross-browser testing"]
@@ -116,35 +181,35 @@ const Contribute = () => {
   const steps = [
     {
       step: 1,
-      title: "🍴 Fork the Repository",
+      title: <><ForkIcon size={20} className="inline mr-2" />Fork the Repository</>,
       description: "Click the 'Fork' button on our GitHub repository to create your own copy."
     },
     {
       step: 2,
-      title: "📥 Clone Your Fork",
+      title: <><Download size={20} className="inline mr-2" />Clone Your Fork</>,
       description: "Clone your forked repository to your local machine using Git.",
-      code: "git clone https://github.com/YOUR-USERNAME/AlgoVisualizer.git"
+      code: "git clone https://github.com/rhythmpahwa14/AlgoVisualizer.git"
     },
     {
       step: 3,
-      title: "📦 Install Dependencies",
+      title: <><Package size={20} className="inline mr-2" />Install Dependencies</>,
       description: "Navigate to the project directory and install required packages.",
       code: "cd AlgoVisualizer\nnpm install"
     },
     {
       step: 4,
-      title: "🏃‍♂️ Start Development",
+      title: <><Play size={20} className="inline mr-2" />Start Development</>,
       description: "Run the development server and start making your changes.",
       code: "npm start"
     },
     {
       step: 5,
-      title: "🔧 Make Your Changes",
+      title: <><Code size={20} className="inline mr-2" />Make Your Changes</>,
       description: "Create a new branch, make your improvements, and test thoroughly."
     },
     {
       step: 6,
-      title: "📤 Submit Pull Request",
+      title: <><Upload size={20} className="inline mr-2" />Submit Pull Request</>,
       description: "Push your changes and create a pull request with a clear description."
     }
   ];
@@ -155,16 +220,14 @@ const Contribute = () => {
       <motion.button
         onClick={handleBackClick}
         className="back-button"
+        style={{ marginTop: '3.5rem' }}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="m12 19-7-7 7-7"/>
-          <path d="M19 12H5"/>
-        </svg>
+        <ArrowLeft size={20} />
         <span>Back</span>
       </motion.button>
 
@@ -182,22 +245,22 @@ const Contribute = () => {
           </p>
           <div className="repo-stats" data-aos="fade-up" data-aos-delay="200">
             <div className="stat-item">
-              <span className="stat-icon">⭐</span>
+              <Star className="stat-icon" size={20} />
               <span className="stat-value">{repoStats.stars}</span>
               <span className="stat-label">Stars</span>
             </div>
             <div className="stat-item">
-              <span className="stat-icon">🍴</span>
+              <GitFork className="stat-icon" size={20} />
               <span className="stat-value">{repoStats.forks}</span>
               <span className="stat-label">Forks</span>
             </div>
             <div className="stat-item">
-              <span className="stat-icon">🐛</span>
+              <Bug className="stat-icon" size={20} />
               <span className="stat-value">{repoStats.issues}</span>
               <span className="stat-label">Issues</span>
             </div>
             <div className="stat-item">
-              <span className="stat-icon">👥</span>
+              <Users className="stat-icon" size={20} />
               <span className="stat-value">12+</span>
               <span className="stat-label">Contributors</span>
             </div>
@@ -213,31 +276,31 @@ const Contribute = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="section-content">
+        {/* <div className="section-content">
           <h2 className="section-title" data-aos="fade-up">What is AlgoVisualizer?</h2>
           <div className="feature-grid">
             <div className="feature-card" data-aos="fade-up" data-aos-delay="100">
-              <div className="feature-icon">🎯</div>
+              <div className="feature-icon"><MousePointer2 size={32} /></div>
               <h3>Interactive Learning</h3>
               <p>Visualize complex algorithms step-by-step with interactive animations and real-time controls.</p>
             </div>
             <div className="feature-card" data-aos="fade-up" data-aos-delay="200">
-              <div className="feature-icon">🚀</div>
+              <div className="feature-icon"><Heart size={32} /></div>
               <h3>Educational Focus</h3>
               <p>Designed specifically for students, educators, and developers to understand algorithms better.</p>
             </div>
             <div className="feature-card" data-aos="fade-up" data-aos-delay="300">
-              <div className="feature-icon">🎨</div>
+              <div className="feature-icon"><Eye size={32} /></div>
               <h3>Beautiful Interface</h3>
               <p>Modern, responsive design with smooth animations and intuitive user experience.</p>
             </div>
             <div className="feature-card" data-aos="fade-up" data-aos-delay="400">
-              <div className="feature-icon">🔧</div>
+              <div className="feature-icon"><Code2 size={32} /></div>
               <h3>Open Source</h3>
               <p>Completely open source project welcoming contributions from developers worldwide.</p>
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </motion.section>
 
       {/* Tech Stack */}
@@ -347,7 +410,7 @@ const Contribute = () => {
           <div className="repo-info" data-aos="fade-up" data-aos-delay="200">
             <div className="repo-header">
               <div className="repo-info-content">
-                <div className="repo-icon">📁</div>
+                <div className="repo-icon"><FolderGit2 size={32} /></div>
                 <div>
                   <h3>RhythmPahwa14/AlgoVisualizer</h3>
                   <p>Interactive Algorithm Visualization Platform</p>
@@ -360,9 +423,7 @@ const Contribute = () => {
                   rel="noopener noreferrer"
                   className="btn btn-primary"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
+                  <Github size={16} />
                   View on GitHub
                 </a>
                 <a 

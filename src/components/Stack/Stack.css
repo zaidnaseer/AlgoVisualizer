@@ -58,10 +58,14 @@
   text-align: center;
   transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
   background: #1f1f1f;
+  color: #fff;            
+  font-weight: 500;      
 }
 .stack-item.top {
   outline: 2px solid #7c3aed;
   box-shadow: 0 0 12px rgba(124,58,237,.4);
+  background: #2a2a2a;   
+  color: #fff;          
 }
 .stack-item.peek {
   transform: translateY(-4px);

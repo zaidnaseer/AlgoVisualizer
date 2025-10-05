@@ -1,10 +1,10 @@
 @import './theme.css';
 
-/* =========================
+/* 🎯 =========================
    Reset & Global Styles
 ========================= */
 
-/* container for mega menu */
+/* 🎪 container for mega menu */
 .navbar .mega-menu {
   position: absolute;
   top: 100%;
@@ -18,14 +18,16 @@
   z-index: 1000;
 }
 
-/* grid of columns */
+/* 🎨 grid of columns */
 .mega-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
   gap: 20px 32px;
 }
 
-.mega-col { min-width: 200px; }
+.mega-col { 
+  min-width: 200px; 
+}
 
 .mega-heading {
   font-weight: 600;
@@ -49,16 +51,19 @@
   background: rgba(0,0,0,.06);
 }
 
-/* dropdown container positioning */
+/* 🎯 dropdown container positioning */
 .navbar-item.dropdown.mega {
   position: relative;
 }
 
+/* 🚀 --- MEGA MENU: container & positioning --- */
+.navbar-menu { 
+  position: relative; 
+}
 
-/* --- MEGA MENU: container & positioning --- */
-.navbar-menu { position: relative; }
-
-.navbar-item.dropdown.mega { position: relative; }
+.navbar-item.dropdown.mega { 
+  position: relative; 
+}
 
 .navbar .mega-menu {
   position: absolute;
@@ -78,7 +83,7 @@
     0 1px 0 rgba(255,255,255,0.03) inset;
   z-index: 1000;
 
-  /* safety for small screens / short viewports */
+  /* ⚡ safety for small screens / short viewports */
   max-height: min(72vh, 640px);
   overflow: auto;
 
@@ -93,7 +98,7 @@
   transform: translateX(-50%) translateY(0);
 }
 
-/* little top pointer */
+/* ✨ little top pointer */
 .mega-menu::before {
   content: "";
   position: absolute;
@@ -108,19 +113,23 @@
   filter: drop-shadow(0 2px 2px rgba(0,0,0,.15));
 }
 
-/* --- GRID LAYOUT --- */
+/* 🎨 --- GRID LAYOUT --- */
 .mega-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(210px, 1fr));
   gap: 18px 28px;
 }
 
-/* collapse to 3/2 columns responsively */
+/* 📱 collapse to 3/2 columns responsively */
 @media (max-width: 1100px) {
-  .mega-grid { grid-template-columns: repeat(3, minmax(200px, 1fr)); }
+  .mega-grid { 
+    grid-template-columns: repeat(3, minmax(200px, 1fr)); 
+  }
 }
 @media (max-width: 860px) {
-  .mega-grid { grid-template-columns: repeat(2, minmax(200px, 1fr)); }
+  .mega-grid { 
+    grid-template-columns: repeat(2, minmax(200px, 1fr)); 
+  }
 }
 
 .mega-col {
@@ -129,7 +138,7 @@
   position: relative;
 }
 
-/* subtle column separators */
+/* 🎯 subtle column separators */
 .mega-col:not(:nth-child(4n))::after {
   content: "";
   position: absolute;
@@ -144,15 +153,23 @@
   );
 }
 @media (max-width: 1100px) {
-  .mega-col:not(:nth-child(3n))::after { right: -14px; }
-  .mega-col:nth-child(3n)::after { display: none; }
+  .mega-col:not(:nth-child(3n))::after { 
+    right: -14px; 
+  }
+  .mega-col:nth-child(3n)::after { 
+    display: none; 
+  }
 }
 @media (max-width: 860px) {
-  .mega-col:not(:nth-child(2n))::after { right: -14px; }
-  .mega-col:nth-child(2n)::after { display: none; }
+  .mega-col:not(:nth-child(2n))::after { 
+    right: -14px; 
+  }
+  .mega-col:nth-child(2n)::after { 
+    display: none; 
+  }
 }
 
-/* --- TYPOGRAPHY --- */
+/* 🎪 --- TYPOGRAPHY --- */
 .mega-heading {
   font-weight: 700;
   font-size: 0.95rem;
@@ -190,7 +207,7 @@
   color: #fff;
 }
 
-/* --- LIGHT / DARK THEME (override via your theme classes) --- */
+/* 🌗 --- LIGHT / DARK THEME (override via your theme classes) --- */
 .navbar.light .mega-menu {
   --mega-bg: rgba(255,255,255,0.96);
   --mega-heading: #0f172a;
@@ -207,10 +224,12 @@
   border-color: rgba(255,255,255,0.06);
 }
 
-/* keep search dropdown above the menu */
-.navbar .search-results { z-index: 1100; }
+/* 🎯 keep search dropdown above the menu */
+.navbar .search-results { 
+  z-index: 1100; 
+}
 
-/* --- container & base --- */
+/* 🚀 --- container & base --- */
 .navbar .mega-menu.split {
   position: absolute;
   top: calc(100% + 10px);
@@ -235,24 +254,28 @@
   padding: 16px;
 }
 
-/* content split */
+/* 🎨 content split */
 .mega-content {
   display: grid;
   grid-template-columns: 2.5fr 1fr; /* left big, right card */
   gap: 16px;
 }
 @media (max-width: 980px) {
-  .mega-content { grid-template-columns: 1fr; }
+  .mega-content { 
+    grid-template-columns: 1fr; 
+  }
 }
 
-/* left side grid */
+/* 🎯 left side grid */
 .mega-grid.tidy {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
   gap: 12px 16px;
 }
 @media (max-width: 1100px) {
-  .mega-grid.tidy { grid-template-columns: repeat(2, minmax(200px, 1fr)); }
+  .mega-grid.tidy { 
+    grid-template-columns: repeat(2, minmax(200px, 1fr)); 
+  }
 }
 
 .mega-col.cardish {
@@ -269,8 +292,11 @@
   margin: 2px 0 8px;
 }
 
-/* links */
-.mega-links { display: grid; gap: 4px; }
+/* 🔗 links */
+.mega-links { 
+  display: grid; 
+  gap: 4px; 
+}
 
 .mega-link {
   display: inline-flex;
@@ -284,7 +310,10 @@
   line-height: 1.25rem;
   transition: background .12s ease, transform .06s ease, color .12s ease;
 }
-.mega-link .dot { opacity: .35; translate: 0 -1px; }
+.mega-link .dot { 
+  opacity: .35; 
+  translate: 0 -1px; 
+}
 
 .mega-link:hover {
   background: rgba(99,102,241,.16);
@@ -296,8 +325,10 @@
   color: #fff;
 }
 
-/* right feature card */
-.mega-right { display: flex; }
+/* 🎨 right feature card */
+.mega-right { 
+  display: flex; 
+}
 
 .feature-card {
   position: relative;
@@ -330,7 +361,9 @@
   align-items: center;
   gap: 8px;
 }
-.feature-emoji { font-size: 1.1rem; }
+.feature-emoji { 
+  font-size: 1.1rem; 
+}
 
 .feature-desc {
   font-size: .92rem;
@@ -357,7 +390,7 @@
   background: #c0c5ff;
 }
 
-/* optional image */
+/* 🖼️ optional image */
 .feature-img {
   position: absolute;
   right: -8px; bottom: -8px;
@@ -366,7 +399,7 @@
   pointer-events: none;
 }
 
-/* light theme overrides */
+/* 🌞 light theme overrides */
 .navbar.light .mega-menu.split {
   background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,255,.98));
   border-color: rgba(15,23,42,.08);
@@ -376,9 +409,15 @@
   background: linear-gradient(180deg, rgba(10,18,40,.02), rgba(10,18,40,.01));
   border-color: rgba(15,23,42,.08);
 }
-.navbar.light .mega-heading { color: #0f172a; }
-.navbar.light .mega-link { color: #273143; }
-.navbar.light .mega-link:hover { color: #0f172a; }
+.navbar.light .mega-heading { 
+  color: #0f172a; 
+}
+.navbar.light .mega-link { 
+  color: #273143; 
+}
+.navbar.light .mega-link:hover { 
+  color: #0f172a; 
+}
 .navbar.light .feature-card {
   color: #0f172a;
   background:
@@ -386,14 +425,18 @@
     linear-gradient(180deg, rgba(10,18,40,.03), rgba(10,18,40,.01));
   border-color: rgba(15,23,42,.08);
 }
-.navbar.light .feature-desc { color: #3a4253; }
-/* Make navbar always visible at the top */
+.navbar.light .feature-desc { 
+  color: #3a4253; 
+}
+
+/* 🎯 Make navbar always visible at the top */
 .navbar {
   position: sticky;  /* or fixed */
   top: 0;
   z-index: 1200;     /* higher than mega-menu & search results */
 }
-/* === NAVBAR FIX === */
+
+/* ⚡ === NAVBAR FIX === */
 .navbar {
   position: fixed;     /* lock it to the viewport */
   top: 0;              /* stick to the top */
@@ -406,8 +449,37 @@
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* push page content down so navbar doesn't overlap */
+/* 📏 push page content down so navbar doesn't overlap */
 body {
   margin: 0;
   padding-top: 72px; /* adjust to your navbar's actual height */
+}
+
+/* 🆕 Enhanced animation utilities */
+@keyframes smoothMenuReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mega-menu.animated {
+  animation: smoothMenuReveal 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 🎭 Smooth menu reveal animation */
+}
+
+/* 🎯 Performance optimization classes */
+.mega-menu {
+  will-change: transform, opacity;
+  /* ⚡ Hint browser for better performance */
+}
+
+/* 🔧 Utility class for enhanced transitions */
+.smooth-transition-all {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 🎪 Enhanced timing function for smoother animations */
 }

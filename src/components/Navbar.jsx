@@ -338,6 +338,38 @@ const Navbar = () => {
               getIcon={getIcon}
             />
           ))}
+          
+          <div className="flex items-center gap-1">
+            {/* Notes desktop */}
+            <div className="navbar-item dropdown">
+              <button
+                className={`dropdown-toggle ${desktopNotesOpen ? "active" : ""}`}
+                onClick={() => setDesktopNotesOpen(!desktopNotesOpen)}
+              >
+                <BookOpen size={18} className="drop-icon" />
+                <span>Notes</span>
+                <ChevronDown size={16} className={`${desktopNotesOpen ? "rotated" : ""}`} />
+              </button>
+              {desktopNotesOpen && (
+                <div className="dropdown-menu">
+                  <Link
+                    to="/notes/java"
+                    className={`dropdown-item ${isActive("/notes/java") ? "active" : ""}`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    Java
+                  </Link>
+                  <Link
+                    to="/notes/python"
+                    className={`dropdown-item ${isActive("/notes/python") ? "active" : ""}`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    Python
+                  </Link>
+                </div>
+              )}
+            </div>
+
 
           {/* Notes desktop */}
           <div className="navbar-item dropdown">
@@ -471,6 +503,10 @@ const Navbar = () => {
 
 
           <UserDropdown />
+
+            <UserDropdown />
+          </div>
+
         </div>
 
         {/* Mobile Hamburger */}

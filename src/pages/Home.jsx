@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Play,
+  Pause,
+  RotateCcw,
   Code,
   Search as SearchIcon,
   BarChart3,
@@ -19,6 +21,7 @@ import {
 import "../styles/home.css";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ProblemOfTheDay from '../components/ProblemOfTheDay';
 
 /** ---------- Theme helpers ---------- */
 function useColorScheme() {
@@ -34,17 +37,34 @@ function useColorScheme() {
       const htmlTheme = document.documentElement.getAttribute("data-theme");
       if (!htmlTheme) setIsLight(e.matches);
     };
-    mq.addEventListener?.("change", onChange);
-    return () => mq.removeEventListener?.("change", onChange);
+    
+    // Use modern addEventListener if available, fallback to addListener
+    if (mq.addEventListener) {
+      mq.addEventListener("change", onChange);
+      return () => mq.removeEventListener("change", onChange);
+    } else {
+      mq.addListener(onChange);
+      return () => mq.removeListener(onChange);
+    }
   }, []);
 
   // Also react to manual toggles via data-theme on <html>
   useEffect(() => {
-    const obs = new MutationObserver(() => {
-      const htmlTheme = document.documentElement.getAttribute("data-theme");
-      if (htmlTheme) setIsLight(htmlTheme === "light");
+    const obs = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          const htmlTheme = document.documentElement.getAttribute("data-theme");
+          if (htmlTheme) setIsLight(htmlTheme === "light");
+        }
+      });
     });
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    
+    obs.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ["data-theme"],
+      attributeOldValue: true
+    });
+    
     return () => obs.disconnect();
   }, []);
 
@@ -104,7 +124,22 @@ const Home = () => {
   const isLight = useColorScheme();
   const T = getTheme(isLight);
 
-  /** ===== Bubble Sort — continuous ===== */
+  const [showProblemModal, setShowProblemModal] = useState(false);
+
+  // Initialize AOS with proper cleanup
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+    });
+
+    return () => {
+      AOS.refresh();
+    };
+  }, []);
+
+  /** ===== Bubble Sort — optimized with proper cleanup ===== */
   const BAR_COUNT = 12;
   const STEP_MS = 350;
   const initial = useMemo(
@@ -117,61 +152,134 @@ const Home = () => {
   const [idx, setIdx] = useState(0);
   const [comparisons, setComparisons] = useState(0);
   const [swaps, setSwaps] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(true);
 
   const animRef = useRef(null);
-  const valuesRef = useRef(values);
-  const passRef = useRef(pass);
-  const idxRef = useRef(idx);
+  const isComponentMounted = useRef(true);
 
-  useEffect(() => { valuesRef.current = values; }, [values]);
-  useEffect(() => { passRef.current = pass; }, [pass]);
-  useEffect(() => { idxRef.current = idx; }, [idx]);
+  // Cleanup function to prevent memory leaks
+  const cleanup = () => {
+    if (animRef.current) {
+      clearTimeout(animRef.current);
+      animRef.current = null;
+    }
+  };
 
   const reshuffle = () => {
+    if (!isComponentMounted.current || !isAnimating) return;
+    
     const fresh = Array.from({ length: BAR_COUNT }, () => 20 + Math.floor(Math.random() * 75));
     setValues(fresh);
     setPass(0);
     setIdx(0);
     setComparisons(0);
     setSwaps(0);
-    if (animRef.current) clearTimeout(animRef.current);
-    animRef.current = window.setTimeout(tick, STEP_MS);
+    
+    cleanup();
+    if (isAnimating) {
+      animRef.current = setTimeout(tick, STEP_MS);
+    }
   };
 
   const tick = () => {
-    let i = passRef.current;
-    let j = idxRef.current;
-    const arr = [...valuesRef.current];
-    const n = arr.length;
+    if (!isComponentMounted.current || !isAnimating) return;
 
-    if (i >= n - 1) {
-      animRef.current = window.setTimeout(reshuffle, 400);
-      return;
-    }
-    if (j >= n - i - 1) {
-      setPass(i + 1);
-      setIdx(0);
-      animRef.current = window.setTimeout(tick, STEP_MS);
-      return;
-    }
-    setComparisons((c) => c + 1);
-    if (arr[j] > arr[j + 1]) {
-      const tmp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = tmp;
-      setSwaps((s) => s + 1);
-      setValues(arr);
-    }
-    setIdx(j + 1);
-    animRef.current = window.setTimeout(tick, STEP_MS);
+    setValues(currentValues => {
+      const arr = [...currentValues];
+      const n = arr.length;
+
+      setPass(currentPass => {
+        setIdx(currentIdx => {
+          if (currentPass >= n - 1) {
+            cleanup();
+            if (isAnimating) {
+              animRef.current = setTimeout(reshuffle, 1000);
+            }
+            return currentIdx;
+          }
+
+          if (currentIdx >= n - currentPass - 1) {
+            cleanup();
+            if (isAnimating) {
+              animRef.current = setTimeout(tick, STEP_MS);
+            }
+            return 0;
+          }
+
+          setComparisons(c => c + 1);
+          
+          if (arr[currentIdx] > arr[currentIdx + 1]) {
+            const tmp = arr[currentIdx];
+            arr[currentIdx] = arr[currentIdx + 1];
+            arr[currentIdx + 1] = tmp;
+            setSwaps(s => s + 1);
+            setValues(arr);
+          }
+
+          cleanup();
+          if (isAnimating) {
+            animRef.current = setTimeout(tick, STEP_MS);
+          }
+          
+          return currentIdx + 1;
+        });
+        
+        // Use idx state instead of currentIdx parameter
+        return currentPass + (idx >= n - currentPass - 1 ? 1 : 0);
+      });
+      return currentValues;
+    });
   };
 
+  // Start animation on mount
   useEffect(() => {
-    animRef.current = window.setTimeout(tick, STEP_MS);
-    return () => animRef.current && clearTimeout(animRef.current);
+    if (isAnimating) {
+      animRef.current = setTimeout(tick, STEP_MS);
+    }
+    
+    return () => {
+      isComponentMounted.current = false;
+      cleanup();
+    };
+  }, [isAnimating]);
+
+  // Pause animation when component is not visible (performance optimization)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setIsAnimating(false);
+        cleanup();
+      } else {
+        setIsAnimating(true);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   const activeA = idx;
   const activeB = idx + 1;
   const sortedStart = values.length - pass;
+
+  // Control functions for the animation
+  const toggleAnimation = () => {
+    setIsAnimating(!isAnimating);
+  };
+
+  const resetAnimation = () => {
+    cleanup();
+    const fresh = Array.from({ length: BAR_COUNT }, () => 20 + Math.floor(Math.random() * 75));
+    setValues(fresh);
+    setPass(0);
+    setIdx(0);
+    setComparisons(0);
+    setSwaps(0);
+    setIsAnimating(true);
+  };
 
   /** ===== Data ===== */
   const features = [
@@ -348,7 +456,63 @@ const Home = () => {
               </div>
 
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: T.textSecondary, fontSize: ".92rem", paddingTop: 2 }}>
-                <span>Pass {Math.min(pass + 1, values.length - 1)}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <span>Pass {Math.min(pass + 1, values.length - 1)}</span>
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    <button
+                      onClick={toggleAnimation}
+                      style={{
+                        background: "none",
+                        border: `1px solid ${isLight ? "rgba(59, 130, 246, 0.3)" : "rgba(147, 197, 253, 0.3)"}`,
+                        borderRadius: "6px",
+                        padding: "4px 8px",
+                        cursor: "pointer",
+                        color: isLight ? "#2563eb" : "#93c5fd",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        fontSize: "0.8rem",
+                        transition: "all 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = isLight ? "rgba(59, 130, 246, 0.1)" : "rgba(147, 197, 253, 0.1)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = "none";
+                      }}
+                      title={isAnimating ? "Pause animation" : "Resume animation"}
+                    >
+                      {isAnimating ? <Pause size={12} /> : <Play size={12} />}
+                      {isAnimating ? "Pause" : "Play"}
+                    </button>
+                    <button
+                      onClick={resetAnimation}
+                      style={{
+                        background: "none",
+                        border: `1px solid ${isLight ? "rgba(107, 114, 128, 0.3)" : "rgba(156, 163, 175, 0.3)"}`,
+                        borderRadius: "6px",
+                        padding: "4px 8px",
+                        cursor: "pointer",
+                        color: isLight ? "#6b7280" : "#9ca3af",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        fontSize: "0.8rem",
+                        transition: "all 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = isLight ? "rgba(107, 114, 128, 0.1)" : "rgba(156, 163, 175, 0.1)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = "none";
+                      }}
+                      title="Reset with new data"
+                    >
+                      <RotateCcw size={12} />
+                      Reset
+                    </button>
+                  </div>
+                </div>
                 <div style={{ display: "flex", gap: "1rem" }}>
                   <span style={{ color: isLight ? "#16a34a" : "#34d399" }}>Comparisons: {comparisons}</span>
                   <span style={{ color: isLight ? "#dc2626" : "#f87171" }}>Swaps: {swaps}</span>
@@ -399,6 +563,9 @@ const Home = () => {
               <div style={{ marginTop: "1.4rem", display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
                 <Link to="/sorting" className="btn-primary-new"><Play size={16} />Start Learning</Link>
                 <Link to="/quiz" className="btn-secondary-new"><Trophy size={16} />Take a Quiz</Link>
+                <button onClick={() => setShowProblemModal(true)} className="btn-secondary-new" style={{ background: T.badgeBg, border: T.badgeBorder, color: T.textSecondary }}>
+                  <Sparkles size={16} />Problem of the Day
+                </button>
               </div>
             </div>
           </div>
@@ -467,6 +634,133 @@ const Home = () => {
           </div>
         </div>
         </div>
+
+        {/* Problem of the Day Modal */}
+        {showProblemModal && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: isLight ? "rgba(241, 245, 249, 0.95)" : "rgba(15, 23, 42, 0.95)",
+              backdropFilter: "blur(8px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 1000,
+              padding: "2rem",
+              animation: "modalFadeIn 0.3s ease-out",
+            }}
+            onClick={() => setShowProblemModal(false)}
+          >
+            <div
+              style={{
+                background: T.cardBg,
+                borderRadius: 20,
+                border: T.cardBorder,
+                boxShadow: isLight
+                  ? "0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)"
+                  : "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)",
+                maxWidth: "900px",
+                width: "100%",
+                maxHeight: "85vh",
+                overflow: "hidden",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                animation: "modalSlideIn 0.3s ease-out",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header with close button */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "1.5rem 2rem 0.5rem",
+                  borderBottom: `1px solid ${isLight ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)"}`,
+                  marginBottom: "1rem",
+                }}
+              >
+                <h2
+                  style={{
+                    fontSize: "1.5rem",
+                    fontWeight: "700",
+                    color: T.textPrimary,
+                    margin: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <Sparkles size={24} style={{ color: isLight ? "#6366f1" : "#a78bfa" }} />
+                  Problem of the Day
+                </h2>
+                <button
+                  onClick={() => setShowProblemModal(false)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    fontSize: "28px",
+                    cursor: "pointer",
+                    color: T.textSecondary,
+                    padding: "0.25rem",
+                    borderRadius: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "40px",
+                    height: "40px",
+                    transition: "all 0.2s ease",
+                    opacity: 0.7,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.opacity = "1";
+                    e.target.style.backgroundColor = isLight ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.opacity = "0.7";
+                    e.target.style.backgroundColor = "transparent";
+                  }}
+                  aria-label="Close modal"
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* Content */}
+              <div
+                style={{
+                  padding: "0 2rem 2rem",
+                  overflow: "auto",
+                  flex: 1,
+                }}
+              >
+                <ProblemOfTheDay />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <style>{`
+          @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes modalSlideIn {
+            from {
+              opacity: 0;
+              transform: scale(0.95) translateY(-10px);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1) translateY(0);
+            }
+          }
+        `}</style>
       </div>
   );
 };

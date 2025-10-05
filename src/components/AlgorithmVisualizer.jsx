@@ -52,6 +52,9 @@ export default function AlgorithmVisualizer({
     animationSpeedMs: DEFAULT_ANIMATION_SPEED,
     barMotion: true
   });
+
+  const [error, setError] = useState(null);
+
   // ✅ Responsive bar width calculation
 const containerRef = useRef(null);
 const [computedBarWidth, setComputedBarWidth] = useState(26); // default width
@@ -150,6 +153,15 @@ useLayoutEffect(() => {
         currentStep: 0,
         isAnimating: true
       }));
+      const handleRun = async () => {
+        try {
+          await runAlgorithmAsync(state.algorithm, state.array, state.target);
+          setError(null); // clear error if success
+        } catch (err) {
+          setError(err.message); // show error if fail
+        }
+      };
+
     })();
   }, [visualOnly, controlled, algorithmName, state.array, state.target]);
 
