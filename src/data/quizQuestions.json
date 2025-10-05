@@ -992,6 +992,115 @@
   },
 
 
+{
+    "id":78,
+    "topic": "Searching",
+    "algorithm": "Search in Graphs",
+    "difficulty": "Hard",
+    "question": "Which search algorithm is best suited for finding the shortest path in an unweighted graph?",
+    "options": [
+      "Depth First Search (DFS)",
+      "Breadth First Search (BFS)",     
+        "Dijkstra's Algorithm",
+        "A* Search"
+    ],
+    "correctAnswer": 1,
+    "explanation": "BFS is optimal for finding the shortest path in unweighted graphs as it explores all neighbors level by level." 
+},
+  {
+    "id": 79,
+    "topic": "Searching",
+    "algorithm": "Linear Search",
+    "difficulty": "Medium",
+    "question": "Which of the following is the correct implementation of Linear Search in Python?",
+    "options": [
+      "def linear_search(arr, x):\n    for i in arr:\n        if arr[i] == x:\n            return i\n    return -1",
+      "def linear_search(arr, x):\n    for i in range(len(arr)):\n        if arr[i] == x:\n            return i\n    return -1",
+      "def linear_search(arr, x):\n    if x in arr:\n        return x\n    return -1",
+      "def linear_search(arr, x):\n    return arr.index(x)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Option 2 is the correct implementation using index-based iteration. Option 1 has a bug; 'i' is the element, not index."
+  },
+  {
+    "id": 80,
+    "topic": "Searching",
+    "algorithm": "Binary Search",
+    "difficulty": "Medium",
+    "question": "Which of the following correctly implements Binary Search (iterative)?",
+    "options": [
+      "def binary_search(arr, x):\n    for i in range(len(arr)):\n        if arr[i] == x:\n            return i\n    return -1",
+      "def binary_search(arr, x):\n    low = 0\n    high = len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == x:\n            return mid\n        elif arr[mid] < x:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+      "def binary_search(arr, x):\n    arr.sort()\n    return arr.index(x)",
+      "def binary_search(arr, x):\n    return arr.find(x)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Option 2 is the correct iterative Binary Search implementation. It requires the array to be sorted beforehand."
+  },
+{
+    "id": 73,
+    "topic": "Searching",
+    "algorithm": "Linear Search",
+    "difficulty": "Medium",
+    "question": "In an unsorted array, what is the average number of comparisons Linear Search will make to find a target element?",
+    "options": [
+      "n/2",
+      "n",
+      "log n",
+      "1"
+    ],
+    "correctAnswer": 0,
+    "explanation": "On average, Linear Search will traverse about half of the elements to find the target, resulting in n/2 comparisons."
+  },
+  {
+    "id": 81,
+    "topic": "Searching",
+    "algorithm": "Recursive Binary Search",
+    "difficulty": "Medium",
+    "question": "Which code snippet correctly implements Recursive Binary Search?",
+    "options": [
+      "def binary_search(arr, x):\n    mid = len(arr) // 2\n    if arr[mid] == x:\n        return mid\n    elif x < arr[mid]:\n        return binary_search(arr[:mid], x)\n    else:\n        return binary_search(arr[mid+1:], x)",
+      "def binary_search(arr, x, low, high):\n    if low > high:\n        return -1\n    mid = (low + high) // 2\n    if arr[mid] == x:\n        return mid\n    elif arr[mid] > x:\n        return binary_search(arr, x, low, mid - 1)\n    else:\n        return binary_search(arr, x, mid + 1, high)",
+      "def binary_search(arr, x):\n    return arr.index(x)",
+      "def binary_search(arr, x, low, high):\n    return (low + high) // 2 if x in arr else -1"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Option 2 shows a correct recursive Binary Search using `low` and `high` pointers. Option 1 is close but inefficient due to slicing."
+  },
+  
+  {
+    "id": 83,
+    "topic": "Searching",
+    "algorithm": "Hash Table Lookup",
+    "difficulty": "Medium",
+    "question": "Which of the following is a correct way to search in a hash table (dictionary) in Python?",
+    "options": [
+      "if key in dict:\n    return dict[key]",
+      "if dict.has_key(key):\n    return dict[key]",
+      "if dict[key]:\n    return key",
+      "dict.get(key)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Using `key in dict` is the Pythonic and safe way to check existence before access. Option 2 uses deprecated syntax."
+  },
+  {
+    "id": 84,
+    "topic": "Searching",
+    "algorithm": "Ternary Search",
+    "difficulty": "Medium",
+    "question": "Which of the following correctly divides the array in Ternary Search?",
+    "options": [
+      "mid = (low + high) // 2",
+      "mid1 = low + (high - low) // 2\nmid2 = mid1 + 1",
+      "mid1 = low + (high - low) // 3\nmid2 = high - (high - low) // 3",
+      "mid1 = (low + high) // 3\nmid2 = 2 * mid1"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Ternary Search divides the array into three parts using `mid1 = low + (high - low)/3` and `mid2 = high - (high - low)/3`."
+  }
+,
+
+
     {
         "id": 61,
         "topic": "Data Structures",
