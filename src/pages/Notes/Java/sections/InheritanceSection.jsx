@@ -4,7 +4,7 @@ const InheritanceSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-share-alt"></i> 18. Inheritance
+        <i className="fas fa-share-alt"></i> 14. Inheritance
       </h2>
       <p>
         Inheritance allows a class to <strong>derive from another class</strong> using <code>extends</code>. 
