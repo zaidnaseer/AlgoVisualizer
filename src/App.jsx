@@ -140,7 +140,7 @@ const App = () => {
                   {/* Sorting */}
                   <Route path="/sorting" element={<Sorting />} />
                   <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
-                  <Route path="/sorting/comparison" element={<AlgorithmComparison />} />
+                  <Route path="/sorting/algorithm-comparison" element={<AlgorithmComparison />} />
 
                   {/* Searching */}
                   <Route path="/searching" element={<Searching />} />
