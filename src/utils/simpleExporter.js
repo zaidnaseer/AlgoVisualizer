@@ -1,68 +1,82 @@
-// Simple, working export functionality
+// 🎯 Enhanced Visualization Export Module
 class SimpleVisualizationExporter {
     constructor() {
         this.frames = [];
         this.isRecording = false;
         this.startTime = 0;
         this.captureInterval = null;
-    this.elementId = 'visualization-container';
+        this.elementId = 'visualization-container';
+        this.recordingStats = {
+            totalFrames: 0,
+            averageFrameTime: 0,
+            recordingDuration: 0
+        };
     }
 
-    // Start recording frames
+    // 🎬 Initialize recording session
     startRecording(intervalMs, elementId) {
-        console.log('🎬 Starting recording...');
+        console.log('🎬 Starting recording session...');
         this.frames = [];
         this.isRecording = true;
         this.startTime = Date.now();
+        
+        // Configure target element
         if (elementId) this.elementId = elementId;
+        
+        // Set capture interval with validation
         const interval = typeof intervalMs === 'number' ? intervalMs : 500;
         
-        // Capture frame immediately
+        // Capture initial frame immediately
         this.captureFrame();
         
-        // Set up interval to capture frames automatically
-    this.captureInterval = setInterval(() => {
+        // Initialize periodic frame capture
+        this.captureInterval = setInterval(() => {
             this.captureFrame();
-    }, interval);
+        }, interval);
         
+        console.log(`📊 Recording configured with ${interval}ms interval`);
         return true;
     }
 
-    // Stop recording
+    // 🛑 Terminate recording process
     stopRecording() {
-        console.log('🛑 Stopping recording...');
+        console.log('🛑 Stopping recording session...');
         this.isRecording = false;
         
+        // Clear capture interval
         if (this.captureInterval) {
             clearInterval(this.captureInterval);
             this.captureInterval = null;
         }
         
+        // Calculate recording statistics
+        this.calculateRecordingStats();
+        
         console.log(`📊 Recording complete! Captured ${this.frames.length} frames`);
         return this.frames.length;
     }
 
-    // Capture a single frame
+    // 📸 Capture single frame data
     async captureFrame() {
         if (!this.isRecording) return;
 
         try {
-            const element = document.getElementById(this.elementId);
-            if (!element) {
-                console.warn(`❌ Visualization container not found (id="${this.elementId}")`);
+            const targetElement = document.getElementById(this.elementId);
+            if (!targetElement) {
+                console.warn(`❌ Target visualization container not found (id="${this.elementId}")`);
                 return;
             }
 
-            // Create canvas
+            // Initialize canvas for frame capture
             const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
+            const context = canvas.getContext('2d');
             canvas.width = 800;
             canvas.height = 600;
 
-            // Draw algorithm visualization manually
-            await this.drawCurrentVisualization(ctx, canvas, element);
+            // Render current visualization state
+            await this.renderVisualizationFrame(context, canvas, targetElement);
 
-            // Convert to blob and store
+            // Convert to blob and store frame data
             return new Promise((resolve) => {
                 canvas.toBlob((blob) => {
                     if (blob) {
@@ -71,113 +85,112 @@ class SimpleVisualizationExporter {
                             canvas,
                             timestamp: Date.now() - this.startTime
                         });
-                        console.log(`📸 Frame ${this.frames.length} captured`);
+                        console.log(`📸 Frame ${this.frames.length} captured successfully`);
                     }
                     resolve(blob);
                 }, 'image/png');
             });
 
         } catch (error) {
-            console.error('❌ Error capturing frame:', error);
+            console.error('❌ Frame capture error:', error);
         }
     }
 
-    // Draw the current state of the algorithm visualization
-    async drawCurrentVisualization(ctx, canvas, element) {
-        // Clear canvas
+    // 🎨 Render visualization to canvas
+    async renderVisualizationFrame(ctx, canvas, element) {
+        // Clear canvas with background
         ctx.fillStyle = '#1a1a2e';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Try to find sorting bars
-        const bars = this.findSortingBars(element);
+        // Detect and render visualization elements
+        const visualizationBars = this.detectVisualizationElements(element);
         
-        if (bars.length > 0) {
-            console.log(`📊 Drawing ${bars.length} sorting bars`);
-            this.drawBars(ctx, canvas, bars);
+        if (visualizationBars.length > 0) {
+            console.log(`📊 Rendering ${visualizationBars.length} visualization elements`);
+            this.renderBarsVisualization(ctx, canvas, visualizationBars);
         } else {
-            console.log('⚠️ No bars found, drawing placeholder');
-            this.drawPlaceholder(ctx, canvas);
+            console.log('⚠️ No visualization data detected, rendering placeholder');
+            this.renderPlaceholderVisualization(ctx, canvas);
         }
     }
 
-    // Find sorting bars in the DOM
-    findSortingBars(element) {
-        // Look for divs with height style that look like bars
-        const allDivs = element.querySelectorAll('div');
-        const bars = [];
+    // 🔍 Detect visualization elements in DOM
+    detectVisualizationElements(element) {
+        const allDivElements = element.querySelectorAll('div');
+        const detectedBars = [];
 
-        allDivs.forEach(div => {
-            const style = div.style;
-            const rect = div.getBoundingClientRect();
+        allDivElements.forEach(div => {
+            const elementStyle = div.style;
+            const elementRect = div.getBoundingClientRect();
             
-            // Check if this looks like a sorting bar
-            if (style.height && 
-                style.backgroundColor && 
-                rect.height > 20 && 
-                rect.width > 5 && 
-                rect.width < 100) {
+            // Identify sorting bar elements
+            if (elementStyle.height && 
+                elementStyle.backgroundColor && 
+                elementRect.height > 20 && 
+                elementRect.width > 5 && 
+                elementRect.width < 100) {
                 
-                // Extract value
-                let value = parseInt(style.height) || rect.height;
+                // Extract numerical value
+                let barValue = parseInt(elementStyle.height) || elementRect.height;
                 
-                // Try to get value from title or text
+                // Attempt to extract value from metadata
                 const titleMatch = div.title?.match(/Value: (\d+)/);
                 if (titleMatch) {
-                    value = parseInt(titleMatch[1]);
+                    barValue = parseInt(titleMatch[1]);
                 }
 
-                bars.push({
-                    value,
-                    height: parseInt(style.height) || rect.height,
-                    color: style.backgroundColor || '#66ccff',
+                detectedBars.push({
+                    value: barValue,
+                    height: parseInt(elementStyle.height) || elementRect.height,
+                    color: elementStyle.backgroundColor || '#66ccff',
                     element: div
                 });
             }
         });
 
-        return bars;
+        return detectedBars;
     }
 
-    // Draw bars on canvas
-    drawBars(ctx, canvas, bars) {
-        const maxValue = Math.max(...bars.map(b => b.value));
+    // 📊 Render bars visualization
+    renderBarsVisualization(ctx, canvas, bars) {
+        const maxBarValue = Math.max(...bars.map(b => b.value));
         const barWidth = Math.max(15, (canvas.width - 100) / bars.length);
         const maxBarHeight = canvas.height - 150;
 
-        // Title
+        // Render title
         ctx.fillStyle = '#66ccff';
         ctx.font = 'bold 24px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('Sorting Algorithm', canvas.width / 2, 40);
+        ctx.fillText('Algorithm Visualization', canvas.width / 2, 40);
 
-        // Draw bars
+        // Render individual bars
         bars.forEach((bar, index) => {
-            const x = 50 + index * barWidth;
-            const height = (bar.value / maxValue) * maxBarHeight;
-            const y = canvas.height - 50 - height;
+            const xPosition = 50 + index * barWidth;
+            const barHeight = (bar.value / maxBarValue) * maxBarHeight;
+            const yPosition = canvas.height - 50 - barHeight;
 
-            // Bar color
+            // Draw bar
             ctx.fillStyle = bar.color;
-            ctx.fillRect(x, y, barWidth - 2, height);
+            ctx.fillRect(xPosition, yPosition, barWidth - 2, barHeight);
 
-            // Value text
+            // Render value label if space permits
             if (barWidth > 20) {
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '12px Arial';
                 ctx.textAlign = 'center';
-                ctx.fillText(bar.value, x + barWidth/2, y - 5);
+                ctx.fillText(bar.value, xPosition + barWidth/2, yPosition - 5);
             }
         });
 
-        // Info
+        // Render info panel
         ctx.fillStyle = '#ffffff';
         ctx.font = '14px Arial';
         ctx.textAlign = 'left';
-        ctx.fillText(`Bars: ${bars.length}`, 50, canvas.height - 20);
+        ctx.fillText(`Elements: ${bars.length}`, 50, canvas.height - 20);
     }
 
-    // Draw placeholder when no bars found
-    drawPlaceholder(ctx, canvas) {
+    // ⚠️ Render placeholder visualization
+    renderPlaceholderVisualization(ctx, canvas) {
         ctx.fillStyle = '#66ccff';
         ctx.font = 'bold 24px Arial';
         ctx.textAlign = 'center';
@@ -185,58 +198,71 @@ class SimpleVisualizationExporter {
         
         ctx.fillStyle = '#ffffff';
         ctx.font = '16px Arial';
-        ctx.fillText('No visualization data found', canvas.width / 2, canvas.height / 2);
+        ctx.fillText('No visualization data available', canvas.width / 2, canvas.height / 2);
         
         ctx.fillStyle = '#888888';
         ctx.font = '12px Arial';
         ctx.fillText(`Frame ${this.frames.length + 1}`, canvas.width / 2, canvas.height / 2 + 40);
     }
 
-    // Export as GIF
+    // 📈 Calculate recording statistics
+    calculateRecordingStats() {
+        this.recordingStats.totalFrames = this.frames.length;
+        this.recordingStats.recordingDuration = Date.now() - this.startTime;
+        
+        if (this.frames.length > 0) {
+            this.recordingStats.averageFrameTime = 
+                this.recordingStats.recordingDuration / this.frames.length;
+        }
+        
+        console.log('📈 Recording statistics calculated');
+    }
+
+    // 🎞️ Export as animated GIF format
     async exportAsGIF() {
         if (this.frames.length === 0) {
-            alert('No frames to export! Please record some frames first.');
+            alert('No frames available for export! Please record frames first.');
             return;
         }
 
-        console.log(`🎞️ Creating GIF from ${this.frames.length} frames...`);
+        console.log(`🎞️ Generating GIF animation from ${this.frames.length} frames...`);
 
         try {
-            // Create a simple animated "GIF" as HTML file
-            const html = this.createAnimatedHTML();
-            const blob = new Blob([html], { type: 'text/html' });
-            this.downloadFile(blob, 'algorithm-animation.html');
+            // Generate animated HTML representation
+            const htmlContent = this.generateAnimatedHTML();
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            this.downloadExportFile(blob, 'algorithm-visualization.html');
             
-            console.log('✅ GIF-like HTML file created successfully!');
+            console.log('✅ GIF animation exported successfully!');
         } catch (error) {
-            console.error('❌ Error creating GIF:', error);
-            alert('Error creating GIF: ' + error.message);
+            console.error('❌ GIF export error:', error);
+            alert('Export failed: ' + error.message);
         }
     }
 
-    // Export as Video (HTML format)
+    // 🎥 Export as video format
     async exportAsVideo() {
         if (this.frames.length === 0) {
-            alert('No frames to export! Please record some frames first.');
+            alert('No frames available for export! Please record frames first.');
             return;
         }
 
-        console.log(`🎥 Creating video from ${this.frames.length} frames...`);
+        console.log(`🎥 Generating video from ${this.frames.length} frames...`);
 
         try {
-            const html = this.createVideoHTML();
-            const blob = new Blob([html], { type: 'text/html' });
-            this.downloadFile(blob, 'algorithm-video.html');
+            const htmlContent = this.generateVideoHTML();
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            this.downloadExportFile(blob, 'algorithm-video.html');
             
-            console.log('✅ Video HTML file created successfully!');
+            console.log('✅ Video export completed successfully!');
         } catch (error) {
-            console.error('❌ Error creating video:', error);
-            alert('Error creating video: ' + error.message);
+            console.error('❌ Video export error:', error);
+            alert('Export failed: ' + error.message);
         }
     }
 
-    // Create animated HTML
-    createAnimatedHTML() {
+    // 🎨 Generate animated HTML content
+    generateAnimatedHTML() {
         const frameDataUrls = this.frames.map(frame => {
             return frame.canvas.toDataURL('image/png');
         });
@@ -245,14 +271,14 @@ class SimpleVisualizationExporter {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Algorithm Animation</title>
+    <title>Algorithm Visualization Export</title>
     <style>
         body { 
             margin: 0; 
             padding: 20px; 
             background: #1a1a2e; 
             color: white; 
-            font-family: Arial; 
+            font-family: Arial, sans-serif; 
             text-align: center;
         }
         .animation-container {
@@ -261,6 +287,7 @@ class SimpleVisualizationExporter {
             border-radius: 10px;
             padding: 10px;
             background: rgba(26, 26, 46, 0.8);
+            margin: 20px auto;
         }
         .frame {
             display: none;
@@ -282,9 +309,19 @@ class SimpleVisualizationExporter {
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            transition: background 0.3s ease;
         }
-        button:hover { background: #5ab8e8; }
-        .info { margin: 10px 0; color: #66ccff; }
+        button:hover { 
+            background: #5ab8e8; 
+        }
+        .info { 
+            margin: 10px 0; 
+            color: #66ccff; 
+            font-size: 14px;
+        }
+        .speed-control {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -296,91 +333,102 @@ class SimpleVisualizationExporter {
     </div>
     
     <div class="controls">
-        <button onclick="play()">▶️ Play</button>
-        <button onclick="pause()">⏸️ Pause</button>
-        <button onclick="reset()">⏮️ Reset</button>
+        <button onclick="startPlayback()">▶️ Play</button>
+        <button onclick="pausePlayback()">⏸️ Pause</button>
+        <button onclick="resetPlayback()">⏮️ Reset</button>
         <button onclick="nextFrame()">⏭️ Next</button>
-        <button onclick="prevFrame()">⏮️ Previous</button>
+        <button onclick="previousFrame()">⏮️ Previous</button>
     </div>
     
     <div class="info">
         Frame: <span id="frameNumber">1</span> / ${frameDataUrls.length} | 
-        Speed: <input type="range" id="speedRange" min="100" max="2000" value="500" /> ms
+        Playback Speed: <input type="range" id="speedRange" min="100" max="2000" value="500" /> ms
     </div>
 
     <script>
-        let currentFrame = 0;
+        let currentFrameIndex = 0;
         let isPlaying = false;
-        let playInterval = null;
-        const frames = document.querySelectorAll('.frame');
-        const totalFrames = ${frameDataUrls.length};
+        let playbackInterval = null;
+        const frameElements = document.querySelectorAll('.frame');
+        const totalFrameCount = ${frameDataUrls.length};
 
-        function showFrame(index) {
-            frames.forEach(f => f.classList.remove('active'));
-            if (frames[index]) {
-                frames[index].classList.add('active');
+        function displayFrame(index) {
+            frameElements.forEach(frame => frame.classList.remove('active'));
+            if (frameElements[index]) {
+                frameElements[index].classList.add('active');
                 document.getElementById('frameNumber').textContent = index + 1;
             }
         }
 
-        function play() {
+        function startPlayback() {
             if (isPlaying) return;
             isPlaying = true;
-            const speed = document.getElementById('speedRange').value;
-            playInterval = setInterval(() => {
-                currentFrame = (currentFrame + 1) % totalFrames;
-                showFrame(currentFrame);
-            }, parseInt(speed));
+            const playbackSpeed = document.getElementById('speedRange').value;
+            playbackInterval = setInterval(() => {
+                currentFrameIndex = (currentFrameIndex + 1) % totalFrameCount;
+                displayFrame(currentFrameIndex);
+            }, parseInt(playbackSpeed));
         }
 
-        function pause() {
+        function pausePlayback() {
             isPlaying = false;
-            if (playInterval) {
-                clearInterval(playInterval);
-                playInterval = null;
+            if (playbackInterval) {
+                clearInterval(playbackInterval);
+                playbackInterval = null;
             }
         }
 
-        function reset() {
-            pause();
-            currentFrame = 0;
-            showFrame(currentFrame);
+        function resetPlayback() {
+            pausePlayback();
+            currentFrameIndex = 0;
+            displayFrame(currentFrameIndex);
         }
 
         function nextFrame() {
-            pause();
-            currentFrame = (currentFrame + 1) % totalFrames;
-            showFrame(currentFrame);
+            pausePlayback();
+            currentFrameIndex = (currentFrameIndex + 1) % totalFrameCount;
+            displayFrame(currentFrameIndex);
         }
 
-        function prevFrame() {
-            pause();
-            currentFrame = currentFrame > 0 ? currentFrame - 1 : totalFrames - 1;
-            showFrame(currentFrame);
+        function previousFrame() {
+            pausePlayback();
+            currentFrameIndex = currentFrameIndex > 0 ? currentFrameIndex - 1 : totalFrameCount - 1;
+            displayFrame(currentFrameIndex);
         }
 
-        // Auto-play on load
-        setTimeout(play, 1000);
+        // Auto-start playback after brief delay
+        setTimeout(startPlayback, 1000);
     </script>
 </body>
 </html>`;
     }
 
-    // Create video HTML (same as animated for now)
-    createVideoHTML() {
-        return this.createAnimatedHTML();
+    // 🎥 Generate video HTML content
+    generateVideoHTML() {
+        return this.generateAnimatedHTML();
     }
 
-    // Download file
-    downloadFile(blob, filename) {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+    // 📥 Download exported file
+    downloadExportFile(blob, filename) {
+        const fileUrl = URL.createObjectURL(blob);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = fileUrl;
+        downloadLink.download = filename;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        URL.revokeObjectURL(fileUrl);
+    }
+
+    // 🔧 Utility method: Get recording statistics
+    getRecordingStatistics() {
+        return this.recordingStats;
+    }
+
+    // 🔧 Utility method: Clear all frames
+    clearFrames() {
+        this.frames = [];
+        console.log('🗑️ All frames cleared');
     }
 }
 
