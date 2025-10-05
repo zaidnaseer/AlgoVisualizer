@@ -28,6 +28,7 @@ import GraphBFS from "./pages/GraphBFS";
 import GraphCycleDetection from "./pages/GraphCycleDetection";
 import GraphDFS from "./pages/GraphDFS";
 import GraphDijkstra from "./pages/GraphDijkstra";
+import GraphAStar from "./pages/GraphAStar";
 import Quiz from "./pages/Quiz";
 import Settings from "./pages/Settings";
 import Blog from "./pages/Blog";
@@ -113,6 +114,7 @@ const App = () => {
     "/graph/bfs",
     "/graph/dfs",
     "/graph/dijkstra",
+    "/graph/astar",
     "/data-structures/stack",
   ];
 
@@ -160,6 +162,7 @@ const App = () => {
                   <Route path="/graph/bfs" element={<GraphBFS />} />
                   <Route path="/graph/dfs" element={<GraphDFS />} />
                   <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
+                  <Route path="/graph/astar" element={<GraphAStar />} />
                   <Route path="/graph/comparison" element={<GraphComparison />} />
                   <Route path="/graph/cycleDetection" element={<GraphCycleDetection />} />
 
