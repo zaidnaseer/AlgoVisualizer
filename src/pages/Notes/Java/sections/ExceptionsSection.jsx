@@ -4,7 +4,7 @@ const ExceptionsSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-exclamation-triangle"></i> 19. Exceptions
+        <i className="fas fa-exclamation-triangle"></i> 18. Exceptions
       </h2>
       <p>
         Exceptions help handle runtime errors gracefully.
