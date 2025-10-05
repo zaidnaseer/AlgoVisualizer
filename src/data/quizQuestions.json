@@ -899,6 +899,99 @@
         "correctAnswer": 3,
         "explanation": "Binary Search is often less efficient due to multiple factors like higher time complexity, space usage, and lack of adaptability."
     },
+    
+  {
+    "id": 67,
+    "topic": "Searching",
+    "algorithm": "Search in Databases",
+    "difficulty": "Hard",
+    "question": "Which searching technique is typically used in databases to speed up retrieval?",
+    "options": [
+      "Linear Search",
+      "Binary Search",
+      "Indexing with B-trees or Hashing",
+      "Graph Search"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Databases use indexing techniques like B-trees and hashing to allow fast retrieval of records based on keys."
+  },
+  {
+    "id": 68,
+    "topic": "Searching",
+    "algorithm": "File Systems",
+    "difficulty": "Hard",
+    "question": "How do modern file systems optimize search for files by name?",
+    "options": [
+      "Using Trie-based indexing",
+      "Using Linear Search on all files",
+      "Storing filenames in a queue",
+      "Performing BFS on disk blocks"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Many modern file systems use Trie-like or hash-based structures to optimize filename lookups, especially for autocomplete and path resolution."
+  },
+  {
+    "id": 69,
+    "topic": "Searching",
+    "algorithm": "Search Engines",
+    "difficulty": "Hard",
+    "question": "Which data structure is heavily used in search engines to map keywords to documents?",
+    "options": [
+      "Linked List",
+      "Hash Table",
+      "Inverted Index",
+      "Binary Heap"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Search engines use an inverted index, which maps keywords to the list of documents containing them, allowing fast keyword-based retrieval."
+  },
+  {
+    "id": 70,
+    "topic": "Searching",
+    "algorithm": "Pattern Matching",
+    "difficulty": "Hard",
+    "question": "Which algorithm is commonly used for efficient substring search in large texts?",
+    "options": [
+      "Linear Search",
+      "KMP Algorithm",
+      "Quick Sort",
+      "Depth First Search"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Knuth-Morris-Pratt (KMP) algorithm preprocesses the pattern and performs efficient substring search without backtracking."
+  },
+  {
+    "id": 71,
+    "topic": "Searching",
+    "algorithm": "Networking",
+    "difficulty": "Hard",
+    "question": "In routing tables, which searching technique is used to determine the best path?",
+    "options": [
+      "Linear Search through all routes",
+      "Longest Prefix Match using Trie",
+      "Depth-First Search",
+      "Interpolation Search"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Routers use Longest Prefix Match, often implemented using a Trie, to find the most specific matching route in the routing table."
+  },
+  {
+    "id": 72,
+    "topic": "Searching",
+    "algorithm": "Operating Systems",
+    "difficulty": "Hard",
+    "question": "How does an operating system quickly find a process in a process table?",
+    "options": [
+      "Using a sorted array with Binary Search",
+      "Using a Hash Table for constant-time lookup",
+      "Using Breadth First Search",
+      "Using Exponential Search"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Most operating systems use hash tables to store and search for processes efficiently by process ID."
+  },
+
+
     {
         "id": 61,
         "topic": "Data Structures",
