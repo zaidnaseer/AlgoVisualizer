@@ -4,7 +4,7 @@ const MethodsSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-hand-pointer"></i> 9. Methods
+        <i className="fas fa-hand-pointer"></i> 8. Methods
       </h2>
       <p>
         Methods (functions inside classes) define reusable behavior. Key points:
