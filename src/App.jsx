@@ -46,14 +46,6 @@ import PythonVariablesAndDataTypes from "./pages/Notes/Python/VariablesAndDataTy
 import CppFundamentals from "./pages/Notes/Cpp/Fundamentals";
 import CppVariablesAndDataTypes from "./pages/Notes/Cpp/VariablesAndDataTypes";
 
-
-//javascript Notes
-import JavaScriptFundamentals from "./pages/Notes/Javascript/Fundamentals.jsx"
-import JavaScriptVariablesAndDataTypes from "./pages/Notes/Javascript/VariableAndDataTypes.jsx"
-
-
-
-
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
 import DPPage from "./pages/DPPage";
@@ -73,27 +65,6 @@ import BranchBoundOverview from "./pages/BranchBoundOverview";
 import BranchBoundPage from "./pages/BranchBoundPage";
 import StringOverview from "./pages/StringOverview";
 import StringPage from "./pages/StringPage";
-
-// Java Notes
-import Fundamentals from "./pages/Notes/Java/Fundamentals";
-import VariablesAndDataTypes from "./pages/Notes/Java/VariablesAndDataTypes";
-
-// Python Notes
-import PythonFundamentals from "./pages/Notes/Python/Fundamentals";
-import PythonVariablesAndDataTypes from "./pages/Notes/Python/VariablesAndDataTypes";
-
-// C++ Notes
-import CppFundamentals from "./pages/Notes/Cpp/Fundamentals";
-import CppVariablesAndDataTypes from "./pages/Notes/Cpp/VariablesAndDataTypes";
-
-// Javascript
-
-import JavaScriptFundamentals from "./pages/Notes/Javascript/Fundamentals"
-import JavaScriptVariablesAndDataTypes from "./pages/Notes/JavaScript/VariableAndDataTypes"
-
-
-
-
 
 // Components
 import LinkedListPage from "./components/pages/LinkedListPage";
@@ -152,205 +123,6 @@ const App = () => {
   return (
     <SettingsProvider>
       <MobileMenuProvider>
-
-        <div className="app-container">
-          <ScrollToTop />
-          <ThemeToggle />
-          <Navbar />
-
-          <main className="main-content page-content">
-            <Routes>
-              {/* Home */}
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              {/* Sorting */}
-              <Route path="/sorting" element={<Sorting />} />
-              <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
-              <Route
-                path="/sorting/comparison"
-                element={<AlgorithmComparison />}
-              />
-
-              {/* Searching */}
-              <Route path="/searching" element={<Searching />} />
-              <Route path="/searching/:id" element={<Searching />} />
-              <Route
-                path="/searching/comparison"
-                element={<AlgorithmComparison />}
-              />
-              <Route
-                path="/searchingOverview"
-                element={<SearchingOverview />}
-              />
-
-              {/* Data Structures */}
-              <Route path="/data-structures" element={<DataStructures />} />
-              <Route
-                path="/data-structures/linked-list"
-                element={<LinkedListPage />}
-              />
-              <Route path="/data-structures/queue" element={<Queue />} />
-              <Route path="/data-structures/stack" element={<Stack />} />
-              <Route
-                path="/data-structures/binary-tree"
-                element={<BinaryTreeVisualizer />}
-              />
-
-              {/* Graph */}
-              <Route path="/graph" element={<Graph />} />
-              <Route path="/graph/bfs" element={<GraphBFS />} />
-              <Route path="/graph/dfs" element={<GraphDFS />} />
-              <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
-              <Route path="/graph/comparison" element={<GraphComparison />} />
-              <Route
-                path="/graph/cycleDetection"
-                element={<GraphCycleDetection />}
-              />
-
-              {/* Algorithm Pages */}
-              <Route
-                path="/backtracking-overview"
-                element={<BacktrackingOverview />}
-              />
-              <Route path="/backtracking" element={<BacktrackingPage />} />
-              <Route path="/dp-overview" element={<DPOverview />} />
-              <Route path="/dp" element={<DPPage />} />
-              <Route path="/hashing-overview" element={<HashingOverview />} />
-              <Route path="/hashing" element={<HashingPage />} />
-              <Route path="/greedy-overview" element={<GreedyOverview />} />
-              <Route path="/greedy" element={<GreedyPage />} />
-              <Route path="/tree-overview" element={<TreeOverview />} />
-              <Route path="/tree" element={<TreePage />} />
-              <Route path="/dc-overview" element={<DCOverview />} />
-              <Route path="/dc" element={<DCPage />} />
-              <Route
-                path="/game-search-overview"
-                element={<GameSearchOverview />}
-              />
-              <Route path="/game-search" element={<GameSearchPage />} />
-              <Route
-                path="/branchbound-overview"
-                element={<BranchBoundOverview />}
-              />
-              <Route path="/branchbound" element={<BranchBoundPage />} />
-              <Route path="/string-overview" element={<StringOverview />} />
-              <Route path="/string" element={<StringPage />} />
-
-              {/* Data Structures Documentation */}
-              <Route
-                path="/data-structures-docs"
-                element={<DSDocumentation />}
-              />
-
-              {/* Other Pages */}
-              <Route path="/quiz" element={<Quiz />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/community" element={<CommunityLanding />} />
-              <Route path="/contributors" element={<Contributors />} />
-              <Route path="/contribute" element={<Contribute />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/terms" element={<TermsOfService />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-              <Route path="/cookies" element={<CookiePolicy />} />
-
-              <Route path="/documentation" element={<AlgorithmDocumentation />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/contributor-leaderboard" element={<ContributorLeaderboard />} />
-              <Route path="/editor" element={<CodeEditor />} />
-
-              {/* Notes Routes */}
-              {/* Java */}
-              <Route path="/notes/java" element={<Navigate to="/notes/java/fundamentals" replace />} />
-              <Route path="/notes/java/fundamentals" element={<Fundamentals />} />
-
-              <Route path="/notes/java/variables-and-data-types" element={<VariablesAndDataTypes />} />
-
-              {/* Python */}
-
-              <Route
-                path="/notes/java/variables-and-data-types"
-                element={<VariablesAndDataTypes />}
-              />
-              <Route path="/notes/java/basics" element={<JavaBasics />} />
-
-
-              {/* Python */}
-
-
-              <Route path="/notes/python" element={<Navigate to="/notes/python/fundamentals" replace />} />
-              <Route path="/notes/python/fundamentals" element={<PythonFundamentals />} />
-              <Route path="/notes/python/variables-and-data-types" element={<PythonVariablesAndDataTypes />} />
-
-              {/* C++ */}
-              <Route path="/notes/cpp" element={<Navigate to="/notes/cpp/fundamentals" replace />} />
-              <Route path="/notes/cpp/fundamentals" element={<CppFundamentals />} />
-              <Route path="/notes/cpp/variables-and-data-types" element={<CppVariablesAndDataTypes />} />
-
-              {/* Javascript*/}
-              <Route path="/notes/javascript" element={<Navigate to="/notes/javascript/fundamentals" replace/>}/>
-              <Route path="/notes/javascript/fundamentals" element={<JavaScriptFundamentals/>} />
-              <Route path="/notes/javascript/variables-and-data-types" element={<JavaScriptVariablesAndDataTypes/>} />
-
-
-              {/* Javascript */}
-              <Route path="/notes/javascript" element={<Navigate to="/notes/javascript/fundamentals" replace />}/>
-              <Route path="/notes/javascript/fundamentals" element={<JavaScriptFundamentals/>}/>
-              <Route path="/notes/javascript/variables-and-data-types" element={<JavaScriptVariablesAndDataTypes/>} />
-
-
-              
-
-
-              <Route
-                path="/documentation"
-                element={<AlgorithmDocumentation />}
-              />
-              <Route path="/faq" element={<FAQ />} />
-              <Route
-                path="/contributor-leaderboard"
-                element={<ContributorLeaderboard />}
-              />
-              <Route path="/editor" element={<CodeEditor />} />
-
-              <Route path="/java-oops" element={<JavaOOPS />} />
-
-
-              {/* Dynamic Notes Routes */}
-              <Route path="/notes/:language/:topic" element={<NotesPage />} />
-              <Route
-                path="/notes/:language"
-                element={
-                  <Navigate to="/notes/:language/fundamentals" replace />
-                }
-              />
-
-              <Route path="/contributor-board" element={<ContributorBoard />} />
-              <Route path="/contributor-leaderboard" element={<ContributorBoard />} />
-
-              <Route path="/contributor/:id" element={<ContributorProfileModal />} />
-
-
-              {/* Learning & Settings */}
-              <Route path="/learn" element={<LearnLanding />} />
-              <Route path="/settings" element={<Settings />} />
-            </Routes>
-
-            {/* Show ComplexityBox only on selected pages */}
-            {showComplexityBoxOn.includes(location.pathname) && (
-              <div style={{ marginTop: "2rem" }}>
-                <ComplexityBox algorithm={selectedAlgorithm} />
-              </div>
-            )}
-          </main>
-
-          <Doubt />
-          <FeedbackWidget />
-          <Footer />
-          <Analytics />
-        </div>
-
         <AlgorithmProvider>
           <NotificationsProvider>
             <div className="app-container">
@@ -474,7 +246,6 @@ const App = () => {
             </div>
           </NotificationsProvider>
         </AlgorithmProvider>
-
       </MobileMenuProvider>
     </SettingsProvider>
   );
