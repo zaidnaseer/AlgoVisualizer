@@ -1,4 +1,3 @@
-// components/NotificationWidget.jsx
 import React, { useState, useEffect } from "react";
 import { useNotifications } from "../contexts/NotificationsContext";
 
@@ -14,10 +13,10 @@ const NotificationWidget = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Dynamic styles based on screen size
@@ -64,11 +63,13 @@ const NotificationWidget = () => {
       {open && (
         <div style={panelStyle}>
           {notifications.length === 0 && (
-            <p style={{ 
-              margin: 0, 
-              color: "var(--text-secondary, #666)",
-              fontSize: isMobile ? "13px" : "14px"
-            }}>
+            <p
+              style={{
+                margin: 0,
+                color: "var(--text-secondary, #666)",
+                fontSize: isMobile ? "13px" : "14px",
+              }}
+            >
               No notifications
             </p>
           )}
@@ -77,7 +78,9 @@ const NotificationWidget = () => {
               key={n.id}
               style={{
                 marginBottom: "0.5rem",
-                background: n.read ? "var(--bg-secondary, #f9f9f9)" : "var(--bg-accent, #e6f7ff)",
+                background: n.read
+                  ? "var(--bg-secondary, #f9f9f9)"
+                  : "var(--bg-accent, #e6f7ff)",
                 padding: isMobile ? "0.4rem" : "0.5rem",
                 borderRadius: "5px",
                 cursor: "pointer",
