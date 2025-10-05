@@ -4,7 +4,7 @@ const PolymorphismSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-exchange-alt"></i> 19. Polymorphism
+        <i className="fas fa-exchange-alt"></i> 15. Polymorphism
       </h2>
       <p>
         Polymorphism allows objects to be treated as instances of their <strong>parent type</strong>. 
