@@ -30,4 +30,5 @@ const WeeklyChallenge = () => {
   );
 };
 
+
 export default WeeklyChallenge;

@@ -66,4 +66,5 @@ const ProgressTracker = ({ topics }) => {
   );
 };
 
+
 export default ProgressTracker;

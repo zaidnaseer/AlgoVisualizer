@@ -106,6 +106,7 @@ import ProgressTracker from "./components/ProgressTracker";
 import LearnerLeaderboard from "./components/LearnerLeaderboard";
 import WeeklyChallenge from "./components/WeeklyChallenge";
 
+
 const App = () => {
   const location = useLocation();
 

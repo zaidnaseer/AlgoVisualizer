@@ -29,4 +29,5 @@ const LearnerLeaderboard = () => {
   );
 };
 
+
 export default LearnerLeaderboard;
