@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Eye,
@@ -10,10 +10,12 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
+import { useGoogleAuth } from "../contexts/GoogleAuthContext";
 import "../styles/Signup.css";
 
 const Signup = () => {
   const { theme } = useTheme();
+  const { renderGoogleButton } = useGoogleAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -46,6 +48,10 @@ const Signup = () => {
   };
 
   const isDark = theme === "dark";
+
+  useEffect(() => {
+    renderGoogleButton('google-signup-button');
+  }, [renderGoogleButton]);
 
   return (
     <div
@@ -217,6 +223,16 @@ const Signup = () => {
               </p>
             </div>
           </form>
+
+          {/* Separator */}
+          <div className="separator">
+            <span className="separator-text">or</span>
+          </div>
+
+          {/* Google Sign-Up Button */}
+          <div className="google-signup-container">
+            <div id="google-signup-button"></div>
+          </div>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { SettingsProvider } from "./contexts/SettingsContext";
 import { MobileMenuProvider } from "./contexts/MobileMenuContext";
 import { AlgorithmProvider } from "./contexts/AlgorithmContext";
 import { NotificationsProvider } from "./contexts/NotificationsContext";
+import { GoogleAuthProvider } from "./contexts/GoogleAuthContext";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -121,10 +122,11 @@ const App = () => {
   }, []);
 
   return (
-    <SettingsProvider>
-      <MobileMenuProvider>
-        <AlgorithmProvider>
-          <NotificationsProvider>
+    <GoogleAuthProvider>
+      <SettingsProvider>
+        <MobileMenuProvider>
+          <AlgorithmProvider>
+            <NotificationsProvider>
             <div className="app-container">
               <ScrollToTop />
               <ThemeToggle />
@@ -248,6 +250,7 @@ const App = () => {
         </AlgorithmProvider>
       </MobileMenuProvider>
     </SettingsProvider>
+    </GoogleAuthProvider>
   );
 };
 

@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, LogIn, Mail, Lock, ArrowLeft } from "lucide-react";
 import { useTheme } from "../ThemeContext";
+import { useGoogleAuth } from "../contexts/GoogleAuthContext";
 import "../styles/Login.css";
 
 const Login = () => {
   const { theme } = useTheme();
+  const { renderGoogleButton } = useGoogleAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -27,6 +30,10 @@ const Login = () => {
   };
 
   const isDark = theme === "dark";
+
+  useEffect(() => {
+    renderGoogleButton('google-signin-button');
+  }, [renderGoogleButton]);
 
   return (
     <div className={`login-container ${isDark ? "login-dark" : "login-light"}`}>
@@ -144,6 +151,16 @@ const Login = () => {
               </p>
             </div>
           </form>
+
+          {/* Separator */}
+          <div className="separator">
+            <span className="separator-text">or</span>
+          </div>
+
+          {/* Google Sign-In Button */}
+          <div className="google-signin-container">
+            <div id="google-signin-button"></div>
+          </div>
 
           {/* Demo Credentials */}
           <div className="demo-section">
