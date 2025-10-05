@@ -218,6 +218,17 @@ const Footer = () => {
                 </TechPill>
               ))}
             </div>
+
+            <div className="social-links brand-social-links">
+              {socialLinks.map((link, index) => (
+                <SocialLink
+                  key={index}
+                  href={link.href}
+                  icon={link.icon}
+                  title={link.title}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -283,17 +294,6 @@ const Footer = () => {
               handleSubmit={handleSubmit}
               isSubscribed={isSubscribed}
             />
-
-            <div className="social-links">
-              {socialLinks.map((link, index) => (
-                <SocialLink
-                  key={index}
-                  href={link.href}
-                  icon={link.icon}
-                  title={link.title}
-                />
-              ))}
-            </div>
           </div>
         </div>
 
