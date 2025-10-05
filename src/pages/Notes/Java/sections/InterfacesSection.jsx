@@ -4,7 +4,7 @@ const InterfacesSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-network-wired"></i> 21. Interfaces
+        <i className="fas fa-network-wired"></i> 20. Interfaces
       </h2>
       <p>
         Interfaces in Java define a <strong>contract</strong> that implementing classes must follow. 
