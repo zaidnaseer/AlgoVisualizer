@@ -4,7 +4,7 @@ const FileHandlingSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-file-alt"></i> 23. File Handling
+        <i className="fas fa-file-alt"></i> 22. File Handling
       </h2>
       <p>
         Java provides <strong>java.io</strong> and <strong>java.nio.file</strong> packages for file handling. 
