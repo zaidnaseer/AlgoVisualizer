@@ -4,7 +4,7 @@ const PackagesSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-folder-open"></i> 22. Packages
+        <i className="fas fa-folder-open"></i> 21. Packages
       </h2>
       <p>
         Packages in Java are used to <strong>group related classes</strong> and <strong>avoid name clashes</strong>. 
