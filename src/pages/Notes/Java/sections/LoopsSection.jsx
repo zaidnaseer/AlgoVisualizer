@@ -4,7 +4,7 @@ const LoopsSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-redo"></i> 8. Loops
+        <i className="fas fa-redo"></i> 10. Loops
       </h2>
       <p>
         Java provides several looping constructs: <strong>for</strong>, <strong>enhanced for</strong> (for-each), <strong>while</strong>, and <strong>do-while</strong>. Loops are used for repeating tasks, iterating arrays, and processing collections.
