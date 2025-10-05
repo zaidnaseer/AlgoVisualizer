@@ -4,7 +4,7 @@ const CollectionsSection = ({ copyCode, copiedCode }) => (
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2>
-        <i className="fas fa-layer-group"></i> 20. Collections
+        <i className="fas fa-layer-group"></i> 19. Collections
       </h2>
       <p>
         The Java Collections Framework provides standard data structures for storing and manipulating groups of objects.
