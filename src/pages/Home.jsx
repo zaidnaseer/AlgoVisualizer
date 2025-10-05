@@ -185,11 +185,11 @@ const Home = () => {
     if (!isComponentMounted.current || !isAnimating) return;
 
     setValues(currentValues => {
+      const arr = [...currentValues];
+      const n = arr.length;
+
       setPass(currentPass => {
         setIdx(currentIdx => {
-          const arr = [...currentValues];
-          const n = arr.length;
-
           if (currentPass >= n - 1) {
             cleanup();
             if (isAnimating) {
@@ -223,7 +223,9 @@ const Home = () => {
           
           return currentIdx + 1;
         });
-        return currentPass + (currentIdx >= n - currentPass - 1 ? 1 : 0);
+        
+        // Use idx state instead of currentIdx parameter
+        return currentPass + (idx >= n - currentPass - 1 ? 1 : 0);
       });
       return currentValues;
     });
