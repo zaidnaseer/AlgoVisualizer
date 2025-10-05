@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import "../styles/Signup.css";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Signup = () => {
   const { theme } = useTheme();
@@ -307,6 +308,17 @@ const Signup = () => {
               </p>
             </div>
           </form>
+        </div>
+        <div className="google-login">
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log("Google login success:", credentialResponse);
+              // You can send credentialResponse.credential to your backend to verify & login
+            }}
+            onError={() => {
+              console.log("Google login failed");
+            }}
+          />
         </div>
       </div>
     </div>
