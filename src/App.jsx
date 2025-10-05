@@ -102,6 +102,10 @@ import ContributorBoard from "./pages/ContributorBoard";
 import ContributorProfileModal from "./pages/ContributorProfileModal";
 import JavaOOPS from "./pages/JavaOOPS.jsx";
 
+import ProgressTracker from "./components/ProgressTracker";
+import LearnerLeaderboard from "./components/LearnerLeaderboard";
+import WeeklyChallenge from "./components/WeeklyChallenge";
+
 const App = () => {
   const location = useLocation();
 
@@ -227,6 +231,9 @@ const App = () => {
 
                   {/* Learning & Settings */}
                   <Route path="/learn" element={<LearnLanding />} />
+                  <Route path="/progress" element={<ProgressTracker topics={["Sorting", "Graphs", "DP"]} />} />
+                  <Route path="/leaderboard" element={<LearnerLeaderboard />} />
+                  <Route path="/weekly-challenge" element={<WeeklyChallenge />} />
                   <Route path="/settings" element={<Settings />} />
                 </Routes>
 
