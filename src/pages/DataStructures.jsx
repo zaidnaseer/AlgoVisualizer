@@ -60,6 +60,7 @@ const algorithmDatabase = {
         inPlace: true,
         adaptivity: "Adaptive",
         implemented: true,
+        
       },
       {
         name: "Merge Sort",
@@ -360,32 +361,52 @@ function AlgorithmCard({ algorithm }) {
     }
   };
 
-  return (
-    <div
-      className={`algorithm-card ${algorithm.implemented ? "clickable" : ""}`}
-      onClick={handleCardClick}
-      title={algorithm.description}
-      style={{ cursor: algorithm.implemented ? "pointer" : "default" }}
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      data-aos-once="true"
-    >
-    
-      <div className="card-header">
-        <div className="card-title-group">
-          <span className="card-icon">{algorithm.categoryIcon}</span>
-          <h3 className="card-title">{algorithm.name}</h3>
-        </div>
-        {algorithm.implemented ? (
-          <div className="status-badge implemented">Implemented</div>
-        ) : (
-          <div className="status-badge coming-soon">Coming Soon</div>
-        )}
+ return (
+  <div
+    className={`algorithm-card ${algorithm.implemented ? "clickable" : ""}`}
+    onClick={handleCardClick}
+    title={algorithm.description}
+    style={{ cursor: algorithm.implemented ? "pointer" : "default" }}
+    data-aos="fade-up"
+    data-aos-duration="1000"
+    data-aos-once="true"
+  >
+    {/* Header */}
+    <div className="card-header flex items-center justify-between mb-3">
+      <div className="card-title-group flex items-center gap-2">
+        <span className="card-icon text-blue-500 text-lg">{algorithm.categoryIcon}</span>
+        <h3 className="card-title text-gray-800 font-semibold text-base leading-tight">
+          {algorithm.name}
+        </h3>
       </div>
-      <p className="card-description">{algorithm.description}</p>
-      <div className="card-category-badge">{algorithm.categoryTitle}</div>
+
+      {algorithm.implemented ? (
+        <div className="status-badge implemented text-xs font-medium bg-green-100 text-green-700 px-2 py-1 rounded-full">
+          Implemented
+        </div>
+      ) : (
+        <div className="status-badge coming-soon text-xs font-medium bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
+          Coming Soon
+        </div>
+      )}
     </div>
-  );
+
+    {/* Description */}
+    <p className="card-description tracking-tighter text-sm text-gray-600 leading-relaxed mb-3 text-left text-pretty">
+      {algorithm.description}
+    </p>
+    {algorithm.category === "sorting" || algorithm.category === "searching" ? (
+      <div>
+        <p>TC : {algorithm.timeComplexity.averaget} </p>
+        <p>SC : {algorithm.spaceComplexity} </p>
+      </div>
+    ):null}
+    {/* Category Badge */}
+    <div className="card-category-badge mt-auto text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-md font-extrabold italic inline-block">
+      {algorithm.categoryTitle}
+    </div>
+  </div>
+);
 }
 
 // ============================================================================

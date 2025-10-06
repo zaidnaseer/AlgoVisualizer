@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, LogIn, Mail, Lock, ArrowLeft } from "lucide-react";
 import { useTheme } from "../ThemeContext";
+import { useGoogleAuth } from "../contexts/GoogleAuthContext";
 import "../styles/Login.css";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const { theme } = useTheme();
+  const { renderGoogleButton } = useGoogleAuth();
   const [showPassword, setShowPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,6 +32,10 @@ const Login = () => {
   };
 
   const isDark = theme === "dark";
+
+  useEffect(() => {
+    renderGoogleButton('google-signin-button');
+  }, [renderGoogleButton]);
 
   return (
     <div className={`login-container ${isDark ? "login-dark" : "login-light"}`}>
@@ -145,11 +154,31 @@ const Login = () => {
             </div>
           </form>
 
+          {/* Separator */}
+          <div className="separator">
+            <span className="separator-text">or</span>
+          </div>
+
+          {/* Google Sign-In Button */}
+          <div className="google-signin-container">
+            <div id="google-signin-button"></div>
+          </div>
+
           {/* Demo Credentials */}
           <div className="demo-section">
             <p className="demo-text">
               <strong>Demo:</strong> demo@example.com / demo123
             </p>
+          </div>
+          <div className="google-login">
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log("Google login success:", credentialResponse);
+              }}
+              onError={() => {
+                console.log("Google login failed");
+              }}
+            />
           </div>
         </div>
       </div>

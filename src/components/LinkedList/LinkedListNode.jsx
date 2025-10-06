@@ -1,6 +1,21 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+/**
+ * 🎯 Linked List Node Component
+ * 
+ * A visual representation of a linked list node with animated states
+ * for highlighting, targeting, visiting, and various interactions.
+ * 
+ * @param {Object} props - Component properties
+ * @param {Object} props.node - The node data object
+ * @param {number} props.position - Position in the linked list
+ * @param {boolean} props.isHighlighted - Whether node is currently highlighted
+ * @param {boolean} props.isTarget - Whether node is the target of an operation
+ * @param {boolean} props.isVisited - Whether node has been visited
+ * @param {boolean} props.isAnimating - Whether node is currently animating
+ * @returns {JSX.Element} Rendered linked list node component
+ */
 const LinkedListNode = ({ 
   node, 
   position, 
@@ -9,7 +24,7 @@ const LinkedListNode = ({
   isVisited, 
   isAnimating 
 }) => {
-  // Animation variants for different states
+  // 🎨 Animation variants for different node states
   const nodeVariants = {
     initial: { 
       scale: 0, 
@@ -81,6 +96,7 @@ const LinkedListNode = ({
     }
   };
 
+  // 🎯 Pointer animation variants
   const pointerVariants = {
     normal: {
       scale: 1,
@@ -112,6 +128,7 @@ const LinkedListNode = ({
     }
   };
 
+  // ✨ Glow effect variants for highlighted nodes
   const glowVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { 
@@ -125,7 +142,31 @@ const LinkedListNode = ({
     }
   };
 
-  // Determine current state
+  // 🎭 Ripple effect variants for interactions
+  const rippleVariants = {
+    initial: { scale: 0, opacity: 0.6 },
+    animate: { scale: 2, opacity: 0 },
+    exit: { scale: 0, opacity: 0 }
+  };
+
+  // 🔍 Status indicator variants
+  const statusIndicatorVariants = {
+    initial: { scale: 0, opacity: 0 },
+    animate: { scale: 1, opacity: 1 },
+    exit: { scale: 0, opacity: 0 }
+  };
+
+  // 📊 Processing indicator variants
+  const processingIndicatorVariants = {
+    initial: { opacity: 0, y: 10 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -10 }
+  };
+
+  /**
+   * 🎯 Determine current node state based on props
+   * @returns {string} Current state identifier
+   */
   const getCurrentState = () => {
     if (isHighlighted) return 'highlighted';
     if (isTarget) return 'target';
@@ -136,8 +177,8 @@ const LinkedListNode = ({
   const currentState = getCurrentState();
 
   return (
-    <div className="node-wrapper">
-      {/* Glow effect for highlighted nodes */}
+    <div className="node-wrapper" role="listitem" aria-label={`Node ${position + 1} with value ${node.data}`}>
+      {/* ✨ Glow effect for highlighted and target nodes */}
       {(isHighlighted || isTarget) && (
         <motion.div
           className="node-glow"
@@ -153,9 +194,11 @@ const LinkedListNode = ({
               : 'radial-gradient(circle, rgba(220, 53, 69, 0.3) 0%, transparent 70%)',
             zIndex: -1
           }}
+          aria-hidden="true"
         />
       )}
 
+      {/* 🎯 Main node container */}
       <motion.div
         className={`linked-list-node ${currentState}`}
         variants={nodeVariants}
@@ -174,14 +217,18 @@ const LinkedListNode = ({
         style={{
           position: 'relative'
         }}
+        role="article"
+        aria-live="polite"
+        aria-atomic="true"
       >
-        {/* Status indicator */}
+        {/* 📍 Status indicator for special states */}
         {(isHighlighted || isTarget || isVisited) && (
           <motion.div
             className="status-indicator"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
+            variants={statusIndicatorVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             style={{
               position: 'absolute',
               top: '-8px',
@@ -193,15 +240,18 @@ const LinkedListNode = ({
               border: '2px solid white',
               zIndex: 10
             }}
+            aria-label={`Node status: ${isHighlighted ? 'highlighted' : isTarget ? 'target' : 'visited'}`}
           />
         )}
 
+        {/* 📊 Node content area */}
         <div className="node-content">
           <motion.div 
             className="node-data"
             animate={{
               color: isHighlighted ? '#000' : isTarget ? '#fff' : isVisited ? '#000' : '#fff'
             }}
+            aria-label={`Node value: ${node.data}`}
           >
             {node.data}
           </motion.div>
@@ -210,25 +260,30 @@ const LinkedListNode = ({
             animate={{
               opacity: isHighlighted || isTarget ? 1 : 0.7
             }}
+            aria-label={`Node ID: ${node.id}`}
           >
             #{node.id.substring(0, 4)}
           </motion.div>
         </div>
         
+        {/* ➡️ Next pointer indicator */}
         <motion.div 
           className="node-pointer"
           variants={pointerVariants}
           animate={isHighlighted ? 'highlighted' : isAnimating ? 'pulse' : 'normal'}
+          aria-label={node.next ? 'Points to next node' : 'End of list'}
         >
           {node.next ? '→' : '∅'}
         </motion.div>
 
-        {/* Ripple effect for interactions */}
+        {/* 🌊 Ripple effect for highlighted interactions */}
         {isHighlighted && (
           <motion.div
             className="ripple-effect"
-            initial={{ scale: 0, opacity: 0.6 }}
-            animate={{ scale: 2, opacity: 0 }}
+            variants={rippleVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             transition={{ duration: 0.8, ease: "easeOut" }}
             style={{
               position: 'absolute',
@@ -237,13 +292,18 @@ const LinkedListNode = ({
               border: '2px solid #ffc107',
               zIndex: -1
             }}
+            aria-hidden="true"
           />
         )}
 
-        {/* Processing indicator */}
+        {/* ⚡ Processing indicator for active operations */}
         {isHighlighted && (
           <motion.div
             className="processing-indicator"
+            variants={processingIndicatorVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             style={{
               position: 'absolute',
               bottom: '-20px',
@@ -255,13 +315,19 @@ const LinkedListNode = ({
               textTransform: 'uppercase',
               letterSpacing: '1px'
             }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            aria-label="Node is being processed"
           >
             Processing...
           </motion.div>
         )}
+
+        {/* 🎯 Position indicator for accessibility */}
+        <div 
+          className="sr-only"
+          aria-live="polite"
+        >
+          {`Node at position ${position + 1}${isHighlighted ? ' currently active' : ''}${isTarget ? ' is target' : ''}${isVisited ? ' has been visited' : ''}`}
+        </div>
       </motion.div>
     </div>
   );

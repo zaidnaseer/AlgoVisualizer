@@ -209,3 +209,46 @@
 .login-action:hover {
   text-decoration: underline;
 }
+
+/* ===== Separator ===== */
+.separator {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #cbd5e1;
+}
+
+.signup-dark .separator::before,
+.signup-dark .separator::after {
+  background-color: #374151;
+}
+
+.separator-text {
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.signup-dark .separator-text {
+  color: #9ca3af;
+}
+
+/* ===== Google Sign-Up Container ===== */
+.google-signup-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.google-signup-container #google-signup-button {
+  width: 100%;
+  max-width: 300px;
+}
