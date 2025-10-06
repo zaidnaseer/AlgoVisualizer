@@ -223,7 +223,7 @@ const App = () => {
                   <Route path="/contributor-leaderboard" element={<ContributorLeaderboard />} />
                   <Route path="/editor" element={<CodeEditor />} />
 
-                  {/* Notes Routes */}
+                  {/* Notes Routes */} 
                   <Route path="/notes/java" element={<Navigate to="/notes/java/fundamentals" replace />} />
                   <Route path="/notes/java/fundamentals" element={<Fundamentals />} />
                   <Route path="/notes/java/variables-and-data-types" element={<VariablesAndDataTypes />} />
