@@ -70,6 +70,7 @@ import BranchBoundOverview from "./pages/BranchBoundOverview";
 import BranchBoundPage from "./pages/BranchBoundPage";
 import StringOverview from "./pages/StringOverview";
 import StringPage from "./pages/StringPage";
+import StringRabinKarpPage from "./pages/StringRabinKarpPage";
 
 // Components
 import LinkedListPage from "./components/pages/LinkedListPage";
@@ -201,6 +202,7 @@ const App = () => {
                   <Route path="/branchbound" element={<BranchBoundPage />} />
                   <Route path="/string-overview" element={<StringOverview />} />
                   <Route path="/string" element={<StringPage />} />
+                  <Route path="/string/rabin-karp" element={<StringRabinKarpPage />} />
 
                   {/* Data Structures Documentation */}
                   <Route path="/data-structures-docs" element={<DSDocumentation />} />
