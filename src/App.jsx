@@ -51,6 +51,10 @@ import CppVariablesAndDataTypes from "./pages/Notes/Cpp/VariablesAndDataTypes";
 // C Notes
 import CFundamentals from "./pages/Notes/C/Fundamentals";
 
+//javascript Notes
+import JavaScriptFundamentals from "./pages/Notes/JavaScript/Fundamentals.jsx";
+import JavaScriptVariablesAndDataTypes from "./pages/Notes/JavaScript/VariablesAndDataTypes.jsx";
+
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
 import DPPage from "./pages/DPPage";
@@ -238,6 +242,10 @@ const App = () => {
                   <Route path="/notes/cpp" element={<Navigate to="/notes/cpp/fundamentals" replace />} />
                   <Route path="/notes/cpp/fundamentals" element={<CppFundamentals />} />
                   <Route path="/notes/cpp/variables-and-data-types" element={<CppVariablesAndDataTypes />} />
+
+                  <Route path="/notes/javascript" element={<Navigate to="/notes/javascript/fundamentals" replace />} />
+                  <Route path="/notes/javascript/fundamentals" element={<JavaScriptFundamentals/>} />
+                  <Route path="/notes/javascript/variables-and-data-types" element={<JavaScriptVariablesAndDataTypes/>} />
 
                   <Route path="/notes/c" element={<Navigate to="/notes/c/fundamentals" replace />} />
                   <Route path="/notes/c/fundamentals" element={<CFundamentals />} />
