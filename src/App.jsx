@@ -28,6 +28,7 @@ import GraphBFS from "./pages/GraphBFS";
 import GraphCycleDetection from "./pages/GraphCycleDetection";
 import GraphDFS from "./pages/GraphDFS";
 import GraphDijkstra from "./pages/GraphDijkstra";
+import GraphAStar from "./pages/GraphAStar";
 import Quiz from "./pages/Quiz";
 import Settings from "./pages/Settings";
 import Blog from "./pages/Blog";
@@ -105,6 +106,11 @@ import ContributorBoard from "./pages/ContributorBoard";
 import ContributorProfileModal from "./pages/ContributorProfileModal";
 import JavaOOPS from "./pages/JavaOOPS.jsx";
 
+import ProgressTracker from "./components/ProgressTracker";
+import LearnerLeaderboard from "./components/LearnerLeaderboard";
+import WeeklyChallenge from "./components/WeeklyChallenge";
+
+
 const App = () => {
   const location = useLocation();
 
@@ -116,6 +122,7 @@ const App = () => {
     "/graph/bfs",
     "/graph/dfs",
     "/graph/dijkstra",
+    "/graph/astar",
     "/data-structures/stack",
   ];
 
@@ -163,6 +170,7 @@ const App = () => {
                   <Route path="/graph/bfs" element={<GraphBFS />} />
                   <Route path="/graph/dfs" element={<GraphDFS />} />
                   <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
+                  <Route path="/graph/astar" element={<GraphAStar />} />
                   <Route path="/graph/comparison" element={<GraphComparison />} />
                   <Route path="/graph/cycleDetection" element={<GraphCycleDetection />} />
 
@@ -233,6 +241,9 @@ const App = () => {
 
                   {/* Learning & Settings */}
                   <Route path="/learn" element={<LearnLanding />} />
+                  <Route path="/progress" element={<ProgressTracker topics={["Sorting", "Graphs", "DP"]} />} />
+                  <Route path="/leaderboard" element={<LearnerLeaderboard />} />
+                  <Route path="/weekly-challenge" element={<WeeklyChallenge />} />
                   <Route path="/settings" element={<Settings />} />
                 </Routes>
 

@@ -1549,16 +1549,16 @@ def dijkstra(graph, start):
   },
 
   floydWarshall: {
-    java: `public static void floydWarshall(int[][] graph) {
+    java: `void floydWarshall(int[][] graph) {
     int V = graph.length;
     int[][] dist = new int[V][V];
-    
+
     for (int i = 0; i < V; i++) {
         for (int j = 0; j < V; j++) {
             dist[i][j] = graph[i][j];
         }
     }
-    
+
     for (int k = 0; k < V; k++) {
         for (int i = 0; i < V; i++) {
             for (int j = 0; j < V; j++) {
@@ -1572,24 +1572,24 @@ def dijkstra(graph, start):
     python: `def floyd_warshall(graph):
     V = len(graph)
     dist = [[float('inf')] * V for _ in range(V)]
-    
+
     for i in range(V):
         for j in range(V):
             if i == j:
                 dist[i][j] = 0
             elif graph[i][j] != 0:
                 dist[i][j] = graph[i][j]
-    
+
     for k in range(V):
         for i in range(V):
             for j in range(V):
                 dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
-    
+
     return dist`,
     cpp: `void floydWarshall(vector<vector<int>>& graph) {
     int V = graph.size();
     vector<vector<int>> dist = graph;
-    
+
     for (int k = 0; k < V; k++) {
         for (int i = 0; i < V; i++) {
             for (int j = 0; j < V; j++) {
@@ -1598,6 +1598,351 @@ def dijkstra(graph, start):
                 }
             }
         }
+    }
+}`,
+  },
+
+  astar: {
+    java: `import java.util.*;
+
+class Node implements Comparable<Node> {
+    int row, col, f, g, h;
+    Node parent;
+
+    Node(int r, int c) {
+        row = r; col = c;
+        f = g = h = 0;
+        parent = null;
+    }
+
+    public int compareTo(Node other) {
+        return Integer.compare(this.f, other.f);
+    }
+}
+
+public class AStar {
+    private static final int[] dr = {-1, 0, 1, 0};
+    private static final int[] dc = {0, 1, 0, -1};
+
+    public static List<Node> findPath(int[][] grid, int startRow, int startCol, int endRow, int endCol) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+
+        PriorityQueue<Node> openSet = new PriorityQueue<>();
+        Set<String> closedSet = new HashSet<>();
+
+        Node start = new Node(startRow, startCol);
+        start.g = 0;
+        start.h = manhattanDistance(startRow, startCol, endRow, endCol);
+        start.f = start.g + start.h;
+
+        openSet.add(start);
+
+        while (!openSet.isEmpty()) {
+            Node current = openSet.poll();
+            String key = current.row + "," + current.col;
+
+            if (closedSet.contains(key)) continue;
+            closedSet.add(key);
+
+            if (current.row == endRow && current.col == endCol) {
+                return reconstructPath(current);
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int newRow = current.row + dr[i];
+                int newCol = current.col + dc[i];
+
+                if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols &&
+                    grid[newRow][newCol] != 1) { // 1 represents wall
+
+                    Node neighbor = new Node(newRow, newCol);
+                    neighbor.g = current.g + 1;
+                    neighbor.h = manhattanDistance(newRow, newCol, endRow, endCol);
+                    neighbor.f = neighbor.g + neighbor.h;
+                    neighbor.parent = current;
+
+                    openSet.add(neighbor);
+                }
+            }
+        }
+
+        return new ArrayList<>(); // No path found
+    }
+
+    private static int manhattanDistance(int r1, int c1, int r2, int c2) {
+        return Math.abs(r1 - r2) + Math.abs(c1 - c2);
+    }
+
+    private static List<Node> reconstructPath(Node end) {
+        List<Node> path = new ArrayList<>();
+        Node current = end;
+        while (current != null) {
+            path.add(0, current);
+            current = current.parent;
+        }
+        return path;
+    }
+}`,
+    python: `import heapq
+
+class Node:
+    def __init__(self, row, col):
+        self.row = row
+        self.col = col
+        self.f = 0
+        self.g = 0
+        self.h = 0
+        self.parent = None
+
+    def __lt__(self, other):
+        return self.f < other.f
+
+def manhattan_distance(r1, c1, r2, c2):
+    return abs(r1 - r2) + abs(c1 - c2)
+
+def astar(grid, start_row, start_col, end_row, end_col):
+    rows, cols = len(grid), len(grid[0])
+    directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+
+    open_set = []
+    heapq.heappush(open_set, (0, Node(start_row, start_col)))
+    closed_set = set()
+
+    start_node = Node(start_row, start_col)
+    start_node.g = 0
+    start_node.h = manhattan_distance(start_row, start_col, end_row, end_col)
+    start_node.f = start_node.g + start_node.h
+
+    node_map = {(start_row, start_col): start_node}
+
+    while open_set:
+        current_f, current = heapq.heappop(open_set)
+
+        if (current.row, current.col) in closed_set:
+            continue
+        closed_set.add((current.row, current.col))
+
+        if current.row == end_row and current.col == end_col:
+            path = []
+            while current:
+                path.append((current.row, current.col))
+                current = current.parent
+            return path[::-1]
+
+        for dr, dc in directions:
+            new_row, new_col = current.row + dr, current.col + dc
+
+            if (0 <= new_row < rows and 0 <= new_col < cols and
+                grid[new_row][new_col] != 1):  # 1 represents wall
+
+                neighbor = Node(new_row, new_col)
+                neighbor.g = current.g + 1
+                neighbor.h = manhattan_distance(new_row, new_col, end_row, end_col)
+                neighbor.f = neighbor.g + neighbor.h
+                neighbor.parent = current
+
+                if (new_row, new_col) not in node_map or neighbor.g < node_map[(new_row, new_col)].g:
+                    node_map[(new_row, new_col)] = neighbor
+                    heapq.heappush(open_set, (neighbor.f, neighbor))
+
+    return []  # No path found`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int row, col, f, g, h;
+    Node* parent;
+
+    Node(int r, int c) : row(r), col(c), f(0), g(0), h(0), parent(nullptr) {}
+
+    bool operator>(const Node& other) const {
+        return f > other.f;
+    }
+};
+
+int manhattanDistance(int r1, int c1, int r2, int c2) {
+    return abs(r1 - r2) + abs(c1 - c2);
+}
+
+vector<pair<int, int>> reconstructPath(Node* end) {
+    vector<pair<int, int>> path;
+    Node* current = end;
+    while (current) {
+        path.emplace_back(current->row, current->col);
+        current = current->parent;
+    }
+    reverse(path.begin(), path.end());
+    return path;
+}
+
+vector<pair<int, int>> aStar(const vector<vector<int>>& grid, int startRow, int startCol, int endRow, int endCol) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    vector<pair<int, int>> directions = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+    auto cmp = [](Node* a, Node* b) { return a->f > b->f; };
+    priority_queue<Node*, vector<Node*>, decltype(cmp)> openSet(cmp);
+    unordered_set<string> closedSet;
+
+    Node* start = new Node(startRow, startCol);
+    start->g = 0;
+    start->h = manhattanDistance(startRow, startCol, endRow, endCol);
+    start->f = start->g + start->h;
+
+    openSet.push(start);
+    unordered_map<string, Node*> nodeMap;
+    nodeMap[to_string(startRow) + "," + to_string(startCol)] = start;
+
+    while (!openSet.empty()) {
+        Node* current = openSet.top();
+        openSet.pop();
+
+        string key = to_string(current->row) + "," + to_string(current->col);
+        if (closedSet.find(key) != closedSet.end()) continue;
+        closedSet.insert(key);
+
+        if (current->row == endRow && current->col == endCol) {
+            vector<pair<int, int>> path = reconstructPath(current);
+            // Clean up memory
+            for (auto& p : nodeMap) delete p.second;
+            return path;
+        }
+
+        for (auto& dir : directions) {
+            int newRow = current->row + dir.first;
+            int newCol = current->col + dir.second;
+
+            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols &&
+                grid[newRow][newCol] != 1) {  // 1 represents wall
+
+                string neighborKey = to_string(newRow) + "," + to_string(newCol);
+                Node* neighbor;
+
+                if (nodeMap.find(neighborKey) == nodeMap.end()) {
+                    neighbor = new Node(newRow, newCol);
+                    nodeMap[neighborKey] = neighbor;
+                } else {
+                    neighbor = nodeMap[neighborKey];
+                }
+
+                int tentativeG = current->g + 1;
+
+                if (tentativeG < neighbor->g || neighbor->g == 0) {
+                    neighbor->parent = current;
+                    neighbor->g = tentativeG;
+                    neighbor->h = manhattanDistance(newRow, newCol, endRow, endCol);
+                    neighbor->f = neighbor->g + neighbor->h;
+
+                    openSet.push(neighbor);
+                }
+            }
+        }
+    }
+
+    // Clean up memory
+    for (auto& p : nodeMap) delete p.second;
+    return {};  // No path found
+}`,
+    javascript: `class Node {
+    constructor(row, col) {
+        this.row = row;
+        this.col = col;
+        this.f = 0;
+        this.g = 0;
+        this.h = 0;
+        this.parent = null;
+    }
+}
+
+function manhattanDistance(r1, c1, r2, c2) {
+    return Math.abs(r1 - r2) + Math.abs(c1 - c2);
+}
+
+function aStar(grid, startRow, startCol, endRow, endCol) {
+    const rows = grid.length;
+    const cols = grid[0].length;
+    const directions = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+
+    const openSet = new PriorityQueue((a, b) => a.f - b.f);
+    const closedSet = new Set();
+
+    const start = new Node(startRow, startCol);
+    start.g = 0;
+    start.h = manhattanDistance(startRow, startCol, endRow, endCol);
+    start.f = start.g + start.h;
+
+    openSet.push(start);
+    const nodeMap = new Map();
+    nodeMap.set(\`\${startRow},\${startCol}\`, start);
+
+    while (!openSet.isEmpty()) {
+        const current = openSet.pop();
+
+        const key = \`\${current.row},\${current.col}\`;
+        if (closedSet.has(key)) continue;
+        closedSet.add(key);
+
+        if (current.row === endRow && current.col === endCol) {
+            const path = [];
+            let temp = current;
+            while (temp) {
+                path.unshift([temp.row, temp.col]);
+                temp = temp.parent;
+            }
+            return path;
+        }
+
+        for (const [dr, dc] of directions) {
+            const newRow = current.row + dr;
+            const newCol = current.col + dc;
+
+            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols &&
+                grid[newRow][newCol] !== 1) {  // 1 represents wall
+
+                const neighborKey = \`\${newRow},\${newCol}\`;
+                let neighbor = nodeMap.get(neighborKey);
+
+                if (!neighbor) {
+                    neighbor = new Node(newRow, newCol);
+                    nodeMap.set(neighborKey, neighbor);
+                }
+
+                const tentativeG = current.g + 1;
+
+                if (tentativeG < neighbor.g || neighbor.g === 0) {
+                    neighbor.parent = current;
+                    neighbor.g = tentativeG;
+                    neighbor.h = manhattanDistance(newRow, newCol, endRow, endCol);
+                    neighbor.f = neighbor.g + neighbor.h;
+
+                    openSet.push(neighbor);
+                }
+            }
+        }
+    }
+
+    return [];  // No path found
+}
+
+// Simple Priority Queue implementation for JavaScript
+class PriorityQueue {
+    constructor(comparator = (a, b) => a - b) {
+        this.heap = [];
+        this.comparator = comparator;
+    }
+
+    push(item) {
+        this.heap.push(item);
+        this.heap.sort(this.comparator);
+    }
+
+    pop() {
+        return this.heap.shift();
+    }
+
+    isEmpty() {
+        return this.heap.length === 0;
     }
 }`,
   },

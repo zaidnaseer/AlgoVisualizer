@@ -175,6 +175,14 @@ export const learnSections = [
         category: "Graphs",
         tags: ["graph", "cycle", "DFS"],
       },
+
+      { path: "/graph", label: "Overview", category: "Graphs", tags: ["overview", "graph"] },
+      { path: "/graph/bfs", label: "BFS", category: "Graphs", tags: ["BFS", "graph", "queue"] },
+      { path: "/graph/dfs", label: "DFS", category: "Graphs", tags: ["DFS", "graph", "recursion", "stack"] },
+      { path: "/graph/dijkstra", label: "Dijkstra", category: "Graphs", tags: ["dijkstra", "shortest path", "graph"] },
+      { path: "/graph/astar", label: "A*", category: "Graphs", tags: ["astar", "pathfinding", "heuristic", "grid"] },
+      { path: "/graph/comparison", label: "Graph Comparison", category: "Graphs", tags: ["comparison", "graph algorithms"] },
+      { path: "/graph/cycleDetection", label: "Cycle Detection", category: "Graphs", tags: ["graph", "cycle", "DFS"] },
     ],
   },
 
