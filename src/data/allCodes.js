@@ -825,6 +825,201 @@ void introSortUtil(vector<int>& arr, int low, int high, int depthLimit) {
   },
 };
 
+export const primsAlgorithms = {
+  prims: {
+    java: `import java.util.*;
+
+public class PrimsAlgorithm {
+    private static final int V = 5; // Number of vertices
+
+    // Find the vertex with minimum key value
+    int minKey(int key[], Boolean mstSet[]) {
+        int min = Integer.MAX_VALUE, min_index = -1;
+        for (int v = 0; v < V; v++)
+            if (mstSet[v] == false && key[v] < min) {
+                min = key[v];
+                min_index = v;
+            }
+        return min_index;
+    }
+
+    // Print the constructed MST
+    void printMST(int parent[], int graph[][]) {
+        System.out.println("Edge \\tWeight");
+        for (int i = 1; i < V; i++)
+            System.out.println(parent[i] + " - " + i + "\\t" + graph[i][parent[i]]);
+    }
+
+    // Construct and print MST for a graph represented using adjacency matrix
+    void primMST(int graph[][]) {
+        int parent[] = new int[V]; // Array to store constructed MST
+        int key[] = new int[V]; // Key values used to pick minimum weight edge
+        Boolean mstSet[] = new Boolean[V]; // To represent set of vertices included in MST
+
+        // Initialize all keys as INFINITE
+        for (int i = 0; i < V; i++) {
+            key[i] = Integer.MAX_VALUE;
+            mstSet[i] = false;
+        }
+
+        // Always include first 0th vertex in MST
+        key[0] = 0; // Make key 0 so that this vertex is picked as first vertex
+        parent[0] = -1; // First node is always root of MST
+
+        // The MST will have V vertices
+        for (int count = 0; count < V - 1; count++) {
+            // Pick the minimum key vertex from the set of vertices not yet included in MST
+            int u = minKey(key, mstSet);
+
+            // Add the picked vertex to the MST Set
+            mstSet[u] = true;
+
+            // Update key value and parent index of the adjacent vertices
+            for (int v = 0; v < V; v++)
+                // graph[u][v] is non zero only for adjacent vertices of m
+                // mstSet[v] is false for vertices not yet included in MST
+                // Update the key only if graph[u][v] is smaller than key[v]
+                if (graph[u][v] != 0 && mstSet[v] == false && graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = graph[u][v];
+                }
+        }
+
+        // Print the constructed MST
+        printMST(parent, graph);
+    }
+}`,
+    python: `import sys
+
+class PrimsAlgorithm:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = [[0 for column in range(vertices)] for row in range(vertices)]
+
+    def min_key(self, key, mst_set):
+        min_val = sys.maxsize
+        min_index = -1
+        for v in range(self.V):
+            if key[v] < min_val and not mst_set[v]:
+                min_val = key[v]
+                min_index = v
+        return min_index
+
+    def print_mst(self, parent):
+        print("Edge \\tWeight")
+        for i in range(1, self.V):
+            print(parent[i], "-", i, "\\t", self.graph[i][parent[i]])
+
+    def prim_mst(self):
+        key = [sys.maxsize] * self.V
+        parent = [None] * self.V
+        key[0] = 0
+        mst_set = [False] * self.V
+        parent[0] = -1
+
+        for _ in range(self.V):
+            u = self.min_key(key, mst_set)
+            mst_set[u] = True
+
+            for v in range(self.V):
+                if (self.graph[u][v] > 0 and
+                    not mst_set[v] and
+                    key[v] > self.graph[u][v]):
+                    key[v] = self.graph[u][v]
+                    parent[v] = u
+
+        self.print_mst(parent)`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+#define V 5
+
+int minKey(int key[], bool mstSet[]) {
+    int min = INT_MAX, min_index;
+    for (int v = 0; v < V; v++)
+        if (mstSet[v] == false && key[v] < min)
+            min = key[v], min_index = v;
+    return min_index;
+}
+
+void printMST(int parent[], int graph[V][V]) {
+    cout << "Edge \\tWeight\\n";
+    for (int i = 1; i < V; i++)
+        cout << parent[i] << " - " << i << " \\t" << graph[i][parent[i]] << "\\n";
+}
+
+void primMST(int graph[V][V]) {
+    int parent[V];
+    int key[V];
+    bool mstSet[V];
+
+    for (int i = 0; i < V; i++)
+        key[i] = INT_MAX, mstSet[i] = false;
+
+    key[0] = 0;
+    parent[0] = -1;
+
+    for (int count = 0; count < V - 1; count++) {
+        int u = minKey(key, mstSet);
+        mstSet[u] = true;
+
+        for (int v = 0; v < V; v++)
+            if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
+                parent[v] = u, key[v] = graph[u][v];
+    }
+
+    printMST(parent, graph);
+}`,
+    javascript: `class PrimsAlgorithm {
+    constructor(vertices) {
+        this.V = vertices;
+        this.graph = Array.from({length: vertices}, () => Array(vertices).fill(0));
+    }
+
+    minKey(key, mstSet) {
+        let min = Number.MAX_VALUE, minIndex = -1;
+        for (let v = 0; v < this.V; v++) {
+            if (!mstSet[v] && key[v] < min) {
+                min = key[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    printMST(parent) {
+        console.log("Edge \\tWeight");
+        for (let i = 1; i < this.V; i++) {
+            console.log(\`\${parent[i]} - \${i} \\t \${this.graph[i][parent[i]]}\`);
+        }
+    }
+
+    primMST() {
+        const key = Array(this.V).fill(Number.MAX_VALUE);
+        const parent = Array(this.V).fill(null);
+        const mstSet = Array(this.V).fill(false);
+
+        key[0] = 0;
+        parent[0] = -1;
+
+        for (let count = 0; count < this.V - 1; count++) {
+            const u = this.minKey(key, mstSet);
+            mstSet[u] = true;
+
+            for (let v = 0; v < this.V; v++) {
+                if (this.graph[u][v] > 0 && !mstSet[v] && this.graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = this.graph[u][v];
+                }
+            }
+        }
+
+        this.printMST(parent);
+    }
+}`,
+  },
+};
+
 export const searchAlgorithms = {
   linearSearch: {
     java: `public static int linearSearch(int[] arr, int target) {
