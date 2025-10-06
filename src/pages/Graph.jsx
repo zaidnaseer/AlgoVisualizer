@@ -55,6 +55,7 @@ const Graph = () => {
           <a href="/graph/bfs" className="btn btn-secondary" style={{ textDecoration: 'none' }}>BFS</a>
           <a href="/graph/dfs" className="btn btn-secondary" style={{ textDecoration: 'none' }}>DFS</a>
           <a href="/graph/dijkstra" className="btn btn-secondary" style={{ textDecoration: 'none' }}>Dijkstra</a>
+          <a href="/graph/astar" className="btn btn-secondary" style={{ textDecoration: 'none' }}>A*</a>
         </div>
       </div>
       <div className="theme-card" data-aos="fade-up" data-aos-delay="400">

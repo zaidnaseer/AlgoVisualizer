@@ -28,6 +28,7 @@ import GraphBFS from "./pages/GraphBFS";
 import GraphCycleDetection from "./pages/GraphCycleDetection";
 import GraphDFS from "./pages/GraphDFS";
 import GraphDijkstra from "./pages/GraphDijkstra";
+import GraphAStar from "./pages/GraphAStar";
 import Quiz from "./pages/Quiz";
 import Settings from "./pages/Settings";
 import Blog from "./pages/Blog";
@@ -45,6 +46,9 @@ import PythonVariablesAndDataTypes from "./pages/Notes/Python/VariablesAndDataTy
 // C++ Notes
 import CppFundamentals from "./pages/Notes/Cpp/Fundamentals";
 import CppVariablesAndDataTypes from "./pages/Notes/Cpp/VariablesAndDataTypes";
+
+// C Notes
+import CFundamentals from "./pages/Notes/C/Fundamentals";
 
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
@@ -102,7 +106,13 @@ import ContributorBoard from "./pages/ContributorBoard";
 import ContributorProfileModal from "./pages/ContributorProfileModal";
 import JavaOOPS from "./pages/JavaOOPS.jsx";
 
+
 import Playground from "./pages/Playground";
+
+import ProgressTracker from "./components/ProgressTracker";
+import LearnerLeaderboard from "./components/LearnerLeaderboard";
+import WeeklyChallenge from "./components/WeeklyChallenge";
+
 
 
 const App = () => {
@@ -116,6 +126,7 @@ const App = () => {
     "/graph/bfs",
     "/graph/dfs",
     "/graph/dijkstra",
+    "/graph/astar",
     "/data-structures/stack",
   ];
 
@@ -143,7 +154,7 @@ const App = () => {
                   {/* Sorting */}
                   <Route path="/sorting" element={<Sorting />} />
                   <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
-                  <Route path="/sorting/comparison" element={<AlgorithmComparison />} />
+                  <Route path="/sorting/algorithm-comparison" element={<AlgorithmComparison />} />
 
                   {/* Searching */}
                   <Route path="/searching" element={<Searching />} />
@@ -163,6 +174,7 @@ const App = () => {
                   <Route path="/graph/bfs" element={<GraphBFS />} />
                   <Route path="/graph/dfs" element={<GraphDFS />} />
                   <Route path="/graph/dijkstra" element={<GraphDijkstra />} />
+                  <Route path="/graph/astar" element={<GraphAStar />} />
                   <Route path="/graph/comparison" element={<GraphComparison />} />
                   <Route path="/graph/cycleDetection" element={<GraphCycleDetection />} />
 
@@ -219,6 +231,9 @@ const App = () => {
                   <Route path="/notes/cpp/fundamentals" element={<CppFundamentals />} />
                   <Route path="/notes/cpp/variables-and-data-types" element={<CppVariablesAndDataTypes />} />
 
+                  <Route path="/notes/c" element={<Navigate to="/notes/c/fundamentals" replace />} />
+                  <Route path="/notes/c/fundamentals" element={<CFundamentals />} />
+
                   <Route path="/java-oops" element={<JavaOOPS />} />
 
                   {/* Dynamic Notes Routes */}
@@ -233,6 +248,9 @@ const App = () => {
 
                   {/* Learning & Settings */}
                   <Route path="/learn" element={<LearnLanding />} />
+                  <Route path="/progress" element={<ProgressTracker topics={["Sorting", "Graphs", "DP"]} />} />
+                  <Route path="/leaderboard" element={<LearnerLeaderboard />} />
+                  <Route path="/weekly-challenge" element={<WeeklyChallenge />} />
                   <Route path="/settings" element={<Settings />} />
                 </Routes>
 
