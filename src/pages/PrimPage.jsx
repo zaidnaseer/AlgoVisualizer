@@ -8,6 +8,7 @@ const PrimPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
 
   const algorithmData = primsAlgorithms.prims || {};
+  const algorithmData = primsAlgorithms || {};
 
   return (
     <div className="theme-container">
