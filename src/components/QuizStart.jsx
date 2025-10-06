@@ -122,14 +122,16 @@ const QuizStart = ({
 
       {/* Controls */}
       <div className="quiz-controls">
-        <button
-          className="quiz-btn ready"
-          onClick={handleStartQuiz}
-          disabled={!selectedTopic || !selectedDifficulty}
-          aria-label="Start quiz"
-        >
-          <FaPlay /> Start Quiz
-        </button>
+     <button
+  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-yellow-400 dark:text-gray-900 dark:hover:bg-yellow-300 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors duration-200"
+  onClick={handleStartQuiz}
+  disabled={!selectedTopic || !selectedDifficulty}
+  aria-label="Start quiz"
+>
+  <FaPlay /> Start Quiz
+</button>
+
+
         {error && <p className="error-msg" role="alert">{error}</p>}
 
         {selectedTopic && selectedDifficulty && (
