@@ -735,6 +735,192 @@
     font-size: 0.9rem;
   }
 }
+
+/* =======================================================
+   17. Rabin-Karp String Matching Visualizer Styles
+======================================================= */
+
+.rk-visualizer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.rk-visualizer h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--theme-text-primary);
+}
+
+.rk-controls {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--theme-card-shadow);
+}
+
+.rk-hash-section,
+.rk-text-pattern-section {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--theme-card-shadow);
+}
+
+.rk-hash-section h3,
+.rk-text-pattern-section h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--theme-text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.hash-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.hash-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: var(--theme-bg);
+  border-radius: 8px;
+  border: 1px solid var(--theme-border);
+}
+
+.hash-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--theme-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.hash-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: monospace;
+  color: var(--theme-accent);
+}
+
+.current-window {
+  background: var(--theme-status-info) !important;
+  color: white !important;
+  border-color: var(--theme-status-info) !important;
+  animation: windowPulse 1s infinite;
+}
+
+@keyframes windowPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.window-indicator {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--theme-text-secondary);
+  text-align: center;
+}
+
+.match-indicators,
+.collision-indicators {
+  margin-top: 1rem;
+}
+
+.indicator {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.indicator.success {
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--theme-status-success);
+  border: 1px solid rgba(22, 163, 74, 0.3);
+}
+
+.indicator.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--theme-status-warning);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Responsive Design for Rabin-Karp */
+@media (max-width: 1024px) {
+  .rk-visualizer {
+    padding: 1rem;
+  }
+
+  .input-section {
+    grid-template-columns: 1fr;
+  }
+
+  .animation-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .playback-controls {
+    justify-content: center;
+  }
+
+  .visualization-area {
+    grid-template-columns: 1fr;
+  }
+
+  .hash-display {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .rk-controls {
+    padding: 1rem;
+  }
+
+  .hash-item {
+    padding: 0.75rem;
+  }
+
+  .hash-value {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rk-visualizer h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-run,
+  .btn-play,
+  .btn-step,
+  .btn-reset {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .input-group input,
+  .input-group select {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .hash-value {
+    font-size: 1.1rem;
+  }
+}
 .color-theme {
   display: block;
   width: 100%;

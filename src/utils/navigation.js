@@ -86,6 +86,7 @@ export const learnSections = [
     items: [
       { path: "/string-overview", label: "Overview", category: "String Algorithms", tags: ["string", "overview", "algorithms"] },
       { path: "/string", label: "KMP Algorithm", category: "String Algorithms", tags: ["string", "KMP", "pattern matching", "algorithms"] },
+      { path: "/string/rabin-karp", label: "Rabin-Karp Algorithm", category: "String Algorithms", tags: ["string", "rabin-karp", "rolling hash", "pattern matching", "algorithms"] },
     ],
   },
 
