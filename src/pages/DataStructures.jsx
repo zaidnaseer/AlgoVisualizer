@@ -414,6 +414,7 @@ function AlgorithmCard({ algorithm }) {
 // ============================================================================
 
 function DataStructuresPage() {
+   const { theme } = useTheme(); 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredAlgorithms, setFilteredAlgorithms] = useState([]);
@@ -481,35 +482,83 @@ function DataStructuresPage() {
     [getAllAlgorithms]
   );
 
-  return (
+ return (
     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
       <h1 className="theme-title">Algorithm Documentation</h1>
-      
+
       {/* Search and Filter Section */}
-      <div className="theme-card filters-section" data-aos="fade-up" data-aos-delay="200">
-        <div className="search-bar">
-          <Search size={20} className="search-icon" />
+      <div
+        className="theme-card filters-section p-4 rounded-lg shadow-md"
+        style={{
+          backgroundColor: theme === "light" ? "#ffffff" : "#1f2937",
+          color: theme === "light" ? "#111827" : "#f9fafb",
+        }}
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        {/* Search bar */}
+        <div className="search-bar flex items-center mb-4">
+          <Search size={20} style={{ color: theme === "light" ? "#6b7280" : "#d1d5db" }} />
           <input
             type="text"
             placeholder="Search algorithms..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="form-control"
+            className="form-control ml-2 flex-1 p-2 rounded border"
+            style={{
+              backgroundColor: theme === "light" ? "#ffffff" : "#374151",
+              color: theme === "light" ? "#111827" : "#f9fafb",
+              borderColor: theme === "light" ? "#d1d5db" : "#4b5563",
+            }}
           />
         </div>
-        <div className="category-filters">
+
+        {/* Category Filters */}
+        <div className="category-filters flex flex-wrap gap-2">
           {categories.map((category) => {
             const IconComponent = category.icon;
             const isActive = selectedCategory === category.key;
             return (
               <button
                 key={category.key}
-                className={`btn ${isActive ? "btn-primary" : "btn-secondary"}`}
                 onClick={() => setSelectedCategory(category.key)}
+                className="flex items-center px-3 py-1 rounded transition-colors duration-200 font-medium"
+                style={{
+                  backgroundColor: isActive
+                    ? theme === "light"
+                      ? "#2563eb"
+                      : "#3b82f6"
+                    : theme === "light"
+                    ? "#f3f4f6"
+                    : "#374151",
+                  color: isActive
+                    ? "#ffffff"
+                    : theme === "light"
+                    ? "#111827"
+                    : "#d1d5db",
+                }}
               >
-                <IconComponent size={16} />
+                <IconComponent size={16} className="mr-1" />
                 {category.label}
-                <span className="count-badge">{category.count}</span>
+                <span
+                  className="count-badge ml-2 px-1 rounded text-xs"
+                  style={{
+                    backgroundColor: isActive
+                      ? theme === "light"
+                        ? "#1d4ed8"
+                        : "#2563eb"
+                      : theme === "light"
+                      ? "#e5e7eb"
+                      : "#4b5563",
+                    color: isActive
+                      ? "#ffffff"
+                      : theme === "light"
+                      ? "#111827"
+                      : "#f9fafb",
+                  }}
+                >
+                  {category.count}
+                </span>
               </button>
             );
           })}
@@ -523,8 +572,16 @@ function DataStructuresPage() {
             <AlgorithmCard key={algorithm.id} algorithm={algorithm} />
           ))
         ) : (
-          <div className="no-results-card theme-card" data-aos="fade-up" data-aos-delay="400">
-            <Search size={48} />
+          <div
+            className="no-results-card theme-card p-6 rounded-lg flex flex-col items-center justify-center"
+            style={{
+              backgroundColor: theme === "light" ? "#ffffff" : "#1f2937",
+              color: theme === "light" ? "#111827" : "#f9fafb",
+            }}
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <Search size={48} style={{ marginBottom: "12px" }} />
             <h3>No algorithms found</h3>
             <p>Try adjusting your search terms or filters.</p>
           </div>
