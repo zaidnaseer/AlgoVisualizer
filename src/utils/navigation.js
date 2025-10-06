@@ -96,7 +96,7 @@ export const learnSections = [
     ],
   },
 
-
+  {
   heading: "Sorting",
   items: [
     {
@@ -112,8 +112,8 @@ export const learnSections = [
       tags: ["comparison", "time complexity"]
     },
   ],
-}
-,
+},
+
   
 
   // Searching algorithms section
