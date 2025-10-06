@@ -150,6 +150,7 @@ const ALGO = {
       { explanation: "Merge two sorted halves into one." }
     ]
   },
+  
 
   quickSort: {
     title: "Quick Sort Algorithm",
@@ -222,7 +223,144 @@ void quickSort(vector<int>& arr, int low, int high) {
     { explanation: "Recursively apply Quick Sort on partitions." },
   ],
 },
+strandSort: {
+  title: "Strand Sort",
+  description: "Repeatedly extract sorted subsequences (strands) from input and merge them into result until input is empty.",
+  code: {
+    js: `function strandSort(arr){
+  if (!arr.length) return arr;
+  const result = [];
+  const input = [...arr];
+  
+  while (input.length > 0) {
+    const strand = [input.shift()];
+    let i = 0;
+    while (i < input.length) {
+      if (input[i] >= strand[strand.length - 1]) {
+        strand.push(input.splice(i, 1)[0]);
+      } else {
+        i++;
+      }
+    }
+    result = merge(result, strand);
+  }
+  return result;
+}
 
+function merge(list1, list2){
+  const merged = [];
+  let i = 0, j = 0;
+  while (i < list1.length && j < list2.length) {
+    if (list1[i] <= list2[j]) merged.push(list1[i++]);
+    else merged.push(list2[j++]);
+  }
+  return merged.concat(list1.slice(i)).concat(list2.slice(j));
+}`,
+    java: `public static int[] strandSort(int[] a){
+  if (a.length == 0) return a;
+  List<Integer> result = new ArrayList<>();
+  List<Integer> input = new ArrayList<>();
+  for (int x : a) input.add(x);
+  
+  while (!input.isEmpty()) {
+    List<Integer> strand = new ArrayList<>();
+    strand.add(input.remove(0));
+    int i = 0;
+    while (i < input.size()) {
+      if (input.get(i) >= strand.get(strand.size()-1)) {
+        strand.add(input.remove(i));
+      } else {
+        i++;
+      }
+    }
+    result = merge(result, strand);
+  }
+  return result.stream().mapToInt(Integer::intValue).toArray();
+}
+
+private static List<Integer> merge(List<Integer> l1, List<Integer> l2){
+  List<Integer> merged = new ArrayList<>();
+  int i=0, j=0;
+  while (i < l1.size() && j < l2.size()) {
+    if (l1.get(i) <= l2.get(j)) merged.add(l1.get(i++));
+    else merged.add(l2.get(j++));
+  }
+  while (i < l1.size()) merged.add(l1.get(i++));
+  while (j < l2.size()) merged.add(l2.get(j++));
+  return merged;
+}`,
+    cpp: `#include <vector>
+#include <list>
+using namespace std;
+
+static vector<int> merge(const vector<int>& l1, const vector<int>& l2){
+  vector<int> merged;
+  int i=0, j=0;
+  while (i < l1.size() && j < l2.size()) {
+    if (l1[i] <= l2[j]) merged.push_back(l1[i++]);
+    else merged.push_back(l2[j++]);
+  }
+  while (i < l1.size()) merged.push_back(l1[i++]);
+  while (j < l2.size()) merged.push_back(l2[j++]);
+  return merged;
+}
+
+vector<int> strandSort(vector<int> a){
+  if (a.empty()) return a;
+  vector<int> result;
+  list<int> input(a.begin(), a.end());
+  
+  while (!input.empty()) {
+    vector<int> strand;
+    strand.push_back(input.front());
+    input.pop_front();
+    auto it = input.begin();
+    while (it != input.end()) {
+      if (*it >= strand.back()) {
+        strand.push_back(*it);
+        it = input.erase(it);
+      } else {
+        ++it;
+      }
+    }
+    result = merge(result, strand);
+  }
+  return result;
+}`,
+    py: `def strand_sort(a):
+  if not a: return a
+  result = []
+  input_list = a[:]
+  
+  while input_list:
+    strand = [input_list.pop(0)]
+    i = 0
+    while i < len(input_list):
+      if input_list[i] >= strand[-1]:
+        strand.append(input_list.pop(i))
+      else:
+        i += 1
+    result = _merge(result, strand)
+  return result
+
+def _merge(l1, l2):
+  merged = []
+  i, j = 0, 0
+  while i < len(l1) and j < len(l2):
+    if l1[i] <= l2[j]:
+      merged.append(l1[i])
+      i += 1
+    else:
+      merged.append(l2[j])
+      j += 1
+  return merged + l1[i:] + l2[j:]`
+  },
+  steps: [
+    { explanation: "Extract a sorted strand: take first element, then scan for elements >= last in strand." },
+    { explanation: "Merge the strand into the result list maintaining sorted order." },
+    { explanation: "Repeat until input is empty. Result contains sorted array." }
+  ]
+},
   radixSort: {
     title: "Radix Sort (LSD, base 10)",
     description: "Sort integers by processing digits from least significant to most, using a stable counting per digit.",

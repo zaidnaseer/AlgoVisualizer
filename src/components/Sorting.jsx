@@ -24,7 +24,7 @@ import { timSortWithStop } from "../algorithms/timSort";
 import { introSortWithStop } from "../algorithms/introSort";
 import { shellSortWithStop } from "../algorithms/shellSort";
 import { cycleSortWithStop } from "../algorithms/cycleSort";
-
+import { strandSortWithStop } from "../algorithms/strandSort";
 // Enhanced algorithm mappings with improved organization
 const ALGORITHM_MAPPINGS = {
   bubbleSort: { 
@@ -35,6 +35,11 @@ const ALGORITHM_MAPPINGS = {
   selectionSort: { 
     name: "Selection Sort", 
     function: selectionSortWithStop,
+    category: "comparison"
+  },
+  strandSort: { 
+    name: "Strand Sort", 
+    function: strandSortWithStop,
     category: "comparison"
   },
   insertionSort: { 
