@@ -6,8 +6,17 @@ import { LinkedListNode as ListNode, linkedListOperations } from '../../algorith
 import { linkedListAlgorithms } from '../../data/allCodes';
 import '../../styles/LinkedList.css';
 
+/**
+ * 🎯 Linked List Visualizer Component
+ * 
+ * A comprehensive visualization tool for linked list data structure operations
+ * including insertion, deletion, search, traversal, and reversal with animated steps.
+ * 
+ * @component
+ * @returns {JSX.Element} Linked list visualization component
+ */
 const LinkedListVisualizer = () => {
-  // State management
+  // 🎮 State Management
   const [linkedList, setLinkedList] = useState({ head: null, size: 0 });
   const [isAnimating, setIsAnimating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -25,11 +34,14 @@ const LinkedListVisualizer = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [selectedOperation, setSelectedOperation] = useState("insertAtBeginning");
   
+  // 🎯 Refs for DOM and animation control
   const visualizationRef = useRef(null);
   const animationTimeoutRef = useRef(null);
   const shouldContinueAnimation = useRef(true);
 
-  // Initialize with sample data
+  /**
+   * 🏁 Initialize linked list with sample data
+   */
   useEffect(() => {
     const initialList = { head: null, size: 0 };
     linkedListOperations.insertAtEnd(initialList, 10);
@@ -38,7 +50,9 @@ const LinkedListVisualizer = () => {
     setLinkedList(initialList);
   }, []);
 
-  // Cleanup animation on component unmount
+  /**
+   * 🧹 Cleanup animation on component unmount
+   */
   useEffect(() => {
     return () => {
       if (animationTimeoutRef.current) {
@@ -47,57 +61,67 @@ const LinkedListVisualizer = () => {
     };
   }, []);
 
-  // Convert linked list to array for rendering
+  /**
+   * 🔄 Convert linked list to array for rendering
+   * @returns {Array} Array of linked list nodes
+   */
   const getVisualizationArray = () => {
     const nodes = [];
-    let current = linkedList.head;
-    while (current) {
-      nodes.push(current);
-      current = current.next;
+    let currentNode = linkedList.head;
+    
+    while (currentNode) {
+      nodes.push(currentNode);
+      currentNode = currentNode.next;
     }
     return nodes;
   };
 
-  // Enhanced animation steps generation
+  /**
+   * 🎬 Generate animation steps for different operations
+   * @param {string} operation - Operation type (search, traverse, insertEnd, etc.)
+   * @param {number} targetValue - Target value for search/insert operations
+   * @param {number} targetPosition - Target position for position-based operations
+   * @returns {Array} Array of animation step objects
+   */
   const generateAnimationSteps = (operation, targetValue, targetPosition) => {
     const steps = [];
-    let current = linkedList.head;
-    let index = 0;
+    let currentNode = linkedList.head;
+    let currentIndex = 0;
 
     switch (operation) {
       case 'search':
         steps.push({
           type: 'start',
-          description: `Starting search for value ${targetValue}...`
+          description: `🔍 Starting search for value ${targetValue}...`
         });
         
-        while (current) {
+        while (currentNode) {
           steps.push({
             type: 'highlight',
-            nodeId: current.id,
-            description: `Checking node at position ${index}: ${current.data}`,
+            nodeId: currentNode.id,
+            description: `Checking node at position ${currentIndex}: ${currentNode.data}`,
             comparing: true
           });
           
-          if (current.data === targetValue) {
+          if (currentNode.data === targetValue) {
             steps.push({
               type: 'found',
-              nodeId: current.id,
-              description: `🎉 Found ${targetValue} at position ${index}!`,
+              nodeId: currentNode.id,
+              description: `🎉 Found ${targetValue} at position ${currentIndex}!`,
               success: true
             });
             break;
           } else {
             steps.push({
               type: 'continue',
-              nodeId: current.id,
-              description: `${current.data} ≠ ${targetValue}, moving to next node...`,
+              nodeId: currentNode.id,
+              description: `${currentNode.data} ≠ ${targetValue}, moving to next node...`,
               visited: true
             });
           }
           
-          current = current.next;
-          index++;
+          currentNode = currentNode.next;
+          currentIndex++;
         }
         
         if (!steps.some(step => step.type === 'found')) {
@@ -112,31 +136,31 @@ const LinkedListVisualizer = () => {
       case 'traverse':
         steps.push({
           type: 'start',
-          description: 'Starting complete traversal of the linked list...'
+          description: '🚀 Starting complete traversal of the linked list...'
         });
         
-        while (current) {
+        while (currentNode) {
           steps.push({
             type: 'highlight',
-            nodeId: current.id,
-            description: `Visiting node ${index}: ${current.data}`,
+            nodeId: currentNode.id,
+            description: `Visiting node ${currentIndex}: ${currentNode.data}`,
             visiting: true
           });
           
           steps.push({
             type: 'visit',
-            nodeId: current.id,
-            description: `Processed node ${index} with value ${current.data}`,
+            nodeId: currentNode.id,
+            description: `✅ Processed node ${currentIndex} with value ${currentNode.data}`,
             visited: true
           });
           
-          current = current.next;
-          index++;
+          currentNode = currentNode.next;
+          currentIndex++;
         }
         
         steps.push({
           type: 'complete',
-          description: `✅ Traversal complete! Visited ${index} nodes.`,
+          description: `🏁 Traversal complete! Visited ${currentIndex} nodes.`,
           success: true
         });
         break;
@@ -144,40 +168,40 @@ const LinkedListVisualizer = () => {
       case 'insertEnd':
         steps.push({
           type: 'start',
-          description: `Inserting ${targetValue} at the end of the list...`
+          description: `➕ Inserting ${targetValue} at the end of the list...`
         });
         
         if (!linkedList.head) {
           steps.push({
             type: 'insert',
-            description: `List is empty, ${targetValue} will be the first node.`,
+            description: `📝 List is empty, ${targetValue} will be the first node.`,
             success: true
           });
         } else {
           let stepCount = 0;
-          while (current && current.next) {
+          while (currentNode && currentNode.next) {
             steps.push({
               type: 'highlight',
-              nodeId: current.id,
-              description: `Traversing... Current node: ${current.data}`,
+              nodeId: currentNode.id,
+              description: `➡️ Traversing... Current node: ${currentNode.data}`,
               traversing: true
             });
-            current = current.next;
+            currentNode = currentNode.next;
             stepCount++;
           }
           
-          if (current) {
+          if (currentNode) {
             steps.push({
               type: 'highlight',
-              nodeId: current.id,
-              description: `Found last node: ${current.data}`,
+              nodeId: currentNode.id,
+              description: `🎯 Found last node: ${currentNode.data}`,
               target: true
             });
             
             steps.push({
               type: 'insert',
-              nodeId: current.id,
-              description: `Linking new node (${targetValue}) after ${current.data}`,
+              nodeId: currentNode.id,
+              description: `🔗 Linking new node (${targetValue}) after ${currentNode.data}`,
               success: true
             });
           }
@@ -187,21 +211,21 @@ const LinkedListVisualizer = () => {
       case 'insertBeginning':
         steps.push({
           type: 'start',
-          description: `Inserting ${targetValue} at the beginning of the list...`
+          description: `➕ Inserting ${targetValue} at the beginning of the list...`
         });
         
         if (linkedList.head) {
           steps.push({
             type: 'highlight',
             nodeId: linkedList.head.id,
-            description: `Current head: ${linkedList.head.data}`,
+            description: `🎯 Current head: ${linkedList.head.data}`,
             target: true
           });
         }
         
         steps.push({
           type: 'insert',
-          description: `New node (${targetValue}) will become the new head`,
+          description: `🆕 New node (${targetValue}) will become the new head`,
           success: true
         });
         break;
@@ -209,19 +233,19 @@ const LinkedListVisualizer = () => {
       case 'reverse':
         steps.push({
           type: 'start',
-          description: 'Starting to reverse the linked list...'
+          description: '🔄 Starting to reverse the linked list...'
         });
         
         let nodeCount = 0;
-        current = linkedList.head;
-        while (current) {
+        currentNode = linkedList.head;
+        while (currentNode) {
           steps.push({
             type: 'highlight',
-            nodeId: current.id,
-            description: `Reversing pointers for node: ${current.data}`,
+            nodeId: currentNode.id,
+            description: `🔄 Reversing pointers for node: ${currentNode.data}`,
             reversing: true
           });
-          current = current.next;
+          currentNode = currentNode.next;
           nodeCount++;
         }
         
@@ -235,14 +259,16 @@ const LinkedListVisualizer = () => {
       default:
         steps.push({
           type: 'info',
-          description: `Performing ${operation}...`
+          description: `⚡ Performing ${operation}...`
         });
     }
 
     return steps;
   };
 
-  // Enhanced animation execution
+  /**
+   * 🎬 Execute animation steps with pause/resume support
+   */
   const executeAnimationSteps = async () => {
     if (animationSteps.length === 0) return;
 
@@ -251,11 +277,11 @@ const LinkedListVisualizer = () => {
     shouldContinueAnimation.current = true;
     setVisitedNodeIds(new Set());
     
-    for (let i = 0; i < animationSteps.length; i++) {
-      // Check if animation should continue
+    for (let stepIndex = 0; stepIndex < animationSteps.length; stepIndex++) {
+      // 🛑 Check if animation should continue
       if (!shouldContinueAnimation.current) break;
       
-      // Handle pause
+      // ⏸️ Handle pause state
       while (isPaused && shouldContinueAnimation.current) {
         await new Promise(resolve => {
           animationTimeoutRef.current = setTimeout(resolve, 100);
@@ -264,49 +290,52 @@ const LinkedListVisualizer = () => {
       
       if (!shouldContinueAnimation.current) break;
       
-      const step = animationSteps[i];
-      setCurrentStepIndex(i);
+      const currentStep = animationSteps[stepIndex];
+      setCurrentStepIndex(stepIndex);
 
-      // Reset previous states
+      // 🎨 Reset previous states
       setHighlightedNodeId(null);
       setTargetNodeId(null);
 
-      // Apply step-specific effects
-      if (step.nodeId) {
-        if (step.comparing || step.visiting || step.traversing || step.reversing) {
-          setHighlightedNodeId(step.nodeId);
+      // 🎯 Apply step-specific visual effects
+      if (currentStep.nodeId) {
+        if (currentStep.comparing || currentStep.visiting || currentStep.traversing || currentStep.reversing) {
+          setHighlightedNodeId(currentStep.nodeId);
         }
         
-        if (step.target) {
-          setTargetNodeId(step.nodeId);
+        if (currentStep.target) {
+          setTargetNodeId(currentStep.nodeId);
         }
         
-        if (step.visited) {
-          setVisitedNodeIds(prev => new Set([...prev, step.nodeId]));
+        if (currentStep.visited) {
+          setVisitedNodeIds(previousVisited => new Set([...previousVisited, currentStep.nodeId]));
         }
       }
 
-      // Wait for animation duration
+      // ⏰ Wait for animation duration
       await new Promise(resolve => {
         animationTimeoutRef.current = setTimeout(resolve, animationSpeed);
       });
     }
 
-    // Animation complete
+    // 🏁 Animation complete cleanup
     setIsAnimating(false);
     setIsPaused(false);
     setHighlightedNodeId(null);
     setTargetNodeId(null);
     setCurrentStepIndex(0);
     
-    // Keep visited nodes highlighted for a moment
+    // ✨ Keep visited nodes highlighted briefly
     setTimeout(() => {
       setVisitedNodeIds(new Set());
       setAnimationSteps([]);
     }, 1000);
   };
 
-  // Control handlers
+  // 🎮 Control Handlers
+  /**
+   * ▶️ Play/Pause animation handler
+   */
   const handlePlay = () => {
     if (isPaused) {
       setIsPaused(false);
@@ -316,17 +345,23 @@ const LinkedListVisualizer = () => {
     if (animationSteps.length > 0) {
       executeAnimationSteps();
     } else {
-      // Generate default traverse animation
+      // 🔄 Generate default traverse animation
       const steps = generateAnimationSteps('traverse');
       setAnimationSteps(steps);
       setTimeout(() => executeAnimationSteps(), 100);
     }
   };
 
+  /**
+   * ⏸️ Pause animation handler
+   */
   const handlePause = () => {
     setIsPaused(true);
   };
 
+  /**
+   * ⏹️ Stop animation handler
+   */
   const handleStop = () => {
     shouldContinueAnimation.current = false;
     setIsAnimating(false);
@@ -342,31 +377,40 @@ const LinkedListVisualizer = () => {
     }
   };
 
+  /**
+   * ⏭️ Step forward handler
+   */
   const handleStepForward = () => {
     if (!isAnimating && animationSteps.length > 0 && currentStepIndex < animationSteps.length - 1) {
       const nextIndex = currentStepIndex + 1;
-      const step = animationSteps[nextIndex];
+      const nextStep = animationSteps[nextIndex];
       setCurrentStepIndex(nextIndex);
       
-      if (step.nodeId) {
-        setHighlightedNodeId(step.nodeId);
+      if (nextStep.nodeId) {
+        setHighlightedNodeId(nextStep.nodeId);
       }
     }
   };
 
+  /**
+   * ⏮️ Step backward handler
+   */
   const handleStepBack = () => {
     if (!isAnimating && currentStepIndex > 0) {
-      const prevIndex = currentStepIndex - 1;
-      const step = animationSteps[prevIndex];
-      setCurrentStepIndex(prevIndex);
+      const previousIndex = currentStepIndex - 1;
+      const previousStep = animationSteps[previousIndex];
+      setCurrentStepIndex(previousIndex);
       
-      if (step.nodeId) {
-        setHighlightedNodeId(step.nodeId);
+      if (previousStep.nodeId) {
+        setHighlightedNodeId(previousStep.nodeId);
       }
     }
   };
 
-  // Operations with enhanced animation
+  // 🛠️ Operation Handlers with Enhanced Animation
+  /**
+   * ➕ Insert at beginning handler
+   */
   const handleInsertAtBeginning = async () => {
     if (!inputValue || isAnimating) return;
     
@@ -378,12 +422,15 @@ const LinkedListVisualizer = () => {
     setLinkedList(newList);
     setInputValue('');
     setCurrentOperation('insertBeginning');
-    setStats(prev => ({ ...prev, operations: prev.operations + 1 }));
+    setStats(previousStats => ({ ...previousStats, operations: previousStats.operations + 1 }));
     
-    // Auto-play animation
+    // 🎬 Auto-play animation
     setTimeout(() => executeAnimationSteps(), 100);
   };
 
+  /**
+   * ➕ Insert at end handler
+   */
   const handleInsertAtEnd = async () => {
     if (!inputValue || isAnimating) return;
     
@@ -395,12 +442,15 @@ const LinkedListVisualizer = () => {
     setLinkedList(newList);
     setInputValue('');
     setCurrentOperation('insertEnd');
-    setStats(prev => ({ ...prev, operations: prev.operations + 1 }));
+    setStats(previousStats => ({ ...previousStats, operations: previousStats.operations + 1 }));
     
-    // Auto-play animation
+    // 🎬 Auto-play animation
     setTimeout(() => executeAnimationSteps(), 100);
   };
 
+  /**
+   * 🔍 Search handler
+   */
   const handleSearch = async () => {
     if (!searchValue || isAnimating) return;
     
@@ -408,12 +458,18 @@ const LinkedListVisualizer = () => {
     setAnimationSteps(steps);
     setCurrentOperation('search');
     setSearchValue('');
-    setStats(prev => ({ ...prev, comparisons: prev.comparisons + steps.filter(s => s.comparing).length }));
+    setStats(previousStats => ({ 
+      ...previousStats, 
+      comparisons: previousStats.comparisons + steps.filter(step => step.comparing).length 
+    }));
     
-    // Auto-play animation
+    // 🎬 Auto-play animation
     setTimeout(() => executeAnimationSteps(), 100);
   };
 
+  /**
+   * 🚀 Traverse handler
+   */
   const handleTraverse = () => {
     if (isAnimating) return;
     
@@ -421,10 +477,13 @@ const LinkedListVisualizer = () => {
     setAnimationSteps(steps);
     setCurrentOperation('traverse');
     
-    // Auto-play animation
+    // 🎬 Auto-play animation
     setTimeout(() => executeAnimationSteps(), 100);
   };
 
+  /**
+   * 🔄 Reverse handler
+   */
   const handleReverse = async () => {
     if (isAnimating) return;
     
@@ -435,12 +494,15 @@ const LinkedListVisualizer = () => {
     linkedListOperations.reverse(newList);
     setLinkedList(newList);
     setCurrentOperation('reverse');
-    setStats(prev => ({ ...prev, operations: prev.operations + 1 }));
+    setStats(previousStats => ({ ...previousStats, operations: previousStats.operations + 1 }));
     
-    // Auto-play animation
+    // 🎬 Auto-play animation
     setTimeout(() => executeAnimationSteps(), 100);
   };
 
+  /**
+   * 🧹 Reset handler
+   */
   const handleReset = () => {
     handleStop();
     setLinkedList({ head: null, size: 0 });
@@ -448,28 +510,75 @@ const LinkedListVisualizer = () => {
     setStats({ operations: 0, comparisons: 0 });
   };
 
-  const nodes = getVisualizationArray();
-  // Helper function to get explanation of operation
-function getOperationExplanation(operation) {
-  const explanations = {
-    insertAtBeginning: 'The new node is created and its next pointer is set to the current head. Then the head pointer is updated to this new node.',
-    insertAtEnd: 'Traverse the list until the last node, then set its next pointer to the new node. If the list is empty, the new node becomes the head.',
-    insertAtPosition: 'Traverse to the desired position, link the new node with the next node, and update the previous node to point to the new node.',
-    deleteNode: 'Find the first node with the target value, update the previous node to skip it, and free memory.',
-    deleteAtPosition: 'Traverse to the position, update the previous node to skip the target node, and remove it.',
-    traverse: 'Start from head and visit each node sequentially until the end of the list.',
-    reverse: 'Iteratively change the next pointers of each node to point to the previous node, then update head to the last node.',
-    search: 'Start from head and compare each node\'s value with the target value until found or end is reached.',
-    getSize: 'Count all nodes starting from head until null is reached.',
-    clear: 'Set head to null, effectively removing all nodes.'
-  };
-  return explanations[operation] || 'Explanation not available.';
-}
+  // 🎯 Helper Functions for Documentation
+  /**
+   * 📖 Get operation explanation
+   * @param {string} operation - Operation name
+   * @returns {string} Operation explanation
+   */
+  function getOperationExplanation(operation) {
+    const explanations = {
+      insertAtBeginning: 'The new node is created and its next pointer is set to the current head. Then the head pointer is updated to this new node.',
+      insertAtEnd: 'Traverse the list until the last node, then set its next pointer to the new node. If the list is empty, the new node becomes the head.',
+      insertAtPosition: 'Traverse to the desired position, link the new node with the next node, and update the previous node to point to the new node.',
+      deleteNode: 'Find the first node with the target value, update the previous node to skip it, and free memory.',
+      deleteAtPosition: 'Traverse to the position, update the previous node to skip the target node, and remove it.',
+      traverse: 'Start from head and visit each node sequentially until the end of the list.',
+      reverse: 'Iteratively change the next pointers of each node to point to the previous node, then update head to the last node.',
+      search: 'Start from head and compare each node\'s value with the target value until found or end is reached.',
+      getSize: 'Count all nodes starting from head until null is reached.',
+      clear: 'Set head to null, effectively removing all nodes.'
+    };
+    return explanations[operation] || 'Explanation not available.';
+  }
 
+  /**
+   * 📊 Get operation complexity
+   * @param {string} operation - Operation name
+   * @returns {Object} Time and space complexity
+   */
+  function getOperationComplexity(operation) {
+    const complexities = {
+      insertAtBeginning: { time: 'O(1)', space: 'O(1)' },
+      insertAtEnd: { time: 'O(n)', space: 'O(1)' },
+      insertAtPosition: { time: 'O(n)', space: 'O(1)' },
+      deleteNode: { time: 'O(n)', space: 'O(1)' },
+      deleteAtPosition: { time: 'O(n)', space: 'O(1)' },
+      traverse: { time: 'O(n)', space: 'O(1)' },
+      reverse: { time: 'O(n)', space: 'O(1)' },
+      search: { time: 'O(n)', space: 'O(1)' },
+      getSize: { time: 'O(1) or O(n)', space: 'O(1)' },
+      clear: { time: 'O(1) or O(n)', space: 'O(1)' }
+    };
+    return complexities[operation] || { time: 'N/A', space: 'N/A' };
+  }
+
+  /**
+   * 📝 Get operation description
+   * @param {string} operation - Operation name
+   * @returns {string} Operation description
+   */
+  function getOperationDescription(operation) {
+    const descriptions = {
+      insertAtBeginning: 'Adds a new node at the start of the list, updating the head pointer.',
+      insertAtEnd: 'Traverses to the end of the list and adds a new node there.',
+      insertAtPosition: 'Inserts a new node at a specific position in the list.',
+      deleteNode: 'Finds and removes the first occurrence of a value from the list.',
+      deleteAtPosition: 'Removes the node at a specific position in the list.',
+      traverse: 'Visits every node in the list from head to tail.',
+      reverse: 'Reverses the direction of all pointers in the list.',
+      search: 'Looks for a specific value in the list and returns its position.',
+      getSize: 'Returns the number of nodes in the list.',
+      clear: 'Removes all nodes from the list and resets it to empty state.'
+    };
+    return descriptions[operation] || 'Operation description not available.';
+  }
+
+  const nodes = getVisualizationArray();
 
   return (
     <div className="algorithm-container">
-      {/* Header Section */}
+      {/* 🏷️ Header Section */}
       <div className="algorithm-header">
         <div className="header-content">
           <h1>Linked List Visualization</h1>
@@ -494,7 +603,7 @@ function getOperationExplanation(operation) {
         </div>
       </div>
 
-      {/* Control Panel */}
+      {/* 🎮 Control Panel */}
       <div className="control-panel">
         <div className="control-section">
           <h3>Insert Operations</h3>
@@ -504,9 +613,10 @@ function getOperationExplanation(operation) {
                 type="number"
                 placeholder="Enter value"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={(event) => setInputValue(event.target.value)}
                 disabled={isAnimating}
                 className="control-input"
+                aria-label="Value to insert"
               />
             </div>
             <button onClick={handleInsertAtBeginning} disabled={isAnimating} className="control-btn primary">
@@ -528,9 +638,10 @@ function getOperationExplanation(operation) {
                 type="number"
                 placeholder="Search value"
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={(event) => setSearchValue(event.target.value)}
                 disabled={isAnimating}
                 className="control-input"
+                aria-label="Value to search"
               />
             </div>
             <button onClick={handleSearch} disabled={isAnimating} className="control-btn secondary">
@@ -553,30 +664,33 @@ function getOperationExplanation(operation) {
             <button 
               onClick={isPaused ? handlePlay : isAnimating ? handlePause : handlePlay} 
               className={`control-btn ${isAnimating && !isPaused ? 'warning' : 'play'}`}
+              aria-label={isAnimating && !isPaused ? 'Pause animation' : isPaused ? 'Resume animation' : 'Play animation'}
             >
               {isAnimating && !isPaused ? <Pause size={16} /> : <Play size={16} />}
               {isAnimating && !isPaused ? 'Pause' : isPaused ? 'Resume' : 'Play'}
             </button>
-            <button onClick={handleStop} className="control-btn danger">
+            <button onClick={handleStop} className="control-btn danger" aria-label="Stop animation">
               Stop
             </button>
-            <button onClick={handleStepBack} disabled={isAnimating || currentStepIndex === 0} className="control-btn secondary">
+            <button onClick={handleStepBack} disabled={isAnimating || currentStepIndex === 0} className="control-btn secondary" aria-label="Previous step">
               <StepBack size={16} />
             </button>
-            <button onClick={handleStepForward} disabled={isAnimating || currentStepIndex >= animationSteps.length - 1} className="control-btn secondary">
+            <button onClick={handleStepForward} disabled={isAnimating || currentStepIndex >= animationSteps.length - 1} className="control-btn secondary" aria-label="Next step">
               <StepForward size={16} />
             </button>
           </div>
           
           <div className="speed-control">
-            <label>Speed:</label>
+            <label htmlFor="speed-slider">Animation Speed:</label>
             <input
+              id="speed-slider"
               type="range"
               min="200"
               max="2000"
               value={animationSpeed}
-              onChange={(e) => setAnimationSpeed(parseInt(e.target.value))}
+              onChange={(event) => setAnimationSpeed(parseInt(event.target.value))}
               className="speed-slider"
+              aria-label="Adjust animation speed"
             />
             <span>{animationSpeed}ms</span>
           </div>
@@ -585,7 +699,7 @@ function getOperationExplanation(operation) {
         <div className="control-section">
           <h3>Utilities</h3>
           <div className="control-group">
-            <button onClick={handleReset} className="control-btn danger">
+            <button onClick={handleReset} className="control-btn danger" aria-label="Reset linked list">
               <Trash2 size={16} />
               Reset All
             </button>
@@ -593,7 +707,7 @@ function getOperationExplanation(operation) {
         </div>
       </div>
 
-      {/* Visualization Area */}
+      {/* 🎨 Visualization Area */}
       <div className="visualization-container" ref={visualizationRef}>
         <div className="visualization-header">
           <h3>Current List Structure</h3>
@@ -620,6 +734,7 @@ function getOperationExplanation(operation) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                aria-label="Empty linked list"
               >
                 <div className="empty-icon">🔗</div>
                 <h4>Empty Linked List</h4>
@@ -643,7 +758,7 @@ function getOperationExplanation(operation) {
           </AnimatePresence>
         </div>
 
-        {/* Operation Info */}
+        {/* ℹ️ Operation Info */}
         {animationSteps.length > 0 && currentStepIndex < animationSteps.length && (
           <div className="operation-info">
             <div className="step-description">
@@ -653,13 +768,14 @@ function getOperationExplanation(operation) {
               <div 
                 className="progress-bar"
                 style={{ width: `${((currentStepIndex + 1) / animationSteps.length) * 100}%` }}
+                aria-label={`Progress: ${currentStepIndex + 1} of ${animationSteps.length} steps`}
               ></div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Code Implementation Section */}
+      {/* 💻 Code Implementation Section */}
       <div className="theme-card" style={{ marginTop: '2rem' }}>
         <div className="theme-card-header">
           <h3>Linked List Operations - Code Implementation</h3>
@@ -669,6 +785,7 @@ function getOperationExplanation(operation) {
                 className={`btn ${selectedLanguage === 'java' ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setSelectedLanguage('java')}
                 style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+                aria-label="Switch to Java code"
               >
                 Java
               </button>
@@ -676,6 +793,7 @@ function getOperationExplanation(operation) {
                 className={`btn ${selectedLanguage === 'python' ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setSelectedLanguage('python')}
                 style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+                aria-label="Switch to Python code"
               >
                 Python
               </button>
@@ -683,13 +801,14 @@ function getOperationExplanation(operation) {
                 className={`btn ${selectedLanguage === 'cpp' ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setSelectedLanguage('cpp')}
                 style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+                aria-label="Switch to C++ code"
               >
                 C++
               </button>
             </div>
             <select
               value={selectedOperation}
-              onChange={(e) => setSelectedOperation(e.target.value)}
+              onChange={(event) => setSelectedOperation(event.target.value)}
               style={{
                 padding: '0.5rem',
                 borderRadius: '4px',
@@ -697,6 +816,7 @@ function getOperationExplanation(operation) {
                 backgroundColor: 'var(--surface-bg)',
                 color: 'var(--text-primary)'
               }}
+              aria-label="Select linked list operation"
             >
               <option value="insertAtBeginning">Insert at Beginning</option>
               <option value="insertAtEnd">Insert at End</option>
@@ -743,11 +863,11 @@ function getOperationExplanation(operation) {
           fontSize: '0.9rem',
           color: 'var(--text-secondary)'
         }}>
-          <strong>Note:</strong> This is the actual implementation code for {selectedOperation} in {selectedLanguage.toUpperCase()}. 
+          <strong>💡 Note:</strong> This is the actual implementation code for {selectedOperation} in {selectedLanguage.toUpperCase()}. 
           You can copy and use this code in your projects.
         </div>
 
-        {/* Operation Details */}
+        {/* 📊 Operation Details */}
         <div style={{ marginTop: '1.5rem' }}>
           <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>
             {selectedOperation.charAt(0).toUpperCase() + selectedOperation.slice(1)} Details
@@ -764,7 +884,7 @@ function getOperationExplanation(operation) {
               borderRadius: '6px',
               border: '1px solid var(--accent-primary)'
             }}>
-              <strong style={{ color: 'var(--accent-primary)' }}>Time Complexity:</strong>
+              <strong style={{ color: 'var(--accent-primary)' }}>⏱️ Time Complexity:</strong>
               <div style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
                 {getOperationComplexity(selectedOperation).time}
               </div>
@@ -775,7 +895,7 @@ function getOperationExplanation(operation) {
               borderRadius: '6px',
               border: '1px solid var(--accent-primary)'
             }}>
-              <strong style={{ color: 'var(--accent-primary)' }}>Space Complexity:</strong>
+              <strong style={{ color: 'var(--accent-primary)' }}>💾 Space Complexity:</strong>
               <div style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
                 {getOperationComplexity(selectedOperation).space}
               </div>
@@ -786,68 +906,33 @@ function getOperationExplanation(operation) {
               borderRadius: '6px',
               border: '1px solid var(--accent-primary)'
             }}>
-              <strong style={{ color: 'var(--accent-primary)' }}>Description:</strong>
+              <strong style={{ color: 'var(--accent-primary)' }}>📝 Description:</strong>
               <div style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
                 {getOperationDescription(selectedOperation)}
               </div>
             </div>
-            {/* Explanation Section */}
-<div style={{ marginTop: '1.5rem' }}>
-  <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>
-    Explanation
-  </h4>
-  <div style={{
-    padding: '1rem',
-    background: 'var(--theme-bg)',
-    borderRadius: '6px',
-    border: '1px solid var(--accent-primary)',
-    color: 'var(--text-secondary)',
-    lineHeight: '1.6'
-  }}>
-    {getOperationExplanation(selectedOperation)}
-  </div>
-</div>
+          </div>
+        </div>
 
+        {/* 📖 Explanation Section */}
+        <div style={{ marginTop: '1.5rem' }}>
+          <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>
+            📖 Algorithm Explanation
+          </h4>
+          <div style={{
+            padding: '1rem',
+            background: 'var(--theme-bg)',
+            borderRadius: '6px',
+            border: '1px solid var(--accent-primary)',
+            color: 'var(--text-secondary)',
+            lineHeight: '1.6'
+          }}>
+            {getOperationExplanation(selectedOperation)}
           </div>
         </div>
       </div>
     </div>
   );
-
-  // Helper function to get operation complexity
-  function getOperationComplexity(operation) {
-    const complexities = {
-      insertAtBeginning: { time: 'O(1)', space: 'O(1)' },
-      insertAtEnd: { time: 'O(n)', space: 'O(1)' },
-      insertAtPosition: { time: 'O(n)', space: 'O(1)' },
-      deleteNode: { time: 'O(n)', space: 'O(1)' },
-      deleteAtPosition: { time: 'O(n)', space: 'O(1)' },
-      traverse: { time: 'O(n)', space: 'O(1)' },
-      reverse: { time: 'O(n)', space: 'O(1)' },
-      search: { time: 'O(n)', space: 'O(1)' },
-      getSize: { time: 'O(1) or O(n)', space: 'O(1)' },
-      clear: { time: 'O(1) or O(n)', space: 'O(1)' }
-    };
-    return complexities[operation] || { time: 'N/A', space: 'N/A' };
-  }
-
-  // Helper function to get operation description
-  function getOperationDescription(operation) {
-    const descriptions = {
-      insertAtBeginning: 'Adds a new node at the start of the list, updating the head pointer.',
-      insertAtEnd: 'Traverses to the end of the list and adds a new node there.',
-      insertAtPosition: 'Inserts a new node at a specific position in the list.',
-      deleteNode: 'Finds and removes the first occurrence of a value from the list.',
-      deleteAtPosition: 'Removes the node at a specific position in the list.',
-      traverse: 'Visits every node in the list from head to tail.',
-      reverse: 'Reverses the direction of all pointers in the list.',
-      search: 'Looks for a specific value in the list and returns its position.',
-      getSize: 'Returns the number of nodes in the list.',
-      clear: 'Removes all nodes from the list and resets it to empty state.'
-    };
-    return descriptions[operation] || 'Operation description not available.';
-  }
-  
 };
 
 export default LinkedListVisualizer;
