@@ -435,3 +435,53 @@
     align-self: flex-end;
   }
 }
+
+/* Separator */
+.separator {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+}
+
+.login-light .separator::before,
+.login-light .separator::after {
+  background-color: #e5e7eb;
+}
+
+.login-dark .separator::before,
+.login-dark .separator::after {
+  background-color: #374151;
+}
+
+.separator-text {
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-light .separator-text {
+  color: #6b7280;
+}
+
+.login-dark .separator-text {
+  color: #9ca3af;
+}
+
+/* Google Sign-In Container */
+.google-signin-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.google-signin-container #google-signin-button {
+  width: 100%;
+  max-width: 300px;
+}

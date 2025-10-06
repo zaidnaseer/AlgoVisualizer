@@ -31,7 +31,11 @@ const CppFundamentals = () => {
         <h1 style={{ fontSize: "3rem", marginBottom: "1rem", fontWeight: 800 }}>
           C++ Fundamentals
         </h1>
-        <p style={{ fontSize: "1.2rem", maxWidth: "700px", margin: "0 auto", opacity: 0.9 }}>
+        <p style={{ fontSize: "1.2rem", maxWidth: "700px", margin: "0 auto", opacity: 0.9,
+           color: window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? "#ffffff"  // text color for dark mode
+      : "#1a1a1a", // text color for light mode
+         }}>
           A comprehensive guide to C++ programming for beginners. Learn core concepts with detailed explanations and examples.
         </p>
       </header>
@@ -65,7 +69,12 @@ const CppFundamentals = () => {
             { id: "templates", label: "Templates" },
             { id: "stl", label: "STL" },
             { id: "filehandling", label: "File Handling" },
-            { id: "examples", label: "Example Code" }
+            { id: "examples", label: "Example Code" },
+            { id: "pointers", label: "Pointers" },
+{ id: "memory", label: "Dynamic Memory" },
+{ id: "exceptions", label: "Exception Handling" },
+{ id: "multithreading", label: "Multithreading" },
+
           ].map(item => (
             <button
               key={item.id}
@@ -1102,6 +1111,154 @@ int main() {
           </div>
         </section>
       )}
+
+      {activeTab === "pointers" && (
+  <section style={{ marginBottom: "2rem" }}>
+    <div className="card">
+      <h2><i className="fas fa-crosshairs"></i> 12. Pointers</h2>
+      <p>Pointers are variables that store memory addresses of other variables.</p>
+      <div className="code-container">
+        <button className={`copy-btn ${copiedCode === "pointers" ? "copied" : ""}`} 
+          onClick={() => copyCode(`#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 10;
+    int* ptr = &x; // pointer storing address of x
+    cout << "Value of x: " << x << endl;
+    cout << "Address of x: " << ptr << endl;
+    cout << "Value via pointer: " << *ptr << endl;
+    return 0;
+}`, "pointers")}>
+          {copiedCode === "pointers" ? "Copied!" : "Copy"}
+        </button>
+        <pre>{`#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 10;
+    int* ptr = &x; // pointer storing address of x
+    cout << "Value of x: " << x << endl;
+    cout << "Address of x: " << ptr << endl;
+    cout << "Value via pointer: " << *ptr << endl;
+    return 0;
+}`}</pre>
+      </div>
+    </div>
+  </section>
+)}
+
+{activeTab === "memory" && (
+  <section style={{ marginBottom: "2rem" }}>
+    <div className="card">
+      <h2><i className="fas fa-memory"></i> 13. Dynamic Memory</h2>
+      <p>Dynamic memory allocation allows runtime allocation using <code>new</code> and <code>delete</code>.</p>
+      <div className="code-container">
+        <button className={`copy-btn ${copiedCode === "memory" ? "copied" : ""}`} 
+          onClick={() => copyCode(`#include <iostream>
+using namespace std;
+
+int main() {
+    int* ptr = new int(42); // allocate memory
+    cout << "Value: " << *ptr << endl;
+    delete ptr; // free memory
+    return 0;
+}`, "memory")}>
+          {copiedCode === "memory" ? "Copied!" : "Copy"}
+        </button>
+        <pre>{`#include <iostream>
+using namespace std;
+
+int main() {
+    int* ptr = new int(42); // allocate memory
+    cout << "Value: " << *ptr << endl;
+    delete ptr; // free memory
+    return 0;
+}`}</pre>
+      </div>
+    </div>
+  </section>
+)}
+
+{activeTab === "exceptions" && (
+  <section style={{ marginBottom: "2rem" }}>
+    <div className="card">
+      <h2><i className="fas fa-exclamation-triangle"></i> 14. Exception Handling</h2>
+      <p>Exceptions handle runtime errors using <code>try</code>, <code>catch</code>, and <code>throw</code>.</p>
+      <div className="code-container">
+        <button className={`copy-btn ${copiedCode === "exceptions" ? "copied" : ""}`} 
+          onClick={() => copyCode(`#include <iostream>
+using namespace std;
+
+int main() {
+    try {
+        int x = 0;
+        if (x == 0) throw "Division by zero!";
+        cout << 10 / x << endl;
+    } catch (const char* e) {
+        cout << "Error: " << e << endl;
+    }
+    return 0;
+}`, "exceptions")}>
+          {copiedCode === "exceptions" ? "Copied!" : "Copy"}
+        </button>
+        <pre>{`#include <iostream>
+using namespace std;
+
+int main() {
+    try {
+        int x = 0;
+        if (x == 0) throw "Division by zero!";
+        cout << 10 / x << endl;
+    } catch (const char* e) {
+        cout << "Error: " << e << endl;
+    }
+    return 0;
+}`}</pre>
+      </div>
+    </div>
+  </section>
+)}
+
+{activeTab === "multithreading" && (
+  <section style={{ marginBottom: "2rem" }}>
+    <div className="card">
+      <h2><i className="fas fa-project-diagram"></i> 15. Multithreading</h2>
+      <p>Multithreading allows concurrent execution of code using the <code>thread</code> library.</p>
+      <div className="code-container">
+        <button className={`copy-btn ${copiedCode === "multithreading" ? "copied" : ""}`} 
+          onClick={() => copyCode(`#include <iostream>
+#include <thread>
+using namespace std;
+
+void task() {
+    cout << "Task running in thread." << endl;
+}
+
+int main() {
+    thread t(task);
+    t.join(); // wait for thread to finish
+    return 0;
+}`, "multithreading")}>
+          {copiedCode === "multithreading" ? "Copied!" : "Copy"}
+        </button>
+        <pre>{`#include <iostream>
+#include <thread>
+using namespace std;
+
+void task() {
+    cout << "Task running in thread." << endl;
+}
+
+int main() {
+    thread t(task);
+    t.join(); // wait for thread to finish
+    return 0;
+}`}</pre>
+      </div>
+    </div>
+  </section>
+)}
 
       <style jsx>{`
         .notes-page {

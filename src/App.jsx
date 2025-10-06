@@ -6,6 +6,7 @@ import { SettingsProvider } from "./contexts/SettingsContext";
 import { MobileMenuProvider } from "./contexts/MobileMenuContext";
 import { AlgorithmProvider } from "./contexts/AlgorithmContext";
 import { NotificationsProvider } from "./contexts/NotificationsContext";
+import { GoogleAuthProvider } from "./contexts/GoogleAuthContext";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -46,6 +47,9 @@ import PythonVariablesAndDataTypes from "./pages/Notes/Python/VariablesAndDataTy
 // C++ Notes
 import CppFundamentals from "./pages/Notes/Cpp/Fundamentals";
 import CppVariablesAndDataTypes from "./pages/Notes/Cpp/VariablesAndDataTypes";
+
+// C Notes
+import CFundamentals from "./pages/Notes/C/Fundamentals";
 
 // Algorithm Pages
 import DPOverview from "./pages/DPOverview";
@@ -104,6 +108,15 @@ import ContributorBoard from "./pages/ContributorBoard";
 import ContributorProfileModal from "./pages/ContributorProfileModal";
 import JavaOOPS from "./pages/JavaOOPS.jsx";
 
+
+import Playground from "./pages/Playground";
+
+import ProgressTracker from "./components/ProgressTracker";
+import LearnerLeaderboard from "./components/LearnerLeaderboard";
+import WeeklyChallenge from "./components/WeeklyChallenge";
+
+
+
 const App = () => {
   const location = useLocation();
 
@@ -124,10 +137,11 @@ const App = () => {
   }, []);
 
   return (
-    <SettingsProvider>
-      <MobileMenuProvider>
-        <AlgorithmProvider>
-          <NotificationsProvider>
+    <GoogleAuthProvider>
+      <SettingsProvider>
+        <MobileMenuProvider>
+          <AlgorithmProvider>
+            <NotificationsProvider>
             <div className="app-container">
               <ScrollToTop />
               <ThemeToggle />
@@ -143,7 +157,7 @@ const App = () => {
                   {/* Sorting */}
                   <Route path="/sorting" element={<Sorting />} />
                   <Route path="/sorting/:algoId/docs" element={<SortingDoc />} />
-                  <Route path="/sorting/comparison" element={<AlgorithmComparison />} />
+                  <Route path="/sorting/algorithm-comparison" element={<AlgorithmComparison />} />
 
                   {/* Searching */}
                   <Route path="/searching" element={<Searching />} />
@@ -221,6 +235,9 @@ const App = () => {
                   <Route path="/notes/cpp/fundamentals" element={<CppFundamentals />} />
                   <Route path="/notes/cpp/variables-and-data-types" element={<CppVariablesAndDataTypes />} />
 
+                  <Route path="/notes/c" element={<Navigate to="/notes/c/fundamentals" replace />} />
+                  <Route path="/notes/c/fundamentals" element={<CFundamentals />} />
+
                   <Route path="/java-oops" element={<JavaOOPS />} />
 
                   {/* Dynamic Notes Routes */}
@@ -230,8 +247,14 @@ const App = () => {
                   <Route path="/contributor-board" element={<ContributorBoard />} />
                   <Route path="/contributor/:id" element={<ContributorProfileModal />} />
 
+                  <Route path="/playground" element={<Playground />} />
+
+
                   {/* Learning & Settings */}
                   <Route path="/learn" element={<LearnLanding />} />
+                  <Route path="/progress" element={<ProgressTracker topics={["Sorting", "Graphs", "DP"]} />} />
+                  <Route path="/leaderboard" element={<LearnerLeaderboard />} />
+                  <Route path="/weekly-challenge" element={<WeeklyChallenge />} />
                   <Route path="/settings" element={<Settings />} />
                 </Routes>
 
@@ -253,6 +276,7 @@ const App = () => {
         </AlgorithmProvider>
       </MobileMenuProvider>
     </SettingsProvider>
+    </GoogleAuthProvider>
   );
 };
 
