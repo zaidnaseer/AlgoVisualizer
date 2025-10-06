@@ -215,6 +215,7 @@ export const learnSections = [
       { path: "/tree-overview", label: "Trees (Overview)", category: "Other", tags: ["trees", "overview"] },
       { path: "/tree", label: "Tree Algorithms", category: "Other", tags: ["tree", "algorithms"] },
       { path: "/data-structures/trie", label: "Trie Visualizer", category: "Other", tags: ["trie", "prefix tree", "data structure"] },
+      { path: "/huffman", label: "Huffman Coding", category: "Other", tags: ["huffman", "compression", "greedy", "encoding"] },
       { path: "/game-search-overview", label: "Game Search (Overview)", category: "Other", tags: ["game search", "overview"] },
       { path: "/game-search", label: "Game Search Algorithms", category: "Other", tags: ["game search", "algorithms"] },
       { path: "/branchbound-overview", label: "Branch & Bound (Overview)", category: "Other", tags: ["branch and bound", "overview"] },
