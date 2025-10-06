@@ -22,6 +22,15 @@ import InterfacesSection from "./sections/InterfacesSection";
 import PackagesSection from "./sections/PackagesSection";
 import FileHandlingSection from "./sections/FileHandlingSection";
 
+import GenericsSection from "./sections/GenericsSection";
+import MultithreadingSection from "./sections/MultithreadingSection";
+import ConcurrencySection from "./sections/ConcurrencySection";
+import LambdasStreamsSection from "./sections/LambdasStreamsSection";
+import FunctionalInterfacesSection from "./sections/FunctionalInterfacesSection";
+import RegexSection from "./sections/RegexSection";
+import JDBCSection from "./sections/JDBCSection";
+import DataStructuresSection from "./sections/DataStructuresSection";
+
 const Fundamentals = () => {
   const [activeTab, setActiveTab] = useState("intro");
   const [copiedCode, setCopiedCode] = useState("");
@@ -59,6 +68,15 @@ const Fundamentals = () => {
     { id: "interfaces", label: "Interfaces", component: <InterfacesSection copyCode={copyCode} copiedCode={copiedCode} /> },
     { id: "packages", label: "Packages", component: <PackagesSection copyCode={copyCode} copiedCode={copiedCode} /> },
     { id: "filehandling", label: "File Handling", component: <FileHandlingSection copyCode={copyCode} copiedCode={copiedCode} /> },
+     { id: "generics", label: "Generics", component: <GenericsSection copyCode={copyCode} copiedCode={copiedCode} /> },
+    { id: "multithreading", label: "Multithreading", component: <MultithreadingSection copyCode={copyCode} copiedCode={copiedCode} /> },
+    { id: "concurrency", label: "Concurrency", component: <ConcurrencySection copyCode={copyCode} copiedCode={copiedCode} /> },
+    { id: "lambdasstreams", label: "Lambdas & Streams", component: <LambdasStreamsSection copyCode={copyCode} copiedCode={copiedCode} /> },
+    { id: "functionalinterfaces", label: "Functional Interfaces", component: <FunctionalInterfacesSection copyCode={copyCode} copiedCode={copiedCode} /> },
+    { id: "regex", label: "Regular Expressions", component: <RegexSection copyCode={copyCode} copiedCode={copiedCode} /> },
+    { id: "jdbc", label: "JDBC", component: <JDBCSection copyCode={copyCode} copiedCode={copiedCode} /> },
+    { id: "datastructures", label: "Data Structures", component: <DataStructuresSection copyCode={copyCode} copiedCode={copiedCode} /> },
+
   ];
 
   return (
