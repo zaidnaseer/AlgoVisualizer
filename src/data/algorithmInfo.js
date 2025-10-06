@@ -88,7 +88,14 @@ export const ALGORITHM_INFO = {
       spaceComplexity: "O(log n)",
       bestCase: "O(n log n)",
       stable: "No",
-    },
+    },strandSort: {
+  description:
+    "Repeatedly extracts sorted subsequences (strands) from the input list and merges them into a result list. Works well on nearly sorted data but requires auxiliary space.",
+  timeComplexity: "O(n²)",
+  bestCase: "O(n)",
+  spaceComplexity: "O(n)",
+  stable: "Yes",
+},
     cycleSort: {
       description:
         "An in-place, unstable sorting algorithm that minimizes writes by rotating elements into correct position in a cycle. Useful when memory writes are costly.",
