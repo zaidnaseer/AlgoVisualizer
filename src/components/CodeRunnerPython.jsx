@@ -1,46 +1,89 @@
 import React, { useState, useEffect } from "react";
 
+/**
+ * Python Environment Manager - Handles Pyodide initialization and execution
+ */
+class PythonEnvironment {
+  constructor() {
+    this.pyodide = null;
+    this.isReady = false;
+  }
+
+  async initialize(onStatusChange) {
+    if (this.isReady) return this.pyodide;
+    
+    onStatusChange?.("Loading Python environment...");
+    this.pyodide = await window.loadPyodide();
+    this.isReady = true;
+    onStatusChange?.("");
+    
+    return this.pyodide;
+  }
+
+  async runCode(code) {
+    if (!this.isReady || !this.pyodide) {
+      throw new Error("Python environment not ready");
+    }
+    
+    const result = await this.pyodide.runPythonAsync(code);
+    return result ?? "Code executed successfully!";
+  }
+}
+
+/**
+ * Code Utilities - Helper functions for code operations
+ */
+const CodeUtils = {
+  getDefaultPythonCode: () => `# Python Algorithm Example
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+
+# Example usage
+numbers = [64, 34, 25, 12, 22, 11, 90]
+print("Original:", numbers)
+sorted_numbers = bubble_sort(numbers.copy())
+print("Sorted:", sorted_numbers)`,
+
+  runJavaScript: (code) => {
+    let result = "";
+    const log = console.log;
+    console.log = (msg) => { result += msg + "\n"; };
+    eval(code);
+    console.log = log;
+    return result || "Code executed successfully!";
+  }
+};
+
 // CodeRunner component for running JS or Python
 const CodeRunner = ({ language = "javascript", defaultCode = "" }) => {
-  const [code, setCode] = useState(defaultCode);
+  const [code, setCode] = useState(defaultCode || (language === "python" ? CodeUtils.getDefaultPythonCode() : ""));
   const [output, setOutput] = useState("");
-  const [pyodide, setPyodide] = useState(null);
+  const [pythonEnv] = useState(() => new PythonEnvironment());
 
-  // Load Pyodide for Python support
+  // Initialize Python environment
   useEffect(() => {
     if (language === "python") {
-      const loadPyodide = async () => {
-        setOutput("Loading Python environment...");
-        const pyodideModule = await window.loadPyodide();
-        setPyodide(pyodideModule);
-        setOutput("");
-      };
-      loadPyodide();
+      pythonEnv.initialize(setOutput);
     }
-  }, [language]);
+  }, [language, pythonEnv]);
 
   // Run code function
   const runCode = async () => {
-    if (language === "javascript") {
-      try {
-        // Capture console.log output
-        let result = "";
-        const log = console.log;
-        console.log = (msg) => { result += msg + "\n"; };
-        eval(code);
-        console.log = log;
-        setOutput(result || "Code executed successfully!");
-      } catch (err) {
-        setOutput(err.message);
+    try {
+      if (language === "javascript") {
+        const result = CodeUtils.runJavaScript(code);
+        setOutput(result);
+      } else if (language === "python") {
+        const result = await pythonEnv.runCode(code);
+        setOutput(result);
       }
-    } else if (language === "python") {
-      try {
-        if (!pyodide) return setOutput("Python environment not ready.");
-        const result = await pyodide.runPythonAsync(code);
-        setOutput(result ?? "Code executed successfully!");
-      } catch (err) {
-        setOutput(err.message);
-      }
+    } catch (err) {
+      setOutput(err.message);
     }
   };
 
