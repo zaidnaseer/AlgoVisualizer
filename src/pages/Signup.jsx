@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Eye,
@@ -10,11 +10,13 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useTheme } from "../ThemeContext";
+import { useGoogleAuth } from "../contexts/GoogleAuthContext";
 import "../styles/Signup.css";
 import { GoogleLogin } from "@react-oauth/google";
 
 const Signup = () => {
   const { theme } = useTheme();
+  const { renderGoogleButton } = useGoogleAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,6 +50,11 @@ const Signup = () => {
 
   const isDark = theme === "dark";
 
+
+  useEffect(() => {
+    renderGoogleButton('google-signup-button');
+  }, [renderGoogleButton]);
+
   const checkPasswordRules = (password) => ({
     length: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
@@ -71,6 +78,7 @@ const Signup = () => {
   const handleConfirmPasswordChange = (e) => {
     setFormData((prev) => ({ ...prev, confirmPassword: e.target.value }));
   };
+
 
   return (
     <div
@@ -308,6 +316,16 @@ const Signup = () => {
               </p>
             </div>
           </form>
+
+          {/* Separator */}
+          <div className="separator">
+            <span className="separator-text">or</span>
+          </div>
+
+          {/* Google Sign-Up Button */}
+          <div className="google-signup-container">
+            <div id="google-signup-button"></div>
+          </div>
         </div>
         <div className="google-login">
           <GoogleLogin
