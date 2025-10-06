@@ -4775,7 +4775,7 @@ void fft(vector<cd> &a){
 };
 
 export const stringAlgorithms = {
-  kmp: {
+  KMP: {
     java: `public class KMP {
     public int[] computeLPSArray(String pattern){
         int M = pattern.length();

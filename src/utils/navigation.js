@@ -240,12 +240,21 @@ export const learnSections = [
       },
     ],
   },
+  
+  // String algorithms section
+  {
+    heading: "String Algorithms",
+    items: [
+      { path: "/string-overview", label: "Overview", category: "String Algorithms", tags: ["string", "overview", "algorithms"] },
+      { path: "/string", label: "KMP Algorithm", category: "String Algorithms", tags: ["string", "KMP", "pattern matching", "algorithms"] },
+    ],
+  },
 
   // Additional topics section
   {
     heading: "Other Topics",
     items: [
-
+      { path: "/string", label: "KMP Algorithm", category: "Other", tags: ["string", "KMP", "pattern matching", "algorithms"] },
       { path: "/hashing-overview", label: "Hashing (Overview)", category: "Other", tags: ["hashing", "overview"] },
       { path: "/hashing", label: "Hashing Algorithms", category: "Other", tags: ["hashing", "algorithms"] },
       { path: "/tree-overview", label: "Trees (Overview)", category: "Other", tags: ["trees", "overview"] },
