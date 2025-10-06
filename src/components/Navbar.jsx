@@ -46,7 +46,14 @@ const ICON_COMPONENTS = {
 };
 
 // Desktop Nav Item
-const DesktopNavItem = ({ item, index, isOpen, toggleDropdown, isActive, getIcon }) => {
+const DesktopNavItem = ({
+  item,
+  index,
+  isOpen,
+  toggleDropdown,
+  isActive,
+  getIcon,
+}) => {
   if (item.dropdown) {
     return (
       <div className="navbar-item dropdown" key={index}>
@@ -54,9 +61,16 @@ const DesktopNavItem = ({ item, index, isOpen, toggleDropdown, isActive, getIcon
           className={`dropdown-toggle ${isOpen === index ? "active" : ""}`}
           onClick={() => toggleDropdown(index)}
         >
-          {item.icon && React.createElement(getIcon(item.icon), { size: 18, className: "drop-icon" })}
+          {item.icon &&
+            React.createElement(getIcon(item.icon), {
+              size: 18,
+              className: "drop-icon",
+            })}
           <span>{item.label}</span>
-          <ChevronDown size={16} className={`dropdown-arrow ${isOpen === index ? "rotated" : ""}`} />
+          <ChevronDown
+            size={16}
+            className={`dropdown-arrow ${isOpen === index ? "rotated" : ""}`}
+          />
         </button>
         {isOpen === index && (
           <div className="dropdown-menu">
@@ -64,7 +78,9 @@ const DesktopNavItem = ({ item, index, isOpen, toggleDropdown, isActive, getIcon
               <Link
                 key={subIndex}
                 to={sub.path}
-                className={`dropdown-item ${isActive(sub.path) ? "active" : ""}`}
+                className={`dropdown-item ${
+                  isActive(sub.path) ? "active" : ""
+                }`}
                 onClick={() => toggleDropdown(null)}
               >
                 {sub.label}
@@ -77,33 +93,62 @@ const DesktopNavItem = ({ item, index, isOpen, toggleDropdown, isActive, getIcon
   }
 
   return (
-    <Link to={item.path} className={`navbar-link ${isActive(item.path) ? "active" : ""}`} key={index}>
-      {item.icon && React.createElement(getIcon(item.icon), { size: 18, className: "icon" })}
+    <Link
+      to={item.path}
+      className={`navbar-link ${isActive(item.path) ? "active" : ""}`}
+      key={index}
+    >
+      {item.icon &&
+        React.createElement(getIcon(item.icon), {
+          size: 18,
+          className: "icon",
+        })}
       <span>{item.label}</span>
     </Link>
   );
 };
 
 // Mobile Nav Item
-const MobileNavItem = ({ item, index, isOpen, toggleDropdown, isActive, getIcon, closeMenu }) => {
+const MobileNavItem = ({
+  item,
+  index,
+  isOpen,
+  toggleDropdown,
+  isActive,
+  getIcon,
+  closeMenu,
+}) => {
   if (item.dropdown) {
     return (
       <div className="mobile-dropdown" key={index}>
         <button
-          className={`mobile-dropdown-toggle ${isOpen === index ? "active" : ""}`}
+          className={`mobile-dropdown-toggle ${
+            isOpen === index ? "active" : ""
+          }`}
           onClick={() => toggleDropdown(index)}
         >
-          {item.icon && React.createElement(getIcon(item.icon), { size: 18, className: "icon" })}
+          {item.icon &&
+            React.createElement(getIcon(item.icon), {
+              size: 18,
+              className: "icon",
+            })}
           <span>{item.label}</span>
-          <ChevronDown size={16} className={`dropdown-arrow ${isOpen === index ? "rotated" : ""}`} />
+          <ChevronDown
+            size={16}
+            className={`dropdown-arrow ${isOpen === index ? "rotated" : ""}`}
+          />
         </button>
 
-        <div className={`mobile-dropdown-menu ${isOpen === index ? "open" : ""}`}>
+        <div
+          className={`mobile-dropdown-menu ${isOpen === index ? "open" : ""}`}
+        >
           {item.dropdown.map((sub, subIndex) => (
             <Link
               key={subIndex}
               to={sub.path}
-              className={`mobile-menu-link ${isActive(sub.path) ? "active" : ""}`}
+              className={`mobile-menu-link ${
+                isActive(sub.path) ? "active" : ""
+              }`}
               onClick={() => {
                 toggleDropdown(null);
                 closeMenu();
@@ -124,7 +169,11 @@ const MobileNavItem = ({ item, index, isOpen, toggleDropdown, isActive, getIcon,
       onClick={closeMenu}
       key={index}
     >
-      {item.icon && React.createElement(getIcon(item.icon), { size: 18, className: "icon" })}
+      {item.icon &&
+        React.createElement(getIcon(item.icon), {
+          size: 18,
+          className: "icon",
+        })}
       <span>{item.label}</span>
     </Link>
   );
@@ -144,8 +193,10 @@ const Navbar = () => {
   const getIcon = (name) => ICON_COMPONENTS[name] || null;
   const isActive = (path) => location.pathname === path;
 
-  const toggleDesktopDropdown = (index) => setDesktopDropdownOpen(desktopDropdownOpen === index ? null : index);
-  const toggleMobileDropdown = (index) => setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
+  const toggleDesktopDropdown = (index) =>
+    setDesktopDropdownOpen(desktopDropdownOpen === index ? null : index);
+  const toggleMobileDropdown = (index) =>
+    setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -161,12 +212,17 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`navbar fixed top-0 left-0 right-0 z-50 ${theme}`} ref={navbarRef}>
+    <nav
+      className={`navbar fixed top-0 left-0 right-0 z-50 ${theme}`}
+      ref={navbarRef}
+    >
       <div className="navbar-container flex items-center justify-between px-4 py-2">
         {/* Logo */}
         <Link to="/" className="navbar-logo flex items-center gap-2">
           <img src="/logo.jpg" alt="AlgoVisualizer Logo" className="logo-img" />
-          <span className="logo-text">Algo<span>Visualizer</span></span>
+          <span className="logo-text">
+            Algo<span>Visualizer</span>
+          </span>
         </Link>
 
         {/* Desktop nav */}
@@ -182,47 +238,71 @@ const Navbar = () => {
               getIcon={getIcon}
             />
           ))}
-          
+
           <div className="flex items-center gap-1">
             {/* Notes desktop */}
             <div className="navbar-item dropdown">
               <button
-                className={`dropdown-toggle ${desktopNotesOpen ? "active" : ""}`}
+                className={`dropdown-toggle ${
+                  desktopNotesOpen ? "active" : ""
+                }`}
                 onClick={() => setDesktopNotesOpen(!desktopNotesOpen)}
               >
                 <BookOpen size={18} className="drop-icon" />
                 <span>Notes</span>
-                <ChevronDown size={16} className={`${desktopNotesOpen ? "rotated" : ""}`} />
+                <ChevronDown
+                  size={16}
+                  className={`${desktopNotesOpen ? "rotated" : ""}`}
+                />
               </button>
               {desktopNotesOpen && (
                 <div className="dropdown-menu">
                   <Link
                     to="/notes/java"
-                    className={`dropdown-item ${isActive("/notes/java") ? "active" : ""}`}
+                    className={`dropdown-item ${
+                      isActive("/notes/java") ? "active" : ""
+                    }`}
                     onClick={() => setDesktopNotesOpen(false)}
                   >
                     Java
                   </Link>
                   <Link
                     to="/notes/python"
-                    className={`dropdown-item ${isActive("/notes/python") ? "active" : ""}`}
+                    className={`dropdown-item ${
+                      isActive("/notes/python") ? "active" : ""
+                    }`}
                     onClick={() => setDesktopNotesOpen(false)}
                   >
                     Python
                   </Link>
                   <Link
                     to="/notes/cpp"
-                    className={`dropdown-item ${isActive("/notes/cpp") ? "active" : ""}`}
+                    className={`dropdown-item ${
+                      isActive("/notes/cpp") ? "active" : ""
+                    }`}
                     onClick={() => setDesktopNotesOpen(false)}
                   >
                     C++
                   </Link>
                   <Link
                     to="/notes/c"
-                    className={`dropdown-item ${isActive("/notes/c") ? "active" : ""}`}
+                    className={`dropdown-item ${
+                      isActive("/notes/c") ? "active" : ""
+                    }`}
                     onClick={() => setDesktopNotesOpen(false)}
                   >
                     C
+                  </Link>
+                  <Link
+                    to="https://docs.google.com/spreadsheets/d/1mvlc8EYc3OVVU3X7NKoC0iZJr_45BL_pVxiJec0r94c/htmlview?gid=0#gid=0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`dropdown-item ${
+                      isActive("/notes/c") ? "active" : ""
+                    }`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    DSA Sheet
                   </Link>
                 </div>
               )}
@@ -242,13 +322,18 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`} onClick={(e) => e.stopPropagation()}>
-        
+      <div
+        className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Optional: Mobile Menu Header */}
         <div className="mobile-menu-header">
           <div className="mobile-menu-header-content">
             <span className="mobile-menu-title">AlgoVisualizer</span>
-            <button className="mobile-menu-close-btn" onClick={() => setIsMobileMenuOpen(false)}>
+            <button
+              className="mobile-menu-close-btn"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               <X size={20} />
             </button>
           </div>
@@ -272,14 +357,21 @@ const Navbar = () => {
         {/* Notes Section */}
         <div className="mobile-dropdown">
           <button
-            className={`mobile-dropdown-toggle ${mobileNotesOpen ? "active" : ""}`}
+            className={`mobile-dropdown-toggle ${
+              mobileNotesOpen ? "active" : ""
+            }`}
             onClick={() => setMobileNotesOpen(!mobileNotesOpen)}
           >
             <BookOpen size={18} className="icon" />
             <span>Notes</span>
-            <ChevronDown size={16} className={`${mobileNotesOpen ? "rotated" : ""}`} />
+            <ChevronDown
+              size={16}
+              className={`${mobileNotesOpen ? "rotated" : ""}`}
+            />
           </button>
-          <div className={`mobile-dropdown-menu ${mobileNotesOpen ? "open" : ""}`}>
+          <div
+            className={`mobile-dropdown-menu ${mobileNotesOpen ? "open" : ""}`}
+          >
             <Link
               to="/notes/java"
               className="mobile-menu-link"
@@ -328,7 +420,6 @@ const Navbar = () => {
           <UserDropdown />
         </div>
       </div>
-
     </nav>
   );
 };
