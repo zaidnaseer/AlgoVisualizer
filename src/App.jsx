@@ -106,9 +106,13 @@ import ContributorBoard from "./pages/ContributorBoard";
 import ContributorProfileModal from "./pages/ContributorProfileModal";
 import JavaOOPS from "./pages/JavaOOPS.jsx";
 
+
+import Playground from "./pages/Playground";
+
 import ProgressTracker from "./components/ProgressTracker";
 import LearnerLeaderboard from "./components/LearnerLeaderboard";
 import WeeklyChallenge from "./components/WeeklyChallenge";
+
 
 
 const App = () => {
@@ -238,6 +242,9 @@ const App = () => {
 
                   <Route path="/contributor-board" element={<ContributorBoard />} />
                   <Route path="/contributor/:id" element={<ContributorProfileModal />} />
+
+                  <Route path="/playground" element={<Playground />} />
+
 
                   {/* Learning & Settings */}
                   <Route path="/learn" element={<LearnLanding />} />
