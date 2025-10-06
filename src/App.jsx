@@ -76,6 +76,7 @@ import LinkedListPage from "./components/pages/LinkedListPage";
 import Queue from "./components/Queue/Queue";
 import Stack from "./components/Stack/Stack";
 import BinaryTreeVisualizer from "./components/BinaryTree/BinaryTreeVisualizer";
+import TrieVisualizer from "./components/Trie/TrieVisualizer";
 import AlgorithmComparison from "./components/AlgorithmComparison";
 import GraphComparison from "./components/GraphComparison";
 import Contributors from "./components/Contributors";
@@ -170,6 +171,7 @@ const App = () => {
                   <Route path="/data-structures/queue" element={<Queue />} />
                   <Route path="/data-structures/stack" element={<Stack />} />
                   <Route path="/data-structures/binary-tree" element={<BinaryTreeVisualizer />} />
+                  <Route path="/data-structures/trie" element={<TrieVisualizer />} />
 
                   {/* Graph */}
                   <Route path="/graph" element={<Graph />} />

@@ -291,6 +291,20 @@ const algorithmDatabase = {
         spaceComplexity: "O(n)",
         implemented: true,
       },
+      {
+        name: "Trie",
+        id: "trie",
+        description:
+          "Prefix tree data structure for efficient string operations like search, insert, and prefix matching.",
+        timeComplexity: {
+          insertion: "O(m)",
+          deletion: "O(m)",
+          search: "O(m)",
+          prefixSearch: "O(m)",
+        },
+        spaceComplexity: "O(N)",
+        implemented: true,
+      },
     ],
   },
 };
