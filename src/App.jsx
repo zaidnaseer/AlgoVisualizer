@@ -72,6 +72,7 @@ import StringOverview from "./pages/StringOverview";
 import StringPage from "./pages/StringPage";
 import StringRabinKarpPage from "./pages/StringRabinKarpPage";
 import PrimPage from "./pages/PrimPage";
+import KruskalPage from "./pages/KruskalPage";
 import HuffmanPage from "./pages/HuffmanPage";
 
 // Components
@@ -206,6 +207,7 @@ const App = () => {
                   <Route path="/string" element={<StringPage />} />
                   <Route path="/string/rabin-karp" element={<StringRabinKarpPage />} />
                   <Route path="/prims" element={<PrimPage />} />
+                  <Route path="/kruskal" element={<KruskalPage />} />
                   <Route path="/huffman" element={<HuffmanPage />} />
 
                   {/* Data Structures Documentation */}
