@@ -279,7 +279,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    padding: 18px 45px;
+    padding: 18px 35px;
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     color: white;
     border: none;
@@ -289,9 +289,10 @@ body {
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 10px 30px rgba(8, 179, 231, 0.3);
-    min-width: 200px;
+    min-width: 240px; 
     position: relative;
     overflow: hidden;
+    white-space: nowrap; 
 }
 
 .submit-btn::before {
@@ -317,7 +318,6 @@ body {
 .submit-btn:active {
     transform: translateY(-2px) scale(1.02);
 }
-
 /* =========================
    Social Section
 ========================= */

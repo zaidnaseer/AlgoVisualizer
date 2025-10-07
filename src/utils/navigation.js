@@ -76,33 +76,13 @@ export const learnSections = [
     ],
   },
 
-  // Sorting algorithms section
-  {
-
-    heading: "Sorting",
-    items: [
-      {
-        path: "/sorting",
-        label: "Overview",
-        category: "Sorting",
-        tags: ["overview", "algorithms"],
-      },
-      {
-        path: "/components/AlgorithmComparison",
-        label: "Algorithm Comparison",
-        category: "Sorting",
-        tags: ["comparison", "time complexity"],
-      },
-    ],
-  },
-
   {
   heading: "Sorting",
   items: [
     {
-      path: "/sorting", 
-      label: "Overview", 
-      category: "Sorting", 
+      path: "/sorting",
+      label: "Overview",
+      category: "Sorting",
       tags: ["overview", "algorithms"]
     },
     {
@@ -139,43 +119,6 @@ export const learnSections = [
   {
     heading: "Graphs",
     items: [
-      {
-        path: "/graph",
-        label: "Overview",
-        category: "Graphs",
-        tags: ["overview", "graph"],
-      },
-      {
-        path: "/graph/bfs",
-        label: "BFS",
-        category: "Graphs",
-        tags: ["BFS", "graph", "queue"],
-      },
-      {
-        path: "/graph/dfs",
-        label: "DFS",
-        category: "Graphs",
-        tags: ["DFS", "graph", "recursion", "stack"],
-      },
-      {
-        path: "/graph/dijkstra",
-        label: "Dijkstra",
-        category: "Graphs",
-        tags: ["dijkstra", "shortest path", "graph"],
-      },
-      {
-        path: "/graph/comparison",
-        label: "Graph Comparison",
-        category: "Graphs",
-        tags: ["comparison", "graph algorithms"],
-      },
-      {
-        path: "/graph/cycleDetection",
-        label: "Cycle Detection",
-        category: "Graphs",
-        tags: ["graph", "cycle", "DFS"],
-      },
-
       { path: "/graph", label: "Overview", category: "Graphs", tags: ["overview", "graph"] },
       { path: "/graph/bfs", label: "BFS", category: "Graphs", tags: ["BFS", "graph", "queue"] },
       { path: "/graph/dfs", label: "DFS", category: "Graphs", tags: ["DFS", "graph", "recursion", "stack"] },
@@ -238,6 +181,18 @@ export const learnSections = [
         category: "Paradigms",
         tags: ["divide and conquer", "algorithms"],
       },
+      {
+        path: "/prims",
+        label: "Prim's Algorithm",
+        category: "Paradigms",
+        tags: ["prim's", "mst", "minimum spanning tree", "greedy", "graph"],
+      },
+      {
+        path: "/kruskal",
+        label: "Kruskal's Algorithm",
+        category: "Paradigms",
+        tags: ["kruskal's", "mst", "minimum spanning tree", "greedy", "graph"],
+      },
     ],
   },
   
@@ -255,66 +210,16 @@ export const learnSections = [
   {
     heading: "Other Topics",
     items: [
-      { path: "/string", label: "KMP Algorithm", category: "Other", tags: ["string", "KMP", "pattern matching", "algorithms"] },
       { path: "/hashing-overview", label: "Hashing (Overview)", category: "Other", tags: ["hashing", "overview"] },
       { path: "/hashing", label: "Hashing Algorithms", category: "Other", tags: ["hashing", "algorithms"] },
       { path: "/tree-overview", label: "Trees (Overview)", category: "Other", tags: ["trees", "overview"] },
       { path: "/tree", label: "Tree Algorithms", category: "Other", tags: ["tree", "algorithms"] },
       { path: "/data-structures/trie", label: "Trie Visualizer", category: "Other", tags: ["trie", "prefix tree", "data structure"] },
+      { path: "/huffman", label: "Huffman Coding", category: "Other", tags: ["huffman", "compression", "greedy", "encoding"] },
       { path: "/game-search-overview", label: "Game Search (Overview)", category: "Other", tags: ["game search", "overview"] },
       { path: "/game-search", label: "Game Search Algorithms", category: "Other", tags: ["game search", "algorithms"] },
       { path: "/branchbound-overview", label: "Branch & Bound (Overview)", category: "Other", tags: ["branch and bound", "overview"] },
       { path: "/branchbound", label: "Branch & Bound", category: "Other", tags: ["branch and bound", "algorithms"] },
-
-      {
-        path: "/hashing-overview",
-        label: "Hashing (Overview)",
-        category: "Other",
-        tags: ["hashing", "overview"],
-      },
-      {
-        path: "/hashing",
-        label: "Hashing Algorithms",
-        category: "Other",
-        tags: ["hashing", "algorithms"],
-      },
-      {
-        path: "/tree-overview",
-        label: "Trees (Overview)",
-        category: "Other",
-        tags: ["trees", "overview"],
-      },
-      {
-        path: "/tree",
-        label: "Tree Algorithms",
-        category: "Other",
-        tags: ["tree", "algorithms"],
-      },
-      {
-        path: "/game-search-overview",
-        label: "Game Search (Overview)",
-        category: "Other",
-        tags: ["game search", "overview"],
-      },
-      {
-        path: "/game-search",
-        label: "Game Search Algorithms",
-        category: "Other",
-        tags: ["game search", "algorithms"],
-      },
-      {
-        path: "/branchbound-overview",
-        label: "Branch & Bound (Overview)",
-        category: "Other",
-        tags: ["branch and bound", "overview"],
-      },
-      {
-        path: "/branchbound",
-        label: "Branch & Bound",
-        category: "Other",
-        tags: ["branch and bound", "algorithms"],
-      },
-
     ],
   },
 ];
