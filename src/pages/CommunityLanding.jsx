@@ -316,25 +316,13 @@ const CommunityLanding = () => {
                 </span>
               </div>
 
-              <div
-                style={{
-                  textAlign: "center",
-                  marginTop: "auto",
-                }}
+              <Link to="#"
               >
                 <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    color: "var(--theme-accent)",
-                    fontWeight: "600",
-                    fontSize: "1rem",
-                  }}
-                >
+                  className="btn btn-secondary" >
                   Learn More <ArrowRight size={16} />
                 </span>
-              </div>
+              </Link>
             </div>
           </motion.div>
 
@@ -462,8 +450,12 @@ const CommunityLanding = () => {
               >
                 <Link
                   to="/contributors"
-                  className="btn btn-primary"
-                  style={{ textDecoration: "none" }}
+                  className="btn btn-secondary"
+                  style={{
+                    color: "var(--theme-accent)",
+                    backgroundColor: "var(--theme-accent)",
+                    textDecoration: "none"
+                  }}
                 >
                   <UserPlus size={16} />
                   View Contributors
@@ -596,8 +588,13 @@ const CommunityLanding = () => {
               >
                 <Link
                   to="/ContributorLeaderboard"
-                  className="btn btn-primary"
-                  style={{ textDecoration: "none" }}
+                  className="btn btn-secondary"
+
+                  style={{
+                    color: "var(--theme-accent)",
+                    backgroundColor: "var(--theme-accent)",
+                    textDecoration: "none"
+                  }}
                 >
                   <Trophy size={16} />
                   View Leaderboard
@@ -650,8 +647,13 @@ const CommunityLanding = () => {
               href="https://github.com/RhythmPahwa14/AlgoVisualizer"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary"
-              style={{ textDecoration: "none" }}
+              className="btn btn-secondary"
+
+              style={{
+                color: "var(--theme-accent)",
+                backgroundColor: "var(--theme-accent)",
+                textDecoration: "none"
+              }}
             >
               <Github size={16} />
               Start Contributing
@@ -667,7 +669,7 @@ const CommunityLanding = () => {
           </div>
         </motion.div>
       </motion.div>
-    </div>
+    </div >
   );
 };
 
