@@ -2978,3 +2978,26 @@
     padding: 0.5rem 0.75rem;
   }
 }
+
+/* for table */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.info-table th,
+.info-table td {
+  border: 1px solid #333;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.info-table th {
+  background: #1f1f25;
+  color: #a5b4fc;
+}
+
+.info-table tr:nth-child(even) {
+  background: #18181b;
+}
