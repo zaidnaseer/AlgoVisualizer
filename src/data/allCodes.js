@@ -825,6 +825,393 @@ void introSortUtil(vector<int>& arr, int low, int high, int depthLimit) {
   },
 };
 
+export const kruskalAlgorithms = {
+  kruskal: {
+    java: `import java.util.*;
+
+class Edge implements Comparable<Edge> {
+    int src, dest, weight;
+    Edge(int s, int d, int w) {
+        src = s; dest = d; weight = w;
+    }
+    public int compareTo(Edge o) { return this.weight - o.weight; }
+}
+
+class KruskalAlgorithm {
+    static int[] parent, rank;
+
+    static int find(int x) {
+        if (parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    static void union(int x, int y) {
+        int px = find(x), py = find(y);
+        if (px != py) {
+            if (rank[px] < rank[py]) parent[px] = py;
+            else if (rank[px] > rank[py]) parent[py] = px;
+            else { parent[py] = px; rank[px]++; }
+        }
+    }
+
+    static void kruskalMST(List<Edge> edges, int V) {
+        Collections.sort(edges);
+        parent = new int[V]; rank = new int[V];
+        for (int i = 0; i < V; i++) parent[i] = i;
+
+        List<Edge> mst = new ArrayList<>();
+        int mstWeight = 0;
+
+        for (Edge e : edges) {
+            if (find(e.src) != find(e.dest)) {
+                union(e.src, e.dest);
+                mst.add(e);
+                mstWeight += e.weight;
+            }
+        }
+
+        System.out.println("MST Edges:");
+        for (Edge e : mst) {
+            System.out.println(e.src + " - " + e.dest + " : " + e.weight);
+        }
+        System.out.println("Total MST Weight: " + mstWeight);
+    }
+}`,
+    python: `class UnionFind:
+    def __init__(self, size):
+        self.parent = list(range(size))
+        self.rank = [0] * size
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        px, py = self.find(x), self.find(y)
+        if px != py:
+            if self.rank[px] < self.rank[py]:
+                self.parent[px] = py
+            elif self.rank[px] > self.rank[py]:
+                self.parent[py] = px
+            else:
+                self.parent[py] = px
+                self.rank[px] += 1
+
+def kruskal_mst(edges, V):
+    edges.sort(key=lambda x: x[2])  # sort by weight
+    uf = UnionFind(V)
+    mst = []
+    mst_weight = 0
+
+    for u, v, w in edges:
+        if uf.find(u) != uf.find(v):
+            uf.union(u, v)
+            mst.append((u, v, w))
+            mst_weight += w
+
+    print("MST Edges:")
+    for u, v, w in mst:
+        print(f"{u} - {v} : {w}")
+    print(f"Total MST Weight: {mst_weight}")
+    return mst`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+struct Edge {
+    int src, dest, weight;
+};
+
+bool cmp(Edge a, Edge b) { return a.weight < b.weight; }
+
+class UnionFind {
+    vector<int> parent, rank;
+public:
+    UnionFind(int size) {
+        parent.resize(size); rank.resize(size, 0);
+        for(int i=0; i<size; i++) parent[i] = i;
+    }
+    int find(int x) {
+        if(parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    void unionSets(int x, int y) {
+        int px = find(x), py = find(y);
+        if(px != py) {
+            if(rank[px] < rank[py]) parent[px] = py;
+            else if(rank[px] > rank[py]) parent[py] = px;
+            else { parent[py] = px; rank[px]++; }
+        }
+    }
+};
+
+void kruskalMST(vector<Edge>& edges, int V) {
+    sort(edges.begin(), edges.end(), cmp);
+    UnionFind uf(V);
+    vector<Edge> mst;
+    int mstWeight = 0;
+
+    for(auto& e : edges) {
+        if(uf.find(e.src) != uf.find(e.dest)) {
+            uf.unionSets(e.src, e.dest);
+            mst.push_back(e);
+            mstWeight += e.weight;
+        }
+    }
+
+    cout << "MST Edges:\\n";
+    for(auto& e : mst) {
+        cout << e.src << " - " << e.dest << " : " << e.weight << "\\n";
+    }
+    cout << "Total MST Weight: " << mstWeight << endl;
+}`,
+    javascript: `class UnionFind {
+    constructor(size) {
+        this.parent = Array.from({length: size}, (_, i) => i);
+        this.rank = Array(size).fill(0);
+    }
+
+    find(x) {
+        if (this.parent[x] !== x) {
+            this.parent[x] = this.find(this.parent[x]);
+        }
+        return this.parent[x];
+    }
+
+    union(x, y) {
+        const px = this.find(x), py = this.find(y);
+        if (px !== py) {
+            if (this.rank[px] < this.rank[py]) {
+                this.parent[px] = py;
+            } else if (this.rank[px] > this.rank[py]) {
+                this.parent[py] = px;
+            } else {
+                this.parent[py] = px;
+                this.rank[px]++;
+            }
+        }
+    }
+}
+
+function kruskalMST(edges, V) {
+    edges.sort((a, b) => a[2] - b[2]); // sort by weight
+    const uf = new UnionFind(V);
+    const mst = [];
+    let mstWeight = 0;
+
+    for (const [u, v, w] of edges) {
+        if (uf.find(u) !== uf.find(v)) {
+            uf.union(u, v);
+            mst.push([u, v, w]);
+            mstWeight += w;
+        }
+    }
+
+    console.log("MST Edges:");
+    for (const [u, v, w] of mst) {
+        console.log(\`\${u} - \${v} : \${w}\`);
+    }
+    console.log(\`Total MST Weight: \${mstWeight}\`);
+    return mst;
+}`,
+  },
+};
+
+export const primsAlgorithms = {
+  prims: {
+    java: `import java.util.*;
+
+public class PrimsAlgorithm {
+    private static final int V = 5; // Number of vertices
+
+    // Find the vertex with minimum key value
+    int minKey(int key[], Boolean mstSet[]) {
+        int min = Integer.MAX_VALUE, min_index = -1;
+        for (int v = 0; v < V; v++)
+            if (mstSet[v] == false && key[v] < min) {
+                min = key[v];
+                min_index = v;
+            }
+        return min_index;
+    }
+
+    // Print the constructed MST
+    void printMST(int parent[], int graph[][]) {
+        System.out.println("Edge \\tWeight");
+        for (int i = 1; i < V; i++)
+            System.out.println(parent[i] + " - " + i + "\\t" + graph[i][parent[i]]);
+    }
+
+    // Construct and print MST for a graph represented using adjacency matrix
+    void primMST(int graph[][]) {
+        int parent[] = new int[V]; // Array to store constructed MST
+        int key[] = new int[V]; // Key values used to pick minimum weight edge
+        Boolean mstSet[] = new Boolean[V]; // To represent set of vertices included in MST
+
+        // Initialize all keys as INFINITE
+        for (int i = 0; i < V; i++) {
+            key[i] = Integer.MAX_VALUE;
+            mstSet[i] = false;
+        }
+
+        // Always include first 0th vertex in MST
+        key[0] = 0; // Make key 0 so that this vertex is picked as first vertex
+        parent[0] = -1; // First node is always root of MST
+
+        // The MST will have V vertices
+        for (int count = 0; count < V - 1; count++) {
+            // Pick the minimum key vertex from the set of vertices not yet included in MST
+            int u = minKey(key, mstSet);
+
+            // Add the picked vertex to the MST Set
+            mstSet[u] = true;
+
+            // Update key value and parent index of the adjacent vertices
+            for (int v = 0; v < V; v++)
+                // graph[u][v] is non zero only for adjacent vertices of m
+                // mstSet[v] is false for vertices not yet included in MST
+                // Update the key only if graph[u][v] is smaller than key[v]
+                if (graph[u][v] != 0 && mstSet[v] == false && graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = graph[u][v];
+                }
+        }
+
+        // Print the constructed MST
+        printMST(parent, graph);
+    }
+}`,
+    python: `import sys
+
+class PrimsAlgorithm:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = [[0 for column in range(vertices)] for row in range(vertices)]
+
+    def min_key(self, key, mst_set):
+        min_val = sys.maxsize
+        min_index = -1
+        for v in range(self.V):
+            if key[v] < min_val and not mst_set[v]:
+                min_val = key[v]
+                min_index = v
+        return min_index
+
+    def print_mst(self, parent):
+        print("Edge \\tWeight")
+        for i in range(1, self.V):
+            print(parent[i], "-", i, "\\t", self.graph[i][parent[i]])
+
+    def prim_mst(self):
+        key = [sys.maxsize] * self.V
+        parent = [None] * self.V
+        key[0] = 0
+        mst_set = [False] * self.V
+        parent[0] = -1
+
+        for _ in range(self.V):
+            u = self.min_key(key, mst_set)
+            mst_set[u] = True
+
+            for v in range(self.V):
+                if (self.graph[u][v] > 0 and
+                    not mst_set[v] and
+                    key[v] > self.graph[u][v]):
+                    key[v] = self.graph[u][v]
+                    parent[v] = u
+
+        self.print_mst(parent)`,
+    cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+#define V 5
+
+int minKey(int key[], bool mstSet[]) {
+    int min = INT_MAX, min_index;
+    for (int v = 0; v < V; v++)
+        if (mstSet[v] == false && key[v] < min)
+            min = key[v], min_index = v;
+    return min_index;
+}
+
+void printMST(int parent[], int graph[V][V]) {
+    cout << "Edge \\tWeight\\n";
+    for (int i = 1; i < V; i++)
+        cout << parent[i] << " - " << i << " \\t" << graph[i][parent[i]] << "\\n";
+}
+
+void primMST(int graph[V][V]) {
+    int parent[V];
+    int key[V];
+    bool mstSet[V];
+
+    for (int i = 0; i < V; i++)
+        key[i] = INT_MAX, mstSet[i] = false;
+
+    key[0] = 0;
+    parent[0] = -1;
+
+    for (int count = 0; count < V - 1; count++) {
+        int u = minKey(key, mstSet);
+        mstSet[u] = true;
+
+        for (int v = 0; v < V; v++)
+            if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
+                parent[v] = u, key[v] = graph[u][v];
+    }
+
+    printMST(parent, graph);
+}`,
+    javascript: `class PrimsAlgorithm {
+    constructor(vertices) {
+        this.V = vertices;
+        this.graph = Array.from({length: vertices}, () => Array(vertices).fill(0));
+    }
+
+    minKey(key, mstSet) {
+        let min = Number.MAX_VALUE, minIndex = -1;
+        for (let v = 0; v < this.V; v++) {
+            if (!mstSet[v] && key[v] < min) {
+                min = key[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    printMST(parent) {
+        console.log("Edge \\tWeight");
+        for (let i = 1; i < this.V; i++) {
+            console.log(\`\${parent[i]} - \${i} \\t \${this.graph[i][parent[i]]}\`);
+        }
+    }
+
+    primMST() {
+        const key = Array(this.V).fill(Number.MAX_VALUE);
+        const parent = Array(this.V).fill(null);
+        const mstSet = Array(this.V).fill(false);
+
+        key[0] = 0;
+        parent[0] = -1;
+
+        for (let count = 0; count < this.V - 1; count++) {
+            const u = this.minKey(key, mstSet);
+            mstSet[u] = true;
+
+            for (let v = 0; v < this.V; v++) {
+                if (this.graph[u][v] > 0 && !mstSet[v] && this.graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = this.graph[u][v];
+                }
+            }
+        }
+
+        this.printMST(parent);
+    }
+}`,
+  },
+};
+
 export const searchAlgorithms = {
   linearSearch: {
     java: `public static int linearSearch(int[] arr, int target) {
