@@ -245,6 +245,84 @@ const Navbar = () => {
         </div>
           <ThemeToggle />
 
+          <div className="flex items-center gap-1">
+            {/* Notes desktop */}
+            <div className="navbar-item dropdown">
+              <button
+                className={`dropdown-toggle ${
+                  desktopNotesOpen ? "active" : ""
+                }`}
+                onClick={() => setDesktopNotesOpen(!desktopNotesOpen)}
+              >
+                <BookOpen size={18} className="drop-icon" />
+                <span>Notes</span>
+                <ChevronDown
+                  size={16}
+                  className={`${desktopNotesOpen ? "rotated" : ""}`}
+                />
+              </button>
+              {desktopNotesOpen && (
+                <div className="dropdown-menu">
+                  <Link
+                    to="/notes/java"
+                    className={`dropdown-item ${
+                      isActive("/notes/java") ? "active" : ""
+                    }`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    Java
+                  </Link>
+                  <Link
+                    to="/notes/python"
+                    className={`dropdown-item ${
+                      isActive("/notes/python") ? "active" : ""
+                    }`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    Python
+                  </Link>
+                  <Link
+                    to="/notes/cpp"
+                    className={`dropdown-item ${
+                      isActive("/notes/cpp") ? "active" : ""
+                    }`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    C++
+                  </Link>
+                  <Link
+                    to="/notes/c"
+                    className={`dropdown-item ${
+                      isActive("/notes/c") ? "active" : ""
+                    }`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    C
+                  </Link>
+
+                  <Link
+                    to="/notes/javascript"
+                    className={`dropdown-item ${
+                      isActive("/notes/javascript") ? "active" : ""
+                    }`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    JavaScript
+                  </Link>
+                  <Link
+                    to="https://docs.google.com/spreadsheets/d/1mvlc8EYc3OVVU3X7NKoC0iZJr_45BL_pVxiJec0r94c/htmlview?gid=0#gid=0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`dropdown-item ${
+                      isActive("/notes/c") ? "active" : ""
+                    }`}
+                    onClick={() => setDesktopNotesOpen(false)}
+                  >
+                    DSA Sheet
+                  </Link>
+                </div>
+              )}
+            </div>
 
         </div>
 
@@ -290,7 +368,77 @@ const Navbar = () => {
           />
         ))}
 
-   
+        {/* Notes Section */}
+        <div className="mobile-dropdown">
+          <button
+            className={`mobile-dropdown-toggle ${
+              mobileNotesOpen ? "active" : ""
+            }`}
+            onClick={() => setMobileNotesOpen(!mobileNotesOpen)}
+          >
+            <BookOpen size={18} className="icon" />
+            <span>Notes</span>
+            <ChevronDown
+              size={16}
+              className={`${mobileNotesOpen ? "rotated" : ""}`}
+            />
+          </button>
+          <div
+            className={`mobile-dropdown-menu ${mobileNotesOpen ? "open" : ""}`}
+          >
+            <Link
+              to="/notes/java"
+              className="mobile-menu-link"
+              onClick={() => {
+                setMobileNotesOpen(false);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Java
+            </Link>
+            <Link
+              to="/notes/python"
+              className="mobile-menu-link"
+              onClick={() => {
+                setMobileNotesOpen(false);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Python
+            </Link>
+            <Link
+              to="/notes/cpp"
+              className="mobile-menu-link"
+              onClick={() => {
+                setMobileNotesOpen(false);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              C++
+            </Link>
+            <Link
+              to="/notes/c"
+              className="mobile-menu-link"
+              onClick={() => {
+                setMobileNotesOpen(false);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              C
+            </Link>
+
+             <Link
+              to="/notes/javascript"
+              className="mobile-menu-link"
+              onClick={() => {
+                setMobileNotesOpen(false);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              JavaScript
+            </Link>
+          </div>
+        </div>
 
         {/* User Dropdown */}
         <div className="mobile-user-dropdown mt-4">
