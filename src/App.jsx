@@ -122,6 +122,7 @@ import Playground from "./pages/Playground";
 import ProgressTracker from "./components/ProgressTracker";
 import LearnerLeaderboard from "./components/LearnerLeaderboard";
 import WeeklyChallenge from "./components/WeeklyChallenge";
+import GitLearning from "./pages/GitLearning.jsx";
 
 
 
@@ -264,6 +265,8 @@ const App = () => {
                   <Route path="/contributor/:id" element={<ContributorProfileModal />} />
 
                   <Route path="/playground" element={<Playground />} />
+
+                  <Route path="/learn/git" element={<GitLearning />} />
 
 
                   {/* Learning & Settings */}
