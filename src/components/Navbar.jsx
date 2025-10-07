@@ -239,10 +239,7 @@ const Navbar = () => {
               getIcon={getIcon}
             />
           ))}
-             {/* User Dropdown */}
-        <div className="mobile-user-dropdown mt-4">
-          <UserDropdown />
-        </div>
+
           <ThemeToggle />
 
           <div className="flex items-center gap-1">
@@ -324,6 +321,9 @@ const Navbar = () => {
               )}
             </div>
 
+            {/* User Dropdown */}
+            <UserDropdown />
+          </div>
         </div>
 
         {/* Mobile Hamburger */}
