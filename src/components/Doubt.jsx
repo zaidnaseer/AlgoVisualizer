@@ -194,6 +194,7 @@ const Doubt = () => {
             <input
               id="email"
               type="email"
+              name="email"
               placeholder=" "
               value={email}
               onChange={(e) => {
@@ -203,6 +204,9 @@ const Doubt = () => {
               onBlur={validateEmail}
               aria-invalid={!!emailError}
               aria-describedby={emailError ? "email-error" : undefined}
+              aria-label="Email address"
+              autoComplete="email"
+              required
               data-filled={isFilled.email}
               className="field-input"
             />
@@ -234,6 +238,7 @@ const Doubt = () => {
             <HelpCircle className="field-icon" aria-hidden="true" />
             <textarea
               id="doubt"
+              name="doubt"
               placeholder=" "
               rows="5"
               value={doubt}
@@ -245,6 +250,8 @@ const Doubt = () => {
               onBlur={validateDoubt}
               aria-invalid={!!doubtError}
               aria-describedby="doubt-help"
+              aria-label="Describe your doubt"
+              required
               data-filled={isFilled.doubt}
               className="field-input textarea"
             />
@@ -288,27 +295,46 @@ const Doubt = () => {
             </div>
           </motion.div>
 
-          {/* Submit */}
-          <motion.button
-            type="submit"
-            className="submit-btn"
-            disabled={!isValidToSubmit || submitStatus === "loading"}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            aria-label="Submit your doubt"
-          >
-            {submitStatus === "loading" ? (
-              <>
-                <Loader2 className="spin" size={18} />
-                Submitting…
-              </>
-            ) : (
-              <>
-                <Send size={18} />
-                Submit
-              </>
-            )}
-          </motion.button>
+          {/* Actions */}
+          <motion.div className="button-row" variants={itemUp}>
+            <motion.button
+              type="submit"
+              className="submit-btn"
+              disabled={!isValidToSubmit || submitStatus === "loading"}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              aria-label="Submit your doubt"
+            >
+              {submitStatus === "loading" ? (
+                <>
+                  <Loader2 className="spin" size={18} />
+                  Submitting…
+                </>
+              ) : (
+                <>
+                  <Send size={18} />
+                  Submit
+                </>
+              )}
+            </motion.button>
+
+            <motion.button
+              type="button"
+              className="cancel-btn"
+              onClick={() => {
+                setEmail("");
+                setDoubt("");
+                setEmailError("");
+                setDoubtError("");
+                setSubmitStatus(null);
+              }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              aria-label="Cancel and clear the form"
+            >
+              Cancel
+            </motion.button>
+          </motion.div>
         </motion.form>
       </motion.div>
     </motion.section>
