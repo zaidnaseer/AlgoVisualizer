@@ -90,6 +90,43 @@
   color: var(--ce-accent-text);
 }
 
+.code-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.copy-code-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--ce-btn-bg);
+  color: var(--ce-text-primary);
+  border: 1px solid var(--ce-border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.copy-code-button:hover {
+  background: var(--ce-btn-hover);
+  transform: translateY(-1px);
+}
+
+.copy-code-button.copied {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.copy-code-button:active {
+  transform: translateY(0);
+}
+
 .code-block {
   background: var(--ce-code-bg);
   border-radius: 12px;

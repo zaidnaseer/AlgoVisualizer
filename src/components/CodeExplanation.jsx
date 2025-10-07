@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
+import { Copy, Check } from "lucide-react";
 import "../styles/codeExplanation.css";
 
 const LANGS = [
@@ -1347,6 +1348,7 @@ const CodeExplanation = ({ algorithm, isVisible, onClose }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1000);
   const [lang, setLang] = useState("js");
+  const [copied, setCopied] = useState(false);
   const intervalRef = useRef(null);
 
   const currentAlgorithm = ALGO[algorithm];
@@ -1383,6 +1385,30 @@ const CodeExplanation = ({ algorithm, isVisible, onClose }) => {
     setIsPlaying(false);
     if (intervalRef.current) clearInterval(intervalRef.current);
   }, []);
+
+  const copyToClipboard = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(codeForLang);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = codeForLang;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (fallbackErr) {
+        console.error('Failed to copy code:', fallbackErr);
+      }
+      document.body.removeChild(textArea);
+    }
+  }, [codeForLang]);
 
   const togglePlayback = useCallback(() => {
     if (isPlaying) {
@@ -1486,7 +1512,27 @@ const CodeExplanation = ({ algorithm, isVisible, onClose }) => {
 
           {/* Code Block */}
           <div className="code-section">
-            <h3>Algorithm Code</h3>
+            <div className="code-section-header">
+              <h3>Algorithm Code</h3>
+              <button 
+                onClick={copyToClipboard} 
+                className={`copy-code-button ${copied ? 'copied' : ''}`}
+                aria-label={copied ? "Code copied!" : "Copy code to clipboard"}
+                title={copied ? "Copied!" : "Copy code"}
+              >
+                {copied ? (
+                  <>
+                    <Check size={16} />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={16} />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+            </div>
             <div className="code-block">
               <pre id={`code-block-${lang}`}>
                 <code>
