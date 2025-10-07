@@ -24,6 +24,7 @@ import {
 import { useTheme } from "../ThemeContext";
 import { navbarNavigationItems } from "../utils/navigation";
 import UserDropdown from "./UserDropdown";
+import ThemeToggle from "./ThemeToggle";
 
 const ICON_COMPONENTS = {
   Home,
@@ -226,7 +227,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex justify-center items-center gap-2">
           {navbarNavigationItems.map((item, i) => (
             <DesktopNavItem
               key={i}
@@ -238,6 +239,8 @@ const Navbar = () => {
               getIcon={getIcon}
             />
           ))}
+
+          <ThemeToggle />
 
           <div className="flex items-center gap-1">
             {/* Notes desktop */}
@@ -318,6 +321,7 @@ const Navbar = () => {
               )}
             </div>
 
+            {/* User Dropdown */}
             <UserDropdown />
           </div>
         </div>
