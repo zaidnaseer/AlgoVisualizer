@@ -233,6 +233,42 @@ useLayoutEffect(() => {
     updateState('barMotion', !state.barMotion);
   }, [state.barMotion, updateState]);
 
+  // Keyboard controls for speed adjustment
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      // Only handle if not animating or if in input field
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      
+      if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        setState(prev => ({
+          ...prev,
+          animationSpeedMs: Math.max(MIN_ANIMATION_SPEED, prev.animationSpeedMs - 50)
+        }));
+      } else if (e.key === '-' || e.key === '_') {
+        e.preventDefault();
+        setState(prev => ({
+          ...prev,
+          animationSpeedMs: Math.min(MAX_ANIMATION_SPEED, prev.animationSpeedMs + 50)
+        }));
+      }
+    };
+
+    if (!visualOnly && !controlled) {
+      window.addEventListener('keydown', handleKeyPress);
+      return () => window.removeEventListener('keydown', handleKeyPress);
+    }
+  }, [visualOnly, controlled]);
+
+  // Get speed label for better UX
+  const getSpeedLabel = useCallback((speed) => {
+    if (speed <= 100) return "Very Fast";
+    if (speed <= 250) return "Fast";
+    if (speed <= 500) return "Normal";
+    if (speed <= 800) return "Slow";
+    return "Very Slow";
+  }, []);
+
   // Memoize the bar rendering to prevent unnecessary re-renders
   const renderBars = useMemo(() => {
     return displayArray.map((val, idx) => {
@@ -326,17 +362,46 @@ useLayoutEffect(() => {
               aria-label="Search target value"
             />
           )}
-          <div className="speed-control">
-            <label>Speed: {state.animationSpeedMs}ms</label>
-            <input
-              type="range"
-              min={MIN_ANIMATION_SPEED}
-              max={MAX_ANIMATION_SPEED}
-              step="20"
-              value={state.animationSpeedMs}
-              onChange={(e) => updateAnimationSpeed(e.target.value)}
-              aria-label="Animation speed control"
-            />
+          <div className="speed-control-wrapper">
+            <div className="speed-control-header">
+              <label className="speed-label">
+                Speed: <span className="speed-value">{state.animationSpeedMs}ms</span>
+              </label>
+              <span className="speed-badge">{getSpeedLabel(state.animationSpeedMs)}</span>
+            </div>
+            <div className="speed-slider-container">
+              <button
+                className="speed-adjust-btn"
+                onClick={() => updateAnimationSpeed(Math.min(MAX_ANIMATION_SPEED, state.animationSpeedMs + 50))}
+                aria-label="Decrease speed"
+                title="Decrease speed (or press -)"
+              >
+                −
+              </button>
+              <input
+                type="range"
+                className="speed-slider"
+                min={MIN_ANIMATION_SPEED}
+                max={MAX_ANIMATION_SPEED}
+                step="20"
+                value={state.animationSpeedMs}
+                onChange={(e) => updateAnimationSpeed(e.target.value)}
+                aria-label="Animation speed control"
+                aria-valuetext={`${state.animationSpeedMs} milliseconds, ${getSpeedLabel(state.animationSpeedMs)}`}
+              />
+              <button
+                className="speed-adjust-btn"
+                onClick={() => updateAnimationSpeed(Math.max(MIN_ANIMATION_SPEED, state.animationSpeedMs - 50))}
+                aria-label="Increase speed"
+                title="Increase speed (or press +)"
+              >
+                +
+              </button>
+            </div>
+            <div className="speed-indicators">
+              <span className="speed-indicator-label">Faster</span>
+              <span className="speed-indicator-label">Slower</span>
+            </div>
           </div>
           <label>
             <input

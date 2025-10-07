@@ -45,14 +45,143 @@
   width: 100px;
 }
 
-.speed-control {
+/* Enhanced Speed Control */
+.speed-control-wrapper {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  min-width: 280px;
 }
 
-.speed-control input[type="range"] {
-  width: 100px;
+.speed-control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.speed-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.speed-value {
+  color: #007bff;
+  font-family: 'Courier New', monospace;
+}
+
+.speed-badge {
+  padding: 0.25rem 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.speed-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.speed-adjust-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  background-color: white;
+  color: #007bff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.speed-adjust-btn:hover:not(:disabled) {
+  background-color: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.speed-adjust-btn:active {
+  transform: scale(0.95);
+}
+
+.speed-slider {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #28a745 0%, #ffc107 50%, #dc3545 100%);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #007bff;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.speed-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.speed-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #007bff;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.speed-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.speed-slider:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.speed-indicators {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.25rem;
+}
+
+.speed-indicator-label {
+  font-size: 0.7rem;
+  color: #6c757d;
+  font-weight: 500;
 }
 
 .visualization-container {
@@ -133,8 +262,27 @@
     width: 100%;
   }
   
-  .speed-control {
-    align-items: center;
+  .speed-control-wrapper {
+    min-width: 100%;
+    width: 100%;
+  }
+  
+  .speed-adjust-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    /* Larger touch targets for mobile */
+  }
+  
+  .speed-slider::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+    /* Larger thumb for easier touch control */
+  }
+  
+  .speed-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
   }
   
   .visualization-container {
@@ -144,5 +292,12 @@
   .visualization-bar {
     width: 20px !important;
     font-size: 8px;
+  }
+}
+
+/* Tablet improvements */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .speed-control-wrapper {
+    min-width: 320px;
   }
 }
