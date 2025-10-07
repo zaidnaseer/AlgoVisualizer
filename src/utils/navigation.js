@@ -34,6 +34,17 @@ export const navbarNavigationItems = [
     ],
   },
   { path: "/data-structures", label: "Documentation", icon: "BookOpen" },
+    {
+    label: "Notes",
+    icon: "BookOpen",
+    dropdown: [
+      { path: "/notes/java", label: "Java" },
+      { path: "/notes/python", label: "Python" },
+      { path: "/notes/cpp", label: "Cpp" },
+      { path: "/notes/c", label: "C" },
+
+     ],
+  },
   { path: "/settings", label: "Settings", icon: "Settings" },
 ];
 

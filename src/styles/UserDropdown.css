@@ -66,7 +66,7 @@
   border: 1px solid;
   min-width: 240px;
   overflow: hidden;
-  z-index: 50;
+  z-index: 1100; /* Higher than notification widget (1000) */
   animation-duration: 200ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -151,6 +151,7 @@
   transition: all 0.2s;
   cursor: pointer;
   outline: none;
+  z-index: 1100;
 }
 
 .user-menu-item.light {

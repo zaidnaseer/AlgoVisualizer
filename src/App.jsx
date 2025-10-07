@@ -147,7 +147,7 @@ const App = () => {
             <NotificationsProvider>
             <div className="app-container">
               <ScrollToTop />
-              <ThemeToggle />
+              
               <Navbar />
 
               <main className="main-content page-content">
