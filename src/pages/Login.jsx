@@ -133,6 +133,7 @@ const Login = () => {
                 </label>
               </div>
 
+                {/* 🔹 Forgot Password Link Highlight */}
               <Link to="/forgot-password" className="forgot-password">
                 Forgot password?
               </Link>
