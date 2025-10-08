@@ -260,7 +260,7 @@ const Sorting = () => {
 
     setState(prev => ({ ...prev, isSorting: true, message: `Sorting using ${algorithmHelpers.getName(state.algorithm)}...` }));
     sortingControls.reset(stopSortingRef);
-    setStatistics(performanceTracker.init());
+    setState(prev=>({...prev,statistics:performanceTracker.init()}))
 
     const startTime = Date.now();
     const algorithmFunction = ALGORITHM_MAPPINGS[state.algorithm]?.function;
