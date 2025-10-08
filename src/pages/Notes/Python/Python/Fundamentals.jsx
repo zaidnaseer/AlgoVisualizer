@@ -14,6 +14,7 @@ import IteratorsSection from "./sections/IteratorsSection";
 import ModulesSection from "./sections/ModulesSection";
 import DSASection from "./sections/DSASection";
 import NumpySection from "./sections/NumpySection";
+import MultithreadingSection from "./sections/MultithreadingSection";
 
 const PythonFundamentals = () => {
   const [activeTab, setActiveTab] = useState("intro");
@@ -45,6 +46,7 @@ const PythonFundamentals = () => {
     { id: "modules", label: "Modules & Packages", component: <ModulesSection copyCode={copyCode} copiedCode={copiedCode} /> },
     { id: "dsa", label: "Python for DSA", component: <DSASection copyCode={copyCode} copiedCode={copiedCode} /> },
     { id: "numpy", label: "NumPy & Pandas", component: <NumpySection copyCode={copyCode} copiedCode={copiedCode} /> },
+    { id: "multithreading", label: "Multithreading & Multiprocessing", component: <MultithreadingSection copyCode={copyCode} copiedCode={copiedCode} /> },
   ];
 
   return (
