@@ -35,6 +35,7 @@ import Feature from "./sections/Feature";
 import Annotations from "./sections/Annotations";
 
 import "../../../styles/notesSideBar.css";
+import "../../../styles/fundamentals.css";
 import { FaChevronDown, FaChevronRight, FaBook, FaBars, FaTimes  } from "react-icons/fa";
 
 // sideBar content
@@ -44,7 +45,7 @@ const JavaSidebar = ({
   onSelectTopic,
   activeTopic,
   sections,
-}) => {
+}) => { 
   const [openCategory, setOpenCategory] = useState("intro");
 
   const toggleCategory = (title) => {
@@ -69,9 +70,9 @@ const JavaSidebar = ({
             {/* --- Main Section --- */}
             <button
               onClick={() => toggleCategory(section.title)}
-              className="flex justify-between items-center   text-left text-sm font-semibold w-50 px-3 py-2 rounded-md hover:bg-indigo-700/30 transition"
+              className="flex !text-gray-50 justify-between items-center   text-left text-sm font-semibold w-50 px-3 py-2 rounded-md hover:bg-indigo-700/30 transition"
             >
-              <span>{section.title}</span>
+              <span className="!text-gray-50">{section.title}</span>
               {openCategory === section.title ? (
                 <FaChevronDown size={14} />
               ) : (
@@ -89,7 +90,7 @@ const JavaSidebar = ({
                     <li key={topicId}>
                       <button
                         onClick={() => onSelectTopic(topicId)}
-                        className={`w-40 text-left text-sm mx-3.5 px-6 py-1.5 rounded-md hover:bg-indigo-600/30 transition ${
+                        className={`w-40 !text-gray-50 text-left text-sm mx-3.5 px-6 py-1.5 rounded-md hover:bg-indigo-600/30 transition ${
                           activeTopic === topicId
                             ? "bg-indigo-600/40 text-indigo-300"
                             : "text-gray-200"
@@ -433,26 +434,11 @@ const Fundamentals = () => {
           boxShadow: "0 10px 25px rgba(79, 70, 229, 0.3)",
         }}
       >
-        <h1
-          style={{
-            fontSize: "3rem",
-            color: "white !important",
-            marginBottom: "1rem",
-            fontWeight: 800,
-          }}
+        <h1 className="funda-header" 
         >
           Java Fundamentals
         </h1>
-        <p
-          style={{
-            fontSize: "1.2rem",
-            maxWidth: "700px",
-            margin: "0 auto",
-            opacity: 0.9,
-            color: window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "#ffffff" // text color for dark mode
-              : "#1a1a1a", // text color for light mode
-          }}
+        <p className="funda-desc"
         >
           A comprehensive guide to Java programming for beginners. Learn core
           concepts with detailed explanations and runnable examples you can
@@ -478,11 +464,10 @@ const Fundamentals = () => {
         <div style={{ marginTop: "1rem" }}>{getActiveComponent()}</div>
       </main>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         .notes-page {
           font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          line-height: 1.6;
-          color: #374151;
+          line-height: 1.6; 
         }
 
         .card {
@@ -583,7 +568,7 @@ const Fundamentals = () => {
         strong {
           color: var(--code-text, #374151);
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 };

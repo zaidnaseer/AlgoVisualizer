@@ -86,7 +86,7 @@ const Feature = () => {
                 boxShadow: "0 4px 10px rgba(0 , 0 , 0, 0.3",
               }}
             >
-              <h1 style={{ fontSize: "1.9rem", color: "#fff" }}>{f.title}</h1>
+              <h1 style={{ fontSize: "1.9rem" ,color:'#d1d5db'}}>{f.title}</h1>
               <p style={{ fontSize: "1rem", color: "#d1d5db" , lineHeight:'1.5' }}>{f.desc}</p>
             </div>
           ))}
@@ -94,9 +94,9 @@ const Feature = () => {
         {/* summary table */}
         <div style={{display:'flex' , justifyContent:'center' , alignItems:'center', flexDirection:'column'}}>
             <h2 style={{ textAlign: "center", fontSize: "2rem" }}>🧠 Summary Table</h2>
-            <div style={{display:'flex' , justifyContent:'center' , gap:'.7rem' , flexDirection:"column" , width:"70%" , border:"2px solid #fff"}}>
+            <div style={{display:'flex' , justifyContent:'center' , gap:'.7rem' , flexDirection:"column" , width:"70%" , border:"2px solid #000"}}>
                 {features.map((s , i) => (
-                    <div key={i} style={{borderBottom:"2px solid #fff" ,display:"flex" , justifyContent:"space-between" , alignItems:'center' , flexDirection:"column" ,  color:"#fff" , padding:"1rem 3rem"}}>
+                    <div key={i} style={{borderBottom:"2px solid #000" ,display:"flex" , justifyContent:"space-between" , alignItems:'center' , flexDirection:"column" ,  color:"#fff" , padding:"1rem 3rem"}}>
                         <h1>{s.title}</h1>
                         <h1>{s.summary}</h1>
                     </div>
