@@ -24,6 +24,11 @@ const notesMap = {
     { name: "Fundamentals", path: "/notes/c/fundamentals" },
     // Add more C topics here
   ],
+  javascript: [
+    { name: "Fundamentals", path: "/notes/javascript/fundamentals" },
+    { name: "Variables & Data Types", path: "/notes/javascript/variables-and-data-types" },
+    // Add more JavaScript topics here
+  ],
 };
 
 const NotesPage = () => {
