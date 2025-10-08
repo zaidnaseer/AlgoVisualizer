@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import StringVisualizer from "../components/StringVisualizer";
 import { stringAlgorithms } from "../data/allCodes";
+import { getComplexity } from "../data/algorithmComplexity";
+import ComplexityBadge from "../components/ComplexityBadge";
 import "../styles/global-theme.css";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -10,10 +12,14 @@ const StringPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
 
   const algorithmData = stringAlgorithms["KMP"] || {};
+  const complexity = getComplexity("KMP");
 
   return (
     <div className="theme-container" data-aos="fade-up" data-aos-duration="1000">
-      <h1 className="theme-title">KMP String Matching Algorithm</h1>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
+        <h1 className="theme-title" style={{ margin: 0 }}>KMP String Matching Algorithm</h1>
+        <ComplexityBadge time={complexity?.time} space={complexity?.space} />
+      </div>
 
       {/* KMP Algorithm Explanation */}
       <div className="theme-card" style={{ marginBottom: '2rem' }} data-aos="fade-up" data-aos-delay="100">
