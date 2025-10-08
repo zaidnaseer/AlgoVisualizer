@@ -37,6 +37,7 @@ const IntroSection = ({ copyCode, copiedCode }) => (
           padding: "1rem 1.5rem",
           margin: "1.5rem 0",
           borderRadius: "0 12px 12px 0",
+          color:"#374151",
         }}
       >
         <strong>Note:</strong> Java was first released by Sun Microsystems in

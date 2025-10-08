@@ -62,8 +62,8 @@
 }
 .menu-btn {
   position: absolute;
-  top: 6rem;
-  left: 10px;
+  top: 4rem;
+  left: 0px;
   z-index: 10;
   background-color: #6b6bff;
   border: none;

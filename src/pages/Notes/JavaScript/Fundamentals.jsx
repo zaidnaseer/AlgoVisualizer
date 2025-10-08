@@ -3,6 +3,7 @@ import IntroSection from "./sections/IntroSection";
 import DataTypesSection from "./sections/DataTypesSection";
 import FunctionsSection from "./sections/FunctionsSection";
 import ObjectsSection from "./sections/ObjectsSection";
+// import "../../../styles/fundamentals.css";
 
 const Fundamentals = () => {
   const [activeTab, setActiveTab] = useState("intro");
