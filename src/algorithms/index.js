@@ -69,6 +69,13 @@ export async function binarySearchWrapper(arr, setColorArray, delay) {
   return await binarySearchWithStop(arr, noopSetArray, setColorArray, delay, makeStopRef(), noopUpdateStats);
 }
 
+// Backtracking algorithms
+import { nQueensWithStop } from "./nQueens.js";
+export async function nQueens(board, setColorArray, delay) {
+  return await nQueensWithStop(board, noopSetArray, setColorArray, delay, makeStopRef(), noopUpdateStats);
+}
+
+
 // Searching algorithms (direct re-exports)
 import { linearSearch } from "./linearSearch.js";
 export { linearSearch };
