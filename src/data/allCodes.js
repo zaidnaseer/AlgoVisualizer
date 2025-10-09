@@ -227,6 +227,104 @@ void mergeSort(vector<int>& arr, int left, int right) {
     }
 }`,
   },
+cocktailShakerSort: {
+  java: `public static void cocktailShakerSort(int[] arr) {
+    boolean swapped = true;
+    int start = 0;
+    int end = arr.length - 1;
+
+    while (swapped) {
+        swapped = false;
+
+        // Forward pass
+        for (int i = start; i < end; i++) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                swapped = true;
+            }
+        }
+
+        if (!swapped) break;
+
+        swapped = false;
+        end--;
+
+        // Backward pass
+        for (int i = end - 1; i >= start; i--) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                swapped = true;
+            }
+        }
+        start++;
+    }
+}`,
+
+  python: `def cocktail_shaker_sort(arr):
+    swapped = True
+    start = 0
+    end = len(arr) - 1
+
+    while swapped:
+        swapped = False
+
+        # Forward pass
+        for i in range(start, end):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped = True
+
+        if not swapped:
+            break
+
+        swapped = False
+        end -= 1
+
+        # Backward pass
+        for i in range(end - 1, start - 1, -1):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped = True
+
+        start += 1`,
+
+  cpp: `void cocktailShakerSort(vector<int>& arr) {
+    bool swapped = true;
+    int start = 0;
+    int end = arr.size() - 1;
+
+    while (swapped) {
+        swapped = false;
+
+        // Forward pass
+        for (int i = start; i < end; i++) {
+            if (arr[i] > arr[i + 1]) {
+                swap(arr[i], arr[i + 1]);
+                swapped = true;
+            }
+        }
+
+        if (!swapped) break;
+
+        swapped = false;
+        end--;
+
+        // Backward pass
+        for (int i = end - 1; i >= start; i--) {
+            if (arr[i] > arr[i + 1]) {
+                swap(arr[i], arr[i + 1]);
+                swapped = true;
+            }
+        }
+
+        start++;
+    }
+}` 
+},
 
   quickSort: {
     java: `public static void quickSort(int[] arr, int low, int high) {

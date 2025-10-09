@@ -48,6 +48,13 @@
     "useCase": "It is commonly used in C++ Standard Library's std::sort() because it combines the fast performance of quicksort with the reliability of heapsort and the efficiency of insertion sort on small datasets."
   },
   {
+  "name": "Cocktail Shaker Sort",
+  "type": "sorting",
+  "description": "Cocktail Shaker Sort is a bidirectional variation of Bubble Sort that alternates between forward and backward passes through the array. This allows it to move both the largest elements to the end and the smallest elements to the beginning in each full iteration, improving performance on certain types of partially sorted data.",
+  "useCase": "Useful for educational visualization of bidirectional sorting. It demonstrates how simple modifications to Bubble Sort can improve performance in specific scenarios, making it popular in sorting visualizers and algorithm teaching tools."
+},
+
+  {
     "name": "Shell Sort",
     "type": "sorting",
     "description": "Shell Sort is an in-place comparison-based sorting algorithm that generalizes insertion sort. It allows the exchange of items that are far apart by comparing and swapping elements at specific intervals (gaps), gradually reducing the gap until it becomes 1, at which point the array is fully sorted using insertion sort.",

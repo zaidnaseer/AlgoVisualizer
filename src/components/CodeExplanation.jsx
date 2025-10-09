@@ -732,6 +732,153 @@ vector<int> bucketSort(vector<int> a, int bucketCount=10){
         { explanation: "After final merge, the array is fully sorted." }
       ]
     },
+    cocktailShakerSort: {
+  title: "Cocktail Shaker Sort",
+  description: "A bidirectional variation of Bubble Sort. Instead of only moving large elements to the end, it alternates between forward and backward passes, moving both small and large elements toward their correct ends with each pass. This can lead to fewer passes on certain datasets compared to regular Bubble Sort.",
+  code: {
+    js: `function cocktailShakerSort(arr) {
+  let start = 0;
+  let end = arr.length - 1;
+  let swapped = true;
+
+  while (swapped) {
+    swapped = false;
+
+    // Forward pass
+    for (let i = start; i < end; i++) {
+      if (arr[i] > arr[i + 1]) {
+        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+        swapped = true;
+      }
+    }
+
+    // Mark last element sorted
+    end--;
+    if (!swapped) break;
+    swapped = false;
+
+    // Backward pass
+    for (let i = end; i > start; i--) {
+      if (arr[i - 1] > arr[i]) {
+        [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+        swapped = true;
+      }
+    }
+
+    // Mark first element sorted
+    start++;
+  }
+
+  return arr;
+}`,
+    java: `public static void cocktailShakerSort(int[] arr) {
+  int start = 0;
+  int end = arr.length - 1;
+  boolean swapped = true;
+
+  while (swapped) {
+    swapped = false;
+
+    // Forward pass
+    for (int i = start; i < end; i++) {
+      if (arr[i] > arr[i + 1]) {
+        int temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+        swapped = true;
+      }
+    }
+
+    end--;
+    if (!swapped) break;
+    swapped = false;
+
+    // Backward pass
+    for (int i = end; i > start; i--) {
+      if (arr[i - 1] > arr[i]) {
+        int temp = arr[i - 1];
+        arr[i - 1] = arr[i];
+        arr[i] = temp;
+        swapped = true;
+      }
+    }
+
+    start++;
+  }
+}`,
+    cpp: `#include <vector>
+using namespace std;
+
+void cocktailShakerSort(vector<int>& arr) {
+  int start = 0;
+  int end = arr.size() - 1;
+  bool swapped = true;
+
+  while (swapped) {
+    swapped = false;
+
+    // Forward pass
+    for (int i = start; i < end; i++) {
+      if (arr[i] > arr[i + 1]) {
+        swap(arr[i], arr[i + 1]);
+        swapped = true;
+      }
+    }
+
+    end--;
+    if (!swapped) break;
+    swapped = false;
+
+    // Backward pass
+    for (int i = end; i > start; i--) {
+      if (arr[i - 1] > arr[i]) {
+        swap(arr[i - 1], arr[i]);
+        swapped = true;
+      }
+    }
+
+    start++;
+  }
+}`,
+    py: `def cocktail_shaker_sort(arr):
+  start = 0
+  end = len(arr) - 1
+  swapped = True
+
+  while swapped:
+    swapped = False
+
+    # Forward pass
+    for i in range(start, end):
+      if arr[i] > arr[i + 1]:
+        arr[i], arr[i + 1] = arr[i + 1], arr[i]
+        swapped = True
+
+    end -= 1
+    if not swapped:
+      break
+    swapped = False
+
+    # Backward pass
+    for i in range(end, start, -1):
+      if arr[i - 1] > arr[i]:
+        arr[i - 1], arr[i] = arr[i], arr[i - 1]
+        swapped = True
+
+    start += 1
+
+  return arr`
+  },
+  steps: [
+    { explanation: "Initialize two pointers, start (0) and end (n−1), and set swapped = true." },
+    { explanation: "Perform a forward pass: bubble the largest element to the end." },
+    { explanation: "Decrease the end pointer, as the last element is in place." },
+    { explanation: "If no swaps occurred, the array is sorted; otherwise, perform a backward pass." },
+    { explanation: "Backward pass: bubble the smallest element to the start." },
+    { explanation: "Increase the start pointer, repeat passes until no swaps occur." }
+  ]
+},
+
  shellSort: {
     title: "Shell Sort Algorithm",
     description: "An improvement over insertion sort that allows the exchange of elements that are far apart. Uses a gap sequence that starts large and reduces to 1, making the final insertion sort pass very efficient.",
