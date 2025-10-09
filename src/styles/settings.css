@@ -16,7 +16,7 @@
     var(--theme-bg, #f0f4f8) 0%,
     color-mix(in srgb, var(--theme-bg, #f0f4f8) 95%, var(--theme-accent, #58a6ff) 5%) 100%
   );
-  --theme-input-border: #333;
+  --theme-input-border: #777;
 }
 
 [data-theme="dark"] {
