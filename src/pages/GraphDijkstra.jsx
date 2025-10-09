@@ -3,12 +3,16 @@ import GraphVisualizer from "../components/GraphVisualizer";
 import InputPanel from "../components/InputPanel";
 import { graphAlgorithms } from "../data/allCodes";
 import { getSampleData, getValidationRule } from "../data/sampleData";
+import { getComplexity } from "../data/algorithmComplexity";
+import ComplexityBadge from "../components/ComplexityBadge";
 import "../styles/global-theme.css";
 
 const GraphDijkstra = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [customGraph, setCustomGraph] = useState(null);
   const [inputText, setInputText] = useState("");
+  
+  const complexity = getComplexity("dijkstra");
 
   // Enhanced handler for InputPanel
   const handleGraphDataLoaded = (graphData) => {
@@ -36,8 +40,11 @@ const GraphDijkstra = () => {
 
   return (
     <div className="theme-container">
-      <h1 className="theme-title">Dijkstra's Algorithm</h1>
-      <p style={{ textAlign: 'center', maxWidth: '700px', margin: '-2rem auto 2rem auto', color: 'var(--theme-text-secondary)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '0.5rem' }}>
+        <h1 className="theme-title" style={{ margin: 0 }}>Dijkstra's Algorithm</h1>
+        <ComplexityBadge time={complexity?.time} space={complexity?.space} />
+      </div>
+      <p style={{ textAlign: 'center', maxWidth: '700px', margin: '0.5rem auto 2rem auto', color: 'var(--theme-text-secondary)' }}>
         Visualize shortest paths using Dijkstra's algorithm. Use the input panel below to load your own weighted graph data.
       </p>
 

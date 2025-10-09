@@ -4,6 +4,8 @@ import { useParams, Link } from "react-router-dom";
 import { ALGORITHM_INFO } from "../data/algorithmInfo";
 import { ALGORITHM_PSEUDOCODE as PSEUDO } from "../data/pseudocode";
 import { sortingAlgorithms as CODE } from "../data/allCodes";
+import { getComplexity } from "../data/algorithmComplexity";
+import ComplexityBadge from "../components/ComplexityBadge";
 import "../styles/SortingDoc.css";
 
 /* helpers */
@@ -51,6 +53,7 @@ export default function SortingDoc() {
   const info = resolvedKey ? INFO_ROOT[resolvedKey] : null;
   const pseudo = resolvedKey ? PSEUDO_ROOT?.[resolvedKey] : null;
   const code = resolvedKey ? CODE_ROOT?.[resolvedKey] : null;
+  const complexity = resolvedKey ? getComplexity(resolvedKey) : null;
 
   const title = useMemo(() => toTitle(resolvedKey || algoId || ""), [
     resolvedKey,
@@ -84,6 +87,11 @@ export default function SortingDoc() {
           <h1 className="doc-title">
             {title} <span className="tag">docs</span>
           </h1>
+          {complexity && (
+            <div style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
+              <ComplexityBadge time={complexity.time} space={complexity.space} />
+            </div>
+          )}
           <p className="muted">
             {info.description ?? "No description available."}
           </p>
