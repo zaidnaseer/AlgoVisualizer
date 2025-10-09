@@ -17,6 +17,15 @@ export const ALGORITHM_INFO = {
       bestCase: "O(n²)",
       stable: "No",
     },
+    cocktailShakerSort: {
+  description:
+    "Cocktail Shaker Sort is a bidirectional variation of Bubble Sort that sorts the array in both directions on each pass. It moves the largest elements to the end and the smallest elements to the beginning alternately, which can help reduce the number of passes compared to regular Bubble Sort.",
+  timeComplexity: "O(n²)",
+  spaceComplexity: "O(1)",
+  bestCase: "O(n)",
+  stable: "Yes",
+},
+
     mergeSort: {
       description:
         "Merge Sort is a divide-and-conquer algorithm that divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves.",

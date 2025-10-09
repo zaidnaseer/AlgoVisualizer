@@ -12,6 +12,7 @@ import {
   timSort,
   introSort,
   shellSort,
+  cocktailShakerSort,      // ✅ Added Cocktail Shaker Sort
   linearSearchWrapper,
   binarySearchWrapper,
 } from "./index";
@@ -45,6 +46,7 @@ const SORTING_ALGORITHMS = new Set([
   "Tim Sort",
   "Intro Sort",
   "Shell Sort",
+  "Cocktail Shaker Sort",   // ✅ Added
 ]);
 
 const SEARCHING_ALGORITHMS = new Set([
@@ -175,6 +177,8 @@ async function runSortingAlgorithm(algorithmName, inputArray) {
       return await adaptColorArrayAlgorithm(quickSort, workingArray, 0);
     case "Merge Sort":
       return await adaptMergeSort(workingArray);
+    case "Cocktail Shaker Sort":  // ✅ Added here
+      return await adaptColorArrayAlgorithm(cocktailShakerSort, workingArray, 0);
     default:
       return { 
         steps: [{ 
@@ -203,7 +207,6 @@ async function runSearchingAlgorithm(algorithmName, inputArray, targetValue) {
           type: "probe", 
           index: index 
         });
-        // 🎯 Real implementation would check: workingArray[index] === targetValue
       }
       searchSteps.push({ 
         type: "done", 
@@ -220,12 +223,9 @@ async function runSearchingAlgorithm(algorithmName, inputArray, targetValue) {
 // 🚀 Synchronous algorithm runner (legacy interface)
 export function runAlgorithm(algorithmName, inputArray, targetValue) {
   const algorithmType = getAlgorithmType(algorithmName);
-  
   if (algorithmType === "sorting") {
     // 📝 Note: Returns promise for async handling
-    // AlgorithmVisualizer treats steps synchronously, so we resolve immediately
   }
-  
   throw new Error("Use runAlgorithmAsync for algorithm execution");
 }
 
@@ -269,7 +269,8 @@ export const AlgorithmMetadata = {
       "Quick Sort": "O(n log n)",
       "Tim Sort": "O(n log n)",
       "Intro Sort": "O(n log n)",
-      "Shell Sort": "O(n log n)"
+      "Shell Sort": "O(n log n)",
+      "Cocktail Shaker Sort": "O(n²)",   // ✅ Added
     }
   },
   searching: {

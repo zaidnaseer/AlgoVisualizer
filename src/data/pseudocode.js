@@ -71,6 +71,24 @@ export const ALGORITHM_PSEUDOCODE = {
     { code: "      merge(arr, left, mid, right)", explain: "Merge the two runs like in merge sort." },
     { code: "  size = size * 2", explain: "Double the size and repeat merging." },
   ],
+  cocktailShakerSort: [
+  { code: "swapped = true", explain: "Initialize swapped to enter the loop." },
+  { code: "start = 0", explain: "Set the starting index of the unsorted section." },
+  { code: "end = n - 1", explain: "Set the ending index of the unsorted section." },
+  { code: "while swapped", explain: "Continue sorting while a swap has occurred in the previous pass." },
+  { code: "  swapped = false", explain: "Reset swapped flag before each forward pass." },
+  { code: "  for i from start to end - 1", explain: "Forward pass: move larger elements towards the end." },
+  { code: "    if arr[i] > arr[i+1] then swap(arr[i], arr[i+1])", explain: "Swap adjacent elements if they are out of order." },
+  { code: "    swapped = true", explain: "Mark that a swap happened in this pass." },
+  { code: "  if not swapped then break", explain: "If no swaps occurred in the forward pass, the array is sorted." },
+  { code: "  swapped = false", explain: "Reset swapped before the backward pass." },
+  { code: "  end = end - 1", explain: "Shrink the unsorted section from the end." },
+  { code: "  for i from end - 1 down to start", explain: "Backward pass: move smaller elements towards the beginning." },
+  { code: "    if arr[i] > arr[i+1] then swap(arr[i], arr[i+1])", explain: "Swap adjacent elements if needed during the backward pass." },
+  { code: "    swapped = true", explain: "Mark that a swap happened in the backward pass." },
+  { code: "  start = start + 1", explain: "Shrink the unsorted section from the start." }
+],
+
   introSort: [
     { code: "maxDepth = 2 * log₂(n)", explain: "Set a recursion depth limit based on array size." },
     { code: "introSortHelper(arr, 0, n-1, maxDepth)", explain: "Start sorting with quicksort strategy." },
