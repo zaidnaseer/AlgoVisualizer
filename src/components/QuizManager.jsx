@@ -24,6 +24,11 @@ const TOPICS = [
     description: 'Explore fundamental data structures like Arrays, Linked Lists, Stacks, and Queues.'
   },
   {
+  "id": "Algorithms",
+  "name": "Algorithms",
+  "description": "Learn key algorithms: Kadane’s for maximum subarray, Prim’s and Kruskal’s for minimum spanning trees."
+},
+  {
     id: "paradigms",
     name: "Paradigms",
     description: "Dive into problem-solving approaches including  Backtracking Algorithms, Dynamic Programming, Greedy Algorithms, and Divide & Conquer."
