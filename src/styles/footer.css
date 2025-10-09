@@ -759,20 +759,22 @@
 
 @media (max-width: 768px) {
   .footer-container {
+    margin: 60px auto;
+    width: 590px;
     padding: 40px 0 20px;
   }
   
   .footer-content {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    padding: 0 15px;
+    padding: 0 35px;
   }
   
   .brand-column {
     grid-column: span 2;
     text-align: center;
     order: 1;
-    padding-bottom: 20px;
+    padding: 20px;
     border-bottom: 1px solid var(--border-primary);
   }
   
@@ -844,11 +846,11 @@
   .resources-column,
   .newsletter-column {
     grid-column: span 1;
+    padding: 0 20px;
   }
   
   .brand-column {
     order: 1;
-    padding-bottom: 20px;
     border-bottom: 1px solid var(--border-primary);
   }
   

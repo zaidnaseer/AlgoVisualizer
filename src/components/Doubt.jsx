@@ -139,8 +139,8 @@ const Doubt = () => {
         </motion.h2>
 
         <motion.p className="doubt-subtitle" variants={itemUp}>
-          Ask anything about algorithms or data structures. We’ll help you get
-          unstuck—fast.
+          Ask anything about algorithms or data structures. We'll help you get
+          unstuck-fast.
         </motion.p>
 
         {/* Status banners */}
