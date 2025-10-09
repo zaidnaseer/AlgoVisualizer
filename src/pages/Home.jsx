@@ -37,7 +37,7 @@ function useColorScheme() {
       const htmlTheme = document.documentElement.getAttribute("data-theme");
       if (!htmlTheme) setIsLight(e.matches);
     };
-    
+
     // Use modern addEventListener if available, fallback to addListener
     if (mq.addEventListener) {
       mq.addEventListener("change", onChange);
@@ -58,13 +58,13 @@ function useColorScheme() {
         }
       });
     });
-    
-    obs.observe(document.documentElement, { 
-      attributes: true, 
+
+    obs.observe(document.documentElement, {
+      attributes: true,
       attributeFilter: ["data-theme"],
       attributeOldValue: true
     });
-    
+
     return () => obs.disconnect();
   }, []);
 
@@ -167,14 +167,14 @@ const Home = () => {
 
   const reshuffle = () => {
     if (!isComponentMounted.current || !isAnimating) return;
-    
+
     const fresh = Array.from({ length: BAR_COUNT }, () => 20 + Math.floor(Math.random() * 75));
     setValues(fresh);
     setPass(0);
     setIdx(0);
     setComparisons(0);
     setSwaps(0);
-    
+
     cleanup();
     if (isAnimating) {
       animRef.current = setTimeout(tick, STEP_MS);
@@ -207,7 +207,7 @@ const Home = () => {
           }
 
           setComparisons(c => c + 1);
-          
+
           if (arr[currentIdx] > arr[currentIdx + 1]) {
             const tmp = arr[currentIdx];
             arr[currentIdx] = arr[currentIdx + 1];
@@ -220,10 +220,10 @@ const Home = () => {
           if (isAnimating) {
             animRef.current = setTimeout(tick, STEP_MS);
           }
-          
+
           return currentIdx + 1;
         });
-        
+
         // Use idx state instead of currentIdx parameter
         return currentPass + (idx >= n - currentPass - 1 ? 1 : 0);
       });
@@ -236,7 +236,7 @@ const Home = () => {
     if (isAnimating) {
       animRef.current = setTimeout(tick, STEP_MS);
     }
-    
+
     return () => {
       isComponentMounted.current = false;
       cleanup();
@@ -255,7 +255,7 @@ const Home = () => {
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    
+
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
@@ -572,312 +572,309 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Feature Cards with detailed content */}
+      {/* ADD THIS NEW SECTION */}
+      <div className="algo-learning-updates-container" data-aos="fade-up" data-aos-duration="1000">
+        <section className="algorithm-buttons" data-aos="fade-up" data-aos-delay="200">
+          <h2 className='buttons-heading'>Resources</h2>
 
+          {features.map((feature, index) => (
+            <Link
+              key={index}
+              to={feature.path}
+              className={`clean-button-link feature-${index + 1}`}
+              data-aos="fade-up" data-aos-delay={`${300 + index * 100}`}
+            >
+              <div className='button-icon'>
+                <feature.icon size={35} />
+              </div>
+              <span className="feature-title">{feature.title}</span>
+            </Link>
+          ))}
+        </section>
 
-        {/* Feature Cards with detailed content */}
-        {/* ADD THIS NEW SECTION */}
-        <div className="algo-learning-updates-container" data-aos="fade-up" data-aos-duration="1000">
-       <section className="algorithm-buttons" data-aos="fade-up" data-aos-delay="200">
-        <h2 className='buttons-heading'>Resources</h2>
-
-        {features.map((feature,index)=>(
-          <Link 
-  key={index} 
-  to={feature.path} 
-  className={`clean-button-link feature-${index+1}`}
-  data-aos="fade-up" data-aos-delay={`${300 + index * 100}`}
->
-  <div className='button-icon'>
-    <feature.icon size={35}/>
-  </div>
-  <span className="feature-title">{feature.title}</span>
-</Link>
-        ))}
-       </section>
-       
- <div className='vertical-steps-container' data-aos="fade-up" data-aos-delay="200">
-  <h2 className='steps-heading'>Learning paths</h2>
-     {learningPaths.map((path,index)=>(
-      <div key={index} className={`step-button step-${index+1}`} data-aos="fade-up" data-aos-delay={`${300 + index * 150}`}>
-        <div className='step-content-wrapper'>
-          <div className='step-text'>
-            <span className='step-title'>{path.title}</span>
-            <p className='step-description'>{path.desc}</p>
-            <div>
-              <div className='step-duration-tag'>{path.duration}</div>
+        <div className='vertical-steps-container' data-aos="fade-up" data-aos-delay="200">
+          <h2 className='steps-heading !w-[95%] !mx-auto !md:w-[90%]'>Learning paths</h2>
+          {learningPaths.map((path, index) => (
+            <div key={index} className={`step-button step-${index + 1}`} data-aos="fade-up" data-aos-delay={`${300 + index * 150}`}>
+              <div className='step-content-wrapper'>
+                <div className='step-text'>
+                  <span className='step-title'>{path.title}</span>
+                  <p className='step-description'>{path.desc}</p>
+                  <div>
+                    <div className='step-duration-tag'>{path.duration}</div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    ))}
-    
-  </div>
-        {/* Enhanced Activity Feed */}
-<div
-  style={{
-    backgroundColor: isLight ? "#ffffff" : "#0f172a",
-    padding: "1.5rem",
-    borderRadius: "20px",
-    boxShadow: isLight
-      ? "0 10px 30px -10px rgba(0,0,0,0.1)"
-      : "0 10px 30px -10px rgba(0,0,0,0.5)",
-    transition: "all 0.3s ease",
-  }}
-  data-aos="fade-up"
-  data-aos-delay="200"
->
-  <h3
-    style={{
-      color: isLight ? "#1f2937" : "#f9fafb",
-      fontWeight: 600,
-      fontSize: "1.25rem",
-      marginBottom: "1.5rem",
-    }}
-  >
-    Recent Updates
-  </h3>
+          ))}
 
-  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-    {recentUpdates.map((update, index) => (
-      <div
-        key={index}
-        style={{
-          display: "flex",
-          gap: "1rem",
-          alignItems: "flex-start",
-          backgroundColor: isLight ? "#f3f4f6" : "#1e293b",
-          border: `1px solid ${isLight ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.1)"}`,
-          padding: "1rem",
-          borderRadius: "16px",
-          transition: "all 0.3s ease",
-          cursor: "pointer",
-          boxShadow: isLight
-            ? "0 5px 15px -5px rgba(0,0,0,0.05)"
-            : "0 5px 15px -5px rgba(0,0,0,0.3)",
-        }}
-        data-aos="fade-up"
-        data-aos-delay={`${300 + index * 100}`}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "scale(1.02)";
-          e.currentTarget.style.boxShadow = isLight
-            ? "0 8px 25px -5px rgba(0,0,0,0.1)"
-            : "0 8px 25px -5px rgba(0,0,0,0.5)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "scale(1)";
-          e.currentTarget.style.boxShadow = isLight
-            ? "0 5px 15px -5px rgba(0,0,0,0.05)"
-            : "0 5px 15px -5px rgba(0,0,0,0.3)";
-        }}
-      >
-        {/* Icon with glow */}
+        </div>
+        {/* Enhanced Activity Feed */}
         <div
           style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color:
-              update.type === "new"
-                ? isLight
-                  ? "#10b981"
-                  : "#6ee7b7"
-                : update.type === "update"
-                ? isLight
-                  ? "#3b82f6"
-                  : "#60a5fa"
-                : update.type === "feature"
-                ? isLight
-                  ? "#f59e0b"
-                  : "#facc15"
-                : isLight
-                ? "#8b5cf6"
-                : "#c4b5fd",
-            backgroundColor:
-              update.type === "new"
-                ? isLight
-                  ? "#d1fae5"
-                  : "rgba(16,185,129,0.2)"
-                : update.type === "update"
-                ? isLight
-                  ? "#dbeafe"
-                  : "rgba(59,130,246,0.2)"
-                : update.type === "feature"
-                ? isLight
-                  ? "#fef3c7"
-                  : "rgba(245,158,11,0.2)"
-                : isLight
-                ? "#ede9fe"
-                : "rgba(139,92,246,0.2)",
-            boxShadow: `${
-              update.type === "new"
-                ? "0 0 10px rgba(16,185,129,0.6)"
-                : update.type === "update"
-                ? "0 0 10px rgba(59,130,246,0.6)"
-                : update.type === "feature"
-                ? "0 0 10px rgba(245,158,11,0.6)"
-                : "0 0 10px rgba(139,92,246,0.6)"
-            }`,
+            backgroundColor: isLight ? "#ffffff" : "#0f172a",
+            padding: "1.5rem",
+            borderRadius: "20px",
+            boxShadow: isLight
+              ? "0 10px 30px -10px rgba(0,0,0,0.1)"
+              : "0 10px 30px -10px rgba(0,0,0,0.5)",
             transition: "all 0.3s ease",
           }}
+          data-aos="fade-up"
+          data-aos-delay="200"
         >
-          {update.type === "new" && <Sparkles size={16} />}
-          {update.type === "update" && <Code size={16} />}
-          {update.type === "feature" && <Star size={16} />}
-          {update.type === "community" && <Users size={16} />}
-        </div>
-
-        {/* Content */}
-        <div style={{ flex: 1 }}>
-          <h4
+          <h3
             style={{
               color: isLight ? "#1f2937" : "#f9fafb",
-              fontWeight: 500,
-              margin: 0,
+              fontWeight: 600,
+              fontSize: "1.25rem",
+              marginBottom: "1.5rem",
             }}
           >
-            {update.title}
-          </h4>
-          <p
-            style={{
-              color: isLight ? "#4b5563" : "#d1d5db",
-              marginTop: "0.25rem",
-              fontSize: "0.875rem",
-            }}
-          >
-            {update.description}
-          </p>
-          <span
-            style={{
-              color: isLight ? "#6b7280" : "#9ca3af",
-              fontSize: "0.75rem",
-              marginTop: "0.25rem",
-              display: "block",
-            }}
-          >
-            {update.time}
-          </span>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
+            Recent Updates
+          </h3>
 
-        </div>
-
-        {/* Problem of the Day Modal */}
-        {showProblemModal && (
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: isLight ? "rgba(241, 245, 249, 0.95)" : "rgba(15, 23, 42, 0.95)",
-              backdropFilter: "blur(8px)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 1000,
-              padding: "2rem",
-              animation: "modalFadeIn 0.3s ease-out",
-            }}
-            onClick={() => setShowProblemModal(false)}
-          >
-            <div
-              style={{
-                background: T.cardBg,
-                borderRadius: 20,
-                border: T.cardBorder,
-                boxShadow: isLight
-                  ? "0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)"
-                  : "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)",
-                maxWidth: "900px",
-                width: "100%",
-                maxHeight: "85vh",
-                overflow: "hidden",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                animation: "modalSlideIn 0.3s ease-out",
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Header with close button */}
+          <div className="!mx-auto w-[99%] flex flex-col gap-2">
+            {recentUpdates.map((update, index) => (
               <div
+                key={index}
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "1.5rem 2rem 0.5rem",
-                  borderBottom: `1px solid ${isLight ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)"}`,
-                  marginBottom: "1rem",
+                  gap: "1rem",
+                  alignItems: "flex-start",
+                  backgroundColor: isLight ? "#f3f4f6" : "#1e293b",
+                  border: `1px solid ${isLight ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.1)"}`,
+                  padding: "1rem",
+                  borderRadius: "16px",
+                  transition: "all 0.3s ease",
+                  cursor: "pointer",
+                  boxShadow: isLight
+                    ? "0 5px 15px -5px rgba(0,0,0,0.05)"
+                    : "0 5px 15px -5px rgba(0,0,0,0.3)",
+                }}
+                data-aos="fade-up"
+                data-aos-delay={`${300 + index * 100}`}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.02)";
+                  e.currentTarget.style.boxShadow = isLight
+                    ? "0 8px 25px -5px rgba(0,0,0,0.1)"
+                    : "0 8px 25px -5px rgba(0,0,0,0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = isLight
+                    ? "0 5px 15px -5px rgba(0,0,0,0.05)"
+                    : "0 5px 15px -5px rgba(0,0,0,0.3)";
                 }}
               >
-                <h2
+                {/* Icon with glow */}
+                <div
                   style={{
-                    fontSize: "1.5rem",
-                    fontWeight: "700",
-                    color: T.textPrimary,
-                    margin: 0,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <Sparkles size={24} style={{ color: isLight ? "#6366f1" : "#a78bfa" }} />
-                  Problem of the Day
-                </h2>
-                <button
-                  onClick={() => setShowProblemModal(false)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    fontSize: "28px",
-                    cursor: "pointer",
-                    color: T.textSecondary,
-                    padding: "0.25rem",
-                    borderRadius: "8px",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    width: "40px",
-                    height: "40px",
-                    transition: "all 0.2s ease",
-                    opacity: 0.7,
+                    color:
+                      update.type === "new"
+                        ? isLight
+                          ? "#10b981"
+                          : "#6ee7b7"
+                        : update.type === "update"
+                          ? isLight
+                            ? "#3b82f6"
+                            : "#60a5fa"
+                          : update.type === "feature"
+                            ? isLight
+                              ? "#f59e0b"
+                              : "#facc15"
+                            : isLight
+                              ? "#8b5cf6"
+                              : "#c4b5fd",
+                    backgroundColor:
+                      update.type === "new"
+                        ? isLight
+                          ? "#d1fae5"
+                          : "rgba(16,185,129,0.2)"
+                        : update.type === "update"
+                          ? isLight
+                            ? "#dbeafe"
+                            : "rgba(59,130,246,0.2)"
+                          : update.type === "feature"
+                            ? isLight
+                              ? "#fef3c7"
+                              : "rgba(245,158,11,0.2)"
+                            : isLight
+                              ? "#ede9fe"
+                              : "rgba(139,92,246,0.2)",
+                    boxShadow: `${update.type === "new"
+                        ? "0 0 10px rgba(16,185,129,0.6)"
+                        : update.type === "update"
+                          ? "0 0 10px rgba(59,130,246,0.6)"
+                          : update.type === "feature"
+                            ? "0 0 10px rgba(245,158,11,0.6)"
+                            : "0 0 10px rgba(139,92,246,0.6)"
+                      }`,
+                    transition: "all 0.3s ease",
                   }}
-                  onMouseEnter={(e) => {
-                    e.target.style.opacity = "1";
-                    e.target.style.backgroundColor = isLight ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.opacity = "0.7";
-                    e.target.style.backgroundColor = "transparent";
-                  }}
-                  aria-label="Close modal"
                 >
-                  ×
-                </button>
-              </div>
+                  {update.type === "new" && <Sparkles size={16} />}
+                  {update.type === "update" && <Code size={16} />}
+                  {update.type === "feature" && <Star size={16} />}
+                  {update.type === "community" && <Users size={16} />}
+                </div>
 
-              {/* Content */}
-              <div
+                {/* Content */}
+                <div style={{ flex: 1 }} className="!mx-auto">
+                  <h4
+                    style={{
+                      color: isLight ? "#1f2937" : "#f9fafb",
+                      fontWeight: 500,
+                      margin: 0,
+                    }}
+                  >
+                    {update.title}
+                  </h4>
+                  <p
+                    style={{
+                      color: isLight ? "#4b5563" : "#d1d5db",
+                      marginTop: "0.25rem",
+                      fontSize: "0.875rem",
+                    }}
+                  >
+                    {update.description}
+                  </p>
+                  <span
+                    style={{
+                      color: isLight ? "#6b7280" : "#9ca3af",
+                      fontSize: "0.75rem",
+                      marginTop: "0.25rem",
+                      display: "block",
+                    }}
+                  >
+                    {update.time}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      {/* Problem of the Day Modal */}
+      {showProblemModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: isLight ? "rgba(241, 245, 249, 0.95)" : "rgba(15, 23, 42, 0.95)",
+            backdropFilter: "blur(8px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+            padding: "2rem",
+            animation: "modalFadeIn 0.3s ease-out",
+          }}
+          onClick={() => setShowProblemModal(false)}
+        >
+          <div
+            style={{
+              background: T.cardBg,
+              borderRadius: 20,
+              border: T.cardBorder,
+              boxShadow: isLight
+                ? "0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)"
+                : "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)",
+              maxWidth: "900px",
+              width: "100%",
+              maxHeight: "85vh",
+              overflow: "hidden",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              animation: "modalSlideIn 0.3s ease-out",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header with close button */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "1.5rem 2rem 0.5rem",
+                borderBottom: `1px solid ${isLight ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)"}`,
+                marginBottom: "1rem",
+              }}
+            >
+              <h2
                 style={{
-                  padding: "0 2rem 2rem",
-                  overflow: "auto",
-                  flex: 1,
+                  fontSize: "1.5rem",
+                  fontWeight: "700",
+                  color: T.textPrimary,
+                  margin: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
                 }}
               >
-                <ProblemOfTheDay />
-              </div>
+                <Sparkles size={24} style={{ color: isLight ? "#6366f1" : "#a78bfa" }} />
+                Problem of the Day
+              </h2>
+              <button
+                onClick={() => setShowProblemModal(false)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: "28px",
+                  cursor: "pointer",
+                  color: T.textSecondary,
+                  padding: "0.25rem",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "40px",
+                  height: "40px",
+                  transition: "all 0.2s ease",
+                  opacity: 0.7,
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.opacity = "1";
+                  e.target.style.backgroundColor = isLight ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.opacity = "0.7";
+                  e.target.style.backgroundColor = "transparent";
+                }}
+                aria-label="Close modal"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Content */}
+            <div
+              style={{
+                padding: "0 2rem 2rem",
+                overflow: "auto",
+                flex: 1,
+              }}
+            >
+              <ProblemOfTheDay />
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        <style>{`
+      <style>{`
           @keyframes modalFadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -893,7 +890,7 @@ const Home = () => {
             }
           }
         `}</style>
-      </div>
+    </div>
   );
 };
 

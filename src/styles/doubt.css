@@ -52,10 +52,11 @@
 .doubt-section {
   position: relative;
   overflow: hidden;
-  padding: 80px 16px;
+  min-height: 250px;
+  padding: 100px 20px;
   background: var(--doubt-bg);
   isolation: isolate;
-  padding-bottom: 550px;
+  padding-bottom: 600px;
 }
 
 /* subtle grid overlay */
@@ -78,13 +79,14 @@
 .doubt-card {
   position: relative;
   z-index: 1;
+  bottom: 50px;
   max-width: 900px;
   margin: 0 auto;
   padding: 36px 28px 32px;
   border-radius: 24px;
   background: var(--doubt-surface);
   border: 1px solid var(--doubt-border);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  box-shadow: 0 25px 40px rgba(0,0,0,0.35);
   backdrop-filter: blur(12px);
 }
 
@@ -101,7 +103,8 @@
 
 /* Headings */
 .doubt-title {
-  margin: 0 0 6px;
+  width: 100%;
+  margin: 16px 20px;
   font-size: clamp(28px, 3vw, 36px);
   line-height: 1.1;
   font-weight: 800;
@@ -345,11 +348,12 @@
 
 /* Responsive Tweaks */
 @media (max-width: 768px) {
-  .doubt-section { padding-bottom: 550px; }
+  .doubt-section { padding-bottom: 580px; width: 600px; margin: 50px auto; }
   .doubt-card { padding: 28px 18px; border-radius: 20px; }
 }
 
 @media (max-width: 480px) {
+  .doubt-section { padding-bottom: 500px; width: 550px; margin: 10px auto; left: 20px; }
   .doubt-title { font-size: 24px; }
   .doubt-subtitle { font-size: 14px; }
   .field-input { font-size: 14px; padding: 14px 14px 12px 40px; }
