@@ -5712,7 +5712,7 @@
     } ,
     {
         "id": 367,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Easy",
         "question": "What problem does Kadane’s Algorithm solve?",
@@ -5727,7 +5727,7 @@
     },
     {
         "id": 368,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Easy",
         "question": "What is the time complexity of Kadane’s Algorithm?",
@@ -5742,7 +5742,7 @@
     },
     {
         "id": 369,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Easy",
         "question": "What type of graph problem does Prim’s Algorithm solve?",
@@ -5757,7 +5757,7 @@
     },
     {
         "id": 370,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Easy",
         "question": "Prim’s Algorithm starts from:",
@@ -5772,7 +5772,7 @@
     },
     {
         "id": 371,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Easy",
         "question": "What data structure is commonly used by Kruskal’s Algorithm to detect cycles?",
@@ -5787,7 +5787,7 @@
     },
     {
         "id": 372,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Easy",
         "question": "Which of the following best describes Kruskal’s Algorithm?",
@@ -5802,7 +5802,7 @@
     },
     {
         "id": 373,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Easy",
         "question": "Which of these arrays would Kadane’s Algorithm process correctly?",
@@ -5817,7 +5817,7 @@
     },
     {
         "id": 374,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Easy",
         "question": "Prim’s Algorithm can be implemented efficiently using:",
@@ -5832,7 +5832,7 @@
     },
     {
         "id": 375,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Easy",
         "question": "Kruskal’s Algorithm requires the edges to be:",
@@ -5847,7 +5847,7 @@
     },
     {
         "id": 376,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Easy",
         "question": "Kadane’s Algorithm is an example of:",
@@ -5862,7 +5862,7 @@
     },
     {
         "id": 377,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Medium",
         "question": "How does Kadane’s Algorithm handle negative sums when calculating maximum subarray?",
@@ -5877,7 +5877,7 @@
     },
     {
         "id": 378,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Medium",
         "question": "What is the space complexity of Kadane’s Algorithm?",
@@ -5892,7 +5892,7 @@
     },
     {
         "id": 379,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Medium",
         "question": "What data structure is typically used to implement Prim’s Algorithm efficiently?",
@@ -5907,7 +5907,7 @@
     },
     {
         "id": 380,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Medium",
         "question": "Prim’s Algorithm is guaranteed to work only on:",
@@ -5922,7 +5922,7 @@
     },
     {
         "id": 381,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Medium",
         "question": "What is the overall time complexity of Kruskal’s Algorithm using a good Union-Find structure?",
@@ -5937,7 +5937,7 @@
     },
     {
         "id": 382,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Medium",
         "question": "When does Kruskal’s Algorithm reject an edge while building MST?",
@@ -5952,7 +5952,7 @@
     },
     {
         "id": 383,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Medium",
         "question": "If all numbers in the array are negative, Kadane’s Algorithm should return:",
@@ -5967,7 +5967,7 @@
     },
     {
         "id": 384,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Medium",
         "question": "What happens if Prim’s Algorithm is applied to a disconnected graph?",
@@ -5982,7 +5982,7 @@
     },
     {
         "id": 385,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Medium",
         "question": "Which of the following edge selections is valid in Kruskal’s Algorithm?",
@@ -5997,7 +5997,7 @@
     },
     {
         "id": 386,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Medium",
         "question": "Which technique does Kadane’s Algorithm primarily use to solve the problem?",
@@ -6012,7 +6012,7 @@
     },
     {
         "id": 387,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Hard",
         "question": "How can Kadane’s Algorithm be modified to find the maximum product subarray instead of sum?",
@@ -6027,7 +6027,7 @@
     },
     {
         "id": 388,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Hard",
         "question": "What is a key limitation of Kadane’s Algorithm when applied directly to 2D arrays?",
@@ -6042,7 +6042,7 @@
     },
     {
         "id": 389,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Hard",
         "question": "What is the worst-case time complexity of Prim’s Algorithm implemented with an adjacency matrix?",
@@ -6057,7 +6057,7 @@
     },
     {
         "id": 390,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Hard",
         "question": "How does the choice of data structure impact Prim’s Algorithm’s performance on sparse graphs?",
@@ -6072,7 +6072,7 @@
     },
     {
         "id": 391,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Hard",
         "question": "In Kruskal’s Algorithm, what optimization improves the efficiency of the Union-Find data structure?",
@@ -6087,7 +6087,7 @@
     },
     {
         "id": 392,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Hard",
         "question": "How does Kruskal’s Algorithm behave with graphs having multiple edges of the same weight?",
@@ -6102,7 +6102,7 @@
     },
     {
         "id": 393,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kadane’s Algorithm",
         "difficulty": "Hard",
         "question": "Can Kadane’s Algorithm be adapted to find the maximum sum of non-contiguous subarray? If yes, how?",
@@ -6117,7 +6117,7 @@
     },
     {
         "id": 394,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Prim’s Algorithm",
         "difficulty": "Hard",
         "question": "How is Prim’s Algorithm modified to work on disconnected graphs?",
@@ -6132,7 +6132,7 @@
     },
     {
         "id": 395,
-        "topic": "Algorithms",
+        "topic": "Other Topics",
         "algorithm": "Kruskal’s Algorithm",
         "difficulty": "Hard",
         "question": "What is the impact on Kruskal’s Algorithm if the input graph is already a tree?",
@@ -6147,7 +6147,7 @@
     },
     {
     "id": 396,
-    "topic": "Algorithms",
+    "topic": "Other Topics",
     "algorithm": "Prim’s Algorithm",
     "difficulty": "Hard",
     "question": "In Prim’s Algorithm, if two edges have the same minimum weight during selection, what could be the possible consequence in a graph with multiple equal-weight edges?",
