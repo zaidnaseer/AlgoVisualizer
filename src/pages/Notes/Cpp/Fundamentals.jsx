@@ -17,7 +17,7 @@ const CppFundamentals = () => {
   };
 
   return (
-    <div className="notes-page" style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto" }}>
+    <div className="notes-page"  style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto", color:'white-300'} }>
       {/* Header */}
       <header
         style={{
@@ -101,10 +101,10 @@ const CppFundamentals = () => {
       {activeTab === "intro" && (
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
-            <h2><i className="fas fa-play-circle"></i> 1. Introduction to C++</h2>
-            <p>C++ is a high-performance, general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language.</p>
+            <h2 className="bg-blue-600"><i className="fas fa-play-circle" ></i> 1. Introduction to C++</h2>
+            <p className="bg-black" >C++ is a high-performance, general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language.</p>
             <h3>Key Features</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>Object-Oriented:</strong> Supports classes, objects, inheritance, polymorphism, and encapsulation</li>
               <li><strong>High Performance:</strong> Direct memory manipulation and low-level operations</li>
               <li><strong>Standard Template Library (STL):</strong> Rich collection of algorithms and data structures</li>
@@ -122,15 +122,15 @@ const CppFundamentals = () => {
       {activeTab === "syntax" && (
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
-            <h2><i className="fas fa-code"></i> 2. C++ Syntax</h2>
-            <p>C++ syntax is similar to C but includes additional features for object-oriented programming.</p>
-            <ul>
+            <h2 className="bg-gray-600"><i className="fas fa-code"></i> 2. C++ Syntax</h2>
+            <p className="bg-black">C++ syntax is similar to C but includes additional features for object-oriented programming.</p>
+            <ul className="bg-black">
               <li>Statements end with semicolons (<code>;</code>)</li>
               <li>Code blocks are enclosed in curly braces <code>{}</code></li>
               <li>Comments use <code>//</code> for single line and <code>/* */</code> for multi-line</li>
               <li>Case-sensitive language</li>
             </ul>
-            <div className="code-container">
+            <div className="code-container bg-black">
               <button className={`copy-btn ${copiedCode === "syntax" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 using namespace std;
 
@@ -158,8 +158,8 @@ int main() {
       {activeTab === "datatypes" && (
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
-            <h2><i className="fas fa-database"></i> 3. Data Types in C++</h2>
-            <p>C++ provides various built-in data types for different kinds of data.</p>
+            <h2><i className="fas fa-database bg-gray-800" ></i> 3. Data Types in C++</h2>
+            <p className="bg-black">C++ provides various built-in data types for different kinds of data.</p>
             <h3>Common Data Types</h3>
             <table style={{ width: "100%", borderCollapse: "collapse", margin: "1rem 0" }}>
               <thead style={{ backgroundColor: "var(--card-bg, #ffffff)"}}>
@@ -189,7 +189,7 @@ int main() {
               </tbody>
             </table>
 
-            <div className="code-container">
+            <div className="code-container bg-black" >
               <button className={`copy-btn ${copiedCode === "datatypes" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 #include <string>
 using namespace std;
@@ -244,9 +244,9 @@ int main() {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-tag"></i> 4. Variables in C++</h2>
-            <p>Variables are containers for storing data values. They must be declared with a data type.</p>
+            <p className="bg-black">Variables are containers for storing data values. They must be declared with a data type.</p>
             <h3>Variable Declaration and Initialization</h3>
-            <div className="code-container">
+            <div className="code-container bg-black">
               <button className={`copy-btn ${copiedCode === "variables" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 using namespace std;
 
@@ -325,16 +325,16 @@ int main() {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-plus-square"></i> 5. Operators in C++</h2>
-            <p>C++ provides various operators for performing operations on variables and values.</p>
+            <p className="bg-black">C++ provides various operators for performing operations on variables and values.</p>
             <h3>Types of Operators</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>Arithmetic Operators:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>++</code>, <code>--</code></li>
               <li><strong>Comparison Operators:</strong> <code>==</code>, <code>!=</code>, <code>{'>'}</code>, <code>{'<'}</code>, <code>{'>='}</code>, <code>{'<='}</code></li>
               <li><strong>Logical Operators:</strong> <code>&&</code>, <code>||</code>, <code>!</code></li>
               <li><strong>Assignment Operators:</strong> <code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, etc.</li>
               <li><strong>Bitwise Operators:</strong> <code>&</code>, <code>|</code>, <code>^</code>, <code>~</code>, <code>{'<<'}</code>, <code>{'>>'}</code></li>
             </ul>
-            <div className="code-container">
+            <div className="code-container bg-black">
               <button
                 className={`copy-btn ${copiedCode === "operators" ? "copied" : ""}`}
                 onClick={() => copyCode(`#include <iostream>
@@ -414,21 +414,21 @@ int main() {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-sitemap"></i> 6. Control Flow Statements</h2>
-            <p>Control flow statements determine the order in which code is executed.</p>
+            <p className="bg-black">Control flow statements determine the order in which code is executed.</p>
             <h3>Decision Making</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>if:</strong> Executes code if condition is true</li>
               <li><strong>if-else:</strong> Executes one block if true, another if false</li>
               <li><strong>else if:</strong> Multiple conditions</li>
               <li><strong>switch:</strong> Multi-way branch statement</li>
             </ul>
             <h3>Loops</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>for loop:</strong> Executes code a specific number of times</li>
               <li><strong>while loop:</strong> Repeats while condition is true</li>
               <li><strong>do-while loop:</strong> Executes at least once, then repeats while condition is true</li>
             </ul>
-            <div className="code-container">
+            <div className="code-container bg-black">
               <button className={`copy-btn ${copiedCode === "control" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 using namespace std;
 
@@ -543,15 +543,15 @@ int main() {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-code"></i> 7. Functions in C++</h2>
-            <p>Functions allow code reuse and modular design. They can take parameters and return values.</p>
+            <p className="bg-black">Functions allow code reuse and modular design. They can take parameters and return values.</p>
             <h3>Function Components</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>Return Type:</strong> The data type of the value returned by the function</li>
               <li><strong>Function Name:</strong> Identifier for the function</li>
               <li><strong>Parameters:</strong> Input values passed to the function</li>
               <li><strong>Function Body:</strong> The code that executes when the function is called</li>
             </ul>
-            <div className="code-container">
+            <div className="code-container bg-black">
               <button className={`copy-btn ${copiedCode === "functions" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 using namespace std;
 
@@ -628,16 +628,16 @@ int factorial(int n) {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-object-group"></i> 8. Object-Oriented Programming Concepts</h2>
-            <p>C++ supports OOP with classes, objects, inheritance, polymorphism, and encapsulation.</p>
+            <p className="bg-black">C++ supports OOP with classes, objects, inheritance, polymorphism, and encapsulation.</p>
             <h3>Key Concepts</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>Class:</strong> Blueprint for creating objects</li>
               <li><strong>Object:</strong> Instance of a class</li>
               <li><strong>Encapsulation:</strong> Bundling data and methods that operate on the data</li>
               <li><strong>Inheritance:</strong> Creating new classes from existing classes</li>
               <li><strong>Polymorphism:</strong> Ability to take many forms</li>
             </ul>
-            <div className="code-container">
+            <div className="code-container bg-black">
               <button className={`copy-btn ${copiedCode === "oop" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 #include <string>
 using namespace std;
@@ -758,10 +758,10 @@ int main() {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-puzzle-piece"></i> 9. Templates in C++</h2>
-            <p>Templates allow you to write generic code that works with any data type.</p>
+            <p className="bg-black">Templates allow you to write generic code that works with any data type.</p>
             <h3>Function Templates</h3>
-            <p>Function templates create functions that can work with different data types.</p>
-            <div className="code-container">
+            <p className="bg-black">Function templates create functions that can work with different data types.</p>
+            <div className="code-container bg-black">
               <button className={`copy-btn ${copiedCode === "templates" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 using namespace std;
 
@@ -854,9 +854,9 @@ int main() {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-boxes"></i> 10. Standard Template Library (STL)</h2>
-            <p>The STL provides a collection of template classes and functions for common data structures and algorithms.</p>
+            <p className="bg-black">The STL provides a collection of template classes and functions for common data structures and algorithms.</p>
             <h3>Containers</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>vector:</strong> Dynamic array</li>
               <li><strong>list:</strong> Doubly-linked list</li>
               <li><strong>deque:</strong> Double-ended queue</li>
@@ -864,14 +864,14 @@ int main() {
               <li><strong>map:</strong> Key-value pairs, sorted by key</li>
             </ul>
             <h3>Algorithms</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>sort:</strong> Sorts elements in a range</li>
               <li><strong>find:</strong> Finds an element in a range</li>
               <li><strong>reverse:</strong> Reverses the order of elements</li>
               <li><strong>max_element:</strong> Finds the maximum element</li>
               <li><strong>min_element:</strong> Finds the minimum element</li>
             </ul>
-            <div className="code-container">
+            <div className="code-container bg-black">
               <button className={`copy-btn ${copiedCode === "stl" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 #include <vector>
 #include <algorithm>
@@ -984,14 +984,14 @@ int main() {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-file-alt"></i> 11. File Handling in C++</h2>
-            <p>C++ provides file handling capabilities through the fstream library for reading from and writing to files.</p>
+            <p className="bg-black">C++ provides file handling capabilities through the fstream library for reading from and writing to files.</p>
             <h3>File Operations</h3>
-            <ul>
+            <ul className="bg-black">
               <li><strong>ofstream:</strong> For writing to files</li>
               <li><strong>ifstream:</strong> For reading from files</li>
               <li><strong>fstream:</strong> For both reading and writing</li>
             </ul>
-            <div className="code-container">
+            <div className="code-container bg-black">
               <button className={`copy-btn ${copiedCode === "filehandling" ? "copied" : ""}`} onClick={() => copyCode(`#include <iostream>
 #include <fstream>
 #include <string>
@@ -1086,7 +1086,7 @@ int main() {
         <section style={{ marginBottom: "2rem" }}>
           <div className="card">
             <h2><i className="fas fa-terminal"></i> Example Code</h2>
-            <p>A simple example to get started with C++:</p>
+            <p className="bg-black">A simple example to get started with C++:</p>
             <div className="code-container">
               <button
                 className={`copy-btn ${copiedCode === "examples" ? "copied" : ""}`}
@@ -1118,8 +1118,8 @@ int main() {
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2><i className="fas fa-crosshairs"></i> 12. Pointers</h2>
-      <p>Pointers are variables that store memory addresses of other variables.</p>
-      <div className="code-container">
+      <p className="bg-black">Pointers are variables that store memory addresses of other variables.</p>
+      <div className="code-container bg-black">
         <button className={`copy-btn ${copiedCode === "pointers" ? "copied" : ""}`} 
           onClick={() => copyCode(`#include <iostream>
 using namespace std;
@@ -1186,8 +1186,8 @@ int main() {
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2><i className="fas fa-exclamation-triangle"></i> 14. Exception Handling</h2>
-      <p>Exceptions handle runtime errors using <code>try</code>, <code>catch</code>, and <code>throw</code>.</p>
-      <div className="code-container">
+      <p className="bg-black">Exceptions handle runtime errors using <code>try</code>, <code>catch</code>, and <code>throw</code>.</p>
+      <div className="code-container bg-black">
         <button className={`copy-btn ${copiedCode === "exceptions" ? "copied" : ""}`} 
           onClick={() => copyCode(`#include <iostream>
 using namespace std;
@@ -1226,8 +1226,8 @@ int main() {
   <section style={{ marginBottom: "2rem" }}>
     <div className="card">
       <h2><i className="fas fa-project-diagram"></i> 15. Multithreading</h2>
-      <p>Multithreading allows concurrent execution of code using the <code>thread</code> library.</p>
-      <div className="code-container">
+      <p className="bg-black">Multithreading allows concurrent execution of code using the <code>thread</code> library.</p>
+      <div className="code-container bg-black">
         <button className={`copy-btn ${copiedCode === "multithreading" ? "copied" : ""}`} 
           onClick={() => copyCode(`#include <iostream>
 #include <thread>
