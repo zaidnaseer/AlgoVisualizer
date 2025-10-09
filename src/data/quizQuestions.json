@@ -5709,6 +5709,461 @@
         ],
         "correctAnswer": 0,
         "explanation": "Union-Find efficiently detects cycles in undirected graphs by checking if two vertices belong to the same set."
-    }                                                          
+    } ,
+    {
+        "id": 367,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Easy",
+        "question": "What problem does Kadane’s Algorithm solve?",
+        "options": [
+            "Finding maximum sum subarray",
+            "Finding minimum spanning tree",
+            "Detecting cycles in a graph",
+            "Sorting an array"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s Algorithm finds the maximum sum of a contiguous subarray."
+    },
+    {
+        "id": 368,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Easy",
+        "question": "What is the time complexity of Kadane’s Algorithm?",
+        "options": [
+            "O(n)",
+            "O(n²)",
+            "O(log n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s Algorithm runs in linear time O(n)."
+    },
+    {
+        "id": 369,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Easy",
+        "question": "What type of graph problem does Prim’s Algorithm solve?",
+        "options": [
+            "Minimum Spanning Tree",
+            "Shortest Path",
+            "Cycle Detection",
+            "Maximum Flow"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Prim’s Algorithm is used to find a minimum spanning tree."
+    },
+    {
+        "id": 370,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Easy",
+        "question": "Prim’s Algorithm starts from:",
+        "options": [
+            "Any arbitrary vertex",
+            "The vertex with the smallest degree",
+            "The vertex with the largest degree",
+            "The first vertex in the input"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Prim’s Algorithm can start from any vertex in the graph."
+    },
+    {
+        "id": 371,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Easy",
+        "question": "What data structure is commonly used by Kruskal’s Algorithm to detect cycles?",
+        "options": [
+            "Disjoint Set (Union-Find)",
+            "Stack",
+            "Queue",
+            "Priority Queue"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Disjoint Set (Union-Find) is used to detect cycles in Kruskal’s Algorithm."
+    },
+    {
+        "id": 372,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Easy",
+        "question": "Which of the following best describes Kruskal’s Algorithm?",
+        "options": [
+            "Adds edges in increasing order of weight",
+            "Adds vertices in decreasing order of degree",
+            "Performs DFS to find cycles",
+            "Uses dynamic programming"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kruskal’s Algorithm adds edges in non-decreasing order of weight."
+    },
+    {
+        "id": 373,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Easy",
+        "question": "Which of these arrays would Kadane’s Algorithm process correctly?",
+        "options": [
+            "Array with both positive and negative numbers",
+            "Only positive numbers",
+            "Only negative numbers",
+            "Only zeros"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s Algorithm works on arrays containing positive and negative numbers."
+    },
+    {
+        "id": 374,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Easy",
+        "question": "Prim’s Algorithm can be implemented efficiently using:",
+        "options": [
+            "Priority Queue",
+            "Stack",
+            "Queue",
+            "Linked List"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Priority Queue helps efficiently pick the next minimum edge in Prim’s Algorithm."
+    },
+    {
+        "id": 375,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Easy",
+        "question": "Kruskal’s Algorithm requires the edges to be:",
+        "options": [
+            "Sorted by weight",
+            "Sorted by vertex number",
+            "Unsorted",
+            "Sorted by color"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Edges are sorted by weight before processing in Kruskal’s Algorithm."
+    },
+    {
+        "id": 376,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Easy",
+        "question": "Kadane’s Algorithm is an example of:",
+        "options": [
+            "Dynamic Programming",
+            "Greedy Algorithm",
+            "Divide and Conquer",
+            "Backtracking"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s Algorithm is a classic dynamic programming approach."
+    },
+    {
+        "id": 377,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Medium",
+        "question": "How does Kadane’s Algorithm handle negative sums when calculating maximum subarray?",
+        "options": [
+            "Resets current sum to zero when it becomes negative",
+            "Ignores negative numbers",
+            "Always adds negative numbers",
+            "Stops immediately"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s resets the current sum when it drops below zero to maximize the sum."
+    },
+    {
+        "id": 378,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Medium",
+        "question": "What is the space complexity of Kadane’s Algorithm?",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(log n)",
+            "O(n²)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s Algorithm uses constant extra space."
+    },
+    {
+        "id": 379,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Medium",
+        "question": "What data structure is typically used to implement Prim’s Algorithm efficiently?",
+        "options": [
+            "Min-Heap (Priority Queue)",
+            "Stack",
+            "Queue",
+            "Array"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Min-Heap is used to efficiently pick the minimum weight edge."
+    },
+    {
+        "id": 380,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Medium",
+        "question": "Prim’s Algorithm is guaranteed to work only on:",
+        "options": [
+            "Connected graphs",
+            "Disconnected graphs",
+            "Directed graphs",
+            "Weighted graphs without cycles"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Prim’s Algorithm requires the graph to be connected."
+    },
+    {
+        "id": 381,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Medium",
+        "question": "What is the overall time complexity of Kruskal’s Algorithm using a good Union-Find structure?",
+        "options": [
+            "O(E log E)",
+            "O(V²)",
+            "O(E²)",
+            "O(V + E)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Sorting edges dominates time complexity, O(E log E)."
+    },
+    {
+        "id": 382,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Medium",
+        "question": "When does Kruskal’s Algorithm reject an edge while building MST?",
+        "options": [
+            "If adding the edge creates a cycle",
+            "If the edge is the heaviest",
+            "If the edge connects two disconnected components",
+            "If the edge is not adjacent to the current tree"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Edges creating cycles are rejected to keep MST acyclic."
+    },
+    {
+        "id": 383,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Medium",
+        "question": "If all numbers in the array are negative, Kadane’s Algorithm should return:",
+        "options": [
+            "The maximum (least negative) element",
+            "Zero",
+            "Sum of all elements",
+            "Minimum element"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s returns the maximum single element if all are negative."
+    },
+    {
+        "id": 384,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Medium",
+        "question": "What happens if Prim’s Algorithm is applied to a disconnected graph?",
+        "options": [
+            "It finds MST for one connected component only",
+            "It finds MST for the entire graph",
+            "It fails with an error",
+            "It converts graph to connected"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Prim’s only builds MST for the connected part it starts from."
+    },
+    {
+        "id": 385,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Medium",
+        "question": "Which of the following edge selections is valid in Kruskal’s Algorithm?",
+        "options": [
+            "Edges that connect two different components",
+            "Edges that form cycles",
+            "Edges with maximum weight first",
+            "Edges with the same vertices as previously selected edges"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kruskal’s selects edges that connect different components to avoid cycles."
+    },
+    {
+        "id": 386,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Medium",
+        "question": "Which technique does Kadane’s Algorithm primarily use to solve the problem?",
+        "options": [
+            "Dynamic programming",
+            "Greedy approach",
+            "Divide and conquer",
+            "Backtracking"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s Algorithm is based on dynamic programming principles."
+    },
+    {
+        "id": 387,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Hard",
+        "question": "How can Kadane’s Algorithm be modified to find the maximum product subarray instead of sum?",
+        "options": [
+            "Keep track of both maximum and minimum products at each step",
+            "Use the sum instead of product",
+            "Ignore negative numbers",
+            "Sort the array before applying"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Tracking both max and min products handles negative values affecting the product."
+    },
+    {
+        "id": 388,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Hard",
+        "question": "What is a key limitation of Kadane’s Algorithm when applied directly to 2D arrays?",
+        "options": [
+            "It only works for 1D arrays",
+            "It cannot handle negative numbers",
+            "It requires sorted arrays",
+            "It only works for positive numbers"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s is for 1D arrays; 2D maximum subarray requires extensions like fixing left and right boundaries."
+    },
+    {
+        "id": 389,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Hard",
+        "question": "What is the worst-case time complexity of Prim’s Algorithm implemented with an adjacency matrix?",
+        "options": [
+            "O(V²)",
+            "O(E log V)",
+            "O(V + E)",
+            "O(V log V)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Using adjacency matrix results in O(V²) time complexity."
+    },
+    {
+        "id": 390,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Hard",
+        "question": "How does the choice of data structure impact Prim’s Algorithm’s performance on sparse graphs?",
+        "options": [
+            "Min-heap reduces time complexity significantly",
+            "Linked list improves performance",
+            "Stack reduces complexity",
+            "Queue is the best choice"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Using a min-heap with adjacency lists optimizes Prim’s to O(E log V) on sparse graphs."
+    },
+    {
+        "id": 391,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Hard",
+        "question": "In Kruskal’s Algorithm, what optimization improves the efficiency of the Union-Find data structure?",
+        "options": [
+            "Union by rank and path compression",
+            "Stack implementation",
+            "Breadth-first search",
+            "Sorting edges twice"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Union by rank and path compression optimize Union-Find operations to near O(1)."
+    },
+    {
+        "id": 392,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Hard",
+        "question": "How does Kruskal’s Algorithm behave with graphs having multiple edges of the same weight?",
+        "options": [
+            "It can choose any edge among equals, resulting in multiple MSTs",
+            "It always chooses the first edge",
+            "It fails to find MST",
+            "It sorts edges by vertex number"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Multiple MSTs can exist when edges have the same weight; Kruskal’s may produce any valid MST."
+    },
+    {
+        "id": 393,
+        "topic": "Other Topics",
+        "algorithm": "Kadane’s Algorithm",
+        "difficulty": "Hard",
+        "question": "Can Kadane’s Algorithm be adapted to find the maximum sum of non-contiguous subarray? If yes, how?",
+        "options": [
+            "No, Kadane’s is for contiguous subarrays only",
+            "Yes, by modifying the algorithm to skip some elements",
+            "Yes, by sorting the array first",
+            "No, it works only on sorted arrays"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Kadane’s Algorithm specifically solves the maximum sum contiguous subarray problem; non-contiguous requires different approach."
+    },
+    {
+        "id": 394,
+        "topic": "Other Topics",
+        "algorithm": "Prim’s Algorithm",
+        "difficulty": "Hard",
+        "question": "How is Prim’s Algorithm modified to work on disconnected graphs?",
+        "options": [
+            "Run Prim’s on each connected component separately",
+            "Add edges to connect components arbitrarily",
+            "Ignore disconnected parts",
+            "Use DFS before Prim’s"
+        ],
+        "correctAnswer": 0,
+        "explanation": "To handle disconnected graphs, run Prim’s MST algorithm on each connected component."
+    },
+    {
+        "id": 395,
+        "topic": "Other Topics",
+        "algorithm": "Kruskal’s Algorithm",
+        "difficulty": "Hard",
+        "question": "What is the impact on Kruskal’s Algorithm if the input graph is already a tree?",
+        "options": [
+            "The algorithm immediately returns the tree as MST",
+            "It will add extra edges",
+            "It will fail to complete",
+            "It needs re-sorting edges"
+        ],
+        "correctAnswer": 0,
+        "explanation": "If input is already a tree (no cycles, V-1 edges), Kruskal’s simply returns it as MST."
+    },
+    {
+    "id": 396,
+    "topic": "Other Topics",
+    "algorithm": "Prim’s Algorithm",
+    "difficulty": "Hard",
+    "question": "In Prim’s Algorithm, if two edges have the same minimum weight during selection, what could be the possible consequence in a graph with multiple equal-weight edges?",
+    "options": [
+        "It may produce different but valid MSTs depending on the chosen edge",
+        "The algorithm will enter an infinite loop",
+        "The resulting MST will always be the same regardless of edge selection",
+        "The algorithm will fail to find any MST"
+    ],
+    "correctAnswer": 0,
+    "explanation": "When multiple edges have equal weights, Prim’s Algorithm may choose any of them, potentially resulting in different but equally valid minimum spanning trees since MSTs are not necessarily unique in such graphs."
+}
+
+
+
 ]
+                                                        
+
 
