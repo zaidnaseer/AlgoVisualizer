@@ -276,13 +276,13 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div
-            className="footer-column newsletter-column"
+            className="footer-column newsletter-column !grid !grid-cols-1 !place-items-center"
             data-aos="fade-up"
             data-aos-duration="1000"
             data-aos-delay="800"
           >
             <h3 className="column-title">Stay Updated</h3>
-            <p className="newsletter-description">
+            <p className="newsletter-description !text-center">
               Get the latest algorithm visualizations and coding insights
               delivered to your inbox.
             </p>
