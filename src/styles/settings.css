@@ -16,6 +16,7 @@
     var(--theme-bg, #f0f4f8) 0%,
     color-mix(in srgb, var(--theme-bg, #f0f4f8) 95%, var(--theme-accent, #58a6ff) 5%) 100%
   );
+  --theme-input-border: #333;
 }
 
 [data-theme="dark"] {
@@ -247,6 +248,7 @@
 
 .color-input {
   flex: 1;
+  height: 64px;
 }
 
 .color-preview {
@@ -285,7 +287,7 @@
   position: relative;
   width: 64px;
   height: 32px;
-  background: var(--theme-border);
+  background: #777;
   border-radius: 16px;
   cursor: pointer;
   transition: var(--settings-transition);
@@ -293,7 +295,6 @@
 }
 
 .settings-toggle:hover {
-  background: var(--theme-accent);
   opacity: 0.7;
 }
 
