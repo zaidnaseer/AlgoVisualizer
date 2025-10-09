@@ -240,8 +240,6 @@ const Navbar = () => {
             />
           ))}
 
-          <ThemeToggle />
-
           <div className="flex items-center gap-1">
             {/* Notes desktop */}
             <div className="navbar-item dropdown">
@@ -325,7 +323,7 @@ const Navbar = () => {
             <UserDropdown />
           </div>
         </div>
-
+        <ThemeToggle />
         {/* Mobile Hamburger */}
         <button
           className="mobile-menu-button md:hidden"
@@ -427,7 +425,7 @@ const Navbar = () => {
               C
             </Link>
 
-             <Link
+            <Link
               to="/notes/javascript"
               className="mobile-menu-link"
               onClick={() => {
