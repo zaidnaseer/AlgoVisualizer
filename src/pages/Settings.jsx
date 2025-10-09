@@ -84,11 +84,11 @@ const Settings = () => {
   }
 
   return (
-    <div className="settings-container" style={{ 
-    background: "linear-gradient(135deg, #d0e7ff 0%, #e6d4ff 100%)",
-    borderRadius: "24px",
-    padding: "2rem",
-    color: "#333"   
+    <div className="settings-container" style={{
+      background: "linear-gradient(135deg, #d0e7ff 0%, #e6d4ff 100%)",
+      borderRadius: "24px",
+      padding: "2rem",
+      color: "#333"
     }}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <motion.h1 className="settings-title">
@@ -111,7 +111,7 @@ const Settings = () => {
 
         <div className="settings-grid">
           {/* Appearance Settings */}
-          <motion.div 
+          <motion.div
             className="settings-card"
             initial={{ opacity: 0, scale: 0.9, rotateX: -15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
@@ -163,16 +163,16 @@ const Settings = () => {
                 <input
                   type="color"
                   className="settings-input color-input"
-                  value={settings.customAccentColor}
+                  value={getCurrentColorScheme().primary}
                   onChange={(e) => handleSettingChange('customAccentColor', e.target.value)}
                 />
-                <div className="color-preview" style={{ '--preview-color': settings.customAccentColor }}></div>
+                <div className="color-preview" style={{ '--preview-color': getCurrentColorScheme().primary }}></div>
               </div>
             </div>
           </motion.div>
 
           {/* Typography & Language */}
-          <motion.div 
+          <motion.div
             className="settings-card"
             initial={{ opacity: 0, scale: 0.9, rotateX: -15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
@@ -253,7 +253,7 @@ const Settings = () => {
           </motion.div>
 
           {/* Notifications */}
-          <motion.div 
+          <motion.div
             className="settings-card"
             initial={{ opacity: 0, scale: 0.9, rotateX: -15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
@@ -264,8 +264,8 @@ const Settings = () => {
               <Bell size={24} />
               <h3>Notifications</h3>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               className="notification-item"
               whileHover={{ x: 4, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -285,7 +285,7 @@ const Settings = () => {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="notification-item"
               whileHover={{ x: 4, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -305,7 +305,7 @@ const Settings = () => {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="notification-item"
               whileHover={{ x: 4, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -327,7 +327,7 @@ const Settings = () => {
           </motion.div>
 
           {/* Performance */}
-          <motion.div 
+          <motion.div
             className="settings-card"
             initial={{ opacity: 0, scale: 0.9, rotateX: -15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
@@ -395,7 +395,7 @@ const Settings = () => {
               <Accessibility size={24} />
               <h3>Accessibility</h3>
             </div>
-            
+
             <div className="notification-item">
               <div className="notification-info">
                 <Eye className="notification-icon" size={20} />
