@@ -123,6 +123,8 @@ import ProgressTracker from "./components/ProgressTracker";
 import LearnerLeaderboard from "./components/LearnerLeaderboard";
 import WeeklyChallenge from "./components/WeeklyChallenge";
 import GitLearning from "./pages/GitLearning.jsx";
+import GitBasicsQuiz from "./pages/GitBasicsQuiz";
+
 
 
 
@@ -267,6 +269,9 @@ const App = () => {
                   <Route path="/playground" element={<Playground />} />
 
                   <Route path="/learn/git" element={<GitLearning />} />
+
+                  <Route path="/learn/git" element={<GitBasicsQuiz />} />
+
 
 
                   {/* Learning & Settings */}
