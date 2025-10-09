@@ -31,8 +31,8 @@ const TOPICS = [
   {
     id: "otherTopics",
     name: "Other Topics",
-    description:  "Explore specialized areas including Hashing Algorithms, Tree Algorithms, Game Search Algorithms, and Branch & Bound."
-  }
+    description: "Explore specialized areas including Hashing Algorithms, Tree Algorithms, Game Search Algorithms, and Branch & Bound."
+  }
 ];
 
 // Quiz step constants
@@ -47,7 +47,7 @@ const PauseOverlay = ({ onResume }) => (
   <div className="quiz-overlay quiz-overlay-pause" role="dialog" aria-modal="true" aria-labelledby="pause-title">
     <div className="overlay-content">
       <h2 id="pause-title">Quiz Paused</h2>
-      <button 
+      <button
         className="quiz-btn"
         onClick={onResume}
         aria-label="Resume quiz"
@@ -122,7 +122,7 @@ const QuizHelpers = {
   // Create topic mapping for better filtering
   getTopicMapping: () => ({
     'sorting': 'Sorting',
-    'searching': 'Searching', 
+    'searching': 'Searching',
     'data-structures': 'Data Structures',
     'paradigms': 'Paradigms',
     'otherTopics': 'Other Topics',
@@ -133,7 +133,7 @@ const QuizHelpers = {
   filterAndShuffleQuestions: (questions, topic, difficulty) => {
     const topicMapping = QuizHelpers.getTopicMapping();
     const mappedTopic = topicMapping[topic] || topic;
-    
+
     // Filter questions based on topic and difficulty
     let filteredQuestions = questions.filter(q => {
       const topicMatch = mappedTopic === 'all' || q.topic === mappedTopic;
@@ -149,12 +149,12 @@ const QuizHelpers = {
   calculateResults: (questions, userAnswers, startTime, endTime) => {
     let correct = 0;
     let total = questions.length;
-    
+
     const questionResults = questions.map(question => {
       const userAnswer = userAnswers[question.id];
       const isCorrect = userAnswer === question.correctAnswer;
       if (isCorrect) correct++;
-      
+
       return {
         question,
         userAnswer,
@@ -165,8 +165,8 @@ const QuizHelpers = {
     });
 
     const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-    const timeTaken = startTime && endTime 
-      ? Math.round((endTime - startTime) / 1000) 
+    const timeTaken = startTime && endTime
+      ? Math.round((endTime - startTime) / 1000)
       : 0;
 
     return {
@@ -215,11 +215,11 @@ const QuizManager = () => {
   }, [timeRemaining, timedMode, currentStep, isPaused]);
 
   // 🔹 Scroll fix
-useEffect(() => {
-  if (currentStep === QUIZ_STEPS.QUIZ) {
-    window.scrollTo(0, 0);
-  }
-}, [currentStep]);
+  useEffect(() => {
+    if (currentStep === QUIZ_STEPS.QUIZ) {
+      window.scrollTo(0, 0);
+    }
+  }, [currentStep]);
 
   const startQuiz = (topic, difficulty, timed = false) => {
     // Filter and shuffle questions
@@ -237,11 +237,11 @@ useEffect(() => {
     setUserAnswers({});
     setTimedMode(timed);
     setQuizStartTime(new Date());
-    
+
     if (timed) {
       setTimeRemaining(filteredQuestions.length * 60); // 1 minute per question
     }
-    
+
     setCurrentStep(QUIZ_STEPS.QUIZ);
   };
 
@@ -326,15 +326,17 @@ useEffect(() => {
       <div className="theme-container">
         {/* Pause/Exit Buttons */}
         <div className="quiz-controls-top">
-          <button 
-            className="quiz-btn secondary"
-            onClick={handlePause} 
-            disabled={isPaused}
-            aria-label="Pause quiz"
-          >
-            Pause
-          </button>
-          <button 
+          {timedMode && (
+            <button
+              className="quiz-btn secondary"
+              onClick={handlePause}
+              disabled={isPaused}
+              aria-label="Pause quiz"
+            >
+              Pause
+            </button>
+          )}
+          <button
             className="quiz-btn secondary"
             onClick={handleExit}
             aria-label="Exit quiz"
@@ -342,18 +344,18 @@ useEffect(() => {
             Exit
           </button>
         </div>
-        
+
         {/* Pause Overlay */}
         {isPaused && <PauseOverlay onResume={handleResume} />}
-        
+
         {/* Exit Confirmation */}
         {showExitConfirm && (
-          <ExitConfirmationOverlay 
-            onConfirm={confirmExit} 
-            onCancel={cancelExit} 
+          <ExitConfirmationOverlay
+            onConfirm={confirmExit}
+            onCancel={cancelExit}
           />
         )}
-        
+
         <QuestionCard
           question={currentQuestion}
           questionNumber={currentQuestionIndex + 1}
@@ -378,12 +380,12 @@ useEffect(() => {
   // Render results screen
   if (currentStep === QUIZ_STEPS.RESULTS) {
     const results = QuizHelpers.calculateResults(
-      questions, 
-      userAnswers, 
-      quizStartTime, 
+      questions,
+      userAnswers,
+      quizStartTime,
       quizEndTime
     );
-    
+
     return (
       <div className="theme-container">
         <ResultPage
