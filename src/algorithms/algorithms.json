@@ -100,5 +100,11 @@
     "type": "graph",
     "description": "Dijkstra's Algorithm finds the shortest path between nodes in a graph with non-negative edge weights.",
     "useCase": "Navigation systems, network routing, and weighted shortest path problems."
+  },
+  {
+    "name": "N-Queens",
+    "type": "backtracking",
+    "description": "Solves the N-Queens problem using backtracking. Places N queens on an N×N board so that no two queens attack each other.",
+    "useCase": "Classic backtracking example used to demonstrate constraint satisfaction and recursive search."
   }
 ]

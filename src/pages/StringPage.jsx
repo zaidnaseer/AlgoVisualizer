@@ -1,5 +1,5 @@
 // src/pages/StringPage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StringVisualizer from "../components/StringVisualizer";
 import { stringAlgorithms } from "../data/allCodes";
 import "../styles/global-theme.css";
@@ -8,6 +8,19 @@ import 'aos/dist/aos.css';
 
 const StringPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("java");
+
+  // Restore last selected language on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("StringPage.selectedLanguage");
+    if (savedLanguage && ["java", "python", "cpp"].includes(savedLanguage)) {
+      setSelectedLanguage(savedLanguage);
+    }
+  }, []);
+
+  // Persist language preference whenever it changes
+  useEffect(() => {
+    localStorage.setItem("StringPage.selectedLanguage", selectedLanguage);
+  }, [selectedLanguage]);
 
   const algorithmData = stringAlgorithms["KMP"] || {};
 

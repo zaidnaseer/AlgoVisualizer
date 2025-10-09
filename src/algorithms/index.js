@@ -176,7 +176,9 @@ export async function binarySearchWrapper(arr, setColorArray, delay) {
   );
 }
 
+
 // Direct re-exports of search functions (non-visual)
+
 import { linearSearch } from "./linearSearch.js";
 export { linearSearch };
 

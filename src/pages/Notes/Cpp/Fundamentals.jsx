@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import "../../../styles/fundamentals.css";
+
 const CppFundamentals = () => {
   const [activeTab, setActiveTab] = useState("intro");
   const [copiedCode, setCopiedCode] = useState("");
@@ -1259,112 +1261,7 @@ int main() {
     </div>
   </section>
 )}
-
-      <style jsx>{`
-        .notes-page {
-          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          line-height: 1.6;
-          color: #374151;
-        }
-
-        .card {
-          background: var(--card-bg, #ffffff);
-          border-radius: 12px;
-          box-shadow: var(--card-shadow, 0 6px 18px rgba(16, 24, 40, 0.04));
-          border: var(--card-border, 1px solid rgba(15, 23, 42, 0.03));
-          padding: 1.5rem;
-          margin-bottom: 2rem;
-          transition: all 0.3s ease;
-        }
-
-        .card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 12px 25px rgba(16, 24, 40, 0.1);
-        }
-
-        h2 {
-          color: var(--code-text);
-          margin-bottom: 1rem;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        h3 {
-          color: #4f46e5;
-          margin: 1.5rem 0 0.5rem;
-          font-weight: 600;
-        }
-
-        .code-container {
-          position: relative;
-          margin: 1.5rem 0;
-          border-radius: 12px;
-          overflow: hidden;
-        }
-
-        .code-container pre {
-          background: var(--code-bg, #0b1220);
-          color: var(--code-text);
-          padding: 1.5rem;
-          overflow-x: auto;
-          border-radius: 12px;
-          font-family: "Courier New", monospace;
-          line-height: 1.5;
-          font-size: 0.95rem;
-        }
-        p {
-          color: var(--code-text);
-        }
-
-        .copy-btn {
-          position: absolute;
-          top: 0.75rem;
-          right: 0.75rem;
-          background: rgba(255, 255, 255, 0.1);
-          color: var(--code-text);
-          border: none;
-          padding: 0.5rem 1rem;
-          border-radius: 6px;
-          cursor: pointer;
-          font-size: 0.85rem;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
-        }
-
-        .copy-btn:hover {
-          background: rgba(255, 255, 255, 0.2);
-        }
-
-        .copy-btn.copied {
-          background: #10b981;
-        }
-
-        code {
-          background-color: #e0e7ff;
-          color: #4338ca;
-          padding: 0.2rem 0.4rem;
-          border-radius: 4px;
-          font-family: "Courier New", monospace;
-          font-size: 0.9rem;
-        }
-
-        ul {
-          padding-left: 1.5rem;
-          margin-bottom: 1rem;
-          color: var(--code-text);
-        }
-
-        li {
-          color: var(--code-text);
-          margin-bottom: 0.5rem;
-        }
-
-        strong {
-          color: var(--code-text);
-        }
-      `}</style>
+ 
     </div>
   );
 };

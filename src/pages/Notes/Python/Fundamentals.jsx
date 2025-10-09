@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../../../styles/fundamentals.css";
 
 const PythonFundamentals = () => {
   const [activeTab, setActiveTab] = useState("intro");
@@ -72,7 +73,8 @@ const PythonFundamentals = () => {
   { id: "iterators", label: "Iterators & Generators" },
   { id: "modules", label: "Modules & Packages" },
   { id: "dsa", label: "Python for DSA" },
-  { id: "numpy", label: "NumPy & Pandas" }
+  { id: "numpy", label: "NumPy & Pandas" },
+  { id: "multithreading", label: "Multithreading & Multiprocessing"}
 ]
 .map(item => (
             <button
@@ -161,7 +163,128 @@ const PythonFundamentals = () => {
             </div>
           </div>
         </section>
-      )}      
+      )} 
+      {activeTab === "multithreading" && (
+  <section style={{ marginBottom: "2rem" }}>
+    <div className="card">
+      <h2><i className="fas fa-tasks"></i> 15. Multithreading & Multiprocessing in Python</h2>
+      <p>
+        Python allows concurrent execution to optimize I/O-bound and CPU-bound tasks.
+        <strong>Threading</strong> is suitable for I/O-bound tasks, while <strong>Multiprocessing</strong> is better for CPU-bound tasks due to the GIL (Global Interpreter Lock).
+      </p>
+
+      <h3>Threading Example (I/O-bound)</h3>
+      <div className="code-container">
+        <button className={`copy-btn ${copiedCode === "threading" ? "copied" : ""}`} 
+          onClick={() => copyCode(`import threading
+import time
+
+def print_numbers():
+    for i in range(5):
+        print(f"Number: {i}")
+        time.sleep(1)
+
+# Create threads
+thread1 = threading.Thread(target=print_numbers)
+thread2 = threading.Thread(target=print_numbers)
+
+# Start threads
+thread1.start()
+thread2.start()
+
+# Wait for threads to finish
+thread1.join()
+thread2.join()
+
+print("Done!")`, "threading")}>
+          {copiedCode === "threading" ? "Copied!" : "Copy"}
+        </button>
+        <pre>{`import threading
+import time
+
+def print_numbers():
+    for i in range(5):
+        print(f"Number: {i}")
+        time.sleep(1)
+
+# Create threads
+thread1 = threading.Thread(target=print_numbers)
+thread2 = threading.Thread(target=print_numbers)
+
+# Start threads
+thread1.start()
+thread2.start()
+
+# Wait for threads to finish
+thread1.join()
+thread2.join()
+
+print("Done!")`}</pre>
+      </div>
+
+      <h3>Multiprocessing Example (CPU-bound)</h3>
+      <div className="code-container">
+        <button className={`copy-btn ${copiedCode === "multiprocessing" ? "copied" : ""}`} 
+          onClick={() => copyCode(`import multiprocessing
+
+def square(n):
+    print(f"Square of {n} is {n*n}")
+
+if __name__ == "__main__":
+    processes = []
+    for i in range(5):
+        p = multiprocessing.Process(target=square, args=(i,))
+        processes.append(p)
+        p.start()
+
+    for p in processes:
+        p.join()
+
+    print("All processes done!")`, "multiprocessing")}>
+          {copiedCode === "multiprocessing" ? "Copied!" : "Copy"}
+        </button>
+        <pre>{`import multiprocessing
+
+def square(n):
+    print(f"Square of {n} is {n*n}")
+
+if __name__ == "__main__":
+    processes = []
+    for i in range(5):
+        p = multiprocessing.Process(target=square, args=(i,))
+        processes.append(p)
+        p.start()
+
+    for p in processes:
+        p.join()
+
+    print("All processes done!")`}</pre>
+      </div>
+
+      <h3>Tips for Handling GIL & Shared Data</h3>
+      <ul>
+        <li>Use <strong>threading</strong> for I/O tasks; threads share memory.</li>
+        <li>Use <strong>multiprocessing</strong> for CPU tasks; processes have separate memory.</li>
+        <li>Use <strong>Queue</strong> or <strong>Manager</strong> to share data safely between processes.</li>
+        <li>Avoid long-running CPU tasks in threads due to the GIL.</li>
+      </ul>
+
+      <div
+        style={{
+          background: "#eff6ff",
+          borderLeft: "4px solid #3b82f6",
+          padding: "1rem 1.5rem",
+          margin: "1.5rem 0",
+          borderRadius: "0 12px 12px 0",
+        }}
+      >
+        <strong>Note:</strong> Threading improves I/O-bound concurrency, multiprocessing enables CPU-bound parallelism,
+        and careful handling of shared data ensures safe and efficient execution.
+      </div>
+    </div>
+  </section>
+)}
+     
 
       {/* Data Types */}
       {activeTab === "datatypes" && (
@@ -623,112 +746,7 @@ print(df['Age'].mean())`}</pre>
 )}
 
 
-
-      <style jsx>{`
-        .notes-page {
-          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-          line-height: 1.6;
-          color: #374151;
-        }
-
-        .card {
-          background: var(--card-bg, #ffffff);
-          border-radius: 12px;
-          box-shadow: var(--card-shadow, 0 6px 18px rgba(16, 24, 40, 0.04));
-          border: var(--card-border, 1px solid rgba(15, 23, 42, 0.03));
-          padding: 1.5rem;
-          margin-bottom: 2rem;
-          transition: all 0.3s ease;
-        }
-
-        .card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 12px 25px rgba(16, 24, 40, 0.1);
-        }
-
-        h2 {
-          color: var(--code-text);
-          margin-bottom: 1rem;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        h3 {
-          color: #4f46e5;
-          margin: 1.5rem 0 0.5rem;
-          font-weight: 600;
-        }
-
-        .code-container {
-          position: relative;
-          margin: 1.5rem 0;
-          border-radius: 12px;
-          overflow: hidden;
-        }
-
-        .code-container pre {
-          background: var(--code-bg, #0b1220);
-          color: var(--code-text);
-          padding: 1.5rem;
-          overflow-x: auto;
-          border-radius: 12px;
-          font-family: "Courier New", monospace;
-          line-height: 1.5;
-          font-size: 0.95rem;
-        }
-        p {
-          color: var(--code-text);
-        }
-
-        .copy-btn {
-          position: absolute;
-          top: 0.75rem;
-          right: 0.75rem;
-          background: rgba(255, 255, 255, 0.1);
-          color: var(--code-text);
-          border: none;
-          padding: 0.5rem 1rem;
-          border-radius: 6px;
-          cursor: pointer;
-          font-size: 0.85rem;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
-        }
-
-        .copy-btn:hover {
-          background: rgba(255, 255, 255, 0.2);
-        }
-
-        .copy-btn.copied {
-          background: #10b981;
-        }
-
-        code {
-          background-color: #e0e7ff;
-          color: #4338ca;
-          padding: 0.2rem 0.4rem;
-          border-radius: 4px;
-          font-family: "Courier New", monospace;
-          font-size: 0.9rem;
-        }
-
-        ul {
-          padding-left: 1.5rem;
-          margin-bottom: 1rem;
-          color: var(--code-text);
-        }
-
-        li {
-          color: var(--code-text);
-          margin-bottom: 0.5rem;
-        }
-
-        strong {
-          color: var(--code-text);
-        }
-      `}</style>
+ 
     </div>
   );
 };
