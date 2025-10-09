@@ -379,6 +379,12 @@ body {
   transform: translateY(-1px);
 }
 
+/* Dark mode hover text color fix */
+[data-theme="dark"] .dropdown-toggle:hover,
+[data-theme="dark"] .dropdown-toggle.active {
+  color: #000000;
+}
+
 .dropdown-arrow {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0; /* Prevent arrow shrinking */
@@ -410,11 +416,11 @@ body {
 @keyframes dropdownFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateX(-50%) translateY(-10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 }
 
